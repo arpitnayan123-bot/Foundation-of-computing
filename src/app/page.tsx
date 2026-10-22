@@ -20,7 +20,7 @@ import { AtlasLanding } from "@/components/atlas/AtlasLanding";
 import { SUBJECT_IDS } from "@/components/atlas/subjects";
 import { FocApp } from "@/components/notes/FocApp";
 import { AtbApp } from "@/components/atb/AtbApp";
-import { Shelf03App } from "@/components/shelf03/Shelf03App";
+import { FaApp } from "@/components/fa/FaApp";
 
 type View = { name: "atlas" } | { name: "subject"; id: string };
 
@@ -93,11 +93,9 @@ export default function Page() {
           <FocApp onExitAtlas={exitToAtlas} />
         ) : view.id === "atb" ? (
           <AtbApp onExitAtlas={exitToAtlas} />
-        ) : view.id === "shelf-03" ? (
-          // reserved shelf 03 — the STAGING build: the full subject shell,
-          // mounted and verified while the syllabus is still pending.
-          // The landing box stays reserved until subjects.ts flips live.
-          <Shelf03App onExitAtlas={exitToAtlas} />
+        ) : view.id === "fa" ? (
+          // shelf 03 — Financial Accounting, the third live subject
+          <FaApp onExitAtlas={exitToAtlas} />
         ) : (
           // reserved shelf reached by URL — send the reader back to the map
           <AtlasFallback id={view.id} onBack={exitToAtlas} />

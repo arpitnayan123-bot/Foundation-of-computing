@@ -341,7 +341,7 @@ function SubjectCard({ subject, index, onEnter }: CardProps) {
 
 /* ---------------------------------------------- next-shelf tile */
 
-function NextShelfTile({ index }: { index: number }) {
+function NextShelfTile({ index, shelf }: { index: number; shelf: string }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -356,13 +356,13 @@ function NextShelfTile({ index }: { index: number }) {
           aria-hidden
           className="text-ghost pointer-events-none absolute -right-4 -top-8 select-none font-display text-[9rem] font-black leading-none"
         >
-          03
+          {shelf}
         </span>
 
         <div className="relative">
           <ShelfTag color="#b49a78">next drop</ShelfTag>
           <h3 className="mt-2 flex items-center gap-2 font-display text-2xl font-black text-[#f7ecdd] md:text-[1.55rem]">
-            Shelf 03 is loading
+            Shelf {shelf} is loading
             <span className="flex items-end gap-1 pb-1.5" aria-hidden>
               {[0, 1, 2].map((i) => (
                 <span
@@ -382,7 +382,7 @@ function NextShelfTile({ index }: { index: number }) {
         <div className="relative mt-6">
           <div className="load-bar h-1 w-full max-w-xs rounded-full bg-white/[.07]" aria-hidden />
           <p className="mt-3 font-mono text-[.6rem] uppercase tracking-[.22em] text-[#6d5f4f]">
-            awaiting syllabus · shelf 03 of 06
+            awaiting syllabus · shelf {shelf} of 06
           </p>
         </div>
       </div>
@@ -399,6 +399,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
   const liveCount = liveSubjects.length;
   const totalChapters = liveSubjects.reduce((n, s) => n + (s.chapters ?? 0), 0);
   const totalQuestions = liveSubjects.reduce((n, s) => n + (s.questions ?? 0), 0);
+  const nextShelf = SUBJECTS.find((s) => s.status === "soon")?.shelf;
 
   const scrollToShelf = () => {
     document.getElementById("shelf")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -638,7 +639,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             {SUBJECTS.map((s, i) => (
               <SubjectCard key={s.id} subject={s} index={i} onEnter={onEnter} />
             ))}
-            <NextShelfTile index={SUBJECTS.length} />
+            {nextShelf ? <NextShelfTile index={SUBJECTS.length} shelf={nextShelf} /> : null}
           </div>
         </section>
 

@@ -466,6 +466,13 @@ code, pre, .font-mono-warm {
 .warm-table thead th:last-child { border-radius: 0 .7rem 0 0; }
 .warm-table tbody td { padding: .65rem .9rem; border-bottom: 1px solid var(--line-soft); background: #fffdf9; color: #2f2013; }
 .warm-table tbody tr:nth-child(even) td { background: #fbf3e6; }
+
+/* Financial Accounting (shelf 03) — emerald table headers */
+.fa-app .warm-table thead th {
+  background: linear-gradient(180deg, #059669, #047857);
+}
+.fa-app .warm-table tbody tr:nth-child(even) td { background: #f6fbf8; }
+.fa-app .warm-table tbody td { border-bottom-color: #e4f1ea; }
 /* Table cells / quiz options / drill bodies always sit on solid light surfaces —
    force near-black text so they stay readable even inside dark sections
    (:where keeps specificity at zero so explicit colored cells still win). */
@@ -587,6 +594,16 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
 /* Grand wrapper gradient titles */
 .grad-text {
   background: linear-gradient(100deg, #c2410c, #ea580c 35%, #d97706 65%, #b45309);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Financial Accounting (shelf 03) — emerald gradient titles */
+.grad-emerald {
+  background: linear-gradient(100deg, #047857, #10b981 35%, #0d9488 65%, #065f46);
   background-size: 200% 200%;
   animation: gradientShift 8s ease infinite;
   -webkit-background-clip: text;
@@ -1295,3 +1312,16 @@ html.atlas-active ::-webkit-scrollbar-thumb {
   border-color: #0c0a10;
 }
 html.atlas-active ::-webkit-scrollbar-thumb:hover { background: #b08968; }
+
+/* fa palette anchor */
+.fa-app { --fa-accent: #10b981; }
+
+/* Financial Accounting (shelf 03) — emerald exam chrome */
+.fa-exam .exam-btn-primary {
+  background: linear-gradient(135deg, #10b981, #047857); color: #f0fdf7;
+  border-color: transparent; box-shadow: 0 8px 18px -8px rgba(4, 120, 87, .7);
+}
+.fa-exam .exam-btn-primary:hover:not(:disabled) { background: linear-gradient(135deg, #047857, #065f46); color: #fff; }
+.fa-exam .exam-dot-current { background: linear-gradient(135deg, #10b981, #047857); color: #f0fdf7; border-color: transparent; }
+.fa-exam .exam-opt-correct { background: #e6f6ee; border-color: #6fcfa8; color: #065f46; }
+.fa-exam .exam-opt-letter { color: #047857; }

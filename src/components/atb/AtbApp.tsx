@@ -480,9 +480,7 @@ function TopNav({
 /* ============================================================
    PracticeBand — the only place on the main page where
    "Test my knowledge" is written: one card per chapter group.
-   Clicking opens that group's full exam window. The copy names
-   the real stakes: quizzes (best 2 of 3) weigh 40%, the major
-   exam 60%.
+   Clicking opens that group's full exam window.
    ============================================================ */
 function PracticeBand({ onOpenExam }: { onOpenExam: (g: AtbExamGroup) => void }) {
   return (
@@ -493,9 +491,9 @@ function PracticeBand({ onOpenExam }: { onOpenExam: (g: AtbExamGroup) => void })
             <span className="eyebrow">Pen-paper practice</span>
             <h2 className="mt-2 text-2xl font-bold md:text-3xl">Test my knowledge</h2>
             <p className="mt-2 max-w-xl text-[.9rem] leading-relaxed text-muted-warm">
-              The assessment is real — <b>Quizzes (best 2 of 3): 40% · Major: 60%</b> — so every
-              chapter group opens its own exam window: write-the-output, trace-the-pseudocode,
-              definitions and concept checks, with model answers and instant checking.
+              Every chapter group opens its own exam window: write-the-output,
+              trace-the-pseudocode, definitions and concept checks — write on real paper
+              first, then mark yourself against the model answers with instant checking.
             </p>
           </div>
           <p className="shrink-0 text-[.68rem] font-black uppercase tracking-[.18em] text-[#a16207]">

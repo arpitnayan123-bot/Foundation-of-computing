@@ -1,15 +1,12 @@
 "use client";
 
 /* ============================================================
-   TEST MY KNOWLEDGE — a full-screen exam window per shelf-03
-   chapter group. Pen-paper style question set (MCQ /
-   write-the-output / short answer) with instant checking,
-   model answers, a navigator, a timer and a results report.
-
-   SCAFFOLD BUILD — the engine is fully live and shared from the
-   ATB/FoC lineage; the SEED banks inside ./questions.ts are
-   placeholders that get replaced when the shelf-03 syllabus
-   drops. Nothing else has to change.
+   TEST MY KNOWLEDGE — a full-screen exam window per Financial
+   Accounting chapter group (shelf 03 of The Atlas). Pen-paper
+   style question set (MCQ / compute-the-figure / short answer)
+   with instant checking, model answers, a navigator, a timer
+   and a results report. Engine shared from the FoC/ATB
+   lineage; the emerald sigil marks shelf 03.
    ============================================================ */
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
@@ -28,7 +25,7 @@ import {
   Eye,
   Printer,
 } from "lucide-react";
-import { SHELF03_EXAM_BANKS, type Shelf03ExamGroup, type Shelf03QuestionType } from "./questions";
+import { FA_EXAM_BANKS, type FaExamGroup, type FaQuestionType } from "./questions";
 
 type QStatus = "unattempted" | "correct" | "wrong" | "revealed";
 interface QState {
@@ -38,7 +35,7 @@ interface QState {
   status: QStatus;
 }
 
-const TYPE_META: Record<Shelf03QuestionType, { label: string; color: string; bg: string }> = {
+const TYPE_META: Record<FaQuestionType, { label: string; color: string; bg: string }> = {
   mcq: { label: "Multiple choice", color: "#8a4508", bg: "#f9e8d2" },
   output: { label: "Write the output", color: "#7c2d12", bg: "#fdeadd" },
   short: { label: "Short answer", color: "#4d3319", bg: "#f3e8d2" },
@@ -50,8 +47,8 @@ function fmt(sec: number) {
   return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
-export function Shelf03ExamWindow({ group, onClose }: { group: Shelf03ExamGroup; onClose: () => void }) {
-  const bank = SHELF03_EXAM_BANKS[group];
+export function FaExamWindow({ group, onClose }: { group: FaExamGroup; onClose: () => void }) {
+  const bank = FA_EXAM_BANKS[group];
   const qs = bank.questions;
 
   const [idx, setIdx] = useState(0);
@@ -96,7 +93,7 @@ export function Shelf03ExamWindow({ group, onClose }: { group: Shelf03ExamGroup;
     let correct = 0;
     let wrong = 0;
     let answered = 0;
-    const byType: Record<Shelf03QuestionType, { c: number; t: number }> = {
+    const byType: Record<FaQuestionType, { c: number; t: number }> = {
       mcq: { c: 0, t: 0 },
       output: { c: 0, t: 0 },
       short: { c: 0, t: 0 },
@@ -181,7 +178,7 @@ export function Shelf03ExamWindow({ group, onClose }: { group: Shelf03ExamGroup;
 
           {/* per-type breakdown */}
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            {(Object.keys(score.byType) as Shelf03QuestionType[]).map((t) => {
+            {(Object.keys(score.byType) as FaQuestionType[]).map((t) => {
               const meta = TYPE_META[t];
               const d = score.byType[t];
               return (
@@ -403,7 +400,7 @@ function ExamShell({
   onExit,
   scrollRef,
 }: {
-  bank: (typeof SHELF03_EXAM_BANKS)[Shelf03ExamGroup];
+  bank: (typeof FA_EXAM_BANKS)[FaExamGroup];
   score: { correct: number; total: number; answered: number };
   seconds: number;
   children: React.ReactNode;
@@ -416,7 +413,7 @@ function ExamShell({
       initial={{ opacity: 0, scale: 0.99 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
-      className="fixed inset-0 z-[80] flex flex-col"
+      className="fa-exam fixed inset-0 z-[80] flex flex-col"
       style={{ background: "linear-gradient(180deg,#f7eedf 0%,#f3e7d3 100%)" }}
       role="dialog"
       aria-modal="true"
@@ -425,7 +422,7 @@ function ExamShell({
       {/* header */}
       <div className="shrink-0 border-b border-black/20" style={{ background: "linear-gradient(160deg,#2b1b10,#402818)" }}>
         <div className="mx-auto flex max-w-3xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 sm:px-6">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl" style={{ background: "linear-gradient(135deg,#84cc16,#3f6212)" }}>
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl" style={{ background: "linear-gradient(135deg,#10b981,#047857)" }}>
             <PenLine className="h-4.5 w-4.5 text-white" />
           </span>
           <div className="min-w-0">
@@ -456,7 +453,7 @@ function ExamShell({
       <div className="shrink-0 border-t border-[#e5d3b6] bg-[#faf3e6]/90">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-2.5 sm:px-6">
           <p className="hidden text-[.68rem] font-semibold text-[#8a6d4f] sm:block">
-            Exam mode: write on real paper first — then check. That is exactly how the end-term works.
+            Exam mode: write on real paper first — then check. Practising in the exact format you will write in is the whole point.
           </p>
           <button type="button" onClick={onExit} className="exam-btn ml-auto">
             <Trophy className="h-4 w-4" />

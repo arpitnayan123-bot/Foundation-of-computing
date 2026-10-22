@@ -1,97 +1,119 @@
 "use client";
 
 /* ============================================================
-   Shelf03App — the STAGING shell for reserved shelf 03 of
-   THE ATLAS.
+   FaApp — the complete "Financial Accounting" revision
+   companion, registered as shelf 03 of THE ATLAS.
 
-   This is the same poured mould as FocApp / AtbApp — grouped
-   chapter navigation with scroll-spy, a practice band, the
-   pen-paper exam windows and the signature footer — mounted
-   and verified BEFORE the syllabus drops, so pour day is
-   content-only work.
-
-   SCAFFOLD: the chapter map below holds the staging sections;
-   it is replaced by the real chapter clusters on pour day.
-   The exam groups already match ./questions.ts seed banks.
+   Every number is pen-paper work: equations, journals,
+   ledgers, trial balances, trading accounts — and every
+   chapter carries its own living machines (the equation
+   machine, the trial-balance sorter, the prepaid splitter,
+   the gross-profit lab). Mounted by the Atlas router
+   (src/app/page.tsx) when the reader enters the subject;
+   `onExitAtlas` returns the reader to the Atlas landing page.
    ============================================================ */
 
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { BookOpen, BookOpenText, ListChecks, Map, Menu, MousePointerClick, PenLine, Scale, X, ChevronDown, GraduationCap } from "lucide-react";
 import {
-  BookOpen,
-  Boxes,
-  ChevronDown,
-  GraduationCap,
-  ListChecks,
-  Map,
-  Menu,
-  MousePointerClick,
-  PenLine,
-  X,
-} from "lucide-react";
+  FaAdjustingSection,
+  FaFinalAccountsSection,
+  FaGrossProfitLabSection,
+  FaTradingSection,
+} from "@/components/fa/FaParts4";
 import {
-  Shelf03Hero,
-  Shelf03KitSection,
-  Shelf03RecipeSection,
-} from "@/components/shelf03/Shelf03Parts";
-import { Shelf03ExamWindow } from "@/components/shelf03/Shelf03ExamWindow";
+  FaDualAspectSection,
+  FaElementsSection,
+  FaEquationLabSection,
+  FaEffectsSection,
+} from "@/components/fa/FaParts2";
 import {
-  SHELF03_EXAM_BANKS,
-  SHELF03_EXAM_GROUPS,
-  SHELF03_TOTAL_QUESTIONS,
-  type Shelf03ExamGroup,
-} from "@/components/shelf03/questions";
+  FaHero,
+  FaWhySection,
+  FaAssumptionsSection,
+  FaEntityConcernSection,
+  FaPeriodicitySection,
+} from "@/components/fa/FaParts1";
+import {
+  FaJournalSection,
+  FaLedgerSection,
+  FaStatementsSection,
+  FaTrialBalanceSection,
+} from "@/components/fa/FaParts3";
+import { FaExamWindow } from "@/components/fa/FaExamWindow";
+import { FA_EXAM_BANKS, FA_EXAM_GROUPS, FA_TOTAL_QUESTIONS, type FaExamGroup } from "@/components/fa/questions";
 
 /* ============================================================
-   Structured chapter map — staging edition. Group ids match
-   the seed exam groups in ./questions.ts so every group owns
-   its "Test my knowledge" window.
+   Structured chapter map — the top bar is organised into four
+   groups instead of a flat 16-chip strip. Each group owns a
+   "Test my knowledge" pen-paper window (see questions.ts).
    ============================================================ */
 const GROUPS: {
-  id: Shelf03ExamGroup;
+  id: FaExamGroup;
   label: string;
   items: { id: string; label: string; desc: string }[];
 }[] = [
   {
-    id: "core",
-    label: "The method",
+    id: "foundations",
+    label: "Foundations",
     items: [
-      { id: "recipe", label: "The pour recipe", desc: "PDF → chapters → machines → bank → live" },
+      { id: "why", label: "Why accounting?", desc: "Five openings — every one ends at the same question" },
+      { id: "assumptions", label: "4 assumptions", desc: "Entity · going concern · periodicity · money measurement" },
+      { id: "entity-concern", label: "Entity & concern", desc: "The boundary — and the promise to continue" },
+      { id: "periodicity", label: "Periods & matching", desc: "Time, cut into periods — and the match that follows" },
     ],
   },
   {
-    id: "kit",
-    label: "The kit",
+    id: "equation",
+    label: "The Equation",
     items: [
-      { id: "kit", label: "What's armed", desc: "Nav, scroll-spy, drills, exam engine" },
-      { id: "practice", label: "Seed windows", desc: "Play the pen-paper engine right now" },
+      { id: "dual-aspect", label: "Dual aspect", desc: "Every rupee tells two stories" },
+      { id: "elements", label: "The three elements", desc: "Assets, liabilities & equity — the whole cast" },
+      { id: "equation-lab", label: "Equation, worked", desc: "Hot Chocolate · Abraham · Coffee Corner" },
+      { id: "effects", label: "Transaction effects", desc: "The four moves — run the equation machine" },
+    ],
+  },
+  {
+    id: "recording",
+    label: "Recording",
+    items: [
+      { id: "journal", label: "Journal", desc: "The pipeline and the day book — Vogue Company" },
+      { id: "ledger", label: "Ledger", desc: "Posting — the Cash T-account, for real" },
+      { id: "statements", label: "Five statements", desc: "One month of transactions, five shapes" },
+      { id: "trial-balance", label: "Trial balance", desc: "Do the columns agree? — sort Pearl's books" },
+    ],
+  },
+  {
+    id: "closing",
+    label: "Closing",
+    items: [
+      { id: "adjusting", label: "Adjusting entries", desc: "Deferrals & accruals — split the prepaid rupee" },
+      { id: "final-accounts", label: "Final accounts", desc: "Two questions, two statements" },
+      { id: "trading", label: "Trading account", desc: "Did buying and selling pay?" },
+      { id: "gp-lab", label: "Gross profit lab", desc: "Six examples — then drive the ladder" },
     ],
   },
 ];
 
 const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
 
-function groupOf(id: string): Shelf03ExamGroup | null {
+function groupOf(id: string): string | null {
   for (const g of GROUPS) if (g.items.some((i) => i.id === id)) return g.id;
   return null;
 }
 
-/* lime sigil of shelf 03 */
-const LIME_GRAD = "linear-gradient(135deg,#65a30d,#3f6212)";
-const LIME_INK = "#3f6212";
-const PROGRESS_GRAD = "linear-gradient(90deg,#84cc16,#65a30d,#3f6212)";
-
 /* ============================================================
-   TopNav — same architecture as the AtbApp nav: grouped menus
-   with exam launchers, chip strip below lg, full-screen mobile
-   index, and a progress bar written straight to the DOM via a
-   ref (React state only when the active section changes).
+   TopNav — structured chapter menu + a "Test my knowledge"
+   launcher inside every chapter group. Same engine as the
+   FoC/ATB shelves: progress bar written via ref inside rAF,
+   React state only when the active section changes.
    ============================================================ */
 function TopNav({
   onOpenExam,
   onExitAtlas,
 }: {
-  onOpenExam: (g: Shelf03ExamGroup) => void;
+  onOpenExam: (g: FaExamGroup) => void;
   onExitAtlas: () => void;
 }) {
   const [active, setActive] = useState<string>("");
@@ -110,7 +132,6 @@ function TopNav({
       const pct = total > 0 ? (doc.scrollTop / total) * 100 : 0;
       if (progressRef.current) progressRef.current.style.width = `${pct}%`;
 
-      // scroll-spy: only touch React state when the section changes
       const probe = window.innerHeight * 0.32;
       let current = "";
       for (const item of FLAT_ITEMS) {
@@ -137,7 +158,6 @@ function TopNav({
     };
   }, []);
 
-  // close dropdown on outside click / Escape
   useEffect(() => {
     const onDown = (e: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenGroup(null);
@@ -156,7 +176,6 @@ function TopNav({
     };
   }, []);
 
-  // lock body scroll while the mobile index is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
@@ -170,33 +189,33 @@ function TopNav({
     <nav ref={navRef} aria-label="Chapters" className="fixed inset-x-0 top-0 z-50">
       <div className="nav-shell">
         <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-3 sm:px-5">
-          {/* back to The Atlas — the shelf this subject lives on */}
+          {/* back to The Atlas */}
           <button
             type="button"
             onClick={onExitAtlas}
             title="Back to The Atlas — the subject shelf"
             aria-label="Back to The Atlas"
-            className="flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3 text-[.64rem] font-extrabold uppercase tracking-[.14em] text-[#5a6b33] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/85 hover:text-[#3f6212]"
+            className="flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3 text-[.64rem] font-extrabold uppercase tracking-[.14em] text-[#5d6b58] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/85 hover:text-[#047857]"
           >
             <Map className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Atlas</span>
           </button>
 
-          {/* brand — shelf 03's lime sigil on the quiet glass chip */}
+          {/* brand — FA's emerald sigil on the quiet glass chip */}
           <a
             href="#top"
             className="flex shrink-0 items-center gap-2 rounded-full border border-white/70 bg-white/60 py-1.5 pl-2 pr-3.5 shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/80"
           >
             <span
               className="flex h-6 w-6 items-center justify-center rounded-full text-white"
-              style={{ background: LIME_GRAD, boxShadow: "0 4px 10px -3px rgba(63,98,18,.55)" }}
+              style={{ background: "linear-gradient(135deg,#10b981,#047857)", boxShadow: "0 4px 10px -3px rgba(4,120,87,.55)" }}
             >
-              <Boxes className="h-3.5 w-3.5" />
+              <Scale className="h-3.5 w-3.5" />
             </span>
-            <span className="text-sm font-black tracking-tight text-[#3e2c1d]">Shelf 03 · Staging</span>
+            <span className="text-sm font-black tracking-tight text-[#3e2c1d]">FA Notes</span>
           </a>
 
-          {/* desktop — grouped menu with exam launchers */}
+          {/* desktop — grouped chapter menu */}
           <div className="ml-2 hidden flex-1 items-center gap-1 lg:flex">
             {GROUPS.map((group) => {
               const isActive = activeGroup === group.id;
@@ -216,7 +235,7 @@ function TopNav({
                     onFocus={() => setOpenGroup(group.id)}
                     className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[.78rem] font-semibold tracking-wide transition-all duration-200 ${
                       isActive || open
-                        ? "bg-white/80 text-[#3f6212] shadow-[0_4px_16px_-8px_rgba(70,42,15,.4),inset_0_1px_0_rgba(255,255,255,.9)]"
+                        ? "bg-white/80 text-[#047857] shadow-[0_4px_16px_-8px_rgba(70,42,15,.4),inset_0_1px_0_rgba(255,255,255,.9)]"
                         : "text-[#6b563d] hover:bg-white/55 hover:text-[#3e2c1d] hover:shadow-[inset_0_1px_0_rgba(255,255,255,.9)]"
                     }`}
                   >
@@ -243,8 +262,8 @@ function TopNav({
                             boxShadow: "0 24px 70px -18px rgba(50,30,10,.4), inset 0 1px 0 rgba(255,255,255,.85)",
                           }}
                         >
-                          <p className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 text-[.58rem] font-extrabold uppercase tracking-[.22em] text-[#7a8a4d]">
-                            <BookOpen className="h-3 w-3" />
+                          <p className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 text-[.58rem] font-extrabold uppercase tracking-[.22em] text-[#7d9a8b]">
+                            <BookOpenText className="h-3 w-3" />
                             {group.label}
                           </p>
                           {group.items.map((item, i) => {
@@ -255,29 +274,29 @@ function TopNav({
                                 href={`#${item.id}`}
                                 onClick={() => setOpenGroup(null)}
                                 className={`group flex items-start gap-3 rounded-xl px-3 py-2 transition-colors duration-150 ${
-                                  isActiveItem ? "bg-[#65a30d]/[.09]" : "hover:bg-[#3e2c1d]/[.05]"
+                                  isActiveItem ? "bg-[#10b981]/[.09]" : "hover:bg-[#3e2c1d]/[.05]"
                                 }`}
                               >
                                 <span
                                   className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[.58rem] font-black ${
-                                    isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#7a8a4d]"
+                                    isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#7d9a8b]"
                                   }`}
-                                  style={isActiveItem ? { background: LIME_GRAD } : undefined}
+                                  style={isActiveItem ? { background: "linear-gradient(135deg,#10b981,#047857)" } : undefined}
                                 >
                                   {String(i + 1).padStart(2, "0")}
                                 </span>
                                 <span className="min-w-0">
-                                  <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#3f6212]" : "text-[#3e2c1d]"}`}>
+                                  <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#047857]" : "text-[#3e2c1d]"}`}>
                                     {item.label}
                                   </span>
                                   <span className="mt-0.5 block text-[.7rem] leading-snug text-[#a08568]">{item.desc}</span>
                                 </span>
-                                {isActiveItem ? <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: LIME_INK }} /> : null}
+                                {isActiveItem ? <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#047857" }} /> : null}
                               </a>
                             );
                           })}
 
-                          {/* Test my knowledge — opens this group's seed window */}
+                          {/* Test my knowledge — opens the pen-paper window for this group */}
                           <div className="mt-1 border-t border-[#f0e2c8] p-1.5">
                             <button
                               type="button"
@@ -289,19 +308,19 @@ function TopNav({
                             >
                               <span
                                 className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
-                                style={{ background: LIME_GRAD }}
+                                style={{ background: "linear-gradient(135deg,#10b981,#047857)" }}
                               >
                                 <PenLine className="h-3.5 w-3.5" />
                               </span>
                               <span className="min-w-0">
-                                <span className="block text-[.84rem] font-extrabold leading-tight text-[#3f6212]">
+                                <span className="block text-[.84rem] font-extrabold leading-tight text-[#047857]">
                                   Test my knowledge
                                 </span>
                                 <span className="mt-0.5 block text-[.68rem] leading-snug text-[#a08568]">
-                                  {SHELF03_EXAM_BANKS[group.id].questions.length} seed questions · pen-paper mode
+                                  {FA_EXAM_BANKS[group.id].questions.length} exam-style questions · pen-paper mode
                                 </span>
                               </span>
-                              <span className="ml-auto shrink-0 text-[.58rem] font-black uppercase tracking-[.14em] text-[#7a8a4d] transition-colors group-hover/exam:text-[#3f6212]">
+                              <span className="ml-auto shrink-0 text-[.58rem] font-black uppercase tracking-[.14em] text-[#7d9a8b] transition-colors group-hover/exam:text-[#047857]">
                                 open →
                               </span>
                             </button>
@@ -315,9 +334,9 @@ function TopNav({
             })}
           </div>
 
-          {/* below lg — quick chips (horizontal scroll) */}
+          {/* below lg — quick chips (horizontal scroll) covering every chapter */}
           <div className="scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {FLAT_ITEMS.map((item) => (
+            {GROUPS.flatMap((g) => g.items).map((item) => (
               <a key={item.id} href={`#${item.id}`} className={`nav-link ${active === item.id ? "active" : ""}`}>
                 {item.label}
               </a>
@@ -331,7 +350,7 @@ function TopNav({
               onClick={() => setMobileOpen(true)}
               aria-label="Open the chapter index"
               aria-expanded={mobileOpen}
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#3f6212] lg:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#047857] lg:hidden"
             >
               <Menu className="h-4.5 w-4.5" />
             </button>
@@ -344,7 +363,7 @@ function TopNav({
         <div
           ref={progressRef}
           className="h-full"
-          style={{ width: "0%", background: PROGRESS_GRAD }}
+          style={{ width: "0%", background: "linear-gradient(90deg,#34d399,#10b981,#047857)" }}
         />
       </div>
 
@@ -358,21 +377,21 @@ function TopNav({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
             className="fixed inset-0 z-[60] flex flex-col"
-            style={{ background: "linear-gradient(165deg,#1a2408 0%,#25330d 55%,#2f4013 100%)" }}
+            style={{ background: "linear-gradient(165deg,#0c1d14 0%,#133024 55%,#1b4433 100%)" }}
             role="dialog"
             aria-modal="true"
             aria-label="Chapter index"
           >
             <div className="flex h-14 shrink-0 items-center justify-between px-4">
-              <span className="flex items-center gap-2 text-sm font-black tracking-tight text-[#eef7d8]">
-                <Boxes className="h-4 w-4" style={{ color: "#a3e635" }} />
+              <span className="flex items-center gap-2 text-sm font-black tracking-tight text-[#dff3e8]">
+                <Scale className="h-4 w-4" style={{ color: "#34d399" }} />
                 Chapter index
               </span>
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close the chapter index"
-                className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#eef7d8]"
+                className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#dff3e8]"
               >
                 <X className="h-4.5 w-4.5" />
               </button>
@@ -386,10 +405,10 @@ function TopNav({
                   transition={{ delay: 0.05 + gi * 0.06, duration: 0.25 }}
                   className="mb-5"
                 >
-                  <p className="mb-2 flex items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.24em] text-[#b5cc84]">
-                    <span className="h-px w-5" style={{ background: "linear-gradient(90deg,#84cc16,transparent)" }} />
+                  <p className="mb-2 flex items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.24em] text-[#8fd4b4]">
+                    <span className="h-px w-5" style={{ background: "linear-gradient(90deg,#10b981,transparent)" }} />
                     {group.label}
-                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-[.55rem] text-[#eef7d8]">{group.items.length}</span>
+                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-[.55rem] text-[#cfe9dc]">{group.items.length}</span>
                   </p>
                   <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.04]">
                     {group.items.map((item, i) => {
@@ -407,19 +426,19 @@ function TopNav({
                             className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[.6rem] font-black"
                             style={
                               isActiveItem
-                                ? { background: LIME_GRAD, color: "#f4ffe3" }
-                                : { background: "rgba(220,245,170,.1)", color: "#b5cc84" }
+                                ? { background: "linear-gradient(135deg,#10b981,#047857)", color: "#f0fdf7" }
+                                : { background: "rgba(190,240,214,.1)", color: "#8fd4b4" }
                             }
                           >
                             {String(i + 1).padStart(2, "0")}
                           </span>
                           <span className="min-w-0 flex-1">
-                            <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#cdeb92]" : "text-[#e6f2cd]"}`}>
+                            <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#a9e8c9]" : "text-[#e2f2e9]"}`}>
                               {item.label}
                             </span>
-                            <span className="mt-0.5 block text-[.7rem] leading-snug text-[#a9bd85]">{item.desc}</span>
+                            <span className="mt-0.5 block text-[.7rem] leading-snug text-[#9cc4ab]">{item.desc}</span>
                           </span>
-                          {isActiveItem ? <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#84cc16" }} /> : null}
+                          {isActiveItem ? <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#34d399" }} /> : null}
                         </a>
                       );
                     })}
@@ -435,13 +454,13 @@ function TopNav({
                     >
                       <span
                         className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
-                        style={{ background: LIME_GRAD }}
+                        style={{ background: "linear-gradient(135deg,#10b981,#047857)" }}
                       >
                         <PenLine className="h-3.5 w-3.5" />
                       </span>
-                      <span className="text-[.88rem] font-extrabold text-[#cdeb92]">Test my knowledge</span>
-                      <span className="ml-auto text-[.6rem] font-black uppercase tracking-[.14em] text-[#b5cc84]">
-                        {SHELF03_EXAM_BANKS[group.id].questions.length} Qs →
+                      <span className="text-[.88rem] font-extrabold text-[#a9e8c9]">Test my knowledge</span>
+                      <span className="ml-auto text-[.6rem] font-black uppercase tracking-[.14em] text-[#8fd4b4]">
+                        {FA_EXAM_BANKS[group.id].questions.length} Qs →
                       </span>
                     </button>
                   </div>
@@ -456,32 +475,32 @@ function TopNav({
 }
 
 /* ============================================================
-   PracticeBand — the seed exam launcher. Same card grid as the
-   other shelves; the copy is honest that these are seeds.
+   PracticeBand — the only place on the main page where
+   "Test my knowledge" is written: one card per chapter group.
+   Clicking opens that group's full pen-paper window.
    ============================================================ */
-function PracticeBand({ onOpenExam }: { onOpenExam: (g: Shelf03ExamGroup) => void }) {
+function PracticeBand({ onOpenExam }: { onOpenExam: (g: FaExamGroup) => void }) {
   return (
-    <section id="practice" aria-label="Test my knowledge — seed windows" className="relative scroll-mt-20 border-y border-[#ecd9bd] bg-[#fffaf1]/70">
+    <section id="practice" aria-label="Test my knowledge — pen-paper practice" className="relative scroll-mt-20 border-y border-[#ecd9bd] bg-[#fffaf1]/70">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <span className="eyebrow">Pen-paper practice · seed windows</span>
+            <span className="eyebrow">Pen-paper practice</span>
             <h2 className="mt-2 text-2xl font-bold md:text-3xl">Test my knowledge</h2>
             <p className="mt-2 max-w-xl text-[.9rem] leading-relaxed text-muted-warm">
-              The engine is live <b>before</b> the syllabus: two seed windows with MCQ,
-              write-the-output and short-answer formats — instant checking, model answers,
-              navigator, timer, results report. On pour day the seeds are swapped for the
-              real bank.
+              Every chapter group opens its own pen-paper window:{" "}
+              <b>compute the figure, complete the equation, spot the violation</b> — write on
+              real paper first, then check against the model answers with instant feedback.
             </p>
           </div>
-          <p className="shrink-0 text-[.68rem] font-black uppercase tracking-[.18em] text-[#4d7c0f]">
-            {SHELF03_TOTAL_QUESTIONS} seed questions · {SHELF03_EXAM_GROUPS.length} windows
+          <p className="shrink-0 text-[.68rem] font-black uppercase tracking-[.18em] text-[#047857]">
+            {FA_TOTAL_QUESTIONS} questions · {FA_EXAM_GROUPS.length} windows
           </p>
         </div>
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          {SHELF03_EXAM_GROUPS.map((g) => {
-            const bank = SHELF03_EXAM_BANKS[g];
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {FA_EXAM_GROUPS.map((g) => {
+            const bank = FA_EXAM_BANKS[g];
             return (
               <button
                 key={g}
@@ -492,13 +511,13 @@ function PracticeBand({ onOpenExam }: { onOpenExam: (g: Shelf03ExamGroup) => voi
               >
                 <span
                   className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md"
-                  style={{ background: LIME_GRAD }}
+                  style={{ background: "linear-gradient(135deg,#10b981,#047857)" }}
                 >
                   <PenLine className="h-4 w-4" />
                 </span>
                 <span className="mt-3 text-[.98rem] font-extrabold leading-tight text-[#3e2c1d]">{bank.title}</span>
                 <span className="mt-1 text-[.74rem] leading-snug text-muted-warm">{bank.topics}</span>
-                <span className="mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#4d7c0f]">
+                <span className="mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#047857]">
                   Test my knowledge · {bank.questions.length} Qs →
                 </span>
               </button>
@@ -511,35 +530,36 @@ function PracticeBand({ onOpenExam }: { onOpenExam: (g: Shelf03ExamGroup) => voi
 }
 
 /* ============================================================
-   Shelf03Footer — the signature footer, staging edition.
+   FaFooter — adapted from the FoC/ATB signature footer, in
+   shelf 03's emerald.
    ============================================================ */
-const SHELF03_SIG_CHIPS = [
-  { icon: BookOpen, label: "0 chapters — for now" },
-  { icon: ListChecks, label: "6 seed questions" },
-  { icon: GraduationCap, label: "2 exam windows" },
-  { icon: MousePointerClick, label: "engine you can poke" },
+const FA_SIG_CHIPS = [
+  { icon: BookOpen, label: `${FLAT_ITEMS.length} chapters` },
+  { icon: ListChecks, label: `${FA_TOTAL_QUESTIONS} practice questions` },
+  { icon: GraduationCap, label: `${FA_EXAM_GROUPS.length} pen-paper windows` },
+  { icon: MousePointerClick, label: "machines you can poke" },
 ];
 
-export function Shelf03Footer() {
+export function FaFooter() {
   return (
     <footer className="footer-stick relative overflow-hidden">
       {/* hairline that draws itself from the centre */}
       <motion.div
         aria-hidden
         className="absolute inset-x-0 top-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(120,150,70,.35), transparent)" }}
+        style={{ background: "linear-gradient(90deg, transparent, rgba(90,150,120,.35), transparent)" }}
         initial={{ scaleX: 0, opacity: 0 }}
         whileInView={{ scaleX: 1, opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
       />
 
-      {/* barely-there lime halo behind the signature */}
+      {/* barely-there warm halo behind the signature */}
       <div aria-hidden className="sig-glow" />
 
       <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 py-8 text-center sm:py-10">
         <motion.p
-          className="sig-eyebrow text-[.58rem] font-semibold uppercase text-[#8a9a6a]"
+          className="sig-eyebrow text-[.58rem] font-semibold uppercase text-[#a1876a]"
           aria-label="created by"
           initial={{ opacity: 0, letterSpacing: "1.05em" }}
           whileInView={{ opacity: 1, letterSpacing: "0.55em" }}
@@ -563,15 +583,15 @@ export function Shelf03Footer() {
         {/* one delicate stroke under the name */}
         <svg viewBox="0 0 300 22" className="mt-2 h-3.5 w-44" aria-hidden fill="none">
           <defs>
-            <linearGradient id="shelf03SigGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stopColor="#84cc16" stopOpacity="0" />
-              <stop offset="0.5" stopColor="#65a30d" />
-              <stop offset="1" stopColor="#84cc16" stopOpacity="0" />
+            <linearGradient id="faSigGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stopColor="#3f9d76" stopOpacity="0" />
+              <stop offset="0.5" stopColor="#3f9d76" />
+              <stop offset="1" stopColor="#3f9d76" stopOpacity="0" />
             </linearGradient>
           </defs>
           <motion.path
             d="M6 12 C 62 4, 118 19, 152 11 C 186 4, 236 17, 294 10"
-            stroke="url(#shelf03SigGrad)"
+            stroke="url(#faSigGrad)"
             strokeWidth="1.6"
             strokeLinecap="round"
             initial={{ pathLength: 0, opacity: 0 }}
@@ -589,31 +609,32 @@ export function Shelf03Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 1.0 }}
         >
-          <b>Reserved shelf 03</b> — the whole revision engine mounted and verified before the
-          syllabus arrives. When the PDF drops, this page becomes a full Atlas subject.
+          <b>Financial Accounting</b> — every concept of the course, distilled into one warm,
+          living page you can read, sketch and balance.
           <span className="mt-1 block">
-            Built for the night before the drop and the night before the exam.
+            Written for the late-night revision, the last-minute panic, and the quiet joy of an
+            equation that finally closes.
           </span>
         </motion.p>
 
-        {/* the shelf — quiet institutional line */}
+        {/* the course — instructor credit, quiet but explicit */}
         <motion.p
-          className="mt-3 text-[.78rem] font-semibold text-[#5f6b45]"
+          className="mt-3 text-[.78rem] font-semibold text-[#6f5438]"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.0, ease: "easeOut", delay: 1.25 }}
         >
-          Shelf 03 of The Atlas — staging build · B.S. in Management and Technology · IIT Jodhpur
+          Course: Financial Accounting — Dr. Manisha Yadav · IIT Jodhpur
         </motion.p>
 
         {/* what's inside — a row of calm stat pills */}
         <div
           role="list"
-          aria-label="What this staging build contains"
+          aria-label="What this project contains"
           className="mt-4 flex flex-wrap items-center justify-center gap-2"
         >
-          {SHELF03_SIG_CHIPS.map((chip, i) => (
+          {FA_SIG_CHIPS.map((chip, i) => (
             <motion.span
               key={chip.label}
               role="listitem"
@@ -641,7 +662,7 @@ export function Shelf03Footer() {
           viewport={{ once: true }}
           transition={{ duration: 1.1, ease: "easeOut", delay: 1.7 }}
         >
-          shelf 03 · the atlas — staging build — crafted with next.js · react · tailwind — mmxxvi
+          shelf 03 · the atlas — crafted with next.js · react · tailwind — mmxxvi
         </motion.p>
       </div>
     </footer>
@@ -649,25 +670,39 @@ export function Shelf03Footer() {
 }
 
 /* ============================================================
-   Shelf03App — the composed staging page.
+   FaApp — the composed subject page.
    ============================================================ */
-export function Shelf03App({ onExitAtlas }: { onExitAtlas: () => void }) {
-  const [examGroup, setExamGroup] = useState<Shelf03ExamGroup | null>(null);
-  const openExam = (g: Shelf03ExamGroup) => setExamGroup(g);
+export function FaApp({ onExitAtlas }: { onExitAtlas: () => void }) {
+  const [examGroup, setExamGroup] = useState<FaExamGroup | null>(null);
+  const openExam = (g: FaExamGroup) => setExamGroup(g);
 
   return (
     // id="top" — the brand chip links to #top; without a real element here the
     // client-side router swallows the fragment and the page never scrolls back
-    <div id="top" className="page-wrap warm-canvas">
+    <div id="top" className="page-wrap warm-canvas fa-app">
       <TopNav onOpenExam={openExam} onExitAtlas={onExitAtlas} />
       <main className="pt-14">
-        <Shelf03Hero />
-        <Shelf03RecipeSection />
-        <Shelf03KitSection />
+        <FaHero />
         <PracticeBand onOpenExam={openExam} />
+        <FaWhySection />
+        <FaAssumptionsSection />
+        <FaEntityConcernSection />
+        <FaPeriodicitySection />
+        <FaDualAspectSection />
+        <FaElementsSection />
+        <FaEquationLabSection />
+        <FaEffectsSection />
+        <FaJournalSection />
+        <FaLedgerSection />
+        <FaStatementsSection />
+        <FaTrialBalanceSection />
+        <FaAdjustingSection />
+        <FaFinalAccountsSection />
+        <FaTradingSection />
+        <FaGrossProfitLabSection />
       </main>
-      <Shelf03Footer />
-      {examGroup ? <Shelf03ExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
+      <FaFooter />
+      {examGroup ? <FaExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
     </div>
   );
 }

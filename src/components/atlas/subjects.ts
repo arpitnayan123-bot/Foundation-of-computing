@@ -1,6 +1,7 @@
-import { Compass, Lock, Route, type LucideIcon } from "lucide-react";
+import { Compass, Lock, Route, Scale, type LucideIcon } from "lucide-react";
 import { TOTAL_QUESTIONS } from "@/components/notes/questions";
 import { ATB_TOTAL_QUESTIONS } from "@/components/atb/questions";
+import { FA_TOTAL_QUESTIONS } from "@/components/fa/questions";
 
 /* ============================================================
    THE ATLAS — subject registry.
@@ -84,20 +85,21 @@ export const SUBJECTS: Subject[] = [
     ambience: "aura",
   },
   {
-    id: "shelf-03",
+    id: "fa",
     shelf: "03",
-    title: "Reserved shelf",
-    short: "Shelf 03",
-    tagline: "The next PDF drops here.",
-    description: "This shelf fills in as each subject is rebuilt Atlas-style — same living diagrams, same exam simulators, same pen-paper soul.",
-    topics: ["awaiting syllabus"],
-    chapters: null,
-    questions: null,
-    examWindows: null,
-    accent: "#84cc16",
-    accent2: "#3f6212",
-    icon: Lock,
-    status: "soon",
+    title: "Financial Accounting",
+    short: "FA Notes",
+    tagline: "Every rupee tells two stories — the whole course, in balance.",
+    description:
+      "The whole course rebuilt as living notes: a working accounting equation, T-accounts posted for real, a trial balance you can sort, prepaid rupees that split themselves, and 40 exam-style questions across 4 pen-paper windows.",
+    topics: ["Dual aspect & equation", "Journal & ledger", "Trial balance", "Five statements", "Adjusting entries", "Trading account & GP"],
+    chapters: 16,
+    questions: FA_TOTAL_QUESTIONS,
+    examWindows: 4,
+    accent: "#10b981",
+    accent2: "#047857",
+    icon: Scale,
+    status: "live",
     ambience: "scan",
   },
   {
