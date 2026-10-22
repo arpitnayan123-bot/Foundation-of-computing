@@ -20,6 +20,7 @@ import {
   Terminal,
 } from "lucide-react";
 import { cleanTraceback, getPyodide, PURGE_USER_MODULES, type PyodideLike } from "@/lib/pyruntime";
+import { makeCappedPush, withStepGuard } from "@/lib/pyguard";
 
 /* ============================================================
    Reveal — scroll-triggered fade/slide
@@ -310,12 +311,14 @@ export function CodeBlock({
     let py: PyodideLike | null = null;
     try {
       py = await getPyodide((m) => setBootMsg(m));
+      const pyr = py;
       setBootMsg("");
-      let buf = "";
-      const push = (s: string) => {
-        buf += s + "\n";
-        setOut(buf);
-      };
+      let lastOut = "";
+      // capped push: a print flood can't grow the buffer unbounded
+      const push = makeCappedPush((full) => {
+        lastOut = full;
+        setOut(full);
+      });
       py.setStdout({ batched: push });
       py.setStderr({ batched: push });
       py.setStdin({
@@ -342,8 +345,11 @@ export function CodeBlock({
       } else {
         const ns = py.globals.get("dict")() as { destroy?: () => void };
         try {
-          if (pre) await py.runPythonAsync(pre, { globals: ns });
-          await py.runPythonAsync(current, { globals: ns });
+          // step-guard: cooperative runaway-loop killer (see lib/pyguard.ts)
+          await withStepGuard(pyr, async () => {
+            if (pre) await pyr.runPythonAsync(pre, { globals: ns });
+            await pyr.runPythonAsync(current, { globals: ns });
+          });
         } finally {
           ns.destroy?.();
         }

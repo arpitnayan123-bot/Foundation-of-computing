@@ -36,6 +36,7 @@ import {
   resetNotebookGlobals,
   type PyodideLike,
 } from "@/lib/pyruntime";
+import { makeCappedPush, withStepGuard } from "@/lib/pyguard";
 import { highlightPython } from "@/lib/pyhighlight";
 
 interface LabCell {
@@ -301,7 +302,7 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
       const count = execRef.current;
       patch(cell.id, { out: "", err: "", count, ms: null });
 
-      let buf = "";
+      let lastOut = "";
       const t0 = performance.now();
       let py: PyodideLike | null = null;
       try {
@@ -309,21 +310,17 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
           setBootMsg(m);
           setStatus("booting");
         });
+        const pyr = py;
         runtimeBooted = true;
         setBootMsg("");
         const ns = await getNotebookGlobals();
-        py.setStdout({
-          batched: (s) => {
-            buf += s + "\n";
-            patch(cell.id, { out: buf });
-          },
+        // capped push: a `while True: print(...)` flood can't OOM the tab
+        const push = makeCappedPush((full) => {
+          lastOut = full;
+          patch(cell.id, { out: full });
         });
-        py.setStderr({
-          batched: (s) => {
-            buf += s + "\n";
-            patch(cell.id, { out: buf });
-          },
-        });
+        py.setStdout({ batched: push });
+        py.setStderr({ batched: push });
         py.setStdin({
           stdin: () => {
             try {
@@ -334,8 +331,11 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
           },
         });
         const freshCode = cellsRef.current[index]?.code ?? cell.code;
-        await py.runPythonAsync(freshCode, { globals: ns });
-        patch(cell.id, { ms: performance.now() - t0, out: buf });
+        // step-guard: cooperative runaway-loop killer (see lib/pyguard.ts)
+        await withStepGuard(pyr, async () => {
+          await pyr.runPythonAsync(freshCode, { globals: ns });
+        });
+        patch(cell.id, { ms: performance.now() - t0, out: lastOut });
       } catch (e) {
         const msg = e instanceof Error ? e.message : String(e);
         patch(cell.id, { err: cleanTraceback(msg) || msg, ms: performance.now() - t0 });
