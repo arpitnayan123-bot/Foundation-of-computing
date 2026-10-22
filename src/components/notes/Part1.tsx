@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import {
   ArrowDown,
+  ArrowRight,
+  Code2,
   Cpu,
   Database,
   Workflow,
@@ -94,6 +96,24 @@ export function Hero() {
             distilled into one warm, living page with animated diagrams and interactive
             quizzes.
           </p>
+        </Reveal>
+
+        {/* Explore Python Language — premium glass CTA under the headline.
+            The language lives here now (it left the top bar) so the first
+            thing a learner touches is the hands-on part of the course. */}
+        <Reveal delay={300}>
+          <div className="mt-7 flex justify-center">
+            <a href="#python" className="glass-cta group">
+              <span className="glass-cta-icon">
+                <Code2 className="h-3.5 w-3.5" strokeWidth={2.4} />
+              </span>
+              Explore Python Language
+              <ArrowRight
+                className="h-4 w-4 text-[#c2410c] transition-transform duration-300 group-hover:translate-x-1"
+                strokeWidth={2.4}
+              />
+            </a>
+          </div>
         </Reveal>
 
         {/* terminal */}

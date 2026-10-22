@@ -73,6 +73,12 @@ const GROUPS: {
 
 const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
 
+/* The desktop top bar drops the Python group on purpose — the language now
+   gets its own premium glass CTA under the hero headline ("Explore Python
+   Language"). The mobile full-screen chapter index still lists every group
+   so no chapter becomes unreachable there. */
+const NAV_GROUPS = GROUPS.filter((g) => g.id !== "pycore");
+
 function groupOf(id: string): string | null {
   for (const g of GROUPS) if (g.items.some((i) => i.id === id)) return g.id;
   return null;
@@ -179,19 +185,23 @@ function TopNav({
     <nav ref={navRef} aria-label="Chapters" className="fixed inset-x-0 top-0 z-50">
       <div className="nav-shell">
         <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-3 sm:px-5">
-          {/* brand */}
+          {/* brand — quiet glass chip, Apple-quiet rather than loud gradient */}
           <a
             href="#top"
-            className="flex shrink-0 items-center gap-2 rounded-full px-3 py-1.5 text-sm font-black tracking-tight text-white transition-transform duration-200 hover:scale-[1.03]"
-            style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)" }}
+            className="flex shrink-0 items-center gap-2 rounded-full border border-white/70 bg-white/60 py-1.5 pl-2 pr-3.5 shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/80"
           >
-            <Compass className="h-4 w-4" />
-            FoC Notes
+            <span
+              className="flex h-6 w-6 items-center justify-center rounded-full text-white"
+              style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)", boxShadow: "0 4px 10px -3px rgba(194,65,12,.55)" }}
+            >
+              <Compass className="h-3.5 w-3.5" />
+            </span>
+            <span className="text-sm font-black tracking-tight text-[#3e2c1d]">FoC Notes</span>
           </a>
 
           {/* desktop — grouped chapter menu */}
           <div className="ml-2 hidden flex-1 items-center gap-1 md:flex">
-            {GROUPS.map((group) => {
+            {NAV_GROUPS.map((group) => {
               const isActive = activeGroup === group.id;
               const open = openGroup === group.id;
               return (
@@ -207,15 +217,15 @@ function TopNav({
                     aria-haspopup="true"
                     onClick={() => setOpenGroup(group.id)}
                     onFocus={() => setOpenGroup(group.id)}
-                    className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[.78rem] font-bold tracking-wide transition-all duration-200 ${
+                    className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[.78rem] font-semibold tracking-wide transition-all duration-200 ${
                       isActive || open
-                        ? "bg-[#3e2c1d] text-[#ffe9c9] shadow-md"
-                        : "text-[#7a6248] hover:bg-[#f9e8d2] hover:text-[#c2410c]"
+                        ? "bg-white/80 text-[#c2410c] shadow-[0_4px_16px_-8px_rgba(70,42,15,.4),inset_0_1px_0_rgba(255,255,255,.9)]"
+                        : "text-[#6b563d] hover:bg-white/55 hover:text-[#3e2c1d] hover:shadow-[inset_0_1px_0_rgba(255,255,255,.9)]"
                     }`}
                   >
                     {group.label}
-                    <span className="text-[.58rem] font-extrabold opacity-50">{String(group.items.length).padStart(2, "0")}</span>
-                    <ChevronDown className={`h-3 w-3 opacity-60 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+                    <span className="text-[.58rem] font-extrabold opacity-45">{String(group.items.length).padStart(2, "0")}</span>
+                    <ChevronDown className={`h-3 w-3 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
                   </button>
 
                   <AnimatePresence>
@@ -229,8 +239,12 @@ function TopNav({
                         className="absolute left-1/2 top-full z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 pt-2"
                       >
                         <div
-                          className="overflow-hidden rounded-2xl border border-[#ecd9bd] bg-[#fffaf1]/97 p-1.5 shadow-2xl"
-                          style={{ boxShadow: "0 30px 60px -20px rgba(43,27,16,.4)" }}
+                          className="overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-1.5 backdrop-blur-2xl"
+                          style={{
+                            WebkitBackdropFilter: "blur(28px) saturate(170%)",
+                            backdropFilter: "blur(28px) saturate(170%)",
+                            boxShadow: "0 24px 70px -18px rgba(50,30,10,.4), inset 0 1px 0 rgba(255,255,255,.85)",
+                          }}
                         >
                           <p className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 text-[.58rem] font-extrabold uppercase tracking-[.22em] text-[#b08b5c]">
                             <BookOpenText className="h-3 w-3" />
@@ -244,14 +258,14 @@ function TopNav({
                                 href={`#${item.id}`}
                                 onClick={() => setOpenGroup(null)}
                                 className={`group flex items-start gap-3 rounded-xl px-3 py-2 transition-colors duration-150 ${
-                                  isActiveItem ? "bg-gradient-to-r from-[#f9e8d2] to-[#fdf1e0]" : "hover:bg-[#f9e8d2]"
+                                  isActiveItem ? "bg-[#ea580c]/[.08]" : "hover:bg-[#3e2c1d]/[.05]"
                                 }`}
                               >
                                 <span
                                   className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[.58rem] font-black ${
-                                    isActiveItem ? "text-white" : "text-[#b08b5c]"
+                                    isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#b08b5c]"
                                   }`}
-                                  style={isActiveItem ? { background: "linear-gradient(135deg,#ea580c,#c2410c)" } : { background: "#f6e8d2" }}
+                                  style={isActiveItem ? { background: "linear-gradient(135deg,#ea580c,#c2410c)" } : undefined}
                                 >
                                   {String(i + 1).padStart(2, "0")}
                                 </span>
@@ -274,7 +288,7 @@ function TopNav({
                                 setOpenGroup(null);
                                 onOpenExam(group.id);
                               }}
-                              className="group/exam flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors duration-150 hover:bg-[#f9e8d2]"
+                              className="group/exam flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors duration-150 hover:bg-[#3e2c1d]/[.05]"
                             >
                               <span
                                 className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
@@ -304,9 +318,10 @@ function TopNav({
             })}
           </div>
 
-          {/* mobile — quick chips (horizontal scroll) */}
+          {/* mobile — quick chips (horizontal scroll). Python chapters live
+              behind the hero glass CTA + the full-screen index instead. */}
           <div className="scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 md:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {FLAT_ITEMS.map((item) => (
+            {NAV_GROUPS.flatMap((g) => g.items).map((item) => (
               <a key={item.id} href={`#${item.id}`} className={`nav-link ${active === item.id ? "active" : ""}`}>
                 {item.label}
               </a>
@@ -319,7 +334,7 @@ function TopNav({
               type="button"
               onClick={onOpenLab}
               title="Open the Python Lab — a Colab-style notebook where you can run your own code"
-              className="hidden items-center gap-1.5 rounded-full border border-[#ecd9bd] bg-white/70 px-3 py-1.5 text-[.66rem] font-extrabold uppercase tracking-[.14em] text-[#a16207] transition-colors hover:bg-[#f9e8d2] hover:text-[#c2410c] sm:flex"
+              className="hidden items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3.5 py-1.5 text-[.66rem] font-extrabold uppercase tracking-[.14em] text-[#8a5f30] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-md transition-all duration-200 hover:bg-white/85 hover:text-[#c2410c] sm:flex"
             >
               <FlaskConical className="h-3.5 w-3.5" />
               Python Lab
@@ -335,7 +350,7 @@ function TopNav({
               type="button"
               onClick={onOpenLab}
               aria-label="Open the Python Lab"
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#ecd9bd] bg-white/60 text-[#a16207] transition-colors hover:bg-[#f9e8d2] hover:text-[#c2410c] md:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#8a5f30] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] md:hidden"
             >
               <FlaskConical className="h-4 w-4" />
             </button>
@@ -344,7 +359,7 @@ function TopNav({
               onClick={() => setMobileOpen(true)}
               aria-label="Open the chapter index"
               aria-expanded={mobileOpen}
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#ecd9bd] bg-white/60 text-[#7a6248] transition-colors hover:bg-[#f9e8d2] hover:text-[#c2410c] md:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] md:hidden"
             >
               <Menu className="h-4.5 w-4.5" />
             </button>
@@ -353,7 +368,7 @@ function TopNav({
       </div>
 
       {/* reading progress — width written directly via ref (no re-renders) */}
-      <div className="h-[3px] w-full bg-[#f0e2c8]">
+      <div className="h-[3px] w-full bg-[#3e2c1d]/10">
         <div
           ref={progressRef}
           className="h-full"
