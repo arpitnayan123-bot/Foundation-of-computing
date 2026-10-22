@@ -541,7 +541,9 @@ export default function Page() {
   const openExam = (g: ExamGroup) => setExamGroup(g);
 
   return (
-    <div className="page-wrap warm-canvas">
+    // id="top" — the brand chip links to #top; without a real element here the
+    // client-side router swallows the fragment and the page never scrolls back
+    <div id="top" className="page-wrap warm-canvas">
       <TopNav onOpenLab={() => setLabOpen(true)} onOpenExam={openExam} />
       <main className="pt-14">
         <Hero onOpenLab={() => setLabOpen(true)} />
