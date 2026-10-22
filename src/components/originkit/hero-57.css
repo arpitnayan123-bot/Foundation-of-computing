@@ -1,0 +1,155 @@
+/* ============================================================
+   Originkit Hero 57 — "Sunset Velocity" — ATLAS pour.
+   Design-only stylesheet: scene plumbing, light melts and the
+   copy window. All typographic identity (fonts, sizes, colours)
+   belongs to the app's own hero content that lands in
+   .hero-overlay — nothing text-specific lives here.
+   ============================================================ */
+
+.hero-57 {
+  color: #f7ecdd;
+  position: relative;
+  isolation: isolate;
+}
+.hero-57,
+.hero-57 * {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.hero-57 .hero {
+  position: relative;
+  min-height: max(720px, 100svh);
+  overflow: hidden;
+  background: #070509;
+}
+
+/* component forces position:relative on its root, so it lives in an absolute layer.
+   shifted down 16% so the horizon, sun and the car cruise BELOW the copy —
+   the wordmark owns the sky, the machine owns the asphalt */
+.hero-57 .hero-scene {
+  position: absolute;
+  inset: 0;
+  top: 16%;
+}
+
+/* ember seat for the floating nav up top + full melt of the asphalt
+   into the midnight canvas (#070509) the rest of the atlas sits on */
+.hero-57 .hero-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(7, 5, 9, 0.8) 0%,
+    rgba(7, 5, 9, 0.34) 14%,
+    rgba(7, 5, 9, 0) 34%,
+    rgba(7, 5, 9, 0) 56%,
+    rgba(7, 5, 9, 0.4) 74%,
+    rgba(7, 5, 9, 0.86) 88%,
+    #070509 100%
+  );
+}
+
+/* soft ink bloom behind the copy — the wordmark stays ink-clean
+   even where the dusk sky burns brightest */
+.hero-57 .hero-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    58% 46% at 50% 44%,
+    rgba(7, 5, 9, 0.52) 0%,
+    rgba(7, 5, 9, 0.24) 55%,
+    rgba(7, 5, 9, 0) 78%
+  );
+}
+
+/* the app hero lands here; the layer itself is click-through so the
+   scene keeps drinking the pointer (parallax + press-to-rev) */
+.hero-57 .hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  pointer-events: none;
+}
+.hero-57 .hero-overlay-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  pointer-events: none;
+}
+
+/* golden halo that breathes behind the wordmark — the sun's light
+   bleeding through the letters */
+.hero-57 .atlas-bloom {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: min(44rem, 92vw);
+  height: 17rem;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(245, 196, 137, 0.3) 0%,
+    rgba(234, 88, 12, 0.12) 48%,
+    rgba(234, 88, 12, 0) 74%
+  );
+  filter: blur(14px);
+  mix-blend-mode: screen;
+  animation: atlas-bloom 7s ease-in-out infinite;
+}
+@keyframes atlas-bloom {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+/* seat the app's type over the burning sky */
+.hero-57 .atlas-over-scene {
+  text-shadow:
+    0 3px 26px rgba(7, 5, 9, 0.6),
+    0 1px 10px rgba(7, 5, 9, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-57 .atlas-bloom {
+    animation: none;
+  }
+}
+
+/* desktop-scale type legibility aid — nothing else needed here */
+
+/* on narrow screens the scene fits by width, so widen its layer to
+   keep the car, sun and turbines large while the copy owns the top */
+@media (max-width: 900px) {
+  .hero-57 .hero-scene {
+    top: 34%;
+    left: 50%;
+    right: auto;
+    width: 260%;
+    transform: translateX(-50%);
+  }
+  .hero-57 .hero-fade {
+    background: linear-gradient(
+      to bottom,
+      rgba(7, 5, 9, 0.82) 0%,
+      rgba(7, 5, 9, 0.26) 20%,
+      rgba(7, 5, 9, 0) 38%,
+      rgba(7, 5, 9, 0.5) 76%,
+      #070509 96%
+    );
+  }
+}

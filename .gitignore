@@ -64,3 +64,4 @@ tests/
 examples/
 Caddyfile
 mini-services/
+.originkit/

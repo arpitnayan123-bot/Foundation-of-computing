@@ -34,6 +34,7 @@ import {
   Waypoints,
 } from "lucide-react";
 import { SUBJECTS, type Subject, type SubjectAmbience } from "./subjects";
+import Hero57 from "@/components/originkit/hero-57";
 
 /* ---------------------------------------------- easing + reveal */
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -447,23 +448,27 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
       </nav>
 
       <main className="flex-1">
-        {/* ------- hero ------- */}
-        <header className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 pb-16 pt-28 text-center sm:px-6">
-          {/* ghost outline word, drifting behind the wordmark */}
-          <span
-            aria-hidden
-            className="text-ghost anim-drift pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap font-display text-[26vw] font-black leading-none"
-          >
-            ATLAS
-          </span>
+        {/* ------- hero — Originkit "Sunset Velocity" scene, Atlas soul ------- */}
+        <Hero57>
+          <div className="pointer-events-none relative flex min-h-[100svh] w-full flex-col items-center justify-center px-4 pb-16 pt-28 text-center sm:px-6">
+            {/* ghost outline word, drifting behind the wordmark */}
+            <span
+              aria-hidden
+              className="text-ghost anim-drift pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap font-display text-[26vw] font-black leading-none"
+            >
+              ATLAS
+            </span>
 
-          <div className="relative z-10 flex flex-col items-center">
+            {/* the setting sun's halo, breathing behind the wordmark */}
+            <span className="atlas-bloom" aria-hidden />
+
+            <div className="pointer-events-auto relative z-10 flex flex-col items-center">
             {/* institution — sits directly above the wordmark */}
             <motion.span
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: EASE }}
-              className="flex flex-wrap items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[.04] px-4 py-1.5 text-[.64rem] font-extrabold uppercase tracking-[.24em] text-[#c9b99f] backdrop-blur-sm sm:px-5"
+              className="flex flex-wrap items-center justify-center gap-2 rounded-full border border-[#f5c889]/20 bg-[#0a0709]/55 px-4 py-1.5 text-[.64rem] font-extrabold uppercase tracking-[.24em] text-[#c9b99f] backdrop-blur-md sm:px-5"
             >
               <GraduationCap className="h-3.5 w-3.5 shrink-0" style={{ color: "#f5c889" }} />
               <span className="text-[#f7ecdd]">IIT Jodhpur</span>
@@ -474,7 +479,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             {/* wordmark */}
             <h1
               aria-label="The Atlas"
-              className="mt-8 font-display font-black leading-[.92] tracking-tight"
+              className="atlas-over-scene mt-8 font-display font-black leading-[.92] tracking-tight"
             >
               <span className="sr-only">The Atlas</span>
               <span aria-hidden className="block whitespace-nowrap text-[13vw] sm:text-[13vw] lg:text-[10rem]">
@@ -500,7 +505,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
                 {"ATLAS".split("").map((ch, i) => (
                   <motion.span
                     key={`b-${i}`}
-                    className={`inline-block ${i === 0 ? "atlas-sheen" : "text-[#f7ecdd]"}`}
+                    className="inline-block text-[#f7ecdd]"
                     initial={{ opacity: 0, y: 60, filter: "blur(14px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     transition={{ delay: 0.45 + i * 0.06, duration: 0.9, ease: EASE }}
@@ -516,7 +521,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.72, duration: 0.8, ease: EASE }}
-              className="mt-6 font-display text-xl font-black tracking-tight text-[#f7ecdd] sm:text-2xl md:text-[1.7rem]"
+              className="atlas-over-scene mt-6 font-display text-xl font-black tracking-tight text-[#f7ecdd] sm:text-2xl md:text-[1.7rem]"
             >
               Six subjects. One map. <span className="atlas-sheen">Zero boring pages.</span>
             </motion.p>
@@ -525,7 +530,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.82, duration: 0.8, ease: EASE }}
-              className="mt-4 max-w-2xl text-balance text-base leading-relaxed text-[#c9b99f] md:text-lg"
+              className="atlas-over-scene mt-4 max-w-2xl text-balance text-base leading-relaxed text-[#e3d4bd] md:text-lg"
             >
               This is not a notes site — it&apos;s your syllabus rebuilt as an experience.
               Diagrams that move, machines you can poke, exams you can actually survive,
@@ -554,7 +559,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               <button
                 type="button"
                 onClick={scrollToShelf}
-                className="group flex h-12 items-center gap-2 rounded-full border border-white/12 bg-white/[.04] px-6 text-[.78rem] font-black uppercase tracking-[.16em] text-[#e9d7bf] backdrop-blur-sm transition-colors duration-300 hover:border-white/25 hover:bg-white/[.08]"
+                className="group flex h-12 items-center gap-2 rounded-full border border-white/15 bg-[#0a0709]/50 px-6 text-[.78rem] font-black uppercase tracking-[.16em] text-[#e9d7bf] backdrop-blur-md transition-colors duration-300 hover:border-white/30 hover:bg-[#0a0709]/75"
               >
                 Browse the shelf
                 <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
@@ -584,11 +589,12 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.6, duration: 0.8 }}
-            className="anim-bob absolute bottom-7 text-[#8d7b63] transition-colors hover:text-[#f5c889]"
+            className="anim-bob pointer-events-auto absolute bottom-7 text-[#8d7b63] transition-colors hover:text-[#f5c889]"
           >
             <ArrowDown className="h-5 w-5" />
           </motion.a>
-        </header>
+          </div>
+        </Hero57>
 
         {/* ------- marquee ------- */}
         <div className="relative overflow-hidden border-y border-white/[.06] bg-white/[.02] py-3.5" aria-hidden>
