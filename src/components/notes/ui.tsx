@@ -111,6 +111,44 @@ export function Section({
   );
 }
 
+/* ============================================================
+   ReadStep — numbered reading-path heading.
+   Gives each chapter a "follow the numbers" narrative so a
+   first-time reader always knows where they are in the story.
+   ============================================================ */
+export function ReadStep({
+  n,
+  title,
+  sub,
+  dark = false,
+}: {
+  n: string;
+  title: string;
+  sub?: string;
+  dark?: boolean;
+}) {
+  return (
+    <Reveal className="mb-5 mt-12 first:mt-0">
+      <div className="flex items-center gap-3">
+        <span
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f59e0b] to-[#c2410c] font-extrabold text-white shadow-md"
+          aria-hidden
+        >
+          {n}
+        </span>
+        <div>
+          <h3 className={`text-xl font-bold leading-snug md:text-2xl ${dark ? "text-[#f5e6cd]" : "text-[#3e2c1d]"}`}>
+            {title}
+          </h3>
+          {sub ? (
+            <p className={`text-[.82rem] ${dark ? "text-[#b99a75]" : "text-muted-warm"}`}>{sub}</p>
+          ) : null}
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
 export function SectionHead({
   eyebrow,
   title,
