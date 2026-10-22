@@ -1013,30 +1013,23 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
   color-scheme: dark;
 }
 
-/* layered night canvas: base washes + blueprint grid + vignette */
+/* layered night canvas: TRUE BLACK base + blueprint grid + vignette.
+   (the old aurora washes are gone — the page below the hero is whole
+   black now; the only light features are the scene above and the
+   .ember-line drawn across the dark) */
 .atlas-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: #060409;
-}
-.atlas-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(1200px 700px at 10% -10%, rgba(245, 158, 11, .20), transparent 62%),
-    radial-gradient(1000px 620px at 92% 6%, rgba(244, 63, 94, .12), transparent 58%),
-    radial-gradient(900px 640px at 78% 92%, rgba(45, 212, 191, .07), transparent 60%),
-    radial-gradient(1100px 860px at 38% 118%, rgba(234, 88, 12, .13), transparent 64%);
+  background: #000;
 }
 .atlas-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 214, 160, .05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 214, 160, .05) 1px, transparent 1px);
+    linear-gradient(rgba(255, 214, 160, .032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 214, 160, .032) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: radial-gradient(1000px 640px at 50% 0%, black 25%, transparent 78%);
   -webkit-mask-image: radial-gradient(1000px 640px at 50% 0%, black 25%, transparent 78%);
@@ -1068,6 +1061,86 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
 .atlas-live-dot { animation: pulseGlow 2.4s ease-in-out infinite; }
 
 /* ============================================================
+   THE EMBER LINE — the horizon, distilled. One sleek line of
+   golden light that is born from a single point on the black,
+   draws itself across the page, glows for a beat, then
+   dissolves back into the dark it came from.
+   ============================================================ */
+.ember-line {
+  position: relative;
+  height: 2px;
+  width: min(58rem, 86vw);
+  margin-inline: auto;
+  pointer-events: none;
+}
+.ember-line::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(245, 158, 11, 0.16) 14%,
+    rgba(245, 196, 137, 0.6) 40%,
+    #ffedc4 52%,
+    rgba(245, 196, 137, 0.6) 64%,
+    rgba(245, 158, 11, 0.16) 86%,
+    transparent 100%
+  );
+  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.5))
+    drop-shadow(0 0 18px rgba(234, 88, 12, 0.3));
+  transform: scaleX(0);
+  transform-origin: 50% 50%;
+  animation: ember-draw 8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+.ember-line::after {
+  /* the point it is born from */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: #ffedc4;
+  box-shadow:
+    0 0 10px 2px rgba(245, 158, 11, 0.85),
+    0 0 30px 8px rgba(234, 88, 12, 0.45);
+  animation: ember-node 8s ease-in-out infinite;
+}
+@keyframes ember-draw {
+  0%   { transform: scaleX(0); opacity: 0; }
+  7%   { opacity: 1; }
+  38%  { transform: scaleX(1); opacity: 1; }
+  58%  { transform: scaleX(1); opacity: 1; }
+  80%  { transform: scaleX(1); opacity: 0; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+@keyframes ember-node {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  6%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  30%  { opacity: 1; }
+  62%  { opacity: 0.95; }
+  82%  { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ember-line::before,
+  .ember-line::after {
+    animation: none;
+  }
+  .ember-line::before {
+    transform: scaleX(1);
+    opacity: 0.55;
+  }
+  .ember-line::after {
+    opacity: 0.8;
+  }
+}
+
+/* ============================================================
    THE ATLAS — the shelf law: one mould, six pours.
    Every box shares the same frosted-glass build below; the
    only per-box difference is a minimal ambient whisper
@@ -1089,29 +1162,33 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
   -webkit-text-stroke: 1.5px rgba(247, 236, 221, .075);
 }
 
-/* ---------- the shared mould: dark frosted glass ---------- */
+/* ---------- the shared mould: black pane, glass edge ----------
+   the boxes sit on a whole-black page now — the body of every
+   card is black; the border, top light and gloss alone draw it */
 .card-glass {
-  background: linear-gradient(155deg, rgba(255,255,255,.115) 0%, rgba(255,255,255,.035) 42%, rgba(255,255,255,.07) 100%);
+  background:
+    linear-gradient(155deg, rgba(255,255,255,.055) 0%, rgba(255,255,255,.012) 42%, rgba(255,255,255,.035) 100%),
+    #030303;
   -webkit-backdrop-filter: blur(22px) saturate(150%);
   backdrop-filter: blur(22px) saturate(150%);
-  border: 1px solid rgba(255,255,255,.17);
+  border: 1px solid rgba(255,255,255,.15);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 0 1px 0 rgba(255,255,255,.24),
     inset 0 -1px 0 rgba(255,255,255,.04),
     0 36px 90px -44px rgba(0,0,0,.92);
   transition: border-color .5s cubic-bezier(.22,1,.36,1), box-shadow .5s cubic-bezier(.22,1,.36,1);
 }
 .group:hover.card-glass,
 .group:hover .card-glass {
-  border-color: rgba(255,255,255,.28);
+  border-color: rgba(255,255,255,.26);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.32),
+    inset 0 1px 0 rgba(255,255,255,.3),
     inset 0 -1px 0 rgba(255,255,255,.05),
     0 44px 100px -44px rgba(0,0,0,.95);
 }
 .glass-gloss {
   position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background: linear-gradient(180deg, rgba(255,255,255,.14), transparent 26%);
+  background: linear-gradient(180deg, rgba(255,255,255,.1), transparent 26%);
 }
 .glass-sweep {
   position: absolute; top: -25%; bottom: -25%; left: -45%; width: 34%;

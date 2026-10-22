@@ -350,7 +350,7 @@ function NextShelfTile({ index }: { index: number }) {
       transition={{ duration: 0.8, delay: 0.06 * index, ease: EASE }}
       className="min-w-0 md:col-span-2"
     >
-      <div className="group relative flex h-full min-h-[11rem] flex-col justify-between overflow-hidden rounded-[1.7rem] border border-dashed border-white/12 bg-white/[.02] p-6 md:p-7">
+      <div className="group relative flex h-full min-h-[11rem] flex-col justify-between overflow-hidden rounded-[1.7rem] border border-dashed border-white/12 bg-black/40 p-6 md:p-7">
         {/* ghost numeral */}
         <span
           aria-hidden
@@ -448,13 +448,26 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
       </nav>
 
       <main className="flex-1">
-        {/* ------- hero — the scene IS the design; only THE ATLAS rides it ------- */}
+        {/* ------- hero — the scene IS the design; the badge + THE ATLAS ride it ------- */}
         <Hero57>
           <div className="relative flex w-full flex-col items-center px-4 text-center">
+            {/* institution — rides the sky, directly above the wordmark */}
+            <motion.span
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.12, duration: 0.7, ease: EASE }}
+              className="flex flex-wrap items-center justify-center gap-2 rounded-full border border-[#f5c889]/20 bg-[#0a0709]/55 px-4 py-1.5 text-[.64rem] font-extrabold uppercase tracking-[.24em] text-[#c9b99f] backdrop-blur-md sm:px-5"
+            >
+              <GraduationCap className="h-3.5 w-3.5 shrink-0" style={{ color: "#f5c889" }} />
+              <span className="text-[#f7ecdd]">IIT Jodhpur</span>
+              <span className="hidden h-3 w-px bg-white/15 sm:block" aria-hidden />
+              <span>B.S. in Management and Technology</span>
+            </motion.span>
+
             {/* wordmark — sun-kissed gradient fill, lit by the scene's key light */}
             <h1
               aria-label="The Atlas"
-              className="atlas-lit font-display font-black leading-[.92] tracking-tight"
+              className="atlas-lit mt-7 font-display font-black leading-[.92] tracking-tight"
             >
               <span className="sr-only">The Atlas</span>
               <span aria-hidden className="block whitespace-nowrap text-[13.5vw] sm:text-[12.5vw] lg:text-[9.75rem]">
@@ -493,35 +506,22 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           </div>
         </Hero57>
 
-        {/* ------- below the design — the words, lit by the afterglow ------- */}
+        {/* ------- below the design — the words, on whole black ------- */}
         <section
           aria-label="The Atlas in one breath"
-          className="relative px-4 pb-20 pt-12 text-center sm:px-6 md:pb-24 md:pt-14"
+          className="relative px-4 pb-20 pt-16 text-center sm:px-6 md:pb-24 md:pt-20"
         >
-          {/* afterglow — the dying sun bleeding up into the copy */}
+          {/* bridge — the scene's asphalt melts its last warmth into true black */}
           <div
             aria-hidden
-            className="pointer-events-none absolute left-1/2 top-0 h-80 w-[min(78rem,150vw)] -translate-x-1/2 -translate-y-1/2 rounded-[100%] blur-2xl"
-            style={{
-              background:
-                "radial-gradient(50% 50% at 50% 50%, rgba(234,88,12,.17) 0%, rgba(234,88,12,.05) 48%, transparent 75%)",
-            }}
+            className="pointer-events-none absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-[#070509] to-transparent"
           />
 
-          <div className="relative mx-auto flex max-w-3xl flex-col items-center">
-            {/* institution */}
-            <motion.span
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.62, duration: 0.7, ease: EASE }}
-              className="flex flex-wrap items-center justify-center gap-2 rounded-full border border-[#f5c889]/20 bg-[#0a0709]/55 px-4 py-1.5 text-[.64rem] font-extrabold uppercase tracking-[.24em] text-[#c9b99f] backdrop-blur-md sm:px-5"
-            >
-              <GraduationCap className="h-3.5 w-3.5 shrink-0" style={{ color: "#f5c889" }} />
-              <span className="text-[#f7ecdd]">IIT Jodhpur</span>
-              <span className="hidden h-3 w-px bg-white/15 sm:block" aria-hidden />
-              <span>B.S. in Management and Technology</span>
-            </motion.span>
+          {/* the horizon, distilled — a sleek line of golden light born from a
+              single point, drawn across the black, then dissolved into the page */}
+          <div className="ember-line" aria-hidden />
 
+          <div className="relative mx-auto mt-14 flex max-w-3xl flex-col items-center md:mt-16">
             {/* the crazy one-liner */}
             <motion.p
               initial={{ opacity: 0, y: 22 }}
@@ -591,7 +591,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
         </section>
 
         {/* ------- marquee ------- */}
-        <div className="relative overflow-hidden border-y border-white/[.06] bg-white/[.02] py-3.5" aria-hidden>
+        <div className="relative overflow-hidden border-y border-white/[.06] py-3.5" aria-hidden>
           <div className="marquee-track">
             {[0, 1].map((dup) => (
               <div key={dup} className="flex shrink-0 items-center gap-14 pr-14">
@@ -643,7 +643,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
         </section>
 
         {/* ------- why it hits different ------- */}
-        <section aria-label="Why it hits different" className="relative border-t border-white/[.06] bg-white/[.015]">
+        <section aria-label="Why it hits different" className="relative border-t border-white/[.06]">
           <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 md:py-24">
             <Rise className="mb-12 text-center md:mb-16">
               <span className="text-[.7rem] font-extrabold uppercase tracking-[.24em] text-[#f5c889]">
@@ -683,7 +683,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
                 },
               ].map((f, i) => (
                 <Rise key={f.n} delay={0.08 * i} className="h-full">
-                  <div className="group relative h-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0c0910]/80 p-6 transition-all duration-500 hover:-translate-y-1 hover:border-white/20 md:p-7">
+                  <div className="group relative h-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/70 p-6 transition-all duration-500 hover:-translate-y-1 hover:border-white/20 md:p-7">
                     <span
                       aria-hidden
                       className="text-ghost pointer-events-none absolute -right-2 -top-6 select-none font-display text-[6.5rem] font-black leading-none"
@@ -709,24 +709,25 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           </div>
         </section>
 
-        {/* ------- manifesto ------- */}
-        <section aria-label="The Atlas manifesto" className="relative mx-auto w-full max-w-4xl px-4 py-24 text-center sm:px-6 md:py-32">
+        {/* ------- the promise ------- */}
+        <section aria-label="The Atlas promise" className="relative mx-auto w-full max-w-4xl px-4 py-24 text-center sm:px-6 md:py-32">
           <Rise>
             <p className="font-display text-2xl font-medium italic leading-snug text-[#e9d7bf] md:text-[2.6rem] md:leading-[1.25]">
-              “Read it. Sketch it.{" "}
-              <span className="atlas-sheen font-black not-italic">Run it.</span>
+              “Built for the night before.{" "}
+              <span className="atlas-sheen font-black not-italic">Remembered long after.</span>
               ”
             </p>
             <p className="mx-auto mt-6 max-w-xl text-[.9rem] leading-relaxed text-[#8d7b63]">
-              The atlas grows one PDF at a time — each subject gets the same treatment:
-              distilled, animated, and made runnable until the whole syllabus lives here.
+              That&apos;s the whole point of an Atlas page — it compresses the panic of
+              revision into something you can watch, poke and run, so the syllabus
+              finally sticks.
             </p>
           </Rise>
         </section>
       </main>
 
       {/* ------- footer (sticky-bottom pattern) ------- */}
-      <footer className="mt-auto border-t border-white/[.06] bg-[#050308]">
+      <footer className="mt-auto border-t border-white/[.06] bg-black">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-5 px-4 py-10 sm:px-6 md:flex-row md:justify-between">
           <div className="flex items-center gap-3">
             <span
