@@ -534,12 +534,15 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
   box-shadow: 0 6px 16px -8px rgba(194,65,12,.7);
 }
 
-/* Hero glass CTA — "Explore Python Language". Frosted pill with an
-   inner top highlight, a moving sheen on hover, and a gradient icon
-   chip. The sheen lives on ::before so it never fights the lift. */
+/* Hero glass CTA — "Python Lab". Frosted pill with an inner top
+   highlight, a moving sheen on hover, and a gradient icon chip.
+   The sheen lives on ::before so it never fights the lift.
+   cursor:pointer because Tailwind 4's preflight resets buttons
+   to cursor:default and this CTA is a <button> now. */
 .glass-cta {
   position: relative;
   display: inline-flex; align-items: center; gap: .65rem;
+  cursor: pointer;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, .78);
   background: rgba(255, 253, 249, .55);

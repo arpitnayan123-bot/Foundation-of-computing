@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import {
   ArrowDown,
   ArrowRight,
-  Code2,
   Cpu,
   Database,
   Workflow,
@@ -25,6 +24,7 @@ import {
   TriangleAlert,
   BookOpenCheck,
   Blocks,
+  FlaskConical,
   Timer,
 } from "lucide-react";
 import { Reveal, Section, SectionHead, Callout, Quiz, StepsFlow, Pill } from "./ui";
@@ -42,7 +42,7 @@ const HERO_BITS = [
   { t: "01", top: "58%", left: "16%", s: "1rem", d: "2s" },
 ];
 
-export function Hero() {
+export function Hero({ onOpenLab }: { onOpenLab: () => void }) {
   const typed = '>>> print("Hello, Foundations of Computing")';
   return (
     <header
@@ -98,21 +98,26 @@ export function Hero() {
           </p>
         </Reveal>
 
-        {/* Explore Python Language — premium glass CTA under the headline.
-            The language lives here now (it left the top bar) so the first
-            thing a learner touches is the hands-on part of the course. */}
+        {/* Python Lab — premium glass CTA under the headline. Clicking it
+            opens the Colab-style lab overlay (real CPython, run from the
+            hero) — the very first thing a learner can touch. */}
         <Reveal delay={300}>
           <div className="mt-7 flex justify-center">
-            <a href="#python" className="glass-cta group">
+            <button
+              type="button"
+              onClick={onOpenLab}
+              title="Open the Python Lab — a Colab-style notebook where you can run your own code"
+              className="glass-cta group"
+            >
               <span className="glass-cta-icon">
-                <Code2 className="h-3.5 w-3.5" strokeWidth={2.4} />
+                <FlaskConical className="h-3.5 w-3.5" strokeWidth={2.4} />
               </span>
-              Explore Python Language
+              Python Lab
               <ArrowRight
                 className="h-4 w-4 text-[#c2410c] transition-transform duration-300 group-hover:translate-x-1"
                 strokeWidth={2.4}
               />
-            </a>
+            </button>
           </div>
         </Reveal>
 

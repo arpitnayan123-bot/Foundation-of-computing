@@ -51,7 +51,7 @@ const GROUPS: {
     id: "pycore",
     label: "Python Core",
     items: [
-      { id: "python", label: "→ Python", desc: "Meet the language" },
+      { id: "python", label: "Python", desc: "Meet the language" },
       { id: "basics", label: "Basics", desc: "Variables, strings, numbers, input" },
       { id: "lists", label: "Lists", desc: "Ordered collections, slices, tuples" },
       { id: "if", label: "If / Else", desc: "Decisions, comparisons, logic" },
@@ -72,12 +72,6 @@ const GROUPS: {
 ];
 
 const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
-
-/* The desktop top bar drops the Python group on purpose — the language now
-   gets its own premium glass CTA under the hero headline ("Explore Python
-   Language"). The mobile full-screen chapter index still lists every group
-   so no chapter becomes unreachable there. */
-const NAV_GROUPS = GROUPS.filter((g) => g.id !== "pycore");
 
 function groupOf(id: string): string | null {
   for (const g of GROUPS) if (g.items.some((i) => i.id === id)) return g.id;
@@ -199,9 +193,12 @@ function TopNav({
             <span className="text-sm font-black tracking-tight text-[#3e2c1d]">FoC Notes</span>
           </a>
 
-          {/* desktop — grouped chapter menu */}
-          <div className="ml-2 hidden flex-1 items-center gap-1 md:flex">
-            {NAV_GROUPS.map((group) => {
+          {/* desktop — grouped chapter menu (all four groups, Python Core
+              included). Opens at lg: below that the bar would overflow once
+              the Python Core group is shown, so narrower screens get the
+              scrolling chip strip + the full-screen index instead. */}
+          <div className="ml-2 hidden flex-1 items-center gap-1 lg:flex">
+            {GROUPS.map((group) => {
               const isActive = activeGroup === group.id;
               const open = openGroup === group.id;
               return (
@@ -318,10 +315,10 @@ function TopNav({
             })}
           </div>
 
-          {/* mobile — quick chips (horizontal scroll). Python chapters live
-              behind the hero glass CTA + the full-screen index instead. */}
-          <div className="scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 md:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {NAV_GROUPS.flatMap((g) => g.items).map((item) => (
+          {/* below lg — quick chips (horizontal scroll) covering every
+              chapter, Python Core included */}
+          <div className="scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {GROUPS.flatMap((g) => g.items).map((item) => (
               <a key={item.id} href={`#${item.id}`} className={`nav-link ${active === item.id ? "active" : ""}`}>
                 {item.label}
               </a>
@@ -350,7 +347,7 @@ function TopNav({
               type="button"
               onClick={onOpenLab}
               aria-label="Open the Python Lab"
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#8a5f30] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] md:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#8a5f30] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] lg:hidden"
             >
               <FlaskConical className="h-4 w-4" />
             </button>
@@ -359,7 +356,7 @@ function TopNav({
               onClick={() => setMobileOpen(true)}
               aria-label="Open the chapter index"
               aria-expanded={mobileOpen}
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] md:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] lg:hidden"
             >
               <Menu className="h-4.5 w-4.5" />
             </button>
@@ -547,7 +544,7 @@ export default function Page() {
     <div className="page-wrap warm-canvas">
       <TopNav onOpenLab={() => setLabOpen(true)} onOpenExam={openExam} />
       <main className="pt-14">
-        <Hero />
+        <Hero onOpenLab={() => setLabOpen(true)} />
         <PracticeBand onOpenExam={openExam} />
         <WhySection />
         <ComputingSection />
