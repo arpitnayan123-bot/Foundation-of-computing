@@ -9,7 +9,7 @@
    Real CPython 3.12 (Pyodide) running in the browser.
    ============================================================ */
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
   X,
@@ -36,6 +36,7 @@ import {
   resetNotebookGlobals,
   type PyodideLike,
 } from "@/lib/pyruntime";
+import { highlightPython } from "@/lib/pyhighlight";
 
 interface LabCell {
   id: string;
@@ -123,7 +124,9 @@ function CellView({
   onMove: (dir: -1 | 1) => void;
 }) {
   const outRef = useRef<HTMLDivElement>(null);
+  const hlRef = useRef<HTMLPreElement>(null);
   const [copied, setCopied] = useState(false);
+  const highlighted = useMemo(() => highlightPython(cell.code), [cell.code]);
 
   useEffect(() => {
     const el = outRef.current;
@@ -189,23 +192,33 @@ function CellView({
           </div>
         </div>
 
-        <textarea
-          value={cell.code}
-          onChange={(e) => onChange(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && e.shiftKey) {
-              e.preventDefault();
-              onRun(true);
-            }
-          }}
-          spellCheck={false}
-          autoCapitalize="off"
-          autoCorrect="off"
-          autoFocus={justAdded}
-          aria-label={`Code cell ${index + 1}`}
-          className="lab-code"
-          rows={Math.min(Math.max(lines + 1, 3), 22)}
-        />
+        <div className="lab-editor">
+          <pre className="lab-hl" aria-hidden ref={hlRef} dangerouslySetInnerHTML={{ __html: highlighted + "\n" }} />
+          <textarea
+            value={cell.code}
+            onChange={(e) => onChange(e.target.value)}
+            onScroll={(e) => {
+              const pre = hlRef.current;
+              if (pre) {
+                pre.scrollTop = e.currentTarget.scrollTop;
+                pre.scrollLeft = e.currentTarget.scrollLeft;
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && e.shiftKey) {
+                e.preventDefault();
+                onRun(true);
+              }
+            }}
+            spellCheck={false}
+            autoCapitalize="off"
+            autoCorrect="off"
+            autoFocus={justAdded}
+            aria-label={`Code cell ${index + 1}`}
+            className="lab-code"
+            rows={Math.min(Math.max(lines + 1, 3), 22)}
+          />
+        </div>
 
         {cell.out || cell.err ? (
           <div className="lab-out" ref={outRef}>
@@ -433,30 +446,30 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
       initial={{ opacity: 0, scale: 0.985 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.22, ease: "easeOut" }}
-      className="fixed inset-0 z-[80] flex flex-col"
-      style={{ background: "linear-gradient(180deg,#f7eedf 0%,#f3e7d3 100%)" }}
+      className="lab-shell fixed inset-0 z-[80] flex flex-col overflow-hidden"
       role="dialog"
       aria-modal="true"
       aria-label="Python Lab — runnable notebook"
     >
+      {/* drifting aurora glows behind the glass */}
+      <div aria-hidden className="lab-aurora lab-aurora-a" />
+      <div aria-hidden className="lab-aurora lab-aurora-b" />
+
       {/* ---------- header ---------- */}
-      <div
-        className="shrink-0 border-b border-black/20"
-        style={{ background: "linear-gradient(160deg,#2b1b10,#402818)" }}
-      >
+      <div className="lab-head relative z-10 shrink-0">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 sm:px-6">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl" style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)" }}>
+          <span className="lab-badge-glow flex h-9 w-9 shrink-0 items-center justify-center rounded-xl" style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)" }}>
             <FlaskConical className="h-4.5 w-4.5 text-white" />
           </span>
           <div className="min-w-0">
-            <p className="text-[.95rem] font-black leading-tight text-[#ffe9c9]">
-              Python Lab
-              <span className="ml-2 rounded-full bg-white/10 px-2 py-0.5 text-[.58rem] font-extrabold uppercase tracking-[.16em] text-[#f5c889]">
+            <p className="text-[.95rem] font-black leading-tight">
+              <span className="lab-title">Python Lab</span>
+              <span className="ml-2 rounded-full border border-[#f5c889]/25 bg-white/[.07] px-2 py-0.5 text-[.58rem] font-extrabold uppercase tracking-[.16em] text-[#f5c889]">
                 Colab mode
               </span>
             </p>
             <p className="text-[.68rem] leading-tight text-[#c9a97e]">
-              A notebook for your own experiments — final exam is on paper, so run here, then rewrite by hand.
+              Your private night-lab — real CPython 3.12 in the browser. Run here, then rewrite by hand for the paper exam.
             </p>
           </div>
 
@@ -465,7 +478,10 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
               className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[.06] px-2.5 py-1 text-[.6rem] font-extrabold uppercase tracking-[.14em] text-[#f0e2c8]"
               title="One shared kernel — variables persist across cells"
             >
-              <span className="h-1.5 w-1.5 rounded-full" style={{ background: statusPill.dot, boxShadow: `0 0 0 3px ${statusPill.dot}33` }} />
+              <span
+                className={`h-1.5 w-1.5 rounded-full ${status === "busy" || status === "booting" ? "lab-dot-pulse" : ""}`}
+                style={{ background: statusPill.dot, boxShadow: `0 0 0 3px ${statusPill.dot}33` }}
+              />
               {statusPill.label}
             </span>
             <button
@@ -491,7 +507,7 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
       </div>
 
       {/* ---------- toolbar ---------- */}
-      <div className="shrink-0 border-b border-[#e5d3b6] bg-[#faf3e6]/80">
+      <div className="relative z-10 shrink-0 border-b border-[#f5c889]/10 bg-[#180d04]/60 backdrop-blur-sm">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-2 px-4 py-2.5 sm:px-6">
           <button type="button" onClick={addCell} disabled={status === "busy"} className="lab-tool-btn">
             <Plus className="h-3.5 w-3.5" />
@@ -505,7 +521,7 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
             <Eraser className="h-3.5 w-3.5" />
             Clear outputs
           </button>
-          <p className="ml-auto hidden items-center gap-1.5 text-[.68rem] font-semibold text-[#8a6d4f] sm:flex">
+          <p className="ml-auto hidden items-center gap-1.5 text-[.68rem] font-semibold text-[#a98c66] sm:flex">
             <kbd className="lab-kbd">Shift</kbd>+<kbd className="lab-kbd">Enter</kbd> runs a cell
             <span className="mx-1 opacity-40">·</span>
             variables stay alive between cells
@@ -514,7 +530,7 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
       </div>
 
       {/* ---------- cells ---------- */}
-      <div ref={scrollBodyRef} className="flex-1 overflow-y-auto">
+      <div ref={scrollBodyRef} className="lab-scroll relative z-10 flex-1 overflow-y-auto">
         <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
           {cells.map((cell, i) => (
             <CellView
@@ -536,9 +552,11 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
             Add a cell — try your own idea
           </button>
 
-          <p className="mt-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-[.68rem] leading-relaxed text-[#8a6d4f]">
-            <PenLine className="h-3.5 w-3.5" />
-            Real CPython 3.12 · WebAssembly — nothing leaves your browser. Cells auto-save locally.
+          <p className="mt-6 flex justify-center">
+            <span className="lab-note">
+              <PenLine className="h-3.5 w-3.5" />
+              Real CPython 3.12 · WebAssembly — nothing leaves your browser. Cells auto-save locally.
+            </span>
           </p>
         </div>
       </div>
