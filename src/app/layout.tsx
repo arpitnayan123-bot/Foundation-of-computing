@@ -24,15 +24,16 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Foundations of Computing — Visual Revision Notes",
+  title: "The Atlas — Visual Revision Notes for Everything",
   description:
-    "A warm, premium, animated revision companion for Foundations of Computing (IIT Jodhpur). Every concept from the course distilled into crisp notes with live diagrams, quizzes and beautifully explained code.",
+    "Six university subjects, each rebuilt as living revision notes — animated diagrams, exam simulators and real CPython 3.12 running in the browser. Shelf 01: Foundations of Computing. More shelves drop as the PDFs arrive.",
   keywords: [
-    "Foundations of Computing",
+    "The Atlas",
     "revision notes",
+    "Foundations of Computing",
     "Python",
     "IIT Jodhpur",
-    "computing basics",
+    "exam simulator",
   ],
 };
 
