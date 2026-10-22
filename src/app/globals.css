@@ -551,98 +551,203 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
 .page-wrap > main { flex: 1 0 auto; }
 .footer-stick { margin-top: auto; }
 
-/* Divider ornament */
-.ornament {
-  display: flex; align-items: center; gap: .9rem; color: #c99a5b;
-}
-.ornament::before, .ornament::after {
-  content: ""; height: 1px; flex: 1;
-  background: linear-gradient(90deg, transparent, #ecd5b4, transparent);
-}
-
 
 /* contrast audit 1792659172 */
 
 /* ============================================================
-   PYTHON LAB — Colab-style notebook overlay
+   PYTHON LAB — night-lab IDE (dark premium)
    ============================================================ */
-.lab-cell {
-  display: flex; gap: .8rem;
-  background: #fffdf9;
-  border: 1px solid #e8d7bd;
-  border-radius: 1rem;
-  padding: .7rem .8rem .8rem .6rem;
-  box-shadow: 0 10px 26px -20px rgba(120, 72, 20, .4);
+
+/* ---------- shell ---------- */
+.lab-shell {
+  background: linear-gradient(180deg, #1b1006 0%, #221408 45%, #180d04 100%);
 }
+.lab-aurora {
+  position: absolute; border-radius: 999px; pointer-events: none;
+  filter: blur(80px);
+}
+.lab-aurora-a {
+  width: 520px; height: 520px; left: -140px; top: -180px;
+  background: rgba(234, 88, 12, .16);
+  animation: labDriftA 18s ease-in-out infinite alternate;
+}
+.lab-aurora-b {
+  width: 460px; height: 460px; right: -120px; top: 26%;
+  background: rgba(245, 179, 76, .10);
+  animation: labDriftB 22s ease-in-out infinite alternate;
+}
+@keyframes labDriftA { to { transform: translate(64px, 44px) scale(1.1); } }
+@keyframes labDriftB { to { transform: translate(-52px, -34px) scale(1.12); } }
+
+/* glass header over the aurora */
+.lab-head {
+  background: linear-gradient(160deg, rgba(43, 27, 16, .92), rgba(64, 40, 24, .78));
+  border-bottom: 1px solid rgba(245, 200, 137, .12);
+  backdrop-filter: blur(10px);
+}
+.lab-title {
+  background: linear-gradient(100deg, #ffe9c9 10%, #f5b34c 55%, #ff9d6a 90%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.lab-badge-glow { box-shadow: 0 0 0 5px rgba(245, 158, 11, .10), 0 10px 24px -10px rgba(234, 88, 12, .65); }
+
+/* pulsing kernel dot */
+.lab-dot-pulse { animation: labPulse 1.15s ease-in-out infinite; }
+@keyframes labPulse { 50% { transform: scale(1.5); opacity: .7; } }
+
+/* ---------- cells ---------- */
+.lab-cell {
+  position: relative;
+  display: flex; gap: .85rem;
+  background: linear-gradient(160deg, rgba(66, 42, 24, .55), rgba(43, 26, 13, .72));
+  border: 1px solid rgba(245, 200, 137, .14);
+  border-radius: 1.1rem;
+  padding: .8rem .9rem .9rem .85rem;
+  box-shadow: 0 18px 42px -24px rgba(0, 0, 0, .85), inset 0 1px 0 rgba(255, 220, 170, .06);
+  backdrop-filter: blur(6px);
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.lab-cell::before {
+  content: ""; position: absolute; left: 0; top: 14%; bottom: 14%;
+  width: 3px; border-radius: 999px;
+  background: linear-gradient(180deg, transparent, rgba(245, 158, 11, .55), rgba(228, 103, 74, .4), transparent);
+  opacity: .7;
+  transition: opacity .2s ease;
+}
+.lab-cell:hover {
+  border-color: rgba(245, 200, 137, .30);
+  box-shadow: 0 24px 52px -24px rgba(0, 0, 0, .9), 0 0 24px -6px rgba(245, 158, 11, .12), inset 0 1px 0 rgba(255, 220, 170, .08);
+}
+.lab-cell:hover::before { opacity: 1; }
 .lab-cell + .lab-cell { margin-top: .9rem; }
 .lab-gutter { display: flex; flex-direction: column; align-items: center; padding-top: 1rem; flex: none; }
 .lab-count {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: .66rem; font-weight: 800; letter-spacing: .04em;
-  color: #b08b5c; background: #f6ecdb; border: 1px solid #ecd9bd;
+  color: #c9a97e; background: rgba(255, 220, 170, .05); border: 1px solid rgba(245, 200, 137, .18);
   border-radius: .5rem; padding: .32rem .5rem; white-space: nowrap;
 }
-.lab-count-live { color: #c2410c; background: #fdeadd; border-color: #e8b878; }
+.lab-count-live {
+  color: #fff7ec; background: linear-gradient(135deg, #ea580c, #c2410c);
+  border-color: transparent; box-shadow: 0 6px 16px -6px rgba(194, 65, 12, .8);
+}
 .lab-toolbar { display: flex; align-items: center; gap: .5rem; padding: .1rem .2rem .45rem; }
 .lab-icon-btn {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 28px; height: 28px; border-radius: 8px; color: #a08568;
+  width: 28px; height: 28px; border-radius: 8px; color: #b99a75;
   transition: background .15s ease, color .15s ease;
 }
-.lab-icon-btn:hover:not(:disabled) { background: #f6e8d2; color: #c2410c; }
+.lab-icon-btn:hover:not(:disabled) { background: rgba(245, 158, 11, .14); color: #f5c889; }
 .lab-icon-btn:disabled { opacity: .3; cursor: default; }
-.lab-icon-danger:hover:not(:disabled) { background: #fdecec; color: #8c2f2f; }
-.lab-code {
-  width: 100%; display: block;
-  background: #fffaf1; border: 1px solid #f0e2c8; border-radius: .6rem;
-  color: #2b1d10;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: .86rem; line-height: 1.7;
-  padding: .8rem 1rem; outline: none; resize: vertical; min-height: 64px;
+.lab-icon-danger:hover:not(:disabled) { background: rgba(228, 103, 74, .16); color: #ff9d8a; }
+/* ---------- code editor with syntax highlighting ----------
+   classic backdrop technique: a highlighted <pre> sits behind a
+   textarea whose text is transparent — metrics must match 1:1. */
+.lab-editor {
+  position: relative;
+  background: #150c04; border: 1px solid rgba(245, 200, 137, .14); border-radius: .7rem;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, .45);
+  transition: border-color .15s ease, box-shadow .15s ease;
 }
-.lab-code:focus { border-color: #e0a45e; box-shadow: 0 0 0 3px rgba(245, 158, 11, .15); background: #fffffd; }
+.lab-editor:focus-within {
+  border-color: rgba(224, 164, 94, .65);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, .45), 0 0 0 3px rgba(245, 158, 11, .16);
+}
+.lab-hl,
+.lab-code {
+  margin: 0; padding: .8rem 1rem;
+  font-family: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .86rem; line-height: 1.7; tab-size: 4;
+  white-space: pre-wrap; word-break: break-word; overflow-wrap: break-word;
+}
+.lab-hl {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  color: #ffe9c9; border: 1px solid transparent; border-radius: .7rem;
+}
+.lab-code {
+  position: relative; display: block; width: 100%;
+  background: transparent; border: 1px solid transparent; border-radius: .7rem;
+  color: transparent; -webkit-text-fill-color: transparent; caret-color: #f5b34c;
+  font-weight: 400; outline: none; resize: vertical; min-height: 64px;
+}
+.lab-code::selection { background: rgba(245, 158, 11, .30); }
+.lab-code::-moz-selection { background: rgba(245, 158, 11, .30); }
+
+/* token palette (warm night-lab) */
+.tok-kw { color: #ff9d6a; font-weight: 700; }
+.tok-str { color: #b5d08a; }
+.tok-fstr { color: #cfe3a0; }
+.tok-com { color: #96805f; font-style: italic; }
+.tok-num { color: #e8a13c; }
+.tok-bi { color: #8fc7e8; }
+.tok-fn { color: #f5c889; }
 .lab-out {
-  margin-top: .6rem; border: 1px solid #4a3020; border-radius: .7rem;
+  margin-top: .6rem; border: 1px solid rgba(245, 200, 137, .12); border-radius: .7rem;
   overflow: hidden; overflow-y: auto; max-height: 260px;
-  background: #211308;
+  background: #0e0702;
+  box-shadow: inset 0 2px 12px rgba(0, 0, 0, .6);
 }
 .lab-out-bar {
   display: flex; align-items: center; gap: .4rem;
   padding: .35rem .8rem; position: sticky; top: 0; z-index: 1;
+  font-family: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: .62rem; font-weight: 800; letter-spacing: .14em; color: #c99a63;
-  background: rgba(255, 220, 170, .07); border-bottom: 1px solid rgba(90, 60, 36, .5);
+  background: rgba(245, 158, 11, .07); border-bottom: 1px solid rgba(245, 200, 137, .12);
+  backdrop-filter: blur(4px);
 }
 .lab-out-meta { margin-left: auto; font-weight: 700; color: #b5d08a; letter-spacing: .02em; }
 .lab-out-body {
   margin: 0; padding: .7rem .9rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: .8rem; line-height: 1.65; color: #ffe9c9;
+  font-family: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .8rem; line-height: 1.65; color: #ffe0b8;
   white-space: pre-wrap; word-break: break-word;
 }
-.lab-out-err { color: #ff9d8a; border-top: 1px dashed rgba(90, 60, 36, .5); }
+.lab-out-err { color: #ff9d8a; border-top: 1px dashed rgba(228, 103, 74, .35); }
+
+/* scrollbars inside the lab */
+.lab-scroll::-webkit-scrollbar, .lab-out::-webkit-scrollbar { width: 10px; height: 10px; }
+.lab-scroll::-webkit-scrollbar-track, .lab-out::-webkit-scrollbar-track { background: transparent; }
+.lab-scroll::-webkit-scrollbar-thumb, .lab-out::-webkit-scrollbar-thumb {
+  background: rgba(245, 200, 137, .16); border-radius: 999px; border: 2px solid transparent; background-clip: content-box;
+}
+.lab-scroll::-webkit-scrollbar-thumb:hover, .lab-out::-webkit-scrollbar-thumb:hover { background: rgba(245, 200, 137, .3); background-clip: content-box; }
+
+/* ---------- toolbar ---------- */
 .lab-tool-btn {
   display: inline-flex; align-items: center; gap: .4rem;
-  border-radius: 999px; border: 1px solid #e5cfa9; background: #fffdf9;
-  padding: .42rem .85rem; font-size: .72rem; font-weight: 800; color: #7c4a12;
-  transition: background .15s ease, border-color .15s ease, color .15s ease;
+  border-radius: 999px; border: 1px solid rgba(245, 200, 137, .18);
+  background: rgba(255, 220, 170, .05);
+  padding: .42rem .85rem; font-size: .72rem; font-weight: 800; color: #e8c79a;
+  transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
 }
-.lab-tool-btn:hover:not(:disabled) { background: #f9e8d2; border-color: #e0a45e; color: #c2410c; }
-.lab-tool-btn:disabled { opacity: .5; cursor: progress; }
+.lab-tool-btn:hover:not(:disabled) {
+  background: rgba(245, 158, 11, .14); border-color: rgba(224, 164, 94, .55);
+  color: #ffd9a3; transform: translateY(-1px);
+}
+.lab-tool-btn:disabled { opacity: .45; cursor: progress; }
 .lab-kbd {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: .62rem; font-weight: 800; color: #7c4a12;
-  background: #fffdf9; border: 1px solid #e5cfa9; border-bottom-width: 2px;
+  font-family: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .62rem; font-weight: 800; color: #e8c79a;
+  background: rgba(255, 220, 170, .06); border: 1px solid rgba(245, 200, 137, .22); border-bottom-width: 2px;
   border-radius: .35rem; padding: .05rem .35rem;
 }
 .lab-add-strip {
   margin-top: 1rem; width: 100%;
   display: flex; align-items: center; justify-content: center; gap: .5rem;
-  border: 1.5px dashed #dcc39a; border-radius: 1rem; padding: .9rem;
-  font-size: .78rem; font-weight: 800; color: #a16207;
-  background: rgba(255, 253, 249, .6);
+  border: 1.5px dashed rgba(245, 200, 137, .28); border-radius: 1rem; padding: .9rem;
+  font-size: .78rem; font-weight: 800; color: #c9a97e;
+  background: rgba(255, 220, 170, .03);
   transition: border-color .15s ease, background .15s ease, color .15s ease;
 }
-.lab-add-strip:hover:not(:disabled) { border-color: #e0a45e; background: #fffdf9; color: #c2410c; }
+.lab-add-strip:hover:not(:disabled) {
+  border-color: rgba(224, 164, 94, .7); background: rgba(245, 158, 11, .07); color: #ffd9a3;
+}
+.lab-note {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border-radius: 999px; border: 1px solid rgba(245, 200, 137, .14);
+  background: rgba(255, 220, 170, .04);
+  padding: .4rem .95rem; font-size: .68rem; font-weight: 700; color: #a98c66;
+}
 
 /* ============================================================
    TEST MY KNOWLEDGE — exam window
@@ -733,35 +838,101 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
 .exam-chip { display: inline-flex; align-items: center; border-radius: 999px; padding: .3rem .7rem; }
 
 /* ============================================================
-   PREMIUM FOOTER SIGNATURE
+   SIGNATURE FOOTER — premium minimal, sits directly on the page
+   cream (no fill, no panel). Calm ink serif + warm accents.
    ============================================================ */
-.footer-seal {
-  display: flex; align-items: center; justify-content: center;
-  width: 58px; height: 58px; border-radius: 999px;
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-style: italic; font-weight: 700; font-size: 1.1rem; letter-spacing: .04em;
-  color: #ffe9c9;
-  background: linear-gradient(135deg, #ea580c, #b45309);
-  border: 1px solid rgba(245, 200, 137, .5);
-  box-shadow: 0 0 0 6px rgba(245, 158, 11, .09), 0 16px 34px -14px rgba(234, 88, 12, .6);
+
+/* eyebrow: wide tracking; negative margin re-centres the trailing gap */
+.sig-eyebrow {
+  letter-spacing: .55em;
+  margin-right: -.55em;
 }
+
+/* the name — refined italic serif in tone-on-tone warm ink.
+   The gradient lives on the inner span (plain text, no transformed
+   children), so background-clip:text always paints correctly. */
+.footer-name-wrap { line-height: 1.15; }
 .footer-name {
+  display: inline-block;
   font-family: var(--font-fraunces), Georgia, serif;
-  font-style: italic; font-weight: 700;
-  font-size: clamp(2.5rem, 7vw, 4.4rem);
-  line-height: 1.05;
-  background: linear-gradient(100deg, #fde8c8 0%, #f5b34c 22%, #e4674a 45%, #f0a94a 62%, #fde8c8 100%);
-  background-size: 220% 100%;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.85rem, 4.5vw, 2.6rem);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+  background: linear-gradient(180deg, #3a2814 0%, #241708 58%, #8a5f30 128%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: nameShine 7s ease-in-out infinite;
-  filter: drop-shadow(0 12px 28px rgba(245, 158, 11, .22));
+  transition: filter .6s cubic-bezier(.22, 1, .36, 1);
 }
-@keyframes nameShine {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+.footer-name:hover { filter: drop-shadow(0 5px 18px rgba(190, 138, 66, .38)); }
+
+/* barely-there warm halo breathing behind the signature */
+.sig-glow {
+  position: absolute; left: 50%; top: 50%;
+  width: min(32rem, 90vw); height: 10.5rem;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side, rgba(214, 148, 62, .12), transparent 72%);
+  pointer-events: none;
 }
-@media (prefers-reduced-motion: reduce) {
-  .footer-name { animation: none; }
+
+/* ---- project epitaph: two-line blurb + stat pills + colophon ---- */
+.sig-blurb {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(.96rem, 2.1vw, 1.06rem);
+  line-height: 1.62;
+  color: #6b5236;
+  max-width: 32rem;
+  text-wrap: balance;
+}
+.sig-blurb b {
+  font-weight: 650;
+  color: #3a2814;
+}
+
+.sig-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .38rem;
+  border-radius: 999px;
+  border: 1px solid rgba(229, 199, 157, .75);
+  background: rgba(255, 253, 249, .72);
+  padding: .32rem .68rem;
+  font-size: .6rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #6b5236;
+  white-space: nowrap;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .85) inset,
+    0 8px 22px -18px rgba(138, 95, 48, .5);
+  transition:
+    transform .45s cubic-bezier(.22, 1, .36, 1),
+    box-shadow .45s cubic-bezier(.22, 1, .36, 1),
+    border-color .45s, color .45s;
+  cursor: default;
+}
+.sig-chip:hover {
+  transform: translateY(-3px);
+  border-color: rgba(201, 138, 62, .85);
+  color: #3a2814;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .9) inset,
+    0 14px 30px -16px rgba(190, 138, 66, .55);
+}
+.sig-chip svg { color: #c98a3e; transition: transform .45s cubic-bezier(.22, 1, .36, 1); }
+.sig-chip:hover svg { transform: scale(1.18) rotate(-8deg); }
+
+/* colophon — tiny mono credit line under the pills */
+.sig-colo {
+  font-family: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+  font-size: .58rem;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #b09377;
 }
