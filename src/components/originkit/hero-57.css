@@ -1,9 +1,9 @@
 /* ============================================================
    Originkit Hero 57 — "Sunset Velocity" — ATLAS pour.
    Design-only stylesheet: scene plumbing, light melts and the
-   copy window. All typographic identity (fonts, sizes, colours)
-   belongs to the app's own hero content that lands in
-   .hero-overlay — nothing text-specific lives here.
+   lighting rig. All typographic identity (fonts, sizes, colours)
+   belongs to the app's own content — nothing text-specific
+   lives here.
    ============================================================ */
 
 .hero-57 {
@@ -17,24 +17,28 @@
   margin: 0;
 }
 
+/* the hero is the SCENE itself now — tall enough to stage the full
+   dusk (wordmark in the sky, sun on the horizon, car on the asphalt)
+   then it melts into the midnight canvas where the copy waits below */
 .hero-57 .hero {
   position: relative;
-  min-height: max(720px, 100svh);
+  min-height: max(620px, 82svh);
   overflow: hidden;
   background: #070509;
 }
 
-/* component forces position:relative on its root, so it lives in an absolute layer.
-   shifted down 16% so the horizon, sun and the car cruise BELOW the copy —
-   the wordmark owns the sky, the machine owns the asphalt */
+/* the design rides HIGH — the whole dusk starts at the very top of
+   the page (was pushed down 16% in the copy-over-scene era). The
+   wordmark owns the sky, the sun owns the horizon, the car owns
+   the road, and every line of copy waits BELOW the design */
 .hero-57 .hero-scene {
   position: absolute;
   inset: 0;
-  top: 16%;
+  top: 0;
 }
 
 /* ember seat for the floating nav up top + full melt of the asphalt
-   into the midnight canvas (#070509) the rest of the atlas sits on */
+   into the midnight canvas (#070509) the copy block sits on */
 .hero-57 .hero-fade {
   position: absolute;
   inset: 0;
@@ -42,33 +46,56 @@
   z-index: 1;
   background: linear-gradient(
     to bottom,
-    rgba(7, 5, 9, 0.8) 0%,
-    rgba(7, 5, 9, 0.34) 14%,
-    rgba(7, 5, 9, 0) 34%,
+    rgba(7, 5, 9, 0.78) 0%,
+    rgba(7, 5, 9, 0.3) 12%,
+    rgba(7, 5, 9, 0) 30%,
     rgba(7, 5, 9, 0) 56%,
-    rgba(7, 5, 9, 0.4) 74%,
-    rgba(7, 5, 9, 0.86) 88%,
+    rgba(7, 5, 9, 0.34) 76%,
+    rgba(7, 5, 9, 0.88) 90%,
     #070509 100%
   );
 }
 
-/* soft ink bloom behind the copy — the wordmark stays ink-clean
-   even where the dusk sky burns brightest */
+/* THE LIGHT RIG — the sun promoted to key light:
+   a tight gold halo hugging the disc + a wide ember wash spilling
+   across the dusk, screen-blended so it only ever adds light */
+.hero-57 .hero-sunlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(
+      30% 26% at 74% 52%,
+      rgba(255, 196, 124, 0.34) 0%,
+      rgba(255, 150, 70, 0.1) 55%,
+      rgba(255, 150, 70, 0) 78%
+    ),
+    radial-gradient(
+      74% 48% at 74% 58%,
+      rgba(234, 88, 12, 0.17) 0%,
+      rgba(234, 88, 12, 0) 72%
+    );
+}
+
+/* soft ink seat behind the wordmark zone in the sky — the type
+   stays clean even against the brightest clouds */
 .hero-57 .hero-scrim {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 1;
   background: radial-gradient(
-    58% 46% at 50% 44%,
-    rgba(7, 5, 9, 0.52) 0%,
-    rgba(7, 5, 9, 0.24) 55%,
+    56% 30% at 50% 27%,
+    rgba(7, 5, 9, 0.44) 0%,
+    rgba(7, 5, 9, 0.2) 55%,
     rgba(7, 5, 9, 0) 78%
   );
 }
 
-/* the app hero lands here; the layer itself is click-through so the
-   scene keeps drinking the pointer (parallax + press-to-rev) */
+/* the app's wordmark lands here; the layer itself is click-through so
+   the scene keeps drinking the pointer (parallax + press-to-rev) */
 .hero-57 .hero-overlay {
   position: absolute;
   inset: 0;
@@ -76,12 +103,14 @@
   display: grid;
   pointer-events: none;
 }
+/* top-seated: the wordmark floats in the sky above the sun */
 .hero-57 .hero-overlay-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
+  padding-top: clamp(6.5rem, 17svh, 11rem);
   pointer-events: none;
 }
 
@@ -90,15 +119,16 @@
 .hero-57 .atlas-bloom {
   position: absolute;
   left: 50%;
-  top: 42%;
+  top: 27%;
   width: min(44rem, 92vw);
-  height: 17rem;
+  height: 16rem;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  z-index: 1;
   background: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(245, 196, 137, 0.3) 0%,
-    rgba(234, 88, 12, 0.12) 48%,
+    rgba(245, 196, 137, 0.32) 0%,
+    rgba(234, 88, 12, 0.13) 48%,
     rgba(234, 88, 12, 0) 74%
   );
   filter: blur(14px);
@@ -117,11 +147,13 @@
   }
 }
 
-/* seat the app's type over the burning sky */
-.hero-57 .atlas-over-scene {
-  text-shadow:
-    0 3px 26px rgba(7, 5, 9, 0.6),
-    0 1px 10px rgba(7, 5, 9, 0.35);
+/* the lit wordmark — its sun-kissed gradient fill is painted app-side;
+   this is the light jacket: warm ember throw + dark separation so the
+   letters read as LIT BY the sun, not pasted on the sky */
+.hero-57 .atlas-lit {
+  filter:
+    drop-shadow(0 2px 10px rgba(7, 5, 9, 0.55))
+    drop-shadow(0 14px 44px rgba(234, 88, 12, 0.4));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -130,26 +162,20 @@
   }
 }
 
-/* desktop-scale type legibility aid — nothing else needed here */
-
 /* on narrow screens the scene fits by width, so widen its layer to
-   keep the car, sun and turbines large while the copy owns the top */
+   keep the world grand while the wordmark owns the sky */
 @media (max-width: 900px) {
+  .hero-57 .hero {
+    min-height: max(520px, 68svh);
+  }
   .hero-57 .hero-scene {
-    top: 34%;
+    top: 0;
     left: 50%;
     right: auto;
-    width: 260%;
+    width: 185%;
     transform: translateX(-50%);
   }
-  .hero-57 .hero-fade {
-    background: linear-gradient(
-      to bottom,
-      rgba(7, 5, 9, 0.82) 0%,
-      rgba(7, 5, 9, 0.26) 20%,
-      rgba(7, 5, 9, 0) 38%,
-      rgba(7, 5, 9, 0.5) 76%,
-      #070509 96%
-    );
+  .hero-57 .hero-overlay-inner {
+    padding-top: clamp(5.5rem, 15svh, 8rem);
   }
 }

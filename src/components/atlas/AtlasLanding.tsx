@@ -448,45 +448,20 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
       </nav>
 
       <main className="flex-1">
-        {/* ------- hero — Originkit "Sunset Velocity" scene, Atlas soul ------- */}
+        {/* ------- hero — the scene IS the design; only THE ATLAS rides it ------- */}
         <Hero57>
-          <div className="pointer-events-none relative flex min-h-[100svh] w-full flex-col items-center justify-center px-4 pb-16 pt-28 text-center sm:px-6">
-            {/* ghost outline word, drifting behind the wordmark */}
-            <span
-              aria-hidden
-              className="text-ghost anim-drift pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap font-display text-[26vw] font-black leading-none"
-            >
-              ATLAS
-            </span>
-
-            {/* the setting sun's halo, breathing behind the wordmark */}
-            <span className="atlas-bloom" aria-hidden />
-
-            <div className="pointer-events-auto relative z-10 flex flex-col items-center">
-            {/* institution — sits directly above the wordmark */}
-            <motion.span
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: EASE }}
-              className="flex flex-wrap items-center justify-center gap-2 rounded-full border border-[#f5c889]/20 bg-[#0a0709]/55 px-4 py-1.5 text-[.64rem] font-extrabold uppercase tracking-[.24em] text-[#c9b99f] backdrop-blur-md sm:px-5"
-            >
-              <GraduationCap className="h-3.5 w-3.5 shrink-0" style={{ color: "#f5c889" }} />
-              <span className="text-[#f7ecdd]">IIT Jodhpur</span>
-              <span className="hidden h-3 w-px bg-white/15 sm:block" aria-hidden />
-              <span>B.S. in Management and Technology</span>
-            </motion.span>
-
-            {/* wordmark */}
+          <div className="relative flex w-full flex-col items-center px-4 text-center">
+            {/* wordmark — sun-kissed gradient fill, lit by the scene's key light */}
             <h1
               aria-label="The Atlas"
-              className="atlas-over-scene mt-8 font-display font-black leading-[.92] tracking-tight"
+              className="atlas-lit font-display font-black leading-[.92] tracking-tight"
             >
               <span className="sr-only">The Atlas</span>
-              <span aria-hidden className="block whitespace-nowrap text-[13vw] sm:text-[13vw] lg:text-[10rem]">
+              <span aria-hidden className="block whitespace-nowrap text-[13.5vw] sm:text-[12.5vw] lg:text-[9.75rem]">
                 {"THE".split("").map((ch, i) => (
                   <motion.span
                     key={`a-${i}`}
-                    className="inline-block text-[#f7ecdd]"
+                    className="inline-block bg-gradient-to-b from-[#fff8ec] via-[#f7ecdd] to-[#eec27d] bg-clip-text text-transparent"
                     initial={{ opacity: 0, y: 60, filter: "blur(14px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     transition={{ delay: 0.25 + i * 0.06, duration: 0.9, ease: EASE }}
@@ -505,7 +480,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
                 {"ATLAS".split("").map((ch, i) => (
                   <motion.span
                     key={`b-${i}`}
-                    className="inline-block text-[#f7ecdd]"
+                    className="inline-block bg-gradient-to-b from-[#fff8ec] via-[#f7ecdd] to-[#e8913f] bg-clip-text text-transparent"
                     initial={{ opacity: 0, y: 60, filter: "blur(14px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     transition={{ delay: 0.45 + i * 0.06, duration: 0.9, ease: EASE }}
@@ -515,13 +490,44 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
                 ))}
               </span>
             </h1>
+          </div>
+        </Hero57>
+
+        {/* ------- below the design — the words, lit by the afterglow ------- */}
+        <section
+          aria-label="The Atlas in one breath"
+          className="relative px-4 pb-20 pt-12 text-center sm:px-6 md:pb-24 md:pt-14"
+        >
+          {/* afterglow — the dying sun bleeding up into the copy */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-0 h-80 w-[min(78rem,150vw)] -translate-x-1/2 -translate-y-1/2 rounded-[100%] blur-2xl"
+            style={{
+              background:
+                "radial-gradient(50% 50% at 50% 50%, rgba(234,88,12,.17) 0%, rgba(234,88,12,.05) 48%, transparent 75%)",
+            }}
+          />
+
+          <div className="relative mx-auto flex max-w-3xl flex-col items-center">
+            {/* institution */}
+            <motion.span
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.62, duration: 0.7, ease: EASE }}
+              className="flex flex-wrap items-center justify-center gap-2 rounded-full border border-[#f5c889]/20 bg-[#0a0709]/55 px-4 py-1.5 text-[.64rem] font-extrabold uppercase tracking-[.24em] text-[#c9b99f] backdrop-blur-md sm:px-5"
+            >
+              <GraduationCap className="h-3.5 w-3.5 shrink-0" style={{ color: "#f5c889" }} />
+              <span className="text-[#f7ecdd]">IIT Jodhpur</span>
+              <span className="hidden h-3 w-px bg-white/15 sm:block" aria-hidden />
+              <span>B.S. in Management and Technology</span>
+            </motion.span>
 
             {/* the crazy one-liner */}
             <motion.p
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.72, duration: 0.8, ease: EASE }}
-              className="atlas-over-scene mt-6 font-display text-xl font-black tracking-tight text-[#f7ecdd] sm:text-2xl md:text-[1.7rem]"
+              className="mt-6 font-display text-xl font-black tracking-tight text-[#f7ecdd] sm:text-2xl md:text-[1.7rem]"
             >
               Six subjects. One map. <span className="atlas-sheen">Zero boring pages.</span>
             </motion.p>
@@ -530,7 +536,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.82, duration: 0.8, ease: EASE }}
-              className="atlas-over-scene mt-4 max-w-2xl text-balance text-base leading-relaxed text-[#e3d4bd] md:text-lg"
+              className="mt-4 max-w-2xl text-balance text-base leading-relaxed text-[#e3d4bd] md:text-lg"
             >
               This is not a notes site — it&apos;s your syllabus rebuilt as an experience.
               Diagrams that move, machines you can poke, exams you can actually survive,
@@ -582,19 +588,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               </div>
             </motion.div>
           </div>
-
-          <motion.a
-            href="#shelf"
-            aria-label="Scroll to the subject shelf"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.6, duration: 0.8 }}
-            className="anim-bob pointer-events-auto absolute bottom-7 text-[#8d7b63] transition-colors hover:text-[#f5c889]"
-          >
-            <ArrowDown className="h-5 w-5" />
-          </motion.a>
-          </div>
-        </Hero57>
+        </section>
 
         {/* ------- marquee ------- */}
         <div className="relative overflow-hidden border-y border-white/[.06] bg-white/[.02] py-3.5" aria-hidden>
