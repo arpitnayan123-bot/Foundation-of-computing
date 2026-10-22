@@ -45,7 +45,7 @@ export function Hero() {
   return (
     <header
       id="top"
-      className="relative flex min-h-[94vh] flex-col items-center justify-center overflow-hidden px-4"
+      className="relative flex min-h-[94vh] flex-col items-center justify-center overflow-hidden px-4 pb-28 sm:pb-16"
     >
       {/* ambient blobs — kept STATIC on purpose: animating huge blur-3xl
           surfaces repaints giant areas every frame and was the main lag source */}
@@ -147,13 +147,19 @@ export function Hero() {
         </Reveal>
       </div>
 
-      <a
-        href="#why"
-        aria-label="Scroll to content"
-        className="anim-bob absolute bottom-8 z-10 rounded-full border border-[#ecd9bd] bg-[#fffdf9]/80 p-3 text-[#c2410c]"
-      >
-        <ArrowDown className="h-5 w-5" />
-      </a>
+      {/* scroll hint — full-width flex wrapper guarantees true horizontal
+          centering at every viewport (a bare `absolute` anchor drifted into
+          the CTA buttons once they wrapped on small screens; and the bob
+          keyframes own the transform, so -translate-x-1/2 can't live here) */}
+      <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
+        <a
+          href="#why"
+          aria-label="Scroll to content"
+          className="anim-bob rounded-full border border-[#ecd9bd] bg-[#fffdf9]/80 p-3 text-[#c2410c]"
+        >
+          <ArrowDown className="h-5 w-5" />
+        </a>
+      </div>
     </header>
   );
 }
