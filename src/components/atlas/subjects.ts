@@ -14,9 +14,10 @@ import { ATB_TOTAL_QUESTIONS } from "@/components/atb/questions";
 
 export type SubjectStatus = "live" | "soon";
 
-/** the design language of the card on the landing shelf —
- *  every box gets its own material treatment (glass, clay, …) */
-export type SubjectCardStyle = "glass" | "clay" | "neo" | "spotlight" | "holo" | "aurora";
+/** every box is poured from the same mould — this is the one
+ *  whisper of motion that makes each box its own (minimal,
+ *  ambient, premium). Nothing else differs. */
+export type SubjectAmbience = "sweep" | "aura" | "scan" | "spotlight" | "shimmer" | "drift";
 
 export interface Subject {
   /** stable id — used in the hash route (#/subject/<id>) */
@@ -41,8 +42,8 @@ export interface Subject {
   accent2: string;
   icon: LucideIcon;
   status: SubjectStatus;
-  /** material treatment used by the landing card */
-  cardStyle: SubjectCardStyle;
+  /** the box's single minimal ambient animation */
+  ambience: SubjectAmbience;
 }
 
 export const SUBJECTS: Subject[] = [
@@ -62,7 +63,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#ea580c",
     icon: Compass,
     status: "live",
-    cardStyle: "glass",
+    ambience: "sweep",
   },
   {
     id: "atb",
@@ -80,7 +81,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#be123c",
     icon: Route,
     status: "live",
-    cardStyle: "clay",
+    ambience: "aura",
   },
   {
     id: "shelf-03",
@@ -97,7 +98,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#3f6212",
     icon: Lock,
     status: "soon",
-    cardStyle: "neo",
+    ambience: "scan",
   },
   {
     id: "shelf-04",
@@ -114,7 +115,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#854d0e",
     icon: Lock,
     status: "soon",
-    cardStyle: "spotlight",
+    ambience: "spotlight",
   },
   {
     id: "shelf-05",
@@ -131,7 +132,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#0f766e",
     icon: Lock,
     status: "soon",
-    cardStyle: "holo",
+    ambience: "shimmer",
   },
   {
     id: "shelf-06",
@@ -148,7 +149,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#c2410c",
     icon: Lock,
     status: "soon",
-    cardStyle: "aurora",
+    ambience: "drift",
   },
 ];
 

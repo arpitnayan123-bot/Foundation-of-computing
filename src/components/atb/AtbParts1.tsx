@@ -233,8 +233,8 @@ export function AtbHero() {
           </div>
         </Reveal>
 
-        {/* course meta — instructor / textbook / assessment */}
-        <div className="mx-auto mt-12 grid max-w-4xl gap-4 md:grid-cols-3">
+        {/* course meta — instructor / textbook */}
+        <div className="mx-auto mt-12 grid max-w-3xl gap-4 md:grid-cols-2">
           <Reveal delay={360}>
             <div className="card-warm lift h-full p-5 text-left">
               <span className="chip"><User className="h-3.5 w-3.5" /> Instructor</span>
@@ -258,27 +258,6 @@ export function AtbHero() {
               <p className="mt-3 text-[.78rem] leading-relaxed text-[#8a6b45]">
                 Every idea in this course is taught drawn and traced — never language-first.
               </p>
-            </div>
-          </Reveal>
-          <Reveal delay={500}>
-            <div className="card-warm lift h-full p-5 text-left">
-              <span className="chip"><Percent className="h-3.5 w-3.5" /> Assessment</span>
-              <div className="mt-3 space-y-2">
-                <div className="flex items-baseline justify-between gap-2">
-                  <span className="text-[.86rem] font-semibold text-[#2b2014]">Quizzes (best 2 of 3)</span>
-                  <span className="font-mono text-sm font-bold text-[#a0410a]">40%</span>
-                </div>
-                <div className="h-2 overflow-hidden rounded-full bg-[#f3e2c8]">
-                  <motion.div className="h-full w-full origin-left rounded-full" style={{ background: "linear-gradient(90deg,#f59e0b,#c2410c)" }} initial={{ scaleX: 0 }} whileInView={{ scaleX: 0.4 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.6 }} />
-                </div>
-                <div className="flex items-baseline justify-between gap-2">
-                  <span className="text-[.86rem] font-semibold text-[#2b2014]">Major exam</span>
-                  <span className="font-mono text-sm font-bold text-[#a0410a]">60%</span>
-                </div>
-                <div className="h-2 overflow-hidden rounded-full bg-[#f3e2c8]">
-                  <motion.div className="h-full w-full origin-left rounded-full" style={{ background: "linear-gradient(90deg,#7c9a3e,#4d6b1f)" }} initial={{ scaleX: 0 }} whileInView={{ scaleX: 0.6 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.75 }} />
-                </div>
-              </div>
             </div>
           </Reveal>
         </div>

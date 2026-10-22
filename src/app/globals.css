@@ -1063,13 +1063,14 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
   animation: gradientShift 8s ease-in-out infinite;
 }
 
-/* rotating conic helper (shared by the holo foil ring) */
+/* the pulsing "live" dot — shared by badges and the nav chip */
 .atlas-live-dot { animation: pulseGlow 2.4s ease-in-out infinite; }
 
 /* ============================================================
-   THE ATLAS — material system for the landing shelf.
-   Six boxes, six treatments: glassmorphism, claymorphism,
-   neomorphism, spotlight, holo-foil, aurora mesh.
+   THE ATLAS — the shelf law: one mould, six pours.
+   Every box shares the same frosted-glass build below; the
+   only per-box difference is a minimal ambient whisper
+   (.amb-*), plus its sigil colour.
    ============================================================ */
 
 /* film grain over the whole canvas — the premium texture layer */
@@ -1087,7 +1088,7 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
   -webkit-text-stroke: 1.5px rgba(247, 236, 221, .075);
 }
 
-/* ---------- 01 · GLASSMORPHISM (frosted pane) ---------- */
+/* ---------- the shared mould: dark frosted glass ---------- */
 .card-glass {
   background: linear-gradient(155deg, rgba(255,255,255,.115) 0%, rgba(255,255,255,.035) 42%, rgba(255,255,255,.07) 100%);
   -webkit-backdrop-filter: blur(22px) saturate(150%);
@@ -1097,6 +1098,15 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
     inset 0 1px 0 rgba(255,255,255,.28),
     inset 0 -1px 0 rgba(255,255,255,.04),
     0 36px 90px -44px rgba(0,0,0,.92);
+  transition: border-color .5s cubic-bezier(.22,1,.36,1), box-shadow .5s cubic-bezier(.22,1,.36,1);
+}
+.group:hover.card-glass,
+.group:hover .card-glass {
+  border-color: rgba(255,255,255,.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.32),
+    inset 0 -1px 0 rgba(255,255,255,.05),
+    0 44px 100px -44px rgba(0,0,0,.95);
 }
 .glass-gloss {
   position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
@@ -1118,102 +1128,61 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
   box-shadow: inset 0 1px 0 rgba(255,255,255,.14);
 }
 
-/* ---------- 02 · CLAYMORPHISM (soft inflated putty) ---------- */
-.card-clay {
-  background:
-    radial-gradient(135% 110% at 18% 0%, rgba(255,255,255,.30), transparent 44%),
-    linear-gradient(165deg, #fb7185 0%, #e11d48 50%, #9f1239 100%);
-  border: 1px solid rgba(255,255,255,.28);
-  box-shadow:
-    inset 0 2px 5px rgba(255,255,255,.5),
-    inset 0 -14px 28px rgba(114, 7, 37, .5),
-    inset 3px 0 10px rgba(255,255,255,.14),
-    0 26px 54px -20px rgba(225, 29, 72, .55),
-    0 74px 110px -52px rgba(0,0,0,.9);
-}
-.clay-tile {
-  background: linear-gradient(165deg, rgba(255,255,255,.42), rgba(255,255,255,.10));
-  box-shadow:
-    inset 0 2px 4px rgba(255,255,255,.7),
-    inset 0 -4px 9px rgba(114, 7, 37, .38),
-    0 12px 24px -10px rgba(114, 7, 37, .65);
-}
-.clay-chip {
-  background: rgba(255,255,255,.16);
-  border: 1px solid rgba(255,255,255,.22);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.3);
-}
-.clay-blob {
-  position: absolute; border-radius: 9999px; filter: blur(30px);
-  opacity: .5; pointer-events: none;
-  transition: opacity .6s;
-}
-.card-clay:hover .clay-blob { opacity: .75; }
+/* ---------- the six whispers (one per box) ---------- */
 
-/* ---------- 03 · NEOMORPHISM (soft-extruded dark) ---------- */
-.card-neo {
-  background: linear-gradient(145deg, #110e17, #0a080f);
-  border: 1px solid rgba(255,255,255,.05);
-  box-shadow:
-    11px 11px 26px rgba(0,0,0,.62),
-    -9px -9px 22px rgba(255,255,255,.032);
-  transition: box-shadow .55s cubic-bezier(.22,1,.36,1), border-color .55s, transform .55s cubic-bezier(.22,1,.36,1);
-}
-.card-neo:hover {
-  transform: translateY(1px);
-  border-color: rgba(132, 204, 22, .18);
-  box-shadow:
-    inset 8px 8px 18px rgba(0,0,0,.68),
-    inset -7px -7px 16px rgba(255,255,255,.038);
-}
-.neo-well {
-  box-shadow:
-    inset 5px 5px 12px rgba(0,0,0,.68),
-    inset -4px -4px 10px rgba(255,255,255,.05);
+/* 01 · sweep — light sheet gliding across the glass (above) */
+
+/* 02 · aura — one soft glow breathing behind the glass */
+.amb-breathe { animation: ambBreathe 7s ease-in-out infinite; }
+@keyframes ambBreathe {
+  0%, 100% { transform: scale(1); opacity: .45; }
+  50% { transform: scale(1.22); opacity: .8; }
 }
 
-/* ---------- 04 · SPOTLIGHT (cursor-tracked glow) ---------- */
-.card-spot {
-  --mx: 50%;
-  --my: 30%;
-  background: #0b0810;
-  border: 1px solid rgba(255,255,255,.08);
+/* 03 · scan — a sonar hairline sweeping down the card */
+.amb-scan {
+  position: absolute; left: 12%; right: 12%; top: 0; height: 1.5px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent, var(--scan-color, #84cc16), transparent);
+  filter: blur(.4px);
+  opacity: 0;
+  animation: ambScan 6.5s ease-in-out infinite;
 }
-.spot-fill {
+@keyframes ambScan {
+  0% { transform: translateY(8px); opacity: 0; }
+  14% { opacity: .6; }
+  50% { opacity: .3; }
+  86% { opacity: .6; }
+  100% { transform: translateY(305px); opacity: 0; }
+}
+
+/* 04 · spotlight — a glow that follows the cursor */
+.amb-spot {
   position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
   opacity: 0; transition: opacity .45s;
-  background: radial-gradient(430px circle at var(--mx) var(--my), rgba(234, 179, 8, .14), transparent 46%);
+  background: radial-gradient(430px circle at var(--mx, 50%) var(--my, 30%), var(--spot-color, rgba(234,179,8,.15)), transparent 46%);
 }
-.spot-border {
-  position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
-  opacity: 0; transition: opacity .45s;
-  background: radial-gradient(270px circle at var(--mx) var(--my), rgba(250, 204, 21, .85), transparent 46%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-          mask-composite: exclude;
-}
-.group:hover .spot-fill, .group:hover .spot-border { opacity: 1; }
+.group:hover .amb-spot { opacity: 1; }
 
-/* ---------- 05 · HOLO-FOIL (iridescent rotating ring) ---------- */
-.holo-spin {
-  animation: spinSlow 10s linear infinite;
-  opacity: .8;
-  transition: opacity .6s;
+/* 05 · shimmer — a foil hairline sliding along the top edge */
+.amb-shimmer {
+  position: absolute; top: 0; left: 0; width: 100%; height: 1.5px;
+  background-size: 220% 100%;
+  animation: ambShimmer 5s ease-in-out infinite;
+  opacity: .85;
 }
-.group:hover .holo-spin { opacity: 1; }
+@keyframes ambShimmer {
+  0%, 100% { background-position: 130% 0; opacity: .2; }
+  50% { background-position: -30% 0; opacity: .9; }
+}
 
-/* ---------- 06 · AURORA MESH (drifting light blobs) ---------- */
-.card-aurora {
-  background: #0c0809;
-  border: 1px solid rgba(251, 146, 60, .16);
-}
-.aurora-blob {
+/* 06 · drift — warm coals floating under the glass */
+.amb-glow {
   position: absolute; border-radius: 9999px;
-  filter: blur(46px); opacity: .5; pointer-events: none;
+  filter: blur(46px); opacity: .3; pointer-events: none;
   transition: opacity .6s;
 }
-.card-aurora:hover .aurora-blob { opacity: .8; }
+.group:hover .amb-glow { opacity: .55; }
 
 /* ---------- next-shelf tile: indeterminate loading bar ---------- */
 .load-bar { position: relative; overflow: hidden; }
@@ -1235,7 +1204,8 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
 /* respect reduced motion across the whole atlas */
 @media (prefers-reduced-motion: reduce) {
   .marquee-track, .anim-floaty, .anim-drift, .atlas-sheen, .atlas-live-dot,
-  .holo-spin, .aurora-blob, .clay-blob, .load-bar::after, .dot-pulse {
+  .amb-breathe, .amb-scan, .amb-shimmer, .amb-glow,
+  .load-bar::after, .dot-pulse {
     animation: none !important;
   }
 }

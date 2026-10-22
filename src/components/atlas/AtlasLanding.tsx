@@ -4,10 +4,14 @@
    THE ATLAS — dark premium animated landing.
 
    Design language: a midnight gallery. Deep space canvas with
-   film grain, aurora washes and ghost typography; the subject
-   shelf is a bento of six boxes, each with its OWN material —
-   glassmorphism (FoC), claymorphism (ATB), neomorphism,
-   cursor spotlight, holo-foil and aurora mesh.
+   film grain, aurora washes and ghost typography.
+
+   THE SHELF LAW: every subject box is poured from the SAME
+   mould — one dark frosted-glass build, one layout, one
+   minimal-premium feel, set two boxes side by side. The only
+   things a box may call its own: its sigil (icon + accent)
+   and one whisper of ambient motion (sweep / aura / scan /
+   spotlight / shimmer / drift).
 
    The router in src/app/page.tsx mounts this view for "#/atlas"
    and delegates to a subject app for "#/subject/<id>".
@@ -18,8 +22,6 @@ import {
   animate,
   motion,
   useInView,
-  useMotionValue,
-  useSpring,
 } from "framer-motion";
 import {
   ArrowDown,
@@ -31,7 +33,7 @@ import {
   PenLine,
   Waypoints,
 } from "lucide-react";
-import { SUBJECTS, type Subject } from "./subjects";
+import { SUBJECTS, type Subject, type SubjectAmbience } from "./subjects";
 
 /* ---------------------------------------------- easing + reveal */
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -112,7 +114,7 @@ function Stat({
    SMALL SHARED PIECES — every card speaks the same language
    ============================================================ */
 
-function ShelfTag({ children, color }: { children: React.ReactNode; color: string }) {
+function ShelfTag({ children, color = "#b49a78" }: { children: React.ReactNode; color?: string }) {
   return (
     <p className="font-mono text-[.6rem] font-bold uppercase tracking-[.28em]" style={{ color }}>
       {children}
@@ -135,409 +137,84 @@ function LiveBadge({ accent }: { accent: string }) {
   );
 }
 
-function LockedBadge({ tone = "muted" }: { tone?: "muted" | "light" }) {
+function LockedBadge() {
   return (
-    <span
-      className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[.56rem] font-black uppercase tracking-[.18em] ${
-        tone === "light" ? "border-white/25 text-white/80" : "border-white/12 bg-white/[.04] text-[#8d7b63]"
-      }`}
-    >
+    <span className="flex items-center gap-1.5 rounded-full border border-white/12 bg-white/[.04] px-2.5 py-1 text-[.56rem] font-black uppercase tracking-[.18em] text-[#8d7b63]">
       <Lock className="h-2.5 w-2.5" />
       reserved
     </span>
   );
 }
 
-function LiveFooter({
-  subject,
-  textClass,
-  arrowClass,
-}: {
-  subject: Subject;
-  textClass: string;
-  arrowClass: string;
-}) {
-  return (
-    <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/10 pt-4">
-      <span className={`font-mono text-[.64rem] uppercase tracking-[.16em] ${textClass}`}>
-        {subject.chapters} chapters · {subject.questions} questions · {subject.examWindows} windows
-      </span>
-      <span
-        className={`flex shrink-0 items-center gap-1 text-[.68rem] font-black uppercase tracking-[.16em] transition-transform duration-300 group-hover:translate-x-1 ${arrowClass}`}
-      >
-        enter <ArrowUpRight className="h-3.5 w-3.5" />
-      </span>
-    </div>
-  );
-}
-
 /* ============================================================
-   01 · GLASSMORPHISM — frosted pane with a 3D tilt and a
-   light sweep that slides across the glass on hover. (FoC)
+   THE AMBIENCE — six whispers of motion, one per box.
+   Everything else on the card is identical.
    ============================================================ */
 
-function GlassCard({ subject, index, onEnter }: CardProps) {
-  const ref = useRef<HTMLButtonElement>(null);
-  const rX = useMotionValue(0);
-  const rY = useMotionValue(0);
-  const rotX = useSpring(rX, { stiffness: 140, damping: 18 });
-  const rotY = useSpring(rY, { stiffness: 140, damping: 18 });
+function Ambience({ kind, accent }: { kind: SubjectAmbience; accent: string }) {
+  switch (kind) {
+    /* 01 · FoC — a sheet of light glides across the frosted glass */
+    case "sweep":
+      return <span className="glass-sweep" aria-hidden />;
 
-  const onMove = (e: React.MouseEvent) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5;
-    const py = (e.clientY - r.top) / r.height - 0.5;
-    rY.set(px * 6);
-    rX.set(-py * 6);
-  };
-  const onLeave = () => {
-    rX.set(0);
-    rY.set(0);
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 34, filter: "blur(8px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
-      transition={{ duration: 0.85, delay: 0.05 * index, ease: EASE }}
-      className="min-w-0 md:col-span-2"
-    >
-      <motion.button
-        ref={ref}
-        type="button"
-        onClick={() => onEnter(subject.id)}
-        aria-label={`Open ${subject.title} notes`}
-        onMouseMove={onMove}
-        onMouseLeave={onLeave}
-        whileHover={{ y: -5 }}
-        transition={{ duration: 0.35, ease: EASE }}
-        style={{ rotateX: rotX, rotateY: rotY, transformPerspective: 1100 }}
-        className="group card-glass relative flex h-full min-h-[21rem] w-full flex-col overflow-hidden rounded-[1.7rem] p-6 text-left md:p-8"
-      >
-        <span className="glass-gloss" aria-hidden />
-        <span className="glass-sweep" aria-hidden />
-        {/* ambient amber breath behind the glass */}
+    /* 02 · ATB — one soft aura breathing behind the glass */
+    case "aura":
+      return (
         <span
           aria-hidden
-          className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full opacity-40 blur-3xl transition-opacity duration-500 group-hover:opacity-70"
-          style={{ background: `${subject.accent}30` }}
+          className="amb-breathe pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full"
+          style={{ background: `${accent}30` }}
         />
+      );
 
-        <div className="relative flex items-start justify-between gap-3">
+    /* 03 · scan — a thin sonar hairline sweeping down, "brewing" */
+    case "scan":
+      return <span aria-hidden className="amb-scan" style={{ ["--scan-color" as string]: accent }} />;
+
+    /* 04 · spotlight — the light follows your cursor */
+    case "spotlight":
+      return (
+        <span
+          aria-hidden
+          className="amb-spot"
+          style={{ ["--spot-color" as string]: `${accent}26` }}
+        />
+      );
+
+    /* 05 · shimmer — a foil hairline sliding along the top edge */
+    case "shimmer":
+      return (
+        <span
+          aria-hidden
+          className="amb-shimmer"
+          style={{ background: `linear-gradient(90deg, transparent 20%, ${accent} 50%, transparent 80%)` }}
+        />
+      );
+
+    /* 06 · drift — two warm coals slowly floating under the glass */
+    case "drift":
+      return (
+        <>
           <span
-            className="glass-chip flex h-12 w-12 items-center justify-center rounded-2xl"
-            style={{ boxShadow: `0 12px 30px -12px ${subject.accent}aa` }}
-          >
-            <subject.icon className="h-5 w-5" style={{ color: subject.accent }} />
-          </span>
-          <LiveBadge accent={subject.accent} />
-        </div>
-
-        <div className="relative mt-6">
-          <ShelfTag color="#b49a78">shelf {subject.shelf} — glassmorphism build</ShelfTag>
-          <h3 className="mt-2 font-display text-2xl font-black leading-tight text-[#f7ecdd] md:text-3xl">
-            {subject.title}
-          </h3>
-          <p className="mt-2.5 max-w-xl text-[.88rem] leading-relaxed text-[#c9b99f]">
-            {subject.description}
-          </p>
-        </div>
-
-        <div className="relative mt-4 flex flex-wrap gap-1.5">
-          {subject.topics.slice(0, 5).map((t) => (
-            <span key={t} className="glass-chip rounded-full px-2.5 py-1 text-[.66rem] font-semibold text-[#ecdcc2]">
-              {t}
-            </span>
-          ))}
-        </div>
-
-        <div className="relative mt-6">
-          <LiveFooter subject={subject} textClass="text-[#8d7b63]" arrowClass="text-[#f5c889]" />
-        </div>
-      </motion.button>
-    </motion.div>
-  );
-}
-
-/* ============================================================
-   02 · CLAYMORPHISM — inflated soft-putty panel with floating
-   blobs and a squishy spring press. (ATB)
-   ============================================================ */
-
-function ClayCard({ subject, index, onEnter }: CardProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 34, scale: 0.97 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
-      transition={{ duration: 0.85, delay: 0.05 * index, ease: EASE }}
-      className="min-w-0"
-    >
-      <motion.button
-        type="button"
-        onClick={() => onEnter(subject.id)}
-        aria-label={`Open ${subject.title} notes`}
-        whileHover={{ y: -7 }}
-        whileTap={{ scale: 0.96 }}
-        transition={{ type: "spring", stiffness: 300, damping: 17 }}
-        className="group card-clay relative flex h-full min-h-[21rem] w-full flex-col overflow-hidden rounded-[2rem] p-6 text-left md:p-7"
-      >
-        {/* soft floating putty blobs */}
-        <span aria-hidden className="clay-blob anim-floaty h-36 w-36" style={{ background: "#fecdd3", left: "-3rem", top: "-3rem", animationDelay: "0s" }} />
-        <span aria-hidden className="clay-blob anim-floaty h-28 w-28" style={{ background: "#9f1239", right: "-2rem", bottom: "3rem", animationDelay: "-3s" }} />
-
-        <div className="relative flex items-start justify-between gap-3">
-          <span className="clay-tile flex h-12 w-12 items-center justify-center rounded-full text-white">
-            <subject.icon className="h-5 w-5" />
-          </span>
-          <span className="flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[.56rem] font-black uppercase tracking-[.18em] text-[#9f1239]">
-            <span className="atlas-live-dot h-1.5 w-1.5 rounded-full bg-[#e11d48]" />
-            live
-          </span>
-        </div>
-
-        <div className="relative mt-6">
-          <p className="font-mono text-[.6rem] font-bold uppercase tracking-[.28em] text-white/70">
-            shelf {subject.shelf} — claymorphism build
-          </p>
-          <h3 className="mt-2 font-display text-2xl font-black leading-tight text-white">
-            {subject.title}
-          </h3>
-          <p className="mt-2.5 text-[.88rem] leading-relaxed text-white/80">{subject.description}</p>
-        </div>
-
-        <div className="relative mt-4 flex flex-wrap gap-1.5">
-          {subject.topics.slice(0, 4).map((t) => (
-            <span key={t} className="clay-chip rounded-full px-2.5 py-1 text-[.66rem] font-semibold text-white">
-              {t}
-            </span>
-          ))}
-        </div>
-
-        <div className="relative mt-6">
-          <LiveFooter subject={subject} textClass="text-white/65" arrowClass="text-white" />
-        </div>
-      </motion.button>
-    </motion.div>
-  );
-}
-
-/* ============================================================
-   03 · NEOMORPHISM — extruded dark surface that presses IN
-   on hover, monochrome lime. (reserved shelf 03)
-   ============================================================ */
-
-function NeoCard({ subject, index }: CardProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
-      transition={{ duration: 0.8, delay: 0.06 * index, ease: EASE }}
-      className="min-w-0"
-    >
-      <div
-        className="group card-neo relative flex h-full min-h-[19rem] flex-col rounded-[1.7rem] p-6 md:p-7"
-        aria-label={`${subject.title} — awaiting syllabus`}
-      >
-        <div className="flex items-start justify-between">
-          <span className="neo-well flex h-12 w-12 items-center justify-center rounded-2xl text-[#84cc16]">
-            <subject.icon className="h-5 w-5" strokeWidth={1.8} />
-          </span>
-          <LockedBadge />
-        </div>
-
-        <div className="mt-6">
-          <ShelfTag color="#5d6b3a">shelf {subject.shelf} — neomorphism build</ShelfTag>
-          <h3 className="mt-2 font-display text-xl font-black leading-tight text-[#a89a86]">{subject.title}</h3>
-          <p className="mt-2 text-[.86rem] leading-relaxed text-[#77685a]">{subject.tagline}</p>
-        </div>
-
-        <div className="mt-auto pt-6">
-          <p className="font-mono text-[.62rem] uppercase tracking-[.2em] text-[#5d5142]">
-            pen · paper · logic — same treatment, new subject
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-/* ============================================================
-   04 · SPOTLIGHT — cursor-tracked radial glow on the border
-   and the fill. (reserved shelf 04)
-   ============================================================ */
-
-function SpotlightCard({ subject, index }: CardProps) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const onMove = (e: React.MouseEvent) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    el.style.setProperty("--my", `${e.clientY - r.top}px`);
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
-      transition={{ duration: 0.8, delay: 0.06 * index, ease: EASE }}
-      className="min-w-0"
-    >
-      <div
-        ref={ref}
-        onMouseMove={onMove}
-        className="group relative h-full min-h-[19rem] rounded-[1.7rem]"
-        aria-label={`${subject.title} — awaiting syllabus`}
-      >
-        <div className="card-spot relative flex h-full flex-col rounded-[1.7rem] p-6 md:p-7">
-          <span className="spot-fill" aria-hidden />
-          <span className="spot-border" aria-hidden />
-
-          <div className="relative flex items-start justify-between">
-            <span
-              className="flex h-12 w-12 items-center justify-center rounded-2xl border"
-              style={{
-                borderColor: `${subject.accent}40`,
-                background: `${subject.accent}10`,
-                boxShadow: `0 0 0 1px ${subject.accent}14, 0 10px 30px -12px ${subject.accent}66`,
-              }}
-            >
-              <subject.icon className="h-5 w-5" style={{ color: subject.accent }} strokeWidth={1.8} />
-            </span>
-            <LockedBadge />
-          </div>
-
-          <div className="relative mt-6">
-            <ShelfTag color="#8a7440">shelf {subject.shelf} — spotlight build</ShelfTag>
-            <h3 className="mt-2 font-display text-xl font-black leading-tight text-[#a89a86]">{subject.title}</h3>
-            <p className="mt-2 text-[.86rem] leading-relaxed text-[#77685a]">{subject.tagline}</p>
-          </div>
-
-          <div className="relative mt-auto pt-6">
-            <p className="font-mono text-[.62rem] uppercase tracking-[.2em] text-[#5d5142]">
-              move your cursor — the light follows
-            </p>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-/* ============================================================
-   05 · HOLO-FOIL — a slowly rotating iridescent ring frames
-   the card; hover turns the foil up. (reserved shelf 05)
-   ============================================================ */
-
-function HoloCard({ subject, index }: CardProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
-      transition={{ duration: 0.8, delay: 0.06 * index, ease: EASE }}
-      className="min-w-0"
-    >
-      <div
-        className="group relative h-full min-h-[19rem] rounded-[1.7rem]"
-        aria-label={`${subject.title} — awaiting syllabus`}
-      >
-        {/* the foil — oversized rotating conic, clipped to the card edge */}
-        <div className="absolute inset-0 overflow-hidden rounded-[1.7rem]" aria-hidden>
-          <div
-            className="holo-spin absolute left-1/2 top-1/2 aspect-square w-[260%] -translate-x-1/2 -translate-y-1/2"
-            style={{
-              background:
-                "conic-gradient(from 0deg, #2dd4bf, #a3e635, #fbbf24, #f43f5e, #c084fc, #2dd4bf)",
-              filter: "blur(6px)",
-            }}
+            aria-hidden
+            className="amb-glow anim-floaty h-36 w-36"
+            style={{ background: accent, left: "-3rem", bottom: "-3rem", animationDelay: "0s" }}
           />
-        </div>
-        {/* the card face, inset 1.5px so a hairline of foil stays visible */}
-        <div className="relative mx-[1.5px] flex h-[calc(100%-3px)] flex-col overflow-hidden rounded-[calc(1.7rem-1.5px)] bg-[#0a0d10] p-6 md:p-7">
-          <div className="flex items-start justify-between">
-            <span
-              className="flex h-12 w-12 items-center justify-center rounded-2xl border"
-              style={{ borderColor: `${subject.accent}35`, background: `${subject.accent}0e` }}
-            >
-              <subject.icon className="h-5 w-5" style={{ color: subject.accent }} strokeWidth={1.8} />
-            </span>
-            <LockedBadge />
-          </div>
-
-          <div className="mt-6">
-            <ShelfTag color="#3f6b64">shelf {subject.shelf} — holo-foil build</ShelfTag>
-            <h3 className="mt-2 font-display text-xl font-black leading-tight text-[#a89a86]">{subject.title}</h3>
-            <p className="mt-2 text-[.86rem] leading-relaxed text-[#77685a]">{subject.tagline}</p>
-          </div>
-
-          <div className="mt-auto pt-6">
-            <p className="font-mono text-[.62rem] uppercase tracking-[.2em] text-[#5d5142]">
-              sealed in foil until the pdf drops
-            </p>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
+          <span
+            aria-hidden
+            className="amb-glow anim-floaty h-24 w-24"
+            style={{ background: "#f5c889", right: "-2rem", top: "2rem", animationDelay: "-4s" }}
+          />
+        </>
+      );
+  }
 }
 
 /* ============================================================
-   06 · AURORA MESH — warm light blobs drifting behind the
-   content. (reserved shelf 06)
+   THE SUBJECT BOX — one mould, six pours.
+   Identical layout, identical chrome, identical motion
+   personality; only the sigil + the ambience whisper differ.
    ============================================================ */
-
-function AuroraCard({ subject, index }: CardProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
-      transition={{ duration: 0.8, delay: 0.06 * index, ease: EASE }}
-      className="min-w-0"
-    >
-      <div
-        className="group card-aurora relative flex h-full min-h-[19rem] flex-col overflow-hidden rounded-[1.7rem] p-6 md:p-7"
-        aria-label={`${subject.title} — awaiting syllabus`}
-      >
-        <span aria-hidden className="aurora-blob anim-floaty h-40 w-40" style={{ background: "#fb923c", left: "-3.5rem", top: "-3rem", animationDelay: "0s" }} />
-        <span aria-hidden className="aurora-blob anim-floaty h-32 w-32" style={{ background: "#f43f5e", right: "-2.5rem", bottom: "-2rem", animationDelay: "-3.4s" }} />
-        <span aria-hidden className="aurora-blob anim-floaty h-24 w-24" style={{ background: "#f59e0b", right: "30%", top: "10%", animationDelay: "-6s" }} />
-
-        <div className="relative flex items-start justify-between">
-          <span
-            className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#fb923c30] bg-[#fb923c10]"
-            style={{ boxShadow: "0 10px 30px -12px rgba(251,146,60,.5)" }}
-          >
-            <subject.icon className="h-5 w-5 text-[#fb923c]" strokeWidth={1.8} />
-          </span>
-          <LockedBadge />
-        </div>
-
-        <div className="relative mt-6">
-          <ShelfTag color="#8a5c3a">shelf {subject.shelf} — aurora build</ShelfTag>
-          <h3 className="mt-2 font-display text-xl font-black leading-tight text-[#a89a86]">{subject.title}</h3>
-          <p className="mt-2 text-[.86rem] leading-relaxed text-[#77685a]">{subject.tagline}</p>
-        </div>
-
-        <div className="relative mt-auto pt-6">
-          <p className="font-mono text-[.62rem] uppercase tracking-[.2em] text-[#5d5142]">
-            brewing — light on the horizon
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-/* ---------------------------------------------- card dispatcher */
 
 interface CardProps {
   subject: Subject;
@@ -546,20 +223,119 @@ interface CardProps {
 }
 
 function SubjectCard({ subject, index, onEnter }: CardProps) {
-  switch (subject.cardStyle) {
-    case "glass":
-      return <GlassCard subject={subject} index={index} onEnter={onEnter} />;
-    case "clay":
-      return <ClayCard subject={subject} index={index} onEnter={onEnter} />;
-    case "neo":
-      return <NeoCard subject={subject} index={index} onEnter={onEnter} />;
-    case "spotlight":
-      return <SpotlightCard subject={subject} index={index} onEnter={onEnter} />;
-    case "holo":
-      return <HoloCard subject={subject} index={index} onEnter={onEnter} />;
-    case "aurora":
-      return <AuroraCard subject={subject} index={index} onEnter={onEnter} />;
-  }
+  const live = subject.status === "live";
+  const spotRef = useRef<HTMLElement | null>(null);
+  const setSpotRef = (el: HTMLElement | null) => {
+    spotRef.current = el;
+  };
+
+  /* cursor spotlight — wired only for the "spotlight" ambience */
+  const onSpotMove = (e: React.MouseEvent) => {
+    if (subject.ambience !== "spotlight") return;
+    const el = spotRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    el.style.setProperty("--my", `${e.clientY - r.top}px`);
+  };
+
+  const inner = (
+    <>
+      <Ambience kind={subject.ambience} accent={subject.accent} />
+      {/* icon micro-motion — the sigil wakes on hover */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute left-6 top-6 h-12 w-12 rounded-2xl opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-60 md:left-7"
+        style={{ background: subject.accent }}
+      />
+
+      <div className="relative flex items-start justify-between gap-3">
+        <span className="glass-chip flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
+          <subject.icon className="h-5 w-5" style={{ color: live ? subject.accent : `${subject.accent}cc` }} />
+        </span>
+        {live ? <LiveBadge accent={subject.accent} /> : <LockedBadge />}
+      </div>
+
+      <div className="relative mt-6">
+        <ShelfTag color={live ? "#b49a78" : "#77685a"}>shelf {subject.shelf}</ShelfTag>
+        <h3
+          className={`mt-2 font-display text-2xl font-black leading-tight md:text-[1.55rem] ${
+            live ? "text-[#f7ecdd]" : "text-[#cfc0a8]"
+          }`}
+        >
+          {subject.title}
+        </h3>
+        <p className={`mt-2.5 text-[.88rem] leading-relaxed ${live ? "text-[#c9b99f]" : "text-[#8d7f6c]"}`}>
+          {live ? subject.description : subject.tagline}
+        </p>
+      </div>
+
+      <div className="relative mt-4 flex flex-wrap gap-1.5">
+        {subject.topics.slice(0, live ? 5 : 1).map((t) => (
+          <span key={t} className="glass-chip rounded-full px-2.5 py-1 text-[.66rem] font-semibold text-[#ecdcc2]">
+            {t}
+          </span>
+        ))}
+      </div>
+
+      <div className="relative mt-auto flex items-center justify-between gap-3 border-t border-white/10 pt-4">
+        {live ? (
+          <>
+            <span className="font-mono text-[.64rem] uppercase tracking-[.16em] text-[#8d7b63]">
+              {subject.chapters} chapters · {subject.questions} questions · {subject.examWindows} windows
+            </span>
+            <span className="flex shrink-0 items-center gap-1 text-[.68rem] font-black uppercase tracking-[.16em] text-[#f5c889] transition-transform duration-300 group-hover:translate-x-1">
+              enter <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
+          </>
+        ) : (
+          <>
+            <span className="font-mono text-[.62rem] uppercase tracking-[.18em] text-[#5d5142]">
+              awaiting syllabus — the pdf drops here
+            </span>
+            <span className="flex shrink-0 items-center gap-1 font-mono text-[.62rem] uppercase tracking-[.18em] text-[#6d5f4f]">
+              soon
+            </span>
+          </>
+        )}
+      </div>
+    </>
+  );
+
+  const shell =
+    "group card-glass relative flex h-full min-h-[19.5rem] w-full flex-col overflow-hidden rounded-[1.7rem] p-6 text-left md:p-7";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 34, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
+      transition={{ duration: 0.85, delay: 0.06 * index, ease: EASE }}
+      className="min-w-0"
+    >
+      {live ? (
+        <motion.button
+          ref={setSpotRef}
+          type="button"
+          onClick={() => onEnter(subject.id)}
+          aria-label={`Open ${subject.title} notes`}
+          onMouseMove={onSpotMove}
+          whileHover={{ y: -5 }}
+          whileTap={{ scale: 0.985 }}
+          transition={{ duration: 0.35, ease: EASE }}
+          className={shell}
+        >
+          <span className="glass-gloss" aria-hidden />
+          {inner}
+        </motion.button>
+      ) : (
+        <div ref={setSpotRef} onMouseMove={onSpotMove} className={shell} aria-label={`${subject.title} — awaiting syllabus`}>
+          <span className="glass-gloss" aria-hidden />
+          {inner}
+        </div>
+      )}
+    </motion.div>
+  );
 }
 
 /* ---------------------------------------------- next-shelf tile */
@@ -573,18 +349,18 @@ function NextShelfTile({ index }: { index: number }) {
       transition={{ duration: 0.8, delay: 0.06 * index, ease: EASE }}
       className="min-w-0 md:col-span-2"
     >
-      <div className="group relative flex h-full min-h-[12rem] flex-col justify-between overflow-hidden rounded-[1.7rem] border border-dashed border-white/12 bg-white/[.02] p-6 md:p-8">
+      <div className="group relative flex h-full min-h-[11rem] flex-col justify-between overflow-hidden rounded-[1.7rem] border border-dashed border-white/12 bg-white/[.02] p-6 md:p-7">
         {/* ghost numeral */}
         <span
           aria-hidden
-          className="text-ghost pointer-events-none absolute -right-4 -top-8 select-none font-display text-[10rem] font-black leading-none"
+          className="text-ghost pointer-events-none absolute -right-4 -top-8 select-none font-display text-[9rem] font-black leading-none"
         >
           03
         </span>
 
         <div className="relative">
           <ShelfTag color="#b49a78">next drop</ShelfTag>
-          <h3 className="mt-2 flex items-center gap-2 font-display text-2xl font-black text-[#f7ecdd] md:text-3xl">
+          <h3 className="mt-2 flex items-center gap-2 font-display text-2xl font-black text-[#f7ecdd] md:text-[1.55rem]">
             Shelf 03 is loading
             <span className="flex items-end gap-1 pb-1.5" aria-hidden>
               {[0, 1, 2].map((i) => (
@@ -598,7 +374,7 @@ function NextShelfTile({ index }: { index: number }) {
           </h3>
           <p className="mt-2.5 max-w-md text-[.88rem] leading-relaxed text-[#a89a86]">
             The atlas grows one PDF at a time. Drop the next syllabus and this tile comes
-            alive — distilled, animated, made runnable. Same treatment, every single time.
+            alive — distilled, animated, made runnable. Same mould, every single time.
           </p>
         </div>
 
@@ -842,8 +618,8 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           </div>
         </div>
 
-        {/* ------- the shelf (bento of materials) ------- */}
-        <section id="shelf" aria-label="The subject shelf" className="relative mx-auto w-full max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 md:py-28">
+        {/* ------- the shelf (one mould, six pours, two per row) ------- */}
+        <section id="shelf" aria-label="The subject shelf" className="relative mx-auto w-full max-w-5xl scroll-mt-20 px-4 py-20 sm:px-6 md:py-28">
           <Rise className="mb-12 md:mb-16">
             <span className="flex items-center gap-2 text-[.7rem] font-extrabold uppercase tracking-[.24em] text-[#f5c889]">
               <span className="h-px w-8 bg-gradient-to-r from-[#ea580c] to-transparent" />
@@ -853,13 +629,12 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               Pick a shelf. <span className="atlas-sheen">Enter a world.</span>
             </h2>
             <p className="mt-4 max-w-2xl text-[.95rem] leading-relaxed text-[#a89a86] md:text-base">
-              Every box below is a full revision universe — live ones open on click, locked
-              ones are brewing. Each one gets its own material, its own motion, its own
-              personality. Same soul, every time.
+              Six boxes, one mould — the same dark frosted build, set two by two. Only the
+              sigil changes, and one whisper of motion. Same soul, every time.
             </p>
           </Rise>
 
-          <div className="grid gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 md:gap-5">
             {SUBJECTS.map((s, i) => (
               <SubjectCard key={s.id} subject={s} index={i} onEnter={onEnter} />
             ))}
