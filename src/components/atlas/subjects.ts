@@ -14,6 +14,10 @@ import { ATB_TOTAL_QUESTIONS } from "@/components/atb/questions";
 
 export type SubjectStatus = "live" | "soon";
 
+/** the design language of the card on the landing shelf —
+ *  every box gets its own material treatment (glass, clay, …) */
+export type SubjectCardStyle = "glass" | "clay" | "neo" | "spotlight" | "holo" | "aurora";
+
 export interface Subject {
   /** stable id — used in the hash route (#/subject/<id>) */
   id: string;
@@ -37,6 +41,8 @@ export interface Subject {
   accent2: string;
   icon: LucideIcon;
   status: SubjectStatus;
+  /** material treatment used by the landing card */
+  cardStyle: SubjectCardStyle;
 }
 
 export const SUBJECTS: Subject[] = [
@@ -56,6 +62,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#ea580c",
     icon: Compass,
     status: "live",
+    cardStyle: "glass",
   },
   {
     id: "atb",
@@ -64,7 +71,7 @@ export const SUBJECTS: Subject[] = [
     short: "ATB Notes",
     tagline: "Data structures & algorithms — no code, all logic.",
     description:
-      "The whole no-code course rebuilt as living notes: animated flowcharts, a nine-property wall, memory-box machines, stack/queue/BST/hash/graph labs you can poke, and 30 exam-style questions across 6 windows.",
+      "The whole no-code course rebuilt as living notes: animated flowcharts, a nine-property wall, memory-box machines, stack & queue machines, a hash table you can poke, and 30 exam-style questions across 6 windows.",
     topics: ["Algorithms & flowcharts", "9 properties", "Arrays & lists", "Stacks & queues", "Trees & graphs", "Hashing & blockchain"],
     chapters: 19,
     questions: ATB_TOTAL_QUESTIONS,
@@ -73,6 +80,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#be123c",
     icon: Route,
     status: "live",
+    cardStyle: "clay",
   },
   {
     id: "shelf-03",
@@ -89,6 +97,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#3f6212",
     icon: Lock,
     status: "soon",
+    cardStyle: "neo",
   },
   {
     id: "shelf-04",
@@ -105,6 +114,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#854d0e",
     icon: Lock,
     status: "soon",
+    cardStyle: "spotlight",
   },
   {
     id: "shelf-05",
@@ -121,6 +131,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#0f766e",
     icon: Lock,
     status: "soon",
+    cardStyle: "holo",
   },
   {
     id: "shelf-06",
@@ -137,6 +148,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#c2410c",
     icon: Lock,
     status: "soon",
+    cardStyle: "aurora",
   },
 ];
 

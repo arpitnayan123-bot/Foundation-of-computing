@@ -1018,16 +1018,17 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: #070509;
+  background: #060409;
 }
 .atlas-bg::before {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(1100px 640px at 12% -8%, rgba(245, 158, 11, .17), transparent 60%),
-    radial-gradient(900px 560px at 88% 10%, rgba(244, 63, 94, .09), transparent 55%),
-    radial-gradient(1000px 820px at 50% 118%, rgba(234, 88, 12, .11), transparent 62%);
+    radial-gradient(1200px 700px at 10% -10%, rgba(245, 158, 11, .20), transparent 62%),
+    radial-gradient(1000px 620px at 92% 6%, rgba(244, 63, 94, .12), transparent 58%),
+    radial-gradient(900px 640px at 78% 92%, rgba(45, 212, 191, .07), transparent 60%),
+    radial-gradient(1100px 860px at 38% 118%, rgba(234, 88, 12, .13), transparent 64%);
 }
 .atlas-grid {
   position: absolute;
@@ -1062,9 +1063,182 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
   animation: gradientShift 8s ease-in-out infinite;
 }
 
-/* rotating conic ring that appears behind cards on hover */
-.atlas-card-ring { animation: spinSlow 7s linear infinite; }
+/* rotating conic helper (shared by the holo foil ring) */
 .atlas-live-dot { animation: pulseGlow 2.4s ease-in-out infinite; }
+
+/* ============================================================
+   THE ATLAS — material system for the landing shelf.
+   Six boxes, six treatments: glassmorphism, claymorphism,
+   neomorphism, spotlight, holo-foil, aurora mesh.
+   ============================================================ */
+
+/* film grain over the whole canvas — the premium texture layer */
+.atlas-noise {
+  position: absolute;
+  inset: 0;
+  opacity: .5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.26'/%3E%3C/svg%3E");
+}
+
+/* ghost outline type — the giant word drifting behind the hero */
+.text-ghost {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(247, 236, 221, .075);
+}
+
+/* ---------- 01 · GLASSMORPHISM (frosted pane) ---------- */
+.card-glass {
+  background: linear-gradient(155deg, rgba(255,255,255,.115) 0%, rgba(255,255,255,.035) 42%, rgba(255,255,255,.07) 100%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid rgba(255,255,255,.17);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 0 -1px 0 rgba(255,255,255,.04),
+    0 36px 90px -44px rgba(0,0,0,.92);
+}
+.glass-gloss {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,.14), transparent 26%);
+}
+.glass-sweep {
+  position: absolute; top: -25%; bottom: -25%; left: -45%; width: 34%;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.13) 42%, rgba(255,247,236,.26) 50%, rgba(255,255,255,.13) 58%, transparent);
+  transform: translateX(0) skewX(-14deg);
+}
+.group:hover .glass-sweep {
+  transform: translateX(440%) skewX(-14deg);
+  transition: transform 1.15s cubic-bezier(.22, 1, .36, 1);
+}
+.glass-chip {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14);
+}
+
+/* ---------- 02 · CLAYMORPHISM (soft inflated putty) ---------- */
+.card-clay {
+  background:
+    radial-gradient(135% 110% at 18% 0%, rgba(255,255,255,.30), transparent 44%),
+    linear-gradient(165deg, #fb7185 0%, #e11d48 50%, #9f1239 100%);
+  border: 1px solid rgba(255,255,255,.28);
+  box-shadow:
+    inset 0 2px 5px rgba(255,255,255,.5),
+    inset 0 -14px 28px rgba(114, 7, 37, .5),
+    inset 3px 0 10px rgba(255,255,255,.14),
+    0 26px 54px -20px rgba(225, 29, 72, .55),
+    0 74px 110px -52px rgba(0,0,0,.9);
+}
+.clay-tile {
+  background: linear-gradient(165deg, rgba(255,255,255,.42), rgba(255,255,255,.10));
+  box-shadow:
+    inset 0 2px 4px rgba(255,255,255,.7),
+    inset 0 -4px 9px rgba(114, 7, 37, .38),
+    0 12px 24px -10px rgba(114, 7, 37, .65);
+}
+.clay-chip {
+  background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.3);
+}
+.clay-blob {
+  position: absolute; border-radius: 9999px; filter: blur(30px);
+  opacity: .5; pointer-events: none;
+  transition: opacity .6s;
+}
+.card-clay:hover .clay-blob { opacity: .75; }
+
+/* ---------- 03 · NEOMORPHISM (soft-extruded dark) ---------- */
+.card-neo {
+  background: linear-gradient(145deg, #110e17, #0a080f);
+  border: 1px solid rgba(255,255,255,.05);
+  box-shadow:
+    11px 11px 26px rgba(0,0,0,.62),
+    -9px -9px 22px rgba(255,255,255,.032);
+  transition: box-shadow .55s cubic-bezier(.22,1,.36,1), border-color .55s, transform .55s cubic-bezier(.22,1,.36,1);
+}
+.card-neo:hover {
+  transform: translateY(1px);
+  border-color: rgba(132, 204, 22, .18);
+  box-shadow:
+    inset 8px 8px 18px rgba(0,0,0,.68),
+    inset -7px -7px 16px rgba(255,255,255,.038);
+}
+.neo-well {
+  box-shadow:
+    inset 5px 5px 12px rgba(0,0,0,.68),
+    inset -4px -4px 10px rgba(255,255,255,.05);
+}
+
+/* ---------- 04 · SPOTLIGHT (cursor-tracked glow) ---------- */
+.card-spot {
+  --mx: 50%;
+  --my: 30%;
+  background: #0b0810;
+  border: 1px solid rgba(255,255,255,.08);
+}
+.spot-fill {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  opacity: 0; transition: opacity .45s;
+  background: radial-gradient(430px circle at var(--mx) var(--my), rgba(234, 179, 8, .14), transparent 46%);
+}
+.spot-border {
+  position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+  opacity: 0; transition: opacity .45s;
+  background: radial-gradient(270px circle at var(--mx) var(--my), rgba(250, 204, 21, .85), transparent 46%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+}
+.group:hover .spot-fill, .group:hover .spot-border { opacity: 1; }
+
+/* ---------- 05 · HOLO-FOIL (iridescent rotating ring) ---------- */
+.holo-spin {
+  animation: spinSlow 10s linear infinite;
+  opacity: .8;
+  transition: opacity .6s;
+}
+.group:hover .holo-spin { opacity: 1; }
+
+/* ---------- 06 · AURORA MESH (drifting light blobs) ---------- */
+.card-aurora {
+  background: #0c0809;
+  border: 1px solid rgba(251, 146, 60, .16);
+}
+.aurora-blob {
+  position: absolute; border-radius: 9999px;
+  filter: blur(46px); opacity: .5; pointer-events: none;
+  transition: opacity .6s;
+}
+.card-aurora:hover .aurora-blob { opacity: .8; }
+
+/* ---------- next-shelf tile: indeterminate loading bar ---------- */
+.load-bar { position: relative; overflow: hidden; }
+.load-bar::after {
+  content: "";
+  position: absolute; top: 0; bottom: 0; left: 0; width: 38%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, rgba(245, 196, 137, .95), transparent);
+  animation: loadSlide 1.7s cubic-bezier(.45, 0, .55, 1) infinite;
+}
+@keyframes loadSlide {
+  0% { transform: translateX(-130%); }
+  100% { transform: translateX(340%); }
+}
+
+/* ---------- three-dot loader ---------- */
+.dot-pulse { animation: pulseGlow 1.6s ease-in-out infinite; }
+
+/* respect reduced motion across the whole atlas */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track, .anim-floaty, .anim-drift, .atlas-sheen, .atlas-live-dot,
+  .holo-spin, .aurora-blob, .clay-blob, .load-bar::after, .dot-pulse {
+    animation: none !important;
+  }
+}
 
 /* dark scrollbar while the Atlas is the active view */
 html.atlas-active ::-webkit-scrollbar-track { background: #0c0a10; }

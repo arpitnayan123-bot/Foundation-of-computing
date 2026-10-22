@@ -11,13 +11,13 @@ import {
   Braces,
   Coffee,
   Database,
-  FlaskConical,
   Flame,
   FunctionSquare,
   GraduationCap,
   Hash,
   ListOrdered,
   Percent,
+  PenLine,
   Play,
   RotateCcw,
   Sigma,
@@ -155,7 +155,7 @@ function HeroShape({ b }: { b: (typeof HERO_SHAPES)[number] }) {
   );
 }
 
-export function AtbHero({ onOpenLab }: { onOpenLab: () => void }) {
+export function AtbHero() {
   return (
     <header id="top" className="relative flex min-h-[94vh] flex-col items-center justify-center overflow-hidden px-4 pb-24 pt-16 sm:pb-16">
       {/* ambient washes — static (cheap), like every shelf hero */}
@@ -222,15 +222,14 @@ export function AtbHero({ onOpenLab }: { onOpenLab: () => void }) {
             >
               Start Module 1 <ArrowRight className="ml-1 inline h-4 w-4" />
             </a>
-            <button
-              type="button"
-              onClick={onOpenLab}
-              title="Open the No-Code Lab — trace algorithms with memory boxes, no Python needed"
+            <a
+              href="#practice"
+              title="Straight to the exam windows — write-the-output, trace-the-pseudocode, concept checks"
               className="group inline-flex items-center gap-2 rounded-full border border-[#e5c79d] bg-[#fffdf9] px-7 py-3.5 text-sm font-bold text-[#7c4a12] transition hover:bg-[#fdf1e0]"
             >
-              <FlaskConical className="h-4 w-4 text-[#c2410c] transition-transform duration-300 group-hover:rotate-12" />
-              Open the No-Code Lab
-            </button>
+              <PenLine className="h-4 w-4 text-[#c2410c] transition-transform duration-300 group-hover:-rotate-12" />
+              Test my knowledge
+            </a>
           </div>
         </Reveal>
 

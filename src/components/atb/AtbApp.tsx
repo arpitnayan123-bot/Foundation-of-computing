@@ -2,14 +2,13 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Route, Menu, X, ChevronDown, BookOpenText, FlaskConical, PenLine, Map, BookOpen, ListChecks, GraduationCap } from "lucide-react";
+import { Route, Menu, X, ChevronDown, BookOpenText, MousePointerClick, PenLine, Map, BookOpen, ListChecks, GraduationCap } from "lucide-react";
 import { AtbHero, AtbIntroSection, AtbFlowchartsSection, AtbAtmSection, AtbCodeSection, AtbAverageSection } from "@/components/atb/AtbParts1";
 import { AtbPropsSection, AtbAlgoTypesSection } from "@/components/atb/AtbParts2";
 import { AtbArraysSection, AtbListSection } from "@/components/atb/AtbParts3";
 import { AtbStacksSection, AtbQueuesSection, AtbQTypesSection } from "@/components/atb/AtbParts4";
 import { AtbTreesSection, AtbTraversalsSection, AtbGraphsSection, AtbDfsBfsSection } from "@/components/atb/AtbParts5";
 import { AtbTreeTypesSection, AtbHashingSection, AtbBlockchainSection } from "@/components/atb/AtbParts6";
-import { AtbLab } from "@/components/atb/AtbLab";
 import { AtbExamWindow } from "@/components/atb/AtbExamWindow";
 import { ATB_EXAM_BANKS, ATB_EXAM_GROUPS, ATB_TOTAL_QUESTIONS, type AtbExamGroup } from "@/components/atb/questions";
 
@@ -18,8 +17,8 @@ import { ATB_EXAM_BANKS, ATB_EXAM_GROUPS, ATB_TOTAL_QUESTIONS, type AtbExamGroup
    revision companion, registered as shelf 02 of THE ATLAS.
 
    A NO-CODE course: every concept is traced by hand — tea
-   recipes, ATM decisions, memory boxes — so instead of a Python
-   Lab this subject ships a No-Code Lab. Mounted by the Atlas
+   recipes, ATM decisions, memory boxes — and every chapter
+   carries its own in-page machines. Mounted by the Atlas
    router (src/app/page.tsx) when the reader enters the subject;
    `onExitAtlas` returns the reader to the Atlas landing page.
    ============================================================ */
@@ -99,8 +98,8 @@ function groupOf(id: string): string | null {
 }
 
 /* ============================================================
-   TopNav — structured chapter menu + No-Code Lab button +
-   a "Test my knowledge" launcher inside every chapter group.
+   TopNav — structured chapter menu + a "Test my knowledge"
+   launcher inside every chapter group.
 
    PERF (kept from FocApp): the progress bar is written straight
    to the DOM through a ref inside a requestAnimationFrame, and
@@ -108,11 +107,9 @@ function groupOf(id: string): string | null {
    the nav never re-renders per scroll tick.
    ============================================================ */
 function TopNav({
-  onOpenLab,
   onOpenExam,
   onExitAtlas,
 }: {
-  onOpenLab: () => void;
   onOpenExam: (g: AtbExamGroup) => void;
   onExitAtlas: () => void;
 }) {
@@ -349,29 +346,8 @@ function TopNav({
             ))}
           </div>
 
-          {/* right cluster — No-Code Lab (this course has no Python) */}
+          {/* right cluster — chapter index (small screens) */}
           <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
-            <button
-              type="button"
-              onClick={onOpenLab}
-              title="Open the No-Code Lab — trace every algorithm by hand, no programming needed"
-              className="hidden items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3.5 py-1.5 text-[.66rem] font-extrabold uppercase tracking-[.14em] text-[#8a5f30] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-md transition-all duration-200 hover:bg-white/85 hover:text-[#c2410c] sm:flex"
-            >
-              <FlaskConical className="h-3.5 w-3.5" />
-              No-Code Lab
-              <span
-                className="h-1.5 w-1.5 rounded-full"
-                style={{ background: "#6f9e3f", boxShadow: "0 0 0 3px rgba(143,174,93,.25)" }}
-              />
-            </button>
-            <button
-              type="button"
-              onClick={onOpenLab}
-              aria-label="Open the No-Code Lab"
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#8a5f30] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] lg:hidden"
-            >
-              <FlaskConical className="h-4 w-4" />
-            </button>
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
@@ -510,7 +486,7 @@ function TopNav({
    ============================================================ */
 function PracticeBand({ onOpenExam }: { onOpenExam: (g: AtbExamGroup) => void }) {
   return (
-    <section aria-label="Test my knowledge — pen-paper practice" className="relative border-y border-[#ecd9bd] bg-[#fffaf1]/70">
+    <section id="practice" aria-label="Test my knowledge — pen-paper practice" className="relative scroll-mt-20 border-y border-[#ecd9bd] bg-[#fffaf1]/70">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -567,7 +543,7 @@ const ATB_SIG_CHIPS = [
   { icon: BookOpen, label: `${FLAT_ITEMS.length} chapters` },
   { icon: ListChecks, label: `${ATB_TOTAL_QUESTIONS} practice questions` },
   { icon: GraduationCap, label: `${ATB_EXAM_GROUPS.length} exam windows` },
-  { icon: FlaskConical, label: "No-Code Lab" },
+  { icon: MousePointerClick, label: "machines you can poke" },
 ];
 
 export function AtbFooter() {
@@ -703,7 +679,6 @@ export function AtbFooter() {
    AtbApp — the composed subject page.
    ============================================================ */
 export function AtbApp({ onExitAtlas }: { onExitAtlas: () => void }) {
-  const [labOpen, setLabOpen] = useState(false);
   const [examGroup, setExamGroup] = useState<AtbExamGroup | null>(null);
   const openExam = (g: AtbExamGroup) => setExamGroup(g);
 
@@ -711,9 +686,9 @@ export function AtbApp({ onExitAtlas }: { onExitAtlas: () => void }) {
     // id="top" — the brand chip links to #top; without a real element here the
     // client-side router swallows the fragment and the page never scrolls back
     <div id="top" className="page-wrap warm-canvas">
-      <TopNav onOpenLab={() => setLabOpen(true)} onOpenExam={openExam} onExitAtlas={onExitAtlas} />
+      <TopNav onOpenExam={openExam} onExitAtlas={onExitAtlas} />
       <main className="pt-14">
-        <AtbHero onOpenLab={() => setLabOpen(true)} />
+        <AtbHero />
         <PracticeBand onOpenExam={openExam} />
         <AtbIntroSection />
         <AtbFlowchartsSection />
@@ -736,7 +711,6 @@ export function AtbApp({ onExitAtlas }: { onExitAtlas: () => void }) {
         <AtbBlockchainSection />
       </main>
       <AtbFooter />
-      <AtbLab open={labOpen} onClose={() => setLabOpen(false)} />
       {examGroup ? <AtbExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
     </div>
   );
