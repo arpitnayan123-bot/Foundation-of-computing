@@ -15,14 +15,53 @@
    ============================================================ */
 
 import React, { useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import { AtlasLanding } from "@/components/atlas/AtlasLanding";
 import { SUBJECT_IDS } from "@/components/atlas/subjects";
-import { FocApp } from "@/components/notes/FocApp";
-import { AtbApp } from "@/components/atb/AtbApp";
-import { FaApp } from "@/components/fa/FaApp";
-import { EbhApp } from "@/components/ebh/EbhApp";
-import { StmApp } from "@/components/stm/StmApp";
+
+/* ============================================================
+   Code-split shelves — each subject app is a heavy, self-contained
+   world (chapters, question banks, animated machines). Only the
+   landing ships with the first paint; a shelf's chunk is fetched
+   the first time it is entered, behind a themed loader.
+   ============================================================ */
+function ShelfLoader() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[#070509]">
+      <div className="flex flex-col items-center gap-4">
+        <span
+          aria-hidden
+          className="h-8 w-8 animate-spin rounded-full border-2 border-[#3e2c1d] border-t-[#f59e0b]"
+        />
+        <p className="text-[.7rem] font-black uppercase tracking-[.22em] text-[#a89a86]">
+          Opening the shelf…
+        </p>
+      </div>
+    </div>
+  );
+}
+
+const FocApp = dynamic(() => import("@/components/notes/FocApp").then((m) => m.FocApp), {
+  ssr: false,
+  loading: () => <ShelfLoader />,
+});
+const AtbApp = dynamic(() => import("@/components/atb/AtbApp").then((m) => m.AtbApp), {
+  ssr: false,
+  loading: () => <ShelfLoader />,
+});
+const FaApp = dynamic(() => import("@/components/fa/FaApp").then((m) => m.FaApp), {
+  ssr: false,
+  loading: () => <ShelfLoader />,
+});
+const EbhApp = dynamic(() => import("@/components/ebh/EbhApp").then((m) => m.EbhApp), {
+  ssr: false,
+  loading: () => <ShelfLoader />,
+});
+const StmApp = dynamic(() => import("@/components/stm/StmApp").then((m) => m.StmApp), {
+  ssr: false,
+  loading: () => <ShelfLoader />,
+});
 
 type View = { name: "atlas" } | { name: "subject"; id: string };
 

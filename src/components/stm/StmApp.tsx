@@ -1,5 +1,8 @@
 "use client";
 
+import { PartBoundary } from "@/components/notes/PartBoundary";
+import { useDialogA11y } from "@/components/notes/exam-runtime";
+
 /* ============================================================
    StmApp — the complete "Statistics for Managers" revision
    companion, registered as shelf 05 of THE ATLAS.
@@ -120,6 +123,7 @@ function TopNav({
   const [active, setActive] = useState<string>("");
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
   const navRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef("");
@@ -372,12 +376,14 @@ function TopNav({
       <AnimatePresence>
         {mobileOpen ? (
           <motion.div
+            ref={mobileRef}
+            tabIndex={-1}
             key="mobile-index"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-[60] flex flex-col"
+            className="fixed inset-0 z-[60] flex flex-col outline-none"
             style={{ background: "linear-gradient(165deg,#160b28 0%,#241238 55%,#311a4d 100%)" }}
             role="dialog"
             aria-modal="true"
@@ -683,24 +689,60 @@ export function StmApp({ onExitAtlas }: { onExitAtlas: () => void }) {
     <div id="top" className="page-wrap warm-canvas stm-app">
       <TopNav onOpenExam={openExam} onExitAtlas={onExitAtlas} />
       <main className="pt-14">
-        <StmHero />
-        <PracticeBand onOpenExam={openExam} />
-        <StmLensSection />
-        <StmScalesSection />
-        <StmSourcesSection />
-        <StmCategoricalSection />
-        <StmQuantitativeSection />
-        <StmTwoVarsSection />
-        <StmLocationSection />
-        <StmVariabilitySection />
-        <StmAssociationSection />
-        <StmProbBasicsSection />
-        <StmProbLawsSection />
-        <StmBayesSection />
-        <StmDiscreteSection />
-        <StmBinomialSection />
-        <StmContinuousSection />
-        <StmSamplingSection />
+        <PartBoundary label="Hero">
+          <StmHero  />
+        </PartBoundary>
+        <PartBoundary label="PracticeBand">
+          <PracticeBand onOpenExam={openExam}  />
+        </PartBoundary>
+        <PartBoundary label="Lens">
+          <StmLensSection  />
+        </PartBoundary>
+        <PartBoundary label="Scales">
+          <StmScalesSection  />
+        </PartBoundary>
+        <PartBoundary label="Sources">
+          <StmSourcesSection  />
+        </PartBoundary>
+        <PartBoundary label="Categorical">
+          <StmCategoricalSection  />
+        </PartBoundary>
+        <PartBoundary label="Quantitative">
+          <StmQuantitativeSection  />
+        </PartBoundary>
+        <PartBoundary label="TwoVars">
+          <StmTwoVarsSection  />
+        </PartBoundary>
+        <PartBoundary label="Location">
+          <StmLocationSection  />
+        </PartBoundary>
+        <PartBoundary label="Variability">
+          <StmVariabilitySection  />
+        </PartBoundary>
+        <PartBoundary label="Association">
+          <StmAssociationSection  />
+        </PartBoundary>
+        <PartBoundary label="ProbBasics">
+          <StmProbBasicsSection  />
+        </PartBoundary>
+        <PartBoundary label="ProbLaws">
+          <StmProbLawsSection  />
+        </PartBoundary>
+        <PartBoundary label="Bayes">
+          <StmBayesSection  />
+        </PartBoundary>
+        <PartBoundary label="Discrete">
+          <StmDiscreteSection  />
+        </PartBoundary>
+        <PartBoundary label="Binomial">
+          <StmBinomialSection  />
+        </PartBoundary>
+        <PartBoundary label="Continuous">
+          <StmContinuousSection  />
+        </PartBoundary>
+        <PartBoundary label="Sampling">
+          <StmSamplingSection  />
+        </PartBoundary>
       </main>
       <StmFooter />
       {examGroup ? <StmExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}

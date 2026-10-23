@@ -1,5 +1,8 @@
 "use client";
 
+import { PartBoundary } from "@/components/notes/PartBoundary";
+import { useDialogA11y } from "@/components/notes/exam-runtime";
+
 /* ============================================================
    FaApp — the complete "Financial Accounting" revision
    companion, registered as shelf 03 of THE ATLAS.
@@ -119,6 +122,7 @@ function TopNav({
   const [active, setActive] = useState<string>("");
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
   const navRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef("");
@@ -371,12 +375,14 @@ function TopNav({
       <AnimatePresence>
         {mobileOpen ? (
           <motion.div
+            ref={mobileRef}
+            tabIndex={-1}
             key="mobile-index"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-[60] flex flex-col"
+            className="fixed inset-0 z-[60] flex flex-col outline-none"
             style={{ background: "linear-gradient(165deg,#0c1d14 0%,#133024 55%,#1b4433 100%)" }}
             role="dialog"
             aria-modal="true"
@@ -682,24 +688,60 @@ export function FaApp({ onExitAtlas }: { onExitAtlas: () => void }) {
     <div id="top" className="page-wrap warm-canvas fa-app">
       <TopNav onOpenExam={openExam} onExitAtlas={onExitAtlas} />
       <main className="pt-14">
-        <FaHero />
-        <PracticeBand onOpenExam={openExam} />
-        <FaWhySection />
-        <FaAssumptionsSection />
-        <FaEntityConcernSection />
-        <FaPeriodicitySection />
-        <FaDualAspectSection />
-        <FaElementsSection />
-        <FaEquationLabSection />
-        <FaEffectsSection />
-        <FaJournalSection />
-        <FaLedgerSection />
-        <FaStatementsSection />
-        <FaTrialBalanceSection />
-        <FaAdjustingSection />
-        <FaFinalAccountsSection />
-        <FaTradingSection />
-        <FaGrossProfitLabSection />
+        <PartBoundary label="Hero">
+          <FaHero  />
+        </PartBoundary>
+        <PartBoundary label="PracticeBand">
+          <PracticeBand onOpenExam={openExam}  />
+        </PartBoundary>
+        <PartBoundary label="Why">
+          <FaWhySection  />
+        </PartBoundary>
+        <PartBoundary label="Assumptions">
+          <FaAssumptionsSection  />
+        </PartBoundary>
+        <PartBoundary label="EntityConcern">
+          <FaEntityConcernSection  />
+        </PartBoundary>
+        <PartBoundary label="Periodicity">
+          <FaPeriodicitySection  />
+        </PartBoundary>
+        <PartBoundary label="DualAspect">
+          <FaDualAspectSection  />
+        </PartBoundary>
+        <PartBoundary label="Elements">
+          <FaElementsSection  />
+        </PartBoundary>
+        <PartBoundary label="EquationLab">
+          <FaEquationLabSection  />
+        </PartBoundary>
+        <PartBoundary label="Effects">
+          <FaEffectsSection  />
+        </PartBoundary>
+        <PartBoundary label="Journal">
+          <FaJournalSection  />
+        </PartBoundary>
+        <PartBoundary label="Ledger">
+          <FaLedgerSection  />
+        </PartBoundary>
+        <PartBoundary label="Statements">
+          <FaStatementsSection  />
+        </PartBoundary>
+        <PartBoundary label="TrialBalance">
+          <FaTrialBalanceSection  />
+        </PartBoundary>
+        <PartBoundary label="Adjusting">
+          <FaAdjustingSection  />
+        </PartBoundary>
+        <PartBoundary label="FinalAccounts">
+          <FaFinalAccountsSection  />
+        </PartBoundary>
+        <PartBoundary label="Trading">
+          <FaTradingSection  />
+        </PartBoundary>
+        <PartBoundary label="GrossProfitLab">
+          <FaGrossProfitLabSection  />
+        </PartBoundary>
       </main>
       <FaFooter />
       {examGroup ? <FaExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}

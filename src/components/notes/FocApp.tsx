@@ -1,5 +1,8 @@
 "use client";
 
+import { PartBoundary } from "@/components/notes/PartBoundary";
+import { useDialogA11y } from "@/components/notes/exam-runtime";
+
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Compass, Menu, X, ChevronDown, BookOpenText, FlaskConical, PenLine, Map } from "lucide-react";
@@ -109,6 +112,7 @@ function TopNav({
   const [active, setActive] = useState<string>("");
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
   const [pyReady, setPyReady] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -400,12 +404,14 @@ function TopNav({
       <AnimatePresence>
         {mobileOpen ? (
           <motion.div
+            ref={mobileRef}
+            tabIndex={-1}
             key="mobile-index"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-[60] flex flex-col"
+            className="fixed inset-0 z-[60] flex flex-col outline-none"
             style={{ background: "linear-gradient(165deg,#241608 0%,#33200e 55%,#3e2c1d 100%)" }}
             role="dialog"
             aria-modal="true"
@@ -569,25 +575,63 @@ export function FocApp({ onExitAtlas }: { onExitAtlas: () => void }) {
     <div id="top" className="page-wrap warm-canvas">
       <TopNav onOpenLab={() => setLabOpen(true)} onOpenExam={openExam} onExitAtlas={onExitAtlas} />
       <main className="pt-14">
-        <Hero onOpenLab={() => setLabOpen(true)} />
-        <PracticeBand onOpenExam={openExam} />
-        <WhySection />
-        <ComputingSection />
-        <PillarsSection />
-        <DataSection />
-        <AlgorithmSection />
-        <HardwareSection />
-        <SoftwareSection />
-        <ProgrammingSection />
-        <BasicsSection />
-        <ListsSection />
-        <IfSection />
-        <DictsSection />
-        <WhileSection />
-        <FunctionsSection />
-        <ArgsSection />
-        <FuncsScaleSection />
-        <ClassesSection />
+        <PartBoundary label="Hero">
+          <Hero onOpenLab={() => setLabOpen(true)}  />
+        </PartBoundary>
+        <PartBoundary label="PracticeBand">
+          <PracticeBand onOpenExam={openExam}  />
+        </PartBoundary>
+        <PartBoundary label="Why">
+          <WhySection  />
+        </PartBoundary>
+        <PartBoundary label="Computing">
+          <ComputingSection  />
+        </PartBoundary>
+        <PartBoundary label="Pillars">
+          <PillarsSection  />
+        </PartBoundary>
+        <PartBoundary label="Data">
+          <DataSection  />
+        </PartBoundary>
+        <PartBoundary label="Algorithm">
+          <AlgorithmSection  />
+        </PartBoundary>
+        <PartBoundary label="Hardware">
+          <HardwareSection  />
+        </PartBoundary>
+        <PartBoundary label="Software">
+          <SoftwareSection  />
+        </PartBoundary>
+        <PartBoundary label="Programming">
+          <ProgrammingSection  />
+        </PartBoundary>
+        <PartBoundary label="Basics">
+          <BasicsSection  />
+        </PartBoundary>
+        <PartBoundary label="Lists">
+          <ListsSection  />
+        </PartBoundary>
+        <PartBoundary label="If">
+          <IfSection  />
+        </PartBoundary>
+        <PartBoundary label="Dicts">
+          <DictsSection  />
+        </PartBoundary>
+        <PartBoundary label="While">
+          <WhileSection  />
+        </PartBoundary>
+        <PartBoundary label="Functions">
+          <FunctionsSection  />
+        </PartBoundary>
+        <PartBoundary label="Args">
+          <ArgsSection  />
+        </PartBoundary>
+        <PartBoundary label="FuncsScale">
+          <FuncsScaleSection  />
+        </PartBoundary>
+        <PartBoundary label="Classes">
+          <ClassesSection  />
+        </PartBoundary>
       </main>
       <Footer />
       <PyReadyToast />

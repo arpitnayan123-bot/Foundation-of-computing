@@ -1,5 +1,8 @@
 "use client";
 
+import { PartBoundary } from "@/components/notes/PartBoundary";
+import { useDialogA11y } from "@/components/notes/exam-runtime";
+
 /* ============================================================
    EbhApp — the complete "Economic & Business History" revision
    companion, registered as shelf 04 of THE ATLAS.
@@ -112,6 +115,7 @@ function TopNav({
   const [active, setActive] = useState<string>("");
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
   const navRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef("");
@@ -364,12 +368,14 @@ function TopNav({
       <AnimatePresence>
         {mobileOpen ? (
           <motion.div
+            ref={mobileRef}
+            tabIndex={-1}
             key="mobile-index"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-[60] flex flex-col"
+            className="fixed inset-0 z-[60] flex flex-col outline-none"
             style={{ background: "linear-gradient(165deg,#1c1403 0%,#2a1e06 55%,#3a2a0a 100%)" }}
             role="dialog"
             aria-modal="true"
@@ -675,26 +681,66 @@ export function EbhApp({ onExitAtlas }: { onExitAtlas: () => void }) {
     <div id="top" className="page-wrap warm-canvas ebh-app">
       <TopNav onOpenExam={openExam} onExitAtlas={onExitAtlas} />
       <main className="pt-14">
-        <EbhHero />
-        <PracticeBand onOpenExam={openExam} />
-        <EbhEconomicsSection />
-        <EbhBusinessSection />
-        <EbhHistorySection />
-        <EbhRulesPlayersSection />
-        <EbhLicenseRajSection />
-        <EbhBajajSection />
-        <EbhSocietySection />
-        <EbhWeekendSection />
-        <EbhBizEconTechSection />
-        <EbhAgrarianSection />
-        <EbhGuildsSection />
-        <EbhTradeSection />
-        <EbhLifeBeforeSection />
-        <EbhWhyMachinesSection />
-        <EbhTextileSection />
-        <EbhSteamSection />
-        <EbhLaborSection />
-        <EbhEmpireSection />
+        <PartBoundary label="Hero">
+          <EbhHero  />
+        </PartBoundary>
+        <PartBoundary label="PracticeBand">
+          <PracticeBand onOpenExam={openExam}  />
+        </PartBoundary>
+        <PartBoundary label="Economics">
+          <EbhEconomicsSection  />
+        </PartBoundary>
+        <PartBoundary label="Business">
+          <EbhBusinessSection  />
+        </PartBoundary>
+        <PartBoundary label="History">
+          <EbhHistorySection  />
+        </PartBoundary>
+        <PartBoundary label="RulesPlayers">
+          <EbhRulesPlayersSection  />
+        </PartBoundary>
+        <PartBoundary label="LicenseRaj">
+          <EbhLicenseRajSection  />
+        </PartBoundary>
+        <PartBoundary label="Bajaj">
+          <EbhBajajSection  />
+        </PartBoundary>
+        <PartBoundary label="Society">
+          <EbhSocietySection  />
+        </PartBoundary>
+        <PartBoundary label="Weekend">
+          <EbhWeekendSection  />
+        </PartBoundary>
+        <PartBoundary label="BizEconTech">
+          <EbhBizEconTechSection  />
+        </PartBoundary>
+        <PartBoundary label="Agrarian">
+          <EbhAgrarianSection  />
+        </PartBoundary>
+        <PartBoundary label="Guilds">
+          <EbhGuildsSection  />
+        </PartBoundary>
+        <PartBoundary label="Trade">
+          <EbhTradeSection  />
+        </PartBoundary>
+        <PartBoundary label="LifeBefore">
+          <EbhLifeBeforeSection  />
+        </PartBoundary>
+        <PartBoundary label="WhyMachines">
+          <EbhWhyMachinesSection  />
+        </PartBoundary>
+        <PartBoundary label="Textile">
+          <EbhTextileSection  />
+        </PartBoundary>
+        <PartBoundary label="Steam">
+          <EbhSteamSection  />
+        </PartBoundary>
+        <PartBoundary label="Labor">
+          <EbhLaborSection  />
+        </PartBoundary>
+        <PartBoundary label="Empire">
+          <EbhEmpireSection  />
+        </PartBoundary>
       </main>
       <EbhFooter />
       {examGroup ? <EbhExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}

@@ -1,5 +1,8 @@
 "use client";
 
+import { PartBoundary } from "@/components/notes/PartBoundary";
+import { useDialogA11y } from "@/components/notes/exam-runtime";
+
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Route, Menu, X, ChevronDown, BookOpenText, MousePointerClick, PenLine, Map, BookOpen, ListChecks, GraduationCap } from "lucide-react";
@@ -116,6 +119,7 @@ function TopNav({
   const [active, setActive] = useState<string>("");
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
   const navRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef("");
@@ -374,12 +378,14 @@ function TopNav({
       <AnimatePresence>
         {mobileOpen ? (
           <motion.div
+            ref={mobileRef}
+            tabIndex={-1}
             key="mobile-index"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-[60] flex flex-col"
+            className="fixed inset-0 z-[60] flex flex-col outline-none"
             style={{ background: "linear-gradient(165deg,#241608 0%,#33200e 55%,#3e2c1d 100%)" }}
             role="dialog"
             aria-modal="true"
@@ -686,27 +692,69 @@ export function AtbApp({ onExitAtlas }: { onExitAtlas: () => void }) {
     <div id="top" className="page-wrap warm-canvas">
       <TopNav onOpenExam={openExam} onExitAtlas={onExitAtlas} />
       <main className="pt-14">
-        <AtbHero />
-        <PracticeBand onOpenExam={openExam} />
-        <AtbIntroSection />
-        <AtbFlowchartsSection />
-        <AtbAtmSection />
-        <AtbCodeSection />
-        <AtbAverageSection />
-        <AtbPropsSection />
-        <AtbAlgoTypesSection />
-        <AtbArraysSection />
-        <AtbListSection />
-        <AtbStacksSection />
-        <AtbQueuesSection />
-        <AtbQTypesSection />
-        <AtbTreesSection />
-        <AtbTraversalsSection />
-        <AtbGraphsSection />
-        <AtbDfsBfsSection />
-        <AtbTreeTypesSection />
-        <AtbHashingSection />
-        <AtbBlockchainSection />
+        <PartBoundary label="Hero">
+          <AtbHero  />
+        </PartBoundary>
+        <PartBoundary label="PracticeBand">
+          <PracticeBand onOpenExam={openExam}  />
+        </PartBoundary>
+        <PartBoundary label="Intro">
+          <AtbIntroSection  />
+        </PartBoundary>
+        <PartBoundary label="Flowcharts">
+          <AtbFlowchartsSection  />
+        </PartBoundary>
+        <PartBoundary label="Atm">
+          <AtbAtmSection  />
+        </PartBoundary>
+        <PartBoundary label="Code">
+          <AtbCodeSection  />
+        </PartBoundary>
+        <PartBoundary label="Average">
+          <AtbAverageSection  />
+        </PartBoundary>
+        <PartBoundary label="Props">
+          <AtbPropsSection  />
+        </PartBoundary>
+        <PartBoundary label="AlgoTypes">
+          <AtbAlgoTypesSection  />
+        </PartBoundary>
+        <PartBoundary label="Arrays">
+          <AtbArraysSection  />
+        </PartBoundary>
+        <PartBoundary label="List">
+          <AtbListSection  />
+        </PartBoundary>
+        <PartBoundary label="Stacks">
+          <AtbStacksSection  />
+        </PartBoundary>
+        <PartBoundary label="Queues">
+          <AtbQueuesSection  />
+        </PartBoundary>
+        <PartBoundary label="QTypes">
+          <AtbQTypesSection  />
+        </PartBoundary>
+        <PartBoundary label="Trees">
+          <AtbTreesSection  />
+        </PartBoundary>
+        <PartBoundary label="Traversals">
+          <AtbTraversalsSection  />
+        </PartBoundary>
+        <PartBoundary label="Graphs">
+          <AtbGraphsSection  />
+        </PartBoundary>
+        <PartBoundary label="DfsBfs">
+          <AtbDfsBfsSection  />
+        </PartBoundary>
+        <PartBoundary label="TreeTypes">
+          <AtbTreeTypesSection  />
+        </PartBoundary>
+        <PartBoundary label="Hashing">
+          <AtbHashingSection  />
+        </PartBoundary>
+        <PartBoundary label="Blockchain">
+          <AtbBlockchainSection  />
+        </PartBoundary>
       </main>
       <AtbFooter />
       {examGroup ? <AtbExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
