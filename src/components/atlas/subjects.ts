@@ -1,8 +1,9 @@
-import { Compass, Landmark, Lock, Route, Scale, type LucideIcon } from "lucide-react";
+import { Compass, Landmark, Lock, Route, Scale, Sigma, type LucideIcon } from "lucide-react";
 import { TOTAL_QUESTIONS } from "@/components/notes/questions";
 import { ATB_TOTAL_QUESTIONS } from "@/components/atb/questions";
 import { FA_TOTAL_QUESTIONS } from "@/components/fa/questions";
 import { EBH_TOTAL_QUESTIONS } from "@/components/ebh/questions";
+import { STM_TOTAL_QUESTIONS } from "@/components/stm/questions";
 
 /* ============================================================
    THE ATLAS — subject registry.
@@ -122,20 +123,21 @@ export const SUBJECTS: Subject[] = [
     ambience: "spotlight",
   },
   {
-    id: "shelf-05",
+    id: "stm",
     shelf: "05",
-    title: "Reserved shelf",
-    short: "Shelf 05",
-    tagline: "The next PDF drops here.",
-    description: "This shelf fills in as each subject is rebuilt Atlas-style — same living diagrams, same exam simulators, same pen-paper soul.",
-    topics: ["awaiting syllabus"],
-    chapters: null,
-    questions: null,
-    examWindows: null,
-    accent: "#2dd4bf",
-    accent2: "#0f766e",
-    icon: Lock,
-    status: "soon",
+    title: "Statistics for Managers",
+    short: "STM Notes",
+    tagline: "Data → describe → decide — every figure computed, not memorised.",
+    description:
+      "The whole course rebuilt as living notes: a measurement-scale ladder you can climb, the mean-vs-median outlier machine, a Venn laboratory for the probability laws, Bayes' prior-to-posterior bar, the empirical-rule bell, and 40 exam-style questions across 5 pen-paper windows.",
+    topics: ["Scales & data anatomy", "Displays", "Location & spread", "Probability & Bayes", "Distributions", "Sampling cases"],
+    chapters: 16,
+    questions: STM_TOTAL_QUESTIONS,
+    examWindows: 5,
+    accent: "#8b5cf6",
+    accent2: "#6d28d9",
+    icon: Sigma,
+    status: "live",
     ambience: "shimmer",
   },
   {

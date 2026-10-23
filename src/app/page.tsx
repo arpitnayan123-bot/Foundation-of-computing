@@ -22,6 +22,7 @@ import { FocApp } from "@/components/notes/FocApp";
 import { AtbApp } from "@/components/atb/AtbApp";
 import { FaApp } from "@/components/fa/FaApp";
 import { EbhApp } from "@/components/ebh/EbhApp";
+import { StmApp } from "@/components/stm/StmApp";
 
 type View = { name: "atlas" } | { name: "subject"; id: string };
 
@@ -100,6 +101,9 @@ export default function Page() {
         ) : view.id === "ebh" ? (
           // shelf 04 — Economic & Business History, the fourth live subject
           <EbhApp onExitAtlas={exitToAtlas} />
+        ) : view.id === "stm" ? (
+          // shelf 05 — Statistics for Managers, the fifth live subject
+          <StmApp onExitAtlas={exitToAtlas} />
         ) : (
           // reserved shelf reached by URL — send the reader back to the map
           <AtlasFallback id={view.id} onBack={exitToAtlas} />
