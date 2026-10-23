@@ -1325,3 +1325,33 @@ html.atlas-active ::-webkit-scrollbar-thumb:hover { background: #b08968; }
 .fa-exam .exam-dot-current { background: linear-gradient(135deg, #10b981, #047857); color: #f0fdf7; border-color: transparent; }
 .fa-exam .exam-opt-correct { background: #e6f6ee; border-color: #6fcfa8; color: #065f46; }
 .fa-exam .exam-opt-letter { color: #047857; }
+
+/* Economic & Business History (shelf 04) — gold gradient titles */
+.grad-gold {
+  background: linear-gradient(100deg, #854d0e, #ca8a04 35%, #eab308 65%, #a16207);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* EBH palette anchor */
+.ebh-app { --ebh-accent: #eab308; }
+
+/* Economic & Business History (shelf 04) — gold table headers */
+.ebh-app .warm-table thead th {
+  background: linear-gradient(180deg, #ca8a04, #a16207);
+}
+.ebh-app .warm-table tbody tr:nth-child(even) td { background: #fdfae9; }
+.ebh-app .warm-table tbody td { border-bottom-color: #eee5c8; }
+
+/* Economic & Business History (shelf 04) — gold exam chrome */
+.ebh-exam .exam-btn-primary {
+  background: linear-gradient(135deg, #eab308, #a16207); color: #fffbf0;
+  border-color: transparent; box-shadow: 0 8px 18px -8px rgba(161, 98, 7, .7);
+}
+.ebh-exam .exam-btn-primary:hover:not(:disabled) { background: linear-gradient(135deg, #a16207, #854d0e); color: #fff; }
+.ebh-exam .exam-dot-current { background: linear-gradient(135deg, #eab308, #a16207); color: #fffbf0; border-color: transparent; }
+.ebh-exam .exam-opt-correct { background: #fdf6dd; border-color: #d8b93c; color: #713f12; }
+.ebh-exam .exam-opt-letter { color: #a16207; }

@@ -1,7 +1,8 @@
-import { Compass, Lock, Route, Scale, type LucideIcon } from "lucide-react";
+import { Compass, Landmark, Lock, Route, Scale, type LucideIcon } from "lucide-react";
 import { TOTAL_QUESTIONS } from "@/components/notes/questions";
 import { ATB_TOTAL_QUESTIONS } from "@/components/atb/questions";
 import { FA_TOTAL_QUESTIONS } from "@/components/fa/questions";
+import { EBH_TOTAL_QUESTIONS } from "@/components/ebh/questions";
 
 /* ============================================================
    THE ATLAS — subject registry.
@@ -103,20 +104,21 @@ export const SUBJECTS: Subject[] = [
     ambience: "scan",
   },
   {
-    id: "shelf-04",
+    id: "ebh",
     shelf: "04",
-    title: "Reserved shelf",
-    short: "Shelf 04",
-    tagline: "The next PDF drops here.",
-    description: "This shelf fills in as each subject is rebuilt Atlas-style — same living diagrams, same exam simulators, same pen-paper soul.",
-    topics: ["awaiting syllabus"],
-    chapters: null,
-    questions: null,
-    examWindows: null,
+    title: "Economic & Business History",
+    short: "EBH Notes",
+    tagline: "Rules and players — followed across five centuries of change.",
+    description:
+      "The whole course rebuilt as living notes: a two-by-two that names the field, the guild ladder you can climb, a Silk Road speedometer, the thread race between spinners and weavers, Manchester's mills counting themselves up, and 40 exam-style questions across 4 pen-paper windows.",
+    topics: ["Rules & players", "License Raj", "Agrarian & guilds", "Trade routes", "Industrial Revolution", "Labor movement"],
+    chapters: 18,
+    questions: EBH_TOTAL_QUESTIONS,
+    examWindows: 4,
     accent: "#eab308",
     accent2: "#854d0e",
-    icon: Lock,
-    status: "soon",
+    icon: Landmark,
+    status: "live",
     ambience: "spotlight",
   },
   {
