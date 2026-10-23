@@ -93,3 +93,65 @@ themselves across periods. Journal to final statements, without a single dead fi
 - **Exam bank** — 40 questions · 4 pen-paper windows
 - **Signature machines** — the self-balancing equation, the posting T-accounts, the splitting prepaid
 
+### Shelf 04 · Economic & Business History (EBH)
+
+> Rules and players — followed across five centuries of change.
+
+Eighteen chapters across three modules: the rules-and-players lens on the License Raj,
+agrarian economies and the full guild ladder (apprentice → journeyman → masterpiece →
+master), Silk Road transport speedometers, the thread race between spinners and weavers,
+and **Manchester's mills counting themselves up** as the Industrial Revolution ignites.
+
+- **Topics** — Rules & players · License Raj · Agrarian & guilds · Trade routes · Industrial Revolution · Labor movement
+- **Exam bank** — 40 questions · 4 pen-paper windows
+- **Signature machines** — the guild ladder, the Silk Road speedometer, the Cottonopolis counter
+
+### Shelf 05 · Statistics for Managers (STM)
+
+> Data → describe → decide — every figure computed, not memorised.
+
+The biggest deck of the course — a **312-page slide volume, integrated to the last slide** —
+rebuilt into sixteen chapters: the measurement-scale ladder you climb rung by rung, the
+mean-vs-median outlier machine with live recompute, a Venn laboratory for the probability
+laws, Bayes' prior-to-posterior bar (0.70 → 0.34), the empirical-rule bell, and the full
+case file — Hudson, Marada, Bradley, JSL, Evans, Mercy, Neveready, Slater, Pep Zone,
+**Netflix, ISRO's 2023 Himachal response, HUL's coconut-oil differential, Go Bananas!,
+McNeil's Auto Mall and NICE Paper**.
+
+- **Topics** — Scales & data anatomy · Displays · Location & spread · Probability & Bayes · Distributions · Sampling & the case file
+- **Exam bank** — 40 questions · 5 pen-paper windows
+- **Signature machines** — the scale ladder, the outlier slider, the Venn lab, the Bayes bar, the empirical bell
+
+### Shelf 06 · Reserved
+
+> The next PDF drops here.
+
+One shelf still waits — same mould, same soul, accent and sigil reserved. When the sixth
+course PDF arrives, it pours in exactly like the other five.
+
+---
+
+## 📝 Pen-Paper Exam Simulators
+
+Every shelf ships timed **pen-paper windows** — the exam, rehearsed honestly:
+
+- ⏱ **A real countdown** with pause-safe progress and window navigation
+- 🧭 **A question navigator** — jump anywhere, flag anything, see unanswered at a glance
+- ✅ **Instant feedback** — pick an option and get *“Correct.”* or a gentle nudge, plus the
+  **model explanation** written the way you'd want to write it on paper
+- 🧮 **A running score** and a results summary when the window closes
+
+**23 windows · 270 questions** across the five live shelves — sized to the real course
+weight (FoC carries 120; every other shelf 30–40).
+
+## 🎨 The Design System
+
+One mould, six whispers. All shelves pour from the same parchment-on-ink system —
+cards of `#fffaf1` on a `#3e2c1d` structure — and each shelf owns exactly two things:
+an **accent** (amber, rose, emerald, gold, violet) and one minimal **ambience** animation
+(`sweep · aura · scan · spotlight · shimmer · drift`). Nothing blinks for attention;
+everything moves with intent. The landing shelf is a morphism bento — glass, clay, neo,
+spotlight, holo and aurora cards frame the crazy-word title wall.
+
+---
+
