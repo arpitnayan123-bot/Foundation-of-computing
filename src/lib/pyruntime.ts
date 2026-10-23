@@ -24,6 +24,9 @@ const PYODIDE_BASE = `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/
 
 let pyPromise: Promise<PyodideLike> | null = null;
 
+const CDN_ERROR =
+  "Could not reach the Python runtime CDN. Check your internet connection and try again.";
+
 function injectScript(src: string): Promise<void> {
   return new Promise((resolve, reject) => {
     if (window.loadPyodide) {
@@ -32,9 +35,17 @@ function injectScript(src: string): Promise<void> {
     }
     const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`);
     if (existing) {
-      existing.addEventListener("load", () => resolve());
-      existing.addEventListener("error", () =>
-        reject(new Error("Could not reach the Python runtime CDN. Check your internet connection and try again."))
+      // Another call is mid-load — piggyback on its events. If that earlier
+      // attempt already errored, the tag will have been removed (see below),
+      // so a stale, never-firing element can't wedge the retry forever.
+      existing.addEventListener("load", () => resolve(), { once: true });
+      existing.addEventListener(
+        "error",
+        () => {
+          existing.remove(); // dead tag out of the DOM so the next retry is clean
+          reject(new Error(CDN_ERROR));
+        },
+        { once: true }
       );
       return;
     }
@@ -42,10 +53,35 @@ function injectScript(src: string): Promise<void> {
     script.src = src;
     script.async = true;
     script.onload = () => resolve();
-    script.onerror = () =>
-      reject(new Error("Could not reach the Python runtime CDN. Check your internet connection and try again."));
+    script.onerror = () => {
+      script.remove(); // CRITICAL: without this, a later retry would find the
+      // failed element and attach listeners that can never fire again —
+      // permanently bricking every Run button until a page reload.
+      reject(new Error(CDN_ERROR));
+    };
     document.head.appendChild(script);
   });
+}
+
+/* ============================================================
+   Global run lock — Pyodide executes on the main thread and owns
+   exactly ONE global stdout/stderr/stdin handler. Concurrent runs
+   (two CodeBlocks, or a CodeBlock + the Lab) would clobber each
+   other's stream capture. Serializing every user-code execution
+   through this promise chain guarantees a single active runner:
+   later runs simply queue until the earlier one finishes.
+   ============================================================ */
+
+let runTail: Promise<unknown> = Promise.resolve();
+
+export function withRunLock<T>(fn: () => Promise<T>): Promise<T> {
+  const next = runTail.then(fn, fn);
+  // keep the chain alive no matter how a run ends
+  runTail = next.then(
+    () => undefined,
+    () => undefined
+  );
+  return next;
 }
 
 /**

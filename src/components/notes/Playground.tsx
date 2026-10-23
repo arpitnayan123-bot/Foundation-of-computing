@@ -34,10 +34,12 @@ import {
   getPyodide,
   PURGE_USER_MODULES,
   resetNotebookGlobals,
+  withRunLock,
   type PyodideLike,
 } from "@/lib/pyruntime";
 import { makeCappedPush, withStepGuard } from "@/lib/pyguard";
 import { highlightPython } from "@/lib/pyhighlight";
+import { useDialogA11y } from "./exam-runtime";
 
 interface LabCell {
   id: string;
@@ -249,10 +251,18 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
   const busyRef = useRef(false);
   const execRef = useRef(0);
   const scrollBodyRef = useRef<HTMLDivElement>(null);
+  const shellRef = useDialogA11y<HTMLDivElement>(open);
 
-  const commit = useCallback((next: LabCell[]) => {
+  /**
+   * commit(persist=false) — state-only updates (output, timing, counters).
+   * These arrive per stdout batch while a flood is running; writing the
+   * full cell list to localStorage on every batch was a write-storm that
+   * could jank the tab mid-flood. Only code shape changes persist.
+   */
+  const commit = useCallback((next: LabCell[], persist = true) => {
     cellsRef.current = next;
     setCells(next);
+    if (!persist) return;
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next.map((c) => c.code)));
     } catch {
@@ -261,8 +271,11 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
   }, []);
 
   const patch = useCallback(
-    (id: string, p: Partial<LabCell>) => {
-      commit(cellsRef.current.map((c) => (c.id === id ? { ...c, ...p } : c)));
+    (id: string, p: Partial<LabCell>, persist = true) => {
+      commit(
+        cellsRef.current.map((c) => (c.id === id ? { ...c, ...p } : c)),
+        persist
+      );
     },
     [commit]
   );
@@ -298,61 +311,78 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
       if (!cell || busyRef.current) return;
       busyRef.current = true;
       setStatus((s) => (runtimeBooted ? "busy" : "booting"));
-      execRef.current += 1;
-      const count = execRef.current;
-      patch(cell.id, { out: "", err: "", count, ms: null });
 
-      let lastOut = "";
-      const t0 = performance.now();
-      let py: PyodideLike | null = null;
-      try {
-        py = await getPyodide((m) => {
-          setBootMsg(m);
-          setStatus("booting");
-        });
-        const pyr = py;
-        runtimeBooted = true;
-        setBootMsg("");
-        const ns = await getNotebookGlobals();
-        // capped push: a `while True: print(...)` flood can't OOM the tab
-        const push = makeCappedPush((full) => {
-          lastOut = full;
-          patch(cell.id, { out: full });
-        });
-        py.setStdout({ batched: push });
-        py.setStderr({ batched: push });
-        py.setStdin({
-          stdin: () => {
-            try {
-              return window.prompt("Python input() is asking for a value — cancel = stop the program:");
-            } catch {
-              return null; // prompt blocked → EOF
+      // Serialize through the global run lock: Pyodide has ONE stdout
+      // handler, so a CodeBlock run elsewhere must never overlap this one.
+      // While queued behind it, the UI correctly shows “kernel busy”.
+      return withRunLock(async () => {
+        execRef.current += 1;
+        const count = execRef.current;
+        patch(cell.id, { out: "", err: "", count, ms: null }, false);
+
+        let lastOut = "";
+        let rafId = 0;
+        const t0 = performance.now();
+        let py: PyodideLike | null = null;
+        try {
+          py = await getPyodide((m) => {
+            setBootMsg(m);
+            setStatus("booting");
+          });
+          const pyr = py;
+          runtimeBooted = true;
+          setBootMsg("");
+          const ns = await getNotebookGlobals();
+          // capped push: a `while True: print(...)` flood can't OOM the tab.
+          // Output repaints are rAF-throttled and never hit localStorage.
+          const push = makeCappedPush((full) => {
+            lastOut = full;
+            if (!rafId) {
+              rafId = window.requestAnimationFrame(() => {
+                rafId = 0;
+                patch(cell.id, { out: lastOut }, false);
+              });
             }
-          },
-        });
-        const freshCode = cellsRef.current[index]?.code ?? cell.code;
-        // step-guard: cooperative runaway-loop killer (see lib/pyguard.ts)
-        await withStepGuard(pyr, async () => {
-          await pyr.runPythonAsync(freshCode, { globals: ns });
-        });
-        patch(cell.id, { ms: performance.now() - t0, out: lastOut });
-      } catch (e) {
-        const msg = e instanceof Error ? e.message : String(e);
-        patch(cell.id, { err: cleanTraceback(msg) || msg, ms: performance.now() - t0 });
-      } finally {
-        if (py) {
-          try {
-            py.setStdout();
-            py.setStderr();
-            py.setStdin();
-          } catch {
-            /* handlers already reset */
+          });
+          py.setStdout({ batched: push });
+          py.setStderr({ batched: push });
+          py.setStdin({
+            stdin: () => {
+              try {
+                return window.prompt("Python input() is asking for a value — cancel = stop the program:");
+              } catch {
+                return null; // prompt blocked → EOF
+              }
+            },
+          });
+          const freshCode = cellsRef.current[index]?.code ?? cell.code;
+          // step-guard: cooperative runaway-loop killer (see lib/pyguard.ts)
+          await withStepGuard(pyr, async () => {
+            await pyr.runPythonAsync(freshCode, { globals: ns });
+          });
+          patch(cell.id, { ms: performance.now() - t0, out: lastOut }, false);
+        } catch (e) {
+          const msg = e instanceof Error ? e.message : String(e);
+          patch(cell.id, { err: cleanTraceback(msg) || msg, ms: performance.now() - t0 }, false);
+        } finally {
+          if (rafId) {
+            window.cancelAnimationFrame(rafId);
+            rafId = 0;
           }
+          if (py) {
+            try {
+              py.setStdout();
+              py.setStderr();
+              py.setStdin();
+            } catch {
+              /* handlers already reset */
+            }
+          }
+          busyRef.current = false;
+          setBootMsg("");
+          setStatus(runtimeBooted ? "ready" : "cold");
         }
-        busyRef.current = false;
-        setBootMsg("");
-        setStatus(runtimeBooted ? "ready" : "cold");
-      }
+      });
     },
     [patch]
   );
@@ -408,7 +438,10 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
   );
 
   const clearOutputs = useCallback(() => {
-    commit(cellsRef.current.map((c) => ({ ...c, out: "", err: "", ms: null, count: null })));
+    commit(
+      cellsRef.current.map((c) => ({ ...c, out: "", err: "", ms: null, count: null })),
+      false
+    );
     execRef.current = 0;
   }, [commit]);
 
@@ -419,7 +452,7 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
     }
     resetNotebookGlobals();
     execRef.current = 0;
-    commit(cellsRef.current.map((c) => ({ ...c, out: "", err: "", ms: null, count: null })));
+    commit(cellsRef.current.map((c) => ({ ...c, out: "", err: "", ms: null, count: null })), false);
     try {
       const py = await getPyodide();
       await py.runPythonAsync(PURGE_USER_MODULES);
@@ -443,10 +476,12 @@ export function PythonLab({ open, onClose }: { open: boolean; onClose: () => voi
 
   return (
     <motion.div
+      ref={shellRef}
+      tabIndex={-1}
       initial={{ opacity: 0, scale: 0.985 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.22, ease: "easeOut" }}
-      className="lab-shell fixed inset-0 z-[80] flex flex-col overflow-hidden"
+      className="lab-shell fixed inset-0 z-[80] flex flex-col overflow-hidden outline-none"
       role="dialog"
       aria-modal="true"
       aria-label="Python Lab — runnable notebook"
