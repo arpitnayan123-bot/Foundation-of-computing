@@ -315,10 +315,37 @@ Var(x) = n(r/N)(1 − r/N)·(N−n)/(N−1)
           <Reveal>
             <StmQuiz
               source="Practice · Q10 — the decision"
-              q="MNM Company: demand 1,000–5,000 units with E(x) = 3,000; each unit costs $8 and sells for $10. Management locks in expected demand but sells only 2,000. The logic says…"
-              options={["produce 3,000 always", "compare expected profit vs stockout and overage costs before locking production", "produce 1,000", "demand has no variance"]}
-              answer={1}
-              explain="E(x) = Σx·f(x) = 3,000 with σ² = Σ(x−E)²·f(x). Locking 3,000 units when only 2,000 sell means the profit math (revenue $10/unit − cost $8/unit) must be weighed against the demand distribution — expected value alone isn't the decision."
+              q="MNM Company's monthly demand: 0 / 1,000 / 2,000 / 3,000 / 4,000 units with probabilities .10 / .20 / .25 / .35 / .10. Each unit costs $8, sells for $10. The expected monthly demand is…"
+              options={["2,150 units", "3,000 units", "2,000 units", "2,400 units"]}
+              answer={0}
+              explain="E(x) = Σ x·f(x) = 0(.10) + 1,000(.20) + 2,000(.25) + 3,000(.35) + 4,000(.10) = 2,150 units. Var(x) = Σ(x − E(x))²·f(x) = 1,327,500, so σ ≈ 1,152. If management stocks the expected 2,150 but sells only 2,000, profit = 2,000($10) − 2,150($8) = $2,800 — expected value alone isn't the decision."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
+              source="Practice · Q2–Q4 — the laptop demand sheet"
+              q="Daily laptop demand: 0–4 units with f(x) = .15 / .25 / .35 / .20 / .05. Verify it's a valid distribution, then E(x) and σ are…"
+              options={["valid · E(x) = 1.75 · σ ≈ 1.09", "valid · E(x) = 2.00 · σ ≈ 1.10", "invalid · probabilities sum to 1.05", "valid · E(x) = 1.50 · σ ≈ 0.87"]}
+              answer={0}
+              explain="Σf(x) = 1.00 and every f(x) ≥ 0 — valid. E(x) = Σ x·f(x) = 1.75 laptops/day; Var(x) = Σ(x − 1.75)²·f(x) = 1.1875 → σ ≈ 1.09 (Excel: =SUMPRODUCT(x, probs), then =SQRT). Also P(x ≥ 2) = .35 + .20 + .05 = .60 and P(x < 2) = .40."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
+              source="Practice · Q8 — acceptances"
+              q="75% of students applying to a university are accepted; 18 applications are received. For acceptances, E(x) and σ — and P(exactly 8 REJECTED)…"
+              options={["13.5 · 1.84 · ≈ .038", "13.5 · 3.37 · ≈ .076", "9.0 · 1.84 · ≈ .038", "13.5 · 1.84 · ≈ .229"]}
+              answer={0}
+              explain="E(x) = np = 18(.75) = 13.5 acceptances; σ = √(np(1−p)) = √3.375 ≈ 1.84. Rejections flip the coin: B(18, .25) with f(8) = C(18,8)(.25)⁸(.75)¹⁰ ≈ .0376 (Excel =BINOM.DIST(8,18,.25,FALSE)). P(at least 6) and P(15 or more) use the cumulative form =BINOM.DIST.RANGE."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
+              source="Practice · Q9 — rate conversion"
+              q="Shoppers enter a mall at 120 per hour. For a 5-minute interval the Poisson mean is… and P(exactly 5 shoppers between noon and 12:05 pm)…"
+              options={["λ = 10 · ≈ .038", "λ = 120 · ≈ .038", "λ = 10 · ≈ .092", "λ = 24 · ≈ .066"]}
+              answer={0}
+              explain="Rate conversion first: λ = 120 × (5/60) = 10 shoppers per 5 minutes. Then f(5) = 10⁵e⁻¹⁰/5! ≈ .0378 (Excel =POISSON.DIST(5,10,FALSE)). Widen the window to 10 minutes (5:00–5:10 pm) and λ doubles to 20 — P(at least 35) = 1 − P(x ≤ 34)."
             />
           </Reveal>
         </div>
