@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="The Atlas — an open book whose pages rise into a spinning wireframe globe">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b1e12"/>
+      <stop offset="1" stop-color="#140d08"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.36" r="0.62">
+      <stop offset="0" stop-color="#f5b942" stop-opacity="0.22"/>
+      <stop offset="0.6" stop-color="#f5b942" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#f5b942" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7d488"/>
+      <stop offset="0.55" stop-color="#eab308"/>
+      <stop offset="1" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffaf1"/>
+      <stop offset="1" stop-color="#f3e3c3"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#ffe9b8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="frame">
+      <rect x="0" y="0" width="512" height="512" rx="112"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="512" height="512" fill="url(#bg)"/>
+    <rect width="512" height="512" fill="url(#glow)"/>
+
+    <!-- orbit ring: a slow dashed halo -->
+    <circle cx="256" cy="216" r="164" fill="none" stroke="#eab308" stroke-opacity="0.28" stroke-width="2.5" stroke-dasharray="3 18" stroke-linecap="round">
+      <animateTransform attributeName="transform" type="rotate" from="0 256 216" to="360 256 216" dur="48s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- the wireframe globe: meridians spin forever (SMIL, GitHub-safe) -->
+    <g fill="none" stroke="url(#gold)" stroke-width="3">
+      <circle cx="256" cy="216" r="108" stroke-opacity="0.9"/>
+      <!-- latitude bands -->
+      <ellipse cx="256" cy="216" rx="108" ry="36" stroke-opacity="0.30"/>
+      <ellipse cx="256" cy="216" rx="94" ry="0" stroke-opacity="0"/>
+      <path d="M 154 178 A 108 44 0 0 0 358 178" stroke-opacity="0.30"/>
+      <path d="M 154 254 A 108 44 0 0 1 358 254" stroke-opacity="0.30"/>
+      <!-- spinning meridians: four phases = endless rotation -->
+      <ellipse cx="256" cy="216" rx="108" ry="108" stroke-opacity="0.75">
+        <animate attributeName="rx" values="108;0;108" keyTimes="0;0.5;1" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-opacity" values="0.75;0.55;0.75" keyTimes="0;0.5;1" dur="4s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="256" cy="216" rx="76" ry="108" stroke-opacity="0.6">
+        <animate attributeName="rx" values="76;0;76" keyTimes="0;0.5;1" dur="4s" begin="-1s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="256" cy="216" rx="76" ry="108" stroke-opacity="0.6">
+        <animate attributeName="rx" values="0;76;0" keyTimes="0;0.5;1" dur="4s" begin="-1s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="256" cy="216" rx="108" ry="108" stroke-opacity="0.75">
+        <animate attributeName="rx" values="0;108;0" keyTimes="0;0.5;1" dur="4s" begin="-2s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="256" cy="216" rx="40" ry="108" stroke-opacity="0.5">
+        <animate attributeName="rx" values="40;0;40" keyTimes="0;0.5;1" dur="4s" begin="-2.6s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="256" cy="216" rx="40" ry="108" stroke-opacity="0.5">
+        <animate attributeName="rx" values="0;40;0" keyTimes="0;0.5;1" dur="4s" begin="-2.6s" repeatCount="indefinite"/>
+      </ellipse>
+    </g>
+
+    <!-- Jodhpur node: a pulsing pin on the globe -->
+    <g>
+      <circle cx="298" cy="168" r="26" fill="none" stroke="#f7d488" stroke-width="2">
+        <animate attributeName="r" values="7;26" dur="2.4s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-opacity" values="0.85;0" dur="2.4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="298" cy="168" r="5.5" fill="#ffd27d">
+        <animate attributeName="fill-opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <!-- the book: an open atlas the globe rises from -->
+    <g>
+      <ellipse cx="256" cy="430" rx="150" ry="16" fill="#000000" opacity="0.35"/>
+      <path d="M256 340 C 220 322, 172 320, 138 334 L138 404 C 172 392, 220 394, 256 410 Z" fill="url(#page)" opacity="0.96"/>
+      <path d="M256 340 C 292 322, 340 320, 374 334 L374 404 C 340 392, 292 394, 256 410 Z" fill="url(#page)" opacity="0.96"/>
+      <path d="M256 340 C 220 322, 172 320, 138 334 L138 404 C 172 392, 220 394, 256 410 Z" fill="none" stroke="#caa668" stroke-width="2.5" stroke-opacity="0.9"/>
+      <path d="M256 340 C 292 322, 340 320, 374 334 L374 404 C 340 392, 292 394, 256 410 Z" fill="none" stroke="#caa668" stroke-width="2.5" stroke-opacity="0.9"/>
+      <path d="M256 344 L256 408" stroke="#caa668" stroke-width="3" stroke-opacity="0.9"/>
+      <!-- page lines that breathe -->
+      <g stroke="#8a6a3a" stroke-width="2" stroke-opacity="0.55" stroke-linecap="round">
+        <path d="M162 348 C 190 340, 224 341, 246 350"/>
+        <path d="M162 366 C 190 358, 224 359, 246 368"/>
+        <path d="M162 384 C 190 376, 224 377, 246 386"/>
+        <path d="M350 348 C 322 340, 288 341, 266 350"/>
+        <path d="M350 366 C 322 358, 288 359, 266 368"/>
+        <path d="M350 384 C 322 376, 288 377, 266 386"/>
+        <animate attributeName="stroke-opacity" values="0.55;0.3;0.55" dur="4s" repeatCount="indefinite"/>
+      </g>
+    </g>
+
+    <!-- sheen sweep across the whole mark -->
+    <rect x="-160" y="-80" width="120" height="672" fill="url(#sheen)" transform="rotate(18 0 0)" opacity="0.35">
+      <animateTransform attributeName="transform" type="translate" values="-80 0;640 0" dur="5.6s" repeatCount="indefinite" additive="sum"/>
+    </rect>
+  </g>
+
+  <!-- frame edge -->
+  <rect x="1.5" y="1.5" width="509" height="509" rx="110.5" fill="none" stroke="#f5b942" stroke-opacity="0.35" stroke-width="3"/>
+</svg>
