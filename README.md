@@ -38,3 +38,58 @@ you click, bell curves that breathe. Every shelf keeps the same soul —
   one accent colour and one ambient "whisper" animation per shelf
 
 ---
+
+## 🗺 The Shelf Map
+
+Five shelves live, one reserved — every shelf is one subject, one accent, one ambience.
+
+| Shelf | Subject | Sigil | Accent | Chapters | Questions | Windows | Status |
+|:-----:|:--------|:-----:|:------:|:--------:|:---------:|:-------:|:------:|
+| 01 | [Foundations of Computing](#shelf-01--foundations-of-computing-foc) | 🧭 | `#f59e0b` amber | 17 | 120 | 4 | 🟢 live |
+| 02 | [Algorithmic Thinking in Business](#shelf-02--algorithmic-thinking-in-business-atb) | 🛣️ | `#f43f5e` rose | 19 | 30 | 6 | 🟢 live |
+| 03 | [Financial Accounting](#shelf-03--financial-accounting-fa) | ⚖️ | `#10b981` emerald | 16 | 40 | 4 | 🟢 live |
+| 04 | [Economic & Business History](#shelf-04--economic--business-history-ebh) | 🏛️ | `#eab308` gold | 18 | 40 | 4 | 🟢 live |
+| 05 | [Statistics for Managers](#shelf-05--statistics-for-managers-stm) | Σ | `#8b5cf6` violet | 16 | 40 | 5 | 🟢 live |
+| 06 | *Reserved shelf* | 🔒 | `#fb923c` ember | — | — | — | ⏳ awaiting PDF |
+
+**Totals — 86 chapters · 270 exam questions · 23 pen-paper windows · 5/6 shelves live.**
+
+---
+
+### Shelf 01 · Foundations of Computing (FoC)
+
+> From the IPO model to object-oriented Python — the whole course, alive.
+
+The opening shelf. Seventeen chapters that walk from *"what is a computer"* to writing
+classes in Python — with an animated DIKW pyramid, the four pillars, CPU pipelines that
+stream through their stages, and **real CPython 3.12 running in the browser** so every
+code snippet is executable, not decorative.
+
+- **Topics** — IPO & Four Pillars · Data & DIKW · Algorithms · Hardware · Python core · Functions · Classes & OOP
+- **Exam bank** — 120 questions · 4 pen-paper windows
+- **Signature machines** — the DIKW pyramid, the pipeline, the live Python runner
+
+### Shelf 02 · Algorithmic Thinking in Business (ATB)
+
+> Data structures & algorithms — no code, all logic.
+
+Nineteen chapters of pure computational thinking for managers: flowcharts that animate
+their own branches, the nine-property wall, memory-box machines, stacks and queues that
+push and pop in front of you, and a **hash table you can poke** until a collision happens.
+
+- **Topics** — Algorithms & flowcharts · 9 properties · Arrays & lists · Stacks & queues · Trees & graphs · Hashing & blockchain
+- **Exam bank** — 30 questions · 6 pen-paper windows
+- **Signature machines** — the flowchart runner, the stack & queue machines, the collision table
+
+### Shelf 03 · Financial Accounting (FA)
+
+> Every rupee tells two stories — the whole course, in balance.
+
+Sixteen chapters where the accounting equation **balances itself as you watch**, T-accounts
+post their debits and credits, the trial balance can be sorted, and prepaid expenses split
+themselves across periods. Journal to final statements, without a single dead figure.
+
+- **Topics** — Dual aspect & equation · Journal & ledger · Trial balance · Five statements · Adjusting entries · Trading account & GP
+- **Exam bank** — 40 questions · 4 pen-paper windows
+- **Signature machines** — the self-balancing equation, the posting T-accounts, the splitting prepaid
+
