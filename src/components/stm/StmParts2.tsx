@@ -67,6 +67,20 @@ const V_STEPS = [
   { t: "Prescriptive analytics", d: "The set of analytical techniques that yield a best course of action.", icon: Zap },
 ];
 
+/** the deck's Ch1 practice table — ten Netflix originals, verbatim */
+const NETFLIX_DATA = [
+  { t: "Stranger Things", c: 15, g: "Sci-Fi/Drama", e: 42, v: 214, r: "Very High", re: 190 },
+  { t: "The Crown", c: 13, g: "Historical Drama", e: 50, v: 187, r: "Very High", re: 190 },
+  { t: "Bridgerton", c: 11, g: "Romance/Drama", e: 16, v: 156, r: "High", re: 190 },
+  { t: "Wednesday", c: 8, g: "Mystery/Comedy", e: 8, v: 212, r: "Very High", re: 190 },
+  { t: "Ozark", c: 10, g: "Crime/Drama", e: 52, v: 144, r: "High", re: 190 },
+  { t: "Squid Game", c: 21, g: "Thriller/Drama", e: 9, v: 263, r: "Very High", re: 190 },
+  { t: "The Diplomat", c: 6, g: "Political Thriller", e: 8, v: 108, r: "Medium", re: 190 },
+  { t: "Dahmer", c: 5, g: "True Crime", e: 10, v: 251, r: "Very High", re: 190 },
+  { t: "Shadow and Bone", c: 9, g: "Fantasy/Adventure", e: 8, v: 102, r: "Medium", re: 190 },
+  { t: "The Witcher", c: 12, g: "Fantasy", e: 24, v: 166, r: "High", re: 190 },
+];
+
 export function StmSourcesSection() {
   return (
     <Section id="sources">
@@ -463,6 +477,62 @@ time and money`}</StmPanel>
             </div>
           </div>
         </Reveal>
+
+        {/* Netflix practice table — the deck's Ch1 practice set, in numbers */}
+        <StmReadStep n="09" title="Practice — Netflix Original Series Performance Data" sub="The deck's own Ch1 practice table, ready to interrogate" />
+        <Reveal>
+          <div className="mt-2 overflow-x-auto rounded-2xl">
+            <table className="warm-table min-w-[720px]">
+              <thead>
+                <tr>
+                  <th>Netflix Series</th>
+                  <th>Production Cost ($ millions)</th>
+                  <th>Genre</th>
+                  <th>Episodes</th>
+                  <th>Avg Viewership (millions)</th>
+                  <th>Subscriber Retention Impact</th>
+                  <th>Regions Available</th>
+                </tr>
+              </thead>
+              <tbody>
+                {NETFLIX_DATA.map((s) => (
+                  <tr key={s.t}>
+                    <td className="font-bold">{s.t}</td>
+                    <td className="font-mono">{s.c}</td>
+                    <td>{s.g}</td>
+                    <td className="font-mono">{s.e}</td>
+                    <td className="font-mono">{s.v}</td>
+                    <td>{s.r}</td>
+                    <td className="font-mono">{s.re}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-2 text-center text-[.7rem] font-bold uppercase tracking-[.16em] text-[#a08cc9]">
+            Netflix Original Series performance data — the deck&rsquo;s Chapter 1 practice table
+          </p>
+        </Reveal>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <Reveal>
+            <StmQuiz
+              source="Netflix practice · Qa–Qc — reading the table"
+              q="The average production cost of the ten series… and the share achieving 'Very High' retention…"
+              options={["$11.0 million · 50%", "$11.0 million · 40%", "$13.2 million · 50%", "$10.1 million · 60%"]}
+              answer={0}
+              explain="Σcost = 110 → x̄ = $11.0 million. 'Very High' retention: Stranger Things, The Crown, Wednesday, Squid Game, Dahmer — 5 of 10 = 50%. And every one of the ten series streams in all 190 regions — 100%."
+            />
+          </Reveal>
+          <Reveal delay={80}>
+            <StmQuiz
+              source="Netflix practice · Qb+Qe — comparing groups"
+              q="Fantasy/adventure vs crime/thriller average cost — and the average viewership of series with fewer than 10 episodes…"
+              options={["$9M vs $15.5M · 171.25 million", "$9M vs $15.5M · 190 million", "$12M vs $15.5M · 171.25 million", "$9M vs $10.5M · 159 million"]}
+              answer={0}
+              explain="Fantasy/adventure: Shadow and Bone at $9M; crime/thriller: (Ozark $10M + Squid Game $21M)/2 = $15.5M — the genre comparison is exactly what categorical grouping is for. Under 10 episodes: Wednesday (212), Squid Game (263), The Diplomat (108), Shadow and Bone (102) → 685/4 = 171.25 million viewers."
+            />
+          </Reveal>
+        </div>
 
         <Takeaways
           items={[
