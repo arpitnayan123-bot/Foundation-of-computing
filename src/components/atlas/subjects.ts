@@ -1,9 +1,5 @@
 import { Compass, Landmark, Lock, Route, Scale, Sigma, type LucideIcon } from "lucide-react";
-import { TOTAL_QUESTIONS } from "@/components/notes/questions";
-import { ATB_TOTAL_QUESTIONS } from "@/components/atb/questions";
-import { FA_TOTAL_QUESTIONS } from "@/components/fa/questions";
-import { EBH_TOTAL_QUESTIONS } from "@/components/ebh/questions";
-import { STM_TOTAL_QUESTIONS } from "@/components/stm/questions";
+import { QUESTION_COUNTS } from "@/lib/question-counts";
 
 /* ============================================================
    THE ATLAS — subject registry.
@@ -60,7 +56,7 @@ export const SUBJECTS: Subject[] = [
       "Every concept of the course distilled into living notes: animated diagrams, 120 exam-style questions across 4 pen-paper windows, and real CPython 3.12 running in the browser.",
     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
     chapters: 17,
-    questions: TOTAL_QUESTIONS,
+    questions: QUESTION_COUNTS.foc,
     examWindows: 4,
     accent: "#f59e0b",
     accent2: "#ea580c",
@@ -78,7 +74,7 @@ export const SUBJECTS: Subject[] = [
       "The whole no-code course rebuilt as living notes: animated flowcharts, a nine-property wall, memory-box machines, stack & queue machines, a hash table you can poke, and 30 exam-style questions across 6 windows.",
     topics: ["Algorithms & flowcharts", "9 properties", "Arrays & lists", "Stacks & queues", "Trees & graphs", "Hashing & blockchain"],
     chapters: 19,
-    questions: ATB_TOTAL_QUESTIONS,
+    questions: QUESTION_COUNTS.atb,
     examWindows: 6,
     accent: "#f43f5e",
     accent2: "#be123c",
@@ -96,7 +92,7 @@ export const SUBJECTS: Subject[] = [
       "The whole course rebuilt as living notes: a working accounting equation, T-accounts posted for real, a trial balance you can sort, prepaid rupees that split themselves, and 40 exam-style questions across 4 pen-paper windows.",
     topics: ["Dual aspect & equation", "Journal & ledger", "Trial balance", "Five statements", "Adjusting entries", "Trading account & GP"],
     chapters: 16,
-    questions: FA_TOTAL_QUESTIONS,
+    questions: QUESTION_COUNTS.fa,
     examWindows: 4,
     accent: "#10b981",
     accent2: "#047857",
@@ -114,7 +110,7 @@ export const SUBJECTS: Subject[] = [
       "The whole course rebuilt as living notes: a two-by-two that names the field, the guild ladder you can climb, a Silk Road speedometer, the thread race between spinners and weavers, Manchester's mills counting themselves up, and 40 exam-style questions across 4 pen-paper windows.",
     topics: ["Rules & players", "License Raj", "Agrarian & guilds", "Trade routes", "Industrial Revolution", "Labor movement"],
     chapters: 18,
-    questions: EBH_TOTAL_QUESTIONS,
+    questions: QUESTION_COUNTS.ebh,
     examWindows: 4,
     accent: "#eab308",
     accent2: "#854d0e",
@@ -132,7 +128,7 @@ export const SUBJECTS: Subject[] = [
       "The whole course rebuilt as living notes: a measurement-scale ladder you can climb, the mean-vs-median outlier machine, a Venn laboratory for the probability laws, Bayes' prior-to-posterior bar, the empirical-rule bell, and 40 exam-style questions across 5 pen-paper windows.",
     topics: ["Scales & data anatomy", "Displays", "Location & spread", "Probability & Bayes", "Distributions", "Sampling cases"],
     chapters: 16,
-    questions: STM_TOTAL_QUESTIONS,
+    questions: QUESTION_COUNTS.stm,
     examWindows: 5,
     accent: "#8b5cf6",
     accent2: "#6d28d9",

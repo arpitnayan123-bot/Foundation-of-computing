@@ -9,7 +9,7 @@
    so the "write the code" question type does not exist here.
    ============================================================ */
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
   X,
@@ -26,6 +26,15 @@ import {
   Printer,
 } from "lucide-react";
 import { ATB_EXAM_BANKS, type AtbExamGroup, type AtbQuestionType } from "./questions";
+import {
+  clearExamDraft,
+  draftHasWork,
+  examDraftKey,
+  flushExamDraft,
+  loadExamDraft,
+  saveExamDraft,
+  useDialogA11y,
+} from "../notes/exam-runtime";
 
 type QStatus = "unattempted" | "correct" | "wrong" | "revealed";
 interface QState {
@@ -51,28 +60,88 @@ export function AtbExamWindow({ group, onClose }: { group: AtbExamGroup; onClose
   const bank = ATB_EXAM_BANKS[group];
   const qs = bank.questions;
 
-  const [idx, setIdx] = useState(0);
-  const [states, setStates] = useState<Record<string, QState>>(() =>
-    Object.fromEntries(bank.questions.map((q) => [q.id, { status: "unattempted" as QStatus }]))
-  );
+  /* ---- draft restore: a refresh or an accidental Escape keeps your work ---- */
+  const DRAFT_KEY = examDraftKey("atb", group);
+  const draft = useMemo(() => loadExamDraft(DRAFT_KEY), [DRAFT_KEY]);
+  const restored = useMemo(() => {
+    if (!draft) return null;
+    let n = 0;
+    for (const s of Object.values(draft.states)) {
+      const st = s as QState | undefined;
+      if (st && (st.status === "correct" || st.status === "wrong" || st.revealed)) n += 1;
+    }
+    return n > 0 ? n : null;
+  }, [draft]);
+
+  const [idx, setIdx] = useState(() => Math.min(Math.max(draft?.idx ?? 0, 0), qs.length - 1));
+  const [states, setStates] = useState<Record<string, QState>>(() => {
+    const fresh: Record<string, QState> = Object.fromEntries(
+      bank.questions.map((q) => [q.id, { status: "unattempted" as QStatus }])
+    );
+    if (draft) {
+      for (const q of bank.questions) {
+        const d = draft.states[q.id] as QState | undefined;
+        if (d && typeof d.status === "string") fresh[q.id] = d;
+      }
+    }
+    return fresh;
+  });
   const [finished, setFinished] = useState(false);
-  const [seconds, setSeconds] = useState(0);
+  /* drift-proof clock: seconds = base + (now − startedAt), derived from the
+     wall clock — never tick-counted, so background-tab throttling can't
+     silently under-report the elapsed time. Survives refresh via the draft. */
+  const [clock, setClock] = useState(() => ({
+    base: draft?.base ?? 0,
+    startedAt: draft?.startedAt ?? Date.now(),
+  }));
+  const [now, setNow] = useState(() => Date.now());
+  const seconds = Math.max(0, Math.floor(clock.base + (now - clock.startedAt) / 1000));
   const bodyRef = useRef<HTMLDivElement>(null);
 
-  /* timer + scroll lock + esc */
+  /* scroll lock (the timer below stops ticking on the results view) */
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    const t = window.setInterval(() => setSeconds((s) => s + 1), 1000);
     return () => {
       document.body.style.overflow = "";
-      window.clearInterval(t);
     };
   }, []);
 
   useEffect(() => {
+    if (finished) return;
+    const t = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(t);
+  }, [finished]);
+
+  /* draft autosave — debounced inside saveExamDraft, flushed on close/finish */
+  useEffect(() => {
+    if (finished) return;
+    if (draftHasWork(states as Record<string, unknown>)) {
+      saveExamDraft(DRAFT_KEY, {
+        idx,
+        states: states as Record<string, unknown>,
+        base: clock.base,
+        startedAt: clock.startedAt,
+      });
+    }
+  }, [states, idx, clock, finished, DRAFT_KEY]);
+
+  const closeWindow = useCallback(() => {
+    flushExamDraft(); // the attempt is kept — reopening this window restores it
+    onClose();
+  }, [onClose]);
+
+  /** freeze the clock, clear the draft, show the report */
+  function finish() {
+    flushExamDraft();
+    clearExamDraft(DRAFT_KEY);
+    setClock({ base: seconds, startedAt: Date.now() });
+    setFinished(true);
+  }
+
+  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const inTextarea = e.target instanceof HTMLTextAreaElement;
-      if (e.key === "Escape" && !inTextarea) onClose();
+      if (e.key === "Escape" && !inTextarea) closeWindow();
       if (!finished && !inTextarea) {
         if (e.key === "ArrowRight") setIdx((i) => Math.min(i + 1, qs.length - 1));
         if (e.key === "ArrowLeft") setIdx((i) => Math.max(i - 1, 0));
@@ -80,7 +149,7 @@ export function AtbExamWindow({ group, onClose }: { group: AtbExamGroup; onClose
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [finished, onClose, qs.length]);
+  }, [finished, closeWindow, qs.length]);
 
   const q = qs[idx];
   const st = states[q.id];
@@ -137,8 +206,10 @@ export function AtbExamWindow({ group, onClose }: { group: AtbExamGroup; onClose
   function retake() {
     setStates(Object.fromEntries(qs.map((qq) => [qq.id, { status: "unattempted" as QStatus }])));
     setIdx(0);
-    setSeconds(0);
+    setClock({ base: 0, startedAt: Date.now() });
+    setNow(Date.now());
     setFinished(false);
+    clearExamDraft(DRAFT_KEY);
     bodyRef.current?.scrollTo({ top: 0 });
   }
 
@@ -150,7 +221,7 @@ export function AtbExamWindow({ group, onClose }: { group: AtbExamGroup; onClose
   /* ---------------- results view ---------------- */
   if (finished) {
     return (
-      <ExamShell bank={bank} score={score} seconds={seconds} onClose={onClose} onExit={() => setFinished(false)} scrollRef={bodyRef}>
+      <ExamShell bank={bank} score={score} seconds={seconds} onClose={closeWindow} restoredCount={restored} onExit={() => setFinished(false)} scrollRef={bodyRef}>
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
           <div className="exam-result-card">
             <div className="exam-score-ring" style={{ borderColor: pct >= 60 ? "#8fae5d" : "#e0a45e" }}>
@@ -245,7 +316,7 @@ export function AtbExamWindow({ group, onClose }: { group: AtbExamGroup; onClose
   const mcqLocked = st.status === "correct" || st.status === "wrong";
 
   return (
-    <ExamShell bank={bank} score={score} seconds={seconds} onClose={onClose} onExit={() => setFinished(true)} scrollRef={bodyRef}>
+    <ExamShell bank={bank} score={score} seconds={seconds} onClose={closeWindow} restoredCount={restored} onExit={() => finish()} scrollRef={bodyRef}>
       <motion.div key={q.id} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.22, ease: "easeOut" }}>
         {/* type chip + counter */}
         <div className="flex flex-wrap items-center gap-2">
@@ -379,7 +450,7 @@ export function AtbExamWindow({ group, onClose }: { group: AtbExamGroup; onClose
               <ChevronRight className="h-4 w-4" />
             </button>
           ) : (
-            <button type="button" onClick={() => setFinished(true)} className="exam-btn exam-btn-primary">
+            <button type="button" onClick={() => finish()} className="exam-btn exam-btn-primary">
               <Trophy className="h-4 w-4" />
               Finish &amp; see score
             </button>
@@ -399,6 +470,7 @@ function ExamShell({
   onClose,
   onExit,
   scrollRef,
+  restoredCount,
 }: {
   bank: (typeof ATB_EXAM_BANKS)[AtbExamGroup];
   score: { correct: number; total: number; answered: number };
@@ -407,13 +479,17 @@ function ExamShell({
   onClose: () => void;
   onExit: () => void;
   scrollRef: React.RefObject<HTMLDivElement | null>;
+  restoredCount?: number | null;
 }) {
+  const shellRef = useDialogA11y<HTMLDivElement>(true);
   return (
     <motion.div
+      ref={shellRef}
+      tabIndex={-1}
       initial={{ opacity: 0, scale: 0.99 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
-      className="fixed inset-0 z-[80] flex flex-col"
+      className="fixed inset-0 z-[80] flex flex-col outline-none"
       style={{ background: "linear-gradient(180deg,#f7eedf 0%,#f3e7d3 100%)" }}
       role="dialog"
       aria-modal="true"
@@ -437,6 +513,14 @@ function ExamShell({
             <span className="rounded-full border border-white/15 bg-white/[.06] px-2.5 py-1 text-[.62rem] font-extrabold uppercase tracking-[.12em] text-[#f0e2c8]">
               ✓ {score.correct}/{score.total}
             </span>
+            {restoredCount ? (
+              <span
+                className="rounded-full border border-white/15 bg-white/[.06] px-2.5 py-1 text-[.62rem] font-extrabold uppercase tracking-[.12em] text-[#f0e2c8]"
+                title="Saved attempt restored — this window keeps your work for the whole tab session"
+              >
+                ↺ restored
+              </span>
+            ) : null}
             <button type="button" onClick={onClose} aria-label="Close the exam window" className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-white/[.06] text-[#ffe9c9] transition hover:bg-white/[.14]">
               <X className="h-4 w-4" />
             </button>

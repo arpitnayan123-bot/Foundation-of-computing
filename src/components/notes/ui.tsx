@@ -19,7 +19,12 @@ import {
   Loader2,
   Terminal,
 } from "lucide-react";
-import { cleanTraceback, getPyodide, PURGE_USER_MODULES, type PyodideLike } from "@/lib/pyruntime";
+import {
+  cleanTraceback,
+  getPyodide,
+  PURGE_USER_MODULES,
+  withRunLock,
+} from "@/lib/pyruntime";
 import { makeCappedPush, withStepGuard } from "@/lib/pyguard";
 
 /* ============================================================
@@ -308,52 +313,69 @@ export function CodeBlock({
     setBootMsg("");
     setElapsed(0);
     const t0 = performance.now();
-    let py: PyodideLike | null = null;
     try {
-      py = await getPyodide((m) => setBootMsg(m));
-      const pyr = py;
-      setBootMsg("");
-      let lastOut = "";
-      // capped push: a print flood can't grow the buffer unbounded
-      const push = makeCappedPush((full) => {
-        lastOut = full;
-        setOut(full);
-      });
-      py.setStdout({ batched: push });
-      py.setStderr({ batched: push });
-      py.setStdin({
-        stdin: () => {
-          try {
-            return window.prompt("Python input() is asking for a value — cancel = stop the program:");
-          } catch {
-            return null; // prompt blocked (e.g. sandboxed iframe) → treat as EOF
-          }
-        },
-      });
-      // Fresh module cache + virtual files for import demos.
-      await py.runPythonAsync(PURGE_USER_MODULES);
-      if (files) {
-        for (const [name, content] of Object.entries(files)) py.FS.writeFile(name, content);
-      }
-      const wf = current.match(/^%%writefile\s+([^\s#]+)/);
-      if (wf) {
-        // Notebook magic: save the cell as a real file inside the runtime.
-        const name = wf[1];
-        const body = current.slice(current.indexOf("\n") + 1).replace(/^\n+/, "");
-        py.FS.writeFile(name, body);
-        push(`✓ saved ${name} (${body.split("\n").length} lines) — import blocks can now use it`);
-      } else {
-        const ns = py.globals.get("dict")() as { destroy?: () => void };
+      // Global run lock: Pyodide exposes a single stdout/stderr/stdin handler
+      // set, so two simultaneous runners would steal each other's output
+      // (and the first finisher's cleanup would disconnect the second's
+      // capture mid-run). Queue behind whatever else is executing.
+      await withRunLock(async () => {
+        const pyr = await getPyodide((m) => setBootMsg(m));
+        setBootMsg("");
+        let lastOut = "";
+        // capped push: a print flood can't grow the buffer unbounded
+        const push = makeCappedPush((full) => {
+          lastOut = full;
+          setOut(full);
+        });
+        pyr.setStdout({ batched: push });
+        pyr.setStderr({ batched: push });
+        pyr.setStdin({
+          stdin: () => {
+            try {
+              return window.prompt("Python input() is asking for a value — cancel = stop the program:");
+            } catch {
+              return null; // prompt blocked (e.g. sandboxed iframe) → treat as EOF
+            }
+          },
+        });
         try {
-          // step-guard: cooperative runaway-loop killer (see lib/pyguard.ts)
-          await withStepGuard(pyr, async () => {
-            if (pre) await pyr.runPythonAsync(pre, { globals: ns });
-            await pyr.runPythonAsync(current, { globals: ns });
-          });
+          // Fresh module cache + virtual files for import demos.
+          await pyr.runPythonAsync(PURGE_USER_MODULES);
+          if (files) {
+            for (const [name, content] of Object.entries(files)) pyr.FS.writeFile(name, content);
+          }
+          const wf = current.match(/^%%writefile\s+([^\s#]+)/);
+          if (wf) {
+            // Notebook magic: save the cell as a real file inside the runtime.
+            const name = wf[1];
+            const nl = current.indexOf("\n");
+            const body = (nl === -1 ? "" : current.slice(nl + 1)).replace(/^\n+/, "");
+            pyr.FS.writeFile(name, body);
+            push(`✓ saved ${name} (${body.split("\n").length} lines) — import blocks can now use it`);
+          } else {
+            const ns = pyr.globals.get("dict")() as { destroy?: () => void };
+            try {
+              // step-guard: cooperative runaway-loop killer (see lib/pyguard.ts)
+              await withStepGuard(pyr, async () => {
+                if (pre) await pyr.runPythonAsync(pre, { globals: ns });
+                await pyr.runPythonAsync(current, { globals: ns });
+              });
+            } finally {
+              ns.destroy?.();
+            }
+          }
         } finally {
-          ns.destroy?.();
+          // handlers live and die with THIS run — a queued runner can install
+          // its own the moment we yield the lock
+          try {
+            pyr.setStdout();
+            pyr.setStderr();
+            pyr.setStdin();
+          } catch {
+            /* already reset */
+          }
         }
-      }
+      });
       setElapsed((performance.now() - t0) / 1000);
       setPhase("done");
     } catch (e) {
@@ -361,16 +383,6 @@ export function CodeBlock({
       setErr(cleanTraceback(msg) || msg);
       setElapsed((performance.now() - t0) / 1000);
       setPhase("error");
-    } finally {
-      if (py) {
-        try {
-          py.setStdout();
-          py.setStderr();
-          py.setStdin();
-        } catch {
-          /* already reset */
-        }
-      }
     }
   }
 
