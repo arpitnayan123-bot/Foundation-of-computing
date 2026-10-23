@@ -155,3 +155,60 @@ spotlight, holo and aurora cards frame the crazy-word title wall.
 
 ---
 
+## ⚡ Quickstart
+
+```bash
+# install (bun recommended — npm/pnpm work too)
+bun install
+
+# run the dev server
+bun run dev
+# → http://localhost:3000  ·  landing shelf at #/atlas, each subject at #/subject/<id>
+
+# quality gates
+bun run lint        # eslint
+bunx tsc --noEmit   # strict types
+```
+
+## 🗂 Project Structure
+
+```text
+src/
+├── app/
+│   └── page.tsx              # the Atlas router — hash-routes every shelf
+├── components/
+│   ├── atlas/                # the landing: subjects registry + morphism bento
+│   │   ├── subjects.ts       #   ← the single source of truth for all shelves
+│   │   └── AtlasLanding.tsx
+│   ├── foc/ · atb/ · fa/     # one folder per subject:
+│   ├── ebh/                  #   <X>App.tsx (shell + scroll-spy nav)
+│   ├── stm/                  #   <X>Parts1-N.tsx (the chapters, as living machines)
+│   │                         #   questions.ts (exam banks) + <X>ExamWindow.tsx
+│   └── notes/                # shared primitives (Section, Reveal, quiz, footer…)
+public/
+└── atlas-logo.svg            # the animated mark — an open book rising into a globe
+```
+
+Adding a subject = **one entry in `subjects.ts` + one mount in `page.tsx`**. Nothing else changes.
+
+## 🛣 Roadmap
+
+- [x] Shelf 01 — Foundations of Computing (amber)
+- [x] Shelf 02 — Algorithmic Thinking in Business (rose)
+- [x] Shelf 03 — Financial Accounting (emerald)
+- [x] Shelf 04 — Economic & Business History (gold)
+- [x] Shelf 05 — Statistics for Managers (violet) · the 312-slide giant
+- [ ] Shelf 06 — reserved · awaiting the next PDF
+
+---
+
+<div align="center">
+
+**The Atlas** · mapped & built by **Arpit Nayan**
+*B.S. in Management and Technology — Indian Institute of Technology Jodhpur*
+
+<img src="public/atlas-logo.svg" width="56" alt="" aria-hidden />
+<br/>
+<sub>MMXXVI — may every figure be computed, never memorised.</sub>
+
+</div>
