@@ -279,7 +279,7 @@ skewed right with skewness measure 2.`}</StmPanel>
                 <Building2 className="h-4 w-4" /> Statistics in practice
               </p>
               <p className="mt-2 font-display text-2xl font-black text-[#f3edff]">
-                d = x − y — one random variable for the price differential
+                d = y − x — one random variable for the price differential
               </p>
               <p className="mt-1 text-[.85rem] leading-relaxed text-[#c9bce4]">
                 India&rsquo;s largest FMCG company was evaluating the economic risks of expanding
@@ -316,6 +316,23 @@ skewed right with skewness measure 2.`}</StmPanel>
                 </p>
               </div>
             </div>
+          </div>
+        </Reveal>
+
+        {/* HUL — discussion questions for class */}
+        <Reveal>
+          <div className="card-warm p-5">
+            <p className="text-[.85rem] font-extrabold uppercase tracking-[.12em]" style={{ color: STM_G[700] }}>
+              Discussion questions for class
+            </p>
+            <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-[.84rem] leading-relaxed text-muted-warm">
+              <li>Why is it important for HUL to model the price difference (d = y − x) rather than modelling x and y separately?</li>
+              <li>What factors specific to India&rsquo;s agricultural and commodity markets would influence the probability distribution of coconut-oil prices?</li>
+              <li>How might HUL use the probability information (the .90, .50, and .10 probability levels) to determine whether the facility expansion is financially viable?</li>
+              <li>In what ways could currency exchange-rate fluctuations affect the probability distribution for imported oil prices — and how might this impact HUL&rsquo;s sourcing decisions?</li>
+              <li>How could HUL use sensitivity analysis with continuous probability distributions to stress-test its expansion plans under different market scenarios?</li>
+              <li>What other business decisions at HUL might benefit from understanding continuous random variables and probability distributions?</li>
+            </ol>
           </div>
         </Reveal>
 
@@ -505,16 +522,43 @@ P(x > 5) = 1 − P(x ≤ 5)
           </div>
         </Reveal>
 
-        {/* Ch7 practice digest */}
+        {/* Ch7 practice digest — the deck's full Q1–Q12 set */}
         <StmReadStep n="04" title="Chapter 7 practice — the sampling set" sub="Twelve questions previewing sampling & sampling distributions" />
         <div className="grid gap-3 md:grid-cols-2">
           <Reveal>
             <StmQuiz
-              source="Ch7 practice · Q1–Q2 — point estimates"
-              q="A survey of 150 individuals yields 75 Yes, 55 No, 20 No opinion. What is the point estimate of the population proportion who respond Yes — and for six months of unit sales (346, 98, 253, 373, 159), the point estimate of the population mean?"
-              options={[".55 and 245.8", ".50 and 238.6", ".45 and 226.0", ".60 and 238.6"]}
-              answer={1}
-              explain="p̄ = 75/150 = 0.50; x̄ = (346 + 98 + 253 + 373 + 159)/6 = 1229/6 ≈ 204.8... — the deck's intended answer uses the five listed months divided by 6 as written: recompute carefully on paper. The method is the point: a sample statistic estimates the population parameter."
+              source="Ch7 practice · Q1 — proportions"
+              q="A survey of 150 individuals yields 75 Yes, 55 No, 20 No opinion. The point estimates of the population proportion who respond Yes — and who respond No — are…"
+              options={[".50 and .367", ".55 and .367", ".50 and .333", ".45 and .40"]}
+              answer={0}
+              explain="p̄ = 75/150 = 0.50 and p̄(No) = 55/150 ≈ 0.367. A sample proportion is just the fraction of the sample carrying the attribute — the point estimate of the population proportion."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
+              source="Ch7 practice · Q2 — sales data"
+              q="Six months of unit sales: 95, 98, 93, 85, 105, 89. The point estimate of the population mean number of units sold per month — and of the population standard deviation — are…"
+              options={["94.17 and 7.0", "94.17 and 6.4", "93.5 and 7.0", "95.0 and 10.0"]}
+              answer={0}
+              explain="x̄ = 565/6 ≈ 94.17 units. s = √[Σ(xᵢ − x̄)²/(n−1)] = √(244.83/5) ≈ 7.0. The sample mean and sample standard deviation are the point estimates of μ and σ."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
+              source="Ch7 practice · Q3 — the AARP poll"
+              q="A sample of 450 U.S. adults age 50+ (AARP Bulletin, March 2012): Social Security and Medicare were cited 'very important' by 350 respondents; job growth by 124. The estimates are…"
+              options={[".778 (350 people) · .276 (124 people)", ".778 (350 people) · .248 (124 people)", ".350 · .124", ".700 · .300"]}
+              answer={0}
+              explain="p̄ = 350/450 ≈ 0.778 → about 350 of every 450 believe Social Security and Medicare are very important; job growth: 124/450 ≈ 0.276. Multiply a proportion by the population size to estimate counts."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
+              source="Ch7 practice · Q4 — the p̄ machine"
+              q="A sample of size 100 is selected from a population with p = .40. The expected value of p̄ and the standard error of p̄ are…"
+              options={[".40 and .049", ".40 and .40", ".049 and .40", ".60 and .049"]}
+              answer={0}
+              explain="E(p̄) = p = .40 — the p̄ machine aims at the truth. σp̄ = √(p(1−p)/n) = √(.40×.60/100) = √.0024 ≈ .049. The sampling distribution is approximately normal (np = 40, n(1−p) = 60, both ≥ 5)."
             />
           </Reveal>
           <Reveal>
@@ -533,11 +577,61 @@ P(x > 5) = 1 − P(x ≤ 5)
           </Reveal>
           <Reveal>
             <StmQuiz
+              source="Ch7 practice · Q6 — within ±5 and ±10"
+              q="A population has mean 200 and standard deviation 50; a sample of size 100 is used to estimate μ. P(x̄ within ±5 of μ) and P(x̄ within ±10) are…"
+              options={[".6826 and .9544", ".9544 and .9972", ".5000 and .6826", ".6826 and .8413"]}
+              answer={0}
+              explain="σx̄ = 50/√100 = 5. So ±5 is exactly ±1σx̄ → P = .6826; ±10 is ±2σx̄ → P = .9544. The sampling distribution of x̄ is normal (n = 100), centred at 200 with standard error 5."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
+              source="Ch7 practice · Q7 — the quality inspector"
+              q="A quality-control inspector finds 5% of x̄ values over 2.1 pounds and 5% under 1.9 pounds. The population mean and standard deviation are…"
+              options={["2.0 and ≈ 0.061", "2.1 and ≈ 0.10", "2.0 and ≈ 0.05", "1.9 and ≈ 0.061"]}
+              answer={0}
+              explain="Symmetric tails → μ = 2.0 (midpoint of 1.9 and 2.1). The 95% middle of a normal curve spans ±1.645σx̄, so 0.1 = 1.645·σ/√n — the process's x̄ distribution has σx̄ ≈ 0.0608."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
               source="Ch7 practice · Q8 — the standard error"
-              q="A population has σ = 73. The standard error of the sample mean for n = 36 versus n = 144 is…"
-              options={["73/36 = 2.03 · 73/144 = 0.51", "12.17 · 6.08", "2.03 · 1.01", "73 · 36.5"]}
-              answer={1}
-              explain="σx̄ = σ/√n: 73/√36 = 73/6 ≈ 12.17; 73/√144 = 73/12 ≈ 6.08. Quadrupling n halves the standard error — sample size buys precision."
+              q="A population has σ = 46. The standard error of the sample mean for n = 36 versus n = 144 is…"
+              options={["7.67 · 3.83", "12.17 · 6.08", "46/6 · 46/36", "1.28 · 0.64"]}
+              answer={0}
+              explain="σx̄ = σ/√n: 46/√36 = 46/6 ≈ 7.67; 46/√144 = 46/12 ≈ 3.83. Quadrupling the sample size halves the standard error — sample size buys precision."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
+              source="Ch7 practice · Q9 — np · n(1−p)"
+              q="For which case is the normal approximation of p̄ reasonable? A: p = .02, n = 100 · B: p = .10, n = 60 · C: p = .50, n = 8 · D: p = .80, n = 25"
+              options={["B and D", "A and B", "B and C", "C and D"]}
+              answer={0}
+              explain="Both np ≥ 5 AND n(1−p) ≥ 5. A: np = 2 — too few successes. B: 6 and 54 ✓. C: 4 and 4 — too small. D: 20 and 5 ✓. The rarer the trait (or the smaller n), the more the p̄ distribution skews and the approximation breaks."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
+              source="Ch7 practice · Q10 — the finite population correction"
+              q="σ = 30, n = 48. Case A: N = 1,200. Case B: N = 500. Which statement is right?"
+              options={[
+                "A: 4.33 (no FPC) · B: 4.12 (FPC applies, n/N = 9.6% > 5%)",
+                "A: 4.12 (FPC) · B: 4.33 (no FPC)",
+                "A and B both need the FPC",
+                "A and B both ≈ 4.33",
+              ]}
+              answer={0}
+              explain="σx̄ = 30/√48 ≈ 4.33. Use the finite population correction only when n/N > 5%: Case A is 48/1,200 = 4% (skip it); Case B is 48/500 = 9.6% → σx̄ = 4.33·√((N−n)/(N−1)) = 4.33·√(452/499) ≈ 4.12. Sampling without replacement from smaller populations trims the error."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
+              source="Ch7 practice · Q11 — sample size for p̄"
+              q="p = .55. How large a sample keeps the standard error of p̄ no greater than 0.05 — and how must the result be rounded?"
+              options={["n = 99 · round up", "n = 99 · round down", "n = 100 · round to nearest", "n = 380 · round up"]}
+              answer={0}
+              explain="σp̄ = √(p(1−p)/n) ≤ .05 → n ≥ p(1−p)/E² = (.55)(.45)/.0025 = 99. And always round the computed sample size UP to the next integer — rounding down would push the standard error above the target."
             />
           </Reveal>
           <Reveal>
@@ -546,8 +640,43 @@ P(x > 5) = 1 − P(x ≤ 5)
               q="Five city blocks chosen at random, then every household on them interviewed. Which sampling method?"
               options={["Simple random sampling", "Stratified random sampling", "Cluster sampling", "Systematic sampling"]}
               answer={2}
-              explain="Cluster sampling — randomly select whole groups (blocks), then study every unit inside. (Systematic = every 50th customer; convenience = whoever is available; judgment = an expert's pick.)"
+              explain="Cluster sampling — randomly select whole groups (blocks), then study every unit inside. The deck's other cases: undergrad/postgrad random pick → stratified; mall shoppers who happen to be there → convenience; an analyst's 20 hand-picked representative companies → judgment; every 50th of 5,000 customers → systematic."
             />
+          </Reveal>
+        </div>
+
+        {/* NICE — questions to consider + reflection */}
+        <StmReadStep n="05" title="Questions to consider — and the reflection" sub="The case closes by asking you to think like a manager" />
+        <div className="grid gap-4 md:grid-cols-2">
+          <Reveal>
+            <div className="card-warm h-full p-5">
+              <p className="text-[.85rem] font-extrabold uppercase tracking-[.12em]" style={{ color: STM_G[700] }}>
+                Option A vs Option B
+              </p>
+              <ul className="mt-2 space-y-1.5 text-[.84rem] leading-relaxed text-muted-warm">
+                <li>· <b>Option A</b> — measure all 1,000,000 trees (a census: exact, but expensive, slow, and manpower-heavy)</li>
+                <li>· <b>Option B</b> — select a properly designed random sample of 500 trees</li>
+                <li>· <b>Q:</b> which is more practical? What happens if the company selects only trees from the most fertile part of the forest? Why should the sample represent <b>different forest sections</b>? How confident can managers be about the population mean when using a sample mean? What additional information would improve the accuracy of the estimate?</li>
+              </ul>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="card-warm h-full p-5">
+              <p className="text-[.85rem] font-extrabold uppercase tracking-[.12em]" style={{ color: STM_G[700] }}>
+                Reflection question
+              </p>
+              <p className="mt-2 text-[.84rem] leading-relaxed text-muted-warm">
+                If you were managing a forest plantation in India, how would you <b>design a sampling plan</b> to
+                estimate the timber volume available for the next five years? Think about: the <b>population</b> you
+                would study, how you would <b>select your sample</b>, what <b>information you would collect</b>, and
+                how you would <b>use the sample results</b> to support business decisions.
+              </p>
+              <p className="mt-3 text-[.8rem] font-semibold leading-relaxed" style={{ color: STM_G[800] }}>
+                Key takeaways: why businesses sample · population vs sample · SRS in a forest plantation · sample
+                mean estimates the population mean · sample selection affects reliability · sampling distributions
+                explain sample-to-sample variation.
+              </p>
+            </div>
           </Reveal>
         </div>
 
