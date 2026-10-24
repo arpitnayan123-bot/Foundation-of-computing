@@ -141,6 +141,7 @@ export function ExamEngine({
   draftId,
   onClose,
   minutes,
+  onFinished,
 }: {
   theme: ExamTheme;
   bank: EngineBank;
@@ -151,6 +152,9 @@ export function ExamEngine({
    *  paper finishes itself at zero (mock exams). Absent = the classic
    *  stopwatch, exactly as the shelf windows have always run. */
   minutes?: number;
+  /** fired once when the sitting reaches the report — the mock window
+   *  uses it to retire its durable live-paper record (lib/mock.ts) */
+  onFinished?: () => void;
 }) {
   const qs = bank.questions;
   const limitSec =
@@ -245,6 +249,7 @@ export function ExamEngine({
   function finish() {
     flushExamDraft();
     clearExamDraft(DRAFT_KEY);
+    onFinished?.(); // a finished sitting must not be resurrected by the durable record
     setClock({ base: seconds, startedAt: Date.now() });
     setFinished(true);
     if (!loggedRef.current) {

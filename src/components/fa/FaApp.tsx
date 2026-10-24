@@ -18,7 +18,7 @@ import { useDialogA11y } from "@/components/notes/exam-runtime";
 
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BookOpen, BookOpenText, ListChecks, Map, Menu, MousePointerClick, PenLine, Scale, X, ChevronDown, GraduationCap, Check } from "lucide-react";
+import { BookOpen, BookOpenText, ListChecks, Map, Menu, MousePointerClick, PenLine, Scale, X, ChevronDown, GraduationCap, Check, Printer } from "lucide-react";
 import { useSectionProgress } from "@/lib/use-section-progress";
 import { useOpenSection } from "@/lib/use-open-section";
 import {
@@ -360,6 +360,15 @@ function TopNav({
 
           {/* right cluster — chapter index (small screens) */}
           <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              title="Print these notes"
+              aria-label="Print these notes"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c]"
+            >
+              <Printer className="h-4 w-4" />
+            </button>
             <button
               type="button"
               onClick={() => setMobileOpen(true)}

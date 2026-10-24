@@ -17,6 +17,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
+import { AppBoundary } from "@/components/atlas/AppBoundary";
 import { AtlasLanding } from "@/components/atlas/AtlasLanding";
 import { CommandPalette } from "@/components/atlas/CommandPalette";
 import { SUBJECT_IDS } from "@/components/atlas/subjects";
@@ -127,40 +128,44 @@ export default function Page() {
 
   return (
     <MotionConfig reducedMotion="user">
-      {/* ⌘K palette — global, works on the landing and inside every shelf */}
-      <CommandPalette />
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={viewKey}
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -14 }}
-          transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {view.name === "atlas" ? (
-            <AtlasLanding onEnter={enterSubject} />
-          ) : view.name === "ledger" ? (
-            // the ledger — local-first progress, mastery and spaced review
-            <LedgerView onExitAtlas={exitToAtlas} />
-          ) : view.id === "foc" ? (
-            <FocApp onExitAtlas={exitToAtlas} />
-          ) : view.id === "atb" ? (
-            <AtbApp onExitAtlas={exitToAtlas} />
-          ) : view.id === "fa" ? (
-            // shelf 03 — Financial Accounting, the third live subject
-            <FaApp onExitAtlas={exitToAtlas} />
-          ) : view.id === "ebh" ? (
-            // shelf 04 — Economic & Business History, the fourth live subject
-            <EbhApp onExitAtlas={exitToAtlas} />
-          ) : view.id === "stm" ? (
-            // shelf 05 — Statistics for Managers, the fifth live subject
-            <StmApp onExitAtlas={exitToAtlas} />
-          ) : (
-            // reserved shelf reached by URL — send the reader back to the map
-            <AtlasFallback id={view.id} onBack={exitToAtlas} />
-          )}
-        </motion.div>
-      </AnimatePresence>
+      {/* shell boundary — a crash in the landing / palette / ledger /
+          shelf chrome shows the recovery view, never a blank tab */}
+      <AppBoundary>
+        {/* ⌘K palette — global, works on the landing and inside every shelf */}
+        <CommandPalette />
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={viewKey}
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -14 }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {view.name === "atlas" ? (
+              <AtlasLanding onEnter={enterSubject} />
+            ) : view.name === "ledger" ? (
+              // the ledger — local-first progress, mastery and spaced review
+              <LedgerView onExitAtlas={exitToAtlas} />
+            ) : view.id === "foc" ? (
+              <FocApp onExitAtlas={exitToAtlas} />
+            ) : view.id === "atb" ? (
+              <AtbApp onExitAtlas={exitToAtlas} />
+            ) : view.id === "fa" ? (
+              // shelf 03 — Financial Accounting, the third live subject
+              <FaApp onExitAtlas={exitToAtlas} />
+            ) : view.id === "ebh" ? (
+              // shelf 04 — Economic & Business History, the fourth live subject
+              <EbhApp onExitAtlas={exitToAtlas} />
+            ) : view.id === "stm" ? (
+              // shelf 05 — Statistics for Managers, the fifth live subject
+              <StmApp onExitAtlas={exitToAtlas} />
+            ) : (
+              // reserved shelf reached by URL — send the reader back to the map
+              <AtlasFallback id={view.id} onBack={exitToAtlas} />
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </AppBoundary>
     </MotionConfig>
   );
 }

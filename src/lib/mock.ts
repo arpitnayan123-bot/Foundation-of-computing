@@ -17,11 +17,15 @@
      · if the shelves run out (type filters, small banks) the
        paper is honest about the shortfall in its subtitle
 
-   Session safety: the composed paper's ids live in sessionStorage
-   ("atlas:mock-live:v1") while it is in progress. If the tab
-   reloads mid-paper, reopening the window rebuilds the exact
-   same paper from those ids and the ExamEngine draft (keyed
-   "mock") restores every answer and the honest clock.
+   Durability: the composed paper's ids live in localStorage
+   ("atlas:mock-live:v1") while it is in progress, stamped with the
+   time of the last write — so a reload OR a fully closed tab no
+   longer kills the paper. Reopening the window rebuilds the exact
+   same composition from those ids and the ExamEngine draft (keyed
+   "mock") restores every answer and the honest clock whenever the
+   browser session kept it. On load the record is reconciled:
+   finished sittings (flagged when the engine reaches the report)
+   and papers older than a day are swept instead of resurrected.
 
    The last blueprint is remembered in localStorage
    ("atlas:mock:v1") so the composer opens the way you left it.
@@ -111,35 +115,96 @@ export interface MockLiveSession {
   subtitle: string;
   /** minutes the paper was composed with (0 = untimed) */
   minutes: number;
+  /** epoch ms of the last write — drives the 24h reconciliation */
+  savedAt: number;
+  /** set when the sitting reaches the report — such papers are
+   *  swept on load, never resurrected */
+  finished?: boolean;
 }
 
 export const MOCK_LIVE_KEY = "atlas:mock-live:v1";
 
+/** a durable live paper older than a day is dead weight — sweep it.
+ *  (localStorage survives tab closes, so unlike the old
+ *  sessionStorage record, stale entries would otherwise linger.) */
+const LIVE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
+
 export function loadLiveSession(): MockLiveSession | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = window.sessionStorage.getItem(MOCK_LIVE_KEY);
+    const raw = window.localStorage.getItem(MOCK_LIVE_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as Partial<MockLiveSession>;
-    if (!Array.isArray(parsed.ids) || parsed.ids.some((id) => typeof id !== "string") || parsed.ids.length === 0) return null;
-    if (typeof parsed.title !== "string" || typeof parsed.subtitle !== "string") return null;
+    const discard = () => {
+      try {
+        window.localStorage.removeItem(MOCK_LIVE_KEY);
+      } catch {
+        /* ignore */
+      }
+    };
+    let parsed: Partial<MockLiveSession>;
+    try {
+      parsed = JSON.parse(raw) as Partial<MockLiveSession>;
+    } catch {
+      discard();
+      return null;
+    }
+    if (
+      !Array.isArray(parsed.ids) ||
+      parsed.ids.some((id) => typeof id !== "string") ||
+      parsed.ids.length === 0 ||
+      typeof parsed.title !== "string" ||
+      typeof parsed.subtitle !== "string"
+    ) {
+      discard();
+      return null;
+    }
+    /* reconcile: already-finished sittings and papers older than
+       24h are discarded, not resumed */
+    if (
+      parsed.finished === true ||
+      typeof parsed.savedAt !== "number" ||
+      !Number.isFinite(parsed.savedAt) ||
+      Date.now() - parsed.savedAt > LIVE_MAX_AGE_MS
+    ) {
+      discard();
+      return null;
+    }
     return {
       ids: parsed.ids as string[],
       title: parsed.title,
       subtitle: parsed.subtitle,
       minutes: typeof parsed.minutes === "number" && Number.isFinite(parsed.minutes) ? Math.max(0, Math.min(240, Math.round(parsed.minutes))) : 0,
+      savedAt: parsed.savedAt,
     };
   } catch {
     return null;
   }
 }
 
-export function saveLiveSession(session: MockLiveSession): void {
+export function saveLiveSession(session: Omit<MockLiveSession, "savedAt" | "finished">): void {
   if (typeof window === "undefined") return;
   try {
-    window.sessionStorage.setItem(MOCK_LIVE_KEY, JSON.stringify(session));
+    window.localStorage.setItem(
+      MOCK_LIVE_KEY,
+      JSON.stringify({ ...session, savedAt: Date.now() })
+    );
   } catch {
-    /* private mode — the paper simply cannot survive a reload */
+    /* private mode / quota — the paper simply cannot survive a reload */
+  }
+}
+
+/** the sitting reached the report — flag the durable record so the
+ *  next load sweeps it (a finished paper is never resurrected) */
+export function markLiveSessionFinished(): void {
+  if (typeof window === "undefined") return;
+  try {
+    const raw = window.localStorage.getItem(MOCK_LIVE_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw) as Partial<MockLiveSession>;
+    if (!parsed || typeof parsed !== "object") return;
+    window.localStorage.setItem(MOCK_LIVE_KEY, JSON.stringify({ ...parsed, finished: true }));
+  } catch {
+    /* ignore */
   }
 }
 

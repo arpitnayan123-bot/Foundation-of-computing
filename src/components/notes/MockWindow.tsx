@@ -13,11 +13,12 @@
    results report as every shelf window, plus a real countdown
    when the clock is set (the bell finishes the paper at zero).
 
-   Resume: the composed paper's ids live in sessionStorage while
-   it is in progress. If the tab reloads mid-paper, reopening
-   this window rebuilds the exact same paper and the engine's
-   draft restores every answer and the honest clock. Finishing
-   (or starting a fresh paper) clears that path.
+   Resume: the composed paper's ids live in localStorage (durable —
+   they survive reloads and closed tabs, then expire after a day or
+   at the report). If the tab reloads mid-paper, reopening this
+   window rebuilds the exact same paper and the engine's draft
+   restores every answer and the honest clock. Finishing (or
+   starting a fresh paper) clears that path.
 
    Ledger: the engine logs one row per shelf answered, group
    "mock", so mock sittings count toward the streak, the daily
@@ -43,7 +44,7 @@ import {
 } from "lucide-react";
 import { ExamEngine, type EngineBank } from "./ExamEngine";
 import { MOCK_EXAM_THEME } from "./exam-themes";
-import { useDialogA11y, examDraftKey, loadExamDraft, draftHasWork, clearExamDraft } from "./exam-runtime";
+import { useDialogA11y, examDraftKey, clearExamDraft } from "./exam-runtime";
 import { LIVE_SUBJECTS, type Subject } from "@/components/atlas/subjects";
 import { QUESTION_COUNTS } from "@/lib/question-counts";
 import {
@@ -53,6 +54,7 @@ import {
   buildMock,
   loadBlueprint,
   loadLiveSession,
+  markLiveSessionFinished,
   rebuildMock,
   saveBlueprint,
   saveLiveSession,
@@ -73,13 +75,16 @@ export function MockWindow({ onClose }: { onClose: () => void }) {
   const [stage, setStage] = useState<Stage>({ kind: "compose" });
   const shellRef = useDialogA11y<HTMLDivElement>(true);
 
-  /* resume check — run once at mount: a draft with work + a live paper
-     means the tab was reloaded mid-exam; rebuild the exact paper */
+  /* resume check — run once at mount: a durable live paper
+     (localStorage — it survives reloads AND closed tabs; see
+     lib/mock.ts for the reconciliation rules) rebuilds the exact
+     composition. When the engine draft carried work in this
+     session, ExamEngine restores every answer and the honest
+     clock on top; otherwise the same paper waits on a fresh one. */
   useEffect(() => {
     const raf = requestAnimationFrame(() => {
-      const draft = loadExamDraft(DRAFT_KEY);
       const live = loadLiveSession();
-      if (!draft || !draftHasWork(draft.states) || !live || live.ids.length === 0) return;
+      if (!live || live.ids.length === 0) return;
       setStage({ kind: "loading" });
       rebuildMock(live.ids)
         .then((questions) => {
@@ -106,6 +111,7 @@ export function MockWindow({ onClose }: { onClose: () => void }) {
         draftId={DRAFT_ID}
         minutes={stage.minutes}
         onClose={onClose}
+        onFinished={markLiveSessionFinished}
       />
     );
   }
@@ -306,7 +312,7 @@ function Composer({ onStart }: { onStart: (bank: EngineBank, minutes: number) =>
 
       <p className="mt-4 flex items-start gap-2 px-1 text-[.78rem] leading-relaxed text-[#8a6d4f]">
         <Layers className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
-        Mid-paper reload? Reopen this window — the same paper comes back with your answers and the honest clock.
+        Mid-paper reload — even a closed tab? Reopen this window: the same paper comes back, with your answers whenever the session kept them.
       </p>
     </div>
   );
