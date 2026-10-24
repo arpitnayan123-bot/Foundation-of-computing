@@ -1386,3 +1386,151 @@ html.atlas-active ::-webkit-scrollbar-thumb:hover { background: #b08968; }
 .stm-exam .exam-opt-correct { background: #f1ecfd; border-color: #b79df5; color: #4c1d95; }
 .stm-exam .exam-opt-letter { color: #6d28d9; }
 
+
+/* ============================================================
+   ⌘K command palette (cmdk + radix dialog) — dark Atlas glass
+   ============================================================ */
+.cmdk-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background: rgba(4, 2, 8, 0.68);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.cmdk-dialog {
+  position: fixed;
+  left: 50%;
+  top: 13vh;
+  transform: translateX(-50%);
+  z-index: 111;
+  width: min(580px, calc(100vw - 2rem));
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(245, 200, 137, 0.16);
+  background: linear-gradient(180deg, #0d0916 0%, #0a0710 100%);
+  box-shadow:
+    0 40px 90px -30px rgba(0, 0, 0, 0.9),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+.cmdk-head {
+  display: flex;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.cmdk-head input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #f7ecdd;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+}
+.cmdk-head input::placeholder { color: #6f604c; }
+.cmdk-list {
+  max-height: min(380px, 52vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.4rem;
+}
+.cmdk-empty {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #8d7b63;
+}
+.cmdk-group { padding: 0.25rem; }
+.cmdk-group + .cmdk-group { border-top: 1px solid rgba(255, 255, 255, 0.06); }
+.cmdk-group [cmdk-group-heading] {
+  padding: 0.55rem 0.75rem 0.35rem;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8d7b63;
+}
+.cmdk-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #e9d7bf;
+  user-select: none;
+}
+.cmdk-item[data-selected="true"] {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f5c889;
+}
+.cmdk-item-icon {
+  display: flex;
+  height: 2rem;
+  width: 2rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+.cmdk-item > span:nth-child(2) { flex: 1; min-width: 0; }
+.cmdk-item-title {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.cmdk-item-sub {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.68rem;
+  color: #8d7b63;
+}
+.cmdk-item[data-selected="true"] .cmdk-item-sub { color: #b79b72; }
+.cmdk-item-kicker {
+  flex-shrink: 0;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6f604c;
+}
+.cmdk-item[data-selected="true"] .cmdk-item-kicker { color: #b79b72; }
+.cmdk-foot {
+  display: flex;
+  gap: 1.1rem;
+  padding: 0.55rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #8d7b63;
+}
+.cmdk-foot kbd {
+  margin-right: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0 0.3rem;
+  font-family: inherit;
+  font-size: 0.6rem;
+}
+
+/* ============================================================
+   one shared keyboard-focus language across the whole atlas —
+   warm amber on the dark landing, burnt sienna on paper pages
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid #b45309;
+  outline-offset: 2px;
+}
+html.atlas-active :focus-visible,
+.atlas-active :focus-visible,
+.cmdk-dialog :focus-visible {
+  outline-color: #f59e0b;
+}
