@@ -157,3 +157,35 @@ export const EXAM_THEMES: Record<string, ExamTheme> = {
   ebh: EBH_EXAM_THEME,
   stm: STM_EXAM_THEME,
 };
+
+/* ---------------- the whole atlas — cross-shelf spaced review ----------------
+   A neutral paper for "review everything" sessions: mixed questions from
+   all five shelves pass through, so the chrome stays bookish rather than
+   wearing one shelf's livery. Grading still routes to each question's own
+   schedule via the per-question `subject` field (see ExamEngine). */
+export const REVIEW_ALL_THEME: ExamTheme = {
+  key: "review",
+  pageBg: "linear-gradient(180deg,#f7eedf 0%,#f3e7d3 100%)",
+  headerBg: "linear-gradient(160deg,#241608,#402818)",
+  sigil: "linear-gradient(135deg,#f59e0b,#c2410c)",
+  titleOnDark: "#ffe9c9",
+  subOnDark: "#c9a97e",
+  chipOnDark: "#f0e2c8",
+  footerBorder: "#e5d3b6",
+  footerBg: "rgba(250,243,230,0.9)",
+  footerNote: "Exam mode: write on real paper first — then check. Mixed shelves, one sitting.",
+  paperLabel: "Write it on paper first — then type your attempt to compare",
+  outputPlaceholder: "Your answer…",
+  typeMeta: {
+    mcq: { label: "Multiple choice", color: "#8a4508", bg: "#f9e8d2" },
+    output: { label: "Write the output", color: "#7c2d12", bg: "#fdeadd" },
+    short: { label: "Short answer", color: "#4d3319", bg: "#f3e8d2" },
+    code: { label: "Write the code", color: "#1f4715", bg: "#eaf2d8" },
+  },
+  tiers: {
+    topper: { t: "Topper tier — every shelf argues your side now.", c: "#44621d" },
+    solid: { t: "Solid. Rewrite the missed answers by hand and you are there.", c: "#8a5a06" },
+    getting: { t: "Getting there — go back to the notes for the misses, then retake.", c: "#b45309" },
+    restart: { t: "Read the chapter notes once more, then retake — you will crush it.", c: "#8c2f2f" },
+  },
+};

@@ -107,6 +107,12 @@ export interface EngineQuestion {
   answerText?: string;
   solution?: string;
   explain?: string;
+  /** schedule this question grades into when it differs from theme.key
+   *  (cross-shelf review sessions mix subjects in one paper) */
+  subject?: string;
+  /** the question's id in its own subject's schedule, when `id` was
+   *  namespaced to stay unique inside a mixed bank */
+  srcId?: string;
 }
 
 export interface EngineBank {
@@ -224,16 +230,34 @@ export function ExamEngine({
     setFinished(true);
     if (!loggedRef.current) {
       loggedRef.current = true;
-      const pct = Math.round((score.correct / score.total) * 100);
-      logAttempt({
-        subject: theme.key,
-        group: draftId,
-        title: bank.title,
-        correct: score.correct,
-        total: score.total,
-        pct,
-        seconds,
-      });
+      /* one row per subject: single-shelf windows log exactly one row
+         (subject = theme.key, unchanged behaviour); mixed review sessions
+         split into per-shelf rows so each shelf's accuracy stays true */
+      const groups = new Map<string, { c: number; t: number }>();
+      for (const qq of qs) {
+        const s = states[qq.id]?.status;
+        if (s !== "correct" && s !== "wrong") continue;
+        const subj = qq.subject ?? theme.key;
+        const g = groups.get(subj) ?? { c: 0, t: 0 };
+        g.t += 1;
+        if (s === "correct") g.c += 1;
+        groups.set(subj, g);
+      }
+      const answered = groups.size > 0;
+      const rows: { subject: string; correct: number; total: number }[] = answered
+        ? [...groups.entries()].map(([subject, g]) => ({ subject, correct: g.c, total: g.t }))
+        : [{ subject: theme.key, correct: score.correct, total: score.total }];
+      for (const r of rows) {
+        logAttempt({
+          subject: r.subject,
+          group: draftId,
+          title: bank.title,
+          correct: r.correct,
+          total: r.total,
+          pct: Math.round((r.correct / Math.max(1, r.total)) * 100),
+          seconds,
+        });
+      }
     }
   }
 
@@ -291,13 +315,14 @@ export function ExamEngine({
       status: ok ? "correct" : "wrong",
     });
     // SM-2: first-try MCQ answers are trusted fully (5), misses reset the card (2)
-    gradeQuestion(theme.key, q.id, ok ? 5 : 2);
+    // — routed to the question's own shelf in mixed review sessions
+    gradeQuestion(q.subject ?? theme.key, q.srcId ?? q.id, ok ? 5 : 2);
   }
 
   function selfCheck(ok: boolean) {
     patch(q.id, { status: ok ? "correct" : "wrong" });
     // SM-2: the model answer was visible — grade honestly but trust less
-    gradeQuestion(theme.key, q.id, ok ? 3 : 1);
+    gradeQuestion(q.subject ?? theme.key, q.srcId ?? q.id, ok ? 3 : 1);
   }
 
   function retake() {

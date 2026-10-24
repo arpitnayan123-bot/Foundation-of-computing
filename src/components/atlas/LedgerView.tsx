@@ -14,14 +14,39 @@
    engine, so review feels exactly like an exam window).
    ============================================================ */
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { ArrowLeft, BookOpenCheck, CalendarCheck2, Flame, ListChecks, Sparkles, Timer } from "lucide-react";
+import {
+  ArrowLeft,
+  BookOpen,
+  BookOpenCheck,
+  CalendarCheck2,
+  Database,
+  Download,
+  Flame,
+  Layers,
+  ListChecks,
+  Sparkles,
+  Timer,
+  Trash2,
+  Upload,
+} from "lucide-react";
 import { SUBJECTS, type Subject } from "./subjects";
 import { QUESTION_COUNTS } from "@/lib/question-counts";
+import { SECTION_COUNTS, TOTAL_SECTIONS } from "@/lib/section-counts";
 import { currentStreak, loadLedger, statsFor, type LedgerStore } from "@/lib/ledger";
 import { dueCounts, masteryFor, type SubjectMastery } from "@/lib/sm2";
+import { readProgressCounts } from "@/lib/progress";
+import {
+  applyBackup,
+  backupFilename,
+  eraseAllStores,
+  exportBackup,
+  parseBackup,
+  type BackupBundle,
+  type BackupSummary,
+} from "@/lib/backup";
 
 /* the review window loads its own subject chunk on demand */
 const ReviewWindow = dynamic(() => import("@/components/notes/ReviewWindow").then((m) => m.ReviewWindow), {
@@ -34,6 +59,16 @@ interface ShelfRow {
   stats: ReturnType<typeof statsFor>;
   mastery: SubjectMastery;
   due: number;
+  read: number;
+  readTotal: number;
+}
+
+interface ImportState {
+  kind: "idle" | "ready" | "error";
+  name?: string;
+  summary?: BackupSummary;
+  bundle?: BackupBundle;
+  message?: string;
 }
 
 function fmtSeconds(sec: number): string {
@@ -74,6 +109,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
   const refresh = useCallback(() => {
     const ledger = loadLedger();
     const due = dueCounts();
+    const reads = readProgressCounts();
     setStore(ledger);
     setStreak(currentStreak(ledger.days));
     setRows(
@@ -82,6 +118,8 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
         stats: statsFor(ledger, subject.id),
         mastery: masteryFor(subject.id, QUESTION_COUNTS[subject.id as keyof typeof QUESTION_COUNTS] ?? 0),
         due: due[subject.id] ?? 0,
+        read: reads[subject.id] ?? 0,
+        readTotal: SECTION_COUNTS[subject.id] ?? subject.chapters ?? 0,
       }))
     );
   }, []);
@@ -114,6 +152,67 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
   const daysPracticed = store?.days.length ?? 0;
   const recent = (store?.attempts ?? []).slice(-10).reverse();
   const dueEverywhere = rows.reduce((n, r) => n + r.due, 0);
+  const readEverywhere = rows.reduce((n, r) => n + r.read, 0);
+
+  /* ---------- your-data panel state ---------- */
+  const [imp, setImp] = useState<ImportState>({ kind: "idle" });
+  const [dataFlash, setDataFlash] = useState<string | null>(null);
+  const [eraseArm, setEraseArm] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const onExport = () => {
+    try {
+      const blob = new Blob([exportBackup()], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = backupFilename();
+      a.click();
+      URL.revokeObjectURL(url);
+      setDataFlash(`Backup downloaded — ${backupFilename()}`);
+    } catch {
+      setDataFlash("The download failed — your browser blocked it. Try again.");
+    }
+  };
+
+  const onFile = async (file: File | undefined) => {
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const res = parseBackup(text);
+      if (res.ok) {
+        setImp({ kind: "ready", name: file.name, summary: res.summary, bundle: res.bundle });
+      } else {
+        setImp({ kind: "error", message: res.error });
+      }
+    } catch {
+      setImp({ kind: "error", message: "That file could not be read." });
+    }
+  };
+
+  const onImportApply = () => {
+    if (imp.kind !== "ready" || !imp.bundle || !imp.summary) return;
+    applyBackup(imp.bundle);
+    const s = imp.summary;
+    setImp({ kind: "idle" });
+    if (fileRef.current) fileRef.current.value = "";
+    refresh();
+    setDataFlash(`Restored — ${s.cards} scheduled card${s.cards === 1 ? "" : "s"}, ${s.attempts} attempt${s.attempts === 1 ? "" : "s"}, ${s.sections} chapter${s.sections === 1 ? "" : "s"} read.`);
+  };
+
+  const onErase = () => {
+    if (!eraseArm) {
+      setEraseArm(true);
+      window.setTimeout(() => setEraseArm(false), 4000);
+      return;
+    }
+    eraseAllStores();
+    setEraseArm(false);
+    setImp({ kind: "idle" });
+    if (fileRef.current) fileRef.current.value = "";
+    refresh();
+    setDataFlash("Every store erased — a fresh start. Export a backup first if you want this memory back.");
+  };
 
   return (
     <div className="min-h-screen bg-[#070509] pb-20 text-[#f7ecdd]" id="top">
@@ -131,10 +230,15 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
           </button>
           <span className="font-display text-[1rem] font-black tracking-tight text-[#f7ecdd]">The Ledger</span>
           {dueEverywhere > 0 ? (
-            <span className="ml-auto flex items-center gap-1.5 rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 py-1 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889]">
+            <button
+              type="button"
+              onClick={() => setReviewSubject("all")}
+              aria-label={`Review all ${dueEverywhere} due cards across every shelf`}
+              className="ml-auto flex cursor-pointer items-center gap-1.5 rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 py-1 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889] transition hover:bg-[#f59e0b2a]"
+            >
               <Sparkles className="h-3 w-3" />
               {dueEverywhere} due
-            </span>
+            </button>
           ) : null}
         </div>
       </nav>
@@ -164,7 +268,22 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
 
         {/* ------- per-shelf mastery ------- */}
         <section aria-label="Per-shelf mastery" className="mt-8">
-          <h2 className="font-display text-xl font-black">Shelf by shelf</h2>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <h2 className="font-display text-xl font-black">Shelf by shelf</h2>
+            <span className="font-mono text-[.62rem] uppercase tracking-[.16em] text-[#8d7b63]">
+              <strong className="text-[#c9b99f]">{readEverywhere}</strong>/{TOTAL_SECTIONS} chapters read
+            </span>
+            {dueEverywhere > 0 ? (
+              <button
+                type="button"
+                onClick={() => setReviewSubject("all")}
+                className="ml-auto flex items-center gap-1.5 rounded-full border border-[#f59e0b55] bg-[#f59e0b14] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#f5c889] transition hover:bg-[#f59e0b2a]"
+              >
+                <Layers className="h-3.5 w-3.5" />
+                review everything
+              </button>
+            ) : null}
+          </div>
           <div className="mt-4 grid gap-3">
             {rows.map((row) => (
               <ShelfCard key={row.subject.id} row={row} onReview={() => setReviewSubject(row.subject.id)} />
@@ -226,6 +345,114 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
           )}
         </section>
 
+        {/* ------- your data — export / import / erase ------- */}
+        <section aria-label="Your data" className="mt-10">
+          <h2 className="font-display text-xl font-black">Your data</h2>
+          <p className="mt-1 max-w-xl text-[.86rem] leading-relaxed text-[#a89a86]">
+            The whole atlas memory — review schedule, attempt ledger, chapters read — lives in this browser and
+            nowhere else. One JSON file carries it anywhere.
+          </p>
+          <div className="mt-4 rounded-2xl border border-white/10 bg-white/[.04] p-5">
+            {dataFlash ? (
+              <p role="status" className="mb-4 rounded-xl border border-[#8fae5d40] bg-[#8fae5d14] px-4 py-3 text-[.8rem] font-semibold leading-relaxed text-[#c4dba4]">
+                {dataFlash}
+              </p>
+            ) : null}
+
+            {imp.kind === "error" ? (
+              <p role="alert" className="mb-4 rounded-xl border border-[#c26d4a40] bg-[#c26d4a14] px-4 py-3 text-[.8rem] font-semibold leading-relaxed text-[#d98a6b]">
+                {imp.message}
+              </p>
+            ) : null}
+
+            {imp.kind === "ready" && imp.summary ? (
+              <div className="mb-4 rounded-xl border border-[#f5c88940] bg-[#f5c88910] p-4">
+                <p className="text-[.84rem] font-bold text-[#f0e2c8]">
+                  {imp.name}
+                  {imp.summary.exportedAt ? (
+                    <span className="ml-2 font-mono text-[.6rem] font-normal uppercase tracking-[.14em] text-[#8d7b63]">
+                      exported {relDay(Date.parse(imp.summary.exportedAt))}
+                    </span>
+                  ) : null}
+                </p>
+                <p className="mt-1 text-[.78rem] leading-relaxed text-[#c9b99f]">
+                  {imp.summary.cards} scheduled card{imp.summary.cards === 1 ? "" : "s"} · {imp.summary.attempts} attempt{imp.summary.attempts === 1 ? "" : "s"} ·{" "}
+                  {imp.summary.sections} chapter{imp.summary.sections === 1 ? "" : "s"} read · {imp.summary.days} practice day{imp.summary.days === 1 ? "" : "s"}
+                </p>
+                <p className="mt-2 text-[.78rem] font-semibold text-[#f5c889]">Importing replaces everything currently in this browser.</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={onImportApply}
+                    className="flex items-center gap-1.5 rounded-full bg-[#8fae5d] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#1c2408] transition hover:brightness-110"
+                  >
+                    <Upload className="h-3.5 w-3.5" />
+                    Replace my data
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setImp({ kind: "idle" });
+                      if (fileRef.current) fileRef.current.value = "";
+                    }}
+                    className="rounded-full border border-white/15 bg-white/[.05] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#e9d7bf] transition hover:bg-white/[.1]"
+                  >
+                    Keep mine
+                  </button>
+                </div>
+              </div>
+            ) : null}
+
+            <div className="flex flex-wrap items-center gap-2.5">
+              <button
+                type="button"
+                onClick={onExport}
+                className="flex items-center gap-2 rounded-full border border-white/15 bg-white/[.06] px-4 py-2.5 text-[.7rem] font-black uppercase tracking-[.14em] text-[#f0e2c8] transition hover:bg-white/[.12]"
+              >
+                <Download className="h-4 w-4" style={{ color: "#f5c889" }} />
+                Export backup
+              </button>
+              <button
+                type="button"
+                onClick={() => fileRef.current?.click()}
+                className="flex items-center gap-2 rounded-full border border-white/15 bg-white/[.06] px-4 py-2.5 text-[.7rem] font-black uppercase tracking-[.14em] text-[#f0e2c8] transition hover:bg-white/[.12]"
+              >
+                <Upload className="h-4 w-4" style={{ color: "#a9c977" }} />
+                Import backup…
+              </button>
+              <button
+                type="button"
+                onClick={onErase}
+                aria-label={eraseArm ? "Confirm: erase every store" : "Erase every store — first press arms, second press erases"}
+                className={`ml-auto flex items-center gap-2 rounded-full border px-4 py-2.5 text-[.7rem] font-black uppercase tracking-[.14em] transition ${
+                  eraseArm
+                    ? "border-[#c26d4a] bg-[#c26d4a] text-[#fff1e8]"
+                    : "border-[#c26d4a40] bg-[#c26d4a0d] text-[#d98a6b] hover:bg-[#c26d4a1f]"
+                }`}
+              >
+                <Trash2 className="h-4 w-4" />
+                {eraseArm ? "sure? click again" : "erase everything"}
+              </button>
+            </div>
+            <p className="mt-3 flex items-center gap-2 font-mono text-[.6rem] uppercase tracking-[.16em] text-[#77685a]">
+              <Database className="h-3 w-3" />
+              export before switching laptops · import restores the whole schedule
+            </p>
+          </div>
+        </section>
+
+        <input
+          ref={fileRef}
+          type="file"
+          accept="application/json,.json"
+          className="sr-only"
+          aria-hidden
+          tabIndex={-1}
+          onChange={(e) => {
+            void onFile(e.target.files?.[0]);
+          }}
+        />
+
         <p className="mt-10 text-center font-mono text-[.6rem] uppercase tracking-[.2em] text-[#5d5142]">
           the ledger keeps itself — every finished window writes its own row
         </p>
@@ -261,7 +488,7 @@ function StatCard({
 }
 
 function ShelfCard({ row, onReview }: { row: ShelfRow; onReview: () => void }) {
-  const { subject, stats, mastery, due } = row;
+  const { subject, stats, mastery, due, read, readTotal } = row;
   const accuracy = stats.totalAnswered > 0 ? Math.round((stats.totalCorrect / stats.totalAnswered) * 100) : null;
   const started = mastery.total - mastery.unseen > 0;
   return (
@@ -295,6 +522,29 @@ function ShelfCard({ row, onReview }: { row: ShelfRow; onReview: () => void }) {
               {started ? "schedule clear" : "no cards yet"}
             </span>
           )}
+        </div>
+      </div>
+
+      {/* reading progress — chapters reached while scrolling the notes */}
+      <div className="mt-4">
+        <div className="flex items-center justify-between font-mono text-[.62rem] uppercase tracking-[.14em] text-[#8d7b63]">
+          <span className="flex items-center gap-1.5">
+            <BookOpen className="h-3 w-3" style={{ color: subject.accent }} />
+            chapters read
+          </span>
+          <span>
+            <strong className="text-[#c9b99f]">{read}</strong> / {readTotal}
+          </span>
+        </div>
+        <div
+          className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/[.06]"
+          role="img"
+          aria-label={`Reading progress: ${read} of ${readTotal} chapters read`}
+        >
+          <span
+            style={{ width: `${Math.min(100, (read / Math.max(1, readTotal)) * 100)}%`, background: subject.accent }}
+            className="block h-full transition-[width] duration-500"
+          />
         </div>
       </div>
 

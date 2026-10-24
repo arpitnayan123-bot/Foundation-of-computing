@@ -16,7 +16,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Command } from "cmdk";
 import * as Dialog from "@radix-ui/react-dialog";
-import { FlaskConical, Home, NotebookPen, Sparkles, type LucideIcon } from "lucide-react";
+import { FlaskConical, Home, Layers, NotebookPen, Sparkles, type LucideIcon } from "lucide-react";
 import { LIVE_SUBJECTS, type Subject } from "./subjects";
 import { dueCounts } from "@/lib/sm2";
 
@@ -56,6 +56,7 @@ function Item({ onSelect, icon: Icon, tint, kicker, title, sub, keywords }: Item
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [due, setDue] = useState<Record<string, number>>({});
+  const dueTotal = Object.values(due).reduce((n, x) => n + x, 0);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -169,6 +170,17 @@ export function CommandPalette() {
                   sub="Accuracy, mastery and the review schedule"
                   keywords="progress mastery stats streak attempts ledger"
                 />
+                {dueTotal > 0 ? (
+                  <Item
+                    onSelect={() => openReview("all")}
+                    icon={Layers}
+                    tint="#f5c889"
+                    kicker={`${dueTotal} due`}
+                    title="Spaced review — everything"
+                    sub="Due cards from every shelf, one sitting"
+                    keywords="review sm2 spaced repetition everything all shelves due cards mixed"
+                  />
+                ) : null}
                 {LIVE_SUBJECTS.filter((s: Subject) => (due[s.id] ?? 0) > 0).map((s: Subject) => (
                   <Item
                     key={`review-${s.id}`}
