@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { SwRegister } from "@/components/atlas/SwRegister";
 import { Analytics } from "@vercel/analytics/next";
 
 const fraunces = Fraunces({
@@ -67,6 +68,7 @@ export default function RootLayout({
       >
         {children}
         <Toaster />
+        <SwRegister />
         <Analytics />
       </body>
     </html>
