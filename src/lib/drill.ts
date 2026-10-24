@@ -18,6 +18,11 @@
                    schedule instead of waiting for an exam)
      4. fill     — random seen-healthy cards to top the dozen
 
+   AI-forged cards (lib/custom-cards.ts) join the same tiers —
+   due customs, then shaky customs, then fresh customs ride
+   ahead of the bank picks inside each tier, so a deck forged
+   from tonight's chapter shows up in the very next drill.
+
    Banks are dynamically imported here (one chunk per shelf),
    so the ledger chunk stays light until a drill actually
    starts. Cross-shelf picks namespace ids ("stm:f3") exactly
@@ -27,6 +32,7 @@
 
 import type { EngineQuestion } from "@/components/notes/ExamEngine";
 import { loadSm2, type Sm2Card } from "./sm2";
+import { customToQuestion, listCustomCards } from "./custom-cards";
 
 /** why a card made the cut — shown as a small tag on the card */
 export type DrillReason = "due" | "shaky" | "new" | "fill";
@@ -91,10 +97,31 @@ interface Candidate {
   cls: 0 | 1 | 2 | 3; // 0 due · 1 shaky · 2 unseen · 3 seen-healthy
 }
 
+/** classify one card row by the same rules the banks use */
+function classify(card: Sm2Card | undefined, now: number): Candidate["cls"] {
+  if (!card || card.last <= 0) return 2;
+  if (card.due <= now) return 0;
+  if (isShaky(card)) return 1;
+  return 3;
+}
+
+/** the forged-card candidates for this drill (shelf-filtered),
+ *  classified against the same schedule the banks read */
+function customCandidates(subject: string, isAll: boolean, store: ReturnType<typeof loadSm2>, now: number): Candidate[] {
+  const out: Candidate[] = [];
+  for (const c of listCustomCards()) {
+    if (!isAll && c.shelfId !== subject) continue;
+    const card = store[c.shelfId]?.[c.id];
+    out.push({ q: customToQuestion(c), sid: c.shelfId, card, cls: classify(card, now) });
+  }
+  return out;
+}
+
 /** Build one drill handful for a subject id, or "all" for the whole atlas. */
 export async function buildDrill(subject: string, now = Date.now()): Promise<DrillSession> {
   const isAll = subject === "all";
   const store = loadSm2();
+  const customs = customCandidates(subject, isAll, store, now);
 
   /* load the shelf (or every shelf) */
   const maps: [string, Record<string, { title: string; subtitle: string; questions: EngineQuestion[] }>][] = [];
@@ -118,11 +145,7 @@ export async function buildDrill(subject: string, now = Date.now()): Promise<Dri
     for (const group of Object.values(bankMap)) {
       for (const q of group.questions) {
         const card = rows[q.id];
-        let cls: Candidate["cls"];
-        if (!card || card.last <= 0) cls = 2;
-        else if (card.due <= now) cls = 0;
-        else if (isShaky(card)) cls = 1;
-        else cls = 3;
+        const cls = classify(card, now);
         candidates.push({ q, sid, card, cls });
         contributed = true;
       }
@@ -130,17 +153,17 @@ export async function buildDrill(subject: string, now = Date.now()): Promise<Dri
     if (contributed) shelves += 1;
   }
 
-  const due = candidates
-    .filter((c) => c.cls === 0)
-    .sort((a, b) => (a.card?.due ?? 0) - (b.card?.due ?? 0))
-    .slice(0, DUE_CAP);
-  const shaky = candidates.filter((c) => c.cls === 1);
-  const unseen = shuffled(candidates.filter((c) => c.cls === 2));
-  const healthy = shuffled(candidates.filter((c) => c.cls === 3));
-
+  /* forged cards ride ahead of the bank picks inside every tier:
+     due customs first (most overdue first), then shaky customs,
+     then fresh customs — the bank logic fills whatever is left */
+  const byDue = (a: Candidate, b: Candidate) => (a.card?.due ?? 0) - (b.card?.due ?? 0);
+  const byEf = (a: Candidate, b: Candidate) => (a.card?.ef ?? 2.5) - (b.card?.ef ?? 2.5);
+  const due = [...customs.filter((c) => c.cls === 0).sort(byDue), ...candidates.filter((c) => c.cls === 0).sort(byDue)].slice(0, DUE_CAP);
   /* fragile cards pulled forward, weakest easiness first — but never
      crowd out every due card: at most SHAKY_CAP of them */
-  const shakyPicked = shaky.sort((a, b) => (a.card?.ef ?? 2.5) - (b.card?.ef ?? 2.5)).slice(0, SHAKY_CAP);
+  const shakyPicked = [...customs.filter((c) => c.cls === 1).sort(byEf), ...candidates.filter((c) => c.cls === 1).sort(byEf)].slice(0, SHAKY_CAP);
+  const unseen = shuffled(customs.filter((c) => c.cls === 2)).concat(shuffled(candidates.filter((c) => c.cls === 2)));
+  const healthy = shuffled(customs.filter((c) => c.cls === 3)).concat(shuffled(candidates.filter((c) => c.cls === 3)));
 
   const rest = DRILL_MAX - due.length - shakyPicked.length;
   const unseenPicked = unseen.slice(0, Math.max(0, rest));

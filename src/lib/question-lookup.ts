@@ -8,7 +8,13 @@
    ledger chunk. This module dynamic-imports each bank map the
    first time weak cards exist, memoizes the promise, and
    forgets nothing afterwards (module-lifetime cache).
+
+   AI-forged cards (lib/custom-cards.ts) are scheduled in the
+   same SM-2 store, so they join the index too — a weak forged
+   card can name its question like any bank card.
    ============================================================ */
+
+import { listCustomCards } from "@/lib/custom-cards";
 
 type LookupBank = Record<string, { questions: { id: string; q: string }[] }>;
 
@@ -33,6 +39,7 @@ export function loadQuestionIndex(): Promise<Map<string, string>> {
         for (const q of group.questions) idx.set(`${subject}:${q.id}`, q.q);
       }
     });
+    for (const c of listCustomCards()) idx.set(`${c.shelfId}:${c.id}`, c.q);
     return idx;
   });
   return indexPromise;

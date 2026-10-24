@@ -15,6 +15,11 @@
    the engine state, and carry the original id + subject so
    grading still lands on the right shelf's schedule.
 
+   AI-forged cards (lib/custom-cards.ts) are scheduled in the
+   same SM-2 store, so due forged cards join the session by the
+   same rule — pulled in alongside the bank cards, namespaced
+   the same way in mixed sessions.
+
    Question banks are dynamically imported here, so the ledger
    chunk stays light until a review actually starts.
    ============================================================ */
@@ -25,6 +30,7 @@ import { Layers, Sparkles, X } from "lucide-react";
 import { ExamEngine, type EngineBank, type EngineQuestion } from "./ExamEngine";
 import { EXAM_THEMES, REVIEW_ALL_THEME } from "./exam-themes";
 import { dueIds, type Sm2Card, loadSm2 } from "@/lib/sm2";
+import { customToQuestion, listCustomCards } from "@/lib/custom-cards";
 import { SUBJECTS } from "@/components/atlas/subjects";
 
 /** each shelf's bank map, one dynamic chunk per subject */
@@ -85,6 +91,7 @@ export function ReviewWindow({
 
         let picked: EngineQuestion[] = [];
         let shelves = 0;
+        const isDue = (sid: string, qid: string) => dueMap.has(`${sid}:${qid}`) || force.has(qid);
 
         if (isAll) {
           /* every shelf at once — load all banks, namespaced per subject */
@@ -115,6 +122,18 @@ export function ReviewWindow({
           }
           shelves = picked.length > 0 ? 1 : 0;
         }
+
+        /* AI-forged cards live in the same schedule — due (or forced)
+           ones join by the same rule, namespaced in mixed sessions */
+        for (const c of listCustomCards()) {
+          if (!isAll && c.shelfId !== subject) continue;
+          if (!isDue(c.shelfId, c.id)) continue;
+          const q = customToQuestion(c);
+          picked.push(isAll ? { ...q, id: `${c.shelfId}:${c.id}`, srcId: c.id, subject: c.shelfId } : q);
+        }
+        /* mixed sessions: count every shelf that actually contributed
+           (a shelf with only forged cards due still counts) */
+        if (isAll) shelves = new Set(picked.map((p) => p.subject).filter(Boolean)).size;
 
         // most overdue first, capped per session
         picked.sort(

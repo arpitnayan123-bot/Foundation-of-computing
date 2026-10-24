@@ -2,12 +2,16 @@
    Backup & restore — one JSON file for the whole atlas memory.
 
    The reader's progress lives in local storage:
-     atlas:sm2:v1       — the SM-2 review schedule
-     atlas:ledger:v1    — the attempt log / streak
-     atlas:progress:v1  — chapter reading progress
-     atlas:goal:v1      — the daily goal target (optional in
-                          bundles: older exports simply omit it)
-   Export bundles all four; import validates and replaces.
+     atlas:sm2:v1          — the SM-2 review schedule
+     atlas:ledger:v1       — the attempt log / streak
+     atlas:progress:v1     — chapter reading progress
+     atlas:goal:v1         — the daily goal target (optional in
+                             bundles: older exports simply omit it)
+     atlas:mock-live:v1    — the last mock-exam blueprint (same
+                             optional tolerance)
+     atlas:custom-cards:v1 — the AI-forged flashcards (optional,
+                             same tolerance as goal/mock)
+   Export bundles all of them; import validates and replaces.
    Nothing is sent anywhere — the file goes straight from the
    reader's disk into their browser, same as before.
 
@@ -22,6 +26,7 @@ import { loadLedger, type LedgerAttempt, type LedgerStore } from "@/lib/ledger";
 import { loadProgress, type ProgressStore } from "@/lib/progress";
 import { loadGoal } from "./goal";
 import { loadBlueprint, MOCK_KEY, type MockBlueprint } from "./mock";
+import { CUSTOM_CARDS_KEY, listCustomCards, type CustomCardStore } from "./custom-cards";
 
 export const BACKUP_VERSION = 1;
 
@@ -38,6 +43,8 @@ export interface BackupBundle {
     goal?: { target: number; setAt: number };
     /** the last mock-exam blueprint — optional, same tolerance */
     mock?: MockBlueprint;
+    /** the AI-forged flashcards — optional, same tolerance */
+    custom?: CustomCardStore;
   };
 }
 
@@ -46,6 +53,8 @@ export interface BackupSummary {
   attempts: number;
   days: number;
   sections: number;
+  /** AI-forged cards riding along in the bundle */
+  customCards: number;
   exportedAt: string;
 }
 
@@ -66,6 +75,7 @@ export function exportBackup(): string {
       progress: loadProgress(),
       goal: loadGoal(),
       mock: loadBlueprint(),
+      custom: { cards: listCustomCards() },
     },
   };
   return JSON.stringify(bundle, null, 2);
@@ -149,6 +159,22 @@ function validMock(x: unknown): x is MockBlueprint {
   );
 }
 
+/** the forged-card deck is optional — but when present it must be whole:
+ *  every card keeps its shape and its "custom:" id prefix */
+function validCustom(x: unknown): x is CustomCardStore {
+  if (!isObj(x) || !Array.isArray(x.cards)) return false;
+  return x.cards.every((c) =>
+    isObj(c) &&
+    typeof c.id === "string" &&
+    c.id.startsWith("custom:") &&
+    typeof c.shelfId === "string" &&
+    typeof c.chapterKey === "string" &&
+    typeof c.q === "string" &&
+    typeof c.a === "string" &&
+    num(c.createdAt)
+  );
+}
+
 /* ---------------- import ---------------- */
 
 export function parseBackup(text: string): ParseResult {
@@ -174,6 +200,9 @@ export function parseBackup(text: string): ParseResult {
   if (stores.mock !== undefined && !validMock(stores.mock)) {
     return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
   }
+  if (stores.custom !== undefined && !validCustom(stores.custom)) {
+    return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
+  }
   if (!validSm2(stores.sm2) || !validLedger(stores.ledger) || !validProgress(stores.progress)) {
     return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
   }
@@ -187,6 +216,7 @@ export function parseBackup(text: string): ParseResult {
       progress: stores.progress as ProgressStore,
       ...(validGoal(stores.goal) ? { goal: stores.goal } : {}),
       ...(validMock(stores.mock) ? { mock: stores.mock } : {}),
+      ...(validCustom(stores.custom) ? { custom: stores.custom } : {}),
     },
   };
   let cards = 0;
@@ -202,13 +232,15 @@ export function parseBackup(text: string): ParseResult {
       attempts,
       days: bundle.stores.ledger.days.length,
       sections,
+      customCards: bundle.stores.custom?.cards.length ?? 0,
       exportedAt: bundle.exportedAt,
     },
   };
 }
 
 /** Replace all stores with a validated bundle (parseBackup first!).
- *  A bundle without a goal block (older export) resets the goal. */
+ *  A bundle without a goal block (older export) resets the goal;
+ *  without a forged-card block it clears the forge. */
 export function applyBackup(bundle: BackupBundle): void {
   if (typeof window === "undefined") return;
   try {
@@ -225,6 +257,11 @@ export function applyBackup(bundle: BackupBundle): void {
     } else {
       window.localStorage.removeItem(MOCK_KEY);
     }
+    if (bundle.stores.custom) {
+      window.localStorage.setItem(CUSTOM_CARDS_KEY, JSON.stringify(bundle.stores.custom));
+    } else {
+      window.localStorage.removeItem(CUSTOM_CARDS_KEY);
+    }
   } catch {
     /* private mode / quota — nothing else we can do here */
   }
@@ -239,6 +276,7 @@ export function eraseAllStores(): void {
     window.localStorage.removeItem("atlas:progress:v1");
     window.localStorage.removeItem("atlas:goal:v1");
     window.localStorage.removeItem(MOCK_KEY);
+    window.localStorage.removeItem(CUSTOM_CARDS_KEY);
   } catch {
     /* noop */
   }

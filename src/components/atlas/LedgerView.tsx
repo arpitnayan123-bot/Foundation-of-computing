@@ -34,6 +34,7 @@ import {
   Timer,
   Trash2,
   Upload,
+  WandSparkles,
   Zap,
 } from "lucide-react";
 import { SUBJECTS, type Subject } from "./subjects";
@@ -45,6 +46,8 @@ import { loadQuestionIndex } from "@/lib/question-lookup";
 import { BADGES, computeSnapshot, earnedCount, type AtlasSnapshot } from "@/lib/achievements";
 import { bumpGoal, GOAL_MAX, GOAL_MIN, goalStatus, type GoalStatus } from "@/lib/goal";
 import { PracticeHeatmap, type DayHit } from "./PracticeHeatmap";
+import { CardForge } from "./CardForge";
+import { countCustomCardsByShelf } from "@/lib/custom-cards";
 import { readProgressCounts } from "@/lib/progress";
 import {
   applyBackup,
@@ -165,6 +168,22 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
   });
   const openMock = useCallback(() => setMockOpen(true), []);
 
+  /* the ⌘K palette can also queue the card forge — same handoff
+     contract as review/drill/mock, no subject to carry */
+  const [forgeOpen, setForgeOpen] = useState<boolean>(() => {
+    try {
+      const queued = sessionStorage.getItem("atlas:forge-open");
+      if (queued) {
+        sessionStorage.removeItem("atlas:forge-open");
+        return queued === "1";
+      }
+    } catch {
+      /* private mode — no handoff */
+    }
+    return false;
+  });
+  const openForge = useCallback(() => setForgeOpen(true), []);
+
   /* the daily goal + derived badges — both recomputed on every refresh */
   const [goal, setGoal] = useState<GoalStatus | null>(null);
   const [snap, setSnap] = useState<AtlasSnapshot | null>(null);
@@ -173,6 +192,9 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
     const ledger = loadLedger();
     const due = dueCounts();
     const reads = readProgressCounts();
+    /* forged cards share the shelf's schedule — count them into the
+       mastery denominator so the bar can never read above 100% */
+    const customs = countCustomCardsByShelf();
     setStore(ledger);
     setStreak(currentStreak(ledger.days));
     setTrouble(troubleSpots());
@@ -182,7 +204,10 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
       SUBJECTS.filter((s) => s.status === "live").map((subject) => ({
         subject,
         stats: statsFor(ledger, subject.id),
-        mastery: masteryFor(subject.id, QUESTION_COUNTS[subject.id as keyof typeof QUESTION_COUNTS] ?? 0),
+        mastery: masteryFor(
+          subject.id,
+          (QUESTION_COUNTS[subject.id as keyof typeof QUESTION_COUNTS] ?? 0) + (customs[subject.id] ?? 0)
+        ),
         due: due[subject.id] ?? 0,
         read: reads[subject.id] ?? 0,
         readTotal: SECTION_COUNTS[subject.id] ?? subject.chapters ?? 0,
@@ -216,16 +241,22 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
       setMockOpen(true);
       refresh();
     };
+    const onForge = () => {
+      setForgeOpen(true);
+      refresh();
+    };
     document.addEventListener("visibilitychange", onVisible);
     window.addEventListener("atlas:review-subject", onReview);
     window.addEventListener("atlas:drill-subject", onDrill);
     window.addEventListener("atlas:mock-open", onMock);
+    window.addEventListener("atlas:forge-open", onForge);
     return () => {
       cancelAnimationFrame(raf);
       document.removeEventListener("visibilitychange", onVisible);
       window.removeEventListener("atlas:review-subject", onReview);
       window.removeEventListener("atlas:drill-subject", onDrill);
       window.removeEventListener("atlas:mock-open", onMock);
+      window.removeEventListener("atlas:forge-open", onForge);
     };
   }, [refresh]);
 
@@ -306,7 +337,10 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
     setImp({ kind: "idle" });
     if (fileRef.current) fileRef.current.value = "";
     refresh();
-    setDataFlash(`Restored — ${s.cards} scheduled card${s.cards === 1 ? "" : "s"}, ${s.attempts} attempt${s.attempts === 1 ? "" : "s"}, ${s.sections} chapter${s.sections === 1 ? "" : "s"} read.`);
+    const forged = s.customCards > 0 ? `, ${s.customCards} forged card${s.customCards === 1 ? "" : "s"}` : "";
+    setDataFlash(
+      `Restored — ${s.cards} scheduled card${s.cards === 1 ? "" : "s"}, ${s.attempts} attempt${s.attempts === 1 ? "" : "s"}${forged}, ${s.sections} chapter${s.sections === 1 ? "" : "s"} read.`
+    );
   };
 
   const onErase = () => {
@@ -455,6 +489,15 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
             >
               <Zap className="h-3.5 w-3.5" style={{ color: "#f5c889" }} />
               quick drill
+            </button>
+            <button
+              type="button"
+              onClick={openForge}
+              aria-label="Card Forge — generate AI flashcards from any chapter"
+              className="flex items-center gap-1.5 rounded-full border border-white/12 bg-white/[.05] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#e9d7bf] transition hover:bg-white/[.12]"
+            >
+              <WandSparkles className="h-3.5 w-3.5" style={{ color: "#f5c889" }} />
+              card forge
             </button>
             {dueEverywhere > 0 ? (
               <button
@@ -765,6 +808,15 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
         <MockWindow
           onClose={() => {
             setMockOpen(false);
+            refresh();
+          }}
+        />
+      ) : null}
+
+      {forgeOpen ? (
+        <CardForge
+          onClose={() => {
+            setForgeOpen(false);
             refresh();
           }}
         />

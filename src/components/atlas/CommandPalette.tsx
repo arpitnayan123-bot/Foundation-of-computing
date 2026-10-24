@@ -27,7 +27,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Command } from "cmdk";
 import * as Dialog from "@radix-ui/react-dialog";
-import { BookOpenText, FlaskConical, Home, Layers, ListChecks, NotebookPen, ScrollText, Sparkles, Zap, type LucideIcon } from "lucide-react";
+import { BookOpenText, FlaskConical, Home, Layers, ListChecks, NotebookPen, ScrollText, Sparkles, WandSparkles, Zap, type LucideIcon } from "lucide-react";
 import { LIVE_SUBJECTS, SUBJECTS, type Subject } from "./subjects";
 import { CHAPTER_INDEX } from "@/lib/chapter-index";
 import { dueCounts } from "@/lib/sm2";
@@ -258,6 +258,22 @@ export function CommandPalette() {
     }
   }, []);
 
+  /* the card forge lives on the ledger too — same contract, no subject */
+  const openForge = useCallback(() => {
+    setOpen(false);
+    try {
+      sessionStorage.setItem("atlas:forge-open", "1");
+    } catch {
+      /* private mode — navigation still lands on the ledger */
+    }
+    if (window.location.hash === "#/ledger") {
+      window.dispatchEvent(new CustomEvent("atlas:forge-open"));
+    } else {
+      window.location.hash = "#/ledger";
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Portal>
@@ -362,6 +378,15 @@ export function CommandPalette() {
                   title="Compose a mock exam"
                   sub="Pick shelves, length and the clock — one custom paper"
                   keywords="mock exam custom paper timed test compose practice sitting bell"
+                />
+                <Item
+                  onSelect={openForge}
+                  icon={WandSparkles}
+                  tint="#f5c889"
+                  kicker="any chapter → cards"
+                  title="Card Forge — AI flashcards"
+                  sub="Generate flashcards from any chapter, keep the good ones"
+                  keywords="card forge ai generate flashcards create deck chapter notes sm2"
                 />
                 {dueTotal > 0 ? (
                   <Item
