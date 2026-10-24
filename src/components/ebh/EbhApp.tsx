@@ -30,7 +30,9 @@ import {
   X,
   ChevronDown,
   GraduationCap,
+  Check,
 } from "lucide-react";
+import { useSectionProgress } from "@/lib/use-section-progress";
 import { EbhHero, EbhEconomicsSection, EbhBusinessSection, EbhHistorySection, EbhRulesPlayersSection } from "@/components/ebh/EbhParts1";
 import { EbhLicenseRajSection, EbhBajajSection, EbhSocietySection, EbhWeekendSection, EbhBizEconTechSection } from "@/components/ebh/EbhParts2";
 import { EbhAgrarianSection, EbhGuildsSection, EbhTradeSection, EbhLifeBeforeSection } from "@/components/ebh/EbhParts3";
@@ -93,6 +95,7 @@ const GROUPS: {
 ];
 
 const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
+const SECTION_IDS = FLAT_ITEMS.map((i) => i.id);
 
 function groupOf(id: string): string | null {
   for (const g of GROUPS) if (g.items.some((i) => i.id === id)) return g.id;
@@ -116,6 +119,7 @@ function TopNav({
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
+  const seen = useSectionProgress("ebh", SECTION_IDS);
   const navRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef("");
@@ -262,6 +266,9 @@ function TopNav({
                           <p className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 text-[.58rem] font-extrabold uppercase tracking-[.22em] text-[#a99758]">
                             <BookOpenText className="h-3 w-3" />
                             {group.label}
+                          <span className="ml-auto font-mono tracking-[.08em] opacity-90">
+                            {group.items.filter((it) => seen.has(it.id)).length}/{group.items.length} read
+                          </span>
                           </p>
                           {group.items.map((item, i) => {
                             const isActiveItem = active === item.id;
@@ -288,7 +295,11 @@ function TopNav({
                                   </span>
                                   <span className="mt-0.5 block text-[.7rem] leading-snug text-[#a08568]">{item.desc}</span>
                                 </span>
-                                {isActiveItem ? <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#a16207" }} /> : null}
+                                {isActiveItem ? (
+                                <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#a16207" }} />
+                              ) : seen.has(item.id) ? (
+                                <Check className="ml-auto mt-1 h-3.5 w-3.5 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
+                              ) : null}
                               </a>
                             );
                           })}
@@ -385,6 +396,9 @@ function TopNav({
               <span className="flex items-center gap-2 text-sm font-black tracking-tight text-[#f5ecd2]">
                 <Landmark className="h-4 w-4" style={{ color: "#facc15" }} />
                 Chapter index
+              <span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[.55rem] font-bold text-[#e9d7bf]">
+                {seen.size}/{SECTION_IDS.length} read
+              </span>
               </span>
               <button
                 type="button"
@@ -407,7 +421,7 @@ function TopNav({
                   <p className="mb-2 flex items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.24em] text-[#d9bd6e]">
                     <span className="h-px w-5" style={{ background: "linear-gradient(90deg,#eab308,transparent)" }} />
                     {group.label}
-                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-[.55rem] text-[#e8d9ac]">{group.items.length}</span>
+                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-[.55rem] text-[#e8d9ac]">{group.items.filter((it) => seen.has(it.id)).length}/{group.items.length}</span>
                   </p>
                   <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.04]">
                     {group.items.map((item, i) => {
@@ -437,7 +451,11 @@ function TopNav({
                             </span>
                             <span className="mt-0.5 block text-[.7rem] leading-snug text-[#c2a86e]">{item.desc}</span>
                           </span>
-                          {isActiveItem ? <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#facc15" }} /> : null}
+                          {isActiveItem ? (
+                            <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#facc15" }} />
+                          ) : seen.has(item.id) ? (
+                            <Check className="h-4 w-4 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
+                          ) : null}
                         </a>
                       );
                     })}

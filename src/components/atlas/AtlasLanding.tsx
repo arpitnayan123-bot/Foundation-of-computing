@@ -36,6 +36,7 @@ import {
 } from "lucide-react";
 import { SUBJECTS, type Subject, type SubjectAmbience } from "./subjects";
 import { dueCounts } from "@/lib/sm2";
+import { readProgressCounts } from "@/lib/progress";
 import Hero57 from "@/components/originkit/hero-57";
 
 /* ---------------------------------------------- easing + reveal */
@@ -245,6 +246,28 @@ function DueBadge({ subjectId }: { subjectId: string }) {
   );
 }
 
+/* chapters read on this shelf — same hydration-safe pattern as DueBadge;
+   silent until the reader has actually walked at least one chapter */
+function ChaptersBadge({ subjectId, total }: { subjectId: string; total: number }) {
+  const [seen, setSeen] = useState(0);
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => setSeen(readProgressCounts()[subjectId] ?? 0));
+    return () => cancelAnimationFrame(raf);
+  }, [subjectId]);
+  if (seen <= 0 || total <= 0) return null;
+  const done = seen >= total;
+  return (
+    <span
+      className="glass-chip rounded-full px-2.5 py-1 font-mono text-[.6rem] font-bold uppercase tracking-[.14em]"
+      style={{ color: done ? "#a9c977" : "#c9b99f" }}
+      title="Chapters read — tracked as you scroll the notes"
+    >
+      {done ? "✓ " : ""}
+      {seen}/{total} read
+    </span>
+  );
+}
+
 function SubjectCard({ subject, index, onEnter }: CardProps) {
   const live = subject.status === "live";
   const spotRef = useRef<HTMLElement | null>(null);
@@ -278,6 +301,7 @@ function SubjectCard({ subject, index, onEnter }: CardProps) {
         </span>
         {live ? (
           <span className="flex items-center gap-2">
+            <ChaptersBadge subjectId={subject.id} total={subject.chapters ?? 0} />
             <DueBadge subjectId={subject.id} />
             <LiveBadge accent={subject.accent} />
           </span>
