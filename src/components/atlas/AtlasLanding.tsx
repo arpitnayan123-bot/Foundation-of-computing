@@ -37,6 +37,7 @@ import {
 import { SUBJECTS, type Subject, type SubjectAmbience } from "./subjects";
 import { dueCounts } from "@/lib/sm2";
 import { readProgressCounts } from "@/lib/progress";
+import { goalStatus } from "@/lib/goal";
 import Hero57 from "@/components/originkit/hero-57";
 
 /* ---------------------------------------------- easing + reveal */
@@ -443,6 +444,53 @@ function NextShelfTile({ index, shelf }: { index: number; shelf: string }) {
   );
 }
 
+/* today's daily-goal progress — a tiny hydration-safe ring that rides
+   the pill nav; one click lands on the ledger where the ring lives */
+function GoalChip() {
+  const [goal, setGoal] = useState<{ done: number; target: number; met: boolean } | null>(null);
+  useEffect(() => {
+    /* rAF-deferred: keeps the first paint hydration-stable */
+    const raf = requestAnimationFrame(() => {
+      const g = goalStatus();
+      setGoal({ done: g.done, target: g.target, met: g.met });
+    });
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  if (!goal) return null;
+  const R = 7;
+  const C = 2 * Math.PI * R;
+  const p = Math.max(0, Math.min(1, goal.target > 0 ? goal.done / goal.target : 0));
+  const tone = goal.met ? "#8fae5d" : "#f5c889";
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        window.location.hash = "#/ledger";
+        window.scrollTo(0, 0);
+      }}
+      aria-label={`Daily goal: ${goal.done} of ${goal.target} answers today — open the ledger`}
+      title={`Daily goal — ${goal.done}/${goal.target} answers today`}
+      className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[.05] px-2.5 py-1 font-mono text-[.6rem] font-bold tracking-wide text-[#cbb89a] transition hover:bg-white/[.12] hover:text-[#f5c889]"
+    >
+      <svg viewBox="0 0 18 18" className="h-3.5 w-3.5 -rotate-90" aria-hidden>
+        <circle cx="9" cy="9" r={R} fill="none" stroke="#ffffff1c" strokeWidth="2.4" />
+        <circle
+          cx="9"
+          cy="9"
+          r={R}
+          fill="none"
+          stroke={tone}
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          strokeDasharray={C}
+          strokeDashoffset={C * (1 - p)}
+        />
+      </svg>
+      {goal.done}/{goal.target}
+    </button>
+  );
+}
+
 /* ============================================================
    THE LANDING
    ============================================================ */
@@ -501,6 +549,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             <CommandIcon aria-hidden className="h-3 w-3" />
             K
           </button>
+          <GoalChip />
           <span
             className="flex items-center gap-1.5 rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 py-1 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889]"
             title={`${liveCount} shelves live — ${SUBJECTS.length - liveCount} reserved`}

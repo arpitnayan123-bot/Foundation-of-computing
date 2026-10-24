@@ -1,11 +1,13 @@
 /* ============================================================
    Backup & restore — one JSON file for the whole atlas memory.
 
-   The reader's progress lives in three localStorage stores:
+   The reader's progress lives in local storage:
      atlas:sm2:v1       — the SM-2 review schedule
      atlas:ledger:v1    — the attempt log / streak
      atlas:progress:v1  — chapter reading progress
-   Export bundles all three; import validates and replaces.
+     atlas:goal:v1      — the daily goal target (optional in
+                          bundles: older exports simply omit it)
+   Export bundles all four; import validates and replaces.
    Nothing is sent anywhere — the file goes straight from the
    reader's disk into their browser, same as before.
 
@@ -18,6 +20,7 @@
 import { loadSm2, type Sm2Card, type Sm2Store } from "@/lib/sm2";
 import { loadLedger, type LedgerAttempt, type LedgerStore } from "@/lib/ledger";
 import { loadProgress, type ProgressStore } from "@/lib/progress";
+import { loadGoal } from "./goal";
 
 export const BACKUP_VERSION = 1;
 
@@ -29,6 +32,9 @@ export interface BackupBundle {
     sm2: Sm2Store;
     ledger: LedgerStore;
     progress: ProgressStore;
+    /** the daily-goal target — optional so version-1 backups
+     *  written before the goal existed still restore cleanly */
+    goal?: { target: number; setAt: number };
   };
 }
 
@@ -55,6 +61,7 @@ export function exportBackup(): string {
       sm2: loadSm2(),
       ledger: loadLedger(),
       progress: loadProgress(),
+      goal: loadGoal(),
     },
   };
   return JSON.stringify(bundle, null, 2);
@@ -119,6 +126,11 @@ function validProgress(x: unknown): x is ProgressStore {
   return true;
 }
 
+/** the goal block is optional — but when present it must be whole */
+function validGoal(x: unknown): x is { target: number; setAt: number } {
+  return isObj(x) && num(x.target) && num(x.setAt);
+}
+
 /* ---------------- import ---------------- */
 
 export function parseBackup(text: string): ParseResult {
@@ -138,6 +150,9 @@ export function parseBackup(text: string): ParseResult {
   if (!stores) {
     return { ok: false, error: "The backup is missing its stores block." };
   }
+  if (stores.goal !== undefined && !validGoal(stores.goal)) {
+    return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
+  }
   if (!validSm2(stores.sm2) || !validLedger(stores.ledger) || !validProgress(stores.progress)) {
     return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
   }
@@ -149,6 +164,7 @@ export function parseBackup(text: string): ParseResult {
       sm2: stores.sm2 as Sm2Store,
       ledger: stores.ledger as LedgerStore,
       progress: stores.progress as ProgressStore,
+      ...(validGoal(stores.goal) ? { goal: stores.goal } : {}),
     },
   };
   let cards = 0;
@@ -169,13 +185,19 @@ export function parseBackup(text: string): ParseResult {
   };
 }
 
-/** Replace all three stores with a validated bundle (parseBackup first!). */
+/** Replace all stores with a validated bundle (parseBackup first!).
+ *  A bundle without a goal block (older export) resets the goal. */
 export function applyBackup(bundle: BackupBundle): void {
   if (typeof window === "undefined") return;
   try {
     window.localStorage.setItem("atlas:sm2:v1", JSON.stringify(bundle.stores.sm2));
     window.localStorage.setItem("atlas:ledger:v1", JSON.stringify(bundle.stores.ledger));
     window.localStorage.setItem("atlas:progress:v1", JSON.stringify(bundle.stores.progress));
+    if (bundle.stores.goal) {
+      window.localStorage.setItem("atlas:goal:v1", JSON.stringify(bundle.stores.goal));
+    } else {
+      window.localStorage.removeItem("atlas:goal:v1");
+    }
   } catch {
     /* private mode / quota — nothing else we can do here */
   }
@@ -188,6 +210,7 @@ export function eraseAllStores(): void {
     window.localStorage.removeItem("atlas:sm2:v1");
     window.localStorage.removeItem("atlas:ledger:v1");
     window.localStorage.removeItem("atlas:progress:v1");
+    window.localStorage.removeItem("atlas:goal:v1");
   } catch {
     /* noop */
   }
