@@ -13,6 +13,12 @@
    catalog — no subject chunk is imported here) and only appear
    once the reader types, so an idle palette stays a launcher.
 
+   Once the query is 3+ characters, two deeper groups join in —
+   "From the notes" (lib/search.ts full-text over every chapter
+   body, lazily built on first use) and "In the question banks"
+   (the five exam banks). Both land through the same chapter
+   flash-jump as the title matches.
+
    Cross-view handoffs use tiny sessionStorage flags so the
    command survives the target app's mount; once the target is
    already on stage a live window event is broadcast instead.
@@ -21,10 +27,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { Command } from "cmdk";
 import * as Dialog from "@radix-ui/react-dialog";
-import { FlaskConical, Home, Layers, NotebookPen, ScrollText, Sparkles, Zap, type LucideIcon } from "lucide-react";
+import { BookOpenText, FlaskConical, Home, Layers, ListChecks, NotebookPen, ScrollText, Sparkles, Zap, type LucideIcon } from "lucide-react";
 import { LIVE_SUBJECTS, SUBJECTS, type Subject } from "./subjects";
 import { CHAPTER_INDEX } from "@/lib/chapter-index";
 import { dueCounts } from "@/lib/sm2";
+import type { NoteHit, QuestionHit } from "@/lib/search";
 
 const OPEN_EVENT = "atlas:cmdk";
 const LAB_EVENT = "atlas:open-lab";
@@ -42,13 +49,18 @@ interface ItemProps {
   title: string;
   sub: string;
   keywords?: string;
+  /** prepended to the match value — full-text results arrive
+   *  pre-filtered by lib/search.ts and may not contain the raw
+   *  query in their title, so the query rides along to keep
+   *  cmdk's own filter from hiding them */
+  match?: string;
 }
 
-function Item({ onSelect, icon: Icon, tint, kicker, title, sub, keywords }: ItemProps) {
+function Item({ onSelect, icon: Icon, tint, kicker, title, sub, keywords, match }: ItemProps) {
   return (
     <Command.Item
       onSelect={onSelect}
-      value={[title, sub, kicker, keywords].filter(Boolean).join(" ")}
+      value={[match, title, sub, kicker, keywords].filter(Boolean).join(" ")}
       className="cmdk-item"
     >
       <span className="cmdk-item-icon" style={{ background: `${tint}1f`, color: tint }}>
@@ -63,11 +75,25 @@ function Item({ onSelect, icon: Icon, tint, kicker, title, sub, keywords }: Item
   );
 }
 
+/* the deep groups: idle → nothing rendered; loading → the
+   "searching the notes…" whisper; ready → note + question hits */
+type DeepState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "ready"; notes: NoteHit[]; questions: QuestionHit[] };
+
+/** first line of a long question prompt — titles stay one line */
+function clampPrompt(text: string, max = 110): string {
+  return text.length > max ? `${text.slice(0, text.lastIndexOf(" ", max) > 0 ? text.lastIndexOf(" ", max) : max)}…` : text;
+}
+
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [due, setDue] = useState<Record<string, number>>({});
   const [search, setSearch] = useState("");
+  const [deep, setDeep] = useState<DeepState>({ status: "idle" });
   const dueTotal = Object.values(due).reduce((n, x) => n + x, 0);
+  const query = search.trim();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -100,6 +126,35 @@ export function CommandPalette() {
     const raf = requestAnimationFrame(() => setSearch(""));
     return () => cancelAnimationFrame(raf);
   }, [open]);
+
+  /* the deep search — debounced, non-blocking, and loaded lazily:
+     the first 3+ char query imports lib/search, builds the
+     MiniSearch indexes (corpus chunk + question banks) and only
+     then fills the two groups. A stale response never lands. */
+  useEffect(() => {
+    if (query.length < 3) {
+      const raf = requestAnimationFrame(() => setDeep({ status: "idle" }));
+      return () => cancelAnimationFrame(raf);
+    }
+    let alive = true;
+    const raf = requestAnimationFrame(() => setDeep({ status: "loading" }));
+    const timer = window.setTimeout(() => {
+      void (async () => {
+        try {
+          const { searchNotes, searchQuestions } = await import("@/lib/search");
+          const [notes, questions] = await Promise.all([searchNotes(query), searchQuestions(query)]);
+          if (alive) setDeep({ status: "ready", notes, questions });
+        } catch {
+          if (alive) setDeep({ status: "idle" }); // search stays optional — title matches still work
+        }
+      })();
+    }, 180);
+    return () => {
+      alive = false;
+      cancelAnimationFrame(raf);
+      window.clearTimeout(timer);
+    };
+  }, [query]);
 
   const go = useCallback((hash: string) => {
     setOpen(false);
@@ -141,6 +196,19 @@ export function CommandPalette() {
       window.scrollTo(0, 0);
     }
   }, []);
+
+  /* a question-bank hit: the banks are grouped by chapter group,
+     so the honest landing is the group's opening chapter — the
+     same flash-jump as a chapter result, with the bank's own
+     "Test my knowledge" window one menu click away */
+  const openQuestionBank = useCallback(
+    (subject: string, group: string) => {
+      const first = CHAPTER_INDEX.find((c) => c.subject === subject && c.group === group);
+      if (first) openSection(first.subject, first.section);
+      else go(`#/subject/${subject}`);
+    },
+    [openSection, go]
+  );
 
   const openReview = useCallback((subject: string) => {
     setOpen(false);
@@ -202,11 +270,23 @@ export function CommandPalette() {
               <Command.Input
                 value={search}
                 onValueChange={setSearch}
-                placeholder="Jump to a shelf, a chapter, the Python Lab…"
+                placeholder="Jump to a shelf, a chapter — or search the notes…"
               />
             </div>
+            {deep.status === "loading" ? (
+              <div
+                role="status"
+                className="px-4 py-2 font-mono text-[.56rem] font-bold uppercase tracking-[.2em] text-[#8d7b63]"
+              >
+                Searching the notes…
+              </div>
+            ) : null}
             <Command.List className="cmdk-list">
-              <Command.Empty className="cmdk-empty">No match — try “statistics”, “python” or a chapter name.</Command.Empty>
+              {deep.status === "loading" ? null : (
+                <Command.Empty className="cmdk-empty">
+                  No match — try “statistics”, “python” or any word from the notes.
+                </Command.Empty>
+              )}
 
               <Command.Group heading="Shelves" className="cmdk-group">
                 <Item
@@ -334,6 +414,53 @@ export function CommandPalette() {
                   keywords="python run code notebook pyodide repl"
                 />
               </Command.Group>
+
+              {/* full-text hits inside the note bodies — 3+ char queries
+                  only, pre-filtered by lib/search.ts (the query rides in
+                  the match value so cmdk's filter keeps them visible) */}
+              {deep.status === "ready" && deep.notes.length > 0 ? (
+                <Command.Group heading="From the notes" className="cmdk-group">
+                  {deep.notes.map((n) => {
+                    const s = SUBJECT_BY_ID.get(n.shelfId);
+                    if (!s) return null;
+                    return (
+                      <Item
+                        key={`note-${n.shelfId}:${n.chapterKey}`}
+                        onSelect={() => openSection(n.shelfId, n.chapterKey)}
+                        icon={BookOpenText}
+                        tint={s.accent}
+                        kicker={`${s.short} · ${n.groupLabel}`}
+                        title={n.label}
+                        sub={n.snippet}
+                        match={query}
+                      />
+                    );
+                  })}
+                </Command.Group>
+              ) : null}
+
+              {/* question-bank hits — selecting lands on the bank's
+                  chapter group via the same flash-jump */}
+              {deep.status === "ready" && deep.questions.length > 0 ? (
+                <Command.Group heading="In the question banks" className="cmdk-group">
+                  {deep.questions.map((q) => {
+                    const s = SUBJECT_BY_ID.get(q.shelfId);
+                    if (!s) return null;
+                    return (
+                      <Item
+                        key={`q-${q.shelfId}:${q.questionId}`}
+                        onSelect={() => openQuestionBank(q.shelfId, q.group)}
+                        icon={ListChecks}
+                        tint={s.accent}
+                        kicker={`${s.short} · ${q.bankTitle}`}
+                        title={clampPrompt(q.prompt)}
+                        sub="question bank — opens the matching chapter group"
+                        match={query}
+                      />
+                    );
+                  })}
+                </Command.Group>
+              ) : null}
             </Command.List>
             <div className="cmdk-foot" aria-hidden>
               <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
