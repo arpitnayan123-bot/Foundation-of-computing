@@ -35,6 +35,7 @@ import {
   Waypoints,
 } from "lucide-react";
 import { SUBJECTS, type Subject, type SubjectAmbience } from "./subjects";
+import { dueCounts } from "@/lib/sm2";
 import Hero57 from "@/components/originkit/hero-57";
 
 /* ---------------------------------------------- easing + reveal */
@@ -224,6 +225,26 @@ interface CardProps {
   onEnter: (id: string) => void;
 }
 
+/* cards due for spaced review on this shelf — read once after mount so the
+   first paint stays hydration-stable; renders nothing until the store says so */
+function DueBadge({ subjectId }: { subjectId: string }) {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    /* rAF-deferred: keeps the first paint hydration-stable */
+    const raf = requestAnimationFrame(() => setN(dueCounts()[subjectId] ?? 0));
+    return () => cancelAnimationFrame(raf);
+  }, [subjectId]);
+  if (n <= 0) return null;
+  return (
+    <span
+      className="glass-chip rounded-full px-2.5 py-1 font-mono text-[.6rem] font-bold uppercase tracking-[.14em] text-[#f5c889]"
+      title="Cards due for spaced review — open the ledger (⌘K → ledger)"
+    >
+      {n} due
+    </span>
+  );
+}
+
 function SubjectCard({ subject, index, onEnter }: CardProps) {
   const live = subject.status === "live";
   const spotRef = useRef<HTMLElement | null>(null);
@@ -255,7 +276,14 @@ function SubjectCard({ subject, index, onEnter }: CardProps) {
         <span className="glass-chip flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
           <subject.icon className="h-5 w-5" style={{ color: live ? subject.accent : `${subject.accent}cc` }} />
         </span>
-        {live ? <LiveBadge accent={subject.accent} /> : <LockedBadge />}
+        {live ? (
+          <span className="flex items-center gap-2">
+            <DueBadge subjectId={subject.id} />
+            <LiveBadge accent={subject.accent} />
+          </span>
+        ) : (
+          <LockedBadge />
+        )}
       </div>
 
       <div className="relative mt-6">

@@ -41,6 +41,8 @@ import {
   saveExamDraft,
   useDialogA11y,
 } from "./exam-runtime";
+import { gradeQuestion } from "@/lib/sm2";
+import { logAttempt } from "@/lib/ledger";
 
 /* ---------------- theme contract ---------------- */
 
@@ -178,6 +180,9 @@ export function ExamEngine({
   const [now, setNow] = useState(() => Date.now());
   const seconds = Math.max(0, Math.floor(clock.base + (now - clock.startedAt) / 1000));
   const bodyRef = useRef<HTMLDivElement>(null);
+  /* one ledger row per attempt-cycle — "back to questions" then finishing
+     again must not double-log; retake() re-arms it */
+  const loggedRef = useRef(false);
 
   /* scroll lock (the timer below stops ticking on the results view) */
   useEffect(() => {
@@ -211,12 +216,25 @@ export function ExamEngine({
     onClose();
   }, [onClose]);
 
-  /** freeze the clock, clear the draft, show the report */
+  /** freeze the clock, clear the draft, log the attempt, show the report */
   function finish() {
     flushExamDraft();
     clearExamDraft(DRAFT_KEY);
     setClock({ base: seconds, startedAt: Date.now() });
     setFinished(true);
+    if (!loggedRef.current) {
+      loggedRef.current = true;
+      const pct = Math.round((score.correct / score.total) * 100);
+      logAttempt({
+        subject: theme.key,
+        group: draftId,
+        title: bank.title,
+        correct: score.correct,
+        total: score.total,
+        pct,
+        seconds,
+      });
+    }
   }
 
   useEffect(() => {
@@ -266,15 +284,20 @@ export function ExamEngine({
 
   function chooseMCQ(i: number) {
     if (st.status === "correct" || st.status === "wrong") return;
+    const ok = i === q.answer;
     patch(q.id, {
       chosen: i,
       revealed: true,
-      status: i === q.answer ? "correct" : "wrong",
+      status: ok ? "correct" : "wrong",
     });
+    // SM-2: first-try MCQ answers are trusted fully (5), misses reset the card (2)
+    gradeQuestion(theme.key, q.id, ok ? 5 : 2);
   }
 
   function selfCheck(ok: boolean) {
     patch(q.id, { status: ok ? "correct" : "wrong" });
+    // SM-2: the model answer was visible — grade honestly but trust less
+    gradeQuestion(theme.key, q.id, ok ? 3 : 1);
   }
 
   function retake() {
@@ -283,6 +306,7 @@ export function ExamEngine({
     setClock({ base: 0, startedAt: Date.now() });
     setNow(Date.now());
     setFinished(false);
+    loggedRef.current = false; // a retake is a new, honest attempt
     clearExamDraft(DRAFT_KEY);
     bodyRef.current?.scrollTo({ top: 0 });
   }

@@ -63,8 +63,12 @@ const StmApp = dynamic(() => import("@/components/stm/StmApp").then((m) => m.Stm
   ssr: false,
   loading: () => <ShelfLoader />,
 });
+const LedgerView = dynamic(() => import("@/components/atlas/LedgerView").then((m) => m.LedgerView), {
+  ssr: false,
+  loading: () => <ShelfLoader />,
+});
 
-type View = { name: "atlas" } | { name: "subject"; id: string };
+type View = { name: "atlas" } | { name: "ledger" } | { name: "subject"; id: string };
 
 const SUBJECT_ROUTE = "#/subject/";
 
@@ -73,6 +77,7 @@ function parseRouteHash(hash: string): View | null {
   // belong to the subject's own scroll navigation and are ignored.
   if (!hash.startsWith("#/")) return null;
   if (hash === "#/atlas") return { name: "atlas" };
+  if (hash === "#/ledger") return { name: "ledger" };
   if (hash.startsWith(SUBJECT_ROUTE)) {
     const id = hash.slice(SUBJECT_ROUTE.length);
     if (SUBJECT_IDS.includes(id)) return { name: "subject", id };
@@ -87,7 +92,7 @@ function currentView(): View {
 
 export default function Page() {
   const [view, setView] = useState<View>({ name: "atlas" });
-  const viewKey = view.name === "subject" ? `subject-${view.id}` : "atlas";
+  const viewKey = view.name === "subject" ? `subject-${view.id}` : view.name;
 
   useEffect(() => {
     // initial route sync — async so the first paint stays hydration-stable
@@ -134,6 +139,9 @@ export default function Page() {
         >
           {view.name === "atlas" ? (
             <AtlasLanding onEnter={enterSubject} />
+          ) : view.name === "ledger" ? (
+            // the ledger — local-first progress, mastery and spaced review
+            <LedgerView onExitAtlas={exitToAtlas} />
           ) : view.id === "foc" ? (
             <FocApp onExitAtlas={exitToAtlas} />
           ) : view.id === "atb" ? (

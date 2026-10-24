@@ -16,8 +16,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { Command } from "cmdk";
 import * as Dialog from "@radix-ui/react-dialog";
-import { FlaskConical, Home, type LucideIcon } from "lucide-react";
+import { FlaskConical, Home, NotebookPen, Sparkles, type LucideIcon } from "lucide-react";
 import { LIVE_SUBJECTS, type Subject } from "./subjects";
+import { dueCounts } from "@/lib/sm2";
 
 const OPEN_EVENT = "atlas:cmdk";
 const LAB_EVENT = "atlas:open-lab";
@@ -54,6 +55,7 @@ function Item({ onSelect, icon: Icon, tint, kicker, title, sub, keywords }: Item
 
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
+  const [due, setDue] = useState<Record<string, number>>({});
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -70,6 +72,14 @@ export function CommandPalette() {
       window.removeEventListener(OPEN_EVENT, onOpen);
     };
   }, []);
+
+  /* due counts are read from the local SM-2 store each time the
+     palette opens — no question banks needed for the numbers */
+  useEffect(() => {
+    if (!open) return;
+    const raf = requestAnimationFrame(() => setDue(dueCounts()));
+    return () => cancelAnimationFrame(raf);
+  }, [open]);
 
   const go = useCallback((hash: string) => {
     setOpen(false);
@@ -91,6 +101,22 @@ export function CommandPalette() {
         /* private mode — navigation still works, the lab just needs one click */
       }
       window.location.hash = "#/subject/foc";
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
+  const openReview = useCallback((subject: string) => {
+    setOpen(false);
+    try {
+      sessionStorage.setItem("atlas:review-subject", subject);
+    } catch {
+      /* private mode — navigation still lands on the ledger */
+    }
+    if (window.location.hash === "#/ledger") {
+      // the ledger is on stage — ask it to open the review directly
+      window.dispatchEvent(new CustomEvent("atlas:review-subject", { detail: subject }));
+    } else {
+      window.location.hash = "#/ledger";
       window.scrollTo(0, 0);
     }
   }, []);
@@ -129,6 +155,30 @@ export function CommandPalette() {
                     title={s.title}
                     sub={s.tagline}
                     keywords={s.topics.join(" ")}
+                  />
+                ))}
+              </Command.Group>
+
+              <Command.Group heading="Progress" className="cmdk-group">
+                <Item
+                  onSelect={() => go("#/ledger")}
+                  icon={NotebookPen}
+                  tint="#a9c977"
+                  kicker="#/ledger"
+                  title="Open my ledger"
+                  sub="Accuracy, mastery and the review schedule"
+                  keywords="progress mastery stats streak attempts ledger"
+                />
+                {LIVE_SUBJECTS.filter((s: Subject) => (due[s.id] ?? 0) > 0).map((s: Subject) => (
+                  <Item
+                    key={`review-${s.id}`}
+                    onSelect={() => openReview(s.id)}
+                    icon={Sparkles}
+                    tint={s.accent}
+                    kicker={`${due[s.id]} due`}
+                    title={`Spaced review — ${s.short}`}
+                    sub="Answer today's due cards before they slip"
+                    keywords="review sm2 spaced repetition due cards"
                   />
                 ))}
               </Command.Group>
