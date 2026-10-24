@@ -6,23 +6,33 @@
    A global launcher that works on every view: the dark landing
    and inside any subject. ⌘K / Ctrl+K toggles it, the "⌘K" chip
    in the landing nav opens it (via the atlas:cmdk event), and it
-   can jump to any shelf or straight into the Python Lab.
+   can jump to any shelf, any CHAPTER, or straight into the
+   Python Lab.
 
-   The lab handoff uses a tiny sessionStorage flag so the command
-   survives the FocApp mount when fired from the landing; once
-   FoC is already on stage it just broadcasts the live event.
+   Chapters come from lib/chapter-index.ts (a static 86-entry
+   catalog — no subject chunk is imported here) and only appear
+   once the reader types, so an idle palette stays a launcher.
+
+   Cross-view handoffs use tiny sessionStorage flags so the
+   command survives the target app's mount; once the target is
+   already on stage a live window event is broadcast instead.
    ============================================================ */
 
 import { useCallback, useEffect, useState } from "react";
 import { Command } from "cmdk";
 import * as Dialog from "@radix-ui/react-dialog";
 import { FlaskConical, Home, Layers, NotebookPen, Sparkles, type LucideIcon } from "lucide-react";
-import { LIVE_SUBJECTS, type Subject } from "./subjects";
+import { LIVE_SUBJECTS, SUBJECTS, type Subject } from "./subjects";
+import { CHAPTER_INDEX } from "@/lib/chapter-index";
 import { dueCounts } from "@/lib/sm2";
 
 const OPEN_EVENT = "atlas:cmdk";
 const LAB_EVENT = "atlas:open-lab";
 const LAB_FLAG = "atlas:open-lab";
+const SECTION_EVENT = "atlas:open-section";
+const SECTION_FLAG = "atlas:open-section";
+
+const SUBJECT_BY_ID = new Map(SUBJECTS.map((s) => [s.id, s]));
 
 interface ItemProps {
   onSelect: () => void;
@@ -56,6 +66,7 @@ function Item({ onSelect, icon: Icon, tint, kicker, title, sub, keywords }: Item
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [due, setDue] = useState<Record<string, number>>({});
+  const [search, setSearch] = useState("");
   const dueTotal = Object.values(due).reduce((n, x) => n + x, 0);
 
   useEffect(() => {
@@ -82,6 +93,14 @@ export function CommandPalette() {
     return () => cancelAnimationFrame(raf);
   }, [open]);
 
+  /* a closed palette forgets its search — rAF-deferred so the
+     reset never runs synchronously inside the effect */
+  useEffect(() => {
+    if (open) return;
+    const raf = requestAnimationFrame(() => setSearch(""));
+    return () => cancelAnimationFrame(raf);
+  }, [open]);
+
   const go = useCallback((hash: string) => {
     setOpen(false);
     if (window.location.hash === hash) return; // already there — keep the view as-is
@@ -102,6 +121,23 @@ export function CommandPalette() {
         /* private mode — navigation still works, the lab just needs one click */
       }
       window.location.hash = "#/subject/foc";
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
+  const openSection = useCallback((subject: string, section: string) => {
+    setOpen(false);
+    if (window.location.hash === `#/subject/${subject}`) {
+      // the shelf is on stage — scroll straight to the chapter
+      window.dispatchEvent(new CustomEvent(SECTION_EVENT, { detail: section }));
+    } else {
+      // leave a flag so the chapter scrolls once the shelf mounts
+      try {
+        sessionStorage.setItem(SECTION_FLAG, JSON.stringify({ subject, section }));
+      } catch {
+        /* private mode — navigation still lands on the shelf */
+      }
+      window.location.hash = `#/subject/${subject}`;
       window.scrollTo(0, 0);
     }
   }, []);
@@ -131,10 +167,14 @@ export function CommandPalette() {
           <Dialog.Title className="sr-only">The Atlas — command palette</Dialog.Title>
           <Command label="The Atlas — command palette" loop>
             <div className="cmdk-head">
-              <Command.Input placeholder="Jump to a shelf, open the Python Lab…" />
+              <Command.Input
+                value={search}
+                onValueChange={setSearch}
+                placeholder="Jump to a shelf, a chapter, the Python Lab…"
+              />
             </div>
             <Command.List className="cmdk-list">
-              <Command.Empty className="cmdk-empty">No matching shelf — try “statistics” or “python”.</Command.Empty>
+              <Command.Empty className="cmdk-empty">No match — try “statistics”, “python” or a chapter name.</Command.Empty>
 
               <Command.Group heading="Shelves" className="cmdk-group">
                 <Item
@@ -159,6 +199,29 @@ export function CommandPalette() {
                   />
                 ))}
               </Command.Group>
+
+              {/* chapters appear once the reader types — 86 entries are
+                  too many for an idle launcher, perfect while searching */}
+              {search.trim() ? (
+                <Command.Group heading="Chapters" className="cmdk-group">
+                  {CHAPTER_INDEX.map((c) => {
+                    const s = SUBJECT_BY_ID.get(c.subject);
+                    if (!s) return null;
+                    return (
+                      <Item
+                        key={`${c.subject}:${c.section}`}
+                        onSelect={() => openSection(c.subject, c.section)}
+                        icon={s.icon}
+                        tint={s.accent}
+                        kicker={`${s.short} · ${c.groupLabel}`}
+                        title={c.label}
+                        sub={c.desc}
+                        keywords={`${c.group} ${s.title}`}
+                      />
+                    );
+                  })}
+                </Command.Group>
+              ) : null}
 
               <Command.Group heading="Progress" className="cmdk-group">
                 <Item

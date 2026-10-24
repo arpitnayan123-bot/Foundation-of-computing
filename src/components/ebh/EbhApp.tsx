@@ -33,6 +33,7 @@ import {
   Check,
 } from "lucide-react";
 import { useSectionProgress } from "@/lib/use-section-progress";
+import { useOpenSection } from "@/lib/use-open-section";
 import { EbhHero, EbhEconomicsSection, EbhBusinessSection, EbhHistorySection, EbhRulesPlayersSection } from "@/components/ebh/EbhParts1";
 import { EbhLicenseRajSection, EbhBajajSection, EbhSocietySection, EbhWeekendSection, EbhBizEconTechSection } from "@/components/ebh/EbhParts2";
 import { EbhAgrarianSection, EbhGuildsSection, EbhTradeSection, EbhLifeBeforeSection } from "@/components/ebh/EbhParts3";
@@ -690,6 +691,8 @@ export function EbhFooter() {
    EbhApp — the composed subject page.
    ============================================================ */
 export function EbhApp({ onExitAtlas }: { onExitAtlas: () => void }) {
+  useOpenSection("ebh");
+
   const [examGroup, setExamGroup] = useState<EbhExamGroup | null>(null);
   const openExam = (g: EbhExamGroup) => setExamGroup(g);
 

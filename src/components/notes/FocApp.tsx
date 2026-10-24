@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Compass, Menu, X, ChevronDown, BookOpenText, FlaskConical, PenLine, Map, Check } from "lucide-react";
 import { useSectionProgress } from "@/lib/use-section-progress";
+import { useOpenSection } from "@/lib/use-open-section";
 import { PyReadyToast } from "@/components/notes/ui";
 import { PythonLab } from "@/components/notes/Playground";
 import { ExamWindow } from "@/components/notes/ExamWindow";
@@ -582,6 +583,8 @@ function PracticeBand({ onOpenExam }: { onOpenExam: (g: ExamGroup) => void }) {
 }
 
 export function FocApp({ onExitAtlas }: { onExitAtlas: () => void }) {
+  useOpenSection("foc");
+
   /* the ⌘K palette may have left a lab handoff flag before this
      app mounted — read it once at init (client-only component) */
   const [labOpen, setLabOpen] = useState(() => {

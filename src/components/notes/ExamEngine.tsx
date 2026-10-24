@@ -261,21 +261,40 @@ export function ExamEngine({
     }
   }
 
+  const q = qs[idx];
+  const st = states[q.id];
+
+  /* keyboard flow — ←/→ move, keys 1–4 answer the MCQ on stage,
+     ↵ advances (next question, or the report on the last one).
+     Typing surfaces keep their keys: textareas, the ⌘K search
+     input, and focused buttons (where ↵ already means "press"). */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      const inTextarea = e.target instanceof HTMLTextAreaElement;
+      const t = e.target;
+      const inTextarea = t instanceof HTMLTextAreaElement;
       if (e.key === "Escape" && !inTextarea) closeWindow();
-      if (!finished && !inTextarea) {
-        if (e.key === "ArrowRight") setIdx((i) => Math.min(i + 1, qs.length - 1));
-        if (e.key === "ArrowLeft") setIdx((i) => Math.max(i - 1, 0));
+      if (finished || inTextarea || e.isComposing || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (t instanceof HTMLInputElement) return; // palette search etc.
+      if (e.key === "ArrowRight") {
+        setIdx((i) => Math.min(i + 1, qs.length - 1));
+      } else if (e.key === "ArrowLeft") {
+        setIdx((i) => Math.max(i - 1, 0));
+      } else if (e.key === "Enter") {
+        if (e.repeat) return;
+        if (t instanceof HTMLButtonElement || t instanceof HTMLAnchorElement || t instanceof HTMLSelectElement) return;
+        if (idx < qs.length - 1) go(idx + 1);
+        else finish();
+      } else if (!e.repeat) {
+        // keys 1–4 pick an option — same contract as clicking the row
+        const n = Number(e.key);
+        if (!Number.isInteger(n) || n < 1 || n > 4) return;
+        if (q.type !== "mcq" || st.status === "correct" || st.status === "wrong") return;
+        if (n <= (q.options?.length ?? 0)) chooseMCQ(n - 1);
       }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [finished, closeWindow, qs.length]);
-
-  const q = qs[idx];
-  const st = states[q.id];
+  }, [finished, closeWindow, qs.length, idx, q, st]);
 
   const patch = (id: string, p: Partial<QState>) =>
     setStates((prev) => ({ ...prev, [id]: { ...prev[id], ...p } }));
@@ -561,10 +580,23 @@ export function ExamEngine({
 
         {/* navigator */}
         <div className="exam-nav">
-          <p className="exam-eyebrow">
-            <ListChecks className="h-3.5 w-3.5" />
-            Jump to a question
-          </p>
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+            <p className="exam-eyebrow">
+              <ListChecks className="h-3.5 w-3.5" />
+              Jump to a question
+            </p>
+            <p className="hidden items-center gap-2.5 text-[.58rem] font-bold uppercase tracking-[.1em] text-[#8a6d4f] sm:flex" aria-hidden>
+              <span>
+                <kbd className="exam-kbd">1–4</kbd> answer
+              </span>
+              <span>
+                <kbd className="exam-kbd">↵</kbd> next
+              </span>
+              <span>
+                <kbd className="exam-kbd">←→</kbd> move
+              </span>
+            </p>
+          </div>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {qs.map((qq, i) => {
               const s = states[qq.id]?.status ?? "unattempted";

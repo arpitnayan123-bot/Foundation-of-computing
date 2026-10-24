@@ -20,6 +20,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, BookOpenText, ListChecks, Map, Menu, MousePointerClick, PenLine, Scale, X, ChevronDown, GraduationCap, Check } from "lucide-react";
 import { useSectionProgress } from "@/lib/use-section-progress";
+import { useOpenSection } from "@/lib/use-open-section";
 import {
   FaAdjustingSection,
   FaFinalAccountsSection,
@@ -696,6 +697,8 @@ export function FaFooter() {
    FaApp — the composed subject page.
    ============================================================ */
 export function FaApp({ onExitAtlas }: { onExitAtlas: () => void }) {
+  useOpenSection("fa");
+
   const [examGroup, setExamGroup] = useState<FaExamGroup | null>(null);
   const openExam = (g: FaExamGroup) => setExamGroup(g);
 

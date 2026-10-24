@@ -33,6 +33,7 @@ import {
   Check,
 } from "lucide-react";
 import { useSectionProgress } from "@/lib/use-section-progress";
+import { useOpenSection } from "@/lib/use-open-section";
 import { StmHero, StmLensSection, StmScalesSection } from "@/components/stm/StmParts1";
 import { StmSourcesSection, StmCategoricalSection } from "@/components/stm/StmParts2";
 import { StmQuantitativeSection, StmTwoVarsSection } from "@/components/stm/StmParts3";
@@ -698,6 +699,8 @@ export function StmFooter() {
    StmApp — the composed subject page.
    ============================================================ */
 export function StmApp({ onExitAtlas }: { onExitAtlas: () => void }) {
+  useOpenSection("stm");
+
   const [examGroup, setExamGroup] = useState<StmExamGroup | null>(null);
   const openExam = (g: StmExamGroup) => setExamGroup(g);
 

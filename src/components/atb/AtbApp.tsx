@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Route, Menu, X, ChevronDown, BookOpenText, MousePointerClick, PenLine, Map, BookOpen, ListChecks, GraduationCap, Check } from "lucide-react";
 import { useSectionProgress } from "@/lib/use-section-progress";
+import { useOpenSection } from "@/lib/use-open-section";
 import { AtbHero, AtbIntroSection, AtbFlowchartsSection, AtbAtmSection, AtbCodeSection, AtbAverageSection } from "@/components/atb/AtbParts1";
 import { AtbPropsSection, AtbAlgoTypesSection } from "@/components/atb/AtbParts2";
 import { AtbArraysSection, AtbListSection } from "@/components/atb/AtbParts3";
@@ -700,6 +701,8 @@ export function AtbFooter() {
    AtbApp — the composed subject page.
    ============================================================ */
 export function AtbApp({ onExitAtlas }: { onExitAtlas: () => void }) {
+  useOpenSection("atb");
+
   const [examGroup, setExamGroup] = useState<AtbExamGroup | null>(null);
   const openExam = (g: AtbExamGroup) => setExamGroup(g);
 
