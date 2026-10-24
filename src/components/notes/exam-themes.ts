@@ -189,3 +189,36 @@ export const REVIEW_ALL_THEME: ExamTheme = {
     restart: { t: "Read the chapter notes once more, then retake — you will crush it.", c: "#8c2f2f" },
   },
 };
+
+/* ---------------- the mock exam — the reader's own paper ----------------
+   Composed in MockWindow from any shelves, any length, any clock.
+   Same neutral bookish chrome as the review paper (the paper cannot
+   wear one shelf's livery when it mixes five), but with its own exam
+   voice: the clock is the examiner here. The `key` namespaces drafts
+   and the ledger group ("mock"). */
+export const MOCK_EXAM_THEME: ExamTheme = {
+  key: "mock",
+  pageBg: "linear-gradient(180deg,#f7eedf 0%,#f3e7d3 100%)",
+  headerBg: "linear-gradient(160deg,#1f1207,#3a2413)",
+  sigil: "linear-gradient(135deg,#fbbf24,#b45309)",
+  titleOnDark: "#ffe9c9",
+  subOnDark: "#c9a97e",
+  chipOnDark: "#f0e2c8",
+  footerBorder: "#e5d3b6",
+  footerBg: "rgba(250,243,230,0.9)",
+  footerNote: "Mock exam: your rules, real conditions — attempt everything before the bell, then read the report.",
+  paperLabel: "Write it on paper first — then type your attempt to compare",
+  outputPlaceholder: "Your answer…",
+  typeMeta: {
+    mcq: { label: "Multiple choice", color: "#8a4508", bg: "#f9e8d2" },
+    output: { label: "Write the output", color: "#7c2d12", bg: "#fdeadd" },
+    short: { label: "Short answer", color: "#4d3319", bg: "#f3e8d2" },
+    code: { label: "Write the code", color: "#1f4715", bg: "#eaf2d8" },
+  },
+  tiers: {
+    topper: { t: "Topper tier — walk into the real hall with this confidence.", c: "#44621d" },
+    solid: { t: "Solid. Rewrite the missed answers by hand and you are there.", c: "#8a5a06" },
+    getting: { t: "Getting there — the report below names exactly what to revise.", c: "#b45309" },
+    restart: { t: "A hard paper — go back to the notes, then compose another one.", c: "#8c2f2f" },
+  },
+};

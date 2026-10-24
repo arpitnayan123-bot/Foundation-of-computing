@@ -21,6 +21,7 @@ import { loadSm2, type Sm2Card, type Sm2Store } from "@/lib/sm2";
 import { loadLedger, type LedgerAttempt, type LedgerStore } from "@/lib/ledger";
 import { loadProgress, type ProgressStore } from "@/lib/progress";
 import { loadGoal } from "./goal";
+import { loadBlueprint, MOCK_KEY, type MockBlueprint } from "./mock";
 
 export const BACKUP_VERSION = 1;
 
@@ -35,6 +36,8 @@ export interface BackupBundle {
     /** the daily-goal target — optional so version-1 backups
      *  written before the goal existed still restore cleanly */
     goal?: { target: number; setAt: number };
+    /** the last mock-exam blueprint — optional, same tolerance */
+    mock?: MockBlueprint;
   };
 }
 
@@ -62,6 +65,7 @@ export function exportBackup(): string {
       ledger: loadLedger(),
       progress: loadProgress(),
       goal: loadGoal(),
+      mock: loadBlueprint(),
     },
   };
   return JSON.stringify(bundle, null, 2);
@@ -131,6 +135,20 @@ function validGoal(x: unknown): x is { target: number; setAt: number } {
   return isObj(x) && num(x.target) && num(x.setAt);
 }
 
+/** the mock blueprint is optional — but when present it must be whole */
+function validMock(x: unknown): x is MockBlueprint {
+  return (
+    isObj(x) &&
+    Array.isArray(x.shelves) &&
+    x.shelves.length > 0 &&
+    x.shelves.every((s) => typeof s === "string") &&
+    num(x.total) &&
+    num(x.minutes) &&
+    typeof x.types === "string" &&
+    ["both", "mcq", "written"].includes(x.types)
+  );
+}
+
 /* ---------------- import ---------------- */
 
 export function parseBackup(text: string): ParseResult {
@@ -153,6 +171,9 @@ export function parseBackup(text: string): ParseResult {
   if (stores.goal !== undefined && !validGoal(stores.goal)) {
     return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
   }
+  if (stores.mock !== undefined && !validMock(stores.mock)) {
+    return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
+  }
   if (!validSm2(stores.sm2) || !validLedger(stores.ledger) || !validProgress(stores.progress)) {
     return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
   }
@@ -165,6 +186,7 @@ export function parseBackup(text: string): ParseResult {
       ledger: stores.ledger as LedgerStore,
       progress: stores.progress as ProgressStore,
       ...(validGoal(stores.goal) ? { goal: stores.goal } : {}),
+      ...(validMock(stores.mock) ? { mock: stores.mock } : {}),
     },
   };
   let cards = 0;
@@ -198,6 +220,11 @@ export function applyBackup(bundle: BackupBundle): void {
     } else {
       window.localStorage.removeItem("atlas:goal:v1");
     }
+    if (bundle.stores.mock) {
+      window.localStorage.setItem(MOCK_KEY, JSON.stringify(bundle.stores.mock));
+    } else {
+      window.localStorage.removeItem(MOCK_KEY);
+    }
   } catch {
     /* private mode / quota — nothing else we can do here */
   }
@@ -211,6 +238,7 @@ export function eraseAllStores(): void {
     window.localStorage.removeItem("atlas:ledger:v1");
     window.localStorage.removeItem("atlas:progress:v1");
     window.localStorage.removeItem("atlas:goal:v1");
+    window.localStorage.removeItem(MOCK_KEY);
   } catch {
     /* noop */
   }

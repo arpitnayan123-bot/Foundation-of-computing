@@ -140,14 +140,21 @@ export function ExamEngine({
   bank,
   draftId,
   onClose,
+  minutes,
 }: {
   theme: ExamTheme;
   bank: EngineBank;
   /** stable per-window id (the exam group) — namespaces the draft */
   draftId: string;
   onClose: () => void;
+  /** minutes on the clock — when set, the header counts DOWN and the
+   *  paper finishes itself at zero (mock exams). Absent = the classic
+   *  stopwatch, exactly as the shelf windows have always run. */
+  minutes?: number;
 }) {
   const qs = bank.questions;
+  const limitSec =
+    typeof minutes === "number" && Number.isFinite(minutes) && minutes > 0 ? Math.round(minutes * 60) : null;
 
   /* ---- draft restore: a refresh or an accidental Escape keeps your work ---- */
   const DRAFT_KEY = examDraftKey(theme.key, draftId);
@@ -185,6 +192,9 @@ export function ExamEngine({
   }));
   const [now, setNow] = useState(() => Date.now());
   const seconds = Math.max(0, Math.floor(clock.base + (now - clock.startedAt) / 1000));
+  /* the countdown — derived from the same drift-proof clock, so a
+     background tab or a reload can never buy the paper extra time */
+  const remaining = limitSec != null ? Math.max(0, limitSec - seconds) : null;
   const bodyRef = useRef<HTMLDivElement>(null);
   /* one ledger row per attempt-cycle — "back to questions" then finishing
      again must not double-log; retake() re-arms it */
@@ -216,6 +226,15 @@ export function ExamEngine({
       });
     }
   }, [states, idx, clock, finished, DRAFT_KEY]);
+
+  /* the bell — a timed paper finishes itself when the clock runs out.
+     Declared AFTER the autosave effect on purpose: on the commit where
+     the bell fires, finish() flushes + clears the draft AFTER any
+     autosave this render scheduled, so nothing can resurrect it. */
+  useEffect(() => {
+    if (limitSec == null || finished) return;
+    if (seconds >= limitSec) finish();
+  }, [seconds, limitSec, finished]);
 
   const closeWindow = useCallback(() => {
     flushExamDraft(); // the attempt is kept — reopening this window restores it
@@ -373,6 +392,7 @@ export function ExamEngine({
         restoredCount={restored}
         onExit={() => setFinished(false)}
         scrollRef={bodyRef}
+        remaining={remaining}
       >
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
           <div className="exam-result-card">
@@ -478,6 +498,7 @@ export function ExamEngine({
       restoredCount={restored}
       onExit={() => finish()}
       scrollRef={bodyRef}
+      remaining={remaining}
     >
       <motion.div key={q.id} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.22, ease: "easeOut" }}>
         {/* type chip + counter */}
@@ -653,6 +674,7 @@ function ExamShell({
   onExit,
   scrollRef,
   restoredCount,
+  remaining,
 }: {
   theme: ExamTheme;
   bank: EngineBank;
@@ -663,6 +685,8 @@ function ExamShell({
   onExit: () => void;
   scrollRef: React.RefObject<HTMLDivElement | null>;
   restoredCount?: number | null;
+  /** minutes left on a timed paper — null/undefined = stopwatch mode */
+  remaining?: number | null;
 }) {
   const shellRef = useDialogA11y<HTMLDivElement>(true);
   return (
@@ -689,9 +713,17 @@ function ExamShell({
             <p className="text-[.68rem] leading-tight" style={{ color: theme.subOnDark }}>{bank.subtitle} · pen-paper practice</p>
           </div>
           <div className="ml-auto flex items-center gap-2">
-            <span className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[.06] px-2.5 py-1 text-[.62rem] font-extrabold uppercase tracking-[.12em]" style={{ color: theme.chipOnDark }}>
+            <span
+              className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[.06] px-2.5 py-1 text-[.62rem] font-extrabold uppercase tracking-[.12em]"
+              style={
+                remaining != null && remaining <= 60
+                  ? { color: "#ffd9d0", background: "rgba(140,47,47,.5)", borderColor: "rgba(255,180,160,.35)" }
+                  : { color: theme.chipOnDark }
+              }
+              title={remaining != null ? "Time left — the paper finishes itself at zero" : "Time spent"}
+            >
               <Timer className="h-3 w-3" />
-              {fmt(seconds)}
+              {remaining != null ? `${fmt(remaining)} left` : fmt(seconds)}
             </span>
             <span className="rounded-full border border-white/15 bg-white/[.06] px-2.5 py-1 text-[.62rem] font-extrabold uppercase tracking-[.12em]" style={{ color: theme.chipOnDark }}>
               ✓ {score.correct}/{score.total}

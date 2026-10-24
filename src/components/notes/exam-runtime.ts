@@ -109,7 +109,14 @@ export function flushExamDraft(): void {
 }
 
 export function clearExamDraft(key: string): void {
+  /* a clear must be final: any pending debounced write would silently
+     resurrect the draft AFTER the removal (the bell / retake paths
+     both clear while an autosave may be in flight) */
   draftPending = null;
+  if (draftTimer !== null) {
+    window.clearTimeout(draftTimer);
+    draftTimer = null;
+  }
   try {
     window.sessionStorage.removeItem(key);
   } catch {
