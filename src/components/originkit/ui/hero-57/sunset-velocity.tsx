@@ -621,6 +621,8 @@ export default function AnimatedSideView(props: AnimatedSideViewProps) {
     } = props
     const rootRef = useRef<HTMLDivElement>(null)
     const canvasRef = useRef<HTMLCanvasElement>(null)
+    const stillRef = useRef<HTMLImageElement>(null)
+    const stillDone = useRef(false)
     const propsRef = useRef<any>(props)
     propsRef.current = { ...props, speed, turbines, scale, background, skyTop, skyHorizon, sunColor, carColor }
     const pointer = useRef({ inside: false, nx: 0.5, down: false })
@@ -891,6 +893,12 @@ export default function AnimatedSideView(props: AnimatedSideViewProps) {
                 ctx.fillRect(-128, -128, cw + 256, ch + 256)
                 ctx.restore()
             }
+
+            // first animated frame is live — retire the server-painted still
+            if (!stillDone.current && stillRef.current) {
+                stillDone.current = true
+                stillRef.current.classList.add("is-done")
+            }
         }
         raf = requestAnimationFrame(frame)
         return () => {
@@ -931,6 +939,15 @@ export default function AnimatedSideView(props: AnimatedSideViewProps) {
                 background,
             }}
         >
+            <img
+                ref={stillRef}
+                src="/hero-dusk-still.webp"
+                alt=""
+                aria-hidden
+                draggable={false}
+                fetchPriority="high"
+                className="hero-still"
+            />
             <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }} />
         </div>
     )

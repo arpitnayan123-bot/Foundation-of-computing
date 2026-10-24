@@ -38,6 +38,29 @@
   top: clamp(3.5rem, 8.5svh, 5.5rem);
 }
 
+/* instant dusk — a pixel-true still of the scene's own first frame,
+   baked from the canvas painters themselves and server-rendered
+   behind it, so the dusk (and the car) greet the very first HTML
+   paint; the live canvas covers it the moment its first frame lands */
+.hero-57 .hero-still {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.45s ease;
+}
+.hero-57 .hero-still.is-done {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.45s ease,
+    visibility 0s linear 0.45s;
+}
+
 /* ember seat for the floating nav up top + full melt of the asphalt
    into the midnight canvas (#070509) the copy block sits on */
 .hero-57 .hero-fade {
