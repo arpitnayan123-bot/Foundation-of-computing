@@ -27,10 +27,13 @@ import {
   Flame,
   Layers,
   ListChecks,
+  Minus,
+  Plus,
   Sparkles,
   Timer,
   Trash2,
   Upload,
+  Zap,
 } from "lucide-react";
 import { SUBJECTS, type Subject } from "./subjects";
 import { QUESTION_COUNTS } from "@/lib/question-counts";
@@ -38,6 +41,8 @@ import { SECTION_COUNTS, TOTAL_SECTIONS } from "@/lib/section-counts";
 import { currentStreak, dayKeyFor, loadLedger, statsFor, type LedgerStore } from "@/lib/ledger";
 import { dueCounts, dueLabel, masteryFor, troubleSpots, type SubjectMastery, type TroubleSpot } from "@/lib/sm2";
 import { loadQuestionIndex } from "@/lib/question-lookup";
+import { BADGES, computeSnapshot, earnedCount, type AtlasSnapshot } from "@/lib/achievements";
+import { bumpGoal, GOAL_MAX, GOAL_MIN, goalStatus, type GoalStatus } from "@/lib/goal";
 import { PracticeHeatmap, type DayHit } from "./PracticeHeatmap";
 import { readProgressCounts } from "@/lib/progress";
 import {
@@ -50,8 +55,12 @@ import {
   type BackupSummary,
 } from "@/lib/backup";
 
-/* the review window loads its own subject chunk on demand */
+/* the review and drill windows load their own subject chunks on demand */
 const ReviewWindow = dynamic(() => import("@/components/notes/ReviewWindow").then((m) => m.ReviewWindow), {
+  ssr: false,
+  loading: () => null,
+});
+const DrillWindow = dynamic(() => import("@/components/notes/DrillWindow").then((m) => m.DrillWindow), {
   ssr: false,
   loading: () => null,
 });
@@ -119,6 +128,26 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
     setReviewSubject(subject);
   }, []);
 
+  /* the ⌘K palette can also queue a drill handoff ("quick drill")
+     before this view mounts — honor it once at init */
+  const [drillSubject, setDrillSubject] = useState<string | null>(() => {
+    try {
+      const queued = sessionStorage.getItem("atlas:drill-subject");
+      if (queued) {
+        sessionStorage.removeItem("atlas:drill-subject");
+        return queued;
+      }
+    } catch {
+      /* private mode — no handoff */
+    }
+    return null;
+  });
+  const openDrill = useCallback((subject: string) => setDrillSubject(subject), []);
+
+  /* the daily goal + derived badges — both recomputed on every refresh */
+  const [goal, setGoal] = useState<GoalStatus | null>(null);
+  const [snap, setSnap] = useState<AtlasSnapshot | null>(null);
+
   const refresh = useCallback(() => {
     const ledger = loadLedger();
     const due = dueCounts();
@@ -126,6 +155,8 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
     setStore(ledger);
     setStreak(currentStreak(ledger.days));
     setTrouble(troubleSpots());
+    setGoal(goalStatus());
+    setSnap(computeSnapshot());
     setRows(
       SUBJECTS.filter((s) => s.status === "live").map((subject) => ({
         subject,
@@ -153,12 +184,21 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
         refresh();
       }
     };
+    const onDrill = (e: Event) => {
+      const id = (e as CustomEvent<string>).detail;
+      if (typeof id === "string") {
+        setDrillSubject(id);
+        refresh();
+      }
+    };
     document.addEventListener("visibilitychange", onVisible);
     window.addEventListener("atlas:review-subject", onReview);
+    window.addEventListener("atlas:drill-subject", onDrill);
     return () => {
       cancelAnimationFrame(raf);
       document.removeEventListener("visibilitychange", onVisible);
       window.removeEventListener("atlas:review-subject", onReview);
+      window.removeEventListener("atlas:drill-subject", onDrill);
     };
   }, [refresh]);
 
@@ -256,6 +296,12 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
     setDataFlash("Every store erased — a fresh start. Export a backup first if you want this memory back.");
   };
 
+  /* the daily-goal stepper — ± GOAL_STEP per press, clamped in the store */
+  const onGoalBump = (delta: number) => {
+    const g = bumpGoal(delta);
+    setGoal((prev) => (prev ? { ...prev, target: g.target } : { target: g.target, done: 0, met: false }));
+  };
+
   return (
     <div className="min-h-screen bg-[#070509] pb-20 text-[#f7ecdd]" id="top">
       {/* ------- top bar ------- */}
@@ -308,6 +354,45 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
           <StatCard icon={BookOpenCheck} label="questions faced" value={String(totalAnswered)} tone="#8b5cf6" />
         </section>
 
+        {/* ------- daily goal ------- */}
+        {goal ? (
+          <section aria-label="Daily goal" className="mt-3">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-4 rounded-2xl border border-white/10 bg-white/[.04] p-5">
+              <GoalRing done={goal.done} target={goal.target} met={goal.met} />
+              <div className="min-w-0 flex-1">
+                <h2 className="font-display text-[1.05rem] font-black">Daily goal</h2>
+                <p className="mt-1 text-[.84rem] leading-relaxed text-[#a89a86]" role="status">
+                  <strong className="text-[#c9b99f]">{goal.done}</strong> of <strong className="text-[#c9b99f]">{goal.target}</strong> answers faced today —{" "}
+                  {goal.met ? "goal met, the streak is safe." : "every finished window and drill fills the ring."}
+                </p>
+              </div>
+              <div className="flex items-center gap-2" role="group" aria-label="Adjust the daily goal">
+                <button
+                  type="button"
+                  onClick={() => onGoalBump(-1)}
+                  disabled={goal.target <= GOAL_MIN}
+                  aria-label="Lower the daily goal by five"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/[.05] text-[#e9d7bf] transition hover:bg-white/[.12] disabled:opacity-35"
+                >
+                  <Minus className="h-3.5 w-3.5" />
+                </button>
+                <span className="min-w-14 text-center font-mono text-[.68rem] font-bold uppercase tracking-[.14em] text-[#c9b99f]" aria-live="polite">
+                  {goal.target}/day
+                </span>
+                <button
+                  type="button"
+                  onClick={() => onGoalBump(1)}
+                  disabled={goal.target >= GOAL_MAX}
+                  aria-label="Raise the daily goal by five"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/[.05] text-[#e9d7bf] transition hover:bg-white/[.12] disabled:opacity-35"
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
         {/* ------- practice heatmap ------- */}
         <section aria-label="Practice heatmap" className="mt-8">
           <h2 className="font-display text-xl font-black">Practice heatmap</h2>
@@ -326,11 +411,20 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
             <span className="font-mono text-[.62rem] uppercase tracking-[.16em] text-[#8d7b63]">
               <strong className="text-[#c9b99f]">{readEverywhere}</strong>/{TOTAL_SECTIONS} chapters read
             </span>
+            <button
+              type="button"
+              onClick={() => openDrill("all")}
+              aria-label="Quick drill — a mixed handful from every shelf"
+              className="ml-auto flex items-center gap-1.5 rounded-full border border-white/12 bg-white/[.05] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#e9d7bf] transition hover:bg-white/[.12]"
+            >
+              <Zap className="h-3.5 w-3.5" style={{ color: "#f5c889" }} />
+              quick drill
+            </button>
             {dueEverywhere > 0 ? (
               <button
                 type="button"
                 onClick={() => openReview("all")}
-                className="ml-auto flex items-center gap-1.5 rounded-full border border-[#f59e0b55] bg-[#f59e0b14] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#f5c889] transition hover:bg-[#f59e0b2a]"
+                className="flex items-center gap-1.5 rounded-full border border-[#f59e0b55] bg-[#f59e0b14] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#f5c889] transition hover:bg-[#f59e0b2a]"
               >
                 <Layers className="h-3.5 w-3.5" />
                 review everything
@@ -339,7 +433,12 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
           </div>
           <div className="mt-4 grid gap-3">
             {rows.map((row) => (
-              <ShelfCard key={row.subject.id} row={row} onReview={() => openReview(row.subject.id)} />
+              <ShelfCard
+                key={row.subject.id}
+                row={row}
+                onReview={() => openReview(row.subject.id)}
+                onDrill={() => openDrill(row.subject.id)}
+              />
             ))}
           </div>
         </section>
@@ -400,6 +499,41 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
           </section>
         ) : null}
 
+        {/* ------- achievements — derived, never stored ------- */}
+        {snap ? (
+          <section aria-label="Achievements" className="mt-10">
+            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+              <h2 className="font-display text-xl font-black">Achievements</h2>
+              <span className="font-mono text-[.62rem] uppercase tracking-[.16em] text-[#8d7b63]">
+                <strong className="text-[#c9b99f]">{earnedCount(snap)}</strong>/{BADGES.length} unlocked — derived from your stores, never stored
+              </span>
+            </div>
+            <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {BADGES.map((b) => {
+                const earned = b.test(snap);
+                return (
+                  <li
+                    key={b.id}
+                    className={`rounded-xl border p-3.5 ${earned ? "border-white/15 bg-white/[.05]" : "border-white/[.06] bg-white/[.02] opacity-55"}`}
+                  >
+                    <span
+                      className="flex h-7 w-7 items-center justify-center rounded-lg"
+                      style={earned ? { background: `${b.tone}1f`, color: b.tone } : { background: "#ffffff0d", color: "#77685a" }}
+                    >
+                      <b.icon className="h-4 w-4" aria-hidden />
+                    </span>
+                    <p className="mt-2 text-[.8rem] font-black leading-tight text-[#f0e2c8]">
+                      {b.title}
+                      <span className="sr-only"> — {earned ? "unlocked" : "locked"}</span>
+                    </p>
+                    <p className="mt-0.5 text-[.68rem] leading-snug text-[#8d7b63]">{b.hint}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ) : null}
+
         {/* ------- recent attempts ------- */}
         <section aria-label="Recent attempts" className="mt-10">
           <h2 className="font-display text-xl font-black">Recent attempts</h2>
@@ -413,6 +547,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
               {recent.map((a, i) => {
                 const subject = SUBJECTS.find((s) => s.id === a.subject);
                 const isReview = a.group.startsWith("review");
+                const isDrill = a.group === "drill";
                 return (
                   <motion.li
                     key={`${a.at}-${i}`}
@@ -431,7 +566,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[.82rem] font-bold text-[#f0e2c8]">{a.title}</span>
                       <span className="block font-mono text-[.6rem] uppercase tracking-[.14em] text-[#8d7b63]">
-                        {subject?.short ?? a.subject} · {isReview ? "spaced review" : a.group} · {relDay(a.at)} ·{" "}
+                        {subject?.short ?? a.subject} · {isReview ? "spaced review" : isDrill ? "quick drill" : a.group} · {relDay(a.at)} ·{" "}
                         {fmtSeconds(a.seconds)}
                       </span>
                     </span>
@@ -458,7 +593,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
         <section aria-label="Your data" className="mt-10">
           <h2 className="font-display text-xl font-black">Your data</h2>
           <p className="mt-1 max-w-xl text-[.86rem] leading-relaxed text-[#a89a86]">
-            The whole atlas memory — review schedule, attempt ledger, chapters read — lives in this browser and
+            The whole atlas memory — review schedule, attempt ledger, chapters read, daily goal — lives in this browser and
             nowhere else. One JSON file carries it anywhere.
           </p>
           <div className="mt-4 rounded-2xl border border-white/10 bg-white/[.04] p-5">
@@ -578,6 +713,16 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
           }}
         />
       ) : null}
+
+      {drillSubject ? (
+        <DrillWindow
+          subject={drillSubject}
+          onClose={() => {
+            setDrillSubject(null);
+            refresh();
+          }}
+        />
+      ) : null}
     </div>
   );
 }
@@ -606,7 +751,7 @@ function StatCard({
   );
 }
 
-function ShelfCard({ row, onReview }: { row: ShelfRow; onReview: () => void }) {
+function ShelfCard({ row, onReview, onDrill }: { row: ShelfRow; onReview: () => void; onDrill: () => void }) {
   const { subject, stats, mastery, due, read, readTotal } = row;
   const accuracy = stats.totalAnswered > 0 ? Math.round((stats.totalCorrect / stats.totalAnswered) * 100) : null;
   const started = mastery.total - mastery.unseen > 0;
@@ -625,6 +770,15 @@ function ShelfCard({ row, onReview }: { row: ShelfRow; onReview: () => void }) {
           <p className="font-mono text-[.6rem] uppercase tracking-[.16em] text-[#8d7b63]">shelf {subject.shelf}</p>
         </div>
         <div className="ml-auto flex items-center gap-2">
+          <button
+            type="button"
+            onClick={onDrill}
+            aria-label={`Quick drill ${subject.title} — a mixed handful, no schedule needed`}
+            className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[.04] px-3 py-1.5 text-[.66rem] font-black uppercase tracking-[.14em] text-[#c9b99f] transition hover:bg-white/[.1]"
+          >
+            <Zap className="h-3.5 w-3.5" style={{ color: subject.accent }} />
+            drill
+          </button>
           {due > 0 ? (
             <button
               type="button"
@@ -695,4 +849,34 @@ function ShelfCard({ row, onReview }: { row: ShelfRow; onReview: () => void }) {
 
 function Seg({ pct, color }: { pct: number; color: string }) {
   return pct <= 0 ? null : <span style={{ width: `${pct}%`, background: color }} className="block h-full" />;
+}
+
+/* the daily-goal ring — progress toward today's target */
+function GoalRing({ done, target, met }: { done: number; target: number; met: boolean }) {
+  const R = 26;
+  const C = 2 * Math.PI * R;
+  const p = Math.max(0, Math.min(1, target > 0 ? done / target : 0));
+  const tone = met ? "#8fae5d" : "#f5c889";
+  return (
+    <div className="relative h-16 w-16 shrink-0" role="img" aria-label={`Daily goal: ${done} of ${target} answers today${met ? " — goal met" : ""}`}>
+      <svg viewBox="0 0 64 64" className="h-16 w-16 -rotate-90">
+        <circle cx="32" cy="32" r={R} fill="none" stroke="#ffffff14" strokeWidth="5" />
+        <circle
+          cx="32"
+          cy="32"
+          r={R}
+          fill="none"
+          stroke={tone}
+          strokeWidth="5"
+          strokeLinecap="round"
+          strokeDasharray={C}
+          strokeDashoffset={C * (1 - p)}
+          style={{ transition: "stroke-dashoffset .6s ease, stroke .3s ease" }}
+        />
+      </svg>
+      <span className="font-display absolute inset-0 flex items-center justify-center text-[.95rem] font-black" style={{ color: met ? "#c4dba4" : "#f7ecdd" }}>
+        {done}
+      </span>
+    </div>
+  );
 }

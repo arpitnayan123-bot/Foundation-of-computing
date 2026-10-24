@@ -21,7 +21,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Command } from "cmdk";
 import * as Dialog from "@radix-ui/react-dialog";
-import { FlaskConical, Home, Layers, NotebookPen, Sparkles, type LucideIcon } from "lucide-react";
+import { FlaskConical, Home, Layers, NotebookPen, Sparkles, Zap, type LucideIcon } from "lucide-react";
 import { LIVE_SUBJECTS, SUBJECTS, type Subject } from "./subjects";
 import { CHAPTER_INDEX } from "@/lib/chapter-index";
 import { dueCounts } from "@/lib/sm2";
@@ -158,6 +158,22 @@ export function CommandPalette() {
     }
   }, []);
 
+  /* the drill lives on the ledger too — same handoff contract */
+  const openDrill = useCallback((subject: string) => {
+    setOpen(false);
+    try {
+      sessionStorage.setItem("atlas:drill-subject", subject);
+    } catch {
+      /* private mode — navigation still lands on the ledger */
+    }
+    if (window.location.hash === "#/ledger") {
+      window.dispatchEvent(new CustomEvent("atlas:drill-subject", { detail: subject }));
+    } else {
+      window.location.hash = "#/ledger";
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Portal>
@@ -233,6 +249,15 @@ export function CommandPalette() {
                   sub="Accuracy, mastery and the review schedule"
                   keywords="progress mastery stats streak attempts ledger"
                 />
+                <Item
+                  onSelect={() => openDrill("all")}
+                  icon={Zap}
+                  tint="#f5c889"
+                  kicker="no schedule needed"
+                  title="Quick drill — everything"
+                  sub="A mixed dozen from every shelf, instant answers"
+                  keywords="drill practice quick quiz mixed cards zap all shelves"
+                />
                 {dueTotal > 0 ? (
                   <Item
                     onSelect={() => openReview("all")}
@@ -256,6 +281,21 @@ export function CommandPalette() {
                     keywords="review sm2 spaced repetition due cards"
                   />
                 ))}
+                {/* per-shelf drills appear while searching — the idle launcher stays small */}
+                {search.trim()
+                  ? LIVE_SUBJECTS.map((s: Subject) => (
+                      <Item
+                        key={`drill-${s.id}`}
+                        onSelect={() => openDrill(s.id)}
+                        icon={Zap}
+                        tint={s.accent}
+                        kicker={`shelf ${s.shelf}`}
+                        title={`Quick drill — ${s.short}`}
+                        sub="A mixed dozen, instant answers, no schedule needed"
+                        keywords={`drill practice quick quiz ${s.topics.join(" ")}`}
+                      />
+                    ))
+                  : null}
               </Command.Group>
 
               <Command.Group heading="Quick actions" className="cmdk-group">

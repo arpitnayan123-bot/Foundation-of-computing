@@ -104,6 +104,23 @@ export function currentStreak(days: string[], now = Date.now()): number {
   return streak;
 }
 
+/** Longest run of consecutive practiced days ever recorded. */
+export function longestStreak(days: string[]): number {
+  if (days.length === 0) return 0;
+  const sorted = [...new Set(days)].sort();
+  const DAY = 86_400_000;
+  let best = 0;
+  let run = 0;
+  let prev = Number.NaN;
+  for (const d of sorted) {
+    const t = Date.parse(`${d}T00:00:00`);
+    run = t - prev === DAY ? run + 1 : 1;
+    prev = t;
+    if (run > best) best = run;
+  }
+  return best;
+}
+
 export interface SubjectLedgerStats {
   attempts: number;
   bestPct: number;
