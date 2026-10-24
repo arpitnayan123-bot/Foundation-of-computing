@@ -22,6 +22,7 @@ import {
   BookOpen,
   BookOpenCheck,
   CalendarCheck2,
+  ClipboardList,
   Database,
   Download,
   Flame,
@@ -55,12 +56,16 @@ import {
   type BackupSummary,
 } from "@/lib/backup";
 
-/* the review and drill windows load their own subject chunks on demand */
+/* the review, drill and mock windows load their own subject chunks on demand */
 const ReviewWindow = dynamic(() => import("@/components/notes/ReviewWindow").then((m) => m.ReviewWindow), {
   ssr: false,
   loading: () => null,
 });
 const DrillWindow = dynamic(() => import("@/components/notes/DrillWindow").then((m) => m.DrillWindow), {
+  ssr: false,
+  loading: () => null,
+});
+const MockWindow = dynamic(() => import("@/components/notes/MockWindow").then((m) => m.MockWindow), {
   ssr: false,
   loading: () => null,
 });
@@ -144,6 +149,22 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
   });
   const openDrill = useCallback((subject: string) => setDrillSubject(subject), []);
 
+  /* the ⌘K palette can also queue the mock-exam composer — same
+     handoff contract as review/drill, no subject to carry */
+  const [mockOpen, setMockOpen] = useState<boolean>(() => {
+    try {
+      const queued = sessionStorage.getItem("atlas:mock-open");
+      if (queued) {
+        sessionStorage.removeItem("atlas:mock-open");
+        return queued === "1";
+      }
+    } catch {
+      /* private mode — no handoff */
+    }
+    return false;
+  });
+  const openMock = useCallback(() => setMockOpen(true), []);
+
   /* the daily goal + derived badges — both recomputed on every refresh */
   const [goal, setGoal] = useState<GoalStatus | null>(null);
   const [snap, setSnap] = useState<AtlasSnapshot | null>(null);
@@ -191,14 +212,20 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
         refresh();
       }
     };
+    const onMock = () => {
+      setMockOpen(true);
+      refresh();
+    };
     document.addEventListener("visibilitychange", onVisible);
     window.addEventListener("atlas:review-subject", onReview);
     window.addEventListener("atlas:drill-subject", onDrill);
+    window.addEventListener("atlas:mock-open", onMock);
     return () => {
       cancelAnimationFrame(raf);
       document.removeEventListener("visibilitychange", onVisible);
       window.removeEventListener("atlas:review-subject", onReview);
       window.removeEventListener("atlas:drill-subject", onDrill);
+      window.removeEventListener("atlas:mock-open", onMock);
     };
   }, [refresh]);
 
@@ -413,9 +440,18 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
             </span>
             <button
               type="button"
+              onClick={openMock}
+              aria-label="Mock exam — compose your own paper from any shelves"
+              className="ml-auto flex items-center gap-1.5 rounded-full border border-white/12 bg-white/[.05] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#e9d7bf] transition hover:bg-white/[.12]"
+            >
+              <ClipboardList className="h-3.5 w-3.5" style={{ color: "#f5c889" }} />
+              mock exam
+            </button>
+            <button
+              type="button"
               onClick={() => openDrill("all")}
               aria-label="Quick drill — a mixed handful from every shelf"
-              className="ml-auto flex items-center gap-1.5 rounded-full border border-white/12 bg-white/[.05] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#e9d7bf] transition hover:bg-white/[.12]"
+              className="flex items-center gap-1.5 rounded-full border border-white/12 bg-white/[.05] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#e9d7bf] transition hover:bg-white/[.12]"
             >
               <Zap className="h-3.5 w-3.5" style={{ color: "#f5c889" }} />
               quick drill
@@ -548,6 +584,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
                 const subject = SUBJECTS.find((s) => s.id === a.subject);
                 const isReview = a.group.startsWith("review");
                 const isDrill = a.group === "drill";
+                const isMock = a.group === "mock";
                 return (
                   <motion.li
                     key={`${a.at}-${i}`}
@@ -566,7 +603,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[.82rem] font-bold text-[#f0e2c8]">{a.title}</span>
                       <span className="block font-mono text-[.6rem] uppercase tracking-[.14em] text-[#8d7b63]">
-                        {subject?.short ?? a.subject} · {isReview ? "spaced review" : isDrill ? "quick drill" : a.group} · {relDay(a.at)} ·{" "}
+                        {subject?.short ?? a.subject} · {isReview ? "spaced review" : isDrill ? "quick drill" : isMock ? "mock exam" : a.group} · {relDay(a.at)} ·{" "}
                         {fmtSeconds(a.seconds)}
                       </span>
                     </span>
@@ -719,6 +756,15 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
           subject={drillSubject}
           onClose={() => {
             setDrillSubject(null);
+            refresh();
+          }}
+        />
+      ) : null}
+
+      {mockOpen ? (
+        <MockWindow
+          onClose={() => {
+            setMockOpen(false);
             refresh();
           }}
         />

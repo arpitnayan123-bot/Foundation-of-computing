@@ -21,7 +21,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Command } from "cmdk";
 import * as Dialog from "@radix-ui/react-dialog";
-import { FlaskConical, Home, Layers, NotebookPen, Sparkles, Zap, type LucideIcon } from "lucide-react";
+import { FlaskConical, Home, Layers, NotebookPen, ScrollText, Sparkles, Zap, type LucideIcon } from "lucide-react";
 import { LIVE_SUBJECTS, SUBJECTS, type Subject } from "./subjects";
 import { CHAPTER_INDEX } from "@/lib/chapter-index";
 import { dueCounts } from "@/lib/sm2";
@@ -174,6 +174,22 @@ export function CommandPalette() {
     }
   }, []);
 
+  /* the mock-exam composer lives on the ledger — same contract, no subject */
+  const openMock = useCallback(() => {
+    setOpen(false);
+    try {
+      sessionStorage.setItem("atlas:mock-open", "1");
+    } catch {
+      /* private mode — navigation still lands on the ledger */
+    }
+    if (window.location.hash === "#/ledger") {
+      window.dispatchEvent(new CustomEvent("atlas:mock-open"));
+    } else {
+      window.location.hash = "#/ledger";
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Portal>
@@ -257,6 +273,15 @@ export function CommandPalette() {
                   title="Quick drill — everything"
                   sub="A mixed dozen from every shelf, instant answers"
                   keywords="drill practice quick quiz mixed cards zap all shelves"
+                />
+                <Item
+                  onSelect={openMock}
+                  icon={ScrollText}
+                  tint="#f5c889"
+                  kicker="your rules, exam conditions"
+                  title="Compose a mock exam"
+                  sub="Pick shelves, length and the clock — one custom paper"
+                  keywords="mock exam custom paper timed test compose practice sitting bell"
                 />
                 {dueTotal > 0 ? (
                   <Item
