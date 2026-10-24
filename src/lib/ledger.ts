@@ -67,6 +67,12 @@ function dayKey(at: number): string {
   return `${d.getFullYear()}-${m}-${day}`;
 }
 
+/** Public day key ("YYYY-MM-DD") for an epoch ms timestamp —
+ *  the practice heatmap groups attempts by this key. */
+export function dayKeyFor(at: number): string {
+  return dayKey(at);
+}
+
 /** Append a finished attempt (deduped per subject+group+question-count burst:
  *  the engine guards against double-finish, so plain append is correct). */
 export function logAttempt(attempt: Omit<LedgerAttempt, "at">, now = Date.now()): void {

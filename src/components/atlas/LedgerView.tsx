@@ -14,7 +14,7 @@
    engine, so review feels exactly like an exam window).
    ============================================================ */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import {
@@ -35,8 +35,10 @@ import {
 import { SUBJECTS, type Subject } from "./subjects";
 import { QUESTION_COUNTS } from "@/lib/question-counts";
 import { SECTION_COUNTS, TOTAL_SECTIONS } from "@/lib/section-counts";
-import { currentStreak, loadLedger, statsFor, type LedgerStore } from "@/lib/ledger";
-import { dueCounts, masteryFor, type SubjectMastery } from "@/lib/sm2";
+import { currentStreak, dayKeyFor, loadLedger, statsFor, type LedgerStore } from "@/lib/ledger";
+import { dueCounts, dueLabel, masteryFor, troubleSpots, type SubjectMastery, type TroubleSpot } from "@/lib/sm2";
+import { loadQuestionIndex } from "@/lib/question-lookup";
+import { PracticeHeatmap, type DayHit } from "./PracticeHeatmap";
 import { readProgressCounts } from "@/lib/progress";
 import {
   applyBackup,
@@ -91,6 +93,10 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
   const [store, setStore] = useState<LedgerStore | null>(null);
   const [rows, setRows] = useState<ShelfRow[]>([]);
   const [streak, setStreak] = useState(0);
+  /* the weakest cards in the schedule — shown as "trouble spots";
+     their question wording arrives from the banks a moment later */
+  const [trouble, setTrouble] = useState<TroubleSpot[]>([]);
+  const [troubleTexts, setTroubleTexts] = useState<Map<string, string> | null>(null);
   /* the ⌘K palette may have queued a review handoff ("review <subject>")
      before this view mounted — honor it once at init (client-only chunk) */
   const [reviewSubject, setReviewSubject] = useState<string | null>(() => {
@@ -105,6 +111,13 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
     }
     return null;
   });
+  /* trouble-spot reviews pull their specific card forward even when
+     it is not due until tomorrow — everything else reviews by due date */
+  const [reviewForce, setReviewForce] = useState<string[]>([]);
+  const openReview = useCallback((subject: string, force: string[] = []) => {
+    setReviewForce(force);
+    setReviewSubject(subject);
+  }, []);
 
   const refresh = useCallback(() => {
     const ledger = loadLedger();
@@ -112,6 +125,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
     const reads = readProgressCounts();
     setStore(ledger);
     setStreak(currentStreak(ledger.days));
+    setTrouble(troubleSpots());
     setRows(
       SUBJECTS.filter((s) => s.status === "live").map((subject) => ({
         subject,
@@ -134,6 +148,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
     const onReview = (e: Event) => {
       const id = (e as CustomEvent<string>).detail;
       if (typeof id === "string") {
+        setReviewForce([]);
         setReviewSubject(id);
         refresh();
       }
@@ -153,6 +168,33 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
   const recent = (store?.attempts ?? []).slice(-10).reverse();
   const dueEverywhere = rows.reduce((n, r) => n + r.due, 0);
   const readEverywhere = rows.reduce((n, r) => n + r.read, 0);
+
+  /* per-day attempt counts behind the practice heatmap */
+  const perDay = useMemo(() => {
+    const m = new Map<string, DayHit>();
+    for (const a of store?.attempts ?? []) {
+      const k = dayKeyFor(a.at);
+      const cur = m.get(k) ?? { a: 0, q: 0 };
+      cur.a += 1;
+      cur.q += a.total;
+      m.set(k, cur);
+    }
+    return m;
+  }, [store]);
+
+  /* weak cards exist → pull their wording from the banks once,
+     lazily (the ~250KB of bank chunks stay out of the ledger path
+     until there is something to say) */
+  useEffect(() => {
+    if (trouble.length === 0 || troubleTexts) return;
+    let alive = true;
+    void loadQuestionIndex().then((idx) => {
+      if (alive) setTroubleTexts(idx);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [trouble, troubleTexts]);
 
   /* ---------- your-data panel state ---------- */
   const [imp, setImp] = useState<ImportState>({ kind: "idle" });
@@ -232,7 +274,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
           {dueEverywhere > 0 ? (
             <button
               type="button"
-              onClick={() => setReviewSubject("all")}
+              onClick={() => openReview("all")}
               aria-label={`Review all ${dueEverywhere} due cards across every shelf`}
               className="ml-auto flex cursor-pointer items-center gap-1.5 rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 py-1 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889] transition hover:bg-[#f59e0b2a]"
             >
@@ -266,6 +308,17 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
           <StatCard icon={BookOpenCheck} label="questions faced" value={String(totalAnswered)} tone="#8b5cf6" />
         </section>
 
+        {/* ------- practice heatmap ------- */}
+        <section aria-label="Practice heatmap" className="mt-8">
+          <h2 className="font-display text-xl font-black">Practice heatmap</h2>
+          <p className="mt-1 max-w-xl text-[.86rem] leading-relaxed text-[#a89a86]">
+            The last 17 weeks — one square per day, greener the more you finished.
+          </p>
+          <div className="mt-4 rounded-2xl border border-white/10 bg-white/[.04] p-5">
+            <PracticeHeatmap hits={perDay} />
+          </div>
+        </section>
+
         {/* ------- per-shelf mastery ------- */}
         <section aria-label="Per-shelf mastery" className="mt-8">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -276,7 +329,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
             {dueEverywhere > 0 ? (
               <button
                 type="button"
-                onClick={() => setReviewSubject("all")}
+                onClick={() => openReview("all")}
                 className="ml-auto flex items-center gap-1.5 rounded-full border border-[#f59e0b55] bg-[#f59e0b14] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#f5c889] transition hover:bg-[#f59e0b2a]"
               >
                 <Layers className="h-3.5 w-3.5" />
@@ -286,10 +339,66 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
           </div>
           <div className="mt-4 grid gap-3">
             {rows.map((row) => (
-              <ShelfCard key={row.subject.id} row={row} onReview={() => setReviewSubject(row.subject.id)} />
+              <ShelfCard key={row.subject.id} row={row} onReview={() => openReview(row.subject.id)} />
             ))}
           </div>
         </section>
+
+        {/* ------- trouble spots ------- */}
+        {trouble.length > 0 ? (
+          <section aria-label="Trouble spots" className="mt-10">
+            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+              <h2 className="font-display text-xl font-black">Trouble spots</h2>
+              <span className="font-mono text-[.62rem] uppercase tracking-[.16em] text-[#8d7b63]">
+                the cards that keep biting — answer them before the exam does
+              </span>
+            </div>
+            <ul className="mt-4 grid gap-2">
+              {trouble.map((t) => {
+                const subject = SUBJECTS.find((s) => s.id === t.subject);
+                const text = troubleTexts?.get(`${t.subject}:${t.id}`) ?? "Digging up the question…";
+                return (
+                  <motion.li
+                    key={`${t.subject}:${t.id}`}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl border border-[#c26d4a26] bg-[#c26d4a0d] px-4 py-3"
+                  >
+                    <span
+                      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg"
+                      style={{ background: `${subject?.accent ?? "#f59e0b"}22`, color: subject?.accent ?? "#f59e0b" }}
+                      aria-hidden
+                    >
+                      {subject ? <subject.icon className="h-3.5 w-3.5" /> : <ListChecks className="h-3.5 w-3.5" />}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block line-clamp-2 text-[.82rem] font-bold leading-snug text-[#f0e2c8]">{text}</span>
+                      <span className="mt-0.5 block font-mono text-[.6rem] uppercase tracking-[.14em] text-[#8d7b63]">
+                        {subject?.short ?? t.subject} · easiness {t.ef.toFixed(2)} · {dueLabel(t.due)} · last graded{" "}
+                        {relDay(t.last)}
+                      </span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => openReview(t.subject, [t.id])}
+                      aria-label={`Review this card from ${subject?.short ?? t.subject}`}
+                      className="flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[.64rem] font-black uppercase tracking-[.14em] transition hover:brightness-125"
+                      style={{
+                        borderColor: `${subject?.accent ?? "#f59e0b"}55`,
+                        background: `${subject?.accent ?? "#f59e0b"}14`,
+                        color: subject?.accent ?? "#f59e0b",
+                      }}
+                    >
+                      <Sparkles className="h-3 w-3" />
+                      review
+                    </button>
+                  </motion.li>
+                );
+              })}
+            </ul>
+          </section>
+        ) : null}
 
         {/* ------- recent attempts ------- */}
         <section aria-label="Recent attempts" className="mt-10">
@@ -458,7 +567,17 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
         </p>
       </main>
 
-      {reviewSubject ? <ReviewWindow subject={reviewSubject} onClose={() => { setReviewSubject(null); refresh(); }} /> : null}
+      {reviewSubject ? (
+        <ReviewWindow
+          subject={reviewSubject}
+          forceIds={reviewForce}
+          onClose={() => {
+            setReviewSubject(null);
+            setReviewForce([]);
+            refresh();
+          }}
+        />
+      ) : null}
     </div>
   );
 }

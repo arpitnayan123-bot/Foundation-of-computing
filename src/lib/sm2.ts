@@ -142,3 +142,52 @@ export function masteryFor(subject: string, bankTotal: number, now = Date.now())
   m.pct = bankTotal > 0 ? Math.round((mastered / bankTotal) * 100) : 0;
   return m;
 }
+
+/* ============================================================
+   Trouble spots — the cards that keep biting.
+
+   A card lands here when its last grade was a miss (reps and
+   interval reset to zero by SuperMemo) or when enough misses
+   have dragged its easiness below the fragile line. The ledger
+   surfaces these so the reader can drill them before the exam
+   does. Purely derived — no extra storage.
+   ============================================================ */
+
+export interface TroubleSpot {
+  subject: string;
+  id: string;
+  ef: number;
+  reps: number;
+  interval: number;
+  /** epoch ms when the card is next due (usually already past) */
+  due: number;
+  /** epoch ms of the last grade */
+  last: number;
+}
+
+/** easiness below which a card counts as chronically fragile */
+const FRAGILE_EF = 2.1;
+
+export function troubleSpots(now = Date.now(), cap = 6): TroubleSpot[] {
+  const store = loadSm2();
+  const out: TroubleSpot[] = [];
+  for (const [subject, rows] of Object.entries(store)) {
+    for (const [id, c] of Object.entries(rows)) {
+      if (!c || typeof c.ef !== "number" || c.last <= 0) continue;
+      const failed = c.reps === 0 && c.interval === 0; // last grade was a miss
+      const fragile = c.ef < FRAGILE_EF; // enough misses to sink the easiness
+      if (failed || fragile) {
+        out.push({ subject, id, ef: c.ef, reps: c.reps, interval: c.interval, due: c.due, last: c.last });
+      }
+    }
+  }
+  out.sort((a, b) => a.ef - b.ef || b.last - a.last);
+  return out.slice(0, cap);
+}
+
+/** "due now" vs "due in N d" for a card, relative to `now`. */
+export function dueLabel(due: number, now = Date.now()): string {
+  if (due <= now) return "due now";
+  const days = Math.max(1, Math.ceil((due - now) / 86_400_000));
+  return `due in ${days}d`;
+}

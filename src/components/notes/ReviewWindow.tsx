@@ -49,10 +49,21 @@ function dayStamp(): string {
   return `${d.getFullYear()}-${m}-${day}`;
 }
 
-export function ReviewWindow({ subject, onClose }: { subject: string; onClose: () => void }) {
+export function ReviewWindow({
+  subject,
+  forceIds,
+  onClose,
+}: {
+  subject: string;
+  /** card ids to include even when not due yet — the ledger's
+   *  trouble-spots panel pulls its weak card forward on demand */
+  forceIds?: string[];
+  onClose: () => void;
+}) {
   const [bank, setBank] = useState<EngineBank | null>(null);
   const [failed, setFailed] = useState(false);
   const isAll = subject === ALL;
+  const force = useMemo(() => new Set(forceIds ?? []), [forceIds]);
 
   const meta = useMemo(() => SUBJECTS.find((s) => s.id === subject), [subject]);
   const theme = isAll ? REVIEW_ALL_THEME : EXAM_THEMES[subject];
@@ -85,7 +96,7 @@ export function ReviewWindow({ subject, onClose }: { subject: string; onClose: (
             let contributed = false;
             for (const group of Object.values(bankMap)) {
               for (const q of group.questions) {
-                if (due.has(q.id)) {
+                if (due.has(q.id) || force.has(q.id)) {
                   picked.push({ ...q, id: `${sid}:${q.id}`, srcId: q.id, subject: sid });
                   contributed = true;
                 }
@@ -99,7 +110,7 @@ export function ReviewWindow({ subject, onClose }: { subject: string; onClose: (
           const due = new Set(dueIds(subject));
           for (const group of Object.values(bankMap)) {
             for (const q of group.questions) {
-              if (due.has(q.id)) picked.push(q);
+              if (due.has(q.id) || force.has(q.id)) picked.push(q);
             }
           }
           shelves = picked.length > 0 ? 1 : 0;
@@ -133,7 +144,7 @@ export function ReviewWindow({ subject, onClose }: { subject: string; onClose: (
     return () => {
       alive = false;
     };
-  }, [subject, meta, isAll]);
+  }, [subject, meta, isAll, force]);
 
   if (failed) {
     return (

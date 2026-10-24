@@ -1534,3 +1534,32 @@ html.atlas-active :focus-visible,
 .cmdk-dialog :focus-visible {
   outline-color: #f59e0b;
 }
+
+/* ============================================================
+   chapter-jump flash — fired when the ⌘K palette drops the
+   reader onto a chapter: a soft amber ring breathes once
+   around the section so the landing spot is obvious
+   ============================================================ */
+.atlas-jump-flash {
+  animation: atlas-jump-flash 1.9s ease-out 1;
+}
+@keyframes atlas-jump-flash {
+  0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+  16% { box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.45); }
+  100% { box-shadow: 0 0 0 14px rgba(245, 158, 11, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atlas-jump-flash { animation: none; }
+}
+
+/* keyboard hints inside exam windows — paper-styled kbd caps */
+.exam-kbd {
+  border: 1px solid rgba(107, 84, 56, 0.32);
+  border-radius: 4px;
+  background: #fffdf9;
+  padding: 0 0.32rem;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: #6f5438;
+}
