@@ -27,15 +27,15 @@
   background: #070509;
 }
 
-/* the design rides HIGH — the whole dusk starts a touch below the
-   very top (sunk so the sigil + wordmark get clean sky above and the
-   horizon line rests lower in the frame). The wordmark owns the sky,
+/* the design rides HIGH — the whole dusk starts well below the very
+   top (sunk so the sigil + wordmark get clean sky above and the car
+   never climbs into the wordmark's air). The wordmark owns the sky,
    the sun owns the horizon, the car owns the road, and every line of
    copy waits BELOW the design */
 .hero-57 .hero-scene {
   position: absolute;
   inset: 0;
-  top: clamp(2rem, 4.5svh, 3.25rem);
+  top: clamp(3.5rem, 8.5svh, 5.5rem);
 }
 
 /* ember seat for the floating nav up top + full melt of the asphalt
@@ -172,7 +172,7 @@
     min-height: max(520px, 68svh);
   }
   .hero-57 .hero-scene {
-    top: clamp(1.5rem, 3svh, 2.5rem);
+    top: clamp(2.5rem, 5.5svh, 3.75rem);
     left: 50%;
     right: auto;
     width: 185%;
