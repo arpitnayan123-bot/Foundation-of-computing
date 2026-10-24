@@ -1078,6 +1078,92 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
 .atlas-live-dot { animation: pulseGlow 2.4s ease-in-out infinite; }
 
 /* ============================================================
+   THE ATLAS SIGIL — the logo, staged in 3D above the wordmark.
+   The first thing the eye meets: a floating badge swaying in
+   perspective space under a breathing gold aura, its ground
+   shadow shrinking and fading as it rises. The SVG's own SMIL
+   globe keeps spinning inside (SMIL runs in <img>), so the
+   whole thing reads three-dimensional with zero extra JS.
+   ============================================================ */
+.atlas-sigil-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  perspective: 42rem;
+  pointer-events: none;
+}
+.atlas-sigil-aura {
+  position: absolute;
+  width: 210%;
+  height: 210%;
+  border-radius: 999px;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(245, 200, 137, 0.36) 0%,
+    rgba(234, 88, 12, 0.14) 46%,
+    rgba(234, 88, 12, 0) 72%
+  );
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  animation: atlas-bloom 7s ease-in-out infinite;
+}
+.atlas-sigil-float {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  animation: sigil-sway 8.5s ease-in-out infinite;
+}
+.atlas-sigil {
+  width: clamp(4rem, 9.5svh, 5.75rem);
+  height: clamp(4rem, 9.5svh, 5.75rem);
+  border-radius: 24%;
+  box-shadow:
+    0 22px 48px -16px rgba(0, 0, 0, 0.85),
+    0 0 40px -6px rgba(245, 200, 137, 0.5);
+  outline: 1px solid rgba(255, 236, 200, 0.18);
+  user-select: none;
+}
+.atlas-sigil-shadow {
+  position: absolute;
+  bottom: -1.15rem;
+  width: 76%;
+  height: 0.8rem;
+  border-radius: 999px;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 72%);
+  animation: sigil-shadow 8.5s ease-in-out infinite;
+}
+@keyframes sigil-sway {
+  0%,
+  100% {
+    transform: rotateY(-13deg) rotateX(7deg) translateY(0);
+  }
+  50% {
+    transform: rotateY(13deg) rotateX(-5deg) translateY(-9px);
+  }
+}
+@keyframes sigil-shadow {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(0.86);
+    opacity: 0.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atlas-sigil-float,
+  .atlas-sigil-aura,
+  .atlas-sigil-shadow {
+    animation: none;
+  }
+  .atlas-sigil-float {
+    transform: none;
+  }
+}
+
+/* ============================================================
    THE EMBER LINE — the horizon, distilled. One sleek line of
    golden light that is born from a single point on the black,
    draws itself across the page, glows for a beat, then
@@ -1563,3 +1649,5 @@ html.atlas-active :focus-visible,
   font-weight: 700;
   color: #6f5438;
 }
+
+/* sigil rules v2 */

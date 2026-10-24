@@ -27,14 +27,15 @@
   background: #070509;
 }
 
-/* the design rides HIGH — the whole dusk starts at the very top of
-   the page (was pushed down 16% in the copy-over-scene era). The
-   wordmark owns the sky, the sun owns the horizon, the car owns
-   the road, and every line of copy waits BELOW the design */
+/* the design rides HIGH — the whole dusk starts a touch below the
+   very top (sunk so the sigil + wordmark get clean sky above and the
+   horizon line rests lower in the frame). The wordmark owns the sky,
+   the sun owns the horizon, the car owns the road, and every line of
+   copy waits BELOW the design */
 .hero-57 .hero-scene {
   position: absolute;
   inset: 0;
-  top: 0;
+  top: clamp(2rem, 4.5svh, 3.25rem);
 }
 
 /* ember seat for the floating nav up top + full melt of the asphalt
@@ -58,7 +59,8 @@
 
 /* THE LIGHT RIG — the sun promoted to key light:
    a tight gold halo hugging the disc + a wide ember wash spilling
-   across the dusk, screen-blended so it only ever adds light */
+   across the dusk, screen-blended so it only ever adds light.
+   (centres track the scene's sunk horizon) */
 .hero-57 .hero-sunlight {
   position: absolute;
   inset: 0;
@@ -67,13 +69,13 @@
   mix-blend-mode: screen;
   background:
     radial-gradient(
-      30% 26% at 74% 52%,
+      30% 26% at 74% 58%,
       rgba(255, 196, 124, 0.34) 0%,
       rgba(255, 150, 70, 0.1) 55%,
       rgba(255, 150, 70, 0) 78%
     ),
     radial-gradient(
-      74% 48% at 74% 58%,
+      74% 48% at 74% 63%,
       rgba(234, 88, 12, 0.17) 0%,
       rgba(234, 88, 12, 0) 72%
     );
@@ -103,14 +105,15 @@
   display: grid;
   pointer-events: none;
 }
-/* top-seated: the wordmark floats in the sky above the sun */
+/* top-seated: the sigil + wordmark float in the sky above the sun —
+   seated higher than the copy-over-scene era so the sigil leads */
 .hero-57 .hero-overlay-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  padding-top: clamp(6.5rem, 17svh, 11rem);
+  padding-top: clamp(5rem, 10svh, 6rem);
   pointer-events: none;
 }
 
@@ -163,19 +166,19 @@
 }
 
 /* on narrow screens the scene fits by width, so widen its layer to
-   keep the world grand while the wordmark owns the sky */
+   keep the world grand while the sigil + wordmark own the sky */
 @media (max-width: 900px) {
   .hero-57 .hero {
     min-height: max(520px, 68svh);
   }
   .hero-57 .hero-scene {
-    top: 0;
+    top: clamp(1.5rem, 3svh, 2.5rem);
     left: 50%;
     right: auto;
     width: 185%;
     transform: translateX(-50%);
   }
   .hero-57 .hero-overlay-inner {
-    padding-top: clamp(5.5rem, 15svh, 8rem);
+    padding-top: clamp(4.25rem, 9svh, 5.5rem);
   }
 }

@@ -491,6 +491,29 @@ function GoalChip() {
   );
 }
 
+/* ---------------------------------------------- the sigil — 3D animated logo
+   The first thing the eye meets on the landing: the Atlas badge
+   floating in 3D above the wordmark. The badge sways in perspective
+   space (CSS) while its own SMIL globe spins inside; a gold aura
+   breathes behind it and a ground shadow shrinks as it rises. */
+function AtlasSigil() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.72, y: -16 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ delay: 0.05, duration: 0.9, ease: EASE }}
+      className="atlas-sigil-stage"
+      aria-hidden
+    >
+      <span className="atlas-sigil-aura" />
+      <div className="atlas-sigil-float">
+        <img src="/atlas-logo.svg" alt="" draggable={false} className="atlas-sigil" />
+      </div>
+      <span className="atlas-sigil-shadow" />
+    </motion.div>
+  );
+}
+
 /* ============================================================
    THE LANDING
    ============================================================ */
@@ -534,7 +557,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               aria-hidden
               className="h-7 w-7 rounded-lg shadow-[0_6px_18px_-6px_rgba(234,88,12,.7)]"
             />
-            <span className="font-display text-[1rem] font-black tracking-tight text-[#f7ecdd]">The Atlas</span>
+            <span className="whitespace-nowrap font-display text-[1rem] font-black tracking-tight text-[#f7ecdd]">The Atlas</span>
           </span>
           <span className="ml-auto hidden font-mono text-[.56rem] uppercase tracking-[.2em] text-[#8d7b63] md:inline">
             mapped &amp; built by Arpit Nayan
@@ -551,7 +574,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           </button>
           <GoalChip />
           <span
-            className="flex items-center gap-1.5 rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 py-1 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889]"
+            className="flex items-center gap-1.5 whitespace-nowrap rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 py-1 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889]"
             title={`${liveCount} shelves live — ${SUBJECTS.length - liveCount} reserved`}
           >
             <span className="atlas-live-dot h-1.5 w-1.5 rounded-full bg-[#f59e0b]" />
@@ -564,12 +587,15 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
         {/* ------- hero — the scene IS the design; the badge + THE ATLAS ride it ------- */}
         <Hero57>
           <div className="relative flex w-full flex-col items-center px-4 text-center">
+            {/* the sigil — the logo leads: 3D-animated, seated above everything */}
+            <AtlasSigil />
+
             {/* institution — rides the sky, directly above the wordmark */}
             <motion.span
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.12, duration: 0.7, ease: EASE }}
-              className="flex flex-wrap items-center justify-center gap-2 rounded-full border border-[#f5c889]/20 bg-[#0a0709]/55 px-4 py-1.5 text-[.64rem] font-extrabold uppercase tracking-[.24em] text-[#c9b99f] backdrop-blur-md sm:px-5"
+              className="mt-4 flex flex-wrap items-center justify-center gap-2 rounded-full border border-[#f5c889]/20 bg-[#0a0709]/55 px-4 py-1.5 text-[.64rem] font-extrabold uppercase tracking-[.24em] text-[#c9b99f] backdrop-blur-md sm:px-5"
             >
               <GraduationCap className="h-3.5 w-3.5 shrink-0" style={{ color: "#f5c889" }} />
               <span className="text-[#f7ecdd]">IIT Jodhpur</span>
@@ -577,13 +603,15 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               <span>B.S. in Management and Technology</span>
             </motion.span>
 
-            {/* wordmark — sun-kissed gradient fill, lit by the scene's key light */}
+            {/* wordmark — sun-kissed gradient fill, lit by the scene's key light.
+                Sized down a notch and seated tight: the sigil above owns the
+                opening beat now, the type stays compact at its edge */}
             <h1
               aria-label="The Atlas"
-              className="atlas-lit mt-7 font-display font-black leading-[.92] tracking-tight"
+              className="atlas-lit mt-5 font-display font-black leading-[.9] tracking-tight"
             >
               <span className="sr-only">The Atlas</span>
-              <span aria-hidden className="block whitespace-nowrap text-[13.5vw] sm:text-[12.5vw] lg:text-[9.75rem]">
+              <span aria-hidden className="block whitespace-nowrap text-[11.5vw] sm:text-[10.5vw] lg:text-[8.25rem]">
                 {"THE".split("").map((ch, i) => (
                   <motion.span
                     key={`a-${i}`}
