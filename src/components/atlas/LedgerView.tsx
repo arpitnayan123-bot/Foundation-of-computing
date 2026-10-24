@@ -23,13 +23,18 @@ import {
   BookOpenCheck,
   CalendarCheck2,
   ClipboardList,
+  CloudDownload,
+  CloudUpload,
   Database,
   Download,
   Flame,
+  HardDrive,
   Layers,
   ListChecks,
   Minus,
   Plus,
+  RefreshCw,
+  ShieldCheck,
   Sparkles,
   Timer,
   Trash2,
@@ -49,6 +54,7 @@ import { PracticeHeatmap, type DayHit } from "./PracticeHeatmap";
 import { CardForge } from "./CardForge";
 import { countCustomCardsByShelf } from "@/lib/custom-cards";
 import { readProgressCounts } from "@/lib/progress";
+import { useToast } from "@/hooks/use-toast";
 import {
   applyBackup,
   backupFilename,
@@ -88,6 +94,53 @@ interface ImportState {
   summary?: BackupSummary;
   bundle?: BackupBundle;
   message?: string;
+}
+
+/* the inline "Your data" note — ok = green truth, warn = amber honesty */
+type DataFlash = { msg: string; tone: "ok" | "warn" } | null;
+
+/* ---------- sync-code helpers (pure, module scope) ---------- */
+
+const SYNC_CODE_KEY = "atlas:sync-code:v1";
+const SYNC_CODE_RE = /^[A-HJ-NP-Z2-9]{6}$/;
+/** 32 unambiguous glyphs (no I, O, 0, 1) — 256 % 32 === 0, so
+ *  crypto.getRandomValues needs no bias correction */
+const SYNC_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+function generateSyncCode(): string {
+  const bytes = new Uint8Array(6);
+  crypto.getRandomValues(bytes);
+  let out = "";
+  for (let i = 0; i < 6; i++) out += SYNC_ALPHABET[bytes[i] % 32];
+  return out;
+}
+
+/** uppercase, keep only code glyphs, cap at six — typing "ab1o9" lands as "AB9" */
+function formatSyncInput(raw: string): string {
+  return raw
+    .toUpperCase()
+    .replace(/[^A-HJ-NP-Z2-9]/g, "")
+    .slice(0, 6);
+}
+
+function fmtBytes(n: number): string {
+  if (n >= 1024 ** 3) return `${(n / 1024 ** 3).toFixed(2)} GB`;
+  if (n >= 1024 ** 2) return `${(n / 1024 ** 2).toFixed(1)} MB`;
+  if (n >= 1024) return `${Math.round(n / 1024)} KB`;
+  return `${n} B`;
+}
+
+/** the human tally a restore reports — forged cards and lab cells
+ *  only speak up when the bundle actually carries them */
+function tallyFor(s: BackupSummary): string {
+  const forged = s.customCards > 0 ? `, ${s.customCards} forged card${s.customCards === 1 ? "" : "s"}` : "";
+  const lab = s.labCells > 0 ? `, ${s.labCells} Python Lab cell${s.labCells === 1 ? "" : "s"}` : "";
+  return `${s.cards} scheduled card${s.cards === 1 ? "" : "s"}, ${s.attempts} attempt${s.attempts === 1 ? "" : "s"}${forged}${lab}, ${s.sections} chapter${s.sections === 1 ? "" : "s"} read`;
+}
+
+/** the honest half-restore sentence — names the exact keys that refused */
+function failedWritesMsg(prefix: string, result: { restored: number; failedKeys: string[] }): string {
+  return `${prefix}Restored ${result.restored} store${result.restored === 1 ? "" : "s"} — but these failed to write (private browsing or storage quota?): ${result.failedKeys.join(", ")}`;
 }
 
 function fmtSeconds(sec: number): string {
@@ -296,9 +349,43 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
 
   /* ---------- your-data panel state ---------- */
   const [imp, setImp] = useState<ImportState>({ kind: "idle" });
-  const [dataFlash, setDataFlash] = useState<string | null>(null);
+  const [dataFlash, setDataFlash] = useState<DataFlash>(null);
   const [eraseArm, setEraseArm] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
+
+  /* storage safety net — what the browser says we may use */
+  const [storage, setStorage] = useState<{ usage: number; quota: number } | null>(null);
+
+  /* ---------- sync-code state ---------- */
+  const [syncCode, setSyncCode] = useState<string | null>(null);
+  const [pullCode, setPullCode] = useState("");
+  const [syncBusy, setSyncBusy] = useState<"push" | "pull" | "burn" | null>(null);
+  const [burnArm, setBurnArm] = useState(false);
+  const [syncUnavailable, setSyncUnavailable] = useState(false);
+
+  /* the code is remembered on this device only — it is a pointer,
+     not data; the bundles live behind it on the server */
+  useEffect(() => {
+    try {
+      const held = window.localStorage.getItem(SYNC_CODE_KEY);
+      if (held && SYNC_CODE_RE.test(held)) setSyncCode(held);
+    } catch {
+      /* localStorage unavailable — the code just won't be remembered */
+    }
+    if (typeof navigator !== "undefined" && navigator.storage?.estimate) {
+      navigator.storage
+        .estimate()
+        .then((est) => {
+          if (typeof est.usage === "number" && typeof est.quota === "number") {
+            setStorage({ usage: est.usage, quota: est.quota });
+          }
+        })
+        .catch(() => {
+          /* best-effort estimate */
+        });
+    }
+  }, []);
 
   const onExport = () => {
     try {
@@ -309,9 +396,9 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
       a.download = backupFilename();
       a.click();
       URL.revokeObjectURL(url);
-      setDataFlash(`Backup downloaded — ${backupFilename()}`);
+      setDataFlash({ msg: `Backup downloaded — ${backupFilename()}`, tone: "ok" });
     } catch {
-      setDataFlash("The download failed — your browser blocked it. Try again.");
+      setDataFlash({ msg: "The download failed — your browser blocked it. Try again.", tone: "warn" });
     }
   };
 
@@ -332,15 +419,19 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
 
   const onImportApply = () => {
     if (imp.kind !== "ready" || !imp.bundle || !imp.summary) return;
-    applyBackup(imp.bundle);
+    const result = applyBackup(imp.bundle);
     const s = imp.summary;
     setImp({ kind: "idle" });
     if (fileRef.current) fileRef.current.value = "";
     refresh();
-    const forged = s.customCards > 0 ? `, ${s.customCards} forged card${s.customCards === 1 ? "" : "s"}` : "";
-    setDataFlash(
-      `Restored — ${s.cards} scheduled card${s.cards === 1 ? "" : "s"}, ${s.attempts} attempt${s.attempts === 1 ? "" : "s"}${forged}, ${s.sections} chapter${s.sections === 1 ? "" : "s"} read.`
-    );
+    if (result.failedKeys.length > 0) {
+      /* honesty first: name exactly which stores refused to write */
+      const msg = failedWritesMsg("", result);
+      setDataFlash({ msg, tone: "warn" });
+      toast({ variant: "destructive", title: "Restore incomplete", description: msg });
+    } else {
+      setDataFlash({ msg: `Restored — ${tallyFor(s)}.`, tone: "ok" });
+    }
   };
 
   const onErase = () => {
@@ -354,7 +445,159 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
     setImp({ kind: "idle" });
     if (fileRef.current) fileRef.current.value = "";
     refresh();
-    setDataFlash("Every store erased — a fresh start. Export a backup first if you want this memory back.");
+    setDataFlash({ msg: "Every store erased — a fresh start. Export a backup first if you want this memory back.", tone: "ok" });
+  };
+
+  /* ---------- storage safety net ---------- */
+
+  const onPersist = async () => {
+    try {
+      const granted = await navigator.storage.persist();
+      if (granted) {
+        setDataFlash({
+          msg: "Persistent storage granted — the browser is now far less likely to sweep the atlas away under storage pressure.",
+          tone: "ok",
+        });
+        toast({ title: "Persistent storage granted", description: "The atlas is pinned against automatic cleanup." });
+      } else {
+        setDataFlash({
+          msg: "The browser declined persistent storage — cleanup stays in its hands. Regular exports are your safety net.",
+          tone: "warn",
+        });
+        toast({ variant: "destructive", title: "Persistent storage declined", description: "Regular exports are your safety net." });
+      }
+    } catch {
+      setDataFlash({
+        msg: "This browser doesn't expose persistent storage — regular exports are your safety net.",
+        tone: "warn",
+      });
+    }
+  };
+
+  /* ---------- sync codes ---------- */
+
+  const rememberSyncCode = (code: string | null) => {
+    setSyncCode(code);
+    try {
+      if (code) window.localStorage.setItem(SYNC_CODE_KEY, code);
+      else window.localStorage.removeItem(SYNC_CODE_KEY);
+    } catch {
+      /* not remembered — the reader can regenerate next visit */
+    }
+  };
+
+  const onGenerateCode = () => {
+    const code = generateSyncCode();
+    rememberSyncCode(code);
+    setBurnArm(false);
+    setDataFlash({
+      msg: `Your sync code is ${code} — type it into “pull from the code” on the other device.`,
+      tone: "ok",
+    });
+  };
+
+  const onPush = async () => {
+    if (!syncCode || syncBusy) return;
+    setSyncBusy("push");
+    try {
+      const res = await fetch("/api/sync", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: syncCode, payload: exportBackup() }),
+      });
+      if (res.ok) {
+        setSyncUnavailable(false);
+        setDataFlash({ msg: `Pushed to code ${syncCode} — pull it from any device running the atlas.`, tone: "ok" });
+        toast({ title: "Pushed to the code", description: `${syncCode} now holds your latest backup.` });
+      } else {
+        const data = (await res.json().catch(() => null)) as { error?: string } | null;
+        if (res.status === 503) setSyncUnavailable(true);
+        const msg = data?.error ?? "The push failed — try again.";
+        setDataFlash({ msg, tone: "warn" });
+        toast({ variant: "destructive", title: "Push failed", description: msg });
+      }
+    } catch {
+      const msg = "The push failed — the network dropped. Export a file if you need it now.";
+      setDataFlash({ msg, tone: "warn" });
+      toast({ variant: "destructive", title: "Push failed", description: msg });
+    } finally {
+      setSyncBusy(null);
+    }
+  };
+
+  const onPull = async () => {
+    const code = pullCode.trim();
+    if (!SYNC_CODE_RE.test(code) || syncBusy) return;
+    setSyncBusy("pull");
+    try {
+      const res = await fetch(`/api/sync?code=${encodeURIComponent(code)}`);
+      if (res.status === 404) {
+        setDataFlash({ msg: `Nothing is parked under ${code} yet — push from the other device first.`, tone: "warn" });
+      } else if (!res.ok) {
+        const data = (await res.json().catch(() => null)) as { error?: string } | null;
+        if (res.status === 503) setSyncUnavailable(true);
+        const msg = data?.error ?? "The pull failed — try again.";
+        setDataFlash({ msg, tone: "warn" });
+        toast({ variant: "destructive", title: "Pull failed", description: msg });
+      } else {
+        const data = (await res.json()) as { payload?: unknown };
+        const parsed = parseBackup(typeof data.payload === "string" ? data.payload : "");
+        if (!parsed.ok) {
+          const msg = `The code holds a bundle this app can't accept — ${parsed.error}`;
+          setDataFlash({ msg, tone: "warn" });
+          toast({ variant: "destructive", title: "Pull failed", description: msg });
+        } else {
+          const result = applyBackup(parsed.bundle);
+          refresh();
+          if (result.failedKeys.length > 0) {
+            const msg = failedWritesMsg(`Pulled from ${code} — `, result);
+            setDataFlash({ msg, tone: "warn" });
+            toast({ variant: "destructive", title: "Restore incomplete", description: msg });
+          } else {
+            setDataFlash({ msg: `Pulled from ${code} — ${tallyFor(parsed.summary)}.`, tone: "ok" });
+            toast({ title: "Pulled from the code", description: `Restored — ${tallyFor(parsed.summary)}.` });
+          }
+        }
+      }
+    } catch {
+      const msg = "The pull failed — the network dropped. Export a file if you need it now.";
+      setDataFlash({ msg, tone: "warn" });
+      toast({ variant: "destructive", title: "Pull failed", description: msg });
+    } finally {
+      setSyncBusy(null);
+    }
+  };
+
+  const onBurn = async () => {
+    if (!syncCode || syncBusy) return;
+    if (!burnArm) {
+      setBurnArm(true);
+      window.setTimeout(() => setBurnArm(false), 4000);
+      return;
+    }
+    setBurnArm(false);
+    setSyncBusy("burn");
+    const code = syncCode;
+    try {
+      const res = await fetch(`/api/sync?code=${encodeURIComponent(code)}`, { method: "DELETE" });
+      if (res.ok) {
+        rememberSyncCode(null);
+        setDataFlash({ msg: `Code ${code} burned — nothing is parked under it anymore.`, tone: "ok" });
+        toast({ title: "Code burned", description: `${code} no longer holds any data.` });
+      } else {
+        const data = (await res.json().catch(() => null)) as { error?: string } | null;
+        if (res.status === 503) setSyncUnavailable(true);
+        const msg = data?.error ?? "The burn failed — try again.";
+        setDataFlash({ msg, tone: "warn" });
+        toast({ variant: "destructive", title: "Burn failed", description: msg });
+      }
+    } catch {
+      const msg = "The burn failed — the network dropped. The code still works until it is burned.";
+      setDataFlash({ msg, tone: "warn" });
+      toast({ variant: "destructive", title: "Burn failed", description: msg });
+    } finally {
+      setSyncBusy(null);
+    }
   };
 
   /* the daily-goal stepper — ± GOAL_STEP per press, clamped in the store */
@@ -678,8 +921,15 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
           </p>
           <div className="mt-4 rounded-2xl border border-white/10 bg-white/[.04] p-5">
             {dataFlash ? (
-              <p role="status" className="mb-4 rounded-xl border border-[#8fae5d40] bg-[#8fae5d14] px-4 py-3 text-[.8rem] font-semibold leading-relaxed text-[#c4dba4]">
-                {dataFlash}
+              <p
+                role="status"
+                className={`mb-4 rounded-xl border px-4 py-3 text-[.8rem] font-semibold leading-relaxed ${
+                  dataFlash.tone === "warn"
+                    ? "border-[#c26d4a40] bg-[#c26d4a14] text-[#d98a6b]"
+                    : "border-[#8fae5d40] bg-[#8fae5d14] text-[#c4dba4]"
+                }`}
+              >
+                {dataFlash.msg}
               </p>
             ) : null}
 
@@ -702,6 +952,9 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
                 <p className="mt-1 text-[.78rem] leading-relaxed text-[#c9b99f]">
                   {imp.summary.cards} scheduled card{imp.summary.cards === 1 ? "" : "s"} · {imp.summary.attempts} attempt{imp.summary.attempts === 1 ? "" : "s"} ·{" "}
                   {imp.summary.sections} chapter{imp.summary.sections === 1 ? "" : "s"} read · {imp.summary.days} practice day{imp.summary.days === 1 ? "" : "s"}
+                  {imp.summary.labCells > 0
+                    ? ` · ${imp.summary.labCells} Python Lab cell${imp.summary.labCells === 1 ? "" : "s"}`
+                    : ""}
                 </p>
                 <p className="mt-2 text-[.78rem] font-semibold text-[#f5c889]">Importing replaces everything currently in this browser.</p>
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -758,10 +1011,135 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
                 {eraseArm ? "sure? click again" : "erase everything"}
               </button>
             </div>
+            {eraseArm ? (
+              <p className="mt-2 text-[.74rem] font-semibold leading-relaxed text-[#d98a6b]">
+                Everything goes — including your Python Lab notebooks. Export first if you want this memory back.
+              </p>
+            ) : null}
             <p className="mt-3 flex items-center gap-2 font-mono text-[.6rem] uppercase tracking-[.16em] text-[#77685a]">
               <Database className="h-3 w-3" />
               export before switching laptops · import restores the whole schedule
             </p>
+            <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/10 pt-4">
+              <p className="flex items-center gap-2 font-mono text-[.6rem] uppercase tracking-[.16em] text-[#77685a]">
+                <HardDrive className="h-3 w-3" />
+                {storage ? `${fmtBytes(storage.usage)} of ${fmtBytes(storage.quota)} used` : "storage estimate unavailable here"}
+              </p>
+              <button
+                type="button"
+                onClick={() => void onPersist()}
+                aria-label="Ask the browser to keep the atlas from being cleared under storage pressure"
+                className="ml-auto flex items-center gap-2 rounded-full border border-white/15 bg-white/[.06] px-4 py-2 text-[.62rem] font-black uppercase tracking-[.14em] text-[#e9d7bf] transition hover:bg-white/[.12]"
+              >
+                <ShieldCheck className="h-3.5 w-3.5" style={{ color: "#a9c977" }} />
+                Request persistent storage
+              </button>
+            </div>
+          </div>
+
+          {/* ------- sync across devices — one code, two directions ------- */}
+          <div className="mt-4 rounded-2xl border border-white/10 bg-white/[.04] p-5">
+            <p className="flex items-center gap-2 font-mono text-[.6rem] font-bold uppercase tracking-[.18em] text-[#8d7b63]">
+              <RefreshCw className="h-3.5 w-3.5" style={{ color: "#f5c889" }} />
+              Sync across devices
+            </p>
+            <p className="mt-2 max-w-xl text-[.86rem] leading-relaxed text-[#a89a86]">
+              One code moves your ledger, schedule, forged cards and progress between devices. Anyone with the code can pull your
+              data — treat it like a password.
+            </p>
+            <p className="mt-1 font-mono text-[.6rem] uppercase tracking-[.16em] text-[#77685a]">
+              sync runs through the app's backend — export/import works fully offline
+            </p>
+
+            {syncUnavailable ? (
+              <p
+                role="alert"
+                className="mt-3 rounded-xl border border-[#c26d4a40] bg-[#c26d4a14] px-4 py-3 text-[.8rem] font-semibold leading-relaxed text-[#d98a6b]"
+              >
+                Sync storage isn't available on this deployment — export/import still works.
+              </p>
+            ) : null}
+
+            <div className="mt-4 flex flex-wrap items-center gap-2.5">
+              {syncCode ? (
+                <>
+                  <span
+                    aria-label="Your sync code"
+                    className="rounded-xl border border-[#f5c88940] bg-[#f5c88910] px-4 py-2 font-mono text-lg font-bold tracking-[.3em] text-[#f5c889]"
+                  >
+                    {syncCode}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={onGenerateCode}
+                    aria-label="Generate a fresh sync code"
+                    className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[.04] px-3 py-2 text-[.62rem] font-black uppercase tracking-[.14em] text-[#c9b99f] transition hover:bg-white/[.1]"
+                  >
+                    <RefreshCw className="h-3 w-3" />
+                    new code
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void onPush()}
+                    disabled={syncBusy !== null}
+                    className="flex items-center gap-2 rounded-full border border-white/15 bg-white/[.06] px-4 py-2.5 text-[.7rem] font-black uppercase tracking-[.14em] text-[#f0e2c8] transition hover:bg-white/[.12] disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <CloudUpload className="h-4 w-4" style={{ color: "#a9c977" }} />
+                    {syncBusy === "push" ? "pushing…" : "Push my data to the code"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void onBurn()}
+                    disabled={syncBusy !== null}
+                    aria-label={burnArm ? "Confirm: burn this code — nothing will be parked under it anymore" : "Burn this code — first press arms, second press burns"}
+                    className={`ml-auto flex items-center gap-2 rounded-full border px-4 py-2.5 text-[.7rem] font-black uppercase tracking-[.14em] transition disabled:cursor-not-allowed disabled:opacity-50 ${
+                      burnArm
+                        ? "border-[#c26d4a] bg-[#c26d4a] text-[#fff1e8]"
+                        : "border-[#c26d4a40] bg-[#c26d4a0d] text-[#d98a6b] hover:bg-[#c26d4a1f]"
+                    }`}
+                  >
+                    <Flame className="h-4 w-4" />
+                    {burnArm ? "sure? click again" : "Burn this code"}
+                  </button>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  onClick={onGenerateCode}
+                  className="flex items-center gap-2 rounded-full border border-white/15 bg-white/[.06] px-4 py-2.5 text-[.7rem] font-black uppercase tracking-[.14em] text-[#f0e2c8] transition hover:bg-white/[.12]"
+                >
+                  <RefreshCw className="h-4 w-4" style={{ color: "#f5c889" }} />
+                  Generate a sync code
+                </button>
+              )}
+            </div>
+
+            <div className="mt-3 flex flex-wrap items-center gap-2.5">
+              <label className="sr-only" htmlFor="sync-pull-code">
+                A sync code to pull data from
+              </label>
+              <input
+                id="sync-pull-code"
+                value={pullCode}
+                onChange={(e) => setPullCode(formatSyncInput(e.target.value))}
+                placeholder="type a code to pull"
+                maxLength={6}
+                autoCapitalize="characters"
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck={false}
+                className="h-10 w-48 rounded-full border border-white/15 bg-white/[.05] px-4 font-mono text-[.8rem] font-bold uppercase tracking-[.24em] text-[#f0e2c8] placeholder:font-sans placeholder:text-[.66rem] placeholder:uppercase placeholder:tracking-[.14em] placeholder:text-[#5d5142] focus:border-[#f5c88960] focus:outline-none"
+              />
+              <button
+                type="button"
+                onClick={() => void onPull()}
+                disabled={!SYNC_CODE_RE.test(pullCode) || syncBusy !== null}
+                className="flex items-center gap-2 rounded-full border border-white/15 bg-white/[.06] px-4 py-2.5 text-[.7rem] font-black uppercase tracking-[.14em] text-[#f0e2c8] transition hover:bg-white/[.12] disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <CloudDownload className="h-4 w-4" style={{ color: "#f5c889" }} />
+                {syncBusy === "pull" ? "pulling…" : "Pull from the code"}
+              </button>
+            </div>
           </div>
         </section>
 

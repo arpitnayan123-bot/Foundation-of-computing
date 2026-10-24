@@ -11,6 +11,8 @@
                              optional tolerance)
      atlas:custom-cards:v1 — the AI-forged flashcards (optional,
                              same tolerance as goal/mock)
+     foc-py-lab-v1         — the Python Lab notebooks, carried
+                             opaquely (the lab owns its schema)
    Export bundles all of them; import validates and replaces.
    Nothing is sent anywhere — the file goes straight from the
    reader's disk into their browser, same as before.
@@ -30,6 +32,13 @@ import { CUSTOM_CARDS_KEY, listCustomCards, type CustomCardStore } from "./custo
 
 export const BACKUP_VERSION = 1;
 
+/** The Python Lab notebook store — written by
+ *  components/notes/Playground.tsx as a JSON array of cell code
+ *  strings. Backup treats it as an opaque string: it is copied
+ *  byte-for-byte on export and restored byte-for-byte on import,
+ *  so the lab's own schema can evolve without touching backup. */
+export const LAB_KEY = "foc-py-lab-v1";
+
 export interface BackupBundle {
   app: "the-atlas";
   version: number;
@@ -45,6 +54,9 @@ export interface BackupBundle {
     mock?: MockBlueprint;
     /** the AI-forged flashcards — optional, same tolerance */
     custom?: CustomCardStore;
+    /** the Python Lab notebooks — the exact localStorage value,
+     *  carried opaquely; absent from older exports */
+    lab?: string;
   };
 }
 
@@ -55,6 +67,9 @@ export interface BackupSummary {
   sections: number;
   /** AI-forged cards riding along in the bundle */
   customCards: number;
+  /** Python Lab cells in the bundle (0 when the lab value is
+   *  absent or not a plain JSON array of strings) */
+  labCells: number;
   exportedAt: string;
 }
 
@@ -65,6 +80,7 @@ type ParseResult =
 /* ---------------- export ---------------- */
 
 export function exportBackup(): string {
+  const lab = readLabRaw();
   const bundle: BackupBundle = {
     app: "the-atlas",
     version: BACKUP_VERSION,
@@ -76,9 +92,34 @@ export function exportBackup(): string {
       goal: loadGoal(),
       mock: loadBlueprint(),
       custom: { cards: listCustomCards() },
+      ...(lab !== null ? { lab } : {}),
     },
   };
   return JSON.stringify(bundle, null, 2);
+}
+
+/** The lab's stored value, kept raw. Loose validation here means
+ *  we never block an export: whatever the lab wrote comes along,
+ *  even if it has drifted from the documented shape. */
+function readLabRaw(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.localStorage.getItem(LAB_KEY);
+  } catch {
+    return null;
+  }
+}
+
+/** How many lab cells ride in a bundle — counted only when the
+ *  opaque value still parses as an array of code strings. */
+function labCellCount(raw: string | null | undefined): number {
+  if (!raw) return 0;
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    return Array.isArray(parsed) && parsed.every((c) => typeof c === "string") ? parsed.length : 0;
+  } catch {
+    return 0;
+  }
 }
 
 /** Filename-safe day stamp for the download, e.g. atlas-2026-02-13.json */
@@ -203,6 +244,11 @@ export function parseBackup(text: string): ParseResult {
   if (stores.custom !== undefined && !validCustom(stores.custom)) {
     return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
   }
+  /* the lab block is opaque — the only hard rule is that it is a
+     string, so a restore can write it back byte-for-byte */
+  if (stores.lab !== undefined && typeof stores.lab !== "string") {
+    return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
+  }
   if (!validSm2(stores.sm2) || !validLedger(stores.ledger) || !validProgress(stores.progress)) {
     return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
   }
@@ -217,6 +263,7 @@ export function parseBackup(text: string): ParseResult {
       ...(validGoal(stores.goal) ? { goal: stores.goal } : {}),
       ...(validMock(stores.mock) ? { mock: stores.mock } : {}),
       ...(validCustom(stores.custom) ? { custom: stores.custom } : {}),
+      ...(typeof stores.lab === "string" ? { lab: stores.lab } : {}),
     },
   };
   let cards = 0;
@@ -233,41 +280,57 @@ export function parseBackup(text: string): ParseResult {
       days: bundle.stores.ledger.days.length,
       sections,
       customCards: bundle.stores.custom?.cards.length ?? 0,
+      labCells: labCellCount(bundle.stores.lab),
       exportedAt: bundle.exportedAt,
     },
   };
 }
 
-/** Replace all stores with a validated bundle (parseBackup first!).
- *  A bundle without a goal block (older export) resets the goal;
- *  without a forged-card block it clears the forge. */
-export function applyBackup(bundle: BackupBundle): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem("atlas:sm2:v1", JSON.stringify(bundle.stores.sm2));
-    window.localStorage.setItem("atlas:ledger:v1", JSON.stringify(bundle.stores.ledger));
-    window.localStorage.setItem("atlas:progress:v1", JSON.stringify(bundle.stores.progress));
-    if (bundle.stores.goal) {
-      window.localStorage.setItem("atlas:goal:v1", JSON.stringify(bundle.stores.goal));
-    } else {
-      window.localStorage.removeItem("atlas:goal:v1");
-    }
-    if (bundle.stores.mock) {
-      window.localStorage.setItem(MOCK_KEY, JSON.stringify(bundle.stores.mock));
-    } else {
-      window.localStorage.removeItem(MOCK_KEY);
-    }
-    if (bundle.stores.custom) {
-      window.localStorage.setItem(CUSTOM_CARDS_KEY, JSON.stringify(bundle.stores.custom));
-    } else {
-      window.localStorage.removeItem(CUSTOM_CARDS_KEY);
-    }
-  } catch {
-    /* private mode / quota — nothing else we can do here */
-  }
+export interface ApplyResult {
+  /** stores that wrote back exactly what was given */
+  restored: number;
+  /** storage keys whose write silently failed (private mode,
+   *  quota) or refused to verify — the UI must own up to these */
+  failedKeys: string[];
 }
 
-/** Erase every atlas store (the "start over" button, two-step confirmed). */
+/** Replace all stores with a validated bundle (parseBackup first!).
+ *  A bundle without a goal block (older export) resets the goal;
+ *  without a forged-card block it clears the forge; without a lab
+ *  block it clears the Python Lab (importing replaces everything).
+ *
+ *  Every write is verified: after each setItem the key is re-read
+ *  and compared — private browsing and storage quota fail silently
+ *  otherwise, and the success toast would be a lie. Per-key
+ *  failures are returned so the UI can say exactly what stuck. */
+export function applyBackup(bundle: BackupBundle): ApplyResult {
+  const failedKeys: string[] = [];
+  let restored = 0;
+  if (typeof window === "undefined") return { restored, failedKeys };
+  const writes: Array<[string, string | null]> = [
+    ["atlas:sm2:v1", JSON.stringify(bundle.stores.sm2)],
+    ["atlas:ledger:v1", JSON.stringify(bundle.stores.ledger)],
+    ["atlas:progress:v1", JSON.stringify(bundle.stores.progress)],
+    ["atlas:goal:v1", bundle.stores.goal ? JSON.stringify(bundle.stores.goal) : null],
+    [MOCK_KEY, bundle.stores.mock ? JSON.stringify(bundle.stores.mock) : null],
+    [CUSTOM_CARDS_KEY, bundle.stores.custom ? JSON.stringify(bundle.stores.custom) : null],
+    [LAB_KEY, typeof bundle.stores.lab === "string" ? bundle.stores.lab : null],
+  ];
+  for (const [key, value] of writes) {
+    try {
+      if (value === null) window.localStorage.removeItem(key);
+      else window.localStorage.setItem(key, value);
+      if (window.localStorage.getItem(key) !== value) failedKeys.push(key);
+      else restored += 1;
+    } catch {
+      failedKeys.push(key);
+    }
+  }
+  return { restored, failedKeys };
+}
+
+/** Erase every atlas store — including the Python Lab notebooks —
+ *  (the "start over" button, two-step confirmed). */
 export function eraseAllStores(): void {
   if (typeof window === "undefined") return;
   try {
@@ -277,7 +340,18 @@ export function eraseAllStores(): void {
     window.localStorage.removeItem("atlas:goal:v1");
     window.localStorage.removeItem(MOCK_KEY);
     window.localStorage.removeItem(CUSTOM_CARDS_KEY);
+    window.localStorage.removeItem(LAB_KEY);
   } catch {
     /* noop */
   }
+}
+
+/** Lightweight shape check for the sync API — the same
+ *  strict-but-tolerant parse the importer runs, with zero store
+ *  access. Safe to call from a server route: the loaders this
+ *  module pulls in are all window-guarded, and nothing here
+ *  touches localStorage. */
+export function validateBackupShape(text: string): { ok: true } | { ok: false; error: string } {
+  const res = parseBackup(text);
+  return res.ok ? { ok: true } : { ok: false, error: res.error };
 }
