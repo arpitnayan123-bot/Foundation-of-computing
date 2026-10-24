@@ -26,6 +26,7 @@ import {
 import {
   ArrowDown,
   ArrowUpRight,
+  Command as CommandIcon,
   FlaskConical,
   GraduationCap,
   Lock,
@@ -438,6 +439,16 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           <span className="ml-auto hidden font-mono text-[.56rem] uppercase tracking-[.2em] text-[#8d7b63] md:inline">
             mapped &amp; built by Arpit Nayan
           </span>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent("atlas:cmdk"))}
+            aria-label="Open the command palette (Command K)"
+            title="Command palette — ⌘K"
+            className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[.05] px-2.5 py-1 font-mono text-[.6rem] font-bold tracking-wide text-[#cbb89a] transition hover:bg-white/[.12] hover:text-[#f5c889]"
+          >
+            <CommandIcon aria-hidden className="h-3 w-3" />
+            K
+          </button>
           <span
             className="flex items-center gap-1.5 rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 py-1 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889]"
             title={`${liveCount} shelves live — ${SUBJECTS.length - liveCount} reserved`}

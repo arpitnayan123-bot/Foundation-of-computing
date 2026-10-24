@@ -565,9 +565,28 @@ function PracticeBand({ onOpenExam }: { onOpenExam: (g: ExamGroup) => void }) {
 }
 
 export function FocApp({ onExitAtlas }: { onExitAtlas: () => void }) {
-  const [labOpen, setLabOpen] = useState(false);
+  /* the ⌘K palette may have left a lab handoff flag before this
+     app mounted — read it once at init (client-only component) */
+  const [labOpen, setLabOpen] = useState(() => {
+    try {
+      if (sessionStorage.getItem("atlas:open-lab") === "1") {
+        sessionStorage.removeItem("atlas:open-lab");
+        return true;
+      }
+    } catch {
+      /* private mode — flag unreadable, start closed */
+    }
+    return false;
+  });
   const [examGroup, setExamGroup] = useState<ExamGroup | null>(null);
   const openExam = (g: ExamGroup) => setExamGroup(g);
+
+  /* once FoC is on stage the palette just broadcasts this event */
+  useEffect(() => {
+    const onOpenLab = () => setLabOpen(true);
+    window.addEventListener("atlas:open-lab", onOpenLab);
+    return () => window.removeEventListener("atlas:open-lab", onOpenLab);
+  }, []);
 
   return (
     // id="top" — the brand chip links to #top; without a real element here the

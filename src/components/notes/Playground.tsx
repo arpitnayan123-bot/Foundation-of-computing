@@ -224,7 +224,7 @@ function CellView({
         </div>
 
         {cell.out || cell.err ? (
-          <div className="lab-out" ref={outRef}>
+          <div className="lab-out" ref={outRef} role="status" aria-label={`Cell ${index + 1} output`}>
             <div className="lab-out-bar">
               <Terminal className="h-3 w-3" />
               Out&nbsp;[{cell.count === null ? "\u00A0" : cell.count}]
