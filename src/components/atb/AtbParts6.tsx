@@ -4,22 +4,33 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertTriangle,
+  Boxes,
+  Building2,
   Check,
   Coins,
   Fingerprint,
   FileCheck,
   Gauge,
+  GitBranch,
+  Globe,
   HeartPulse,
+  Hourglass,
   KeyRound,
   Landmark,
   Link,
   Link2Off,
   Lock,
+  Network,
   RefreshCcw,
   RotateCcw,
   Ruler,
   ScrollText,
   ShieldCheck,
+  ShieldQuestion,
+  TrendingUp,
+  Users,
+  Vote,
+  Wallet,
   X,
   Zap,
 } from "lucide-react";
@@ -36,7 +47,7 @@ import {
 } from "@/components/notes/ui";
 
 /* ============================================================
-   ATB · Parts 6 — Lecture 6: Tree types, Hashing, Blockchain
+   ATB · Parts 6 — Lectures 14 · 19 · 20: Tree types, Hashing, Blockchain
    ============================================================ */
 
 /* ============================================================
@@ -212,45 +223,45 @@ function HeapArt() {
 const TREE_TYPES = [
   {
     name: "General tree",
-    rule: "any number of children per node",
+    rule: "any number of children — no fixed min or max",
     art: <GeneralTreeArt />,
-    desc: "The free-form family. No limit on how many branches a node sprouts.",
-    use: ["folders", "family trees", "org structure", "biological taxonomy"],
+    desc: "The free-form family: no restriction on children per node, and a branching factor that varies node to node.",
+    use: ["folders", "patrilineal family trees", "org hierarchies", "biological taxonomy"],
   },
   {
     name: "Binary tree",
-    rule: "at most 2 children per node",
+    rule: "at most 2 children — max fixed at 2, min unrestricted",
     art: <BinaryTreeArt />,
-    desc: "Every node picks left or right — the backbone of tournament brackets and yes/no decisions.",
-    use: ["tournament knockouts", "decision trees", "flowcharts"],
+    desc: "Every node picks left or right — zero, one or two children all allowed, so a node with fewer than two is still perfectly binary.",
+    use: ["tournament knockouts", "yes/no decision trees", "flowcharts", "ATM decisions"],
   },
   {
     name: "Complete binary tree",
     rule: "all levels full, last level filled left → right",
     art: <CompleteTreeArt />,
-    desc: "Packed like an array with no gaps — the shape that makes heaps and array-backed trees possible.",
+    desc: "Packed like an array with no gaps — a lone child in the last level must be a LEFT child. Efficient storage, minimal wasted space.",
     use: ["heaps", "array storage"],
   },
   {
     name: "Binary search tree",
     rule: "left subtree < parent < right subtree",
     art: <BSTArt />,
-    desc: "Ordered at every node, so search discards half the tree at each step — like binary search you can draw.",
-    use: ["student-ID search", "dictionary search"],
+    desc: "Ordered at every node, so search discards half the tree at each step. Minimum: keep going left. Maximum: keep going right.",
+    use: ["student-ID lookups", "dictionary search", "database indexing"],
   },
   {
     name: "AVL tree",
-    rule: "self-balancing BST · balance factor ≤ 1 · uses ROTATIONS",
+    rule: "self-balancing BST · |height(L) − height(R)| ≤ 1 at every node",
     art: <AVLArt />,
-    desc: "A BST that refuses to grow lopsided: when a branch gets too tall, a rotation tips it back into balance.",
-    use: ["library catalogue", "in-memory indexing"],
+    desc: "When an imbalance is detected the middle node is promoted and the children rearranged — balance restored, BST property preserved.",
+    use: ["library catalogues", "in-memory DB indexing"],
   },
   {
     name: "Heaps",
-    rule: "complete binary tree + ordering rule",
+    rule: "complete binary tree + parent-child value ordering — NOT a BST",
     art: <HeapArt />,
-    desc: "Max-heap: parent ≥ children. Min-heap: parent ≤ children. The root is always the extreme — instant best/worst.",
-    use: ["priority queues"],
+    desc: "No left/right ordering: max-heap parent ≥ children (root = maximum), min-heap parent ≤ children (root = minimum). Inserts reorder values; the shape stays complete.",
+    use: ["priority queues", "emergency triage", "OS process scheduling"],
   },
 ];
 
@@ -318,7 +329,7 @@ export function AtbTreeTypesSection() {
   return (
     <Section id="treetypes">
       <SectionHead
-        eyebrow="Lecture 6 · Tree types"
+        eyebrow="Lecture 14 · Tree types"
         title={
           <>
             <span className="grad-text">Six trees</span> every manager should recognise
@@ -365,6 +376,7 @@ export function AtbTreeTypesSection() {
       <div className="mt-10 grid gap-5 lg:grid-cols-2">
         <Reveal>
           <Quiz
+            source="Lecture 14 · BST ordering"
             q="In a BST, values smaller than the parent go…"
             options={["right", "left", "either", "up"]}
             answer={1}
@@ -373,6 +385,7 @@ export function AtbTreeTypesSection() {
         </Reveal>
         <Reveal delay={100}>
           <Quiz
+            source="Lecture 14 · heaps"
             q="Which tree powers a priority queue?"
             options={["AVL", "heap", "general tree", "deque"]}
             answer={1}
@@ -380,6 +393,40 @@ export function AtbTreeTypesSection() {
           />
         </Reveal>
       </div>
+
+      <ReadStep n="2" title="Six trees, one table" sub="The lecture&apos;s comparison summary — pin it above your desk" />
+      <Reveal>
+        <div className="card-warm overflow-hidden">
+          <div className="flex flex-wrap items-center gap-2 px-6 pt-5">
+            <span className="chip"><GitBranch className="h-3.5 w-3.5" aria-hidden /> Lecture 14 · comparison summary</span>
+          </div>
+          <div className="mt-3 overflow-x-auto px-4 pb-5">
+            <table className="warm-table min-w-[640px]">
+              <thead>
+                <tr><th>Tree type</th><th>Children limit</th><th>Value ordering</th><th>Key property</th></tr>
+              </thead>
+              <tbody>
+                <tr><td className="font-mono text-[.8rem] font-bold text-[#7c4a12]">General tree</td><td>No limit</td><td>Not required</td><td>Hierarchical structure only</td></tr>
+                <tr><td className="font-mono text-[.8rem] font-bold text-[#7c4a12]">Binary tree</td><td>Max 2</td><td>Not required</td><td>At most 2 children per node</td></tr>
+                <tr><td className="font-mono text-[.8rem] font-bold text-[#7c4a12]">Complete binary tree</td><td>Max 2</td><td>Not required</td><td>All levels full except the last; last level filled left-to-right</td></tr>
+                <tr><td className="font-mono text-[.8rem] font-bold text-[#7c4a12]">Binary search tree</td><td>Max 2</td><td>Required</td><td>Left &lt; parent &lt; right, for every node</td></tr>
+                <tr><td className="font-mono text-[.8rem] font-bold text-[#7c4a12]">AVL tree</td><td>Max 2</td><td>Required</td><td>BST + height difference ≤ 1</td></tr>
+                <tr><td className="font-mono text-[.8rem] font-bold text-[#7c4a12]">Heap</td><td>Max 2</td><td>Partial ordering</td><td>Complete binary tree + parent-child value relationship</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal className="mt-5">
+        <Quiz
+          source="Lecture 14 · complete trees"
+          q="In a complete binary tree, a node in the last level has exactly one child. Which child can it be?"
+          options={["right child", "left child", "either — no rule", "a complete tree forbids children there"]}
+          answer={1}
+          explain="The last level fills strictly left-to-right with no gaps, so a lone child must be the left child — a right-only child would leave a gap."
+        />
+      </Reveal>
 
       <Reveal className="mt-8">
         <Practice
@@ -393,6 +440,21 @@ export function AtbTreeTypesSection() {
               q: <>Why is the <strong>in-order traversal</strong> of a BST special?</>,
               hint: "Left → Root → Right visits values in exactly sorted ascending order.",
             },
+          ]}
+        />
+      </Reveal>
+
+      <Reveal className="mt-8">
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <span className="chip"><GitBranch className="h-3.5 w-3.5" aria-hidden /> Lecture 14 · key takeaways</span>
+        </div>
+        <Takeaways
+          items={[
+            <>Structure choice depends on the application — every tree type earns its place in a specific scenario.</>,
+            <>Balance is critical for search efficiency — a skewed BST is a linked list in disguise.</>,
+            <>Value ordering matters when searches are frequent — BSTs and AVLs pay at insert time to make every search fast.</>,
+            <>Heaps power priority queues — max heap: higher number first; min heap: priority 1 before priority 2. Emergency patients before routine cases, system processes before user apps.</>,
+            <>AVL rotations prevent the degenerate case — |height(L) − height(R)| never exceeds 1, so efficient search is guaranteed.</>,
           ]}
         />
       </Reveal>
@@ -492,6 +554,8 @@ function ModHashLab() {
         <span className="chip"><strong>x</strong>&nbsp;= how many unique hash values you want</span>
         <span className="chip">mod 10 → 10 values → indexes 0–9</span>
         <span className="chip">mod 100 → indexes 0–99</span>
+        <span className="chip">27 mod 5 = 2 · 25 mod 5 = 0</span>
+        <span className="chip">Lecture 19 · mod mechanics</span>
       </div>
     </div>
   );
@@ -643,7 +707,7 @@ export function AtbHashingSection() {
   return (
     <Section id="hashing">
       <SectionHead
-        eyebrow="Lecture 6 · Hashing"
+        eyebrow="Lecture 19 · Hashing"
         title={
           <>
             <span className="grad-text">Hashing</span> — fixed-length fingerprints
@@ -665,6 +729,14 @@ export function AtbHashingSection() {
           </div>
           <div className="mt-5">
             <HashBoxSVG />
+          </div>
+          <div className="mt-5 grid gap-3 md:grid-cols-2">
+            <div className="rounded-xl p-3.5 text-[.85rem] leading-relaxed" style={{ background: "rgba(190,74,74,.08)", border: "1px solid rgba(190,74,74,.25)" }}>
+              <strong style={{ color: "#8c2f2f" }}>Standard functions flex:</strong> <span className="text-[#2b2014]">square(x) grows with the number, uppercase(s) grows with the string — ordinary outputs <em>vary in length</em> with the input.</span>
+            </div>
+            <div className="rounded-xl p-3.5 text-[.85rem] leading-relaxed" style={{ background: "rgba(124,154,62,.1)", border: "1px solid rgba(124,154,62,.3)" }}>
+              <strong style={{ color: "#5c7325" }}>Hash functions never do:</strong> <span className="text-[#2b2014]">the output is a fixed-length <strong>digest</strong> (a.k.a. <strong>message digest</strong>), typically alphanumeric — five characters or five million, same size out.</span>
+            </div>
           </div>
         </div>
       </Reveal>
@@ -717,6 +789,10 @@ export function AtbHashingSection() {
           <KV k="value" v="the data you store — here the student name" />
           <KV k="index" v="the hash value pointing at the key&apos;s location → quick search" />
         </div>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span className="chip">Lecture 19 · index → key → value</span>
+          <p className="text-[.8rem] text-muted-warm">Stored as <strong>index-key-value</strong> triples — students whose roll numbers end in the same digit <strong>group together</strong> at that index.</p>
+        </div>
       </Reveal>
 
       <ReadStep n="4" title="Collisions &amp; chaining" sub="Two keys, one index — the hash table&apos;s only real fight" />
@@ -731,11 +807,18 @@ export function AtbHashingSection() {
               <strong style={{ color: "#5c7325" }}>The fix — hash chaining:</strong> <span className="text-[#2b2014]">each index keeps a linked list; colliding keys simply queue up behind the first.</span>
             </div>
           </div>
+          <div className="mt-3 rounded-xl p-3.5 text-[.85rem] leading-relaxed" style={{ background: "#fffaf1", border: "1px dashed #ecd9bd" }}>
+            <span className="chip mb-2">Lecture 19 · collision at index 1</span>
+            <p className="text-[#2b2014]"><strong>The lecture&apos;s example:</strong> roll numbers <span className="font-mono font-bold text-[#a0410a]">B26-SME-001</span> and <span className="font-mono font-bold text-[#a0410a]">B26-SME-011</span> both end in 1 — both hash to index 1. Collision. Chaining links the new record behind the old one at that index, and both stay findable.</p>
+          </div>
         </div>
       </Reveal>
 
       <ReadStep n="5" title="What makes a good hash function" sub="Five habits of a well-behaved fingerprinter" />
       <Reveal>
+        <div className="mb-3 flex flex-wrap gap-2">
+          <span className="chip"><Fingerprint className="h-3.5 w-3.5" aria-hidden /> Lecture 19 · the five habits</span>
+        </div>
         <div className="flex flex-wrap gap-2">
           {GOOD_HASH.map((g) => (
             <span key={g} className="chip">
@@ -785,6 +868,7 @@ export function AtbHashingSection() {
             <p className="mt-4 text-[.86rem] leading-relaxed text-[#2b2014]">
               At login the site <strong>hashes the password you type</strong> and compares it with the
               stored hash — the plain password itself is never kept, so a leaked database leaks no passwords.
+              Mistype a single character and the avalanche effect produces a <strong>completely different hash</strong> — access denied.
             </p>
             <div className="mt-4">
               <PasswordFlowSVG />
@@ -801,6 +885,17 @@ export function AtbHashingSection() {
               Sender hashes the file and <strong>sends file + hash together</strong>. The receiver
               recomputes the hash of what arrived: <strong>equal ✓ → intact</strong>; different ✗ → altered in transit.
             </p>
+            <ol className="mt-3 grid gap-1.5 text-[.78rem] leading-snug text-[#4a3826]">
+              {["Sender hashes the original file", "Hash + data are packaged and sent", "Receiver unpacks and separates data from hash", "Receiver re-hashes the received data", "Calculated hash is compared with the received hash", "Match → intact · mismatch → corrupted"].map((s, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  <span className="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-[#f6e3c8] text-[.6rem] font-bold text-[#8a4508]">{i + 1}</span>
+                  {s}
+                </li>
+              ))}
+            </ol>
+            <div className="mt-3">
+              <span className="chip"><FileCheck className="h-3.5 w-3.5" aria-hidden /> Lecture 19 · the 6-step integrity check</span>
+            </div>
             <div className="mt-4">
               <IntegritySVG />
             </div>
@@ -811,6 +906,7 @@ export function AtbHashingSection() {
       <div className="mt-10 grid gap-5 lg:grid-cols-2">
         <Reveal>
           <Quiz
+            source="Lecture 19 · mod"
             q="101 mod 10 = ?"
             options={["10", "1", "0", "101"]}
             answer={1}
@@ -819,6 +915,7 @@ export function AtbHashingSection() {
         </Reveal>
         <Reveal delay={100}>
           <Quiz
+            source="Lecture 19 · one-way"
             q="Storing password hashes instead of passwords protects users because hashes are…"
             options={["sorted", "one-way", "reversible", "shorter"]}
             answer={1}
@@ -826,6 +923,16 @@ export function AtbHashingSection() {
           />
         </Reveal>
       </div>
+
+      <Reveal className="mt-5">
+        <Quiz
+          source="Lecture 19 · hashing"
+          q="B26-SME-001 and B26-SME-011 both hash to index 1. How does the hash table keep both records?"
+          options={["the second overwrites the first", "chaining — a linked list at index 1 holds both", "the table grows a new index 11", "one record is discarded"]}
+          answer={1}
+          explain="Collision → chaining: each index keeps a linked list, and new records are chained behind existing ones at that index. Both stay findable by walking the chain."
+        />
+      </Reveal>
 
       <Reveal className="mt-8">
         <Practice
@@ -852,21 +959,22 @@ export function AtbHashingSection() {
 function BlockAnatomySVG() {
   return (
     <svg
-      viewBox="0 0 560 214"
+      viewBox="0 0 560 236"
       className="mx-auto h-auto w-full max-w-xl"
       role="img"
-      aria-label="Anatomy of a blockchain block: a header holding the hash of the previous block and the hash of the current block, plus a body of transactions"
+      aria-label="Anatomy of a blockchain block: a header holding the hash of the previous block, the hash of the current block and the Merkle root, plus a body of transactions stored chronologically"
     >
-      <rect x="60" y="18" width="440" height="180" rx="14" fill="rgba(255,246,232,.05)" stroke="rgba(245,158,11,.35)" strokeWidth="2" />
-      <path d="M60 32 Q60 18 74 18 H486 Q500 18 500 32 V96 H60 Z" fill="rgba(245,158,11,.14)" />
+      <rect x="60" y="18" width="440" height="198" rx="14" fill="rgba(255,246,232,.05)" stroke="rgba(245,158,11,.35)" strokeWidth="2" />
+      <path d="M60 32 Q60 18 74 18 H486 Q500 18 500 32 V108 H60 Z" fill="rgba(245,158,11,.14)" />
       <text x="80" y="44" fontSize="10" fontWeight="800" letterSpacing="2" fill="#f5c889">HEADER</text>
-      <text x="80" y="68" fontFamily="monospace" fontSize="11" fill="#ffd9ae">hash of previous block : H_prev</text>
-      <text x="80" y="86" fontFamily="monospace" fontSize="11" fill="#ffd9ae">hash of current block : H_cur</text>
-      <line x1="60" y1="96" x2="500" y2="96" stroke="rgba(245,158,11,.3)" strokeWidth="1.5" />
-      <text x="80" y="126" fontSize="10" fontWeight="800" letterSpacing="2" fill="#f5c889">TRANSACTIONS</text>
-      <text x="80" y="152" fontFamily="monospace" fontSize="11" fill="#e9d7bf">Tx 1 · Ama → Bao · 1.0</text>
-      <text x="80" y="174" fontFamily="monospace" fontSize="11" fill="#e9d7bf">Tx 2 · Cy → Di · 0.4</text>
-      <text x="320" y="212" textAnchor="middle" fontSize="10" fontWeight="600" fill="#b98d5f">header = the tamper seal · body = the payload</text>
+      <text x="80" y="64" fontFamily="monospace" fontSize="11" fill="#ffd9ae">hash of previous block : H_prev</text>
+      <text x="80" y="82" fontFamily="monospace" fontSize="11" fill="#ffd9ae">hash of current block : H_cur</text>
+      <text x="80" y="100" fontFamily="monospace" fontSize="11" fill="#ffd9ae">merkle root : R</text>
+      <line x1="60" y1="108" x2="500" y2="108" stroke="rgba(245,158,11,.3)" strokeWidth="1.5" />
+      <text x="80" y="140" fontSize="10" fontWeight="800" letterSpacing="2" fill="#f5c889">TRANSACTIONS</text>
+      <text x="80" y="166" fontFamily="monospace" fontSize="11" fill="#e9d7bf">Tx 1 · Ama → Bao · 1.0</text>
+      <text x="80" y="188" fontFamily="monospace" fontSize="11" fill="#e9d7bf">Tx 2 · Cy → Di · 0.4</text>
+      <text x="320" y="230" textAnchor="middle" fontSize="10" fontWeight="600" fill="#b98d5f">header = the tamper seal · body = the payload</text>
     </svg>
   );
 }
@@ -1112,7 +1220,10 @@ function MerkleSVG() {
 const BC_ROWS = [
   { f: "Connects via", ll: "a pointer / reference to the NEXT node", bc: "the HASH OF THE PREVIOUS BLOCK" },
   { f: "The link is", ll: "a memory address", bc: "a cryptographic hash" },
+  { f: "Reading direction", ll: "forward, from the head node", bc: "backward, from the newest block by following hashes" },
   { f: "Lives on", ll: "ONE computer", bc: "blocks stored across the nodes of a NETWORK" },
+  { f: "Data stored", ll: "flexible — any payload in a node", bc: "transactions, stored chronologically" },
+  { f: "Block addition", ll: "can be inserted anywhere", bc: "always appended at the end" },
 ];
 
 function NodeNetworkSVG() {
@@ -1159,10 +1270,12 @@ function NodeNetworkSVG() {
    BLOCKCHAIN — section
    ============================================================ */
 const BC_APPS = [
-  { icon: Coins, name: "Cryptocurrencies", desc: "secure, decentralised transfer of value — Bitcoin runs on exactly this chain" },
-  { icon: ScrollText, name: "Smart contracts", desc: "programs that auto-execute when predefined conditions are met — no middleman" },
+  { icon: Coins, name: "Cryptocurrencies", desc: "decentralised transfer of value — technically tokens, not central-bank currency; community agreement sets the value" },
+  { icon: ScrollText, name: "Smart contracts", desc: "conditions written in code execute automatically — a construction contract fires its own penalty clause, no lawyers in the loop" },
   { icon: Landmark, name: "Revenue & land records", desc: "tamper-resistant ownership trails that cannot be quietly rewritten" },
-  { icon: HeartPulse, name: "Health records", desc: "integrity plus access control — the history of a file is provable" },
+  { icon: HeartPulse, name: "Health records", desc: "electronic histories with integrity plus access control — the record&apos;s past is provable" },
+  { icon: Boxes, name: "Supply chain", desc: "track a product&apos;s origin and authenticity from source to shelf" },
+  { icon: Vote, name: "Voting systems", desc: "secure, tamper-proof voting records the public can verify" },
 ];
 
 export function AtbBlockchainSection() {
@@ -1170,7 +1283,7 @@ export function AtbBlockchainSection() {
     <Section id="blockchain" dark>
       <SectionHead
         dark
-        eyebrow="Lecture 6 · Blockchain"
+        eyebrow="Lecture 20 · Blockchain"
         title={
           <>
             Blockchain — <span className="grad-text">a linked list that guards itself</span>
@@ -1207,6 +1320,16 @@ export function AtbBlockchainSection() {
           </div>
         </Reveal>
       </div>
+      <Reveal className="mt-4">
+        <div className="card-warm flex flex-wrap items-center gap-2 p-4">
+          <span className="chip"><Fingerprint className="h-3.5 w-3.5" aria-hidden /> Lecture 20 · the two building blocks</span>
+          <span className="chip">linked list · read forward from the head</span>
+          <span className="chip">hashes · variable-length in → fixed-length out</span>
+          <span className="chip">collision-free</span>
+          <span className="chip">non-reversible</span>
+          <span className="chip">bit-sensitive — 1 flipped bit → whole new hash</span>
+        </div>
+      </Reveal>
 
       <ReadStep dark n="2" title="Anatomy of a block — and the growing chain" sub="Header seals the past; the body carries the transactions" />
       <Reveal>
@@ -1217,7 +1340,9 @@ export function AtbBlockchainSection() {
           </div>
           <p className="mt-4 text-center text-[.84rem] text-[#cbb392]">
             Genesis block: <span className="font-mono text-[#ffd9ae]">prev = NULL, hash H1</span> — then every
-            new block stores the hash of the one before it.
+            new block stores the hash of the one before it. Transactions sit in{" "}
+            <strong className="text-[#ffd9ae]">chronological order</strong>, and reading the chain runs{" "}
+            <strong className="text-[#ffd9ae]">backward</strong>: follow the hashes from the newest block to the genesis.
           </p>
         </div>
       </Reveal>
@@ -1260,7 +1385,7 @@ export function AtbBlockchainSection() {
         </Reveal>
       </div>
 
-      <ReadStep dark n="5" title="Blockchain vs linked list" sub="Three rows that summarise the whole upgrade" />
+      <ReadStep dark n="5" title="Blockchain vs linked list" sub="Six rows that summarise the whole upgrade" />
       <Reveal>
         <div className="card-warm overflow-x-auto p-4 md:p-6">
           <table className="w-full min-w-[560px] border-separate" style={{ borderSpacing: 0 }}>
@@ -1330,9 +1455,11 @@ export function AtbBlockchainSection() {
             <ul className="grid gap-2">
               {[
                 "follows the protocol",
-                "connects to other nodes",
-                "uses cryptographic keys / identities",
-                "validates · stores · shares blocks",
+                "connects to other nodes in the network",
+                "uses cryptographic keys & hashes for identity and validation",
+                "validates incoming blocks",
+                "stores copies of valid blocks",
+                "broadcasts valid blocks & transactions to the other nodes — simultaneously",
               ].map((d) => (
                 <li key={d} className="flex items-center gap-3 rounded-xl border border-[rgba(245,158,11,.18)] bg-[rgba(43,27,16,.5)] px-3.5 py-2.5">
                   <Check className="h-4 w-4 shrink-0" style={{ color: "#f5c889" }} />
@@ -1348,7 +1475,53 @@ export function AtbBlockchainSection() {
         </Reveal>
       </div>
 
-      <ReadStep dark n="7" title="Where blockchains go to work" sub="Four applications you can explain in a meeting" />
+      <Reveal className="mt-5">
+        <div className="grid gap-5 md:grid-cols-2">
+          <div className="card-warm h-full p-5">
+            <span className="chip"><Users className="h-3.5 w-3.5" aria-hidden /> Lecture 20 · the 51% rule</span>
+            <h5 className="mt-3 text-[.95rem] font-bold text-[#f5e6cd]">How tamper-proofing actually works</h5>
+            <ul className="mt-3 grid gap-2 text-[.86rem] leading-relaxed text-[#e9d7bf]">
+              <li className="flex items-start gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#f5c889" }} aria-hidden /><span>every node stores an <strong>identical copy</strong> of all blocks</span></li>
+              <li className="flex items-start gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#f5c889" }} aria-hidden /><span>nodes compare copies — a modified block&apos;s hash changes and breaks the chain</span></li>
+              <li className="flex items-start gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#f5c889" }} aria-hidden /><span>the majority copy — <strong className="text-[#ffd9ae]">51%+</strong> — is treated as authentic</span></li>
+              <li className="flex items-start gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#f5c889" }} aria-hidden /><span>the modified block is <strong className="text-[#ffd9ae]">discarded</strong>; integrity holds across the network</span></li>
+            </ul>
+          </div>
+          <div className="card-warm h-full p-5">
+            <span className="chip"><Network className="h-3.5 w-3.5" aria-hidden /> Lecture 20 · trees &amp; graphs at work</span>
+            <h5 className="mt-3 text-[.95rem] font-bold text-[#f5e6cd]">Where this module&apos;s structures reappear</h5>
+            <div className="mt-3 grid gap-3 text-[.86rem] leading-relaxed text-[#e9d7bf]">
+              <div className="rounded-xl border border-[rgba(245,158,11,.18)] bg-[rgba(43,27,16,.5)] p-3.5">
+                <strong className="text-[#ffd9ae]">Trees →</strong> Merkle trees verify transaction integrity inside every block (step 4 above).
+              </div>
+              <div className="rounded-xl border border-[rgba(245,158,11,.18)] bg-[rgba(43,27,16,.5)] p-3.5">
+                <strong className="text-[#ffd9ae]">Graphs →</strong> graph traversal decides whether a node belongs to the network and validates its connections.
+              </div>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+      <Reveal className="mt-5">
+        <div className="grid gap-5 md:grid-cols-2">
+          <div className="card-warm h-full p-5">
+            <span className="chip"><Globe className="h-3.5 w-3.5" aria-hidden /> Lecture 20 · public blockchain</span>
+            <p className="mt-3 text-[.88rem] leading-relaxed text-[#e9d7bf]">
+              <strong className="text-[#ffd9ae]">Anyone may join</strong> by following the network&apos;s protocols — Bitcoin is the
+              textbook case. Entry may demand <strong>proof of work</strong> (solving computational problems) or{" "}
+              <strong>proof of stake</strong> (providing storage or processing power).
+            </p>
+          </div>
+          <div className="card-warm h-full p-5">
+            <span className="chip"><Building2 className="h-3.5 w-3.5" aria-hidden /> Lecture 20 · permissioned blockchain</span>
+            <p className="mt-3 text-[.88rem] leading-relaxed text-[#e9d7bf]">
+              <strong className="text-[#ffd9ae]">Specific nodes designated by an organization</strong> — the enterprise
+              pattern. Membership is granted, not earned: tighter control, fewer surprises, the flavour businesses actually deploy.
+            </p>
+          </div>
+        </div>
+      </Reveal>
+
+      <ReadStep dark n="7" title="Where blockchains go to work" sub="Six applications you can explain in a meeting" />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {BC_APPS.map((a, i) => (
           <Reveal key={a.name} delay={i * 60}>
@@ -1363,12 +1536,51 @@ export function AtbBlockchainSection() {
         ))}
       </div>
 
+      <ReadStep dark n="8" title="Why isn&apos;t everything on a chain yet?" sub="Implementation challenges — the sober slide of the lecture" />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { icon: Wallet, t: "High implementation costs", d: "infrastructure and maintenance are expensive to build and to run" },
+          { icon: TrendingUp, t: "ROI must justify it", d: "benefits have to outweigh a significant financial investment" },
+          { icon: Gauge, t: "Limited scalability", d: "current systems struggle with transaction volume" },
+          { icon: ShieldQuestion, t: "Regulatory uncertainty", d: "the legal frameworks are still being written" },
+        ].map((c, i) => (
+          <Reveal key={c.t} delay={i * 60}>
+            <div className="card-warm lift h-full p-5">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: "rgba(245,158,11,.16)", color: "#f5c889" }}>
+                <c.icon className="h-5 w-5" aria-hidden />
+              </span>
+              <h4 className="mt-3 text-[.92rem] font-bold text-[#f5e6cd]">{c.t}</h4>
+              <p className="mt-1.5 text-[.8rem] leading-relaxed text-[#cbb392]">{c.d}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+      <Reveal className="mt-4">
+        <div className="card-warm flex flex-wrap items-center gap-2 p-4">
+          <span className="chip"><Hourglass className="h-3.5 w-3.5" aria-hidden /> Lecture 20 · adoption today</span>
+          <p className="text-[.84rem] leading-relaxed text-[#cbb392]">
+            Live: cryptocurrencies and smart contracts. Pilots: revenue and health records. Wider rollout waits for costs to fall and ROI to improve.
+          </p>
+        </div>
+      </Reveal>
+
       <Reveal className="mt-10">
         <Quiz
+          source="Lecture 20 · tamper-proofing"
           q="Editing an old block in a blockchain…"
           options={["is ignored", "changes its hash and breaks the chain", "requires a password", "updates all hashes automatically"]}
           answer={1}
           explain="Changing a block changes its hash — so the next block's stored 'hash of previous block' no longer matches. The chain is visibly broken, and every honest node rejects it."
+        />
+      </Reveal>
+
+      <Reveal className="mt-5">
+        <Quiz
+          source="Lecture 20 · blockchain"
+          q="A tampered copy of a block gets discarded because the network treats as authentic…"
+          options={["the copy on the newest node", "the majority copy held by 51%+ of nodes", "the genesis block's copy", "whichever copy arrives first"]}
+          answer={1}
+          explain="Nodes compare copies; the majority copy (51%+) is the authentic one. A modified block's changed hash breaks the chain, and it is discarded in favour of the majority version."
         />
       </Reveal>
 
