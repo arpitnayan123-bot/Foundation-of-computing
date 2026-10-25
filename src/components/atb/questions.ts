@@ -7,7 +7,7 @@
    lecture blueprints and has been hand-checked.
    ============================================================ */
 
-export type AtbExamGroup = "intro" | "props" | "linear" | "stackq" | "trees" | "hash";
+export type AtbExamGroup = "intro" | "props" | "linear" | "stackq" | "trees" | "hash" | "search" | "algo";
 export type AtbQuestionType = "mcq" | "output" | "short";
 
 export interface AtbExamQuestion {
@@ -393,6 +393,163 @@ const HASH: AtbExamQuestion[] = [
 
 /* ------------------------------------------------------------ */
 
+/* ------------------------------------------------------------
+   GROUP 7 — SEARCH  (Lectures 21–22 · Big O · growth classes ·
+                      best/avg/worst · DS operation costs ·
+                      linear · binary · jump · exponential · hash)
+   ------------------------------------------------------------ */
+const SEARCH: AtbExamQuestion[] = [
+  {
+    id: "s1",
+    type: "mcq",
+    q: "Big O notation is used to answer which question?",
+    options: [
+      "How many seconds does this algorithm take on a specific laptop?",
+      "If the input grows, in what proportion does the time requirement grow?",
+      "How many lines of pseudocode does the algorithm need?",
+      "How much memory does one execution consume?",
+    ],
+    answer: 1,
+    explain:
+      "Big O describes the ORDER OF MAGNITUDE of how algorithmic work grows with input size — never wall-clock seconds, which depend on the machine. It is the scalability ruler: when input goes from 100 to 10 lakh elements, Big O says how the effort scales. Seconds belong to the hardware; the growth rate belongs to the algorithm.",
+  },
+  {
+    id: "s2",
+    type: "output",
+    q: "A numbered housing society of 24 houses is accessed through one Gate A. Using the lecture's example, state which houses represent the best case, the worst case and the average case of searching for a resident.",
+    answerText:
+      "Best case — houses 3 and 4 (right beside the gate; almost no walking, minimal work).\nWorst case — houses 19 to 24 (the far end; maximum walking before the match).\nAverage case — houses 7 to 18 (the typical amount of work, between best and worst).",
+    explain:
+      "Same search, three very different bills depending on where the answer sits. Best case = solution found with minimal work; worst case = maximum effort required; average case = the typical amount of work falling between the two. The society makes the three scenarios physical — distance walked is the algorithm's effort.",
+  },
+  {
+    id: "s3",
+    type: "mcq",
+    q: "A checkout routine compares EVERY product with EVERY other product to flag price matches — with 5 products that is 25 comparisons. Which complexity class is this routine in?",
+    options: ["O(n)", "O(log n)", "O(n²)", "O(n log n)"],
+    answer: 2,
+    explain:
+      "Effort grows with the SQUARE of the input: input 2 → effort 4, input 5 → effort 25. That is QUADRATIC — the 'dramatic growth' class on the business ladder's avoid rung (alongside O(2ⁿ) and O(n³)). Linear would make 5 checks; O(n log n) about 12; only the pairwise double loop multiplies n by n.",
+  },
+  {
+    id: "s4",
+    type: "mcq",
+    q: "Why does searching a BALANCED binary search tree cost only O(log n)?",
+    options: [
+      "Because the tree secretly stores its elements in a sorted array",
+      "Because each level halves the remaining candidates — the left subtree holds smaller values, the right larger",
+      "Because trees are always small in practice",
+      "Because the search uses a queue to sweep the levels",
+    ],
+    answer: 1,
+    explain:
+      "The BST property — left subtree smaller, right subtree larger — lets every comparison discard one whole branch: the problem subdivides into ONE relevant sub-problem, halving at every level (divide and conquer in disguise). The trap to remember: an UNBALANCED BST loses the halving and degrades toward O(n) — linked-list behaviour.",
+  },
+  {
+    id: "s5",
+    type: "mcq",
+    q: "Hash-based search: what separates its average case from its worst case?",
+    options: [
+      "Average O(1) — the hash jumps straight to the index; worst O(n) — every key collides into one index and the chain must be walked end to end",
+      "Average O(n), worst O(1) — hashing sometimes gets lucky",
+      "Average O(log n), worst O(n²) — chains grow quadratically",
+      "Both are O(1) — hashing is always instant",
+    ],
+    answer: 0,
+    explain:
+      "The hash function (e.g. key mod 10 → indices 0–9) COMPUTES the address, so lookup takes a fixed number of steps regardless of database size — average O(1), no sorting needed. The worst case is collision-intensive: ALL data points to the same index, one long chain walked linearly → O(n). If chains are organized as balanced trees, even that stays O(log n). Fastest method when the hash distributes data evenly.",
+  },
+  {
+    id: "s6",
+    type: "short",
+    q: "Match each business situation to its search strategy and give the one-line reason: (1) find a guest in today's hotel check-in register, (2) find a product in a catalog sorted by categories, (3) fetch a student record by roll number from a database, (4) find a product in a catalog sorted by price, (5) search financial transactions in a rapidly growing system.",
+    answerText:
+      "1 → Linear search — no inherent order, unstructured data; one-by-one is all you can do.\n2 → Jump search — non-numeric category order suits fixed √n jumps over blocks.\n3 → Hash search — databases index by hash; O(1) average access by key.\n4 → Binary search — numeric sorting enables value comparison and halving.\n5 → Exponential search — unknown growth rate; doubling jumps scale with the data.",
+    explain:
+      "The lecture's five-row use-case table. Read the requirement pattern underneath: binary, jump and exponential all need SORTED data (hash needs none, linear works anywhere), and the choice always trades off data size, sorting status, distribution and growth rate.",
+  },
+];
+
+/* ------------------------------------------------------------
+   GROUP 8 — ALGO  (Lectures 24–25 · shortest paths · Dijkstra ·
+                    A* · Bellman-Ford · Prim/Kruskal ·
+                    Floyd-Warshall · bubble sort)
+   ------------------------------------------------------------ */
+const ALGO: AtbExamQuestion[] = [
+  {
+    id: "a1",
+    type: "mcq",
+    q: "Dijkstra's algorithm computes…",
+    options: [
+      "The minimum spanning tree of a weighted graph",
+      "The shortest path from one source node to every other node — on graphs with positive weights only",
+      "Shortest paths between every pair of nodes at once",
+      "The longest path through a network",
+    ],
+    answer: 1,
+    explain:
+      "Dijkstra = SINGLE-SOURCE shortest path: from one starting node to all others, on a weighted graph whose edge weights must be POSITIVE (negative weights break the finalize-early logic). Minimum spanning tree is Prim/Kruskal's question; all-pairs is Floyd-Warshall; negative weights need Bellman-Ford. GPS navigation, delivery-driver allocation and network routing all run on Dijkstra's idea.",
+  },
+  {
+    id: "a2",
+    type: "output",
+    q: "Dijkstra's algorithm runs from node A on this weighted graph. State the final shortest distance from A to every node — and the route the algorithm took to D.",
+    code: "WEIGHTED EDGES (all positive):\n  A — B : 4        A — C : 2\n  C — B : 1        C — D : 5\n  B — D : 3\n\nRUN DIJKSTRA FROM SOURCE A",
+    answerText:
+      "A = 0 (the source)\nC = 2 (direct A→C)\nB = 3 (A→C→B: 2+1 beats the direct A→B of 4)\nD = 6 (A→C→B→D: 3+3 beats A→C→D = 7)",
+    explain:
+      "Initialize: A = 0, everything else infinity. Pick the smallest unvisited node — C (2) — and relax its neighbours: B improves 4 → 3 (A→C→B), D becomes 2+5 = 7. Mark C visited. Pick B (3), relax D: 3+3 = 6 beats 7. Pick D (6). Distances finalize the moment a node is picked — that greedy pick-smallest-unvisited step is only safe because no weight is negative.",
+  },
+  {
+    id: "a3",
+    type: "short",
+    q: "Write the five steps of Dijkstra's algorithm, and name one real system built on it.",
+    answerText:
+      "1. Initialize — set the source node's distance to 0, every other node to infinity.\n2. Select — choose the unvisited node with the smallest known distance.\n3. Update (relax) — for each neighbour, check whether going through the current node is shorter; if so, update its distance.\n4. Mark — once a node's shortest distance is finalized, mark it visited.\n5. Repeat — until all nodes are visited (or the destination is reached).\nReal systems: GPS navigation, food-delivery driver allocation (Zomato/Swiggy), courier hub-and-spoke routing, telecom/computer network routing.",
+    explain:
+      "Five steps, in order: init 0-and-infinity → pick smallest unvisited → relax neighbours → mark visited → repeat. Edge weights are whatever 'shortest' means — distance, time, tolls or a mix. The hub-and-spoke courier model is the classic business application: Dijkstra prices the hops between hubs, not every city pair.",
+  },
+  {
+    id: "a4",
+    type: "mcq",
+    q: "A GPS wants route-finding pulled toward the destination — a sense of direction — instead of spreading evenly in all directions. Which algorithm fits, and which do you switch to if some roads carry NEGATIVE weights?",
+    options: [
+      "A* for the GPS (a directional heuristic on top of Dijkstra); Bellman-Ford when weights go negative",
+      "Dijkstra for both — it handles every weight sign",
+      "Prim for the GPS; Kruskal for the negative tolls",
+      "Floyd-Warshall for both — all pairs covers everything",
+    ],
+    answer: 0,
+    explain:
+      "A* combines actual cost with a HEURISTIC (a sense of direction — 'am I even heading south?'), making it more optimal than plain Dijkstra for GPS. Negative edge weights are Bellman-Ford's territory — Dijkstra forbids them. Prim and Kruskal answer a different question entirely (minimum spanning tree: connect ALL nodes at minimum total cost), and Floyd-Warshall computes all-pairs shortest paths.",
+  },
+  {
+    id: "a5",
+    type: "mcq",
+    q: "Bubble sort, pass by pass — what is guaranteed after each pass, and what is the total comparison count?",
+    options: [
+      "The smallest element lands at the front; n² comparisons",
+      "The largest unsorted element bubbles to its final position at the end; n(n−1)/2 comparisons → O(n²)",
+      "The list becomes fully sorted after the first pass; n comparisons",
+      "Nothing is guaranteed until the final pass; n log n comparisons",
+    ],
+    answer: 1,
+    explain:
+      "Bubble sort compares ADJACENT pairs and swaps when the left is larger — so each pass bubbles the largest unsorted element to the end. Pass 1 makes n comparisons, pass 2 makes n−1… total = n + (n−1) + … + 1 = n(n−1)/2 = ½n² − ½n. Big O drops the constant and the lower term → O(n²). 10,000 elements ≈ 100 million comparisons — fine for 5–6 items, hopeless at business scale.",
+  },
+  {
+    id: "a6",
+    type: "short",
+    q: "Why does sorting come BEFORE searching in the algorithms module — and why is bubble sort still taught first?",
+    answerText:
+      "Sorting is the prerequisite: binary, jump and exponential search all assume the data is already arranged in order — without sorting they cannot halve, jump or bound their ranges (only linear search survives on unsorted data).\nBubble sort is taught first because the idea is the simplest possible — compare adjacent pairs, swap if the left is larger, the largest element bubbles to the end each pass, repeat with one fewer comparison. That simplicity makes the O(n²) bill visible by hand: n(n−1)/2 comparisons ≈ 100 million for 10,000 elements — which is exactly why faster sorts exist.",
+    explain:
+      "The module's spine: sort, THEN search fast — sorting is the prerequisite for the efficient searches (binary, jump, exponential). Bubble sort's value is pedagogical: adjacent comparisons and swaps, largest element to the end each pass, n(n−1)/2 comparisons → O(n²), impractical for large datasets but the clearest possible first look at sorting.",
+  },
+];
+
+/* ------------------------------------------------------------ */
+
 export const ATB_EXAM_BANKS: Record<AtbExamGroup, AtbExamBank> = {
   intro: {
     group: "intro",
@@ -436,9 +593,23 @@ export const ATB_EXAM_BANKS: Record<AtbExamGroup, AtbExamBank> = {
     topics: "mod hashing · collisions · passwords · blockchain",
     questions: HASH,
   },
+  search: {
+    group: "search",
+    title: "Search & Complexity",
+    subtitle: "Big O · growth classes · best / average / worst · DS operation costs · linear · binary · jump · exponential · hash",
+    topics: "Big O · complexity classes · DS operation costs · five search strategies",
+    questions: SEARCH,
+  },
+  algo: {
+    group: "algo",
+    title: "Paths & Sorting",
+    subtitle: "shortest paths · Dijkstra's algorithm · A* · Bellman-Ford · bubble sort",
+    topics: "Shortest paths · Dijkstra · A* · bubble sort",
+    questions: ALGO,
+  },
 };
 
-export const ATB_EXAM_GROUPS: AtbExamGroup[] = ["intro", "props", "linear", "stackq", "trees", "hash"];
+export const ATB_EXAM_GROUPS: AtbExamGroup[] = ["intro", "props", "linear", "stackq", "trees", "hash", "search", "algo"];
 
 export const ATB_TOTAL_QUESTIONS = ATB_EXAM_GROUPS.reduce(
   (n, g) => n + ATB_EXAM_BANKS[g].questions.length,
