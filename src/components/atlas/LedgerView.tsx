@@ -263,7 +263,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
         ),
         due: due[subject.id] ?? 0,
         read: reads[subject.id] ?? 0,
-        readTotal: SECTION_COUNTS[subject.id] ?? subject.chapters ?? 0,
+        readTotal: SECTION_COUNTS[subject.id] ?? 0,
       }))
     );
   }, []);

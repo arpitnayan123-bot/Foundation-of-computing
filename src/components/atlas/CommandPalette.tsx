@@ -47,7 +47,7 @@ interface ItemProps {
   tint: string;
   kicker: string;
   title: string;
-  sub: string;
+  sub?: string;
   keywords?: string;
   /** prepended to the match value — full-text results arrive
    *  pre-filtered by lib/search.ts and may not contain the raw
@@ -68,7 +68,7 @@ function Item({ onSelect, icon: Icon, tint, kicker, title, sub, keywords, match 
       </span>
       <span className="min-w-0">
         <span className="cmdk-item-title">{title}</span>
-        <span className="cmdk-item-sub">{sub}</span>
+        {sub ? <span className="cmdk-item-sub">{sub}</span> : null}
       </span>
       <span className="cmdk-item-kicker">{kicker}</span>
     </Command.Item>
@@ -322,7 +322,6 @@ export function CommandPalette() {
                     tint={s.accent}
                     kicker={`shelf ${s.shelf}`}
                     title={s.title}
-                    sub={s.tagline}
                     keywords={s.topics.join(" ")}
                   />
                 ))}

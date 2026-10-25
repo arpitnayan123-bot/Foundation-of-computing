@@ -36,7 +36,6 @@ import {
 } from "lucide-react";
 import { SUBJECTS, type Subject, type SubjectAmbience } from "./subjects";
 import { dueCounts } from "@/lib/sm2";
-import { readProgressCounts } from "@/lib/progress";
 import { goalStatus } from "@/lib/goal";
 import Hero57 from "@/components/originkit/hero-57";
 
@@ -266,28 +265,6 @@ function DueBadge({ subjectId }: { subjectId: string }) {
   );
 }
 
-/* chapters read on this shelf — same hydration-safe pattern as DueBadge;
-   silent until the reader has actually walked at least one chapter */
-function ChaptersBadge({ subjectId, total }: { subjectId: string; total: number }) {
-  const [seen, setSeen] = useState(0);
-  useEffect(() => {
-    const raf = requestAnimationFrame(() => setSeen(readProgressCounts()[subjectId] ?? 0));
-    return () => cancelAnimationFrame(raf);
-  }, [subjectId]);
-  if (seen <= 0 || total <= 0) return null;
-  const done = seen >= total;
-  return (
-    <span
-      className="glass-chip rounded-full px-2.5 py-1 font-mono text-[.6rem] font-bold uppercase tracking-[.14em]"
-      style={{ color: done ? "#a9c977" : "#c9b99f" }}
-      title="Chapters read — tracked as you scroll the notes"
-    >
-      {done ? "✓ " : ""}
-      {seen}/{total} read
-    </span>
-  );
-}
-
 function SubjectCard({ subject, index, onEnter }: CardProps) {
   const live = subject.status === "live";
   const spotRef = useRef<HTMLElement | null>(null);
@@ -321,7 +298,6 @@ function SubjectCard({ subject, index, onEnter }: CardProps) {
         </span>
         {live ? (
           <span className="flex items-center gap-2">
-            <ChaptersBadge subjectId={subject.id} total={subject.chapters ?? 0} />
             <DueBadge subjectId={subject.id} />
             <LiveBadge accent={subject.accent} />
           </span>
@@ -339,9 +315,6 @@ function SubjectCard({ subject, index, onEnter }: CardProps) {
         >
           {subject.title}
         </h3>
-        <p className={`mt-2.5 text-[.88rem] leading-relaxed ${live ? "text-[#c9b99f]" : "text-[#8d7f6c]"}`}>
-          {live ? subject.description : subject.tagline}
-        </p>
       </div>
 
       <div className="relative mt-4 flex flex-wrap gap-1.5">
@@ -352,12 +325,9 @@ function SubjectCard({ subject, index, onEnter }: CardProps) {
         ))}
       </div>
 
-      <div className="relative mt-auto flex items-center justify-between gap-3 border-t border-white/10 pt-4">
+      <div className="relative mt-auto flex items-center justify-end gap-3 border-t border-white/10 pt-4">
         {live ? (
           <>
-            <span className="font-mono text-[.64rem] uppercase tracking-[.16em] text-[#8d7b63]">
-              {subject.chapters} chapters · {subject.questions} questions · {subject.examWindows} windows
-            </span>
             <span className="flex shrink-0 items-center gap-1 text-[.68rem] font-black uppercase tracking-[.16em] text-[#f5c889] transition-transform duration-300 group-hover:translate-x-1">
               enter <ArrowUpRight className="h-3.5 w-3.5" />
             </span>
@@ -377,7 +347,7 @@ function SubjectCard({ subject, index, onEnter }: CardProps) {
   );
 
   const shell =
-    "group card-glass relative flex h-full min-h-[19.5rem] w-full flex-col overflow-hidden rounded-[1.7rem] p-6 text-left md:p-7";
+    "group card-glass relative flex h-full min-h-[16rem] w-full flex-col overflow-hidden rounded-[1.7rem] p-6 text-left md:p-7";
 
   return (
     <motion.div
@@ -489,8 +459,6 @@ function AtlasSigil() {
 export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
   const liveSubjects = SUBJECTS.filter((s) => s.status === "live");
   const liveCount = liveSubjects.length;
-  const totalChapters = liveSubjects.reduce((n, s) => n + (s.chapters ?? 0), 0);
-  const totalQuestions = liveSubjects.reduce((n, s) => n + (s.questions ?? 0), 0);
 
   const scrollToShelf = () => {
     document.getElementById("shelf")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -682,11 +650,9 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               initial={{ opacity: 0, y: 26 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1, duration: 0.9, ease: EASE }}
-              className="mt-14 grid grid-cols-2 gap-x-10 gap-y-6 sm:grid-cols-4 sm:gap-x-14"
+              className="mt-14 grid grid-cols-2 gap-x-10 gap-y-6 sm:gap-x-14"
             >
               <Stat value={SUBJECTS.length} label="shelves" delay={0} />
-              <Stat value={totalChapters} label="chapters live" delay={0.1} />
-              <Stat value={totalQuestions} label="exam questions" delay={0.2} />
               <div className="flex flex-col items-center gap-1">
                 <span className="font-display text-3xl font-black tracking-tight text-[#f7ecdd] md:text-4xl">∞</span>
                 <span className="text-[.62rem] font-extrabold uppercase tracking-[.22em] text-[#8d7b63]">live code runs</span>
