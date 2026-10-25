@@ -370,7 +370,6 @@ function TopNav({
                                   <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#047857]" : "text-[#3e2c1d]"}`}>
                                     {item.label}
                                   </span>
-                                  <span className="mt-0.5 block text-[.7rem] leading-snug text-[#a08568]">{item.desc}</span>
                                 </span>
                                 {isActiveItem ? (
                                   <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: EMERALD }} />
@@ -547,7 +546,6 @@ function TopNav({
                             <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#a9e8c9]" : "text-[#e2f2e9]"}`}>
                               {item.label}
                             </span>
-                            <span className="mt-0.5 block text-[.7rem] leading-snug text-[#9cc4ab]">{item.desc}</span>
                           </span>
                           {isActiveItem ? (
                             <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#34d399" }} />
@@ -710,15 +708,14 @@ function PracticeHub({
 
 /* ============================================================
    FaLectureHead — the "Financial Accounting Lecture N"
-   hero band. Every lecture opens with its number spoken aloud,
-   exactly as the reader asked.
+   hero band. Compact: the number, the name, the chapter jumps.
    ============================================================ */
 function FaLectureHead({ lecture }: { lecture: FaLecture }) {
   return (
-    <div className="mx-auto max-w-6xl px-4 pt-12 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
       <div
-        className="relative overflow-hidden rounded-3xl p-7 sm:p-10"
-        style={{ background: EMERALD_DARK, boxShadow: "0 30px 80px -30px rgba(6,40,30,.55)" }}
+        className="relative overflow-hidden rounded-2xl p-4 sm:p-5"
+        style={{ background: EMERALD_DARK, boxShadow: "0 20px 50px -26px rgba(6,40,30,.5)" }}
       >
         {/* ambient rings */}
         <svg aria-hidden viewBox="0 0 600 200" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full opacity-40">
@@ -733,23 +730,21 @@ function FaLectureHead({ lecture }: { lecture: FaLecture }) {
         </svg>
 
         <div className="relative">
-          <p className="flex flex-wrap items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.26em] text-[#8fd4b4]">
-            <Scale className="h-3.5 w-3.5" style={{ color: EMERALD_BRIGHT }} />
-            Financial Accounting · Shelf 03
+          <p className="flex flex-wrap items-center gap-1.5 text-[.56rem] font-extrabold uppercase tracking-[.22em] text-[#8fd4b4]">
+            <Scale className="h-3 w-3" style={{ color: EMERALD_BRIGHT }} />
+            Financial Accounting
           </p>
-          <h2 className="mt-3 text-3xl font-black leading-tight text-[#dff3e8] sm:text-5xl">
-            Financial Accounting{" "}
+          <h2 className="mt-1 text-xl font-black leading-tight text-[#dff3e8] sm:text-2xl">
+            Lecture {lecture.n}
             <span
               className="bg-clip-text text-transparent"
               style={{ backgroundImage: `linear-gradient(120deg,${SAGE_LITE},${SAGE})` }}
             >
-              Lecture {lecture.n}
+              {" "}· {lecture.title}
             </span>
           </h2>
-          <p className="mt-3 max-w-3xl text-lg font-bold leading-snug text-[#a9e8c9]">{lecture.title}</p>
-          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#c6e0d3]">{lecture.blurb}</p>
           {lecture.chapters.length > 0 ? (
-            <div className="mt-5 flex flex-wrap gap-2">
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
               {lecture.chapters.map((c) => (
                 <a
                   key={c.id}
@@ -759,7 +754,7 @@ function FaLectureHead({ lecture }: { lecture: FaLecture }) {
                     const el = document.getElementById(c.id);
                     if (el) jumpTo(el);
                   }}
-                  className="rounded-full border border-white/15 bg-white/[.07] px-3 py-1.5 text-[.68rem] font-extrabold text-[#cfe9dc] transition-colors hover:border-[#10b981]/40 hover:bg-white/[.12] hover:text-[#a9e8c9]"
+                  className="rounded-full border border-white/15 bg-white/[.07] px-2.5 py-1 text-[.62rem] font-extrabold text-[#cfe9dc] transition-colors hover:border-[#10b981]/40 hover:bg-white/[.12] hover:text-[#a9e8c9]"
                 >
                   {c.label} ↓
                 </a>
@@ -895,7 +890,6 @@ export function FaApp({ onExitAtlas }: { onExitAtlas: () => void }) {
             onSelect={selectLecture}
             onPractice={openHub}
             seen={seen}
-            totalQuestions={FA_TOTAL_QUESTIONS}
           />
         </PartBoundary>
 

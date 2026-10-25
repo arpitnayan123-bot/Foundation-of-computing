@@ -3,18 +3,17 @@
 /* ============================================================
    FaHero — shelf 03 of THE ATLAS.
 
-   "Financial Accounting" — the lecture sequence hero. Every
-   lecture card carries its "Lecture N" eyebrow, and the notes
-   below open with a matching "Financial Accounting Lecture N"
-   band (see FaLectureHead in FaApp). Palette: emerald & sage
-   on ivory paper. One chapter per lecture, sixteen lectures.
+   "Financial Accounting" — the lecture sequence hero. Each
+   lecture is one compact row (number badge + title), and the
+   notes below open with a matching "Financial Accounting
+   Lecture N" band (see FaLectureHead in FaApp). Palette:
+   emerald & sage on ivory paper. Sixteen lectures.
    ============================================================ */
 
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Check, PenLine, Scale, Search } from "lucide-react";
-import { FA_LECTURES, FA_ALL_CHAPTER_IDS } from "@/components/fa/lectures";
-import { FA_EXAM_GROUPS } from "@/components/fa/questions";
+import { FA_LECTURES } from "@/components/fa/lectures";
 import { Reveal } from "@/components/notes/ui";
 
 const EMERALD = "#059669";
@@ -81,13 +80,11 @@ export function FaHero({
   onSelect,
   onPractice,
   seen,
-  totalQuestions,
 }: {
   activeId: string;
   onSelect: (id: string) => void;
   onPractice: () => void;
   seen: ReadonlySet<string>;
-  totalQuestions: number;
 }) {
   const [query, setQuery] = useState("");
   const q = query.trim().toLowerCase();
@@ -99,15 +96,14 @@ export function FaHero({
         `lecture ${l.n}`,
         l.code.toLowerCase(),
         l.title.toLowerCase(),
-        l.blurb.toLowerCase(),
-        ...l.chapters.map((c) => `${c.label} ${c.desc}`.toLowerCase()),
+        ...l.chapters.map((c) => c.label.toLowerCase()),
       ].join(" ");
       return words.every((w) => hay.includes(w));
     });
   }, [q]);
 
   return (
-    <header id="top" className="relative flex min-h-[94vh] flex-col items-center justify-center overflow-hidden px-4 pb-24 pt-16 sm:pb-16">
+    <header id="top" className="relative flex min-h-[86vh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-16 sm:pb-16">
       {/* ambient washes — emerald & sage on ivory paper */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute -left-24 top-16 h-80 w-80 rounded-full blur-3xl" style={{ background: "rgba(16,185,129,.15)" }} />
@@ -174,18 +170,13 @@ export function FaHero({
             </span>
           </h1>
         </Reveal>
-        <Reveal delay={240}>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5d6b58]">
-            Why does every rupee tell two stories? From the equation to the journal, from the
-            T-account to the trial balance: this course, drawn as living machines — an equation
-            you can balance, a ledger you can post, a trial balance you can sort until the
-            columns agree.
-          </p>
+        <Reveal delay={200}>
+          <div className="mx-auto mt-4 h-px w-24" style={{ background: `linear-gradient(90deg,transparent,${EMERALD},transparent)` }} />
         </Reveal>
 
         {/* THE LECTURE SEQUENCE — search it, pick a lecture, its notes appear below */}
         <Reveal delay={300}>
-          <div className="mx-auto mt-8 w-full max-w-3xl text-left">
+          <div className="mx-auto mt-6 w-full max-w-3xl text-left">
             <label htmlFor="fa-lecture-search" className="sr-only">
               Search the lecture sequence
             </label>
@@ -204,7 +195,7 @@ export function FaHero({
 
             {filtered.length > 0 ? (
               <ol
-                className="scrollbar-thin mt-3 grid max-h-[23rem] gap-2.5 overflow-y-auto pr-1 sm:grid-cols-2"
+                className="scrollbar-thin mt-3 grid max-h-[19rem] gap-1.5 overflow-y-auto pr-1 sm:grid-cols-2"
                 aria-label="Lecture sequence — pick a lecture to open its notes below"
               >
                 {filtered.map((l) => {
@@ -217,50 +208,28 @@ export function FaHero({
                         type="button"
                         onClick={() => onSelect(l.id)}
                         aria-pressed={isActive}
-                        className={`group flex h-full w-full items-start gap-3 rounded-2xl border p-4 text-left transition-all duration-200 ${
+                        title={l.title}
+                        className={`group flex w-full items-center gap-2.5 rounded-xl border px-2.5 py-2 text-left transition-all duration-200 ${
                           isActive
-                            ? "border-[#059669] bg-white shadow-[0_16px_40px_-18px_rgba(5,150,105,.45)] ring-2 ring-[#10b981]/25"
-                            : "border-[#dbeae2] bg-[#f9fcfa]/80 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_34px_-18px_rgba(62,44,29,.4)]"
+                            ? "border-[#059669] bg-white shadow-[0_12px_30px_-16px_rgba(5,150,105,.5)] ring-2 ring-[#10b981]/25"
+                            : "border-[#dbeae2]/80 bg-[#f9fcfa]/70 hover:-translate-y-0.5 hover:border-[#c9dcd2] hover:bg-white hover:shadow-[0_10px_26px_-18px_rgba(62,44,29,.45)]"
                         }`}
                       >
                         <span
-                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[.72rem] font-black ${isActive ? "text-white" : ""}`}
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[.78rem] font-black tabular-nums ${isActive ? "text-white" : ""}`}
                           style={
                             isActive
-                              ? { background: `linear-gradient(135deg,${EMERALD_BRIGHT},${EMERALD})`, boxShadow: "0 6px 14px -6px rgba(5,150,105,.6)" }
+                              ? { background: `linear-gradient(135deg,${EMERALD_BRIGHT},${EMERALD})`, boxShadow: "0 5px 12px -5px rgba(5,150,105,.6)" }
                               : { background: "#e7f2ec", color: EMERALD }
                           }
                         >
-                          {l.code}
+                          {l.n ?? "·"}
                         </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="flex items-center gap-2">
-                            <span className="text-[.58rem] font-extrabold uppercase tracking-[.18em]" style={{ color: SAGE }}>
-                              Lecture {l.n}
-                            </span>
-                            {allRead ? (
-                              <Check className="h-3.5 w-3.5" style={{ color: "#5f9e58" }} aria-label="Every chapter read" />
-                            ) : null}
-                            <span className="ml-auto font-mono text-[.6rem] font-bold text-[#6d9970]">
-                              {readCount}/{l.chapters.length} read
-                            </span>
-                          </span>
-                          <span className={`mt-0.5 block text-[.94rem] font-extrabold leading-tight ${isActive ? "text-[#047857]" : "text-[#3e2c1d]"}`}>
-                            {l.title}
-                          </span>
-                          <span className="mt-1 block text-[.76rem] leading-snug text-[#5d6b58]">{l.blurb}</span>
-                          <span className="mt-2 flex flex-wrap gap-1.5">
-                            {l.chapters.map((c) => (
-                              <span key={c.id} className="rounded-full border border-[#dbeae2] bg-[#eef6f1] px-2 py-0.5 text-[.62rem] font-bold text-[#0b6b4f]">
-                                {c.label}
-                              </span>
-                            ))}
-                          </span>
+                        <span className={`min-w-0 flex-1 truncate text-[.86rem] font-bold leading-tight ${isActive ? "text-[#047857]" : "text-[#3e2c1d]"}`}>
+                          {l.title}
                         </span>
-                        {isActive ? (
-                          <span className="ml-0.5 shrink-0 self-center rounded-full bg-[#059669]/10 px-2 py-1 text-[.55rem] font-black uppercase tracking-[.14em] text-[#047857]">
-                            reading
-                          </span>
+                        {allRead ? (
+                          <Check className="h-3.5 w-3.5 shrink-0" style={{ color: "#5f9e58" }} aria-label="Every chapter read" />
                         ) : null}
                       </button>
                     </li>
@@ -286,30 +255,7 @@ export function FaHero({
                 <PenLine className="h-4 w-4 text-[#059669] transition-transform duration-300 group-hover:-rotate-12" />
                 Test my knowledge
               </button>
-              <span className="text-[.64rem] font-bold uppercase tracking-[.16em] text-[#7d9a8b]">
-                pen-paper practice · {totalQuestions} questions · {FA_EXAM_GROUPS.length} exam windows
-              </span>
             </div>
-          </div>
-        </Reveal>
-
-        <Reveal delay={430}>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-            {[
-              [String(FA_LECTURES.length), "lectures"],
-              [String(FA_ALL_CHAPTER_IDS.length), "chapters"],
-              [String(totalQuestions), "exam questions"],
-            ].map(([n, l]) => (
-              <div key={l} className="text-center">
-                <p
-                  className="bg-clip-text text-3xl font-black text-transparent"
-                  style={{ backgroundImage: `linear-gradient(120deg,${EMERALD_BRIGHT},${EMERALD} 55%,${SAGE})` }}
-                >
-                  {n}
-                </p>
-                <p className="text-[.72rem] font-bold uppercase tracking-[.18em] text-[#6d8577]">{l}</p>
-              </div>
-            ))}
           </div>
         </Reveal>
       </div>
