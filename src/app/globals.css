@@ -647,8 +647,6 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
 /* Sticky footer layout */
 .page-wrap { min-height: 100vh; display: flex; flex-direction: column; }
 .page-wrap > main { flex: 1 0 auto; }
-.footer-stick { margin-top: auto; }
-
 
 /* contrast audit 1792659172 */
 
@@ -934,96 +932,6 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
 .exam-score-num { font-family: var(--font-fraunces), Georgia, serif; font-size: 1.7rem; font-weight: 800; color: #2b1d10; line-height: 1; }
 .exam-score-sub { margin-top: .3rem; font-size: .66rem; font-weight: 800; letter-spacing: .08em; color: #8a6d4f; }
 .exam-chip { display: inline-flex; align-items: center; border-radius: 999px; padding: .3rem .7rem; }
-
-/* ============================================================
-   SIGNATURE FOOTER — premium minimal, sits directly on the page
-   cream (no fill, no panel). Calm ink serif + warm accents.
-   ============================================================ */
-
-/* eyebrow: wide tracking; negative margin re-centres the trailing gap */
-.sig-eyebrow {
-  letter-spacing: .55em;
-  margin-right: -.55em;
-}
-
-/* the name — refined italic serif in tone-on-tone warm ink.
-   The gradient lives on the inner span (plain text, no transformed
-   children), so background-clip:text always paints correctly. */
-.footer-name-wrap { line-height: 1.15; }
-.footer-name {
-  display: inline-block;
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-style: italic;
-  font-weight: 600;
-  font-size: clamp(1.85rem, 4.5vw, 2.6rem);
-  line-height: 1.15;
-  letter-spacing: -.015em;
-  background: linear-gradient(180deg, #3a2814 0%, #241708 58%, #8a5f30 128%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  transition: filter .6s cubic-bezier(.22, 1, .36, 1);
-}
-.footer-name:hover { filter: drop-shadow(0 5px 18px rgba(190, 138, 66, .38)); }
-
-/* barely-there warm halo breathing behind the signature */
-.sig-glow {
-  position: absolute; left: 50%; top: 50%;
-  width: min(32rem, 90vw); height: 10.5rem;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgba(214, 148, 62, .12), transparent 72%);
-  pointer-events: none;
-}
-
-/* ---- project epitaph: two-line blurb + stat pills + colophon ---- */
-.sig-blurb {
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(.96rem, 2.1vw, 1.06rem);
-  line-height: 1.62;
-  color: #6b5236;
-  max-width: 32rem;
-  text-wrap: balance;
-}
-.sig-blurb b {
-  font-weight: 650;
-  color: #3a2814;
-}
-
-.sig-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: .38rem;
-  border-radius: 999px;
-  border: 1px solid rgba(229, 199, 157, .75);
-  background: rgba(255, 253, 249, .72);
-  padding: .32rem .68rem;
-  font-size: .6rem;
-  font-weight: 800;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: #6b5236;
-  white-space: nowrap;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, .85) inset,
-    0 8px 22px -18px rgba(138, 95, 48, .5);
-  transition:
-    transform .45s cubic-bezier(.22, 1, .36, 1),
-    box-shadow .45s cubic-bezier(.22, 1, .36, 1),
-    border-color .45s, color .45s;
-  cursor: default;
-}
-.sig-chip:hover {
-  transform: translateY(-3px);
-  border-color: rgba(201, 138, 62, .85);
-  color: #3a2814;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, .9) inset,
-    0 14px 30px -16px rgba(190, 138, 66, .55);
-}
-.sig-chip svg { color: #c98a3e; transition: transform .45s cubic-bezier(.22, 1, .36, 1); }
-.sig-chip:hover svg { transform: scale(1.18) rotate(-8deg); }
 
 /* colophon — tiny mono credit line under the pills */
 .sig-colo {
