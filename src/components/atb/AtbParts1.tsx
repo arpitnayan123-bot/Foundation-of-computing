@@ -31,7 +31,7 @@ import {
   User,
   Workflow,
 } from "lucide-react";
-import { ATB_LECTURES } from "@/components/atb/lectures";
+import { ATB_LECTURES, ATB_ALL_CHAPTER_IDS } from "@/components/atb/lectures";
 import { ATB_EXAM_GROUPS } from "@/components/atb/questions";
 import {
   Callout,
@@ -262,7 +262,7 @@ export function AtbHero({
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search the sequence — try “7”, “linked”, or “hashing”…"
+                placeholder="Search the sequence — try “9”, “graphs”, or “sorting”…"
                 autoComplete="off"
                 className="w-full rounded-2xl border border-[#e5c79d] bg-[#fffdf9]/90 py-3.5 pl-11 pr-4 text-[.95rem] font-semibold text-[#3e2c1d] shadow-[0_10px_30px_-14px_rgba(70,42,15,.35)] backdrop-blur-md placeholder:font-normal placeholder:text-[#b08b5c] focus:outline-none focus:ring-2 focus:ring-[#ea580c]/40"
               />
@@ -276,7 +276,8 @@ export function AtbHero({
                 {filtered.map((l) => {
                   const isActive = l.id === activeId;
                   const readCount = l.chapters.filter((c) => seen.has(c.id)).length;
-                  const allRead = readCount === l.chapters.length;
+                  const allRead = l.chapters.length > 0 && readCount === l.chapters.length;
+                  const isPlaceholder = l.chapters.length === 0;
                   return (
                     <li key={l.id}>
                       <button
@@ -304,24 +305,42 @@ export function AtbHero({
                             <span className="text-[.58rem] font-extrabold uppercase tracking-[.18em] text-[#a16207]">
                               {l.n ? `Lecture ${l.n}` : "Appendix"}
                             </span>
+                            {l.live ? (
+                              <span
+                                className="rounded-full px-1.5 py-0.5 text-[.52rem] font-black uppercase tracking-[.14em]"
+                                style={{ background: "#fde8cf", color: "#c2410c", border: "1px solid #f3c99b" }}
+                              >
+                                live · recap
+                              </span>
+                            ) : null}
+                            {isPlaceholder ? (
+                              <span
+                                className="rounded-full px-1.5 py-0.5 text-[.52rem] font-black uppercase tracking-[.14em]"
+                                style={{ background: "#f6f1e6", color: "#a08568", border: "1px dashed #d9c3a4" }}
+                              >
+                                awaiting summary
+                              </span>
+                            ) : null}
                             {allRead ? (
                               <Check className="h-3.5 w-3.5" style={{ color: "#8fae5d" }} aria-label="Every chapter read" />
                             ) : null}
                             <span className="ml-auto font-mono text-[.6rem] font-bold text-[#b08b5c]">
-                              {readCount}/{l.chapters.length} read
+                              {isPlaceholder ? "—" : `${readCount}/${l.chapters.length} read`}
                             </span>
                           </span>
                           <span className={`mt-0.5 block text-[.94rem] font-extrabold leading-tight ${isActive ? "text-[#c2410c]" : "text-[#3e2c1d]"}`}>
                             {l.title}
                           </span>
                           <span className="mt-1 block text-[.76rem] leading-snug text-muted-warm">{l.blurb}</span>
-                          <span className="mt-2 flex flex-wrap gap-1.5">
-                            {l.chapters.map((c) => (
-                              <span key={c.id} className="rounded-full border border-[#ecd9bd] bg-[#fffaf1] px-2 py-0.5 text-[.62rem] font-bold text-[#8a5f30]">
-                                {c.label}
-                              </span>
-                            ))}
-                          </span>
+                          {isPlaceholder ? null : (
+                            <span className="mt-2 flex flex-wrap gap-1.5">
+                              {l.chapters.map((c) => (
+                                <span key={c.id} className="rounded-full border border-[#ecd9bd] bg-[#fffaf1] px-2 py-0.5 text-[.62rem] font-bold text-[#8a5f30]">
+                                  {c.label}
+                                </span>
+                              ))}
+                            </span>
+                          )}
                         </span>
                         {isActive ? (
                           <span className="ml-0.5 shrink-0 self-center rounded-full bg-[#c2410c]/10 px-2 py-1 text-[.55rem] font-black uppercase tracking-[.14em] text-[#c2410c]">
@@ -391,8 +410,8 @@ export function AtbHero({
         <Reveal delay={560}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
             {[
-              [String(ATB_LECTURES.length - 1), "lectures"],
-              ["19", "chapters"],
+              [String(ATB_LECTURES.filter((l) => l.chapters.length > 0).length), "lectures"],
+              [String(ATB_ALL_CHAPTER_IDS.length), "chapters"],
               [String(totalQuestions), "exam questions"],
             ].map(([n, l]) => (
               <div key={l} className="text-center">

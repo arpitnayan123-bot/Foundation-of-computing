@@ -13,6 +13,7 @@ import {
   BookOpen,
   BookOpenText,
   GraduationCap,
+  Hourglass,
   ListChecks,
   Map,
   Menu,
@@ -29,8 +30,11 @@ import { AtbHero, AtbIntroSection, AtbFlowchartsSection, AtbAtmSection, AtbCodeS
 import { AtbPropsSection, AtbAlgoTypesSection } from "@/components/atb/AtbParts2";
 import { AtbArraysSection, AtbListSection } from "@/components/atb/AtbParts3";
 import { AtbStacksSection, AtbQueuesSection, AtbQTypesSection } from "@/components/atb/AtbParts4";
-import { AtbTreesSection, AtbTraversalsSection, AtbGraphsSection, AtbDfsBfsSection } from "@/components/atb/AtbParts5";
+import { AtbTreesSection, AtbTraversalsSection, AtbGraphsSection, AtbGraphPropsSection, AtbDfsBfsSection } from "@/components/atb/AtbParts5";
 import { AtbTreeTypesSection, AtbHashingSection, AtbBlockchainSection } from "@/components/atb/AtbParts6";
+import { AtbRecap8Section, AtbRecap13Section, AtbRecap18Section, AtbRecap23Section } from "@/components/atb/AtbParts7";
+import { AtbComplexitySection, AtbSearchSection } from "@/components/atb/AtbParts8";
+import { AtbDijkstraSection, AtbSortingSection } from "@/components/atb/AtbParts9";
 import { AtbExamWindow } from "@/components/atb/AtbExamWindow";
 import { ATB_EXAM_BANKS, ATB_EXAM_GROUPS, ATB_TOTAL_QUESTIONS, type AtbExamGroup } from "@/components/atb/questions";
 import { ATB_LECTURES, ATB_ALL_CHAPTER_IDS, ATB_DEFAULT_LECTURE, lectureById, lectureOfChapter, type AtbLecture } from "@/components/atb/lectures";
@@ -88,34 +92,55 @@ const GROUPS: {
     items: [
       { id: "arrays", label: "Arrays", desc: "Indexed, contiguous, direct access" },
       { id: "linkedlists", label: "Linked lists", desc: "Lecture 7 · flexible chains of songs" },
+      { id: "recap8", label: "LIVE recap · properties & linear DS", desc: "Lecture 8 · the 9 properties + arrays-vs-lists Venn" },
     ],
   },
   {
     id: "stackq",
     label: "Stacks & Queues",
     items: [
-      { id: "stacks", label: "Stacks", desc: "LIFO — the undo machine" },
-      { id: "queues", label: "Queues", desc: "FIFO — first come, first served" },
-      { id: "qtypes", label: "Queue types", desc: "Linear · circular · priority · deque" },
+      { id: "stacks", label: "Stacks", desc: "Lecture 9 · LIFO — the undo machine" },
+      { id: "queues", label: "Queues", desc: "Lecture 10 · FIFO — first come, first served" },
+      { id: "qtypes", label: "Queue types", desc: "Lecture 11 · linear · circular · priority · deque" },
+      { id: "recap13", label: "LIVE recap · stacks & queues", desc: "Lecture 13 · the stack-vs-queue Venn" },
     ],
   },
   {
     id: "trees",
     label: "Trees & Graphs",
     items: [
-      { id: "trees", label: "Trees", desc: "Hierarchy: roots, parents & leaves" },
-      { id: "traversals", label: "Traversals", desc: "Pre · in · post · level order" },
-      { id: "graphs", label: "Graphs", desc: "G = (V, E) — relationships" },
-      { id: "dfsbfs", label: "DFS & BFS", desc: "Stack vs queue traversal" },
+      { id: "trees", label: "Trees", desc: "Lecture 12 · hierarchy: roots, parents & leaves" },
+      { id: "traversals", label: "Traversals", desc: "Lecture 12 · pre · in · post · level order" },
+      { id: "graphs", label: "Graphs", desc: "Lecture 15 · G = (V, E) — relationships" },
+      { id: "graphprops", label: "Graph properties", desc: "Lecture 16 · direction · weight · connectivity · cycles" },
+      { id: "dfsbfs", label: "DFS & BFS", desc: "Lecture 17 · stack vs queue traversal" },
+      { id: "recap18", label: "LIVE recap · trees & graphs", desc: "Lecture 18 · every tree is a graph — the nested Venn" },
     ],
   },
   {
     id: "hash",
     label: "Hash & Chain",
     items: [
-      { id: "treetypes", label: "Tree types", desc: "BST · AVL · heaps" },
-      { id: "hashing", label: "Hashing", desc: "mod, tables, collisions, passwords" },
-      { id: "blockchain", label: "Blockchain", desc: "Tamper-evident chains of blocks" },
+      { id: "treetypes", label: "Tree types", desc: "Lecture 14 · general → binary → complete → BST → AVL → heaps" },
+      { id: "hashing", label: "Hashing", desc: "Lecture 19 · mod, tables, collisions, passwords" },
+      { id: "blockchain", label: "Blockchain", desc: "Lecture 20 · tamper-evident chains of blocks" },
+      { id: "recap23", label: "LIVE recap · trees, hashing & blockchain", desc: "Lecture 23 · the three-circle Venn finale" },
+    ],
+  },
+  {
+    id: "search",
+    label: "Search & Complexity",
+    items: [
+      { id: "complexity", label: "Complexity", desc: "Lecture 21 · Big O · best/avg/worst · DS costs" },
+      { id: "search", label: "Search", desc: "Lecture 22 · linear · binary · jump · exponential · hash" },
+    ],
+  },
+  {
+    id: "algo",
+    label: "Paths & Sorting",
+    items: [
+      { id: "dijkstra", label: "Shortest paths", desc: "Lecture 24 · Dijkstra · A* · the variant family" },
+      { id: "sorting", label: "Sorting", desc: "Lecture 25 · bubble sort · passes · O(n²)" },
     ],
   },
 ];
@@ -151,6 +176,15 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   treetypes: <AtbTreeTypesSection />,
   hashing: <AtbHashingSection />,
   blockchain: <AtbBlockchainSection />,
+  recap8: <AtbRecap8Section />,
+  recap13: <AtbRecap13Section />,
+  recap18: <AtbRecap18Section />,
+  recap23: <AtbRecap23Section />,
+  graphprops: <AtbGraphPropsSection />,
+  complexity: <AtbComplexitySection />,
+  search: <AtbSearchSection />,
+  dijkstra: <AtbDijkstraSection />,
+  sorting: <AtbSortingSection />,
 };
 
 /* ============================================================
@@ -1015,11 +1049,29 @@ export function AtbApp({ onExitAtlas }: { onExitAtlas: () => void }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            {lecture.chapters.map((c) => (
-              <PartBoundary key={c.id} label={c.label}>
-                {SECTION_COMPONENTS[c.id]}
-              </PartBoundary>
-            ))}
+            {lecture.chapters.length > 0 ? (
+              lecture.chapters.map((c) => (
+                <PartBoundary key={c.id} label={c.label}>
+                  {SECTION_COMPONENTS[c.id]}
+                </PartBoundary>
+              ))
+            ) : (
+              <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+                <div className="card-warm p-8 text-center">
+                  <span className="chip mx-auto">
+                    <Hourglass className="h-3.5 w-3.5" /> Slot reserved
+                  </span>
+                  <h2 className="mt-4 text-2xl font-extrabold text-[#3e2c1d]">
+                    Lecture {lecture.n} hasn&rsquo;t been summarised yet
+                  </h2>
+                  <p className="mx-auto mt-3 max-w-md text-[.92rem] leading-relaxed text-muted-warm">
+                    This lecture&rsquo;s notes haven&rsquo;t been uploaded, so the shelf keeps the
+                    slot open. The moment its summary arrives, the chapters fill in right here —
+                    diagrams, machines and all.
+                  </p>
+                </div>
+              </div>
+            )}
             <LecturePager current={lecture} onJump={selectLecture} />
           </motion.div>
         </PartBoundary>
