@@ -196,7 +196,26 @@ function Ambience({ kind, accent }: { kind: SubjectAmbience; accent: string }) {
         />
       );
 
-    /* 06 · drift — two warm coals slowly floating under the glass */
+    /* 06 · MKTG — a beacon: one pulsing ring + steady gold dot */
+    case "beacon":
+      return (
+        <span aria-hidden className="pointer-events-none absolute -right-12 -top-14 h-52 w-52">
+          <span
+            className="amb-breathe absolute inset-6 rounded-full border-2"
+            style={{ borderColor: `${accent}66` }}
+          />
+          <span
+            className="amb-breathe absolute inset-14 rounded-full border"
+            style={{ borderColor: `${accent}44`, animationDelay: "-1.6s" }}
+          />
+          <span
+            className="absolute right-10 top-10 h-2.5 w-2.5 rounded-full anim-floaty"
+            style={{ background: "#e3c26b" }}
+          />
+        </span>
+      );
+
+    /* 07 · drift — two warm coals slowly floating under the glass */
     case "drift":
       return (
         <>

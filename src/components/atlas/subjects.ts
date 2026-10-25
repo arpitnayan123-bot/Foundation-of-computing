@@ -1,4 +1,4 @@
-import { Compass, Landmark, Lock, Route, Scale, Sigma, type LucideIcon } from "lucide-react";
+import { Compass, Landmark, Lock, Megaphone, Route, Scale, Sigma, type LucideIcon } from "lucide-react";
 import { QUESTION_COUNTS } from "@/lib/question-counts";
 
 /* ============================================================
@@ -16,7 +16,7 @@ export type SubjectStatus = "live" | "soon";
 /** every box is poured from the same mould — this is the one
  *  whisper of motion that makes each box its own (minimal,
  *  ambient, premium). Nothing else differs. */
-export type SubjectAmbience = "sweep" | "aura" | "scan" | "spotlight" | "shimmer" | "drift";
+export type SubjectAmbience = "sweep" | "aura" | "scan" | "spotlight" | "shimmer" | "beacon" | "drift";
 
 export interface Subject {
   /** stable id — used in the hash route (#/subject/<id>) */
@@ -137,10 +137,28 @@ export const SUBJECTS: Subject[] = [
     ambience: "shimmer",
   },
   {
-    id: "shelf-06",
+    id: "mktg",
     shelf: "06",
+    title: "Principles of Marketing",
+    short: "MKTG Notes",
+    tagline: "Why people buy — and why they keep buying.",
+    description:
+      "The whole course rebuilt as living notes: decline curves for BlackBerry, Hertz and Blockbuster, a cold-coffee P&L you can tune, the ES/DS gap machine, the three-circles POP/POD finder, a Gestalt lab, and 48 exam-style questions across 8 pen-paper windows.",
+    topics: ["Value & exchange", "ES/DS & loyalty", "STP", "Positioning & POD/POP", "Consumer journey", "Perception & biases"],
+    chapters: 53,
+    questions: QUESTION_COUNTS.mktg,
+    examWindows: 8,
+    accent: "#14b8a6",
+    accent2: "#0f766e",
+    icon: Megaphone,
+    status: "live",
+    ambience: "beacon",
+  },
+  {
+    id: "shelf-07",
+    shelf: "07",
     title: "Reserved shelf",
-    short: "Shelf 06",
+    short: "Shelf 07",
     tagline: "The next PDF drops here.",
     description: "This shelf fills in as each subject is rebuilt Atlas-style — same living diagrams, same exam simulators, same pen-paper soul.",
     topics: ["awaiting syllabus"],
