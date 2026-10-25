@@ -58,6 +58,13 @@ import * as EbhParts3 from "../src/components/ebh/EbhParts3";
 import * as EbhParts4 from "../src/components/ebh/EbhParts4";
 
 /* ---- STM — mirror StmApp's imports ---- */
+/* ---- MKTG — mirror MktgApp's imports ---- */
+import * as MktgParts1 from "../src/components/mktg/MktgParts1";
+import * as MktgParts2 from "../src/components/mktg/MktgParts2";
+import * as MktgParts3 from "../src/components/mktg/MktgParts3";
+import * as MktgParts4 from "../src/components/mktg/MktgParts4";
+
+/* ---- STM — mirror StmApp's imports ---- */
 import * as StmParts1 from "../src/components/stm/StmParts1";
 import * as StmParts2 from "../src/components/stm/StmParts2";
 import * as StmParts3 from "../src/components/stm/StmParts3";
@@ -73,6 +80,7 @@ import { ATB_EXAM_BANKS } from "../src/components/atb/questions";
 import { FA_EXAM_BANKS } from "../src/components/fa/questions";
 import { EBH_EXAM_BANKS } from "../src/components/ebh/questions";
 import { STM_EXAM_BANKS } from "../src/components/stm/questions";
+import { MKTG_EXAM_BANKS } from "../src/components/mktg/questions";
 
 /* ============================================================
    Types + config
@@ -115,6 +123,7 @@ const SHELF_PART_MODULES: Record<string, Record<string, unknown>[]> = {
   fa: [FaParts1, FaParts2, FaParts3, FaParts4],
   ebh: [EbhParts1, EbhParts2, EbhParts3, EbhParts4],
   stm: [StmParts1, StmParts2, StmParts3, StmParts4, StmParts5, StmParts6, StmParts7, StmParts8],
+  mktg: [MktgParts1, MktgParts2, MktgParts3, MktgParts4],
 };
 
 /* ============================================================
@@ -224,6 +233,7 @@ const BANKS_BY_SHELF: Record<string, Record<string, BankLike>> = {
   fa: FA_EXAM_BANKS,
   ebh: EBH_EXAM_BANKS,
   stm: STM_EXAM_BANKS,
+  mktg: MKTG_EXAM_BANKS,
 };
 
 const started = Date.now();
