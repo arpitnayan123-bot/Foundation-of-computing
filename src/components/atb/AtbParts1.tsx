@@ -279,7 +279,7 @@ export function AtbHero({
                   const allRead = l.chapters.length > 0 && readCount === l.chapters.length;
                   const isPlaceholder = l.chapters.length === 0;
                   return (
-                    <li key={l.id}>
+                    <li key={l.id} className="min-w-0">
                       <button
                         type="button"
                         onClick={() => onSelect(l.id)}

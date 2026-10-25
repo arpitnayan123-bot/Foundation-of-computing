@@ -782,7 +782,7 @@ function LecturePager({ current, onJump }: { current: AtbLecture; onJump: (id: s
           <button
             type="button"
             onClick={() => onJump(prev.id)}
-            className="card-warm lift group flex items-center gap-3 p-4 text-left"
+            className="card-warm lift group flex min-w-0 items-center gap-3 p-4 text-left"
             aria-label={`Previous: ${prev.code} — ${prev.title}`}
           >
             <ArrowLeft className="h-4 w-4 shrink-0 text-[#c2410c] transition-transform duration-200 group-hover:-translate-x-1" />
@@ -800,7 +800,7 @@ function LecturePager({ current, onJump }: { current: AtbLecture; onJump: (id: s
           <button
             type="button"
             onClick={() => onJump(next.id)}
-            className="card-warm lift group flex items-center justify-end gap-3 p-4 text-right"
+            className="card-warm lift group flex min-w-0 items-center justify-end gap-3 p-4 text-right"
             aria-label={`Next: ${next.code} — ${next.title}`}
           >
             <span className="min-w-0">
