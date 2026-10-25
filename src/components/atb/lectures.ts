@@ -4,11 +4,12 @@
    ATB — the lecture sequence.
 
    The reader picks a lecture in the hero and the page below
-   shows exactly that lecture's chapters. Lectures 1-7 have
-   been sent by the course (integrated into the notes with
-   "Lecture N ·" markers); Module 3 rode in with the original
-   course PDFs and will get its lecture number when the user
-   sends it. Editing this one table re-maps the whole reader.
+   shows exactly that lecture's chapters. The numbering now
+   follows the user's actual course: lectures 1-7 were sent one
+   by one, lectures 8-25 arrived as the "Lectures 8-25" PDF
+   (live lectures 8 · 13 · 18 · 23 flagged `live`), and slots
+   5-6 stay reserved until their summaries arrive. Editing this
+   one table re-maps the whole reader.
    ============================================================ */
 
 export interface AtbLectureChapter {
@@ -18,12 +19,13 @@ export interface AtbLectureChapter {
 }
 
 export interface AtbLecture {
-  id: string; // "l1".."l7" | "m3"
-  n: number | null; // lecture number; null = the Module 3 appendix card
-  code: string; // badge text: "L1".."L7" | "M3"
+  id: string; // "l1".."l25"
+  n: number | null; // lecture number
+  code: string; // badge text: "L1".."L25"
   title: string;
   blurb: string;
   chapters: AtbLectureChapter[];
+  live?: boolean; // live session — repeated the recorded lectures' content
 }
 
 export const ATB_LECTURES: AtbLecture[] = [
@@ -75,25 +77,17 @@ export const ATB_LECTURES: AtbLecture[] = [
     id: "l5",
     n: 5,
     code: "L5",
-    title: "Stacks & queues",
-    blurb: "LIFO undo machines, FIFO first-come-first-served lines, and the whole queue family from circular to priority.",
-    chapters: [
-      { id: "stacks", label: "Stacks", desc: "LIFO — the undo machine" },
-      { id: "queues", label: "Queues", desc: "FIFO — first come, first served" },
-      { id: "qtypes", label: "Queue types", desc: "Linear · circular · priority · deque" },
-    ],
+    title: "Lecture 5 — summary not sent yet",
+    blurb: "This slot is reserved. The moment the Lecture 5 summary arrives, its chapters fill in here.",
+    chapters: [],
   },
   {
     id: "l6",
     n: 6,
     code: "L6",
-    title: "Tree types, hashing & the blockchain",
-    blurb: "BSTs and heaps, mod hashing with collisions and passwords, and tamper-evident chains of blocks.",
-    chapters: [
-      { id: "treetypes", label: "Tree types", desc: "BST · AVL · heaps" },
-      { id: "hashing", label: "Hashing", desc: "mod, tables, collisions, passwords" },
-      { id: "blockchain", label: "Blockchain", desc: "Tamper-evident chains of blocks" },
-    ],
+    title: "Lecture 6 — summary not sent yet",
+    blurb: "This slot is reserved. The moment the Lecture 6 summary arrives, its chapters fill in here.",
+    chapters: [],
   },
   {
     id: "l7",
@@ -106,16 +100,188 @@ export const ATB_LECTURES: AtbLecture[] = [
     ],
   },
   {
-    id: "m3",
-    n: null,
-    code: "M3",
-    title: "Module 3 · Trees & graphs",
-    blurb: "From the original course PDFs — this appendix gets its lecture number as soon as the course reaches it.",
+    id: "l8",
+    n: 8,
+    code: "L8",
+    live: true,
+    title: "LIVE · Algorithm properties & linear data structures",
+    blurb: "The live recap: the 9 properties, the three algorithm approaches, and an arrays-vs-linked-lists Venn that settles the choice.",
+    chapters: [
+      { id: "recap8", label: "LIVE recap", desc: "Properties & linear DS — the Venn view" },
+    ],
+  },
+  {
+    id: "l9",
+    n: 9,
+    code: "L9",
+    title: "Stacks — last-in, first-out",
+    blurb: "One door in, one door out: push, pop, peek and size; static vs dynamic builds; overflow, underflow and stacks of stacks.",
+    chapters: [
+      { id: "stacks", label: "Stacks", desc: "LIFO — the undo machine" },
+    ],
+  },
+  {
+    id: "l10",
+    n: 10,
+    code: "L10",
+    title: "Queues — first in, first served",
+    blurb: "The popcorn-counter principle: enqueue at the rear, dequeue at the front, pointer choreography, errors and real deployments.",
+    chapters: [
+      { id: "queues", label: "Queues", desc: "FIFO — first come, first served" },
+    ],
+  },
+  {
+    id: "l11",
+    n: 11,
+    code: "L11",
+    title: "Queue types & applications",
+    blurb: "Linear, circular, priority and double-ended queues — plus the queue of queues that streams your movies.",
+    chapters: [
+      { id: "qtypes", label: "Queue types", desc: "Linear · circular · priority · deque" },
+    ],
+  },
+  {
+    id: "l12",
+    n: 12,
+    code: "L12",
+    title: "Trees — the first non-linear structure",
+    blurb: "Hierarchy beats sequence: roots, parents and leaves, depth vs height, subtrees — and the four ways to walk a tree.",
     chapters: [
       { id: "trees", label: "Trees", desc: "Hierarchy: roots, parents & leaves" },
       { id: "traversals", label: "Traversals", desc: "Pre · in · post · level order" },
+    ],
+  },
+  {
+    id: "l13",
+    n: 13,
+    code: "L13",
+    live: true,
+    title: "LIVE · Stacks & queues, side by side",
+    blurb: "The live recap: one Venn that separates LIFO from FIFO, the operations strip, error pairs and the application tour.",
+    chapters: [
+      { id: "recap13", label: "LIVE recap", desc: "Stack vs queue — the Venn view" },
+    ],
+  },
+  {
+    id: "l14",
+    n: 14,
+    code: "L14",
+    title: "Tree types & their applications",
+    blurb: "From general trees to heaps: binary, complete, BST, AVL and the parent-child ordering that powers priority queues.",
+    chapters: [
+      { id: "treetypes", label: "Tree types", desc: "General · binary · complete · BST · AVL · heaps" },
+    ],
+  },
+  {
+    id: "l15",
+    n: 15,
+    code: "L15",
+    title: "Graphs — relationships, not hierarchy",
+    blurb: "G = (V, E): vertices, edges and degree — and the honest answer to when a tree stops being enough.",
+    chapters: [
       { id: "graphs", label: "Graphs", desc: "G = (V, E) — relationships" },
+    ],
+  },
+  {
+    id: "l16",
+    n: 16,
+    code: "L16",
+    title: "Graph properties — the four independent switches",
+    blurb: "Directed vs undirected, in/out-degree, weighted vs unweighted, connected vs disconnected, cyclic vs acyclic — with social-media proof.",
+    chapters: [
+      { id: "graphprops", label: "Graph properties", desc: "Direction · weight · connectivity · cycles" },
+    ],
+  },
+  {
+    id: "l17",
+    n: 17,
+    code: "L17",
+    title: "Graph traversals — DFS & BFS",
+    blurb: "Go deep with a stack or wide with a queue: the two algorithms, their four steps, and what each one is actually for.",
+    chapters: [
       { id: "dfsbfs", label: "DFS & BFS", desc: "Stack vs queue traversal" },
+    ],
+  },
+  {
+    id: "l18",
+    n: 18,
+    code: "L18",
+    live: true,
+    title: "LIVE · Non-linear structures, the recap",
+    blurb: "The live sweep of trees and graphs — vocabulary, traversals, G = (V, E) — ending in the nested Venn: every tree is a graph.",
+    chapters: [
+      { id: "recap18", label: "LIVE recap", desc: "Trees & graphs — the Venn view" },
+    ],
+  },
+  {
+    id: "l19",
+    n: 19,
+    code: "L19",
+    title: "Hash data structures & their applications",
+    blurb: "Fixed-length digests, mod buckets, collisions and chaining — then the crypto-grade hashes guarding passwords and downloads.",
+    chapters: [
+      { id: "hashing", label: "Hashing", desc: "mod, tables, collisions, passwords" },
+    ],
+  },
+  {
+    id: "l20",
+    n: 20,
+    code: "L20",
+    title: "Blockchain — the tamper-evident chain",
+    blurb: "Blocks chained by hashes, Merkle trees watching every transaction, and a network of copies that outvotes any tamperer.",
+    chapters: [
+      { id: "blockchain", label: "Blockchain", desc: "Tamper-evident chains of blocks" },
+    ],
+  },
+  {
+    id: "l21",
+    n: 21,
+    code: "L21",
+    title: "Search algorithms & algorithmic complexity",
+    blurb: "Growth rate beats stopwatch: best/average/worst cases, the Big O family drawn as curves, and what every operation really costs.",
+    chapters: [
+      { id: "complexity", label: "Complexity", desc: "Big O · best/avg/worst · DS costs" },
+    ],
+  },
+  {
+    id: "l22",
+    n: 22,
+    code: "L22",
+    title: "Search algorithms overview",
+    blurb: "Linear, binary, jump, exponential and hash-based search — five strategies, five complexities, one use-case map.",
+    chapters: [
+      { id: "search", label: "Search", desc: "Linear · binary · jump · exponential · hash" },
+    ],
+  },
+  {
+    id: "l23",
+    n: 23,
+    code: "L23",
+    live: true,
+    title: "LIVE · Tree types, hashing & blockchain, the recap",
+    blurb: "The live finale: the tree ladder, the hash pipeline, the chained block — one three-circle Venn ties all three together.",
+    chapters: [
+      { id: "recap23", label: "LIVE recap", desc: "Trees · hashing · blockchain — the Venn view" },
+    ],
+  },
+  {
+    id: "l24",
+    n: 24,
+    code: "L24",
+    title: "Network search — shortest paths & Dijkstra",
+    blurb: "From mapping a network to navigating it: weighted costs, Dijkstra's five steps traced live, A* and the whole variant family.",
+    chapters: [
+      { id: "dijkstra", label: "Shortest paths", desc: "Dijkstra · A* · the variant family" },
+    ],
+  },
+  {
+    id: "l25",
+    n: 25,
+    code: "L25",
+    title: "Sorting & bubble sort",
+    blurb: "Why sorted data unlocks search, and how bubble sort bubbles the largest value home — pass by pass, down to O(n²).",
+    chapters: [
+      { id: "sorting", label: "Sorting", desc: "Bubble sort · passes · O(n²)" },
     ],
   },
 ];
@@ -130,5 +296,5 @@ export function lectureById(id: string): AtbLecture | null {
   return ATB_LECTURES.find((l) => l.id === id) ?? null;
 }
 
-/** Every chapter id in reading order — the full 19-chapter shelf. */
+/** Every chapter id in reading order — the full 28-chapter shelf. */
 export const ATB_ALL_CHAPTER_IDS = ATB_LECTURES.flatMap((l) => l.chapters.map((c) => c.id));
