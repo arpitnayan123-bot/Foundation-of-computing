@@ -1,0 +1,618 @@
+     1→     1→/* ============================================================
+     2→     2→   TEST MY KNOWLEDGE — ATB question banks, one per chapter group.
+     3→     3→   "Algorithmic Thinking in Business" is a NO-CODE course, so the
+     4→     4→   bank sticks to mcq | output | short — write-the-output, trace
+     5→     5→   the pseudocode, definitions and concept checks: the formats
+     6→     6→   that actually appear on paper. Every answer follows the
+     7→     7→   lecture blueprints and has been hand-checked.
+     8→     8→   ============================================================ */
+     9→     9→
+    10→    10→export type AtbExamGroup = "intro" | "props" | "linear" | "stackq" | "trees" | "hash" | "search" | "algo";
+    11→    11→export type AtbQuestionType = "mcq" | "output" | "short";
+    12→    12→
+    13→    13→export interface AtbExamQuestion {
+    14→    14→  id: string;
+    15→    15→  type: AtbQuestionType;
+    16→    16→  q: string;
+    17→    17→  code?: string; // optional pseudocode / diagram panel shown with the question
+    18→    18→  options?: string[]; // mcq only
+    19→    19→  answer?: number; // mcq only — index of the correct option
+    20→    20→  answerText?: string; // output → exact printed result; short → model answer
+    21→    21→  explain?: string;
+    22→    22→}
+    23→    23→
+    24→    24→export interface AtbExamBank {
+    25→    25→  group: AtbExamGroup;
+    26→    26→  title: string;
+    27→    27→  subtitle: string;
+    28→    28→  topics: string;
+    29→    29→  questions: AtbExamQuestion[];
+    30→    30→}
+    31→    31→
+    32→    32→/* ------------------------------------------------------------
+    33→    33→   GROUP 1 — INTRO  (tea example · definitions · flowcharts ·
+    34→    34→                     pseudocode · data types)
+    35→    35→   ------------------------------------------------------------ */
+    36→    36→const INTRO: AtbExamQuestion[] = [
+    37→    37→  {
+    38→    38→    id: "i1",
+    39→    39→    type: "mcq",
+    40→    40→    q: "In the tea-making example, “1 cup water, 1 cup milk, 2–3 teaspoons of loose black tea” are best described as…",
+    41→    41→    options: ["Variables", "Data — the actual values you work with", "Functions", "Pseudocode"],
+    42→    42→    answer: 1,
+    43→    43→    explain:
+    44→    44→      "The quantities are the raw ingredients the steps act on — that is DATA: the actual values you work with. Variables would be named containers holding those values, functions are reusable steps, and pseudocode is the written plan. Ingredients first, instructions second — data is what the algorithm consumes.",
+    45→    45→  },
+    46→    46→  {
+    47→    47→    id: "i2",
+    48→    48→    type: "mcq",
+    49→    49→    q: "Which flowchart symbol represents a decision?",
+    50→    50→    options: [
+    51→    51→      "Rectangle — a processing step",
+    52→    52→      "Parallelogram — input / output",
+    53→    53→      "Diamond",
+    54→    54→      "Rounded rectangle — start / end",
+    55→    55→    ],
+    56→    56→    answer: 2,
+    57→    57→    explain:
+    58→    58→      "The DIAMOND is the decision symbol: one question in, two labelled arrows out (Yes / No). The rectangle is a processing step, the parallelogram carries input or output, and the rounded rectangle (terminator) marks start or end. Four symbols — that is the whole flowchart alphabet.",
+    59→    59→  },
+    60→    60→  {
+    61→    61→    id: "i3",
+    62→    62→    type: "output",
+    63→    63→    q: "This pseudocode runs. What exactly appears on screen?",
+    64→    64→    code: "DEFINE S1, S2, S3, S4, S5 AS INTEGER\nINPUT S1, S2, S3, S4, S5          // entered: 60, 65, 70, 55, 60\nSUM = S1 + S2 + S3 + S4 + S5      // = 310\nDEFINE AVG AS FLOAT\nAVG = SUM / 5\nOUTPUT AVG\nIF AVG IS MORE THAN 60 THEN\n    OUTPUT \"FIRST CLASS\"",
+    65→    65→    answerText: "62.0\nFIRST CLASS",
+    66→    66→    explain:
+    67→    67→      "SUM = 60 + 65 + 70 + 55 + 60 = 310. AVG is declared as a FLOAT, so 310 / 5 prints as 62.0 — decimal point included. Then 62.0 IS more than 60, so the condition is true and FIRST CLASS prints on the next line. Miss the .0 or the second line and the marks go with them.",
+    68→    68→  },
+    69→    69→  {
+    70→    70→    id: "i4",
+    71→    71→    type: "short",
+    72→    72→    q: "Distinguish pseudocode from code. Two crisp sentences will do.",
+    73→    73→    answerText:
+    74→    74→      "Pseudocode — a code-like statement of an algorithm that is understandable in English and independent of any programming language; written for humans, it cannot be executed.\nCode — the same algorithm implemented (translated) in a real programming language such as C/C++, Java or Python, so a machine can actually run it.",
+    75→    75→    explain:
+    76→    76→      "Same steps, two audiences: pseudocode is the language-independent plan you read and review; code is the executable version a compiler or interpreter accepts. Naming the languages (C/C++, Java, Python) on the code side is what secures the second mark.",
+    77→    77→  },
+    78→    78→  {
+    79→    79→    id: "i5",
+    80→    80→    type: "mcq",
+    81→    81→    q: "You must store a student’s CGPA — say 8.74. Which primitive data type fits?",
+    82→    82→    options: ["Integer", "Boolean", "Float", "Character"],
+    83→    83→    answer: 2,
+    84→    84→    explain:
+    85→    85→      "8.74 has a fractional part, so it needs a FLOAT. Integer stores whole numbers only (it would truncate to 8), Boolean stores true/false, and Character stores a single symbol. Rule of thumb: CGPA, marks with decimals, temperature, price → float.",
+    86→    86→  },
+    87→    87→];
+    88→    88→
+    89→    89→/* ------------------------------------------------------------
+    90→    90→   GROUP 2 — PROPS  (finiteness · determinism · feasibility ·
+    91→    91→                     greedy · divide & conquer · DP)
+    92→    92→   ------------------------------------------------------------ */
+    93→    93→const PROPS: AtbExamQuestion[] = [
+    94→    94→  {
+    95→    95→    id: "p1",
+    96→    96→    type: "mcq",
+    97→    97→    q: "Which of these is a CORE TECHNICAL characteristic of an algorithm — not an execution-and-design one?",
+    98→    98→    options: ["Determinism", "Feasibility", "Generality", "Finiteness"],
+    99→    99→    answer: 3,
+   100→   100→    explain:
+   101→   101→      "Finiteness — the algorithm must terminate after a finite number of steps — belongs to the core technical definition (alongside input, output, definiteness, effectiveness and language independence). Determinism, feasibility and generality are execution-and-design characteristics: they describe how the algorithm behaves once you actually build and run it.",
+   102→   102→  },
+   103→   103→  {
+   104→   104→    id: "p2",
+   105→   105→    type: "mcq",
+   106→   106→    q: "A visa officer approves an application only if the applicant “feels trustworthy”. Which property does this rule violate?",
+   107→   107→    options: ["Finiteness", "Definiteness", "Determinism", "Language independence"],
+   108→   108→    answer: 2,
+   109→   109→    explain:
+   110→   110→      "Determinism says the same input must always produce the same output, decided by clear rules. “Feels trustworthy” is subjective — two officers (or the same officer on two different days) can reach different verdicts on the identical file, so the procedure is not deterministic.",
+   111→   111→  },
+   112→   112→  {
+   113→   113→    id: "p3",
+   114→   114→    type: "mcq",
+   115→   115→    q: "A cashier returning change always hands over the highest denomination that fits, then repeats with the remainder. This is the classic classroom example of…",
+   116→   116→    options: ["Divide and conquer", "Dynamic programming", "Brute force", "Greedy algorithm"],
+   117→   117→    answer: 3,
+   118→   118→    explain:
+   119→   119→      "GREEDY: at every step take the choice that looks best right now (the biggest coin that fits) and never look back. Divide and conquer would split the problem into independent sub-problems, dynamic programming would remember sub-results, and brute force would try every combination of coins — none of that happens at the counter.",
+   120→   120→  },
+   121→   121→  {
+   122→   122→    id: "p4",
+   123→   123→    type: "short",
+   124→   124→    q: "State the finiteness property in one sentence, then back it up with one finite and one infinite example.",
+   125→   125→    answerText:
+   126→   126→      "Finiteness — an algorithm must always terminate after a countable, finite number of steps; it can never run forever.\nFinite example — counting the students in a class: start at the first bench, count each student exactly once, display the total, stop.\nInfinite example — “keep checking whether a customer has entered the store”: the loop repeats forever, even after the answer becomes YES.",
+   127→   127→    explain:
+   128→   128→      "The examiner wants the definition (terminates after a finite number of steps) plus the contrast pair. The store-check fails because it keeps repeating even after a decisive YES — a process with no built-in stop is just a process, not an algorithm.",
+   129→   129→  },
+   130→   130→  {
+   131→   131→    id: "p5",
+   132→   132→    type: "mcq",
+   133→   133→    q: "A shop algorithm says: “Order more items whenever the stock looks low.” As an algorithm step, which property fails?",
+   134→   134→    options: ["Generality", "Well-defined output", "Determinism", "Effectiveness"],
+   135→   135→    answer: 3,
+   136→   136→    explain:
+   137→   137→      "EFFECTIVENESS: every step must be basic and precise enough to actually be carried out. “Looks low” is vague — there is no concrete test anyone (or any machine) can execute. Contrast: “order 50 units when stock < 10” is effective. Generality is about working over a whole class of inputs, well-defined output about producing at least one definite result, determinism about same input → same output — none of those is the failure here.",
+   138→   138→  },
+   139→   139→];
+   140→   140→
+   141→   141→/* ------------------------------------------------------------
+   142→   142→   GROUP 3 — LINEAR  (indexing · operations · 2D arrays ·
+   143→   143→                      memory maps · insert/delete · shuffle ·
+   144→   144→                      nested lists · singly / doubly / circular)
+   145→   145→   ------------------------------------------------------------ */
+   146→   146→const LINEAR: AtbExamQuestion[] = [
+   147→   147→  {
+   148→   148→    id: "l1",
+   149→   149→    type: "mcq",
+   150→   150→    q: "Sub = [60, 65, 70, 55, 60]. What does Sub[3] evaluate to?",
+   151→   151→    options: ["70", "60", "65", "55"],
+   152→   152→    answer: 3,
+   153→   153→    explain:
+   154→   154→      "Array indexing starts at 0: Sub[0] = 60, Sub[1] = 65, Sub[2] = 70, Sub[3] = 55, Sub[4] = 60. The classic trap is answering 70 — that is Sub[2]. Count boxes from zero, always.",
+   155→   155→  },
+   156→   156→  {
+   157→   157→    id: "l2",
+   158→   158→    type: "mcq",
+   159→   159→    q: "Which array operations run instantaneously, regardless of where they happen in the array?",
+   160→   160→    options: [
+   161→   161→      "Search and insert",
+   162→   162→      "Insert and search",
+   163→   163→      "All five operations",
+   164→   164→      "Read, update and delete at a known index",
+   165→   165→    ],
+   166→   166→    answer: 3,
+   167→   167→    explain:
+   168→   168→      "Given the index, the computer jumps straight to the address (base + index × element size), so reading, updating and deleting at a known index are direct. Searching may have to scan the whole array and inserting anywhere forces later elements to shift, so those cost time that grows with length.",
+   169→   169→  },
+   170→   170→  {
+   171→   171→    id: "l3",
+   172→   172→    type: "output",
+   173→   173→    q: "An array holds [10, 20, 30, 40, 50]. You insert 99 at the beginning. How many elements shift, and what is the new array?",
+   174→   174→    answerText: "5 elements shift one position to the right.\n\nNew array → [99, 10, 20, 30, 40, 50]",
+   175→   175→    explain:
+   176→   176→      "Inserting at the front is the worst case: every existing element — 10, 20, 30, 40, 50, i.e. all 5 — must move one slot right to free index 0 for 99. At the end, zero elements shift; in the middle, on average half. That shifting cost is exactly why linked lists exist.",
+   177→   177→  },
+   178→   178→  {
+   179→   179→    id: "l4",
+   180→   180→    type: "short",
+   181→   181→    q: "A playlist’s length is unknown in advance and songs are added and removed constantly. Array or linked list — and why?",
+   182→   182→    answerText:
+   183→   183→      "Linked list.\n• No fixed size — nodes are created as songs are added, so the unknown length never matters.\n• No shifting — inserting “Song 2a” between Song 2 and Song 3 only rewires two pointers (Song 2.next → 2a and 2a.next → 3); removing a song is one rewire too.\nAn array would force a size declared up front and would shift every later song on each insert or delete.",
+   184→   184→    explain:
+   185→   185→      "Two keywords score the marks: DYNAMIC SIZE and NO SHIFTING (pointer rewiring). Arrays buy direct indexing at the price of fixed size plus shifting; a constantly-edited playlist wants the opposite trade-off.",
+   186→   186→  },
+   187→   187→  {
+   188→   188→    id: "l5",
+   189→   189→    type: "mcq",
+   190→   190→    q: "In a circular linked list, the last node points to…",
+   191→   191→    options: ["Null", "Itself", "The previous node", "The first node — the head"],
+   192→   192→    answer: 3,
+   193→   193→    explain:
+   194→   194→      "Circularity removes the dead end: the last node’s next pointer points back to the head, so you can start at any node and still walk the entire list. In a plain singly linked list the last node points to Null, a doubly linked list adds a prev pointer to every node, and pointing to itself would be a one-node cycle — not a list.",
+   195→   195→  },
+   196→   196→  {
+   197→   197→    id: "l6",
+   198→   198→    type: "mcq",
+   199→   199→    q: "Compared with an array, how are linked-list nodes stored in memory?",
+   200→   200→    options: [
+   201→   201→      "Contiguously — one packed block",
+   202→   202→      "Scattered anywhere, connected by pointers",
+   203→   203→      "In a fixed 2-D grid",
+   204→   204→      "Inside the head node",
+   205→   205→    ],
+   206→   206→    answer: 1,
+   207→   207→    explain:
+   208→   208→      "Arrays occupy consecutive locations, so a position predicts its neighbours. A linked list's nodes can live anywhere in memory — the pointer chain defines the logical order, not physical proximity. That is why a playlist's songs can sit scattered across memory and still play in perfect sequence.",
+   209→   209→  },
+   210→   210→  {
+   211→   211→    id: "l7",
+   212→   212→    type: "output",
+   213→   213→    q: "Head → Song 1 → Song 2 → Song 3 → Null. Song 2 is deleted. State exactly what changes.",
+   214→   214→    answerText:
+   215→   215→      "One pointer is rewritten: Song 1.next now holds Song 3's address.\nSong 2 stays in memory — it is simply no longer part of the active list.",
+   216→   216→    explain:
+   217→   217→      "Deletion in a linked list is a redirect of the previous node's pointer; nothing shifts (an array would move every element after the deleted one), and the removed node remains in memory until something overwrites it.",
+   218→   218→  },
+   219→   219→  {
+   220→   220→    id: "l8",
+   221→   221→    type: "short",
+   222→   222→    q: "A university programme has 8 semesters × 6 courses each for the regular batch — but retakes and deferrals make the real structure vary student by student. Which structures fit each situation, and why?",
+   223→   223→    answerText:
+   224→   224→      "Situation 1 — fixed: 8 semesters × 6 courses → a 2-D array (Sem[i, j]). The count is known in advance, memory is used efficiently and any course is reached by direct access.\nSituation 2 — variable: semesters and courses per semester vary (retakes, deferrals) → a linked list of linked lists: each semester is a node owning its own chain of courses, so both levels grow and shrink freely without redefining anything.",
+   225→   225→    explain:
+   226→   226→      "The choosing rule from the lecture: fixed + known count + direct access → the array family; variable + frequent structural change → chains of chains. Name the structure AND the reason for each situation — that is where the marks sit.",
+   227→   227→  },
+   228→   228→];
+   229→   229→
+   230→   230→/* ------------------------------------------------------------
+   231→   231→   GROUP 4 — STACKQ  (LIFO · FIFO · push/pop · enqueue/dequeue ·
+   232→   232→                      queue types)
+   233→   233→   ------------------------------------------------------------ */
+   234→   234→const STACKQ: AtbExamQuestion[] = [
+   235→   235→  {
+   236→   236→    id: "s1",
+   237→   237→    type: "mcq",
+   238→   238→    q: "In an editor, Undo removes the MOST RECENT change first. Which data structure powers that?",
+   239→   239→    options: ["Queue — FIFO", "Array", "Stack — LIFO", "Priority queue"],
+   240→   240→    answer: 2,
+   241→   241→    explain:
+   242→   242→      "Undo is Last-In-First-Out: every edit is pushed onto a stack and undo pops the top — the most recent change. A queue would replay the OLDEST change first, which is exactly not what undo does. Same reflex as a stack of plates: the last plate placed is the first one taken.",
+   243→   243→  },
+   244→   244→  {
+   245→   245→    id: "s2",
+   246→   246→    type: "output",
+   247→   247→    q: "Starting from an empty stack, you push 64, 32, 53, 66, 54 (in that order), then pop twice. What do Peek() and Size() return now?",
+   248→   248→    answerText: "Peek() → 53\nSize() → 3",
+   249→   249→    explain:
+   250→   250→      "The pushes build 64, 32, 53, 66, 54 with 54 on top. Pop removes 54, pop removes 66 — leaving 64, 32, 53 with 53 on top. Peek() looks at the top WITHOUT removing it → 53. Size() counts what remains → 3. Forgetting that pop deletes (while Peek does not) is the trap.",
+   251→   251→  },
+   252→   252→  {
+   253→   253→    id: "s3",
+   254→   254→    type: "mcq",
+   255→   255→    q: "Lakhs of users hit IRCTC the minute Tatkal opens and the booking queue is already full. Another enqueue attempt is a queue…",
+   256→   256→    options: ["Underflow", "Collision", "Overflow", "Deadlock"],
+   257→   257→    answer: 2,
+   258→   258→    explain:
+   259→   259→      "OVERFLOW — inserting into a queue that is already at capacity. Underflow is the mirror error (dequeueing from an empty queue), collision belongs to hashing, and deadlock is an operating-systems concept about processes waiting on each other forever.",
+   260→   260→  },
+   261→   261→  {
+   262→   262→    id: "s4",
+   263→   263→    type: "short",
+   264→   264→    q: "Contrast a stack and a queue: the ordering principle, one operation pair for each, and one real-life example each.",
+   265→   265→    answerText:
+   266→   266→      "Stack — Last-In-First-Out (LIFO): the most recently added element leaves first. Operations: push (add on top) and pop (remove from the top). Example: the Undo feature, or a stack of plates.\nQueue — First-In-First-Out (FIFO): the earliest arrival is served first. Operations: enqueue (add at the rear) and dequeue (remove from the front). Example: a popcorn line, or a printer spool.",
+   267→   267→    explain:
+   268→   268→      "Four marks, four facts: LIFO / FIFO, push-pop / enqueue-dequeue, one example each. Keep the queue’s two ends straight — insert at the REAR, delete from the FRONT — or the FIFO story collapses.",
+   269→   269→  },
+   270→   270→  {
+   271→   271→    id: "s5",
+   272→   272→    type: "mcq",
+   273→   273→    q: "A hospital emergency room serves the most critical patient first — not whoever arrived first. Which queue type is this?",
+   274→   274→    options: ["Linear queue", "Circular queue", "Priority queue", "Deque"],
+   275→   275→    answer: 2,
+   276→   276→    explain:
+   277→   277→      "PRIORITY QUEUE: dequeue order is decided by priority, not arrival time — a critical patient jumps ahead of someone who came earlier with a sprain. Linear and circular queues serve strictly in arrival order; a deque merely allows insertion and removal at both ends, with no notion of priority.",
+   278→   278→  },
+   279→   279→];
+   280→   280→
+   281→   281→/* ------------------------------------------------------------
+   282→   282→   GROUP 5 — TREES  (root/leaf · traversals · depth vs height ·
+   283→   283→                     DFS/BFS)
+   284→   284→   ------------------------------------------------------------ */
+   285→   285→const TREES: AtbExamQuestion[] = [
+   286→   286→  {
+   287→   287→    id: "t1",
+   288→   288→    type: "mcq",
+   289→   289→    q: "In tree vocabulary, a node with no children is called a…",
+   290→   290→    options: ["Root", "Subtree", "Edge", "Leaf"],
+   291→   291→    answer: 3,
+   292→   292→    explain:
+   293→   293→      "LEAF — a terminal node with no children. The root is the topmost node (no parent), an edge is the link between two nodes, and a subtree is any node together with all of its descendants.",
+   294→   294→  },
+   295→   295→  {
+   296→   296→    id: "t2",
+   297→   297→    type: "output",
+   298→   298→    q: "Write the pre-order traversal of this tree.",
+   299→   299→    code: "          A\n        /   \\\n       B     C\n      / \\\n     D   E",
+   300→   300→    answerText: "A B D E C",
+   301→   301→    explain:
+   302→   302→      "Pre-order = Root → Left → Right. Visit A first, descend left to B, then B’s left child D, then B’s right child E; only then return up for A’s right subtree C. Trace it with a pencil in exactly the order the examiner reads: A · B · D · E · C.",
+   303→   303→  },
+   304→   304→  {
+   305→   305→    id: "t3",
+   306→   306→    type: "mcq",
+   307→   307→    q: "Which traversal reads the tree level by level — top to bottom, left to right within each level?",
+   308→   308→    options: ["Pre-order", "Level order — breadth-first", "In-order", "Post-order"],
+   309→   309→    answer: 1,
+   310→   310→    explain:
+   311→   311→      "LEVEL ORDER (breadth-first) sweeps each depth before descending: A, then B C, then D E. Pre-, in- and post-order are depth-first — each dives down a whole branch before finishing the level. Breadth-first is powered by a queue; the depth-first trio by a stack (or recursion).",
+   312→   312→  },
+   313→   313→  {
+   314→   314→    id: "t4",
+   315→   315→    type: "short",
+   316→   316→    q: "Define the depth of a node and the height of a tree. Say what you count.",
+   317→   317→    answerText:
+   318→   318→      "Depth of a node — the number of EDGES on the path from the root down to that node (the root itself has depth 0).\nHeight of a tree — the number of EDGES on the longest path from the root to its deepest leaf.",
+   319→   319→    explain:
+   320→   320→      "The mark-scoring detail: count EDGES, not nodes. The root sits at depth 0, and a lone-root tree has height 0. Count nodes instead and every answer is off by one — the classic mistake.",
+   321→   321→  },
+   322→   322→  {
+   323→   323→    id: "t5",
+   324→   324→    type: "mcq",
+   325→   325→    q: "Trees represent hierarchy. Graphs represent…",
+   326→   326→    options: ["Hierarchy", "Sorted orders", "Sequences", "Relationships"],
+   327→   327→    answer: 3,
+   328→   328→    explain:
+   329→   329→      "A graph G = (V, E) is just vertices plus edges — no root, no parent-child rule — so it captures any-to-any RELATIONSHIPS: friendships, road networks between cities, the internet, course prerequisites. A tree is the special case where those relationships form a strict hierarchy: exactly one root and no cycles.",
+   330→   330→  },
+   331→   331→];
+   332→   332→
+   333→   333→/* ------------------------------------------------------------
+   334→   334→   GROUP 6 — HASH  (mod hashing · collisions · passwords ·
+   335→   335→                    blockchain)
+   336→   336→   ------------------------------------------------------------ */
+   337→   337→const HASH: AtbExamQuestion[] = [
+   338→   338→  {
+   339→   339→    id: "h1",
+   340→   340→    type: "mcq",
+   341→   341→    q: "Using the hash function key mod 10, at which index does key 107 land?",
+   342→   342→    options: ["10", "0", "107", "7"],
+   343→   343→    answer: 3,
+   344→   344→    explain:
+   345→   345→      "107 ÷ 10 = 10 remainder 7 — mod keeps only the remainder, so 107 → index 7. Every key ending in 7 (7, 17, 107, 247…) lands on that same index, which is precisely how collisions are born.",
+   346→   346→  },
+   347→   347→  {
+   348→   348→    id: "h2",
+   349→   349→    type: "mcq",
+   350→   350→    q: "Two different roll numbers hash to the same index. The fix shown in class is…",
+   351→   351→    options: [
+   352→   352→      "Delete one of the two keys",
+   353→   353→      "Resize the entire table",
+   354→   354→      "Ignore the second key",
+   355→   355→      "Hash chaining — a linked list hanging off each index",
+   356→   356→    ],
+   357→   357→    answer: 3,
+   358→   358→    explain:
+   359→   359→      "CHAINING: the bucket at that index holds a linked list, and both keys simply live on that chain — no data lost, nothing re-hashed, table size unchanged. Deleting or ignoring a key loses information; resizing is expensive and does not remove collisions.",
+   360→   360→  },
+   361→   361→  {
+   362→   362→    id: "h3",
+   363→   363→    type: "output",
+   364→   364→    q: "Keys M24SME012, P25SME002 and B26SME112 all hash to index 2. Describe bucket 2 after all three keys are inserted.",
+   365→   365→    answerText: "Index 2 → M24SME012 → P25SME002 → B26SME112   (a linked chain, in insertion order)",
+   366→   366→    explain:
+   367→   367→      "All three collide at index 2, so the bucket grows a chain in insertion order: head M24SME012, then P25SME002, then B26SME112. Looking a key up means hashing it, jumping to index 2, and walking the chain comparing keys — three entries in one bucket, zero keys lost.",
+   368→   368→  },
+   369→   369→  {
+   370→   370→    id: "h4",
+   371→   371→    type: "short",
+   372→   372→    q: "Why does a login system store the HASH of your password instead of the password itself?",
+   373→   373→    answerText:
+   374→   374→      "A hash is ONE-WAY — the original password cannot be recovered from the stored hash — and DETERMINISTIC — the same password always produces the same hash.\nAt login the system simply re-hashes your attempt and compares the two hashes; the real password is never stored.\nSo if the database leaks, attackers walk away with hashes, not passwords.",
+   375→   375→    explain:
+   376→   376→      "Two properties carry the answer: one-way (no reversing the stored value) and deterministic (re-hash and compare still works). Tie it to the risk — a leaked table exposes nothing reusable — and the full mark is yours.",
+   377→   377→  },
+   378→   378→  {
+   379→   379→    id: "h5",
+   380→   380→    type: "mcq",
+   381→   381→    q: "Each new block in a blockchain stores…",
+   382→   382→    options: [
+   383→   383→      "Only its own data",
+   384→   384→      "The hash of the previous block",
+   385→   385→      "A pointer to the next block",
+   386→   386→      "A full copy of the database",
+   387→   387→    ],
+   388→   388→    answer: 1,
+   389→   389→    explain:
+   390→   390→      "Each block embeds the HASH of the previous block, forming a tamper-evident chain: change a single character in any old block and its hash changes, which breaks every later block’s stored hash — tampering becomes instantly visible. That back-linking by hash (not a forward pointer, not a database copy) is what makes the chain trustworthy.",
+   391→   391→  },
+   392→   392→];
+   393→   393→
+   394→   394→/* ------------------------------------------------------------ */
+   395→   395→
+   396→   396→/* ------------------------------------------------------------
+   397→   397→   GROUP 7 — SEARCH  (Lectures 21–22 · Big O · growth classes ·
+   398→   398→                      best/avg/worst · DS operation costs ·
+   399→   399→                      linear · binary · jump · exponential · hash)
+   400→   400→   ------------------------------------------------------------ */
+   401→   401→const SEARCH: AtbExamQuestion[] = [
+   402→   402→  {
+   403→   403→    id: "s1",
+   404→   404→    type: "mcq",
+   405→   405→    q: "Big O notation is used to answer which question?",
+   406→   406→    options: [
+   407→   407→      "How many seconds does this algorithm take on a specific laptop?",
+   408→   408→      "If the input grows, in what proportion does the time requirement grow?",
+   409→   409→      "How many lines of pseudocode does the algorithm need?",
+   410→   410→      "How much memory does one execution consume?",
+   411→   411→    ],
+   412→   412→    answer: 1,
+   413→   413→    explain:
+   414→   414→      "Big O describes the ORDER OF MAGNITUDE of how algorithmic work grows with input size — never wall-clock seconds, which depend on the machine. It is the scalability ruler: when input goes from 100 to 10 lakh elements, Big O says how the effort scales. Seconds belong to the hardware; the growth rate belongs to the algorithm.",
+   415→   415→  },
+   416→   416→  {
+   417→   417→    id: "s2",
+   418→   418→    type: "output",
+   419→   419→    q: "A numbered housing society of 24 houses is accessed through one Gate A. Using the lecture's example, state which houses represent the best case, the worst case and the average case of searching for a resident.",
+   420→   420→    answerText:
+   421→   421→      "Best case — houses 3 and 4 (right beside the gate; almost no walking, minimal work).\nWorst case — houses 19 to 24 (the far end; maximum walking before the match).\nAverage case — houses 7 to 18 (the typical amount of work, between best and worst).",
+   422→   422→    explain:
+   423→   423→      "Same search, three very different bills depending on where the answer sits. Best case = solution found with minimal work; worst case = maximum effort required; average case = the typical amount of work falling between the two. The society makes the three scenarios physical — distance walked is the algorithm's effort.",
+   424→   424→  },
+   425→   425→  {
+   426→   426→    id: "s3",
+   427→   427→    type: "mcq",
+   428→   428→    q: "A checkout routine compares EVERY product with EVERY other product to flag price matches — with 5 products that is 25 comparisons. Which complexity class is this routine in?",
+   429→   429→    options: ["O(n)", "O(log n)", "O(n²)", "O(n log n)"],
+   430→   430→    answer: 2,
+   431→   431→    explain:
+   432→   432→      "Effort grows with the SQUARE of the input: input 2 → effort 4, input 5 → effort 25. That is QUADRATIC — the 'dramatic growth' class on the business ladder's avoid rung (alongside O(2ⁿ) and O(n³)). Linear would make 5 checks; O(n log n) about 12; only the pairwise double loop multiplies n by n.",
+   433→   433→  },
+   434→   434→  {
+   435→   435→    id: "s4",
+   436→   436→    type: "mcq",
+   437→   437→    q: "Why does searching a BALANCED binary search tree cost only O(log n)?",
+   438→   438→    options: [
+   439→   439→      "Because the tree secretly stores its elements in a sorted array",
+   440→   440→      "Because each level halves the remaining candidates — the left subtree holds smaller values, the right larger",
+   441→   441→      "Because trees are always small in practice",
+   442→   442→      "Because the search uses a queue to sweep the levels",
+   443→   443→    ],
+   444→   444→    answer: 1,
+   445→   445→    explain:
+   446→   446→      "The BST property — left subtree smaller, right subtree larger — lets every comparison discard one whole branch: the problem subdivides into ONE relevant sub-problem, halving at every level (divide and conquer in disguise). The trap to remember: an UNBALANCED BST loses the halving and degrades toward O(n) — linked-list behaviour.",
+   447→   447→  },
+   448→   448→  {
+   449→   449→    id: "s5",
+   450→   450→    type: "mcq",
+   451→   451→    q: "Hash-based search: what separates its average case from its worst case?",
+   452→   452→    options: [
+   453→   453→      "Average O(1) — the hash jumps straight to the index; worst O(n) — every key collides into one index and the chain must be walked end to end",
+   454→   454→      "Average O(n), worst O(1) — hashing sometimes gets lucky",
+   455→   455→      "Average O(log n), worst O(n²) — chains grow quadratically",
+   456→   456→      "Both are O(1) — hashing is always instant",
+   457→   457→    ],
+   458→   458→    answer: 0,
+   459→   459→    explain:
+   460→   460→      "The hash function (e.g. key mod 10 → indices 0–9) COMPUTES the address, so lookup takes a fixed number of steps regardless of database size — average O(1), no sorting needed. The worst case is collision-intensive: ALL data points to the same index, one long chain walked linearly → O(n). If chains are organized as balanced trees, even that stays O(log n). Fastest method when the hash distributes data evenly.",
+   461→   461→  },
+   462→   462→  {
+   463→   463→    id: "s6",
+   464→   464→    type: "short",
+   465→   465→    q: "Match each business situation to its search strategy and give the one-line reason: (1) find a guest in today's hotel check-in register, (2) find a product in a catalog sorted by categories, (3) fetch a student record by roll number from a database, (4) find a product in a catalog sorted by price, (5) search financial transactions in a rapidly growing system.",
+   466→   466→    answerText:
+   467→   467→      "1 → Linear search — no inherent order, unstructured data; one-by-one is all you can do.\n2 → Jump search — non-numeric category order suits fixed √n jumps over blocks.\n3 → Hash search — databases index by hash; O(1) average access by key.\n4 → Binary search — numeric sorting enables value comparison and halving.\n5 → Exponential search — unknown growth rate; doubling jumps scale with the data.",
+   468→   468→    explain:
+   469→   469→      "The lecture's five-row use-case table. Read the requirement pattern underneath: binary, jump and exponential all need SORTED data (hash needs none, linear works anywhere), and the choice always trades off data size, sorting status, distribution and growth rate.",
+   470→   470→  },
+   471→   471→];
+   472→   472→
+   473→   473→/* ------------------------------------------------------------
+   474→   474→   GROUP 8 — ALGO  (Lectures 24–25 · shortest paths · Dijkstra ·
+   475→   475→                    A* · Bellman-Ford · Prim/Kruskal ·
+   476→   476→                    Floyd-Warshall · bubble sort)
+   477→   477→   ------------------------------------------------------------ */
+   478→   478→const ALGO: AtbExamQuestion[] = [
+   479→   479→  {
+   480→   480→    id: "a1",
+   481→   481→    type: "mcq",
+   482→   482→    q: "Dijkstra's algorithm computes…",
+   483→   483→    options: [
+   484→   484→      "The minimum spanning tree of a weighted graph",
+   485→   485→      "The shortest path from one source node to every other node — on graphs with positive weights only",
+   486→   486→      "Shortest paths between every pair of nodes at once",
+   487→   487→      "The longest path through a network",
+   488→   488→    ],
+   489→   489→    answer: 1,
+   490→   490→    explain:
+   491→   491→      "Dijkstra = SINGLE-SOURCE shortest path: from one starting node to all others, on a weighted graph whose edge weights must be POSITIVE (negative weights break the finalize-early logic). Minimum spanning tree is Prim/Kruskal's question; all-pairs is Floyd-Warshall; negative weights need Bellman-Ford. GPS navigation, delivery-driver allocation and network routing all run on Dijkstra's idea.",
+   492→   492→  },
+   493→   493→  {
+   494→   494→    id: "a2",
+   495→   495→    type: "output",
+   496→   496→    q: "Dijkstra's algorithm runs from node A on this weighted graph. State the final shortest distance from A to every node — and the route the algorithm took to D.",
+   497→   497→    code: "WEIGHTED EDGES (all positive):\n  A — B : 4        A — C : 2\n  C — B : 1        C — D : 5\n  B — D : 3\n\nRUN DIJKSTRA FROM SOURCE A",
+   498→   498→    answerText:
+   499→   499→      "A = 0 (the source)\nC = 2 (direct A→C)\nB = 3 (A→C→B: 2+1 beats the direct A→B of 4)\nD = 6 (A→C→B→D: 3+3 beats A→C→D = 7)",
+   500→   500→    explain:
+   501→   501→      "Initialize: A = 0, everything else infinity. Pick the smallest unvisited node — C (2) — and relax its neighbours: B improves 4 → 3 (A→C→B), D becomes 2+5 = 7. Mark C visited. Pick B (3), relax D: 3+3 = 6 beats 7. Pick D (6). Distances finalize the moment a node is picked — that greedy pick-smallest-unvisited step is only safe because no weight is negative.",
+   502→   502→  },
+   503→   503→  {
+   504→   504→    id: "a3",
+   505→   505→    type: "short",
+   506→   506→    q: "Write the five steps of Dijkstra's algorithm, and name one real system built on it.",
+   507→   507→    answerText:
+   508→   508→      "1. Initialize — set the source node's distance to 0, every other node to infinity.\n2. Select — choose the unvisited node with the smallest known distance.\n3. Update (relax) — for each neighbour, check whether going through the current node is shorter; if so, update its distance.\n4. Mark — once a node's shortest distance is finalized, mark it visited.\n5. Repeat — until all nodes are visited (or the destination is reached).\nReal systems: GPS navigation, food-delivery driver allocation (Zomato/Swiggy), courier hub-and-spoke routing, telecom/computer network routing.",
+   509→   509→    explain:
+   510→   510→      "Five steps, in order: init 0-and-infinity → pick smallest unvisited → relax neighbours → mark visited → repeat. Edge weights are whatever 'shortest' means — distance, time, tolls or a mix. The hub-and-spoke courier model is the classic business application: Dijkstra prices the hops between hubs, not every city pair.",
+   511→   511→  },
+   512→   512→  {
+   513→   513→    id: "a4",
+   514→   514→    type: "mcq",
+   515→   515→    q: "A GPS wants route-finding pulled toward the destination — a sense of direction — instead of spreading evenly in all directions. Which algorithm fits, and which do you switch to if some roads carry NEGATIVE weights?",
+   516→   516→    options: [
+   517→   517→      "A* for the GPS (a directional heuristic on top of Dijkstra); Bellman-Ford when weights go negative",
+   518→   518→      "Dijkstra for both — it handles every weight sign",
+   519→   519→      "Prim for the GPS; Kruskal for the negative tolls",
+   520→   520→      "Floyd-Warshall for both — all pairs covers everything",
+   521→   521→    ],
+   522→   522→    answer: 0,
+   523→   523→    explain:
+   524→   524→      "A* combines actual cost with a HEURISTIC (a sense of direction — 'am I even heading south?'), making it more optimal than plain Dijkstra for GPS. Negative edge weights are Bellman-Ford's territory — Dijkstra forbids them. Prim and Kruskal answer a different question entirely (minimum spanning tree: connect ALL nodes at minimum total cost), and Floyd-Warshall computes all-pairs shortest paths.",
+   525→   525→  },
+   526→   526→  {
+   527→   527→    id: "a5",
+   528→   528→    type: "mcq",
+   529→   529→    q: "Bubble sort, pass by pass — what is guaranteed after each pass, and what is the total comparison count?",
+   530→   530→    options: [
+   531→   531→      "The smallest element lands at the front; n² comparisons",
+   532→   532→      "The largest unsorted element bubbles to its final position at the end; n(n−1)/2 comparisons → O(n²)",
+   533→   533→      "The list becomes fully sorted after the first pass; n comparisons",
+   534→   534→      "Nothing is guaranteed until the final pass; n log n comparisons",
+   535→   535→    ],
+   536→   536→    answer: 1,
+   537→   537→    explain:
+   538→   538→      "Bubble sort compares ADJACENT pairs and swaps when the left is larger — so each pass bubbles the largest unsorted element to the end. Pass 1 makes n comparisons, pass 2 makes n−1… total = n + (n−1) + … + 1 = n(n−1)/2 = ½n² − ½n. Big O drops the constant and the lower term → O(n²). 10,000 elements ≈ 100 million comparisons — fine for 5–6 items, hopeless at business scale.",
+   539→   539→  },
+   540→   540→  {
+   541→   541→    id: "a6",
+   542→   542→    type: "short",
+   543→   543→    q: "Why does sorting come BEFORE searching in the algorithms module — and why is bubble sort still taught first?",
+   544→   544→    answerText:
+   545→   545→      "Sorting is the prerequisite: binary, jump and exponential search all assume the data is already arranged in order — without sorting they cannot halve, jump or bound their ranges (only linear search survives on unsorted data).\nBubble sort is taught first because the idea is the simplest possible — compare adjacent pairs, swap if the left is larger, the largest element bubbles to the end each pass, repeat with one fewer comparison. That simplicity makes the O(n²) bill visible by hand: n(n−1)/2 comparisons ≈ 100 million for 10,000 elements — which is exactly why faster sorts exist.",
+   546→   546→    explain:
+   547→   547→      "The module's spine: sort, THEN search fast — sorting is the prerequisite for the efficient searches (binary, jump, exponential). Bubble sort's value is pedagogical: adjacent comparisons and swaps, largest element to the end each pass, n(n−1)/2 comparisons → O(n²), impractical for large datasets but the clearest possible first look at sorting.",
+   548→   548→  },
+   549→   549→];
+   550→   550→
+   551→   551→/* ------------------------------------------------------------ */
+   552→   552→
+   553→   553→export const ATB_EXAM_BANKS: Record<AtbExamGroup, AtbExamBank> = {
+   554→   554→  intro: {
+   555→   555→    group: "intro",
+   556→   556→    title: "Intro",
+   557→   557→    subtitle: "tea example · algorithm vs program · flowchart symbols · pseudocode · data types",
+   558→   558→    topics: "Tea example · definitions · flowcharts · pseudocode · data types",
+   559→   559→    questions: INTRO,
+   560→   560→  },
+   561→   561→  props: {
+   562→   562→    group: "props",
+   563→   563→    title: "Properties",
+   564→   564→    subtitle: "the 9 properties · core technical vs execution-and-design · greedy · divide & conquer · DP",
+   565→   565→    topics: "Finiteness · determinism · feasibility · greedy · divide & conquer · DP",
+   566→   566→    questions: PROPS,
+   567→   567→  },
+   568→   568→  linear: {
+   569→   569→    group: "linear",
+   570→   570→    title: "Linear DS",
+   571→   571→    subtitle: "indexing from 0 · the five operations · 2D arrays · memory maps · insert & delete · shuffle · nested lists · singly · doubly · circular",
+   572→   572→    topics: "Indexing · operations · 2D arrays · memory maps · insert/delete · shuffle · nested lists · singly/doubly/circular",
+   573→   573→    questions: LINEAR,
+   574→   574→  },
+   575→   575→  stackq: {
+   576→   576→    group: "stackq",
+   577→   577→    title: "Stacks & Queues",
+   578→   578→    subtitle: "LIFO vs FIFO · push / pop · enqueue / dequeue · overflow & underflow · queue types",
+   579→   579→    topics: "LIFO · FIFO · push/pop · enqueue/dequeue · queue types",
+   580→   580→    questions: STACKQ,
+   581→   581→  },
+   582→   582→  trees: {
+   583→   583→    group: "trees",
+   584→   584→    title: "Trees & Graphs",
+   585→   585→    subtitle: "root, parent & leaf · pre / in / post / level order · depth vs height · DFS & BFS",
+   586→   586→    topics: "Root/leaf · traversals · depth vs height · DFS/BFS",
+   587→   587→    questions: TREES,
+   588→   588→  },
+   589→   589→  hash: {
+   590→   590→    group: "hash",
+   591→   591→    title: "Hash & Chain",
+   592→   592→    subtitle: "tree types · mod hashing · collisions · password hashing · blockchain",
+   593→   593→    topics: "mod hashing · collisions · passwords · blockchain",
+   594→   594→    questions: HASH,
+   595→   595→  },
+   596→   596→  search: {
+   597→   597→    group: "search",
+   598→   598→    title: "Search & Complexity",
+   599→   599→    subtitle: "Big O · growth classes · best / average / worst · DS operation costs · linear · binary · jump · exponential · hash",
+   600→   600→    topics: "Big O · complexity classes · DS operation costs · five search strategies",
+   601→   601→    questions: SEARCH,
+   602→   602→  },
+   603→   603→  algo: {
+   604→   604→    group: "algo",
+   605→   605→    title: "Paths & Sorting",
+   606→   606→    subtitle: "shortest paths · Dijkstra's algorithm · A* · Bellman-Ford · bubble sort",
+   607→   607→    topics: "Shortest paths · Dijkstra · A* · bubble sort",
+   608→   608→    questions: ALGO,
+   609→   609→  },
+   610→   610→};
+   611→   611→
+   612→   612→export const ATB_EXAM_GROUPS: AtbExamGroup[] = ["intro", "props", "linear", "stackq", "trees", "hash", "search", "algo"];
+   613→   613→
+   614→   614→export const ATB_TOTAL_QUESTIONS = ATB_EXAM_GROUPS.reduce(
+   615→   615→  (n, g) => n + ATB_EXAM_BANKS[g].questions.length,
+   616→   616→  0
+   617→   617→);
+   618→   618→

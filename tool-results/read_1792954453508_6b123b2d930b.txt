@@ -1,0 +1,828 @@
+     1→     1→"use client";
+     2→     2→
+     3→     3→/* ============================================================
+     4→     4→   ATB — "Algorithmic Thinking in Business" · shelf 02
+     5→     5→   FILE 2/2 — Module 2 · Linear data structures
+     6→     6→   Part 4: Stacks (light) · Queues (light) · Queue types (dark)
+     7→     7→   ============================================================ */
+     8→     8→
+     9→     9→import React, { useRef, useState } from "react";
+    10→    10→import { AnimatePresence, motion } from "framer-motion";
+    11→    11→import {
+    12→    12→  AlertTriangle, AppWindow, ArrowLeft, ArrowRight, Bike, Braces, Calculator, Cpu, CupSoda,
+    13→    13→  Dumbbell, Film, Gamepad2, Globe, Keyboard, Layers, Link2, ListMusic, MemoryStick,
+    14→    14→  MessageSquare, Network, Newspaper, Plane, Popcorn, Repeat, RotateCcw, Siren, Ticket,
+    15→    15→  TrafficCone, TrainFront, Undo2, Wifi,
+    16→    16→} from "lucide-react";
+    17→    17→import {
+    18→    18→  Callout, CodeBlock, Practice, Quiz, ReadStep, Reveal, Section, SectionHead, Takeaways,
+    19→    19→} from "@/components/notes/ui";
+    20→    20→
+    21→    21→/* ---------- local helpers ---------- */
+    22→    22→
+    23→    23→function OpBtn({ onClick, children, tone = "ghost" }: {
+    24→    24→  onClick: () => void; children: React.ReactNode; tone?: "warm" | "ghost";
+    25→    25→}) {
+    26→    26→  const style: React.CSSProperties =
+    27→    27→    tone === "warm"
+    28→    28→      ? { background: "linear-gradient(135deg,#ea580c,#c2410c)", color: "#fff7ec" }
+    29→    29→      : { background: "#fffdf9", color: "#7c4a12", border: "1px solid #e5c79d" };
+    30→    30→  return (
+    31→    31→    <button type="button" onClick={onClick} style={style} className="rounded-xl px-3.5 py-2 text-[.8rem] font-bold shadow-sm transition-transform duration-200 hover:-translate-y-0.5">
+    32→    32→      {children}
+    33→    33→    </button>
+    34→    34→  );
+    35→    35→}
+    36→    36→
+    37→    37→function LogLine({ log }: { log: string }) {
+    38→    38→  return (
+    39→    39→    <p className="mt-4 min-h-[2.6rem] rounded-xl px-3.5 py-2.5 font-mono-warm text-[.85rem] font-bold text-[#a0410a]" style={{ background: "#fffaf1", border: "1px dashed #e5c79d" }} aria-live="polite">
+    40→    40→      {log}
+    41→    41→    </p>
+    42→    42→  );
+    43→    43→}
+    44→    44→
+    45→    45→function WarnCard({ title, children }: { title: string; children: React.ReactNode }) {
+    46→    46→  return (
+    47→    47→    <div className="card-warm h-full p-6" style={{ borderColor: "#e6a08c", background: "#fdf3ef" }}>
+    48→    48→      <div className="flex items-center gap-2">
+    49→    49→        <AlertTriangle className="h-5 w-5" style={{ color: "#be4a4a" }} />
+    50→    50→        <p className="font-extrabold text-[#8c2f2f]">{title}</p>
+    51→    51→      </div>
+    52→    52→      <p className="mt-2 text-[.9rem] leading-relaxed text-[#2b2014]">{children}</p>
+    53→    53→    </div>
+    54→    54→  );
+    55→    55→}
+    56→    56→
+    57→    57→/* ============================================================
+    58→    58→   STACKS — widget + SVG
+    59→    59→   ============================================================ */
+    60→    60→
+    61→    61→const STACK_CAP = 6;
+    62→    62→const STACK_SEQ = [64, 32, 53, 66, 54];
+    63→    63→type Piece = { id: number; v: number };
+    64→    64→
+    65→    65→function StackWidget() {
+    66→    66→  const [items, setItems] = useState<Piece[]>(STACK_SEQ.map((v, i) => ({ id: i + 1, v })));
+    67→    67→  const [log, setLog] = useState("Push 64 → 32 → 53 → 66 → 54. Top = 54.");
+    68→    68→  const nid = useRef(STACK_SEQ.length);
+    69→    69→  const nseq = useRef(0);
+    70→    70→
+    71→    71→  function push() {
+    72→    72→    if (items.length >= STACK_CAP) return setLog("Push() ✗ STACK OVERFLOW — the stack is FULL (6 of 6).");
+    73→    73→    const v = STACK_SEQ[nseq.current % STACK_SEQ.length];
+    74→    74→    nseq.current += 1; nid.current += 1;
+    75→    75→    setItems((xs) => [...xs, { id: nid.current, v }]);
+    76→    76→    setLog(`Push(${v}) → ${v} lands ON TOP. Top = ${v}.`);
+    77→    77→  }
+    78→    78→  function pop() {
+    79→    79→    if (items.length === 0) return setLog("Pop() ✗ STACK UNDERFLOW — the stack is EMPTY, nothing to remove.");
+    80→    80→    const t = items[items.length - 1];
+    81→    81→    setItems((xs) => xs.slice(0, -1));
+    82→    82→    setLog(`Pop() → ${t.v} lifts off. ${items.length - 1 > 0 ? `New top = ${items[items.length - 2].v}.` : "The stack is now empty."}`);
+    83→    83→  }
+    84→    84→  const peek = () => setLog(items.length ? `Peek() → ${items[items.length - 1].v} (reads the top, removes nothing)` : "Peek() → the stack is empty.");
+    85→    85→  const size = () => setLog(`Size() → ${items.length}`);
+    86→    86→  const reset = () => { setItems(STACK_SEQ.map((v, i) => ({ id: i + 1, v }))); nseq.current = 0; setLog("Reset — Push 64 → 32 → 53 → 66 → 54. Top = 54."); };
+    87→    87→
+    88→    88→  return (
+    89→    89→    <div className="card-warm p-6 md:p-8">
+    90→    90→      <div className="flex flex-wrap items-center gap-3">
+    91→    91→        <Layers className="h-6 w-6" style={{ color: "#c2410c" }} />
+    92→    92→        <h3 className="text-xl font-bold md:text-2xl">Last-In, First-Out — try the machine</h3>
+    93→    93→        <span className="chip">like a pile of plates — last placed, first picked</span>
+    94→    94→      </div>
+    95→    95→      <div className="mt-5 grid gap-6 lg:grid-cols-[auto,1fr]">
+    96→    96→        <div>
+    97→    97→          <div className="relative">
+    98→    98→            <div className="flex flex-col-reverse gap-1.5" aria-hidden>
+    99→    99→              {Array.from({ length: STACK_CAP }).map((_, i) => <div key={i} className="h-11 w-44 rounded-xl border-2 border-dashed sm:w-52" style={{ borderColor: "#e8d5b5" }} />)}
+   100→   100→            </div>
+   101→   101→            <div className="absolute inset-0 flex flex-col-reverse gap-1.5">
+   102→   102→              <AnimatePresence initial={false}>
+   103→   103→                {items.map((p, i) => (
+   104→   104→                  <motion.div key={p.id} initial={{ y: -44, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -46, opacity: 0, scale: 0.92 }} transition={{ type: "spring", stiffness: 380, damping: 28 }}
+   105→   105→                    className="flex h-11 w-44 items-center justify-center rounded-xl text-[1.05rem] font-extrabold text-white shadow-md sm:w-52"
+   106→   106→                    style={{ background: i === items.length - 1 ? "linear-gradient(135deg,#ea580c,#c2410c)" : "linear-gradient(135deg,#e8a13c,#d97706)" }}>
+   107→   107→                    {p.v}
+   108→   108→                    {i === items.length - 1 ? <span className="ml-2 rounded-md bg-black/25 px-1.5 py-0.5 text-[.62rem] font-bold">top</span> : null}
+   109→   109→                  </motion.div>
+   110→   110→                ))}
+   111→   111→              </AnimatePresence>
+   112→   112→            </div>
+   113→   113→          </div>
+   114→   114→          <p className="mt-2 text-center text-[.72rem] font-bold uppercase tracking-[.14em] text-[#8a5a06]">↑ Push enters here · Pop leaves from here ↑</p>
+   115→   115→        </div>
+   116→   116→        <div>
+   117→   117→          <div className="flex flex-wrap gap-2">
+   118→   118→            <OpBtn tone="warm" onClick={push}>Push()</OpBtn>
+   119→   119→            <OpBtn tone="warm" onClick={pop}>Pop()</OpBtn>
+   120→   120→            <OpBtn onClick={peek}>Peek()</OpBtn>
+   121→   121→            <OpBtn onClick={size}>Size()</OpBtn>
+   122→   122→            <OpBtn onClick={reset}><RotateCcw className="mr-1 inline h-3.5 w-3.5" />reset</OpBtn>
+   123→   123→          </div>
+   124→   124→          <LogLine log={log} />
+   125→   125→          <p className="mt-3 text-[.88rem] leading-relaxed text-[#2b2014]">
+   126→   126→            The lecture&apos;s run: push <span className="font-mono-warm font-bold">64, 32, 53, 66, 54</span> → top
+   127→   127→            is <strong>54</strong>. <span className="font-mono-warm font-bold">Pop()</span> → 54 leaves,{" "}
+   128→   128→            <span className="font-mono-warm font-bold">Pop()</span> → 66 leaves,{" "}
+   129→   129→            <span className="font-mono-warm font-bold">Peek()</span> → <strong>53</strong>,{" "}
+   130→   130→            <span className="font-mono-warm font-bold">Size()</span> → <strong>3</strong>. The last value in
+   131→   131→            is always the first value out — <strong>LIFO</strong>.
+   132→   132→          </p>
+   133→   133→        </div>
+   134→   134→      </div>
+   135→   135→    </div>
+   136→   136→  );
+   137→   137→}
+   138→   138→
+   139→   139→function StackOfStacksSvg() {
+   140→   140→  return (
+   141→   141→    <svg viewBox="0 0 560 252" className="h-auto w-full" role="img" aria-label="A main stack of browser windows where each window is itself a stack of tabs">
+   142→   142→      <rect x="20" y="34" width="520" height="190" rx="14" fill="none" stroke="#c99a5b" strokeWidth="2" strokeDasharray="7 5" />
+   143→   143→      <text x="30" y="22" fontSize="11.5" fontWeight="800" fill="#8a5a06">MAIN STACK — each element is a WINDOW</text>
+   144→   144→      {["A", "B", "C"].map((w, i) => (
+   145→   145→        <g key={w} transform={`translate(${45 + i * 180}, 56)`}>
+   146→   146→          <rect x="0" y="0" width="130" height="148" rx="10" fill="#fffaf1" stroke="#e2b075" strokeWidth="1.6" />
+   147→   147→          <rect x="8" y="8" width="114" height="26" rx="7" fill="#b45309" />
+   148→   148→          <text x="65" y="25" textAnchor="middle" fontSize="12" fontWeight="800" fill="#fff7ec">Window {w}</text>
+   149→   149→          {[0, 1, 2].map((t) => (
+   150→   150→            <g key={t}>
+   151→   151→              <rect x="14" y={44 + t * 32} width="102" height="26" rx="7" fill={t === 2 ? "#f6ad3c" : "#fde8cf"} stroke="#e2b075" strokeWidth="1.3" />
+   152→   152→              <text x="65" y={61 + t * 32} textAnchor="middle" fontSize="11" fontWeight="700" fill={t === 2 ? "#7c2d0a" : "#7c4a12"}>{t === 2 ? "Tab — top" : `Tab ${t + 1}`}</text>
+   153→   153→            </g>
+   154→   154→          ))}
+   155→   155→        </g>
+   156→   156→      ))}
+   157→   157→      <text x="280" y="242" textAnchor="middle" fontSize="11.5" fontWeight="700" fill="#6f5438">each window&apos;s element is itself a stack — tabs / history states pile up LIFO, window by window</text>
+   158→   158→    </svg>
+   159→   159→  );
+   160→   160→}
+   161→   161→
+   162→   162→/* ============================================================
+   163→   163→   QUEUES — widget + SVGs
+   164→   164→   ============================================================ */
+   165→   165→
+   166→   166→const Q_CAP = 6;
+   167→   167→const Q_SEQ = [64, 32, 53, 66, 54];
+   168→   168→type QPiece = { id: number; v: number };
+   169→   169→
+   170→   170→function QueueWidget() {
+   171→   171→  const [items, setItems] = useState<QPiece[]>(Q_SEQ.map((v, i) => ({ id: i + 1, v })));
+   172→   172→  const [log, setLog] = useState("Enqueue 64 → 32 → 53 → 66 → 54. Front = 64, Rear = 54.");
+   173→   173→  const nid = useRef(Q_SEQ.length);
+   174→   174→  const nseq = useRef(0);
+   175→   175→
+   176→   176→  function enqueue() {
+   177→   177→    if (items.length >= Q_CAP) return setLog("Enqueue() ✗ QUEUE OVERFLOW — the queue is FULL (6 of 6).");
+   178→   178→    const v = Q_SEQ[nseq.current % Q_SEQ.length];
+   179→   179→    nseq.current += 1; nid.current += 1;
+   180→   180→    setItems((xs) => [...xs, { id: nid.current, v }]);
+   181→   181→    setLog(`Enqueue(${v}) → ${v} joins at the REAR.`);
+   182→   182→  }
+   183→   183→  function dequeue() {
+   184→   184→    if (items.length === 0) return setLog("Dequeue() ✗ QUEUE UNDERFLOW — the queue is EMPTY, nobody to serve.");
+   185→   185→    const f = items[0];
+   186→   186→    setItems((xs) => xs.slice(1));
+   187→   187→    setLog(`Dequeue() → ${f.v} leaves from the FRONT. ${items.length - 1 > 0 ? `New front = ${items[1].v}.` : "The queue is now empty."}`);
+   188→   188→  }
+   189→   189→  const peek = () => setLog(items.length ? `Peek()/Front() → ${items[0].v} · Rear() → ${items[items.length - 1].v}` : "Peek() → the queue is empty.");
+   190→   190→  const size = () => setLog(`Size() → ${items.length}`);
+   191→   191→  const reset = () => { setItems(Q_SEQ.map((v, i) => ({ id: i + 1, v }))); nseq.current = 0; setLog("Reset — Enqueue 64 → 32 → 53 → 66 → 54. Front = 64, Rear = 54."); };
+   192→   192→
+   193→   193→  const front = items[0]?.v, rear = items[items.length - 1]?.v;
+   194→   194→  return (
+   195→   195→    <div className="card-warm p-6 md:p-8">
+   196→   196→      <div className="flex flex-wrap items-center gap-3">
+   197→   197→        <ListMusic className="h-6 w-6" style={{ color: "#c2410c" }} />
+   198→   198→        <h3 className="text-xl font-bold md:text-2xl">Front and rear — try the line</h3>
+   199→   199→        <span className="chip">FCFS · First-Come-First-Served = FIFO</span>
+   200→   200→      </div>
+   201→   201→      <div className="mt-5 flex flex-wrap items-center gap-3 text-[.78rem] font-extrabold text-[#8a5a06]">
+   202→   202→        <span className="flex items-center gap-1"><ArrowLeft className="h-4 w-4" style={{ color: "#c2410c" }} aria-hidden /> Front — Dequeue leaves here</span>
+   203→   203→        <span className="flex items-center gap-1">Rear — Enqueue enters here <ArrowRight className="h-4 w-4" style={{ color: "#c2410c" }} aria-hidden /></span>
+   204→   204→        <span className="rounded-full bg-[#fde8cf] px-2.5 py-1 font-mono-warm text-[.74rem] font-bold text-[#7c4a12]">Front → {front ?? "—"} · Rear → {rear ?? "—"} · Size {items.length}</span>
+   205→   205→      </div>
+   206→   206→      <div className="relative mt-3">
+   207→   207→        <div className="grid grid-cols-6 gap-2" aria-hidden>
+   208→   208→          {Array.from({ length: Q_CAP }).map((_, i) => <div key={i} className="h-12 rounded-xl border-2 border-dashed" style={{ borderColor: "#e8d5b5" }} />)}
+   209→   209→        </div>
+   210→   210→        <div className="absolute inset-0 grid grid-cols-6 gap-2">
+   211→   211→          <AnimatePresence initial={false}>
+   212→   212→            {items.map((p, i) => (
+   213→   213→              <motion.div key={p.id} initial={{ x: 46, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -46, opacity: 0, scale: 0.92 }} transition={{ type: "spring", stiffness: 380, damping: 28 }}
+   214→   214→                className="flex h-12 items-center justify-center rounded-xl text-[1rem] font-extrabold text-white shadow-md"
+   215→   215→                style={{ background: i === 0 ? "linear-gradient(135deg,#ea580c,#c2410c)" : "linear-gradient(135deg,#e8a13c,#d97706)", gridColumnStart: i + 1 }}>
+   216→   216→                {p.v}
+   217→   217→              </motion.div>
+   218→   218→            ))}
+   219→   219→          </AnimatePresence>
+   220→   220→        </div>
+   221→   221→      </div>
+   222→   222→      <div className="mt-4 flex flex-wrap gap-2">
+   223→   223→        <OpBtn tone="warm" onClick={enqueue}>Enqueue()</OpBtn>
+   224→   224→        <OpBtn tone="warm" onClick={dequeue}>Dequeue()</OpBtn>
+   225→   225→        <OpBtn onClick={peek}>Peek / Front · Rear</OpBtn>
+   226→   226→        <OpBtn onClick={size}>Size()</OpBtn>
+   227→   227→        <OpBtn onClick={reset}><RotateCcw className="mr-1 inline h-3.5 w-3.5" />reset</OpBtn>
+   228→   228→      </div>
+   229→   229→      <LogLine log={log} />
+   230→   230→      <p className="mt-3 text-[.88rem] leading-relaxed text-[#2b2014]">
+   231→   231→        The lecture&apos;s run: Enqueue <span className="font-mono-warm font-bold">64, 32, 53, 66, 54</span> fills
+   232→   232→        left → right. <span className="font-mono-warm font-bold">Dequeue()</span> removes <strong>64</strong> (the
+   233→   233→        front — it arrived first), again removes <strong>32</strong>. Then{" "}
+   234→   234→        <span className="font-mono-warm font-bold">Peek</span> → <strong>53</strong>, Rear → <strong>54</strong>,
+   235→   235→        Size → <strong>3</strong>. Your <strong>order doesn&apos;t matter — your PLACE does</strong>.
+   236→   236→      </p>
+   237→   237→    </div>
+   238→   238→  );
+   239→   239→}
+   240→   240→
+   241→   241→/* ---------- queue-type SVGs (dark section) ---------- */
+   242→   242→
+   243→   243→function LinearLimitSvg() {
+   244→   244→  return (
+   245→   245→    <svg viewBox="0 0 620 140" className="h-auto w-full" role="img" aria-label="Linear queue: front spaces are free but the rear pointer is stuck at the last cell, so no insert is possible">
+   246→   246→      <defs><marker id="lq-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker></defs>
+   247→   247→      {[0, 1, 2].map((i) => (
+   248→   248→        <g key={i}>
+   249→   249→          <rect x={30 + i * 92} y="46" width="80" height="52" rx="9" fill="none" stroke="#c99a5b" strokeWidth="1.8" strokeDasharray="6 4" />
+   250→   250→          <text x={30 + i * 92 + 40} y="77" textAnchor="middle" fontSize="11" fontWeight="700" fill="#b99a75">free</text>
+   251→   251→        </g>
+   252→   252→      ))}
+   253→   253→      {[66, 54, 71].map((v, i) => (
+   254→   254→        <g key={v}>
+   255→   255→          <rect x={306 + i * 92} y="46" width="80" height="52" rx="9" fill="#fde8cf" stroke="#e2b075" strokeWidth="1.8" />
+   256→   256→          <text x={306 + i * 92 + 40} y="78" textAnchor="middle" fontSize="15" fontWeight="800" fill="#3e2c1d">{v}</text>
+   257→   257→        </g>
+   258→   258→      ))}
+   259→   259→      <line x1="70" y1="24" x2="70" y2="40" stroke="#c2410c" strokeWidth="2" markerEnd="url(#lq-ah)" />
+   260→   260→      <text x="70" y="16" textAnchor="middle" fontSize="11.5" fontWeight="800" fill="#c2410c">Front</text>
+   261→   261→      <line x1="570" y1="24" x2="570" y2="40" stroke="#c2410c" strokeWidth="2" markerEnd="url(#lq-ah)" />
+   262→   262→      <text x="600" y="16" textAnchor="end" fontSize="11.5" fontWeight="800" fill="#c2410c">Rear — stuck at the end</text>
+   263→   263→      <text x="310" y="126" fontSize="11.5" fontWeight="700" fill="#b99a75">enqueue? ✗ — rear cannot move back, even though 3 spaces are free</text>
+   264→   264→    </svg>
+   265→   265→  );
+   266→   266→}
+   267→   267→
+   268→   268→function CircularRingSvg() {
+   269→   269→  const c = { x: 170, y: 132, r: 85 };
+   270→   270→  const slots = [-90, -30, 30, 90, 150, 210].map((a) => {
+   271→   271→    const rad = (a * Math.PI) / 180;
+   272→   272→    return { cx: c.x + c.r * Math.cos(rad), cy: c.y + c.r * Math.sin(rad) };
+   273→   273→  });
+   274→   274→  const vals: (number | null)[] = [53, 66, 54, 71, null, null];
+   275→   275→  return (
+   276→   276→    <svg viewBox="0 0 340 252" className="h-auto w-full" role="img" aria-label="Circular queue ring of six positions with front and rear markers and an arrow wrapping from the last position back to the first">
+   277→   277→      <defs><marker id="cq-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker></defs>
+   278→   278→      <circle cx={c.x} cy={c.y} r={c.r} fill="none" stroke="#8a6a45" strokeWidth="1.6" strokeDasharray="4 5" />
+   279→   279→      {slots.map((s, i) => {
+   280→   280→        const v = vals[i];
+   281→   281→        return (
+   282→   282→          <g key={i}>
+   283→   283→            <rect x={s.cx - 29} y={s.cy - 15} width="58" height="30" rx="8" fill={v === null ? "none" : "#fde8cf"} stroke={v === null ? "#8a6a45" : "#c99a5b"} strokeWidth="1.6" strokeDasharray={v === null ? "5 4" : undefined} />
+   284→   284→            {v !== null ? <text x={s.cx} y={s.cy + 5} textAnchor="middle" fontSize="13" fontWeight="800" fill="#3e2c1d">{v}</text> : null}
+   285→   285→          </g>
+   286→   286→        );
+   287→   287→      })}
+   288→   288→      <text x={slots[0].cx} y={slots[0].cy - 24} textAnchor="middle" fontSize="11" fontWeight="800" fill="#f5c889">Front</text>
+   289→   289→      <text x={slots[3].cx} y={slots[3].cy + 34} textAnchor="middle" fontSize="11" fontWeight="800" fill="#f5c889">Rear</text>
+   290→   290→      <path d="M 96 96 C 66 48, 112 16, 156 40" fill="none" stroke="#e0a45e" strokeWidth="2" markerEnd="url(#cq-ah)" />
+   291→   291→      <text x="118" y="14" textAnchor="middle" fontSize="10.5" fontWeight="700" fill="#e0a45e">wraps to first</text>
+   292→   292→      <text x={c.x} y={c.y + 4} textAnchor="middle" fontSize="11" fontWeight="800" fill="#cbb392">circular</text>
+   293→   293→    </svg>
+   294→   294→  );
+   295→   295→}
+   296→   296→
+   297→   297→function PriorityChipsSvg() {
+   298→   298→  const chips = [
+   299→   299→    { t: "A", p: 8, from: 20, to: 20, d: 0 },
+   300→   300→    { t: "S", p: 7, from: 520, to: 180, d: 0.55 },
+   301→   301→    { t: "T", p: 6, from: 180, to: 340, d: 0.35 },
+   302→   302→    { t: "B", p: 3, from: 340, to: 500, d: 0.45 },
+   303→   303→  ];
+   304→   304→  return (
+   305→   305→    <svg viewBox="0 0 660 118" className="h-auto w-full" role="img" aria-label="Priority queue: the new item S with priority 7 slots in before T with priority 6, after A with priority 8">
+   306→   306→      {chips.map((ch) => (
+   307→   307→        <motion.g key={ch.t} initial={{ x: ch.from, opacity: ch.t === "S" ? 0.35 : 1 }} whileInView={{ x: ch.to, opacity: 1 }} viewport={{ once: true }} transition={{ delay: ch.d, duration: 0.6, ease: "easeInOut" }}>
+   308→   308→          <rect x="0" y="36" width="140" height="52" rx="12" fill={ch.t === "S" ? "#f6ad3c" : "#fde8cf"} stroke={ch.t === "S" ? "#c2410c" : "#c99a5b"} strokeWidth={ch.t === "S" ? 2.4 : 1.6} />
+   309→   309→          <text x="44" y="69" textAnchor="middle" fontSize="20" fontWeight="800" fill={ch.t === "S" ? "#7c2d0a" : "#3e2c1d"}>{ch.t}</text>
+   310→   310→          <circle cx="102" cy="62" r="15" fill="#c2410c" />
+   311→   311→          <text x="102" y="67" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#fff7ec">{ch.p}</text>
+   312→   312→        </motion.g>
+   313→   313→      ))}
+   314→   314→      <text x="20" y="22" fontSize="11.5" fontWeight="700" fill="#cbb392">new arrival (S, 7): beats 6 and 3, yields to 8 → slots in before (T, 6)</text>
+   315→   315→      <text x="540" y="108" fontSize="10.5" fontWeight="700" fill="#b99a75">equal priorities? serve FIFO</text>
+   316→   316→    </svg>
+   317→   317→  );
+   318→   318→}
+   319→   319→
+   320→   320→function DequeSvg() {
+   321→   321→  return (
+   322→   322→    <svg viewBox="0 0 620 128" className="h-auto w-full" role="img" aria-label="Doubly ended queue with insert and delete arrows at both ends">
+   323→   323→      <defs><marker id="dq-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker></defs>
+   324→   324→      {[10, 20, 30, 40].map((v, i) => (
+   325→   325→        <g key={v}>
+   326→   326→          <rect x={180 + i * 70} y="38" width="60" height="52" rx="9" fill="#fde8cf" stroke="#c99a5b" strokeWidth="1.7" />
+   327→   327→          <text x={180 + i * 70 + 30} y="70" textAnchor="middle" fontSize="15" fontWeight="800" fill="#3e2c1d">{v}</text>
+   328→   328→        </g>
+   329→   329→      ))}
+   330→   330→      <line x1="70" y1="56" x2="172" y2="56" stroke="#f5c889" strokeWidth="2" markerEnd="url(#dq-ah)" />
+   331→   331→      <text x="66" y="44" fontSize="11" fontWeight="800" fill="#f5c889">Insert Front</text>
+   332→   332→      <line x1="172" y1="94" x2="70" y2="94" stroke="#f5c889" strokeWidth="2" markerEnd="url(#dq-ah)" />
+   333→   333→      <text x="66" y="116" fontSize="11" fontWeight="800" fill="#f5c889">Delete Front</text>
+   334→   334→      <line x1="550" y1="56" x2="448" y2="56" stroke="#f5c889" strokeWidth="2" markerEnd="url(#dq-ah)" />
+   335→   335→      <text x="554" y="44" textAnchor="end" fontSize="11" fontWeight="800" fill="#f5c889">Insert Rear</text>
+   336→   336→      <line x1="448" y1="94" x2="550" y2="94" stroke="#f5c889" strokeWidth="2" markerEnd="url(#dq-ah)" />
+   337→   337→      <text x="554" y="116" textAnchor="end" fontSize="11" fontWeight="800" fill="#f5c889">Delete Rear</text>
+   338→   338→    </svg>
+   339→   339→  );
+   340→   340→}
+   341→   341→
+   342→   342→function NestedQueueSvg() {
+   343→   343→  return (
+   344→   344→    <svg viewBox="0 0 700 262" className="h-auto w-full" role="img" aria-label="Streaming video: a master playback queue of segments where the playing segment is itself a sub-queue of tiny frames">
+   345→   345→      <defs><marker id="nq-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker></defs>
+   346→   346→      <text x="24" y="20" fontSize="11.5" fontWeight="800" fill="#f5c889">SUB-QUEUE — thousands of tiny frames / packets inside ONE 5-minute segment</text>
+   347→   347→      {Array.from({ length: 14 }).map((_, i) => (
+   348→   348→        <rect key={i} x={180 + i * 24} y="32" width="20" height="20" rx="4" fill={i < 5 ? "#c2410c" : i < 9 ? "#e8a13c" : "none"} stroke="#c99a5b" strokeWidth="1.2" />
+   349→   349→      ))}
+   350→   350→      <line x1="345" y1="58" x2="345" y2="132" stroke="#f5c889" strokeWidth="2" markerEnd="url(#nq-ah)" />
+   351→   351→      <rect x="20" y="138" width="660" height="106" rx="14" fill="none" stroke="#c99a5b" strokeWidth="2" strokeDasharray="7 5" />
+   352→   352→      <text x="32" y="160" fontSize="11.5" fontWeight="800" fill="#f5c889">MAIN QUEUE — the browser&apos;s master playback line</text>
+   353→   353→      {[{ x: 40, t: "Segment k−1", s: "played" }, { x: 250, t: "Segment k", s: "PLAYING now" }, { x: 460, t: "Segment k+1", s: "buffered" }].map((sg, i) => (
+   354→   354→        <g key={sg.t}>
+   355→   355→          <rect x={sg.x} y="176" width="190" height="52" rx="10" fill={i === 1 ? "#b45309" : "rgba(255,236,210,.08)"} stroke="#c99a5b" strokeWidth="1.6" />
+   356→   356→          <text x={sg.x + 95} y="198" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#fff7ec">{sg.t}</text>
+   357→   357→          <text x={sg.x + 95} y="216" textAnchor="middle" fontSize="10.5" fontWeight="600" fill={i === 1 ? "#ffe4bd" : "#cbb392"}>{sg.s}</text>
+   358→   358→          {i < 2 ? <line x1={sg.x + 190} y1="202" x2={sg.x + 204} y2="202" stroke="#f5c889" strokeWidth="1.8" markerEnd="url(#nq-ah)" /> : null}
+   359→   359→        </g>
+   360→   360→      ))}
+   361→   361→      <text x="360" y="254" textAnchor="middle" fontSize="11" fontWeight="600" fill="#cbb392">the graphics card rapidly plays the frames inside the current segment — so the video stays smooth</text>
+   362→   362→    </svg>
+   363→   363→  );
+   364→   364→}
+   365→   365→
+   366→   366→/* ============================================================
+   367→   367→   EXPORTED — STACKS SECTION (light)
+   368→   368→   ============================================================ */
+   369→   369→
+   370→   370→export function AtbStacksSection() {
+   371→   371→  return (
+   372→   372→    <Section id="stacks">
+   373→   373→      <SectionHead eyebrow="Lecture 9 · Stacks"
+   374→   374→        title={<><span className="grad-text">Stacks</span> — the undo machine (LIFO)</>}
+   375→   375→        lead="A stack is a linear structure with one door: everything enters and leaves through the same end — the top. Simple rule, enormous consequences." />
+   376→   376→
+   377→   377→      <ReadStep n="1" title="The undo story" sub="You already use a stack every single day" />
+   378→   378→      <Reveal>
+   379→   379→        <Callout kind="story" title="Editing a document">
+   380→   380→          You are typing and mistakes pile up — a wrong word, a broken sentence, a bad delete. You click <strong>Undo</strong>: the first click removes the <strong>LAST</strong> change, the second click removes the <strong>second-last</strong>, the third removes the one before that… Every editor, every photo app, every Ctrl-Z works this way. <strong>This is a Stack.</strong>
+   381→   381→        </Callout>
+   382→   382→      </Reveal>
+   383→   383→      <Reveal className="mt-3">
+   384→   384→        <div className="flex flex-wrap gap-2">
+   385→   385→          <span className="chip"><Undo2 className="h-3.5 w-3.5" aria-hidden /> Lecture 9 · every change is stored on the stack</span>
+   386→   386→          <span className="chip"><ArrowLeft className="h-3.5 w-3.5" aria-hidden /> removed in reverse-chronological order</span>
+   387→   387→        </div>
+   388→   388→      </Reveal>
+   389→   389→      <Reveal className="mt-5">
+   390→   390→        <div className="card-warm p-6">
+   391→   391→          <div className="flex flex-wrap items-center gap-3">
+   392→   392→            <h3 className="text-lg font-bold">Physical stacks you already know</h3>
+   393→   393→            <span className="chip"><Layers className="h-3.5 w-3.5" aria-hidden /> Lecture 9 · added and removed from the top only</span>
+   394→   394→          </div>
+   395→   395→          <div className="mt-4 grid gap-4 sm:grid-cols-3">
+   396→   396→            {[
+   397→   397→              { icon: Layers, t: "Plates at a wedding / buffet", d: "Fresh plates land on top; the next guest takes from the top too — the bottom plate waits longest." },
+   398→   398→              { icon: Newspaper, t: "A stack of newspapers", d: "Today's edition goes on top and is read first; older papers sink toward the bottom." },
+   399→   399→              { icon: Dumbbell, t: "Weighing plates in the gym", d: "Plates are added to the bar and stripped from it at the same end — the top of the pile." },
+   400→   400→            ].map((e) => (
+   401→   401→              <div key={e.t} className="rounded-xl p-4" style={{ background: "#fffaf1", border: "1px solid #f0e2c8" }}>
+   402→   402→                <p className="flex items-center gap-2 font-bold text-[#7c4a12]"><e.icon className="h-4 w-4" /> {e.t}</p>
+   403→   403→                <p className="mt-1 text-[.85rem] leading-relaxed text-[#2b2014]">{e.d}</p>
+   404→   404→              </div>
+   405→   405→            ))}
+   406→   406→          </div>
+   407→   407→        </div>
+   408→   408→      </Reveal>
+   409→   409→
+   410→   410→      <ReadStep n="2" title="Last-In, First-Out" sub="Push, Pop, Peek, Size — press the buttons" />
+   411→   411→      <Reveal><StackWidget /></Reveal>
+   412→   412→      <Reveal className="mt-5">
+   413→   413→        <CodeBlock title="stack_ops.pseudo — the four moves" runnable={false}
+   414→   414→          code={`Push(S, x):                    Pop(S):
+   415→   415→  if Full(S):  error OVERFLOW    if Empty(S):  error UNDERFLOW
+   416→   416→  Top ← Top + 1                  x ← S[Top]
+   417→   417→  S[Top] ← x                     Top ← Top − 1
+   418→   418→                                 return x          // the removed value
+   419→   419→
+   420→   420→Peek(S):  return S[Top]          // read the top — remove nothing
+   421→   421→Size(S):  return Top + 1         // how many values are stacked`} />
+   422→   422→      </Reveal>
+   423→   423→
+   424→   424→      <ReadStep n="3" title="Static vs dynamic" sub="Two builds of the same abstract idea" />
+   425→   425→      <div className="grid gap-5 md:grid-cols-2">
+   426→   426→        {[
+   427→   427→          { head: "Static stack — fixed size", tone: "#be4a4a", items: [
+   428→   428→            <>Built on an <strong>array</strong> — capacity chosen in advance</>,
+   429→   429→            <><strong>Adobe Photoshop</strong> keeps ≈ <strong>50 undo levels</strong> — change 51 things and the oldest history is gone</>,
+   430→   430→            <><strong>MS Excel</strong> keeps ≈ <strong>100</strong> undo steps — same idea, bigger box</>,
+   431→   431→            <>Predictable memory, but <strong>full is full</strong></>,
+   432→   432→          ] },
+   433→   433→          { head: "Dynamic stack — grows as needed", tone: "#5c7a24", items: [
+   434→   434→            <>Built on a <strong>linked list</strong> — a new node for every push</>,
+   435→   435→            <><strong>MS Word</strong> lets you undo (almost) without a counter — the stack keeps growing</>,
+   436→   436→            <>The ultimate limit is the <strong>device&apos;s memory</strong> — not a declared size</>,
+   437→   437→            <>Flexible, at the cost of a pointer per element</>,
+   438→   438→          ] },
+   439→   439→        ].map((c, ci) => (
+   440→   440→          <Reveal key={c.head} delay={ci * 120}>
+   441→   441→            <div className="card-warm h-full p-6">
+   442→   442→              <p className="text-[.8rem] font-extrabold uppercase tracking-[.16em]" style={{ color: c.tone }}>{c.head}</p>
+   443→   443→              <ul className="mt-3 grid gap-2 text-[.9rem] leading-relaxed text-[#2b2014]">
+   444→   444→                {c.items.map((t, i) => <li key={i}>• {t}</li>)}
+   445→   445→              </ul>
+   446→   446→            </div>
+   447→   447→          </Reveal>
+   448→   448→        ))}
+   449→   449→      </div>
+   450→   450→      <Reveal className="mt-5">
+   451→   451→        <Callout kind="insight" title="Stacks are ABSTRACT">
+   452→   452→          &ldquo;Stack&rdquo; is a <strong>behaviour</strong> (LIFO), not a physical thing — it is <strong>implemented through other data structures</strong>: arrays for static stacks, linked lists for dynamic ones. Same rules, different foundations.
+   453→   453→        </Callout>
+   454→   454→      </Reveal>
+   455→   455→      <Reveal className="mt-5">
+   456→   456→        <div className="card-warm p-6">
+   457→   457→          <div className="flex flex-wrap items-center gap-3">
+   458→   458→            <MemoryStick className="h-6 w-6" style={{ color: "#c2410c" }} />
+   459→   459→            <h3 className="text-lg font-bold">Memory considerations — where the undo history actually lives</h3>
+   460→   460→            <span className="chip">Lecture 9 · memory considerations</span>
+   461→   461→          </div>
+   462→   462→          <ul className="mt-3 grid gap-2 text-[.9rem] leading-relaxed text-[#2b2014]">
+   463→   463→            <li>• <strong>Static stacks (Excel, Photoshop):</strong> the stack is <strong>cleared when the file is saved</strong> — saved work needs no undo history.</li>
+   464→   464→            <li>• <strong>Dynamic stacks:</strong> limited by the <strong>device&apos;s physical memory (RAM)</strong> — they grow only as far as the hardware allows.</li>
+   465→   465→            <li>• Exhaust that memory and the app <strong>crashes</strong> — a dynamic stack&apos;s only ceiling is the machine itself.</li>
+   466→   466→            <li>• <strong>Saving often keeps stacks small</strong> — each save wipes the unsaved-changes pile before it can grow toward the limit.</li>
+   467→   467→          </ul>
+   468→   468→        </div>
+   469→   469→      </Reveal>
+   470→   470→
+   471→   471→      <ReadStep n="4" title="When stacks break" sub="Two failures with famous names" />
+   472→   472→      <div className="grid gap-5 md:grid-cols-2">
+   473→   473→        <Reveal><WarnCard title="Stack Overflow">
+   474→   474→            <strong>Pushing onto a FULL stack.</strong> Real-life picture: a browser holding a huge number of open tabs — memory is finite; one more push and the structure gives up. (Yes — the website stackoverflow.com is named after exactly this error.)
+   475→   475→          </WarnCard>
+   476→   476→        </Reveal>
+   477→   477→        <Reveal><WarnCard title="Stack Underflow">
+   478→   478→            <strong>Popping an EMPTY stack.</strong> Real-life picture: clicking <strong>Back</strong> on a freshly opened browser — there is no history to go back to, so the pop finds nothing and the operation fails.
+   479→   479→          </WarnCard>
+   480→   480→        </Reveal>
+   481→   481→      </div>
+   482→   482→
+   483→   483→      <ReadStep n="5" title="Stack of stacks" sub="Each element of the main stack is itself a stack" />
+   484→   484→      <Reveal>
+   485→   485→        <div className="card-warm p-6 md:p-8">
+   486→   486→          <div className="flex flex-wrap items-center gap-3">
+   487→   487→            <AppWindow className="h-6 w-6" style={{ color: "#c2410c" }} />
+   488→   488→            <h3 className="text-xl font-bold">Browser windows, each with its own pile</h3>
+   489→   489→          </div>
+   490→   490→          <p className="mt-2 max-w-4xl text-[.92rem] leading-relaxed text-[#2b2014]">
+   491→   491→            Your browser runs <strong>multiple windows</strong> — Push and Pop on the main stack adds and removes whole <strong>windows</strong>. But each window holds <strong>multiple tabs</strong> — its own LIFO pile. Structures inside structures: that is normal, not exotic.
+   492→   492→          </p>
+   493→   493→          <div className="mt-5 rounded-2xl p-4" style={{ background: "#fffaf1", border: "1px dashed #e5c79d" }}><StackOfStacksSvg /></div>
+   494→   494→        </div>
+   495→   495→      </Reveal>
+   496→   496→
+   497→   497→      <Reveal className="mt-6">
+   498→   498→        <div className="card-warm p-6">
+   499→   499→          <div className="flex flex-wrap items-center gap-3">
+   500→   500→            <h3 className="text-lg font-bold">Where stacks earn their keep</h3>
+   501→   501→            <span className="chip">Lecture 9 · applications</span>
+   502→   502→          </div>
+   503→   503→          <div className="mt-3 flex flex-wrap gap-2">
+   504→   504→            <span className="chip"><Undo2 className="h-3.5 w-3.5" aria-hidden /> undo / redo</span>
+   505→   505→            <span className="chip"><Braces className="h-3.5 w-3.5" aria-hidden /> function-call management</span>
+   506→   506→            <span className="chip"><Calculator className="h-3.5 w-3.5" aria-hidden /> expression evaluation &amp; parsing</span>
+   507→   507→            <span className="chip"><Network className="h-3.5 w-3.5" aria-hidden /> depth-first search</span>
+   508→   508→            <span className="chip"><Globe className="h-3.5 w-3.5" aria-hidden /> browser navigation history</span>
+   509→   509→          </div>
+   510→   510→        </div>
+   511→   511→      </Reveal>
+   512→   512→
+   513→   513→      <div className="mt-10 grid gap-5 md:grid-cols-2">
+   514→   514→        <Reveal>
+   515→   515→          <Quiz source="Lecture 9 · concept check" q="Calling Pop() on an empty stack causes…" options={["overflow", "underflow", "reboot", "peek"]} answer={1}
+   516→   516→            explain="Underflow = removing from an EMPTY structure (nothing to give). Overflow = adding to a FULL one (no room to put it). Both names, one letter apart — learn them as a pair." />
+   517→   517→        </Reveal>
+   518→   518→        <Reveal delay={100}>
+   519→   519→          <Quiz source="Lecture 9 · concept check" q="Photoshop's fixed 50-step undo is a…" options={["dynamic stack on a linked list", "static stack on an array", "queue", "deque"]} answer={1}
+   520→   520→            explain="A pre-declared capacity (≈50) implemented on an array: a STATIC stack. Word's grow-forever undo is the dynamic, linked-list flavour." />
+   521→   521→        </Reveal>
+   522→   522→      </div>
+   523→   523→      <Reveal className="mt-5">
+   524→   524→        <Practice title="Pen-and-paper drills — stacks" items={[
+   525→   525→          { q: "Push J, then A, then N onto an empty stack. Now Pop() twice. Which value remains, and where is it?", hint: "Last in, first out — N leaves first, then A. What is left is at the BOTTOM." },
+   526→   526→          { q: "Name two more places where you meet LIFO behaviour daily, and say what the 'top' element is in each.", hint: "Think: plates, a pebble tower, browser Back button, the call stack when functions call functions." },
+   527→   527→          { q: "Photoshop clears its undo stack the moment you hit Save. Why does saving often keep the stack small?", hint: "The stack only holds unsaved changes — each save empties it before it can grow toward the RAM limit." },
+   528→   528→        ]} />
+   529→   529→      </Reveal>
+   530→   530→    </Section>
+   531→   531→  );
+   532→   532→}
+   533→   533→
+   534→   534→/* ============================================================
+   535→   535→   EXPORTED — QUEUES SECTION (light)
+   536→   536→   ============================================================ */
+   537→   537→
+   538→   538→const Q_APPS = [
+   539→   539→  { icon: Wifi, head: "Wi-Fi router packet buffer", body: <>A <strong>fixed-size circular queue</strong> of network packets. When it is full the router <strong>intentionally drops new packets</strong> instead of crashing — the <strong>Tail Drop</strong> mechanism. Your video hiccups; the router survives.</> },
+   540→   540→  { icon: Keyboard, head: "PC keyboard / mouse buffer", body: <>A <strong>fixed hardware queue</strong> (usually <strong>16–64 bytes</strong>). Type faster than the system processes and the extra keystrokes are simply <strong>ignored</strong> — the queue never grows.</> },
+   541→   541→  { icon: MessageSquare, head: "Messaging apps' offline buffer", body: <>Messages sent while offline <strong>queue up</strong> — the queue <strong>expands</strong> as long as you stay offline, then <strong>drains sequentially</strong> (oldest first) when you reconnect, and the memory is freed.</> },
+   542→   542→  { icon: Film, head: "Streaming video buffers — Netflix, Spotify, Prime", body: <>Segments are buffered in <strong>dynamic memory queues</strong>. When the connection speeds up, the buffer <strong>grows</strong> to hold more segments — so playback continues <strong>stutter-free</strong> through dips.</> },
+   543→   543→  { icon: CupSoda, head: "Vending machine slots", body: <>Each drink type sits in a <strong>fixed number of slots</strong> — a predetermined capacity per column. Sold out means sold out until restocked: the hardware queue never grows.</> },
+   544→   544→  { icon: Bike, head: "Food-delivery order surge", body: <>The dinner rush fires <strong>thousands of orders at once</strong> — a dynamic queue swells to absorb the peak, so <strong>no order is lost</strong> during demand surges.</> },
+   545→   545→];
+   546→   546→
+   547→   547→export function AtbQueuesSection() {
+   548→   548→  return (
+   549→   549→    <Section id="queues">
+   550→   550→      <SectionHead eyebrow="Lecture 10 · Queues"
+   551→   551→        title={<><span className="grad-text">Queues</span> — first come, first served (FIFO)</>}
+   552→   552→        lead="A queue is a linear structure with two doors: entries at the rear, exits at the front. Fairness by arrival order — the structure behind every waiting line in software." />
+   553→   553→
+   554→   554→      <ReadStep n="1" title="The popcorn line" sub="Interval time at the movies" />
+   555→   555→      <Reveal>
+   556→   556→        <Callout kind="story" title="Waiting at the movie interval">
+   557→   557→          The screen says &ldquo;Interval&rdquo; and everyone queues for popcorn. The person who <strong>arrived first is served first</strong>; newcomers join at the <strong>back</strong>. Nobody cares how fast you can wave your money — <strong>your order doesn&apos;t matter, your PLACE does</strong>. That fairness rule has a formal name: <strong>FCFS — First-Come-First-Served</strong> — also called <strong>FIFO</strong> (First-In, First-Out). This is a Queue.
+   558→   558→        </Callout>
+   559→   559→      </Reveal>
+   560→   560→      <Reveal className="mt-3">
+   561→   561→        <div className="flex flex-wrap gap-2">
+   562→   562→          <span className="chip"><Popcorn className="h-3.5 w-3.5" aria-hidden /> your PLACE matters, not your pace</span>
+   563→   563→          <span className="chip"><ArrowRight className="h-3.5 w-3.5" aria-hidden /> join at the rear</span>
+   564→   564→          <span className="chip"><ArrowLeft className="h-3.5 w-3.5" aria-hidden /> leave from the front</span>
+   565→   565→        </div>
+   566→   566→      </Reveal>
+   567→   567→
+   568→   568→      <ReadStep n="2" title="Front and rear" sub="Enqueue, Dequeue, Peek, Size — press the buttons" />
+   569→   569→      <Reveal><QueueWidget /></Reveal>
+   570→   570→      <Reveal className="mt-5">
+   571→   571→        <div className="card-warm p-6">
+   572→   572→          <div className="flex flex-wrap items-center gap-3">
+   573→   573→            <h3 className="text-lg font-bold">Pointer choreography — who moves, who stays put</h3>
+   574→   574→            <span className="chip">Lecture 10 · pointer choreography</span>
+   575→   575→          </div>
+   576→   576→          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+   577→   577→            {[
+   578→   578→              { t: "NQ on an empty queue", d: "The very first element occupies BOTH front and rear — one value, two pointers." },
+   579→   579→              { t: "During Enqueue (NQ)", d: "The front pointer stays put; only the rear advances to admit the newcomer." },
+   580→   580→              { t: "During Dequeue (DQ)", d: "The front advances to the next element; rear stays unchanged. DQ takes no parameters — it removes whatever stands at the front." },
+   581→   581→              { t: "Peek front · Rear · Size", d: "Non-destructive reads — they display values and counts without modifying the queue." },
+   582→   582→            ].map((c) => (
+   583→   583→              <div key={c.t} className="rounded-xl p-4" style={{ background: "#fffaf1", border: "1px solid #f0e2c8" }}>
+   584→   584→                <p className="flex items-center gap-2 font-bold text-[#7c4a12]"><ArrowRight className="h-4 w-4" aria-hidden /> {c.t}</p>
+   585→   585→                <p className="mt-1 text-[.85rem] leading-relaxed text-[#2b2014]">{c.d}</p>
+   586→   586→              </div>
+   587→   587→            ))}
+   588→   588→          </div>
+   589→   589→        </div>
+   590→   590→      </Reveal>
+   591→   591→
+   592→   592→      <ReadStep n="3" title="When queues break" sub="Same two failure names, queue flavour" />
+   593→   593→      <div className="grid gap-5 md:grid-cols-2">
+   594→   594→        <Reveal><WarnCard title="Queue Overflow">
+   595→   595→            <strong>Enqueueing into a FULL queue.</strong> Real-life picture: <strong>lakhs of people booking Tatkal tickets on IRCTC</strong> the second the window opens — the booking queue hits its capacity and further requests are refused.
+   596→   596→          </WarnCard>
+   597→   597→        </Reveal>
+   598→   598→        <Reveal><WarnCard title="Queue Underflow">
+   599→   599→            <strong>Dequeueing from an EMPTY queue.</strong> Real-life picture: your <strong>stream&apos;s buffer drains when the internet drops</strong> — the player asks the buffer queue for the next chunk, the queue is empty, and the screen freezes.
+   600→   600→          </WarnCard>
+   601→   601→        </Reveal>
+   602→   602→      </div>
+   603→   603→
+   604→   604→      <ReadStep n="4" title="Static vs dynamic + real applications" sub="Fixed boxes that drop, flexible lines that grow" />
+   605→   605→      <div className="grid gap-5 lg:grid-cols-2">
+   606→   606→        {[
+   607→   607→          { head: "Static queue — fixed size, built on arrays", tone: "#be4a4a", apps: [Q_APPS[0], Q_APPS[1], Q_APPS[4]] },
+   608→   608→          { head: "Dynamic queue — grows as needed, built on linked lists", tone: "#5c7a24", apps: [Q_APPS[2], Q_APPS[3], Q_APPS[5]] },
+   609→   609→        ].map((col, ci) => (
+   610→   610→          <Reveal key={col.head} delay={ci * 120}>
+   611→   611→            <div className="card-warm h-full p-6">
+   612→   612→              <p className="text-[.8rem] font-extrabold uppercase tracking-[.16em]" style={{ color: col.tone }}>{col.head}</p>
+   613→   613→              <div className="mt-3 grid gap-3">
+   614→   614→                {col.apps.map((a) => (
+   615→   615→                  <div key={a.head} className="rounded-xl p-3.5" style={{ background: "#fffaf1", border: "1px solid #f0e2c8" }}>
+   616→   616→                    <p className="flex items-center gap-2 font-bold text-[#7c4a12]"><a.icon className="h-4 w-4" /> {a.head}</p>
+   617→   617→                    <p className="mt-1 text-[.85rem] leading-relaxed text-[#2b2014]">{a.body}</p>
+   618→   618→                  </div>
+   619→   619→                ))}
+   620→   620→              </div>
+   621→   621→            </div>
+   622→   622→          </Reveal>
+   623→   623→        ))}
+   624→   624→      </div>
+   625→   625→
+   626→   626→      <Reveal className="mt-8">
+   627→   627→        <div className="card-warm p-6">
+   628→   628→          <div className="flex flex-wrap items-center gap-3">
+   629→   629→            <h3 className="text-lg font-bold">Queue vs stack — the four differences</h3>
+   630→   630→            <span className="chip">Lecture 10 · queue vs stack</span>
+   631→   631→          </div>
+   632→   632→          <div className="mt-4 overflow-x-auto">
+   633→   633→            <table className="warm-table">
+   634→   634→              <thead><tr><th>Aspect</th><th>Queue</th><th>Stack</th></tr></thead>
+   635→   635→              <tbody>
+   636→   636→                <tr><td>Order</td><td>FIFO — first in, first out</td><td>LIFO — last in, first out</td></tr>
+   637→   637→                <tr><td>Insertion</td><td>at the rear</td><td>at the top</td></tr>
+   638→   638→                <tr><td>Removal</td><td>from the front</td><td>from the top</td></tr>
+   639→   639→                <tr><td>Real-life picture</td><td>the theater popcorn queue</td><td>a stack of plates</td></tr>
+   640→   640→              </tbody>
+   641→   641→            </table>
+   642→   642→          </div>
+   643→   643→        </div>
+   644→   644→      </Reveal>
+   645→   645→      <Reveal className="mt-5">
+   646→   646→        <Callout kind="insight" title="Lecture 10 · important to remember">
+   647→   647→          <ul className="grid gap-1.5">
+   648→   648→            <li>• Elements maintain their <strong>order of arrival</strong> throughout processing.</li>
+   649→   649→            <li>• The <strong>front moves during dequeue — never during enqueue</strong> (enqueue is rear business).</li>
+   650→   650→            <li>• <strong>Peek examines without modifying</strong> — the safe way to inspect queue state.</li>
+   651→   651→            <li>• Static vs dynamic boils down to two questions: is the <strong>volume predictable</strong>, and is <strong>overflow acceptable</strong>?</li>
+   652→   652→            <li>• Real systems <strong>fail gracefully</strong> when full — dropped packets, ignored keystrokes — rather than crashing.</li>
+   653→   653→          </ul>
+   654→   654→        </Callout>
+   655→   655→      </Reveal>
+   656→   656→
+   657→   657→      <div className="mt-10 grid gap-5 md:grid-cols-2">
+   658→   658→        <Reveal>
+   659→   659→          <Quiz source="Lecture 10 · concept check" q="The person served NEXT in a queue is standing at the…" options={["rear", "front", "peek", "middle"]} answer={1}
+   660→   660→            explain="The front of the queue is the head of the line — Dequeue() always removes the front element. The rear is where newcomers join." />
+   661→   661→        </Reveal>
+   662→   662→        <Reveal delay={100}>
+   663→   663→          <Practice title="Pen-and-paper drills — queues" items={[
+   664→   664→            { q: "Enqueue A, B, C, then Dequeue twice. Which value is now at the front?", hint: "A and B leave in arrival order — C never moved, yet it becomes the front." },
+   665→   665→            { q: "Find the queue hiding in a printer, a call center, and a ticket window. In each, what is 'enqueue' and what is 'dequeue'?", hint: "Documents arrive to be printed in order; callers hold in a line; customers are served by arrival." },
+   666→   666→            { q: "An empty queue receives NQ(7). Where do front and rear point? Now DQ() — where does rear point?", hint: "The first element occupies both front and rear; dequeue advances only the front — rear never moves on its own." },
+   667→   667→          ]} />
+   668→   668→        </Reveal>
+   669→   669→      </div>
+   670→   670→    </Section>
+   671→   671→  );
+   672→   672→}
+   673→   673→
+   674→   674→/* ============================================================
+   675→   675→   EXPORTED — QUEUE TYPES SECTION (dark)
+   676→   676→   ============================================================ */
+   677→   677→
+   678→   678→export function AtbQTypesSection() {
+   679→   679→  return (
+   680→   680→    <Section id="qtypes" dark>
+   681→   681→      <SectionHead dark eyebrow="Lecture 11 · Queue types"
+   682→   682→        title={<>Four queues for <span className="grad-text">four situations</span></>}
+   683→   683→        lead="One FIFO rule, four engineering personalities. Choosing the right queue type is the difference between wasted memory, frozen screens and a smoothly running system." />
+   684→   684→
+   685→   685→      <div className="grid gap-5 lg:grid-cols-2">
+   686→   686→        <Reveal>
+   687→   687→          <div className="card-warm flex h-full flex-col p-6">
+   688→   688→            <div className="flex items-center gap-2">
+   689→   689→              <span className="flex h-8 w-8 items-center justify-center rounded-lg text-[.8rem] font-black" style={{ background: "linear-gradient(135deg,#f59e0b,#c2410c)", color: "#fff7ec" }}>1</span>
+   690→   690→              <h3 className="text-xl font-bold text-[#f5e6cd]">Linear queue</h3>
+   691→   691→            </div>
+   692→   692→            <p className="mt-2 text-[.9rem] leading-relaxed text-[#e9d7bf]">
+   693→   693→              The plain version: <strong>insert at the rear, remove from the front</strong>. Its <strong style={{ color: "#f0a8a8" }}>limitation is memory wastage</strong> — in an array implementation, once <strong>rear hits the end</strong> you cannot insert, <strong>even if front spaces have been freed</strong> by earlier deletions.
+   694→   694→            </p>
+   695→   695→            <div className="mt-4 rounded-xl p-3" style={{ background: "rgba(255,236,210,.04)" }}><LinearLimitSvg /></div>
+   696→   696→            <div className="mt-3 flex flex-wrap items-center gap-2">
+   697→   697→              <span className="chip">Lecture 11 · pointer detail</span>
+   698→   698→              <p className="text-[.82rem] leading-relaxed text-[#cbb392]">front points to the first location where an element is <strong style={{ color: "#f5c889" }}>still stored</strong> — not to array slot 0.</p>
+   699→   699→            </div>
+   700→   700→          </div>
+   701→   701→        </Reveal>
+   702→   702→
+   703→   703→        <Reveal delay={100}>
+   704→   704→          <div className="card-warm flex h-full flex-col p-6">
+   705→   705→            <div className="flex items-center gap-2">
+   706→   706→              <span className="flex h-8 w-8 items-center justify-center rounded-lg text-[.8rem] font-black" style={{ background: "linear-gradient(135deg,#f59e0b,#c2410c)", color: "#fff7ec" }}>2</span>
+   707→   707→              <h3 className="text-xl font-bold text-[#f5e6cd]">Circular queue</h3>
+   708→   708→            </div>
+   709→   709→            <p className="mt-2 text-[.9rem] leading-relaxed text-[#e9d7bf]">
+   710→   710→              The <strong>last position connects back to the first</strong> — the queue becomes a ring. It <strong>reuses the spaces freed by deletions</strong>, fixing the linear queue&apos;s waste. The rear keeps <strong>wrapping into vacated cells</strong>, so the ring can serve insertions and deletions <strong>indefinitely</strong>. Classically implemented via a <strong>linked list</strong> — and beyond the slides: arrays can do it too, by <strong>wrapping indices with modulo</strong>.
+   711→   711→            </p>
+   712→   712→            <div className="mt-4 rounded-xl p-3" style={{ background: "rgba(255,236,210,.04)" }}><CircularRingSvg /></div>
+   713→   713→            <div className="mt-4 flex flex-wrap gap-2">
+   714→   714→              <span className="chip"><TrafficCone className="h-3.5 w-3.5" aria-hidden /> traffic lights</span>
+   715→   715→              <span className="chip"><Gamepad2 className="h-3.5 w-3.5" aria-hidden /> multiplayer games</span>
+   716→   716→              <span className="chip"><Repeat className="h-3.5 w-3.5" aria-hidden /> circular playlists</span>
+   717→   717→              <span className="chip"><Cpu className="h-3.5 w-3.5" aria-hidden /> CPU round-robin scheduling</span>
+   718→   718→            </div>
+   719→   719→          </div>
+   720→   720→        </Reveal>
+   721→   721→
+   722→   722→        <Reveal>
+   723→   723→          <div className="card-warm flex h-full flex-col p-6">
+   724→   724→            <div className="flex items-center gap-2">
+   725→   725→              <span className="flex h-8 w-8 items-center justify-center rounded-lg text-[.8rem] font-black" style={{ background: "linear-gradient(135deg,#f59e0b,#c2410c)", color: "#fff7ec" }}>3</span>
+   726→   726→              <h3 className="text-xl font-bold text-[#f5e6cd]">Priority queue</h3>
+   727→   727→            </div>
+   728→   728→            <p className="mt-2 text-[.9rem] leading-relaxed text-[#e9d7bf]">
+   729→   729→              Served by <strong>priority, not arrival</strong>. Equal priorities serve FIFO. The lecture&apos;s example: the queue holds <span className="font-mono-warm font-bold">(A,8) (T,6) (B,3)</span>; a new <span className="font-mono-warm font-bold">(S,7)</span> arrives and slots <strong>before (T,6)</strong> — arrival order be damned.
+   730→   730→            </p>
+   731→   731→            <div className="mt-4 rounded-xl p-3" style={{ background: "rgba(255,236,210,.04)" }}><PriorityChipsSvg /></div>
+   732→   732→            <div className="mt-4 flex flex-wrap gap-2">
+   733→   733→              <span className="chip"><Cpu className="h-3.5 w-3.5" aria-hidden /> CPU task scheduling</span>
+   734→   734→              <span className="chip"><Siren className="h-3.5 w-3.5" aria-hidden /> hospital emergency room</span>
+   735→   735→              <span className="chip"><Plane className="h-3.5 w-3.5" aria-hidden /> airport traffic control</span>
+   736→   736→              <span className="chip"><TrainFront className="h-3.5 w-3.5" aria-hidden /> railway</span>
+   737→   737→              <span className="chip"><AlertTriangle className="h-3.5 w-3.5" aria-hidden /> disaster management</span>
+   738→   738→              <span className="chip"><Ticket className="h-3.5 w-3.5" aria-hidden /> Tatkal quota</span>
+   739→   739→            </div>
+   740→   740→            <p className="mt-3 text-[.82rem] leading-relaxed text-[#cbb392]">
+   741→   741→              The lecture&apos;s triage, spelled out: accident cases beat recurring headaches · low-fuel long-hauls land before short-hauls · Rajdhani &amp; Shatabdi get green-corridor signals · system tasks run before user apps · rescue goes first to those in immediate danger.
+   742→   742→            </p>
+   743→   743→          </div>
+   744→   744→        </Reveal>
+   745→   745→
+   746→   746→        <Reveal delay={100}>
+   747→   747→          <div className="card-warm flex h-full flex-col p-6">
+   748→   748→            <div className="flex items-center gap-2">
+   749→   749→              <span className="flex h-8 w-8 items-center justify-center rounded-lg text-[.8rem] font-black" style={{ background: "linear-gradient(135deg,#f59e0b,#c2410c)", color: "#fff7ec" }}>4</span>
+   750→   750→              <h3 className="text-xl font-bold text-[#f5e6cd]">Doubly ended queue (Deque)</h3>
+   751→   751→            </div>
+   752→   752→            <p className="mt-2 text-[.9rem] leading-relaxed text-[#e9d7bf]">
+   753→   753→              <strong>Insert and delete from BOTH ends</strong> — so one deque can act as a{" "}
+   754→   754→              <strong>queue AND a stack at once</strong>: front-only use is FIFO, end-only use is LIFO.
+   755→   755→            </p>
+   756→   756→            <div className="mt-4 rounded-xl p-3" style={{ background: "rgba(255,236,210,.04)" }}><DequeSvg /></div>
+   757→   757→            <div className="mt-4 flex flex-wrap gap-2">
+   758→   758→              <span className="chip">Insert Front</span>
+   759→   759→              <span className="chip">Insert Rear</span>
+   760→   760→              <span className="chip">Delete Front</span>
+   761→   761→              <span className="chip">Delete Rear</span>
+   762→   762→            </div>
+   763→   763→            <p className="mt-3 text-[.82rem] font-bold uppercase tracking-[.14em] text-[#b99a75]">Applications</p>
+   764→   764→            <div className="mt-2 flex flex-wrap gap-2">
+   765→   765→              <span className="chip"><Undo2 className="h-3.5 w-3.5" aria-hidden /> browser forward / back</span>
+   766→   766→              <span className="chip">undo + redo in a word processor</span>
+   767→   767→              <span className="chip"><TrainFront className="h-3.5 w-3.5" aria-hidden /> train coach management</span>
+   768→   768→              <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> doubly linked lists</span>
+   769→   769→            </div>
+   770→   770→          </div>
+   771→   771→        </Reveal>
+   772→   772→      </div>
+   773→   773→
+   774→   774→      <ReadStep dark n="1" title="Queue of queues — streaming" sub="The Netflix example: playback is queues all the way down" />
+   775→   775→      <Reveal>
+   776→   776→        <div className="card-warm p-6 md:p-8">
+   777→   777→          <p className="max-w-4xl text-[.93rem] leading-relaxed text-[#e9d7bf]">
+   778→   778→            The <strong>MAIN queue</strong> is the browser&apos;s master playback line holding the
+   779→   779→            upcoming <strong>5-minute scene segments</strong>. Each segment is itself a{" "}
+   780→   780→            <strong>SUB-QUEUE of thousands of tiny frames / packets</strong>. The{" "}
+   781→   781→            <strong>graphics card rapidly plays the frames inside the current segment</strong> —
+   782→   782→            and that is why the video stays smooth while the outer queue quietly refills.
+   783→   783→          </p>
+   784→   784→          <div className="mt-5 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}><NestedQueueSvg /></div>
+   785→   785→          <div className="mt-4 flex flex-wrap items-center gap-2">
+   786→   786→            <span className="chip"><Wifi className="h-3.5 w-3.5" aria-hidden /> Lecture 11 · reconnection rewind</span>
+   787→   787→          </div>
+   788→   788→          <p className="mt-2 max-w-4xl text-[.9rem] leading-relaxed text-[#e9d7bf]">
+   789→   789→            When the connection drops mid-segment, the <strong>main queue keeps its progress</strong> — but the{" "}
+   790→   790→            <strong>interrupted sub-queue restarts from its first frame</strong>. That is why the video{" "}
+   791→   791→            <strong>rewinds slightly</strong> past the interruption point before playback resumes.
+   792→   792→          </p>
+   793→   793→          <Callout kind="insight" dark title="Spot the pattern">
+   794→   794→            Stacks of stacks (browser windows → tabs), queues of queues (segments → frames), lists
+   795→   795→            of lists (users → playlists → songs). <strong>Nesting structures inside structures is
+   796→   796→            how real systems scale simple rules.</strong>
+   797→   797→          </Callout>
+   798→   798→        </div>
+   799→   799→      </Reveal>
+   800→   800→
+   801→   801→      <div className="mt-10 grid gap-5 md:grid-cols-2">
+   802→   802→        <Reveal>
+   803→   803→          <Quiz source="Lecture 11 · concept check" q="Which queue type powers a hospital emergency room?" options={["Linear queue", "Circular queue", "Priority queue", "Deque"]} answer={2}
+   804→   804→            explain="Triage serves by severity, not by arrival — a heart attack before a sprain, whatever the clock says. Equal severities fall back to FIFO." />
+   805→   805→        </Reveal>
+   806→   806→        <Reveal delay={100}>
+   807→   807→          <Quiz source="Lecture 11 · concept check" q="Undo AND Redo in one structure suggests a…" options={["deque", "priority queue", "circular queue", "linear queue"]} answer={0}
+   808→   808→            explain="Undo pops one end while redo pushes back — two ends, both active. A deque supports insert/delete at both ends, so it can behave as a stack AND a queue simultaneously." />
+   809→   809→        </Reveal>
+   810→   810→      </div>
+   811→   811→      <Reveal className="mt-5">
+   812→   812→        <Quiz source="Lecture 11 · concept check" q="Your stream reconnects and the video rewinds slightly. What happened?" options={["the main queue restarted from zero", "the interrupted sub-queue restarted — the main queue kept its progress", "the whole video was re-downloaded", "the circular queue wrapped around"]} answer={1}
+   813→   813→          explain="Queue of queues: the main playback queue preserves segment progress, but the sub-queue of frames inside the interrupted segment restarts — so playback resumes a few seconds early." />
+   814→   814→      </Reveal>
+   815→   815→      <Reveal className="mt-8">
+   816→   816→        <Takeaways dark items={[
+   817→   817→          <>A stack is <strong>LIFO</strong>; a queue is <strong>FIFO</strong> — one door vs two.</>,
+   818→   818→          <>Stack operations: <span className="font-mono-warm font-bold">Push · Pop · Peek · Size</span>.</>,
+   819→   819→          <>Queue operations: <span className="font-mono-warm font-bold">Enqueue · Dequeue · Peek(front/rear) · Size</span>.</>,
+   820→   820→          <>Both can be <strong>static (arrays)</strong> or <strong>dynamic (linked lists)</strong>.</>,
+   821→   821→          <><strong>Underflow</strong> = removing from empty · <strong>Overflow</strong> = adding to full.</>,
+   822→   822→          <>Lecture 11 four-liner: <strong>linear</strong> = a regular FIFO line · <strong>circular</strong> = a ring that reuses freed space · <strong>priority</strong> = a VIP urgency line · <strong>deque</strong> = open at both ends.</>,
+   823→   823→        ]} />
+   824→   824→      </Reveal>
+   825→   825→    </Section>
+   826→   826→  );
+   827→   827→}
+   828→   828→

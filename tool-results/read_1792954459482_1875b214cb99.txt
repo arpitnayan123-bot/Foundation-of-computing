@@ -1,0 +1,782 @@
+     1→Lecture 1 starts
+     2→Introduction to Marketing: Understanding Customers,
+     3→Markets, Brands and Value
+     4→Overview of the Course
+     5→This course introduces marketing as a comprehensive business discipline that extends far beyond
+     6→selling products or creating advertisements. Marketing is fundamentally about understanding customer
+     7→needs, analyzing how people make purchasing decisions, exploring brand preferences, and enabling
+     8→businesses to create meaningful value for their customers.
+     9→
+    10→What Marketing Really Means
+    11→• Marketing is not limited to selling or product promotion
+    12→• It encompasses understanding consumer behavior and decision-making processes
+    13→• It explores why customers prefer certain brands over competitors
+    14→• It focuses on creating value rather than just transacting sales
+    15→
+    16→Marketing in Everyday Life
+    17→Marketing permeates all aspects of daily consumer experience, including:
+    18→• Mobile devices and technology we use
+    19→• Clothing and fashion choices
+    20→• Food and dining preferences
+    21→• Mobile applications and digital platforms
+    22→• Brand trust and loyalty decisions
+    23→
+    24→Key Learning Objectives
+    25→By the end of this course, students will understand:
+    26→• How companies identify and analyze customer needs
+    27→• Product and service design strategies
+    28→• Pricing strategies and value determination
+    29→• Brand building and development
+    30→• Effective communication and marketing messaging
+    31→• Methods for establishing and maintaining long-term customer relationships
+    32→
+    33→Course Significance
+    34→This course aims to equip students with the ability to recognize and analyze marketing in their everyday
+    35→lives while developing a comprehensive understanding of marketing as a critical business discipline
+    36→within the BAS program in management and technology.
+    37→
+    38→
+    39→
+    40→
+    41→                                      Marketing - Lecture Notes | Page 1
+    42→Lecture 2 starts
+    43→Introduction to Marketing: Understanding Customer Value
+    44→and Business Success
+    45→This lecture provides a foundational overview of marketing as a critical business function that extends
+    46→far beyond selling and advertising. The course aims to equip students with the ability to recognize
+    47→marketing in everyday life and understand its essential role in organizational success.
+    48→
+    49→Course Overview and Evaluation
+    50→• Instructor: Anuj Kapoor, Assistant Professor of Marketing at SME IIT Jodhpur
+    51→• Background: PhD from Faculty of Management Studies Delhi; MBA from Symbiosis Pune; Engineering
+    52→  from North Cap University; Six years of industry experience in consumer insights, market research,
+    53→  and innovation
+    54→• Course Duration: Full semester with continuous engagement required
+    55→
+    56→Evaluation Components
+    57→• Group Marketing Plan (20 marks): Collaborative project developed throughout the semester with
+    58→  submission at the end
+    59→• One-Page Assignments: Concise submissions limiting answers to one page; exceeding page limit
+    60→  results in mark deduction
+    61→• End-Term Examination: Mandatory assessment component
+    62→• Business School Competitions (20 marks, Optional): National and international hackathons and
+    63→  competitions; marks can offset other components if missed
+    64→• Reference Material: Philip Kotler, Keller, Kervyn Sheth, and Shaynish's 2025 edition available online
+    65→  and on Amazon
+    66→
+    67→The Fundamental Concept of Marketing: Anticipation
+    68→Case Studies Demonstrating Importance of Anticipation
+    69→BlackBerry's Decline
+    70→• Stock price gradually declined after Apple launched iPhone in 2007
+    71→• Reached bottom in 2010 and further declined with Android's launch in 2008
+    72→• Company eventually went bankrupt due to failure to anticipate market shift
+    73→Hertz's Collapse
+    74→• Faced decline after Uber's 2019 launch with $17 billion valuation
+    75→• Business model relied on owning car fleet, resulting in high capital and maintenance costs
+    76→• Uber's asset-light model (outsourced drivers and vehicles) proved superior
+    77→• Company exited global market by 2018 but remains operational in southern India
+    78→Blockbuster's Failure
+    79→• Movie rental company declined as Netflix evolved from DVD rentals to online streaming
+    80→• Netflix introduced personalized recommendations (2002) and streaming service (2012)
+    81→• Despite having competitive advantage, Blockbuster CEO dismissed Netflix as non-competitive
+    82→• Company went bankrupt as OTT model disrupted industry
+    83→
+    84→Pattern of Organizational Decline
+    85→• Initial gradual performance drop followed by sudden collapse
+    86→• Organizations that anticipate market changes pivot successfully before sudden decline
+    87→• Those unable to anticipate face rapid market exit
+    88→
+    89→
+    90→
+    91→
+    92→                                    Marketing - Lecture Notes | Page 2
+    93→Definition of Marketing's Core Function
+    94→Marketing is the function that enables organizations to anticipate consumer needs and market
+    95→evolution. Success requires understanding not only current consumer requirements but also predicting
+    96→future needs and demands. Anticipation allows companies to create products consumers will value
+    97→before competitors do.
+    98→
+    99→Financial Value of Marketing
+   100→Key Financial Metrics
+   101→Top Line: Revenue generated through sales; represents total money earned by organization
+   102→Bottom Line: Profit calculated as Sales minus Cost
+   103→Fundamental Principle: There must be a top line (revenue) for there to be a bottom line (profit)
+   104→
+   105→Practical Example: Cafe Cold Coffee Sales
+   106→• Price per glass: 120 rupees
+   107→• Daily sales volume: 80 glasses
+   108→• Cost per glass: 70 rupees
+   109→• Total Revenue: 120 x 80 = 9,600 rupees
+   110→• Total Cost: 70 x 80 = 5,600 rupees
+   111→• Profit: 9,600 - 5,600 = 4,000 rupees
+   112→Marketing ensures steady revenue streams, directly enabling profit generation and organizational
+   113→financial success.
+   114→
+   115→Marketing vs. Selling: Key Distinctions
+   116→Fundamental Difference
+   117→Selling focuses on pushing products to consumers after creation; emphasizes product attributes and
+   118→features.
+   119→Marketing begins with understanding consumer needs before product creation; customer-centric
+   120→approach precedes product development.
+   121→
+   122→Practical Example: The Pen
+   123→Sales-Dominant Approach: Highlights pen attributes (writes flawlessly, black color, good grip, improves
+   124→exam marks)
+   125→Marketing Approach: Asks preliminary questions to understand customer requirements
+   126→• Do you prefer ballpoint, pilot, or ink pens?
+   127→• What is your budget?
+   128→• Do you prefer fine or broad nib?
+   129→• What color do you prefer?
+   130→Understanding customer needs before presenting product ensures better fit and more successful sales
+   131→outcomes.
+   132→
+   133→Marketing Definition
+   134→Marketing is the process of:
+   135→• Understanding consumer needs and preferences
+   136→• Creating value through product or service development
+   137→• Communicating value to consumers
+   138→• Delivering value through satisfactory transactions
+   139→When value is successfully delivered, customers become advocates, speak positively about the brand,
+   140→and generate repeat business and revenue.
+   141→
+   142→
+   143→
+   144→
+   145→                                     Marketing - Lecture Notes | Page 3
+   146→Marketing Activities Identification
+   147→Examples of Marketing
+   148→• Product Design: Smaller shampoo sachets for one rupee targets value-conscious consumers
+   149→• Promotional Pricing: Restaurant offering 20% discount uses promotion element of marketing mix
+   150→• Consumer Research: Brand studying student preferences for iced coffee represents marketing
+   151→  research
+   152→• Notifications: Zomato sending time-targeted humorous notifications about food deals uses digital
+   153→  marketing to trigger purchase intent
+   154→• Point-of-Purchase Placement: Keeping chocolates near billing counter uses retail marketing strategy
+   155→  to increase impulse purchases
+   156→
+   157→Examples of Sales (vs. Marketing)
+   158→• Salesperson convincing customer to buy a laptop through direct persuasion
+   159→
+   160→Marketing-Sales Relationship
+   161→Sales represents the transaction that results from successful marketing. Marketing creates awareness,
+   162→builds desire, and communicates value; sales completes the transaction. Both are essential, but
+   163→marketing precedes and enables sales.
+   164→
+   165→Course Structure and Future Topics
+   166→Upcoming lectures will address:
+   167→• Evolution of Marketing: How marketing concepts and practices have developed over time
+   168→• Need vs. Want vs. Demand: Understanding fundamental consumer behavior concepts that
+   169→  distinguish customer requirements from desires to actual purchasing behavior
+   170→Students are encouraged to maintain a repository of notes on brands, organizations, and marketing
+   171→concepts encountered throughout the course for practical application and future reference.
+   172→
+   173→
+   174→
+   175→
+   176→                                   Marketing - Lecture Notes | Page 4
+   177→Lecture 3 starts
+   178→Understanding Marketing: Definitions, Concepts, and
+   179→Application
+   180→Overview
+   181→Marketing is fundamentally an outside-in approach that starts with understanding customer needs
+   182→rather than simply selling products. It involves creating, communicating, and delivering value to
+   183→customers, clients, partners, and society. While often confused with selling, marketing and sales are
+   184→distinct activities - marketing gathers insights from the market to inform product development, while
+   185→selling pushes products to consumers.
+   186→
+   187→Marketing Definitions and Perspectives
+   188→Theoretical Definition (American Marketing Association)
+   189→• Marketing is the activity, set of institutions, and processes for creating value, communicating,
+   190→  delivering, and exchanging offerings that have value for customers, clients, partners, and society at
+   191→  large.
+   192→Business Perspective
+   193→• Identifying and meeting human and social needs
+   194→• Making lives better by making better things
+   195→• Connecting with consumers (Apple CEO perspective)
+   196→Examples of Effective Marketing
+   197→• Google: Products and services that are relevant and required by consumers, effectively connecting
+   198→  with target audiences
+   199→• IKEA: Revolutionized furniture through DIY concept - providing quality, aesthetically pleasing
+   200→  furniture that consumers could assemble themselves, solving the problem of tedious furniture
+   201→  installation
+   202→• Urban Ladder and PepperFry: Captured untapped Indian market by recognizing that modern
+   203→  consumers move frequently between cities and don't want to keep furniture for generations; offered
+   204→  convenient, economical furniture solutions
+   205→Additional Marketing Success Stories
+   206→• Uber and Ola: Successfully replicated the traditional agency model in digital format, enabling drivers
+   207→  to receive 25-30 bookings daily instead of 1-2 through traditional channels
+   208→• Apple iPod: Steve Jobs stated that "marketing is about meeting needs profitably" - combining great
+   209→  products with business viability
+   210→• Seth Godin's Philosophy: Marketing is not about selling more products but making better things that
+   211→  create genuine value for consumers
+   212→
+   213→Marketing vs. Selling
+   214→Key Distinction
+   215→• Marketing (Outside-In Approach): Gathering information from the market about consumer needs,
+   216→  wants, and market dynamics, then bringing this knowledge into the organization
+   217→• Selling (Inside-Out Approach): Taking a finished product created by the organization and pushing it to
+   218→  consumers through various channels (retailers, distribution, online)
+   219→Both are essential and interconnected - marketing cannot succeed without sales, and sales cannot
+   220→succeed without marketing insights.
+   221→
+   222→The Marketing System Framework
+   223→Two Core Components
+   224→
+   225→
+   226→
+   227→                                     Marketing - Lecture Notes | Page 5
+   228→• Industry: Collection of sellers
+   229→• Market: Collection of buyers
+   230→Four Key Flows
+   231→• Communication: From industry to market about products, offers, and promotions
+   232→• Goods and Services: Tangible offerings from industry to market
+   233→• Money: Payment from consumers to sellers
+   234→• Information: Market feedback that helps organizations redesign and refine products
+   235→
+   236→What Can Be Marketed
+   237→Marketing extends far beyond tangible products. The following elements can all be effectively
+   238→marketed:
+   239→Goods (Physical Products)
+   240→• Example: Apple iWatch - tangible products with specific features
+   241→Services
+   242→• Salon services: B-Blunt, Tony and Guy, local salons each market distinct value propositions (premium
+   243→  vs. economical, different experiences)
+   244→• Each service has unique selling points that appeal to different consumer segments
+   245→Experiences
+   246→• Imagica (amusement park): Not marketed through rides and features, but through the emotional
+   247→  experience - happiness, joy, creating memories with family
+   248→• Sunburn Festival: Markets the overall experience of attending rather than specific performances
+   249→• Coca-Cola "Make a Friend" Campaign: Connected consumers across geographic boundaries
+   250→  (India-Pakistan) through vending machines, marketing connection and friendship rather than the
+   251→  beverage itself
+   252→Financial Services
+   253→• American Express: Doesn't directly sell credit cards; markets the experience of having Amex,
+   254→  promoting "don't take on the world without it" and positioning the card as "the gateway to great
+   255→  experiences"
+   256→Persons/Individuals
+   257→• The Rock (Dwayne Johnson): Launched Papatui brand leveraging personal brand and trust
+   258→• Oprah Winfrey: Launched skincare products based on personal credibility
+   259→• Indian Examples: Hrithik Roshan (HRX brand), Virat Kohli, Kirti Sanon (Hyphen brand)
+   260→• Consumers purchase based on initial trust and interest in the individual before the product
+   261→Places and Destinations
+   262→• Rajasthan Tourism: Campaign "Agar Neha ne Rajasthan dekha, toh Aran bhi dekh hi lega" promoted
+   263→  the place through individuals, revitalizing tourism
+   264→• Marketing geographical locations and their unique characteristics
+   265→Properties and Real Estate
+   266→• World Towers (Mumbai): Marketed through name, location, and facilities
+   267→• Trump Towers (Delhi): Leverages Trump legacy and premium positioning
+   268→• The Camellias (Gurgaon): Priced at 85-100 crores per apartment; marketed through ambience,
+   269→  views, amenities, and status symbol value
+   270→Organizations
+   271→• Harvard Business School: Markets itself through faculty quality, student caliber, legacy, leadership,
+   272→  and organizational reputation
+   273→Information
+   274→• NIRF Rankings: Institutes leverage ranking information for marketing
+   275→
+   276→
+   277→
+   278→                                    Marketing - Lecture Notes | Page 6
+   279→• ACSB Accreditation: Serves as marketing credential for business schools
+   280→Ideas
+   281→• Zomato: "Hungry" campaign for New Year - connected the idea of celebrating (Happy New Year) with
+   282→  ordering food, marketing through conceptual connection rather than direct product promotion
+   283→• Blinkit: "Food mangoge, do minute mein dunga" vs. Zomato's "Kheer mangoge, kheer dengunge" -
+   284→  combined ideas of daily necessities and finished products
+   285→
+   286→The Need-Want-Demand Triad
+   287→Three Interconnected Concepts
+   288→Need: Basic human requirement
+   289→• Biological or fundamental necessity (food, shelter, clothing)
+   290→• Pre-exists naturally
+   291→• Marketers do not create needs
+   292→Want: Need directed toward a specific object
+   293→• Occurs when a need is attached to a particular product or solution
+   294→• Influenced by marketing, culture, and personal preferences
+   295→• Example: The need for food becomes a want for pizza, tandoori chicken, or vada pao
+   296→Demand: Want backed by ability to pay
+   297→• Converts want into actual purchasing behavior
+   298→• Directly influenced by consumer purchasing power
+   299→• Example: With 20 rupees, demand is limited to vada pao; with more money, all three options become
+   300→  possible
+   301→Practical Example
+   302→• Starbucks locations in Tier 1 vs. Tier 3 cities - consumers may want Starbucks coffee, but only in Tier
+   303→  1 cities do they have the ability to pay 300 rupees for a coffee, creating demand
+   304→Marketer Focus
+   305→• Cannot create needs (they pre-exist)
+   306→• Can create and shape wants
+   307→• Can influence demand through pricing, availability, and promotion
+   308→
+   309→Types of Consumer Needs
+   310→• Stated Needs: What customers explicitly ask for ("I want a car")
+   311→• Real Needs: The underlying meaning behind stated needs ("want a car with low operating costs", not
+   312→  just low price)
+   313→• Unstated Needs: Expectations customers don't verbalize. Great service and warranty expected but
+   314→  not always mentioned upfront
+   315→• Delight Needs: Non-essential features that create satisfaction. Built-in GPS system when not
+   316→  explicitly requested
+   317→• Secret Needs: Intangible, often unspoken desires. Buying a luxury car as a status symbol, not merely
+   318→  for transportation
+   319→
+   320→Demand States
+   321→Negative Demand
+   322→• Consumers actively avoid the product and may pay to prevent it
+   323→• Example: Dentist appointments; purchasing ad-free music subscriptions
+   324→Non-Existent Demand
+   325→• Consumers unaware of or uninterested in products
+   326→• Example: BlackBerry Key2 with limited consumer awareness
+   327→
+   328→
+   329→                                    Marketing - Lecture Notes | Page 7
+   330→Latent Demand
+   331→• Strong underlying need that current products cannot satisfy
+   332→• Example: Consumers wanting better smartphone cameras than currently available
+   333→Declining Demand
+   334→• Products purchased less frequently over time
+   335→• Examples: Floppy disks, CDs, LCDs, older technology-based products
+   336→• Consumers move to newer alternatives as technology evolves
+   337→Irregular Demand
+   338→• Seasonal or fluctuating demand patterns
+   339→• Examples: Air conditioners and coolers; seasonal fruits and foods
+   340→Full Demand
+   341→• Products consistently purchased at adequate marketplace levels
+   342→• Example: Over-the-counter (OTC) drugs always in demand
+   343→Overfull Demand
+   344→• Demand exceeds available supply
+   345→• Examples: Bread and milk in grocery stores; regularly sold out items
+   346→Unwholesome Demand
+   347→• Products with demand but socially undesirable consequences
+   348→• Examples: Cigarettes, tobacco, alcohol
+   349→
+   350→Key Marketing Principles
+   351→• Needs are generally pre-existing; marketers recognize rather than create them
+   352→• Wants and demands are malleable and can be shaped through marketing strategies
+   353→• Successful marketing requires understanding all types of needs and demand states
+   354→• Marketing must address customer needs profitably to be sustainable
+   355→• The most effective marketing connects consumers with products through meaningful ideas,
+   356→  experiences, or emotional connections rather than direct product promotion
+   357→
+   358→
+   359→
+   360→
+   361→                                   Marketing - Lecture Notes | Page 8
+   362→Lecture 4 starts
+   363→Introduction to Marketing and Understanding Consumer
+   364→Behavior
+   365→Overview of the Course Structure and Instructor Background
+   366→This is the introductory session for the "Content and Principles of Marketing" course. The course
+   367→includes two live sessions per week, with weekend sessions of 50 minutes led by the instructor for
+   368→concept delivery and doubt-clearing, followed by 15 minutes with teaching assistants. The course
+   369→employs an interactive pedagogy combining English and Hindi to ensure accessibility for all students.
+   370→The instructor, Anush Pal Kapoor, is a faculty member at the School of Management and
+   371→Entrepreneurship at IIT Jodhpur, with a background spanning six years in industry (HDFC, Michael Page,
+   372→Nokia) and over six years in academia. He holds a PhD in neuro-marketing and multi-sensory
+   373→experience from FMS, University of Delhi.
+   374→
+   375→Assessment and Evaluation Components
+   376→• Group Marketing Plan (20 marks): Students work collaboratively on a group marketing plan with
+   377→  comprehensive details provided by the instructor
+   378→• One-Page Assignments (20 marks): Work assignments must be completed within a strict one-page
+   379→  format with no exceptions
+   380→• Mid-Term Examination: Major component of continuous assessment
+   381→• Quizzes: Regular quizzes included as part of continuous evaluation
+   382→• Optional Competition Component (20 marks): Participation in national or international B-school
+   383→  competitions or marketing-related Olympiads requires prior approval from the instructor; marks
+   384→  awarded to winners, runners-up, or finalists; completely voluntary
+   385→Note on Study Materials: The final examination has a 60-mark weightage. Note-taking is optional and
+   386→depends on individual learning preferences; all content will be covered in 30 sessions.
+   387→
+   388→Fundamental Concept: The Closed System of Consumers
+   389→Understanding Consumer Mind
+   390→The human mind operates as a closed system by default, constantly recycling familiar options, known
+   391→brands, and established habits. Consumers are naturally resistant to new information due to
+   392→information overload - they are exposed to countless advertisements and brands daily. The mind
+   393→selectively opens only when something triggers genuine interest or creates a compelling reason to
+   394→consider alternatives.
+   395→
+   396→The Linear Relationship Between Interest and Openness
+   397→Marketing effectiveness is measured by a linear relationship:
+   398→• X-axis: Openness to receive information
+   399→• Y-axis: Interest in the product, brand, or service
+   400→For consumers to transition from a closed system to an open system, two conditions must be met
+   401→simultaneously:
+   402→• Interest generation: The marketing effort must spark genuine interest in the product or brand
+   403→• Information receptivity: The consumer must become open to receiving and processing new
+   404→  information
+   405→
+   406→Breaking the Closed System Loop
+   407→Every consumer has a unique "breaking point" - a threshold at which they become willing to explore
+   408→beyond their established preferences. Marketing efforts (such as promotional offers, celebrity
+   409→endorsements, limited-time deals, or exclusive collections) serve as "interrupts" that break the habitual
+   410→loop and create openness to new possibilities.
+   411→
+   412→
+   413→                                     Marketing - Lecture Notes | Page 9
+   414→Key Principle: If a consumer is interested in something, they will be open to learning more about it.
+   415→Conversely, openness to information indicates underlying interest. This relationship remains
+   416→consistently linear across different consumer segments.
+   417→
+   418→Marketing vs. Sales: Two Fundamental Approaches
+   419→Inside-Out Approach (Sales)
+   420→• Focuses on what the organization has produced or created
+   421→• Pushes existing products to consumers
+   422→• Centers on transaction completion
+   423→
+   424→Outside-In Approach (Marketing)
+   425→• Begins with understanding consumer needs, desires, and preferences
+   426→• Conducts market research to gather consumer insights
+   427→• Develops strategies based on consumer information
+   428→• Focuses on relationship building rather than immediate transactions
+   429→Critical Distinction: Marketing always starts with the customer, not the product. While products are
+   430→essential for business operations, understanding and opening the consumer's closed system is the
+   431→prerequisite for successful marketing efforts.
+   432→
+   433→The Business Value of Marketing
+   434→Revenue and Profit Framework
+   435→Organizations operate with two primary financial metrics:
+   436→• Top Line (Revenue/Sales): The total income generated from selling products or services; calculated
+   437→  as the number of products sold multiplied by their selling price
+   438→• Bottom Line (Profit): The net income remaining after deducting costs from revenue; calculated as
+   439→  Revenue minus Total Costs
+   440→Critical Relationship: Without a top line (revenue), there cannot be a bottom line (profit). Every
+   441→organization, regardless of its nature - including NGOs and social enterprises - requires revenue to
+   442→sustain operations, pay employees, and continue functioning.
+   443→The Role of Marketing: An organization's financial success fundamentally depends on its marketing
+   444→ability to generate revenue. Marketing encompasses multiple strategic components including pricing,
+   445→product development, promotion, and distribution, all working together to create consumer demand
+   446→and drive sales.
+   447→concepts
+   448→• Relevant internship and professional experience
+   449→• Ability to combine theoretical knowledge with practical insights
+   450→The teaching assistants are:
+   451→• Harshita: From Punjab; passionate about understanding people's psychology and connecting
+   452→  business ideas with consumer needs
+   453→• Kushi Bafna: Has 1.5 years of marketing work experience; currently studying AI's impact on business
+   454→• Sharad: B-Farm graduate bringing a unique perspective to marketing
+   455→• Amog: Former data analyst with interest in marketing collaboration and doubt-solving
+   456→• Shivangi: Brings 3+ years of experience in international sales and service delivery, plus digital
+   457→  marketing internship background
+   458→• Sheetal: Commerce graduate with interest in marketing's creative aspects and people-business
+   459→  connections
+   460→
+   461→Important Reminders for Students
+   462→• Respect classroom etiquette by avoiding repeated questions in chat
+   463→
+   464→
+   465→
+   466→                                    Marketing - Lecture Notes | Page 10
+   467→• Utilize the LMS platform for course materials and question submission
+   468→• Engage actively in group discussions and assignments
+   469→• Take responsibility for stepping outside comfort zones during the course duration
+   470→• Participate in optional competitions and activities for additional learning
+   471→• Provide constructive feedback to improve course delivery
+   472→• All recordings will be available on the LMS for review
+   473→Next Session Focus: The course will continue building on fundamental concepts while introducing new
+   474→topics each week, with doubt-clearing sessions led by teaching assistants and the instructor,
+   475→maintaining a balance between theoretical foundations and practical applications in marketing
+   476→
+   477→
+   478→
+   479→
+   480→                                    Marketing - Lecture Notes | Page 11
+   481→Lecture 5 starts
+   482→Understanding Customer Perceived Value
+   483→This lecture explores the fundamental marketing concept of customer perceived value, examining how
+   484→consumers evaluate the worth of products and services beyond their listed price.
+   485→
+   486→Overview of Customer Perceived Value
+   487→Customer perceived value is not merely about the price printed on a product; rather, it is a calculation
+   488→made in the consumer's mind based on the benefits received minus the costs incurred. The value is
+   489→highly subjective and contextual, varying based on individual situations and circumstances.
+   490→
+   491→Key Illustration: The Chai Example
+   492→• Roadside tea (₹20): Economical option, suitable for casual consumption
+   493→• Café tea (₹250): Preferred for business meetings and professional settings due to improved
+   494→  ambiance and impression management
+   495→• Airport tea (₹500): Selected when no other options are available or when traveling
+   496→The same product carries different perceived values depending on the consumer's context and needs.
+   497→
+   498→Theoretical Framework of Customer Perceived Value
+   499→Formula: Customer Perceived Value = Benefits - Costs
+   500→
+   501→Components of Benefits
+   502→Benefits extend beyond the physical product and include:
+   503→• Psychological Benefit: The core functional advantage (e.g., a jacket keeping you warm during winter)
+   504→• Functional Benefit: Practical utility features (e.g., pockets, hoodie, wind resistance)
+   505→• Economic Benefit: The monetary value and savings associated with the purchase
+   506→• Extended Psychological Benefit: The social perception and status associated with owning the
+   507→  product; how others perceive the consumer based on their choice
+   508→The extended psychological benefit is particularly powerful in modern marketing, as it influences how
+   509→consumers feel about social acceptability and personal image.
+   510→
+   511→Components of Costs
+   512→Costs are not limited to direct monetary expenses but include:
+   513→• Direct Cost: The actual price paid for the product or service
+   514→• Abstract Costs:
+   515→• Time investment required to purchase and obtain the product
+   516→• Effort and energy expended
+   517→• Psychological stress (e.g., worrying about parking, traffic)
+   518→• Disposal costs and after-sales service considerations
+   519→Example: Ordering ice cream from a delivery app may have a higher monetary cost but lower abstract
+   520→costs (no travel time, no parking concerns, convenience of home delivery) compared to visiting a
+   521→physical store.
+   522→
+   523→Limitations of Different Benefits
+   524→• Psychological Benefit: Limited by the maximum warmth a jacket can provide
+   525→• Functional Benefit: Constrained by practical design limits and risk of cognitive overload with too
+   526→  many features
+   527→• Economic Benefit: Cannot be reduced indefinitely without causing business losses
+   528→• Extended Psychological Benefit: No inherent limitation; organizations can continuously enhance
+   529→  perception through branding and marketing efforts
+   530→
+   531→
+   532→
+   533→                                    Marketing - Lecture Notes | Page 12
+   534→How Organizations Create Value
+   535→Organizations can enhance customer perceived value through two primary strategies:
+   536→• Increase Benefits: Improve the product quality, features, or emotional appeal
+   537→• Reduce Costs: Lower prices, simplify processes, or reduce friction in the purchase and usage
+   538→  experience
+   539→
+   540→Real-World Examples
+   541→Denim Jeans Pricing:
+   542→• Generic jeans: ₹1,000-1,500
+   543→• Levi's jeans: ₹3,900-5,900
+   544→• Armani jeans: ₹25,000-50,000
+   545→The product remains physically similar, but the brand creates an extended psychological benefit
+   546→through brand equity, influencing perceived value significantly.
+   547→Amazon Prime Integration: Organizations reduce friction by integrating shopping experiences within
+   548→entertainment platforms. The "Add to Cart" button appearing during advertisements on OTT platforms
+   549→makes purchasing easier, reducing the abstract cost of obtaining products.
+   550→Mobile Application Comparison:
+   551→• Application A: Better playlists but includes frequent ads and complex six-step login process
+   552→• Application B: Simpler one-step login with minimal friction
+   553→Despite Application A being free, Application B offers superior perceived value due to reduced friction.
+   554→
+   555→Key Takeaways
+   556→• Value is Subjective: The worth of a product varies from person to person and situation to situation.
+   557→  What holds high value for one consumer may not for another.
+   558→• More Features is Not More Value: Adding excessive features can create cognitive overload and
+   559→  confusion rather than enhancing value. A balanced approach is necessary.
+   560→• Features vs. Benefits:
+   561→• Features: Describe what the product has (e.g., memory foam in a mattress)
+   562→• Benefits: Explain why consumers should care (e.g., better sleep and reduced discomfort)
+   563→Effective marketing communicates benefits rather than merely listing features, as consumers purchase
+   564→products for what they can do for them, not for the features themselves.
+   565→• Context Matters: Value changes based on circumstances, even when the product remains identical.
+   566→• Balance is Essential: When adding features or reducing prices, organizations must maintain a
+   567→  balance to avoid diminishing returns.
+   568→
+   569→Strategic Implications for Organizations
+   570→• Focus on extended psychological benefit as it offers the greatest flexibility and requires only creative
+   571→  marketing strategies
+   572→• Recognize that reducing friction in the purchase, use, and disposal process significantly enhances
+   573→  perceived value
+   574→• Communicate benefits clearly rather than overwhelming consumers with features
+   575→• Understand that true value creation involves a careful balance between improving benefits and
+   576→  reducing costs
+   577→
+   578→
+   579→
+   580→
+   581→                                    Marketing - Lecture Notes | Page 13
+   582→Lecture 6 starts
+   583→Marketing Environment and Exchange Systems
+   584→Overview
+   585→This lecture covers two primary topics: the marketing environment in which organizations operate, and
+   586→the concept of marketing as an exchange system. The lecture emphasizes that marketing involves far
+   587→more complex exchanges than simply trading money for products.
+   588→
+   589→Marketing Environment
+   590→Task Environment (Micro Environment)
+   591→The task environment consists of the immediate entities with which marketing directly interacts:
+   592→• Suppliers: Provide resources needed for operations
+   593→• Customers: The target market for products and services
+   594→• Competitors: Other organizations offering similar products or services
+   595→
+   596→Broad Environment (Macro Environment)
+   597→The broad or macro environment comprises indirect factors that organizations must consider:
+   598→• Demographic Elements: Age groups, socio-economic status, income levels, and population
+   599→  characteristics
+   600→• Political-Legal Elements: Government policies, regulations, minimum wage laws, and food safety
+   601→  standards
+   602→• Economic Elements: GST reforms, recessions, inflation, and market conditions
+   603→• Socio-Cultural Elements: Consumption patterns, dietary preferences, and cultural backgrounds that
+   604→  influence consumer behavior
+   605→• Physical Elements: Climate, environmental conditions, and natural factors affecting operations
+   606→• Technological Elements: Innovations such as transitions from floppy disks to cloud storage, UPI
+   607→  payments, and digital platforms
+   608→
+   609→Marketing as an Exchange System
+   610→Beyond Money-for-Product Transactions
+   611→Marketing exchanges involve far more than the simple transfer of money for a product. Multiple
+   612→elements are exchanged in every marketing transaction, including:
+   613→• Benefits and convenience
+   614→• Costs and efforts
+   615→• Information and personal data
+   616→• Time and attention
+   617→• Risk and trust
+   618→
+   619→Practical Example: Food Delivery (Zomato)
+   620→When a consumer orders food through Zomato, they exchange:
+   621→• Money: Payment for the meal
+   622→• Personal Information: Address, contact details, location, preferences, and dietary choices
+   623→• Time: Searching through menus and restaurants
+   624→• Ratings and Reviews: Feedback on the experience
+   625→In return, consumers receive:
+   626→• The Meal Itself: The physical product
+   627→• Convenience: Access to multiple restaurants and cuisines in one platform
+   628→
+   629→
+   630→
+   631→                                    Marketing - Lecture Notes | Page 14
+   632→• Information: Restaurant ratings, reviews, and delivery tracking
+   633→• Multiple Choices: Access to diverse dining options
+   634→• Transparency: Real-time order tracking and delivery status
+   635→
+   636→Modern Exchange Economy Framework
+   637→The modern exchange economy consists of interconnected markets with continuous exchanges and
+   638→transactions:
+   639→• Resource Market to Manufacturing Market: Resources exchanged for money
+   640→• Manufacturing Market to Intermediary Market: Finished goods exchanged for money
+   641→• Intermediary Market to Consumer Market: Products and services exchanged for money
+   642→• Consumer Market to Resource Market: Money exchanged for resources and labor
+   643→• Government Market: Sits centrally, exchanging taxes and services with all other markets
+   644→
+   645→Key Concepts: Exchange, Transaction, and Relationship
+   646→Exchange
+   647→• Definition: The process of offering and receiving something of value in return
+   648→• Nature: Not limited to money; can involve information, convenience, effort, time, or any element of
+   649→  value
+   650→• Scope: Broader than buying and selling; fundamental to all marketing systems
+   651→
+   652→Transaction
+   653→• Definition: An agreed-upon exchange where terms are clearly defined and performance is expected
+   654→  to occur
+   655→• Characteristics: Always involves money or monetary value between two parties on agreed terms and
+   656→  conditions
+   657→• Distinction: More specific than exchange; captures value at a particular moment in time
+   658→
+   659→Relationship
+   660→• Definition: An ongoing series of exchanges and transactions that build value over time
+   661→• Foundation: Built on the mutual satisfaction from exchanges and transactions
+   662→• Development: Occurs when both parties consistently receive value, leading to loyalty, repeat
+   663→  business, and advocacy
+   664→• Importance: Transforms one-time transactions into long-term partnerships
+   665→
+   666→Differentiating the Three Concepts
+   667→• Exchange | Nature: Offering and receiving value | Scope: Broader; includes all types of value
+   668→  exchange | Outcome: Foundation of marketing
+   669→• Transaction | Nature: Agreed-upon exchange with money involved | Scope: Specific moment in time;
+   670→  involves monetary terms | Outcome: Completed sale or service delivery
+   671→• Relationship | Nature: Series of exchanges over time | Scope: Extended period; multiple touchpoints |
+   672→  Outcome: Customer loyalty and advocacy
+   673→
+   674→Simple Marketing System Components
+   675→A basic marketing system consists of:
+   676→• Industry: The set of sellers/producers
+   677→• Market: The set of buyers/consumers
+   678→• Communication Flow: Information exchange between industry and market
+   679→• Goods and Services Flow: Products moving from industry to market
+   680→• Money Flow: Payment moving from market to industry
+   681→• Information Flow: Feedback and data moving from market to industry
+   682→
+   683→
+   684→                                   Marketing - Lecture Notes | Page 15
+   685→This system is dynamic and continuous, with all elements constantly interacting.
+   686→
+   687→Customer Journey Mapping Exercise
+   688→When mapping a food delivery transaction (Zomato example), identify the following elements:
+   689→Key Participants: Student, Restaurant, Delivery Partner, Platform
+   690→What Each Party Gives and Receives:
+   691→• Student Gives: Payment, time, attention, personal data, trust
+   692→• Student Receives: Meal, convenience, tracking information
+   693→• Restaurant Gives: Food, menu information, packaging
+   694→• Restaurant Receives: Orders, revenue, visibility
+   695→• Delivery Partner Gives: Pickup, delivery, reliability
+   696→• Delivery Partner Receives: Earnings, access to orders
+   697→• Platform Gives: App interface, restaurant matching, payment processing, tracking
+   698→• Platform Receives: Commission, data, loyalty, ratings
+   699→Identifying Exchanges vs. Transactions:
+   700→• Most activities throughout the customer journey are exchanges of various values (information,
+   701→  convenience, trust)
+   702→• The specific moment when payment is processed and confirmed represents the transaction
+   703→• Relationships develop when repeat orders occur and when customers become advocates for the
+   704→  platform
+   705→
+   706→Summary
+   707→Marketing operates within two distinct environments and functions fundamentally as an exchange
+   708→system. While transactions involving money are important, the broader concept of exchange -
+   709→encompassing time, information, convenience, trust, and effort - forms the foundation of modern
+   710→marketing. Understanding the interplay between exchanges, transactions, and long-term relationships
+   711→is essential for comprehending how marketing creates value for all parties involved.
+   712→
+   713→
+   714→
+   715→
+   716→                                     Marketing - Lecture Notes | Page 16
+   717→Lecture 7 starts
+   718→Fundamental Concepts in Customer Perceived Value and
+   719→Marketing Exchange
+   720→Overview
+   721→This session focused on clarifying key concepts related to customer perceived value, emphasizing the
+   722→critical distinctions between commonly confused terms and explaining how value is determined through
+   723→the relationship between benefits and sacrifices rather than price alone.
+   724→
+   725→Key Concepts Clarified
+   726→1. Value vs. Price
+   727→• Value is not equal to price - An expensive product does not necessarily provide higher value
+   728→• Value is subjective and depends on the individual consumer's perception
+   729→• A low-priced item can be more valuable than a high-priced item depending on the context and the
+   730→  benefits derived
+   731→• Example: A ₹5 pen for exam writing provides the same functional value as a ₹5,000 pen, but the
+   732→  latter gains additional value from extended psychological benefits when signing important
+   733→  documents
+   734→
+   735→2. Features vs. Benefits
+   736→• Features are product characteristics, while benefits are the value derived from those features
+   737→• Not every feature generates a benefit for every consumer
+   738→• Features do not directly translate to benefits
+   739→• Example: A pen with a fine nib (feature) may provide the benefit of smooth writing without ink
+   740→  spillage (benefit), but this benefit is not universal to all users
+   741→
+   742→3. Benefits vs. Value
+   743→• Benefits alone do not constitute value - value only emerges when benefits are compared against
+   744→  sacrifices
+   745→• The formula is: Value = Benefits - Sacrifices
+   746→• A consumer perceives value when they believe the benefits they gain outweigh the sacrifices they
+   747→  make
+   748→
+   749→4. Sacrifices and Costs
+   750→Sacrifices extend beyond monetary cost and include:
+   751→• Direct costs: The monetary amount paid for the product
+   752→• Abstract/indirect costs: Time spent searching, effort to compare products, physical travel to stores,
+   753→  psychological costs, and opportunity costs
+   754→• Example: Purchasing a laptop involves not just the purchase price but also time invested in research,
+   755→  effort to visit physical stores, and the opportunity to use that money elsewhere
+   756→
+   757→Components of Customer Perceived Benefit
+   758→The lecture identified multiple dimensions of benefits:
+   759→• Functional benefits: Direct utility and performance of the product
+   760→• Psychological benefits: Emotional satisfaction and confidence
+   761→• Economic benefits: Price-related advantages and discounts
+   762→• Personal benefits: Individual satisfaction
+   763→• Image benefits: How the product affects one's social perception
+   764→
+   765→
+   766→
+   767→
+   768→                                     Marketing - Lecture Notes | Page 17
+   769→• Extended psychological benefits: Social status, social acceptability, and how others perceive the
+   770→  consumer using the product
+   771→
+   772→Limitations of Benefit Components
+   773→• Functional, psychological, and economic benefits have upper and lower caps - they cannot be
+   774→  increased indefinitely without increasing costs
+   775→• Extended psychological benefits have no limitations - these are entirely subjective and can create
+   776→  significant value differences
+   777→• Example: The same ₹100 pen can be sold for ₹5,000 or even higher based solely on the extended
+   778→  psychological benefit created through branding and perception
+   779→
+   780→Luxury Sector and Value Perception
+
+[showing lines 1-780 of 3078; use offset=781 with limit to continue reading]

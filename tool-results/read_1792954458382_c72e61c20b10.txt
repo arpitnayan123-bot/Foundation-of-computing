@@ -1,0 +1,452 @@
+    36→
+    37→function LogLine({ log }: { log: string }) {
+    38→  return (
+    39→    <p className="mt-4 min-h-[2.6rem] rounded-xl px-3.5 py-2.5 font-mono-warm text-[.85rem] font-bold text-[#a0410a]" style={{ background: "#fffaf1", border: "1px dashed #e5c79d" }} aria-live="polite">
+    40→      {log}
+    41→    </p>
+    42→  );
+    43→}
+    44→
+    45→function WarnCard({ title, children }: { title: string; children: React.ReactNode }) {
+    46→  return (
+    47→    <div className="card-warm h-full p-6" style={{ borderColor: "#e6a08c", background: "#fdf3ef" }}>
+    48→      <div className="flex items-center gap-2">
+    49→        <AlertTriangle className="h-5 w-5" style={{ color: "#be4a4a" }} />
+    50→        <p className="font-extrabold text-[#8c2f2f]">{title}</p>
+    51→      </div>
+    52→      <p className="mt-2 text-[.9rem] leading-relaxed text-[#2b2014]">{children}</p>
+    53→    </div>
+    54→  );
+    55→}
+    56→
+    57→/* ============================================================
+    58→   STACKS — widget + SVG
+    59→   ============================================================ */
+    60→
+    61→const STACK_CAP = 6;
+    62→const STACK_SEQ = [64, 32, 53, 66, 54];
+    63→type Piece = { id: number; v: number };
+    64→
+    65→function StackWidget() {
+    66→  const [items, setItems] = useState<Piece[]>(STACK_SEQ.map((v, i) => ({ id: i + 1, v })));
+    67→  const [log, setLog] = useState("Push 64 → 32 → 53 → 66 → 54. Top = 54.");
+    68→  const nid = useRef(STACK_SEQ.length);
+    69→  const nseq = useRef(0);
+    70→
+    71→  function push() {
+    72→    if (items.length >= STACK_CAP) return setLog("Push() ✗ STACK OVERFLOW — the stack is FULL (6 of 6).");
+    73→    const v = STACK_SEQ[nseq.current % STACK_SEQ.length];
+    74→    nseq.current += 1; nid.current += 1;
+    75→    setItems((xs) => [...xs, { id: nid.current, v }]);
+    76→    setLog(`Push(${v}) → ${v} lands ON TOP. Top = ${v}.`);
+    77→  }
+    78→  function pop() {
+    79→    if (items.length === 0) return setLog("Pop() ✗ STACK UNDERFLOW — the stack is EMPTY, nothing to remove.");
+    80→    const t = items[items.length - 1];
+    81→    setItems((xs) => xs.slice(0, -1));
+    82→    setLog(`Pop() → ${t.v} lifts off. ${items.length - 1 > 0 ? `New top = ${items[items.length - 2].v}.` : "The stack is now empty."}`);
+    83→  }
+    84→  const peek = () => setLog(items.length ? `Peek() → ${items[items.length - 1].v} (reads the top, removes nothing)` : "Peek() → the stack is empty.");
+    85→  const size = () => setLog(`Size() → ${items.length}`);
+    86→  const reset = () => { setItems(STACK_SEQ.map((v, i) => ({ id: i + 1, v }))); nseq.current = 0; setLog("Reset — Push 64 → 32 → 53 → 66 → 54. Top = 54."); };
+    87→
+    88→  return (
+    89→    <div className="card-warm p-6 md:p-8">
+    90→      <div className="flex flex-wrap items-center gap-3">
+    91→        <Layers className="h-6 w-6" style={{ color: "#c2410c" }} />
+    92→        <h3 className="text-xl font-bold md:text-2xl">Last-In, First-Out — try the machine</h3>
+    93→        <span className="chip">like a pile of plates — last placed, first picked</span>
+    94→      </div>
+    95→      <div className="mt-5 grid gap-6 lg:grid-cols-[auto,1fr]">
+    96→        <div>
+    97→          <div className="relative">
+    98→            <div className="flex flex-col-reverse gap-1.5" aria-hidden>
+    99→              {Array.from({ length: STACK_CAP }).map((_, i) => <div key={i} className="h-11 w-44 rounded-xl border-2 border-dashed sm:w-52" style={{ borderColor: "#e8d5b5" }} />)}
+   100→            </div>
+   101→            <div className="absolute inset-0 flex flex-col-reverse gap-1.5">
+   102→              <AnimatePresence initial={false}>
+   103→                {items.map((p, i) => (
+   104→                  <motion.div key={p.id} initial={{ y: -44, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -46, opacity: 0, scale: 0.92 }} transition={{ type: "spring", stiffness: 380, damping: 28 }}
+   105→                    className="flex h-11 w-44 items-center justify-center rounded-xl text-[1.05rem] font-extrabold text-white shadow-md sm:w-52"
+   106→                    style={{ background: i === items.length - 1 ? "linear-gradient(135deg,#ea580c,#c2410c)" : "linear-gradient(135deg,#e8a13c,#d97706)" }}>
+   107→                    {p.v}
+   108→                    {i === items.length - 1 ? <span className="ml-2 rounded-md bg-black/25 px-1.5 py-0.5 text-[.62rem] font-bold">top</span> : null}
+   109→                  </motion.div>
+   110→                ))}
+   111→              </AnimatePresence>
+   112→            </div>
+   113→          </div>
+   114→          <p className="mt-2 text-center text-[.72rem] font-bold uppercase tracking-[.14em] text-[#8a5a06]">↑ Push enters here · Pop leaves from here ↑</p>
+   115→        </div>
+   116→        <div>
+   117→          <div className="flex flex-wrap gap-2">
+   118→            <OpBtn tone="warm" onClick={push}>Push()</OpBtn>
+   119→            <OpBtn tone="warm" onClick={pop}>Pop()</OpBtn>
+   120→            <OpBtn onClick={peek}>Peek()</OpBtn>
+   121→            <OpBtn onClick={size}>Size()</OpBtn>
+   122→            <OpBtn onClick={reset}><RotateCcw className="mr-1 inline h-3.5 w-3.5" />reset</OpBtn>
+   123→          </div>
+   124→          <LogLine log={log} />
+   125→          <p className="mt-3 text-[.88rem] leading-relaxed text-[#2b2014]">
+   126→            The lecture&apos;s run: push <span className="font-mono-warm font-bold">64, 32, 53, 66, 54</span> → top
+   127→            is <strong>54</strong>. <span className="font-mono-warm font-bold">Pop()</span> → 54 leaves,{" "}
+   128→            <span className="font-mono-warm font-bold">Pop()</span> → 66 leaves,{" "}
+   129→            <span className="font-mono-warm font-bold">Peek()</span> → <strong>53</strong>,{" "}
+   130→            <span className="font-mono-warm font-bold">Size()</span> → <strong>3</strong>. The last value in
+   131→            is always the first value out — <strong>LIFO</strong>.
+   132→          </p>
+   133→        </div>
+   134→      </div>
+   135→    </div>
+   136→  );
+   137→}
+   138→
+   139→function StackOfStacksSvg() {
+   140→  return (
+   141→    <svg viewBox="0 0 560 252" className="h-auto w-full" role="img" aria-label="A main stack of browser windows where each window is itself a stack of tabs">
+   142→      <rect x="20" y="34" width="520" height="190" rx="14" fill="none" stroke="#c99a5b" strokeWidth="2" strokeDasharray="7 5" />
+   143→      <text x="30" y="22" fontSize="11.5" fontWeight="800" fill="#8a5a06">MAIN STACK — each element is a WINDOW</text>
+   144→      {["A", "B", "C"].map((w, i) => (
+   145→        <g key={w} transform={`translate(${45 + i * 180}, 56)`}>
+   146→          <rect x="0" y="0" width="130" height="148" rx="10" fill="#fffaf1" stroke="#e2b075" strokeWidth="1.6" />
+   147→          <rect x="8" y="8" width="114" height="26" rx="7" fill="#b45309" />
+   148→          <text x="65" y="25" textAnchor="middle" fontSize="12" fontWeight="800" fill="#fff7ec">Window {w}</text>
+   149→          {[0, 1, 2].map((t) => (
+   150→            <g key={t}>
+   151→              <rect x="14" y={44 + t * 32} width="102" height="26" rx="7" fill={t === 2 ? "#f6ad3c" : "#fde8cf"} stroke="#e2b075" strokeWidth="1.3" />
+   152→              <text x="65" y={61 + t * 32} textAnchor="middle" fontSize="11" fontWeight="700" fill={t === 2 ? "#7c2d0a" : "#7c4a12"}>{t === 2 ? "Tab — top" : `Tab ${t + 1}`}</text>
+   153→            </g>
+   154→          ))}
+   155→        </g>
+   156→      ))}
+   157→      <text x="280" y="242" textAnchor="middle" fontSize="11.5" fontWeight="700" fill="#6f5438">each window&apos;s element is itself a stack — tabs / history states pile up LIFO, window by window</text>
+   158→    </svg>
+   159→  );
+   160→}
+   161→
+   162→/* ============================================================
+   163→   QUEUES — widget + SVGs
+   164→   ============================================================ */
+   165→
+   166→const Q_CAP = 6;
+   167→const Q_SEQ = [64, 32, 53, 66, 54];
+   168→type QPiece = { id: number; v: number };
+   169→
+   170→function QueueWidget() {
+   171→  const [items, setItems] = useState<QPiece[]>(Q_SEQ.map((v, i) => ({ id: i + 1, v })));
+   172→  const [log, setLog] = useState("Enqueue 64 → 32 → 53 → 66 → 54. Front = 64, Rear = 54.");
+   173→  const nid = useRef(Q_SEQ.length);
+   174→  const nseq = useRef(0);
+   175→
+   176→  function enqueue() {
+   177→    if (items.length >= Q_CAP) return setLog("Enqueue() ✗ QUEUE OVERFLOW — the queue is FULL (6 of 6).");
+   178→    const v = Q_SEQ[nseq.current % Q_SEQ.length];
+   179→    nseq.current += 1; nid.current += 1;
+   180→    setItems((xs) => [...xs, { id: nid.current, v }]);
+   181→    setLog(`Enqueue(${v}) → ${v} joins at the REAR.`);
+   182→  }
+   183→  function dequeue() {
+   184→    if (items.length === 0) return setLog("Dequeue() ✗ QUEUE UNDERFLOW — the queue is EMPTY, nobody to serve.");
+   185→    const f = items[0];
+   186→    setItems((xs) => xs.slice(1));
+   187→    setLog(`Dequeue() → ${f.v} leaves from the FRONT. ${items.length - 1 > 0 ? `New front = ${items[1].v}.` : "The queue is now empty."}`);
+   188→  }
+   189→  const peek = () => setLog(items.length ? `Peek()/Front() → ${items[0].v} · Rear() → ${items[items.length - 1].v}` : "Peek() → the queue is empty.");
+   190→  const size = () => setLog(`Size() → ${items.length}`);
+   191→  const reset = () => { setItems(Q_SEQ.map((v, i) => ({ id: i + 1, v }))); nseq.current = 0; setLog("Reset — Enqueue 64 → 32 → 53 → 66 → 54. Front = 64, Rear = 54."); };
+   192→
+   193→  const front = items[0]?.v, rear = items[items.length - 1]?.v;
+   194→  return (
+   195→    <div className="card-warm p-6 md:p-8">
+   196→      <div className="flex flex-wrap items-center gap-3">
+   197→        <ListMusic className="h-6 w-6" style={{ color: "#c2410c" }} />
+   198→        <h3 className="text-xl font-bold md:text-2xl">Front and rear — try the line</h3>
+   199→        <span className="chip">FCFS · First-Come-First-Served = FIFO</span>
+   200→      </div>
+   201→      <div className="mt-5 flex flex-wrap items-center gap-3 text-[.78rem] font-extrabold text-[#8a5a06]">
+   202→        <span className="flex items-center gap-1"><ArrowLeft className="h-4 w-4" style={{ color: "#c2410c" }} aria-hidden /> Front — Dequeue leaves here</span>
+   203→        <span className="flex items-center gap-1">Rear — Enqueue enters here <ArrowRight className="h-4 w-4" style={{ color: "#c2410c" }} aria-hidden /></span>
+   204→        <span className="rounded-full bg-[#fde8cf] px-2.5 py-1 font-mono-warm text-[.74rem] font-bold text-[#7c4a12]">Front → {front ?? "—"} · Rear → {rear ?? "—"} · Size {items.length}</span>
+   205→      </div>
+   206→      <div className="relative mt-3">
+   207→        <div className="grid grid-cols-6 gap-2" aria-hidden>
+   208→          {Array.from({ length: Q_CAP }).map((_, i) => <div key={i} className="h-12 rounded-xl border-2 border-dashed" style={{ borderColor: "#e8d5b5" }} />)}
+   209→        </div>
+   210→        <div className="absolute inset-0 grid grid-cols-6 gap-2">
+   211→          <AnimatePresence initial={false}>
+   212→            {items.map((p, i) => (
+   213→              <motion.div key={p.id} initial={{ x: 46, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -46, opacity: 0, scale: 0.92 }} transition={{ type: "spring", stiffness: 380, damping: 28 }}
+   214→                className="flex h-12 items-center justify-center rounded-xl text-[1rem] font-extrabold text-white shadow-md"
+   215→                style={{ background: i === 0 ? "linear-gradient(135deg,#ea580c,#c2410c)" : "linear-gradient(135deg,#e8a13c,#d97706)", gridColumnStart: i + 1 }}>
+   216→                {p.v}
+   217→              </motion.div>
+   218→            ))}
+   219→          </AnimatePresence>
+   220→        </div>
+   221→      </div>
+   222→      <div className="mt-4 flex flex-wrap gap-2">
+   223→        <OpBtn tone="warm" onClick={enqueue}>Enqueue()</OpBtn>
+   224→        <OpBtn tone="warm" onClick={dequeue}>Dequeue()</OpBtn>
+   225→        <OpBtn onClick={peek}>Peek / Front · Rear</OpBtn>
+   226→        <OpBtn onClick={size}>Size()</OpBtn>
+   227→        <OpBtn onClick={reset}><RotateCcw className="mr-1 inline h-3.5 w-3.5" />reset</OpBtn>
+   228→      </div>
+   229→      <LogLine log={log} />
+   230→      <p className="mt-3 text-[.88rem] leading-relaxed text-[#2b2014]">
+   231→        The lecture&apos;s run: Enqueue <span className="font-mono-warm font-bold">64, 32, 53, 66, 54</span> fills
+   232→        left → right. <span className="font-mono-warm font-bold">Dequeue()</span> removes <strong>64</strong> (the
+   233→        front — it arrived first), again removes <strong>32</strong>. Then{" "}
+   234→        <span className="font-mono-warm font-bold">Peek</span> → <strong>53</strong>, Rear → <strong>54</strong>,
+   235→        Size → <strong>3</strong>. Your <strong>order doesn&apos;t matter — your PLACE does</strong>.
+   236→      </p>
+   237→    </div>
+   238→  );
+   239→}
+   240→
+   241→/* ---------- queue-type SVGs (dark section) ---------- */
+   242→
+   243→function LinearLimitSvg() {
+   244→  return (
+   245→    <svg viewBox="0 0 620 140" className="h-auto w-full" role="img" aria-label="Linear queue: front spaces are free but the rear pointer is stuck at the last cell, so no insert is possible">
+   246→      <defs><marker id="lq-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker></defs>
+   247→      {[0, 1, 2].map((i) => (
+   248→        <g key={i}>
+   249→          <rect x={30 + i * 92} y="46" width="80" height="52" rx="9" fill="none" stroke="#c99a5b" strokeWidth="1.8" strokeDasharray="6 4" />
+   250→          <text x={30 + i * 92 + 40} y="77" textAnchor="middle" fontSize="11" fontWeight="700" fill="#b99a75">free</text>
+   251→        </g>
+   252→      ))}
+   253→      {[66, 54, 71].map((v, i) => (
+   254→        <g key={v}>
+   255→          <rect x={306 + i * 92} y="46" width="80" height="52" rx="9" fill="#fde8cf" stroke="#e2b075" strokeWidth="1.8" />
+   256→          <text x={306 + i * 92 + 40} y="78" textAnchor="middle" fontSize="15" fontWeight="800" fill="#3e2c1d">{v}</text>
+   257→        </g>
+   258→      ))}
+   259→      <line x1="70" y1="24" x2="70" y2="40" stroke="#c2410c" strokeWidth="2" markerEnd="url(#lq-ah)" />
+   260→      <text x="70" y="16" textAnchor="middle" fontSize="11.5" fontWeight="800" fill="#c2410c">Front</text>
+   261→      <line x1="570" y1="24" x2="570" y2="40" stroke="#c2410c" strokeWidth="2" markerEnd="url(#lq-ah)" />
+   262→      <text x="600" y="16" textAnchor="end" fontSize="11.5" fontWeight="800" fill="#c2410c">Rear — stuck at the end</text>
+   263→      <text x="310" y="126" fontSize="11.5" fontWeight="700" fill="#b99a75">enqueue? ✗ — rear cannot move back, even though 3 spaces are free</text>
+   264→    </svg>
+   265→  );
+   266→}
+   267→
+   268→function CircularRingSvg() {
+   269→  const c = { x: 170, y: 132, r: 85 };
+   270→  const slots = [-90, -30, 30, 90, 150, 210].map((a) => {
+   271→    const rad = (a * Math.PI) / 180;
+   272→    return { cx: c.x + c.r * Math.cos(rad), cy: c.y + c.r * Math.sin(rad) };
+   273→  });
+   274→  const vals: (number | null)[] = [53, 66, 54, 71, null, null];
+   275→  return (
+   276→    <svg viewBox="0 0 340 252" className="h-auto w-full" role="img" aria-label="Circular queue ring of six positions with front and rear markers and an arrow wrapping from the last position back to the first">
+   277→      <defs><marker id="cq-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker></defs>
+   278→      <circle cx={c.x} cy={c.y} r={c.r} fill="none" stroke="#8a6a45" strokeWidth="1.6" strokeDasharray="4 5" />
+   279→      {slots.map((s, i) => {
+   280→        const v = vals[i];
+   281→        return (
+   282→          <g key={i}>
+   283→            <rect x={s.cx - 29} y={s.cy - 15} width="58" height="30" rx="8" fill={v === null ? "none" : "#fde8cf"} stroke={v === null ? "#8a6a45" : "#c99a5b"} strokeWidth="1.6" strokeDasharray={v === null ? "5 4" : undefined} />
+   284→            {v !== null ? <text x={s.cx} y={s.cy + 5} textAnchor="middle" fontSize="13" fontWeight="800" fill="#3e2c1d">{v}</text> : null}
+   285→          </g>
+   286→        );
+   287→      })}
+   288→      <text x={slots[0].cx} y={slots[0].cy - 24} textAnchor="middle" fontSize="11" fontWeight="800" fill="#f5c889">Front</text>
+   289→      <text x={slots[3].cx} y={slots[3].cy + 34} textAnchor="middle" fontSize="11" fontWeight="800" fill="#f5c889">Rear</text>
+   290→      <path d="M 96 96 C 66 48, 112 16, 156 40" fill="none" stroke="#e0a45e" strokeWidth="2" markerEnd="url(#cq-ah)" />
+   291→      <text x="118" y="14" textAnchor="middle" fontSize="10.5" fontWeight="700" fill="#e0a45e">wraps to first</text>
+   292→      <text x={c.x} y={c.y + 4} textAnchor="middle" fontSize="11" fontWeight="800" fill="#cbb392">circular</text>
+   293→    </svg>
+   294→  );
+   295→}
+   296→
+   297→function PriorityChipsSvg() {
+   298→  const chips = [
+   299→    { t: "A", p: 8, from: 20, to: 20, d: 0 },
+   300→    { t: "S", p: 7, from: 520, to: 180, d: 0.55 },
+   301→    { t: "T", p: 6, from: 180, to: 340, d: 0.35 },
+   302→    { t: "B", p: 3, from: 340, to: 500, d: 0.45 },
+   303→  ];
+   304→  return (
+   305→    <svg viewBox="0 0 660 118" className="h-auto w-full" role="img" aria-label="Priority queue: the new item S with priority 7 slots in before T with priority 6, after A with priority 8">
+   306→      {chips.map((ch) => (
+   307→        <motion.g key={ch.t} initial={{ x: ch.from, opacity: ch.t === "S" ? 0.35 : 1 }} whileInView={{ x: ch.to, opacity: 1 }} viewport={{ once: true }} transition={{ delay: ch.d, duration: 0.6, ease: "easeInOut" }}>
+   308→          <rect x="0" y="36" width="140" height="52" rx="12" fill={ch.t === "S" ? "#f6ad3c" : "#fde8cf"} stroke={ch.t === "S" ? "#c2410c" : "#c99a5b"} strokeWidth={ch.t === "S" ? 2.4 : 1.6} />
+   309→          <text x="44" y="69" textAnchor="middle" fontSize="20" fontWeight="800" fill={ch.t === "S" ? "#7c2d0a" : "#3e2c1d"}>{ch.t}</text>
+   310→          <circle cx="102" cy="62" r="15" fill="#c2410c" />
+   311→          <text x="102" y="67" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#fff7ec">{ch.p}</text>
+   312→        </motion.g>
+   313→      ))}
+   314→      <text x="20" y="22" fontSize="11.5" fontWeight="700" fill="#cbb392">new arrival (S, 7): beats 6 and 3, yields to 8 → slots in before (T, 6)</text>
+   315→      <text x="540" y="108" fontSize="10.5" fontWeight="700" fill="#b99a75">equal priorities? serve FIFO</text>
+   316→    </svg>
+   317→  );
+   318→}
+   319→
+   320→function DequeSvg() {
+   321→  return (
+   322→    <svg viewBox="0 0 620 128" className="h-auto w-full" role="img" aria-label="Doubly ended queue with insert and delete arrows at both ends">
+   323→      <defs><marker id="dq-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker></defs>
+   324→      {[10, 20, 30, 40].map((v, i) => (
+   325→        <g key={v}>
+   326→          <rect x={180 + i * 70} y="38" width="60" height="52" rx="9" fill="#fde8cf" stroke="#c99a5b" strokeWidth="1.7" />
+   327→          <text x={180 + i * 70 + 30} y="70" textAnchor="middle" fontSize="15" fontWeight="800" fill="#3e2c1d">{v}</text>
+   328→        </g>
+   329→      ))}
+   330→      <line x1="70" y1="56" x2="172" y2="56" stroke="#f5c889" strokeWidth="2" markerEnd="url(#dq-ah)" />
+   331→      <text x="66" y="44" fontSize="11" fontWeight="800" fill="#f5c889">Insert Front</text>
+   332→      <line x1="172" y1="94" x2="70" y2="94" stroke="#f5c889" strokeWidth="2" markerEnd="url(#dq-ah)" />
+   333→      <text x="66" y="116" fontSize="11" fontWeight="800" fill="#f5c889">Delete Front</text>
+   334→      <line x1="550" y1="56" x2="448" y2="56" stroke="#f5c889" strokeWidth="2" markerEnd="url(#dq-ah)" />
+   335→      <text x="554" y="44" textAnchor="end" fontSize="11" fontWeight="800" fill="#f5c889">Insert Rear</text>
+   336→      <line x1="448" y1="94" x2="550" y2="94" stroke="#f5c889" strokeWidth="2" markerEnd="url(#dq-ah)" />
+   337→      <text x="554" y="116" textAnchor="end" fontSize="11" fontWeight="800" fill="#f5c889">Delete Rear</text>
+   338→    </svg>
+   339→  );
+   340→}
+   341→
+   342→function NestedQueueSvg() {
+   343→  return (
+   344→    <svg viewBox="0 0 700 262" className="h-auto w-full" role="img" aria-label="Streaming video: a master playback queue of segments where the playing segment is itself a sub-queue of tiny frames">
+   345→      <defs><marker id="nq-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker></defs>
+   346→      <text x="24" y="20" fontSize="11.5" fontWeight="800" fill="#f5c889">SUB-QUEUE — thousands of tiny frames / packets inside ONE 5-minute segment</text>
+   347→      {Array.from({ length: 14 }).map((_, i) => (
+   348→        <rect key={i} x={180 + i * 24} y="32" width="20" height="20" rx="4" fill={i < 5 ? "#c2410c" : i < 9 ? "#e8a13c" : "none"} stroke="#c99a5b" strokeWidth="1.2" />
+   349→      ))}
+   350→      <line x1="345" y1="58" x2="345" y2="132" stroke="#f5c889" strokeWidth="2" markerEnd="url(#nq-ah)" />
+   351→      <rect x="20" y="138" width="660" height="106" rx="14" fill="none" stroke="#c99a5b" strokeWidth="2" strokeDasharray="7 5" />
+   352→      <text x="32" y="160" fontSize="11.5" fontWeight="800" fill="#f5c889">MAIN QUEUE — the browser&apos;s master playback line</text>
+   353→      {[{ x: 40, t: "Segment k−1", s: "played" }, { x: 250, t: "Segment k", s: "PLAYING now" }, { x: 460, t: "Segment k+1", s: "buffered" }].map((sg, i) => (
+   354→        <g key={sg.t}>
+   355→          <rect x={sg.x} y="176" width="190" height="52" rx="10" fill={i === 1 ? "#b45309" : "rgba(255,236,210,.08)"} stroke="#c99a5b" strokeWidth="1.6" />
+   356→          <text x={sg.x + 95} y="198" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#fff7ec">{sg.t}</text>
+   357→          <text x={sg.x + 95} y="216" textAnchor="middle" fontSize="10.5" fontWeight="600" fill={i === 1 ? "#ffe4bd" : "#cbb392"}>{sg.s}</text>
+   358→          {i < 2 ? <line x1={sg.x + 190} y1="202" x2={sg.x + 204} y2="202" stroke="#f5c889" strokeWidth="1.8" markerEnd="url(#nq-ah)" /> : null}
+   359→        </g>
+   360→      ))}
+   361→      <text x="360" y="254" textAnchor="middle" fontSize="11" fontWeight="600" fill="#cbb392">the graphics card rapidly plays the frames inside the current segment — so the video stays smooth</text>
+   362→    </svg>
+   363→  );
+   364→}
+   365→
+   366→/* ============================================================
+   367→   EXPORTED — STACKS SECTION (light)
+   368→   ============================================================ */
+   369→
+   370→export function AtbStacksSection() {
+   371→  return (
+   372→    <Section id="stacks">
+   373→      <SectionHead eyebrow="Lecture 9 · Stacks"
+   374→        title={<><span className="grad-text">Stacks</span> — the undo machine (LIFO)</>}
+   375→        lead="A stack is a linear structure with one door: everything enters and leaves through the same end — the top. Simple rule, enormous consequences." />
+   376→
+   377→      <ReadStep n="1" title="The undo story" sub="You already use a stack every single day" />
+   378→      <Reveal>
+   379→        <Callout kind="story" title="Editing a document">
+   380→          You are typing and mistakes pile up — a wrong word, a broken sentence, a bad delete. You click <strong>Undo</strong>: the first click removes the <strong>LAST</strong> change, the second click removes the <strong>second-last</strong>, the third removes the one before that… Every editor, every photo app, every Ctrl-Z works this way. <strong>This is a Stack.</strong>
+   381→        </Callout>
+   382→      </Reveal>
+   383→      <Reveal className="mt-3">
+   384→        <div className="flex flex-wrap gap-2">
+   385→          <span className="chip"><Undo2 className="h-3.5 w-3.5" aria-hidden /> Lecture 9 · every change is stored on the stack</span>
+   386→          <span className="chip"><ArrowLeft className="h-3.5 w-3.5" aria-hidden /> removed in reverse-chronological order</span>
+   387→        </div>
+   388→      </Reveal>
+   389→      <Reveal className="mt-5">
+   390→        <div className="card-warm p-6">
+   391→          <div className="flex flex-wrap items-center gap-3">
+   392→            <h3 className="text-lg font-bold">Physical stacks you already know</h3>
+   393→            <span className="chip"><Layers className="h-3.5 w-3.5" aria-hidden /> Lecture 9 · added and removed from the top only</span>
+   394→          </div>
+   395→          <div className="mt-4 grid gap-4 sm:grid-cols-3">
+   396→            {[
+   397→              { icon: Layers, t: "Plates at a wedding / buffet", d: "Fresh plates land on top; the next guest takes from the top too — the bottom plate waits longest." },
+   398→              { icon: Newspaper, t: "A stack of newspapers", d: "Today's edition goes on top and is read first; older papers sink toward the bottom." },
+   399→              { icon: Dumbbell, t: "Weighing plates in the gym", d: "Plates are added to the bar and stripped from it at the same end — the top of the pile." },
+   400→            ].map((e) => (
+   401→              <div key={e.t} className="rounded-xl p-4" style={{ background: "#fffaf1", border: "1px solid #f0e2c8" }}>
+   402→                <p className="flex items-center gap-2 font-bold text-[#7c4a12]"><e.icon className="h-4 w-4" /> {e.t}</p>
+   403→                <p className="mt-1 text-[.85rem] leading-relaxed text-[#2b2014]">{e.d}</p>
+   404→              </div>
+   405→            ))}
+   406→          </div>
+   407→        </div>
+   408→      </Reveal>
+   409→
+   410→      <ReadStep n="2" title="Last-In, First-Out" sub="Push, Pop, Peek, Size — press the buttons" />
+   411→      <Reveal><StackWidget /></Reveal>
+   412→      <Reveal className="mt-5">
+   413→        <CodeBlock title="stack_ops.pseudo — the four moves" runnable={false}
+   414→          code={`Push(S, x):                    Pop(S):
+   415→  if Full(S):  error OVERFLOW    if Empty(S):  error UNDERFLOW
+   416→  Top ← Top + 1                  x ← S[Top]
+   417→  S[Top] ← x                     Top ← Top − 1
+   418→                                 return x          // the removed value
+   419→
+   420→Peek(S):  return S[Top]          // read the top — remove nothing
+   421→Size(S):  return Top + 1         // how many values are stacked`} />
+   422→      </Reveal>
+   423→
+   424→      <ReadStep n="3" title="Static vs dynamic" sub="Two builds of the same abstract idea" />
+   425→      <div className="grid gap-5 md:grid-cols-2">
+   426→        {[
+   427→          { head: "Static stack — fixed size", tone: "#be4a4a", items: [
+   428→            <>Built on an <strong>array</strong> — capacity chosen in advance</>,
+   429→            <><strong>Adobe Photoshop</strong> keeps ≈ <strong>50 undo levels</strong> — change 51 things and the oldest history is gone</>,
+   430→            <><strong>MS Excel</strong> keeps ≈ <strong>100</strong> undo steps — same idea, bigger box</>,
+   431→            <>Predictable memory, but <strong>full is full</strong></>,
+   432→          ] },
+   433→          { head: "Dynamic stack — grows as needed", tone: "#5c7a24", items: [
+   434→            <>Built on a <strong>linked list</strong> — a new node for every push</>,
+   435→            <><strong>MS Word</strong> lets you undo (almost) without a counter — the stack keeps growing</>,
+   436→            <>The ultimate limit is the <strong>device&apos;s memory</strong> — not a declared size</>,
+   437→            <>Flexible, at the cost of a pointer per element</>,
+   438→          ] },
+   439→        ].map((c, ci) => (
+   440→          <Reveal key={c.head} delay={ci * 120}>
+   441→            <div className="card-warm h-full p-6">
+   442→              <p className="text-[.8rem] font-extrabold uppercase tracking-[.16em]" style={{ color: c.tone }}>{c.head}</p>
+   443→              <ul className="mt-3 grid gap-2 text-[.9rem] leading-relaxed text-[#2b2014]">
+   444→                {c.items.map((t, i) => <li key={i}>• {t}</li>)}
+   445→              </ul>
+   446→            </div>
+   447→          </Reveal>
+   448→        ))}
+   449→      </div>
+   450→      <Reveal className="mt-5">
+   451→        <Callout kind="insight" title="Stacks are ABSTRACT">
+   452→          &ldquo;Stack&rdquo; is a <strong>behaviour</strong> (LIFO), not a physical thing — it is <strong>implemented through other data structures</strong>: arrays for static stacks, linked lists for dynamic ones. Same rules, different foundations.
+   453→        </Callout>
+   454→      </Reveal>
+   455→      <Reveal className="mt-5">
+   456→        <div className="card-warm p-6">
+   457→          <div className="flex flex-wrap items-center gap-3">
+   458→            <MemoryStick className="h-6 w-6" style={{ color: "#c2410c" }} />
+   459→            <h3 className="text-lg font-bold">Memory considerations — where the undo history actually lives</h3>
+   460→            <span className="chip">Lecture 9 · memory considerations</span>
+   461→          </div>
+   462→          <ul className="mt-3 grid gap-2 text-[.9rem] leading-relaxed text-[#2b2014]">
+   463→            <li>• <strong>Static stacks (Excel, Photoshop):</strong> the stack is <strong>cleared when the file is saved</strong> — saved work needs no undo history.</li>
+   464→            <li>• <strong>Dynamic stacks:</strong> limited by the <strong>device&apos;s physical memory (RAM)</strong> — they grow only as far as the hardware allows.</li>
+   465→            <li>• Exhaust that memory and the app <strong>crashes</strong> — a dynamic stack&apos;s only ceiling is the machine itself.</li>
+   466→            <li>• <strong>Saving often keeps stacks small</strong> — each save wipes the unsaved-changes pile before it can grow toward the limit.</li>
+   467→          </ul>
+   468→        </div>
+   469→      </Reveal>
+   470→
+   471→      <ReadStep n="4" title="When stacks break" sub="Two failures with famous names" />
+   472→      <div className="grid gap-5 md:grid-cols-2">
+   473→        <Reveal><WarnCard title="Stack Overflow">
+   474→            <strong>Pushing onto a FULL stack.</strong> Real-life picture: a browser holding a huge number of open tabs — memory is finite; one more push and the structure gives up. (Yes — the website stackoverflow.com is named after exactly this error.)
+   475→          </WarnCard>
+   476→        </Reveal>
+   477→        <Reveal><WarnCard title="Stack Underflow">
+   478→            <strong>Popping an EMPTY stack.</strong> Real-life picture: clicking <strong>Back</strong> on a freshly opened browser — there is no history to go back to, so the pop finds nothing and the operation fails.
+   479→          </WarnCard>
+   480→        </Reveal>
+   481→      </div>
+   482→
+   483→      <ReadStep n="5" title="Stack of stacks" sub="Each element of the main stack is itself a stack" />
+   484→      <Reveal>
+   485→        <div className="card-warm p-6 md:p-8">
+
+[showing lines 36-485 of 828; use offset=486 with limit to continue reading]
