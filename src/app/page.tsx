@@ -64,6 +64,10 @@ const StmApp = dynamic(() => import("@/components/stm/StmApp").then((m) => m.Stm
   ssr: false,
   loading: () => <ShelfLoader />,
 });
+const MktgApp = dynamic(() => import("@/components/mktg/MktgApp").then((m) => m.MktgApp), {
+  ssr: false,
+  loading: () => <ShelfLoader />,
+});
 const LedgerView = dynamic(() => import("@/components/atlas/LedgerView").then((m) => m.LedgerView), {
   ssr: false,
   loading: () => <ShelfLoader />,
@@ -159,6 +163,9 @@ export default function Page() {
             ) : view.id === "stm" ? (
               // shelf 05 — Statistics for Managers, the fifth live subject
               <StmApp onExitAtlas={exitToAtlas} />
+            ) : view.id === "mktg" ? (
+              // shelf 06 — Principles of Marketing, the sixth live subject
+              <MktgApp onExitAtlas={exitToAtlas} />
             ) : (
               // reserved shelf reached by URL — send the reader back to the map
               <AtlasFallback id={view.id} onBack={exitToAtlas} />
