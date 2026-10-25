@@ -9,9 +9,10 @@
 import React, { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  AlertTriangle, AppWindow, ArrowLeft, ArrowRight, Cpu, Film, Gamepad2, Keyboard, Layers,
-  ListMusic, MessageSquare, Plane, Popcorn, Repeat, RotateCcw, Siren, TrafficCone, TrainFront,
-  Undo2, Wifi,
+  AlertTriangle, AppWindow, ArrowLeft, ArrowRight, Bike, Braces, Calculator, Cpu, CupSoda,
+  Dumbbell, Film, Gamepad2, Globe, Keyboard, Layers, Link2, ListMusic, MemoryStick,
+  MessageSquare, Network, Newspaper, Plane, Popcorn, Repeat, RotateCcw, Siren, Ticket,
+  TrafficCone, TrainFront, Undo2, Wifi,
 } from "lucide-react";
 import {
   Callout, CodeBlock, Practice, Quiz, ReadStep, Reveal, Section, SectionHead, Takeaways,
@@ -369,7 +370,7 @@ function NestedQueueSvg() {
 export function AtbStacksSection() {
   return (
     <Section id="stacks">
-      <SectionHead eyebrow="Module 2 · Stacks"
+      <SectionHead eyebrow="Lecture 9 · Stacks"
         title={<><span className="grad-text">Stacks</span> — the undo machine (LIFO)</>}
         lead="A stack is a linear structure with one door: everything enters and leaves through the same end — the top. Simple rule, enormous consequences." />
 
@@ -378,6 +379,32 @@ export function AtbStacksSection() {
         <Callout kind="story" title="Editing a document">
           You are typing and mistakes pile up — a wrong word, a broken sentence, a bad delete. You click <strong>Undo</strong>: the first click removes the <strong>LAST</strong> change, the second click removes the <strong>second-last</strong>, the third removes the one before that… Every editor, every photo app, every Ctrl-Z works this way. <strong>This is a Stack.</strong>
         </Callout>
+      </Reveal>
+      <Reveal className="mt-3">
+        <div className="flex flex-wrap gap-2">
+          <span className="chip"><Undo2 className="h-3.5 w-3.5" aria-hidden /> Lecture 9 · every change is stored on the stack</span>
+          <span className="chip"><ArrowLeft className="h-3.5 w-3.5" aria-hidden /> removed in reverse-chronological order</span>
+        </div>
+      </Reveal>
+      <Reveal className="mt-5">
+        <div className="card-warm p-6">
+          <div className="flex flex-wrap items-center gap-3">
+            <h3 className="text-lg font-bold">Physical stacks you already know</h3>
+            <span className="chip"><Layers className="h-3.5 w-3.5" aria-hidden /> Lecture 9 · added and removed from the top only</span>
+          </div>
+          <div className="mt-4 grid gap-4 sm:grid-cols-3">
+            {[
+              { icon: Layers, t: "Plates at a wedding / buffet", d: "Fresh plates land on top; the next guest takes from the top too — the bottom plate waits longest." },
+              { icon: Newspaper, t: "A stack of newspapers", d: "Today's edition goes on top and is read first; older papers sink toward the bottom." },
+              { icon: Dumbbell, t: "Weighing plates in the gym", d: "Plates are added to the bar and stripped from it at the same end — the top of the pile." },
+            ].map((e) => (
+              <div key={e.t} className="rounded-xl p-4" style={{ background: "#fffaf1", border: "1px solid #f0e2c8" }}>
+                <p className="flex items-center gap-2 font-bold text-[#7c4a12]"><e.icon className="h-4 w-4" /> {e.t}</p>
+                <p className="mt-1 text-[.85rem] leading-relaxed text-[#2b2014]">{e.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </Reveal>
 
       <ReadStep n="2" title="Last-In, First-Out" sub="Push, Pop, Peek, Size — press the buttons" />
@@ -425,6 +452,21 @@ Size(S):  return Top + 1         // how many values are stacked`} />
           &ldquo;Stack&rdquo; is a <strong>behaviour</strong> (LIFO), not a physical thing — it is <strong>implemented through other data structures</strong>: arrays for static stacks, linked lists for dynamic ones. Same rules, different foundations.
         </Callout>
       </Reveal>
+      <Reveal className="mt-5">
+        <div className="card-warm p-6">
+          <div className="flex flex-wrap items-center gap-3">
+            <MemoryStick className="h-6 w-6" style={{ color: "#c2410c" }} />
+            <h3 className="text-lg font-bold">Memory considerations — where the undo history actually lives</h3>
+            <span className="chip">Lecture 9 · memory considerations</span>
+          </div>
+          <ul className="mt-3 grid gap-2 text-[.9rem] leading-relaxed text-[#2b2014]">
+            <li>• <strong>Static stacks (Excel, Photoshop):</strong> the stack is <strong>cleared when the file is saved</strong> — saved work needs no undo history.</li>
+            <li>• <strong>Dynamic stacks:</strong> limited by the <strong>device&apos;s physical memory (RAM)</strong> — they grow only as far as the hardware allows.</li>
+            <li>• Exhaust that memory and the app <strong>crashes</strong> — a dynamic stack&apos;s only ceiling is the machine itself.</li>
+            <li>• <strong>Saving often keeps stacks small</strong> — each save wipes the unsaved-changes pile before it can grow toward the limit.</li>
+          </ul>
+        </div>
+      </Reveal>
 
       <ReadStep n="4" title="When stacks break" sub="Two failures with famous names" />
       <div className="grid gap-5 md:grid-cols-2">
@@ -452,13 +494,29 @@ Size(S):  return Top + 1         // how many values are stacked`} />
         </div>
       </Reveal>
 
+      <Reveal className="mt-6">
+        <div className="card-warm p-6">
+          <div className="flex flex-wrap items-center gap-3">
+            <h3 className="text-lg font-bold">Where stacks earn their keep</h3>
+            <span className="chip">Lecture 9 · applications</span>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <span className="chip"><Undo2 className="h-3.5 w-3.5" aria-hidden /> undo / redo</span>
+            <span className="chip"><Braces className="h-3.5 w-3.5" aria-hidden /> function-call management</span>
+            <span className="chip"><Calculator className="h-3.5 w-3.5" aria-hidden /> expression evaluation &amp; parsing</span>
+            <span className="chip"><Network className="h-3.5 w-3.5" aria-hidden /> depth-first search</span>
+            <span className="chip"><Globe className="h-3.5 w-3.5" aria-hidden /> browser navigation history</span>
+          </div>
+        </div>
+      </Reveal>
+
       <div className="mt-10 grid gap-5 md:grid-cols-2">
         <Reveal>
-          <Quiz source="Concept check" q="Calling Pop() on an empty stack causes…" options={["overflow", "underflow", "reboot", "peek"]} answer={1}
+          <Quiz source="Lecture 9 · concept check" q="Calling Pop() on an empty stack causes…" options={["overflow", "underflow", "reboot", "peek"]} answer={1}
             explain="Underflow = removing from an EMPTY structure (nothing to give). Overflow = adding to a FULL one (no room to put it). Both names, one letter apart — learn them as a pair." />
         </Reveal>
         <Reveal delay={100}>
-          <Quiz source="Concept check" q="Photoshop's fixed 50-step undo is a…" options={["dynamic stack on a linked list", "static stack on an array", "queue", "deque"]} answer={1}
+          <Quiz source="Lecture 9 · concept check" q="Photoshop's fixed 50-step undo is a…" options={["dynamic stack on a linked list", "static stack on an array", "queue", "deque"]} answer={1}
             explain="A pre-declared capacity (≈50) implemented on an array: a STATIC stack. Word's grow-forever undo is the dynamic, linked-list flavour." />
         </Reveal>
       </div>
@@ -466,6 +524,7 @@ Size(S):  return Top + 1         // how many values are stacked`} />
         <Practice title="Pen-and-paper drills — stacks" items={[
           { q: "Push J, then A, then N onto an empty stack. Now Pop() twice. Which value remains, and where is it?", hint: "Last in, first out — N leaves first, then A. What is left is at the BOTTOM." },
           { q: "Name two more places where you meet LIFO behaviour daily, and say what the 'top' element is in each.", hint: "Think: plates, a pebble tower, browser Back button, the call stack when functions call functions." },
+          { q: "Photoshop clears its undo stack the moment you hit Save. Why does saving often keep the stack small?", hint: "The stack only holds unsaved changes — each save empties it before it can grow toward the RAM limit." },
         ]} />
       </Reveal>
     </Section>
@@ -480,13 +539,15 @@ const Q_APPS = [
   { icon: Wifi, head: "Wi-Fi router packet buffer", body: <>A <strong>fixed-size circular queue</strong> of network packets. When it is full the router <strong>intentionally drops new packets</strong> instead of crashing — the <strong>Tail Drop</strong> mechanism. Your video hiccups; the router survives.</> },
   { icon: Keyboard, head: "PC keyboard / mouse buffer", body: <>A <strong>fixed hardware queue</strong> (usually <strong>16–64 bytes</strong>). Type faster than the system processes and the extra keystrokes are simply <strong>ignored</strong> — the queue never grows.</> },
   { icon: MessageSquare, head: "Messaging apps' offline buffer", body: <>Messages sent while offline <strong>queue up</strong> — the queue <strong>expands</strong> as long as you stay offline, then <strong>drains sequentially</strong> (oldest first) when you reconnect, and the memory is freed.</> },
-  { icon: Film, head: "Streaming video buffers", body: <>Video segments land in a <strong>dynamic memory queue</strong>. When the connection speeds up, the buffer <strong>grows</strong> to hold more segments — so playback continues <strong>stutter-free</strong> through dips.</> },
+  { icon: Film, head: "Streaming video buffers — Netflix, Spotify, Prime", body: <>Segments are buffered in <strong>dynamic memory queues</strong>. When the connection speeds up, the buffer <strong>grows</strong> to hold more segments — so playback continues <strong>stutter-free</strong> through dips.</> },
+  { icon: CupSoda, head: "Vending machine slots", body: <>Each drink type sits in a <strong>fixed number of slots</strong> — a predetermined capacity per column. Sold out means sold out until restocked: the hardware queue never grows.</> },
+  { icon: Bike, head: "Food-delivery order surge", body: <>The dinner rush fires <strong>thousands of orders at once</strong> — a dynamic queue swells to absorb the peak, so <strong>no order is lost</strong> during demand surges.</> },
 ];
 
 export function AtbQueuesSection() {
   return (
     <Section id="queues">
-      <SectionHead eyebrow="Module 2 · Queues"
+      <SectionHead eyebrow="Lecture 10 · Queues"
         title={<><span className="grad-text">Queues</span> — first come, first served (FIFO)</>}
         lead="A queue is a linear structure with two doors: entries at the rear, exits at the front. Fairness by arrival order — the structure behind every waiting line in software." />
 
@@ -506,6 +567,27 @@ export function AtbQueuesSection() {
 
       <ReadStep n="2" title="Front and rear" sub="Enqueue, Dequeue, Peek, Size — press the buttons" />
       <Reveal><QueueWidget /></Reveal>
+      <Reveal className="mt-5">
+        <div className="card-warm p-6">
+          <div className="flex flex-wrap items-center gap-3">
+            <h3 className="text-lg font-bold">Pointer choreography — who moves, who stays put</h3>
+            <span className="chip">Lecture 10 · pointer choreography</span>
+          </div>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            {[
+              { t: "NQ on an empty queue", d: "The very first element occupies BOTH front and rear — one value, two pointers." },
+              { t: "During Enqueue (NQ)", d: "The front pointer stays put; only the rear advances to admit the newcomer." },
+              { t: "During Dequeue (DQ)", d: "The front advances to the next element; rear stays unchanged. DQ takes no parameters — it removes whatever stands at the front." },
+              { t: "Peek front · Rear · Size", d: "Non-destructive reads — they display values and counts without modifying the queue." },
+            ].map((c) => (
+              <div key={c.t} className="rounded-xl p-4" style={{ background: "#fffaf1", border: "1px solid #f0e2c8" }}>
+                <p className="flex items-center gap-2 font-bold text-[#7c4a12]"><ArrowRight className="h-4 w-4" aria-hidden /> {c.t}</p>
+                <p className="mt-1 text-[.85rem] leading-relaxed text-[#2b2014]">{c.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
 
       <ReadStep n="3" title="When queues break" sub="Same two failure names, queue flavour" />
       <div className="grid gap-5 md:grid-cols-2">
@@ -522,8 +604,8 @@ export function AtbQueuesSection() {
       <ReadStep n="4" title="Static vs dynamic + real applications" sub="Fixed boxes that drop, flexible lines that grow" />
       <div className="grid gap-5 lg:grid-cols-2">
         {[
-          { head: "Static queue — fixed size, built on arrays", tone: "#be4a4a", apps: [Q_APPS[0], Q_APPS[1]] },
-          { head: "Dynamic queue — grows as needed, built on linked lists", tone: "#5c7a24", apps: [Q_APPS[2], Q_APPS[3]] },
+          { head: "Static queue — fixed size, built on arrays", tone: "#be4a4a", apps: [Q_APPS[0], Q_APPS[1], Q_APPS[4]] },
+          { head: "Dynamic queue — grows as needed, built on linked lists", tone: "#5c7a24", apps: [Q_APPS[2], Q_APPS[3], Q_APPS[5]] },
         ].map((col, ci) => (
           <Reveal key={col.head} delay={ci * 120}>
             <div className="card-warm h-full p-6">
@@ -541,15 +623,47 @@ export function AtbQueuesSection() {
         ))}
       </div>
 
+      <Reveal className="mt-8">
+        <div className="card-warm p-6">
+          <div className="flex flex-wrap items-center gap-3">
+            <h3 className="text-lg font-bold">Queue vs stack — the four differences</h3>
+            <span className="chip">Lecture 10 · queue vs stack</span>
+          </div>
+          <div className="mt-4 overflow-x-auto">
+            <table className="warm-table">
+              <thead><tr><th>Aspect</th><th>Queue</th><th>Stack</th></tr></thead>
+              <tbody>
+                <tr><td>Order</td><td>FIFO — first in, first out</td><td>LIFO — last in, first out</td></tr>
+                <tr><td>Insertion</td><td>at the rear</td><td>at the top</td></tr>
+                <tr><td>Removal</td><td>from the front</td><td>from the top</td></tr>
+                <tr><td>Real-life picture</td><td>the theater popcorn queue</td><td>a stack of plates</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Reveal>
+      <Reveal className="mt-5">
+        <Callout kind="insight" title="Lecture 10 · important to remember">
+          <ul className="grid gap-1.5">
+            <li>• Elements maintain their <strong>order of arrival</strong> throughout processing.</li>
+            <li>• The <strong>front moves during dequeue — never during enqueue</strong> (enqueue is rear business).</li>
+            <li>• <strong>Peek examines without modifying</strong> — the safe way to inspect queue state.</li>
+            <li>• Static vs dynamic boils down to two questions: is the <strong>volume predictable</strong>, and is <strong>overflow acceptable</strong>?</li>
+            <li>• Real systems <strong>fail gracefully</strong> when full — dropped packets, ignored keystrokes — rather than crashing.</li>
+          </ul>
+        </Callout>
+      </Reveal>
+
       <div className="mt-10 grid gap-5 md:grid-cols-2">
         <Reveal>
-          <Quiz source="Concept check" q="The person served NEXT in a queue is standing at the…" options={["rear", "front", "peek", "middle"]} answer={1}
+          <Quiz source="Lecture 10 · concept check" q="The person served NEXT in a queue is standing at the…" options={["rear", "front", "peek", "middle"]} answer={1}
             explain="The front of the queue is the head of the line — Dequeue() always removes the front element. The rear is where newcomers join." />
         </Reveal>
         <Reveal delay={100}>
           <Practice title="Pen-and-paper drills — queues" items={[
             { q: "Enqueue A, B, C, then Dequeue twice. Which value is now at the front?", hint: "A and B leave in arrival order — C never moved, yet it becomes the front." },
             { q: "Find the queue hiding in a printer, a call center, and a ticket window. In each, what is 'enqueue' and what is 'dequeue'?", hint: "Documents arrive to be printed in order; callers hold in a line; customers are served by arrival." },
+            { q: "An empty queue receives NQ(7). Where do front and rear point? Now DQ() — where does rear point?", hint: "The first element occupies both front and rear; dequeue advances only the front — rear never moves on its own." },
           ]} />
         </Reveal>
       </div>
@@ -564,7 +678,7 @@ export function AtbQueuesSection() {
 export function AtbQTypesSection() {
   return (
     <Section id="qtypes" dark>
-      <SectionHead dark eyebrow="Module 2 · Queue types"
+      <SectionHead dark eyebrow="Lecture 11 · Queue types"
         title={<>Four queues for <span className="grad-text">four situations</span></>}
         lead="One FIFO rule, four engineering personalities. Choosing the right queue type is the difference between wasted memory, frozen screens and a smoothly running system." />
 
@@ -579,6 +693,10 @@ export function AtbQTypesSection() {
               The plain version: <strong>insert at the rear, remove from the front</strong>. Its <strong style={{ color: "#f0a8a8" }}>limitation is memory wastage</strong> — in an array implementation, once <strong>rear hits the end</strong> you cannot insert, <strong>even if front spaces have been freed</strong> by earlier deletions.
             </p>
             <div className="mt-4 rounded-xl p-3" style={{ background: "rgba(255,236,210,.04)" }}><LinearLimitSvg /></div>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <span className="chip">Lecture 11 · pointer detail</span>
+              <p className="text-[.82rem] leading-relaxed text-[#cbb392]">front points to the first location where an element is <strong style={{ color: "#f5c889" }}>still stored</strong> — not to array slot 0.</p>
+            </div>
           </div>
         </Reveal>
 
@@ -589,7 +707,7 @@ export function AtbQTypesSection() {
               <h3 className="text-xl font-bold text-[#f5e6cd]">Circular queue</h3>
             </div>
             <p className="mt-2 text-[.9rem] leading-relaxed text-[#e9d7bf]">
-              The <strong>last position connects back to the first</strong> — the queue becomes a ring. It <strong>reuses the spaces freed by deletions</strong>, fixing the linear queue&apos;s waste. Classically implemented via a <strong>linked list</strong> — and beyond the slides: arrays can do it too, by <strong>wrapping indices with modulo</strong>.
+              The <strong>last position connects back to the first</strong> — the queue becomes a ring. It <strong>reuses the spaces freed by deletions</strong>, fixing the linear queue&apos;s waste. The rear keeps <strong>wrapping into vacated cells</strong>, so the ring can serve insertions and deletions <strong>indefinitely</strong>. Classically implemented via a <strong>linked list</strong> — and beyond the slides: arrays can do it too, by <strong>wrapping indices with modulo</strong>.
             </p>
             <div className="mt-4 rounded-xl p-3" style={{ background: "rgba(255,236,210,.04)" }}><CircularRingSvg /></div>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -617,7 +735,11 @@ export function AtbQTypesSection() {
               <span className="chip"><Plane className="h-3.5 w-3.5" aria-hidden /> airport traffic control</span>
               <span className="chip"><TrainFront className="h-3.5 w-3.5" aria-hidden /> railway</span>
               <span className="chip"><AlertTriangle className="h-3.5 w-3.5" aria-hidden /> disaster management</span>
+              <span className="chip"><Ticket className="h-3.5 w-3.5" aria-hidden /> Tatkal quota</span>
             </div>
+            <p className="mt-3 text-[.82rem] leading-relaxed text-[#cbb392]">
+              The lecture&apos;s triage, spelled out: accident cases beat recurring headaches · low-fuel long-hauls land before short-hauls · Rajdhani &amp; Shatabdi get green-corridor signals · system tasks run before user apps · rescue goes first to those in immediate danger.
+            </p>
           </div>
         </Reveal>
 
@@ -643,6 +765,7 @@ export function AtbQTypesSection() {
               <span className="chip"><Undo2 className="h-3.5 w-3.5" aria-hidden /> browser forward / back</span>
               <span className="chip">undo + redo in a word processor</span>
               <span className="chip"><TrainFront className="h-3.5 w-3.5" aria-hidden /> train coach management</span>
+              <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> doubly linked lists</span>
             </div>
           </div>
         </Reveal>
@@ -659,6 +782,14 @@ export function AtbQTypesSection() {
             and that is why the video stays smooth while the outer queue quietly refills.
           </p>
           <div className="mt-5 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}><NestedQueueSvg /></div>
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <span className="chip"><Wifi className="h-3.5 w-3.5" aria-hidden /> Lecture 11 · reconnection rewind</span>
+          </div>
+          <p className="mt-2 max-w-4xl text-[.9rem] leading-relaxed text-[#e9d7bf]">
+            When the connection drops mid-segment, the <strong>main queue keeps its progress</strong> — but the{" "}
+            <strong>interrupted sub-queue restarts from its first frame</strong>. That is why the video{" "}
+            <strong>rewinds slightly</strong> past the interruption point before playback resumes.
+          </p>
           <Callout kind="insight" dark title="Spot the pattern">
             Stacks of stacks (browser windows → tabs), queues of queues (segments → frames), lists
             of lists (users → playlists → songs). <strong>Nesting structures inside structures is
@@ -669,14 +800,18 @@ export function AtbQTypesSection() {
 
       <div className="mt-10 grid gap-5 md:grid-cols-2">
         <Reveal>
-          <Quiz source="Concept check" q="Which queue type powers a hospital emergency room?" options={["Linear queue", "Circular queue", "Priority queue", "Deque"]} answer={2}
+          <Quiz source="Lecture 11 · concept check" q="Which queue type powers a hospital emergency room?" options={["Linear queue", "Circular queue", "Priority queue", "Deque"]} answer={2}
             explain="Triage serves by severity, not by arrival — a heart attack before a sprain, whatever the clock says. Equal severities fall back to FIFO." />
         </Reveal>
         <Reveal delay={100}>
-          <Quiz source="Concept check" q="Undo AND Redo in one structure suggests a…" options={["deque", "priority queue", "circular queue", "linear queue"]} answer={0}
+          <Quiz source="Lecture 11 · concept check" q="Undo AND Redo in one structure suggests a…" options={["deque", "priority queue", "circular queue", "linear queue"]} answer={0}
             explain="Undo pops one end while redo pushes back — two ends, both active. A deque supports insert/delete at both ends, so it can behave as a stack AND a queue simultaneously." />
         </Reveal>
       </div>
+      <Reveal className="mt-5">
+        <Quiz source="Lecture 11 · concept check" q="Your stream reconnects and the video rewinds slightly. What happened?" options={["the main queue restarted from zero", "the interrupted sub-queue restarted — the main queue kept its progress", "the whole video was re-downloaded", "the circular queue wrapped around"]} answer={1}
+          explain="Queue of queues: the main playback queue preserves segment progress, but the sub-queue of frames inside the interrupted segment restarts — so playback resumes a few seconds early." />
+      </Reveal>
       <Reveal className="mt-8">
         <Takeaways dark items={[
           <>A stack is <strong>LIFO</strong>; a queue is <strong>FIFO</strong> — one door vs two.</>,
@@ -684,7 +819,7 @@ export function AtbQTypesSection() {
           <>Queue operations: <span className="font-mono-warm font-bold">Enqueue · Dequeue · Peek(front/rear) · Size</span>.</>,
           <>Both can be <strong>static (arrays)</strong> or <strong>dynamic (linked lists)</strong>.</>,
           <><strong>Underflow</strong> = removing from empty · <strong>Overflow</strong> = adding to full.</>,
-          <>Queues come as <strong>linear, circular, priority and doubly ended</strong> — pick by situation.</>,
+          <>Lecture 11 four-liner: <strong>linear</strong> = a regular FIFO line · <strong>circular</strong> = a ring that reuses freed space · <strong>priority</strong> = a VIP urgency line · <strong>deque</strong> = open at both ends.</>,
         ]} />
       </Reveal>
     </Section>
