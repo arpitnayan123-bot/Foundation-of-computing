@@ -1,0 +1,699 @@
+     1→"use client";
+     2→
+     3→/* ============================================================
+     4→   THE LEDGER — progress & mastery, at #/ledger.
+     5→
+     6→   A local-first report of everything the reader has practiced:
+     7→   per-shelf accuracy, SM-2 mastery bars, due-card counts, the
+     8→   practice streak, and the recent-attempt log. Nothing here
+     9→   leaves the browser — the ledger reads the same localStorage
+    10→   stores the exam engine writes.
+    11→
+    12→   From here a reader can launch a spaced-review session for
+    13→   any shelf with cards due (ReviewWindow reuses the exam
+    14→   engine, so review feels exactly like an exam window).
+    15→   ============================================================ */
+    16→
+    17→import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+    18→import dynamic from "next/dynamic";
+    19→import { motion } from "framer-motion";
+    20→import {
+    21→  ArrowLeft,
+    22→  BookOpen,
+    23→  BookOpenCheck,
+    24→  CalendarCheck2,
+    25→  Database,
+    26→  Download,
+    27→  Flame,
+    28→  Layers,
+    29→  ListChecks,
+    30→  Sparkles,
+    31→  Timer,
+    32→  Trash2,
+    33→  Upload,
+    34→} from "lucide-react";
+    35→import { SUBJECTS, type Subject } from "./subjects";
+    36→import { QUESTION_COUNTS } from "@/lib/question-counts";
+    37→import { SECTION_COUNTS, TOTAL_SECTIONS } from "@/lib/section-counts";
+    38→import { currentStreak, dayKeyFor, loadLedger, statsFor, type LedgerStore } from "@/lib/ledger";
+    39→import { dueCounts, dueLabel, masteryFor, troubleSpots, type SubjectMastery, type TroubleSpot } from "@/lib/sm2";
+    40→import { loadQuestionIndex } from "@/lib/question-lookup";
+    41→import { PracticeHeatmap, type DayHit } from "./PracticeHeatmap";
+    42→import { readProgressCounts } from "@/lib/progress";
+    43→import {
+    44→  applyBackup,
+    45→  backupFilename,
+    46→  eraseAllStores,
+    47→  exportBackup,
+    48→  parseBackup,
+    49→  type BackupBundle,
+    50→  type BackupSummary,
+    51→} from "@/lib/backup";
+    52→
+    53→/* the review window loads its own subject chunk on demand */
+    54→const ReviewWindow = dynamic(() => import("@/components/notes/ReviewWindow").then((m) => m.ReviewWindow), {
+    55→  ssr: false,
+    56→  loading: () => null,
+    57→});
+    58→
+    59→interface ShelfRow {
+    60→  subject: Subject;
+    61→  stats: ReturnType<typeof statsFor>;
+    62→  mastery: SubjectMastery;
+    63→  due: number;
+    64→  read: number;
+    65→  readTotal: number;
+    66→}
+    67→
+    68→interface ImportState {
+    69→  kind: "idle" | "ready" | "error";
+    70→  name?: string;
+    71→  summary?: BackupSummary;
+    72→  bundle?: BackupBundle;
+    73→  message?: string;
+    74→}
+    75→
+    76→function fmtSeconds(sec: number): string {
+    77→  const m = Math.floor(sec / 60);
+    78→  const s = sec % 60;
+    79→  return `${m}m ${String(s).padStart(2, "0")}s`;
+    80→}
+    81→
+    82→function relDay(at: number): string {
+    83→  const now = new Date();
+    84→  const then = new Date(at);
+    85→  const days = Math.floor((now.setHours(0, 0, 0, 0) - new Date(then).setHours(0, 0, 0, 0)) / 86_400_000);
+    86→  if (days <= 0) return "today";
+    87→  if (days === 1) return "yesterday";
+    88→  if (days < 7) return `${days}d ago`;
+    89→  return then.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    90→}
+    91→
+    92→export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
+    93→  const [store, setStore] = useState<LedgerStore | null>(null);
+    94→  const [rows, setRows] = useState<ShelfRow[]>([]);
+    95→  const [streak, setStreak] = useState(0);
+    96→  /* the weakest cards in the schedule — shown as "trouble spots";
+    97→     their question wording arrives from the banks a moment later */
+    98→  const [trouble, setTrouble] = useState<TroubleSpot[]>([]);
+    99→  const [troubleTexts, setTroubleTexts] = useState<Map<string, string> | null>(null);
+   100→  /* the ⌘K palette may have queued a review handoff ("review <subject>")
+   101→     before this view mounted — honor it once at init (client-only chunk) */
+   102→  const [reviewSubject, setReviewSubject] = useState<string | null>(() => {
+   103→    try {
+   104→      const queued = sessionStorage.getItem("atlas:review-subject");
+   105→      if (queued) {
+   106→        sessionStorage.removeItem("atlas:review-subject");
+   107→        return queued;
+   108→      }
+   109→    } catch {
+   110→      /* private mode — no handoff */
+   111→    }
+   112→    return null;
+   113→  });
+   114→  /* trouble-spot reviews pull their specific card forward even when
+   115→     it is not due until tomorrow — everything else reviews by due date */
+   116→  const [reviewForce, setReviewForce] = useState<string[]>([]);
+   117→  const openReview = useCallback((subject: string, force: string[] = []) => {
+   118→    setReviewForce(force);
+   119→    setReviewSubject(subject);
+   120→  }, []);
+   121→
+   122→  const refresh = useCallback(() => {
+   123→    const ledger = loadLedger();
+   124→    const due = dueCounts();
+   125→    const reads = readProgressCounts();
+   126→    setStore(ledger);
+   127→    setStreak(currentStreak(ledger.days));
+   128→    setTrouble(troubleSpots());
+   129→    setRows(
+   130→      SUBJECTS.filter((s) => s.status === "live").map((subject) => ({
+   131→        subject,
+   132→        stats: statsFor(ledger, subject.id),
+   133→        mastery: masteryFor(subject.id, QUESTION_COUNTS[subject.id as keyof typeof QUESTION_COUNTS] ?? 0),
+   134→        due: due[subject.id] ?? 0,
+   135→        read: reads[subject.id] ?? 0,
+   136→        readTotal: SECTION_COUNTS[subject.id] ?? subject.chapters ?? 0,
+   137→      }))
+   138→    );
+   139→  }, []);
+   140→
+   141→  useEffect(() => {
+   142→    /* rAF-deferred first read — avoids sync setState-in-effect */
+   143→    const raf = requestAnimationFrame(() => refresh());
+   144→    const onVisible = () => {
+   145→      if (document.visibilityState === "visible") refresh();
+   146→    };
+   147→    /* live handoff — the palette fires this when the ledger is already open */
+   148→    const onReview = (e: Event) => {
+   149→      const id = (e as CustomEvent<string>).detail;
+   150→      if (typeof id === "string") {
+   151→        setReviewForce([]);
+   152→        setReviewSubject(id);
+   153→        refresh();
+   154→      }
+   155→    };
+   156→    document.addEventListener("visibilitychange", onVisible);
+   157→    window.addEventListener("atlas:review-subject", onReview);
+   158→    return () => {
+   159→      cancelAnimationFrame(raf);
+   160→      document.removeEventListener("visibilitychange", onVisible);
+   161→      window.removeEventListener("atlas:review-subject", onReview);
+   162→    };
+   163→  }, [refresh]);
+   164→
+   165→  const totalAttempts = store?.attempts.length ?? 0;
+   166→  const totalAnswered = store?.attempts.reduce((n, a) => n + a.total, 0) ?? 0;
+   167→  const daysPracticed = store?.days.length ?? 0;
+   168→  const recent = (store?.attempts ?? []).slice(-10).reverse();
+   169→  const dueEverywhere = rows.reduce((n, r) => n + r.due, 0);
+   170→  const readEverywhere = rows.reduce((n, r) => n + r.read, 0);
+   171→
+   172→  /* per-day attempt counts behind the practice heatmap */
+   173→  const perDay = useMemo(() => {
+   174→    const m = new Map<string, DayHit>();
+   175→    for (const a of store?.attempts ?? []) {
+   176→      const k = dayKeyFor(a.at);
+   177→      const cur = m.get(k) ?? { a: 0, q: 0 };
+   178→      cur.a += 1;
+   179→      cur.q += a.total;
+   180→      m.set(k, cur);
+   181→    }
+   182→    return m;
+   183→  }, [store]);
+   184→
+   185→  /* weak cards exist → pull their wording from the banks once,
+   186→     lazily (the ~250KB of bank chunks stay out of the ledger path
+   187→     until there is something to say) */
+   188→  useEffect(() => {
+   189→    if (trouble.length === 0 || troubleTexts) return;
+   190→    let alive = true;
+   191→    void loadQuestionIndex().then((idx) => {
+   192→      if (alive) setTroubleTexts(idx);
+   193→    });
+   194→    return () => {
+   195→      alive = false;
+   196→    };
+   197→  }, [trouble, troubleTexts]);
+   198→
+   199→  /* ---------- your-data panel state ---------- */
+   200→  const [imp, setImp] = useState<ImportState>({ kind: "idle" });
+   201→  const [dataFlash, setDataFlash] = useState<string | null>(null);
+   202→  const [eraseArm, setEraseArm] = useState(false);
+   203→  const fileRef = useRef<HTMLInputElement>(null);
+   204→
+   205→  const onExport = () => {
+   206→    try {
+   207→      const blob = new Blob([exportBackup()], { type: "application/json" });
+   208→      const url = URL.createObjectURL(blob);
+   209→      const a = document.createElement("a");
+   210→      a.href = url;
+   211→      a.download = backupFilename();
+   212→      a.click();
+   213→      URL.revokeObjectURL(url);
+   214→      setDataFlash(`Backup downloaded — ${backupFilename()}`);
+   215→    } catch {
+   216→      setDataFlash("The download failed — your browser blocked it. Try again.");
+   217→    }
+   218→  };
+   219→
+   220→  const onFile = async (file: File | undefined) => {
+   221→    if (!file) return;
+   222→    try {
+   223→      const text = await file.text();
+   224→      const res = parseBackup(text);
+   225→      if (res.ok) {
+   226→        setImp({ kind: "ready", name: file.name, summary: res.summary, bundle: res.bundle });
+   227→      } else {
+   228→        setImp({ kind: "error", message: res.error });
+   229→      }
+   230→    } catch {
+   231→      setImp({ kind: "error", message: "That file could not be read." });
+   232→    }
+   233→  };
+   234→
+   235→  const onImportApply = () => {
+   236→    if (imp.kind !== "ready" || !imp.bundle || !imp.summary) return;
+   237→    applyBackup(imp.bundle);
+   238→    const s = imp.summary;
+   239→    setImp({ kind: "idle" });
+   240→    if (fileRef.current) fileRef.current.value = "";
+   241→    refresh();
+   242→    setDataFlash(`Restored — ${s.cards} scheduled card${s.cards === 1 ? "" : "s"}, ${s.attempts} attempt${s.attempts === 1 ? "" : "s"}, ${s.sections} chapter${s.sections === 1 ? "" : "s"} read.`);
+   243→  };
+   244→
+   245→  const onErase = () => {
+   246→    if (!eraseArm) {
+   247→      setEraseArm(true);
+   248→      window.setTimeout(() => setEraseArm(false), 4000);
+   249→      return;
+   250→    }
+   251→    eraseAllStores();
+   252→    setEraseArm(false);
+   253→    setImp({ kind: "idle" });
+   254→    if (fileRef.current) fileRef.current.value = "";
+   255→    refresh();
+   256→    setDataFlash("Every store erased — a fresh start. Export a backup first if you want this memory back.");
+   257→  };
+   258→
+   259→  return (
+   260→    <div className="min-h-screen bg-[#070509] pb-20 text-[#f7ecdd]" id="top">
+   261→      {/* ------- top bar ------- */}
+   262→      <nav aria-label="Ledger" className="fixed inset-x-0 top-3 z-50 flex justify-center px-3 sm:top-4 sm:px-4">
+   263→        <div className="flex h-12 w-full max-w-3xl items-center gap-3 rounded-full border border-white/10 bg-[#0a0710]/60 py-2 pl-3 pr-4 shadow-[0_18px_50px_-22px_rgba(0,0,0,.85)] backdrop-blur-xl">
+   264→          <button
+   265→            type="button"
+   266→            onClick={onExitAtlas}
+   267→            aria-label="Back to the atlas"
+   268→            className="flex h-8 items-center gap-1.5 rounded-full border border-white/10 bg-white/[.05] px-3 text-[.68rem] font-black uppercase tracking-[.16em] text-[#e9d7bf] transition hover:bg-white/[.12]"
+   269→          >
+   270→            <ArrowLeft className="h-3.5 w-3.5" />
+   271→            Atlas
+   272→          </button>
+   273→          <span className="font-display text-[1rem] font-black tracking-tight text-[#f7ecdd]">The Ledger</span>
+   274→          {dueEverywhere > 0 ? (
+   275→            <button
+   276→              type="button"
+   277→              onClick={() => openReview("all")}
+   278→              aria-label={`Review all ${dueEverywhere} due cards across every shelf`}
+   279→              className="ml-auto flex cursor-pointer items-center gap-1.5 rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 py-1 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889] transition hover:bg-[#f59e0b2a]"
+   280→            >
+   281→              <Sparkles className="h-3 w-3" />
+   282→              {dueEverywhere} due
+   283→            </button>
+   284→          ) : null}
+   285→        </div>
+   286→      </nav>
+   287→
+   288→      <main className="mx-auto max-w-3xl px-4 pt-24 sm:px-6">
+   289→        {/* ------- hero ------- */}
+   290→        <motion.header initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
+   291→          <p className="font-mono text-[.6rem] font-bold uppercase tracking-[.24em] text-[#8d7b63]">
+   292→            progress &amp; mastery — written by your own attempts
+   293→          </p>
+   294→          <h1 className="font-display mt-2 text-3xl font-black leading-tight md:text-4xl">
+   295→            Every answer leaves a <span className="atlas-sheen">mark</span>.
+   296→          </h1>
+   297→          <p className="mt-3 max-w-xl text-[.92rem] leading-relaxed text-[#c9b99f]">
+   298→            The ledger is local-first: exam windows grade your cards on an SM-2 schedule, and this page reports the
+   299→            damage. Nothing leaves your browser.
+   300→          </p>
+   301→        </motion.header>
+   302→
+   303→        {/* ------- stat strip ------- */}
+   304→        <section aria-label="Practice summary" className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+   305→          <StatCard icon={Flame} label="streak" value={streak === 1 ? "1 day" : `${streak} days`} tone="#e4674a" />
+   306→          <StatCard icon={CalendarCheck2} label="days practiced" value={String(daysPracticed)} tone="#f5c889" />
+   307→          <StatCard icon={ListChecks} label="attempts" value={String(totalAttempts)} tone="#8fae5d" />
+   308→          <StatCard icon={BookOpenCheck} label="questions faced" value={String(totalAnswered)} tone="#8b5cf6" />
+   309→        </section>
+   310→
+   311→        {/* ------- practice heatmap ------- */}
+   312→        <section aria-label="Practice heatmap" className="mt-8">
+   313→          <h2 className="font-display text-xl font-black">Practice heatmap</h2>
+   314→          <p className="mt-1 max-w-xl text-[.86rem] leading-relaxed text-[#a89a86]">
+   315→            The last 17 weeks — one square per day, greener the more you finished.
+   316→          </p>
+   317→          <div className="mt-4 rounded-2xl border border-white/10 bg-white/[.04] p-5">
+   318→            <PracticeHeatmap hits={perDay} />
+   319→          </div>
+   320→        </section>
+   321→
+   322→        {/* ------- per-shelf mastery ------- */}
+   323→        <section aria-label="Per-shelf mastery" className="mt-8">
+   324→          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+   325→            <h2 className="font-display text-xl font-black">Shelf by shelf</h2>
+   326→            <span className="font-mono text-[.62rem] uppercase tracking-[.16em] text-[#8d7b63]">
+   327→              <strong className="text-[#c9b99f]">{readEverywhere}</strong>/{TOTAL_SECTIONS} chapters read
+   328→            </span>
+   329→            {dueEverywhere > 0 ? (
+   330→              <button
+   331→                type="button"
+   332→                onClick={() => openReview("all")}
+   333→                className="ml-auto flex items-center gap-1.5 rounded-full border border-[#f59e0b55] bg-[#f59e0b14] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#f5c889] transition hover:bg-[#f59e0b2a]"
+   334→              >
+   335→                <Layers className="h-3.5 w-3.5" />
+   336→                review everything
+   337→              </button>
+   338→            ) : null}
+   339→          </div>
+   340→          <div className="mt-4 grid gap-3">
+   341→            {rows.map((row) => (
+   342→              <ShelfCard key={row.subject.id} row={row} onReview={() => openReview(row.subject.id)} />
+   343→            ))}
+   344→          </div>
+   345→        </section>
+   346→
+   347→        {/* ------- trouble spots ------- */}
+   348→        {trouble.length > 0 ? (
+   349→          <section aria-label="Trouble spots" className="mt-10">
+   350→            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+   351→              <h2 className="font-display text-xl font-black">Trouble spots</h2>
+   352→              <span className="font-mono text-[.62rem] uppercase tracking-[.16em] text-[#8d7b63]">
+   353→                the cards that keep biting — answer them before the exam does
+   354→              </span>
+   355→            </div>
+   356→            <ul className="mt-4 grid gap-2">
+   357→              {trouble.map((t) => {
+   358→                const subject = SUBJECTS.find((s) => s.id === t.subject);
+   359→                const text = troubleTexts?.get(`${t.subject}:${t.id}`) ?? "Digging up the question…";
+   360→                return (
+   361→                  <motion.li
+   362→                    key={`${t.subject}:${t.id}`}
+   363→                    initial={{ opacity: 0, y: 8 }}
+   364→                    animate={{ opacity: 1, y: 0 }}
+   365→                    transition={{ duration: 0.25 }}
+   366→                    className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl border border-[#c26d4a26] bg-[#c26d4a0d] px-4 py-3"
+   367→                  >
+   368→                    <span
+   369→                      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg"
+   370→                      style={{ background: `${subject?.accent ?? "#f59e0b"}22`, color: subject?.accent ?? "#f59e0b" }}
+   371→                      aria-hidden
+   372→                    >
+   373→                      {subject ? <subject.icon className="h-3.5 w-3.5" /> : <ListChecks className="h-3.5 w-3.5" />}
+   374→                    </span>
+   375→                    <span className="min-w-0 flex-1">
+   376→                      <span className="block line-clamp-2 text-[.82rem] font-bold leading-snug text-[#f0e2c8]">{text}</span>
+   377→                      <span className="mt-0.5 block font-mono text-[.6rem] uppercase tracking-[.14em] text-[#8d7b63]">
+   378→                        {subject?.short ?? t.subject} · easiness {t.ef.toFixed(2)} · {dueLabel(t.due)} · last graded{" "}
+   379→                        {relDay(t.last)}
+   380→                      </span>
+   381→                    </span>
+   382→                    <button
+   383→                      type="button"
+   384→                      onClick={() => openReview(t.subject, [t.id])}
+   385→                      aria-label={`Review this card from ${subject?.short ?? t.subject}`}
+   386→                      className="flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[.64rem] font-black uppercase tracking-[.14em] transition hover:brightness-125"
+   387→                      style={{
+   388→                        borderColor: `${subject?.accent ?? "#f59e0b"}55`,
+   389→                        background: `${subject?.accent ?? "#f59e0b"}14`,
+   390→                        color: subject?.accent ?? "#f59e0b",
+   391→                      }}
+   392→                    >
+   393→                      <Sparkles className="h-3 w-3" />
+   394→                      review
+   395→                    </button>
+   396→                  </motion.li>
+   397→                );
+   398→              })}
+   399→            </ul>
+   400→          </section>
+   401→        ) : null}
+   402→
+   403→        {/* ------- recent attempts ------- */}
+   404→        <section aria-label="Recent attempts" className="mt-10">
+   405→          <h2 className="font-display text-xl font-black">Recent attempts</h2>
+   406→          {recent.length === 0 ? (
+   407→            <p className="mt-3 rounded-2xl border border-white/10 bg-white/[.04] p-5 text-[.86rem] leading-relaxed text-[#a89a86]">
+   408→              No attempts yet. Open any shelf, press a “Test my knowledge” window, and your first report lands here —
+   409→              correct answers seed the review schedule automatically.
+   410→            </p>
+   411→          ) : (
+   412→            <ul className="mt-4 grid gap-2">
+   413→              {recent.map((a, i) => {
+   414→                const subject = SUBJECTS.find((s) => s.id === a.subject);
+   415→                const isReview = a.group.startsWith("review");
+   416→                return (
+   417→                  <motion.li
+   418→                    key={`${a.at}-${i}`}
+   419→                    initial={{ opacity: 0, y: 8 }}
+   420→                    animate={{ opacity: 1, y: 0 }}
+   421→                    transition={{ duration: 0.25, delay: i * 0.03 }}
+   422→                    className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl border border-white/10 bg-white/[.04] px-4 py-3"
+   423→                  >
+   424→                    <span
+   425→                      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg"
+   426→                      style={{ background: `${subject?.accent ?? "#f59e0b"}22`, color: subject?.accent ?? "#f59e0b" }}
+   427→                      aria-hidden
+   428→                    >
+   429→                      {subject ? <subject.icon className="h-3.5 w-3.5" /> : <ListChecks className="h-3.5 w-3.5" />}
+   430→                    </span>
+   431→                    <span className="min-w-0 flex-1">
+   432→                      <span className="block truncate text-[.82rem] font-bold text-[#f0e2c8]">{a.title}</span>
+   433→                      <span className="block font-mono text-[.6rem] uppercase tracking-[.14em] text-[#8d7b63]">
+   434→                        {subject?.short ?? a.subject} · {isReview ? "spaced review" : a.group} · {relDay(a.at)} ·{" "}
+   435→                        {fmtSeconds(a.seconds)}
+   436→                      </span>
+   437→                    </span>
+   438→                    <span
+   439→                      className="rounded-full px-2.5 py-1 text-[.7rem] font-extrabold"
+   440→                      style={
+   441→                        a.pct >= 60
+   442→                          ? { background: "#8fae5d22", color: "#a9c977" }
+   443→                          : a.pct >= 35
+   444→                          ? { background: "#e0a45e22", color: "#e0a45e" }
+   445→                          : { background: "#c26d4a22", color: "#d98a6b" }
+   446→                      }
+   447→                    >
+   448→                      {a.correct}/{a.total} · {a.pct}%
+   449→                    </span>
+   450→                  </motion.li>
+   451→                );
+   452→              })}
+   453→            </ul>
+   454→          )}
+   455→        </section>
+   456→
+   457→        {/* ------- your data — export / import / erase ------- */}
+   458→        <section aria-label="Your data" className="mt-10">
+   459→          <h2 className="font-display text-xl font-black">Your data</h2>
+   460→          <p className="mt-1 max-w-xl text-[.86rem] leading-relaxed text-[#a89a86]">
+   461→            The whole atlas memory — review schedule, attempt ledger, chapters read — lives in this browser and
+   462→            nowhere else. One JSON file carries it anywhere.
+   463→          </p>
+   464→          <div className="mt-4 rounded-2xl border border-white/10 bg-white/[.04] p-5">
+   465→            {dataFlash ? (
+   466→              <p role="status" className="mb-4 rounded-xl border border-[#8fae5d40] bg-[#8fae5d14] px-4 py-3 text-[.8rem] font-semibold leading-relaxed text-[#c4dba4]">
+   467→                {dataFlash}
+   468→              </p>
+   469→            ) : null}
+   470→
+   471→            {imp.kind === "error" ? (
+   472→              <p role="alert" className="mb-4 rounded-xl border border-[#c26d4a40] bg-[#c26d4a14] px-4 py-3 text-[.8rem] font-semibold leading-relaxed text-[#d98a6b]">
+   473→                {imp.message}
+   474→              </p>
+   475→            ) : null}
+   476→
+   477→            {imp.kind === "ready" && imp.summary ? (
+   478→              <div className="mb-4 rounded-xl border border-[#f5c88940] bg-[#f5c88910] p-4">
+   479→                <p className="text-[.84rem] font-bold text-[#f0e2c8]">
+   480→                  {imp.name}
+   481→                  {imp.summary.exportedAt ? (
+   482→                    <span className="ml-2 font-mono text-[.6rem] font-normal uppercase tracking-[.14em] text-[#8d7b63]">
+   483→                      exported {relDay(Date.parse(imp.summary.exportedAt))}
+   484→                    </span>
+   485→                  ) : null}
+   486→                </p>
+   487→                <p className="mt-1 text-[.78rem] leading-relaxed text-[#c9b99f]">
+   488→                  {imp.summary.cards} scheduled card{imp.summary.cards === 1 ? "" : "s"} · {imp.summary.attempts} attempt{imp.summary.attempts === 1 ? "" : "s"} ·{" "}
+   489→                  {imp.summary.sections} chapter{imp.summary.sections === 1 ? "" : "s"} read · {imp.summary.days} practice day{imp.summary.days === 1 ? "" : "s"}
+   490→                </p>
+   491→                <p className="mt-2 text-[.78rem] font-semibold text-[#f5c889]">Importing replaces everything currently in this browser.</p>
+   492→                <div className="mt-3 flex flex-wrap gap-2">
+   493→                  <button
+   494→                    type="button"
+   495→                    onClick={onImportApply}
+   496→                    className="flex items-center gap-1.5 rounded-full bg-[#8fae5d] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#1c2408] transition hover:brightness-110"
+   497→                  >
+   498→                    <Upload className="h-3.5 w-3.5" />
+   499→                    Replace my data
+   500→                  </button>
+   501→                  <button
+   502→                    type="button"
+   503→                    onClick={() => {
+   504→                      setImp({ kind: "idle" });
+   505→                      if (fileRef.current) fileRef.current.value = "";
+   506→                    }}
+   507→                    className="rounded-full border border-white/15 bg-white/[.05] px-4 py-2 text-[.66rem] font-black uppercase tracking-[.14em] text-[#e9d7bf] transition hover:bg-white/[.1]"
+   508→                  >
+   509→                    Keep mine
+   510→                  </button>
+   511→                </div>
+   512→              </div>
+   513→            ) : null}
+   514→
+   515→            <div className="flex flex-wrap items-center gap-2.5">
+   516→              <button
+   517→                type="button"
+   518→                onClick={onExport}
+   519→                className="flex items-center gap-2 rounded-full border border-white/15 bg-white/[.06] px-4 py-2.5 text-[.7rem] font-black uppercase tracking-[.14em] text-[#f0e2c8] transition hover:bg-white/[.12]"
+   520→              >
+   521→                <Download className="h-4 w-4" style={{ color: "#f5c889" }} />
+   522→                Export backup
+   523→              </button>
+   524→              <button
+   525→                type="button"
+   526→                onClick={() => fileRef.current?.click()}
+   527→                className="flex items-center gap-2 rounded-full border border-white/15 bg-white/[.06] px-4 py-2.5 text-[.7rem] font-black uppercase tracking-[.14em] text-[#f0e2c8] transition hover:bg-white/[.12]"
+   528→              >
+   529→                <Upload className="h-4 w-4" style={{ color: "#a9c977" }} />
+   530→                Import backup…
+   531→              </button>
+   532→              <button
+   533→                type="button"
+   534→                onClick={onErase}
+   535→                aria-label={eraseArm ? "Confirm: erase every store" : "Erase every store — first press arms, second press erases"}
+   536→                className={`ml-auto flex items-center gap-2 rounded-full border px-4 py-2.5 text-[.7rem] font-black uppercase tracking-[.14em] transition ${
+   537→                  eraseArm
+   538→                    ? "border-[#c26d4a] bg-[#c26d4a] text-[#fff1e8]"
+   539→                    : "border-[#c26d4a40] bg-[#c26d4a0d] text-[#d98a6b] hover:bg-[#c26d4a1f]"
+   540→                }`}
+   541→              >
+   542→                <Trash2 className="h-4 w-4" />
+   543→                {eraseArm ? "sure? click again" : "erase everything"}
+   544→              </button>
+   545→            </div>
+   546→            <p className="mt-3 flex items-center gap-2 font-mono text-[.6rem] uppercase tracking-[.16em] text-[#77685a]">
+   547→              <Database className="h-3 w-3" />
+   548→              export before switching laptops · import restores the whole schedule
+   549→            </p>
+   550→          </div>
+   551→        </section>
+   552→
+   553→        <input
+   554→          ref={fileRef}
+   555→          type="file"
+   556→          accept="application/json,.json"
+   557→          className="sr-only"
+   558→          aria-hidden
+   559→          tabIndex={-1}
+   560→          onChange={(e) => {
+   561→            void onFile(e.target.files?.[0]);
+   562→          }}
+   563→        />
+   564→
+   565→        <p className="mt-10 text-center font-mono text-[.6rem] uppercase tracking-[.2em] text-[#5d5142]">
+   566→          the ledger keeps itself — every finished window writes its own row
+   567→        </p>
+   568→      </main>
+   569→
+   570→      {reviewSubject ? (
+   571→        <ReviewWindow
+   572→          subject={reviewSubject}
+   573→          forceIds={reviewForce}
+   574→          onClose={() => {
+   575→            setReviewSubject(null);
+   576→            setReviewForce([]);
+   577→            refresh();
+   578→          }}
+   579→        />
+   580→      ) : null}
+   581→    </div>
+   582→  );
+   583→}
+   584→
+   585→/* ---------------- pieces ---------------- */
+   586→
+   587→function StatCard({
+   588→  icon: Icon,
+   589→  label,
+   590→  value,
+   591→  tone,
+   592→}: {
+   593→  icon: typeof Flame;
+   594→  label: string;
+   595→  value: string;
+   596→  tone: string;
+   597→}) {
+   598→  return (
+   599→    <div className="rounded-2xl border border-white/10 bg-white/[.04] p-4">
+   600→      <span className="flex items-center gap-2 font-mono text-[.6rem] font-bold uppercase tracking-[.18em] text-[#8d7b63]">
+   601→        <Icon className="h-3.5 w-3.5" style={{ color: tone }} />
+   602→        {label}
+   603→      </span>
+   604→      <p className="font-display mt-2 text-2xl font-black text-[#f7ecdd]">{value}</p>
+   605→    </div>
+   606→  );
+   607→}
+   608→
+   609→function ShelfCard({ row, onReview }: { row: ShelfRow; onReview: () => void }) {
+   610→  const { subject, stats, mastery, due, read, readTotal } = row;
+   611→  const accuracy = stats.totalAnswered > 0 ? Math.round((stats.totalCorrect / stats.totalAnswered) * 100) : null;
+   612→  const started = mastery.total - mastery.unseen > 0;
+   613→  return (
+   614→    <div className="rounded-2xl border border-white/10 bg-white/[.04] p-5 transition-colors hover:border-white/20">
+   615→      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+   616→        <span
+   617→          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl"
+   618→          style={{ background: `${subject.accent}1f`, color: subject.accent }}
+   619→          aria-hidden
+   620→        >
+   621→          <subject.icon className="h-4.5 w-4.5" />
+   622→        </span>
+   623→        <div className="min-w-0">
+   624→          <p className="text-[.95rem] font-black leading-tight text-[#f7ecdd]">{subject.title}</p>
+   625→          <p className="font-mono text-[.6rem] uppercase tracking-[.16em] text-[#8d7b63]">shelf {subject.shelf}</p>
+   626→        </div>
+   627→        <div className="ml-auto flex items-center gap-2">
+   628→          {due > 0 ? (
+   629→            <button
+   630→              type="button"
+   631→              onClick={onReview}
+   632→              className="flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[.66rem] font-black uppercase tracking-[.14em] transition hover:brightness-125"
+   633→              style={{ borderColor: `${subject.accent}55`, background: `${subject.accent}14`, color: subject.accent }}
+   634→            >
+   635→              <Sparkles className="h-3.5 w-3.5" />
+   636→              review {due} due
+   637→            </button>
+   638→          ) : (
+   639→            <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[.03] px-3 py-1.5 font-mono text-[.58rem] font-bold uppercase tracking-[.14em] text-[#77685a]">
+   640→              {started ? <Timer className="h-3 w-3" /> : null}
+   641→              {started ? "schedule clear" : "no cards yet"}
+   642→            </span>
+   643→          )}
+   644→        </div>
+   645→      </div>
+   646→
+   647→      {/* reading progress — chapters reached while scrolling the notes */}
+   648→      <div className="mt-4">
+   649→        <div className="flex items-center justify-between font-mono text-[.62rem] uppercase tracking-[.14em] text-[#8d7b63]">
+   650→          <span className="flex items-center gap-1.5">
+   651→            <BookOpen className="h-3 w-3" style={{ color: subject.accent }} />
+   652→            chapters read
+   653→          </span>
+   654→          <span>
+   655→            <strong className="text-[#c9b99f]">{read}</strong> / {readTotal}
+   656→          </span>
+   657→        </div>
+   658→        <div
+   659→          className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/[.06]"
+   660→          role="img"
+   661→          aria-label={`Reading progress: ${read} of ${readTotal} chapters read`}
+   662→        >
+   663→          <span
+   664→            style={{ width: `${Math.min(100, (read / Math.max(1, readTotal)) * 100)}%`, background: subject.accent }}
+   665→            className="block h-full transition-[width] duration-500"
+   666→          />
+   667→        </div>
+   668→      </div>
+   669→
+   670→      {/* mastery bar — mastered / learning / weak / unseen */}
+   671→      <div className="mt-4">
+   672→        <div
+   673→          className="flex h-2.5 w-full overflow-hidden rounded-full bg-white/[.06]"
+   674→          role="img"
+   675→          aria-label={`Mastery: ${mastery.mastered} mastered, ${mastery.learning} learning, ${mastery.review} weak, ${mastery.unseen} unseen of ${mastery.total}`}
+   676→        >
+   677→          <Seg pct={(mastery.mastered / Math.max(1, mastery.total)) * 100} color="#8fae5d" />
+   678→          <Seg pct={(mastery.learning / Math.max(1, mastery.total)) * 100} color="#d9a441" />
+   679→          <Seg pct={(mastery.review / Math.max(1, mastery.total)) * 100} color="#c26d4a" />
+   680→        </div>
+   681→        <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 font-mono text-[.62rem] uppercase tracking-[.14em] text-[#8d7b63]">
+   682→          <span>
+   683→            mastery <strong className="text-[#c9b99f]">{mastery.pct}%</strong> ({mastery.mastered}/{mastery.total})
+   684→          </span>
+   685→          <span>
+   686→            accuracy{" "}
+   687→            <strong className="text-[#c9b99f]">{accuracy === null ? "—" : `${accuracy}%`}</strong>
+   688→            {stats.attempts > 0 ? ` · best ${stats.bestPct}% · ${stats.attempts} attempt${stats.attempts === 1 ? "" : "s"}` : ""}
+   689→          </span>
+   690→        </div>
+   691→      </div>
+   692→    </div>
+   693→  );
+   694→}
+   695→
+   696→function Seg({ pct, color }: { pct: number; color: string }) {
+   697→  return pct <= 0 ? null : <span style={{ width: `${pct}%`, background: color }} className="block h-full" />;
+   698→}
+   699→

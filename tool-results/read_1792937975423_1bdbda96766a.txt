@@ -1,0 +1,1033 @@
+     1→"use client";
+     2→
+     3→import { PartBoundary } from "@/components/notes/PartBoundary";
+     4→import { useDialogA11y } from "@/components/notes/exam-runtime";
+     5→
+     6→import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+     7→import { AnimatePresence, motion } from "framer-motion";
+     8→import {
+     9→  ArrowLeft,
+    10→  ArrowRight,
+    11→  Check,
+    12→  ChevronDown,
+    13→  BookOpen,
+    14→  BookOpenText,
+    15→  GraduationCap,
+    16→  ListChecks,
+    17→  Map,
+    18→  Menu,
+    19→  MousePointerClick,
+    20→  PenLine,
+    21→  Printer,
+    22→  Route,
+    23→  X,
+    24→} from "lucide-react";
+    25→import { useSectionProgress } from "@/lib/use-section-progress";
+    26→import { jumpTo, useOpenSection } from "@/lib/use-open-section";
+    27→import { loadProgress } from "@/lib/progress";
+    28→import { AtbHero, AtbIntroSection, AtbFlowchartsSection, AtbAtmSection, AtbCodeSection, AtbAverageSection } from "@/components/atb/AtbParts1";
+    29→import { AtbPropsSection, AtbAlgoTypesSection } from "@/components/atb/AtbParts2";
+    30→import { AtbArraysSection, AtbListSection } from "@/components/atb/AtbParts3";
+    31→import { AtbStacksSection, AtbQueuesSection, AtbQTypesSection } from "@/components/atb/AtbParts4";
+    32→import { AtbTreesSection, AtbTraversalsSection, AtbGraphsSection, AtbDfsBfsSection } from "@/components/atb/AtbParts5";
+    33→import { AtbTreeTypesSection, AtbHashingSection, AtbBlockchainSection } from "@/components/atb/AtbParts6";
+    34→import { AtbExamWindow } from "@/components/atb/AtbExamWindow";
+    35→import { ATB_EXAM_BANKS, ATB_EXAM_GROUPS, ATB_TOTAL_QUESTIONS, type AtbExamGroup } from "@/components/atb/questions";
+    36→import { ATB_LECTURES, ATB_ALL_CHAPTER_IDS, ATB_DEFAULT_LECTURE, lectureById, lectureOfChapter, type AtbLecture } from "@/components/atb/lectures";
+    37→
+    38→/* ============================================================
+    39→   AtbApp — the complete "Algorithmic Thinking in Business"
+    40→   revision companion, registered as shelf 02 of THE ATLAS.
+    41→
+    42→   A NO-CODE course: every concept is traced by hand — tea
+    43→   recipes, ATM decisions, memory boxes — and every chapter
+    44→   carries its own in-page machines. Mounted by the Atlas
+    45→   router (src/app/page.tsx) when the reader enters the subject;
+    46→   `onExitAtlas` returns the reader to the Atlas landing page.
+    47→
+    48→   The page is a LECTURE READER: the hero holds a searchable
+    49→   lecture sequence (Lecture 1, 2, 3 … sent lecture by lecture
+    50→   by the course), and the page below renders exactly the
+    51→   chosen lecture's chapters. All pen-paper practice lives
+    52→   behind the "Test my knowledge" hub so the reading surface
+    53→   stays clean.
+    54→   ============================================================ */
+    55→
+    56→/* ============================================================
+    57→   Structured chapter map — the top bar is organised into six
+    58→   groups. Each group owns a "Test my knowledge" exam window
+    59→   (see questions.ts).
+    60→   ============================================================ */
+    61→const GROUPS: {
+    62→  id: AtbExamGroup;
+    63→  label: string;
+    64→  items: { id: string; label: string; desc: string }[];
+    65→}[] = [
+    66→  {
+    67→    id: "intro",
+    68→    label: "Intro",
+    69→    items: [
+    70→      { id: "intro", label: "Why algorithms?", desc: "From making tea to running an ATM" },
+    71→      { id: "flowcharts", label: "Flowcharts", desc: "The five symbols every algorithm is drawn with" },
+    72→      { id: "atm", label: "Decisions", desc: "The ATM machine — branching in action" },
+    73→      { id: "pseudocode", label: "Pseudocode", desc: "Functions, pseudocode and real code" },
+    74→      { id: "average", label: "Average, step-by-step", desc: "Memory boxes, data types & FIRST CLASS" },
+    75→    ],
+    76→  },
+    77→  {
+    78→    id: "props",
+    79→    label: "Properties",
+    80→    items: [
+    81→      { id: "properties", label: "9 properties", desc: "What makes an algorithm a *good* algorithm" },
+    82→      { id: "algotypes", label: "Algorithm types", desc: "Divide & conquer · greedy · dynamic programming" },
+    83→    ],
+    84→  },
+    85→  {
+    86→    id: "linear",
+    87→    label: "Linear DS",
+    88→    items: [
+    89→      { id: "arrays", label: "Arrays", desc: "Indexed, contiguous, direct access" },
+    90→      { id: "linkedlists", label: "Linked lists", desc: "Lecture 7 · flexible chains of songs" },
+    91→    ],
+    92→  },
+    93→  {
+    94→    id: "stackq",
+    95→    label: "Stacks & Queues",
+    96→    items: [
+    97→      { id: "stacks", label: "Stacks", desc: "LIFO — the undo machine" },
+    98→      { id: "queues", label: "Queues", desc: "FIFO — first come, first served" },
+    99→      { id: "qtypes", label: "Queue types", desc: "Linear · circular · priority · deque" },
+   100→    ],
+   101→  },
+   102→  {
+   103→    id: "trees",
+   104→    label: "Trees & Graphs",
+   105→    items: [
+   106→      { id: "trees", label: "Trees", desc: "Hierarchy: roots, parents & leaves" },
+   107→      { id: "traversals", label: "Traversals", desc: "Pre · in · post · level order" },
+   108→      { id: "graphs", label: "Graphs", desc: "G = (V, E) — relationships" },
+   109→      { id: "dfsbfs", label: "DFS & BFS", desc: "Stack vs queue traversal" },
+   110→    ],
+   111→  },
+   112→  {
+   113→    id: "hash",
+   114→    label: "Hash & Chain",
+   115→    items: [
+   116→      { id: "treetypes", label: "Tree types", desc: "BST · AVL · heaps" },
+   117→      { id: "hashing", label: "Hashing", desc: "mod, tables, collisions, passwords" },
+   118→      { id: "blockchain", label: "Blockchain", desc: "Tamper-evident chains of blocks" },
+   119→    ],
+   120→  },
+   121→];
+   122→
+   123→const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
+   124→
+   125→function groupOf(id: string): string | null {
+   126→  for (const g of GROUPS) if (g.items.some((i) => i.id === id)) return g.id;
+   127→  return null;
+   128→}
+   129→
+   130→/* ============================================================
+   131→   The chapter components, keyed by section id — the lecture
+   132→   reader renders exactly the slice the chosen lecture owns.
+   133→   ============================================================ */
+   134→const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
+   135→  intro: <AtbIntroSection />,
+   136→  flowcharts: <AtbFlowchartsSection />,
+   137→  atm: <AtbAtmSection />,
+   138→  pseudocode: <AtbCodeSection />,
+   139→  average: <AtbAverageSection />,
+   140→  properties: <AtbPropsSection />,
+   141→  algotypes: <AtbAlgoTypesSection />,
+   142→  arrays: <AtbArraysSection />,
+   143→  linkedlists: <AtbListSection />,
+   144→  stacks: <AtbStacksSection />,
+   145→  queues: <AtbQueuesSection />,
+   146→  qtypes: <AtbQTypesSection />,
+   147→  trees: <AtbTreesSection />,
+   148→  traversals: <AtbTraversalsSection />,
+   149→  graphs: <AtbGraphsSection />,
+   150→  dfsbfs: <AtbDfsBfsSection />,
+   151→  treetypes: <AtbTreeTypesSection />,
+   152→  hashing: <AtbHashingSection />,
+   153→  blockchain: <AtbBlockchainSection />,
+   154→};
+   155→
+   156→/* ============================================================
+   157→   useSeenDisplay — the read-checkmark data for every menu.
+   158→
+   159→   Marking is per-lecture (only the rendered chapters can be
+   160→   swept — the Kindle-style furthest-read sweep must never
+   161→   sweep chapters that aren't on the page), but DISPLAY spans
+   162→   the whole shelf: whatever the reader marked in earlier
+   163→   sessions/lectures stays visible via the persisted record.
+   164→   ============================================================ */
+   165→function useSeenDisplay(lecture: AtbLecture): ReadonlySet<string> {
+   166→  const ids = useMemo(() => lecture.chapters.map((c) => c.id), [lecture]);
+   167→  const live = useSectionProgress("atb", ids);
+   168→  const persisted = useMemo(() => {
+   169→    try {
+   170→      return new Set(Object.keys(loadProgress().atb ?? {}));
+   171→    } catch {
+   172→      return new Set<string>();
+   173→    }
+   174→  }, []);
+   175→  return useMemo(() => new Set<string>([...persisted, ...live]), [persisted, live]);
+   176→}
+   177→
+   178→/* ============================================================
+   179→   TopNav — structured chapter menu + a "Test my knowledge"
+   180→   launcher inside every chapter group.
+   181→
+   182→   PERF (kept from FocApp): the progress bar is written straight
+   183→   to the DOM through a ref inside a requestAnimationFrame, and
+   184→   React state updates only when the active section CHANGES —
+   185→   the nav never re-renders per scroll tick.
+   186→
+   187→   Chapters live inside the lecture reader, so a menu click on a
+   188→   chapter of a DIFFERENT lecture first switches the lecture and
+   189→   then scrolls (goToChapter in AtbApp) — a plain anchor would
+   190→   aim at a section that isn't rendered.
+   191→   ============================================================ */
+   192→function TopNav({
+   193→  onOpenExam,
+   194→  onExitAtlas,
+   195→  onJumpChapter,
+   196→  seen,
+   197→}: {
+   198→  onOpenExam: (g: AtbExamGroup) => void;
+   199→  onExitAtlas: () => void;
+   200→  onJumpChapter: (chapterId: string) => void;
+   201→  seen: ReadonlySet<string>;
+   202→}) {
+   203→  const [active, setActive] = useState<string>("");
+   204→  const [openGroup, setOpenGroup] = useState<string | null>(null);
+   205→  const [mobileOpen, setMobileOpen] = useState(false);
+   206→  const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
+   207→  const navRef = useRef<HTMLElement>(null);
+   208→  const progressRef = useRef<HTMLDivElement>(null);
+   209→  const activeRef = useRef("");
+   210→
+   211→  useEffect(() => {
+   212→    let ticking = false;
+   213→    const update = () => {
+   214→      ticking = false;
+   215→      const doc = document.documentElement;
+   216→      const total = doc.scrollHeight - doc.clientHeight;
+   217→      const pct = total > 0 ? (doc.scrollTop / total) * 100 : 0;
+   218→      if (progressRef.current) progressRef.current.style.width = `${pct}%`;
+   219→
+   220→      // scroll-spy: only touch React state when the section changes.
+   221→      // Sections of other lectures simply aren't in the DOM, so the
+   222→      // loop naturally spies on the rendered lecture only.
+   223→      const probe = window.innerHeight * 0.32;
+   224→      let current = "";
+   225→      for (const item of FLAT_ITEMS) {
+   226→        const el = document.getElementById(item.id);
+   227→        if (el && el.getBoundingClientRect().top <= probe) current = item.id;
+   228→      }
+   229→      if (current !== activeRef.current) {
+   230→        activeRef.current = current;
+   231→        setActive(current);
+   232→      }
+   233→    };
+   234→    const onScroll = () => {
+   235→      if (!ticking) {
+   236→        ticking = true;
+   237→        requestAnimationFrame(update);
+   238→      }
+   239→    };
+   240→    update();
+   241→    window.addEventListener("scroll", onScroll, { passive: true });
+   242→    window.addEventListener("resize", onScroll);
+   243→    return () => {
+   244→      window.removeEventListener("scroll", onScroll);
+   245→      window.removeEventListener("resize", onScroll);
+   246→    };
+   247→  }, []);
+   248→
+   249→  // close dropdown on outside click / Escape
+   250→  useEffect(() => {
+   251→    const onDown = (e: MouseEvent) => {
+   252→      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenGroup(null);
+   253→    };
+   254→    const onKey = (e: KeyboardEvent) => {
+   255→      if (e.key === "Escape") {
+   256→        setOpenGroup(null);
+   257→        setMobileOpen(false);
+   258→      }
+   259→    };
+   260→    document.addEventListener("mousedown", onDown);
+   261→    document.addEventListener("keydown", onKey);
+   262→    return () => {
+   263→      document.removeEventListener("mousedown", onDown);
+   264→      document.removeEventListener("keydown", onKey);
+   265→    };
+   266→  }, []);
+   267→
+   268→  // lock body scroll while the mobile index is open
+   269→  useEffect(() => {
+   270→    document.body.style.overflow = mobileOpen ? "hidden" : "";
+   271→    return () => {
+   272→      document.body.style.overflow = "";
+   273→    };
+   274→  }, [mobileOpen]);
+   275→
+   276→  const activeGroup = active ? groupOf(active) : null;
+   277→
+   278→  return (
+   279→    <nav ref={navRef} aria-label="Chapters" className="fixed inset-x-0 top-0 z-50">
+   280→      <div className="nav-shell">
+   281→        <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-3 sm:px-5">
+   282→          {/* back to The Atlas — the shelf this subject lives on */}
+   283→          <button
+   284→            type="button"
+   285→            onClick={onExitAtlas}
+   286→            title="Back to The Atlas — the subject shelf"
+   287→            aria-label="Back to The Atlas"
+   288→            className="flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3 text-[.64rem] font-extrabold uppercase tracking-[.14em] text-[#8a5f30] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/85 hover:text-[#c2410c]"
+   289→          >
+   290→            <Map className="h-3.5 w-3.5" />
+   291→            <span className="hidden sm:inline">Atlas</span>
+   292→          </button>
+   293→
+   294→          {/* brand — quiet glass chip, Apple-quiet rather than loud gradient */}
+   295→          <a
+   296→            href="#top"
+   297→            className="flex shrink-0 items-center gap-2 rounded-full border border-white/70 bg-white/60 py-1.5 pl-2 pr-3.5 shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/80"
+   298→          >
+   299→            <span
+   300→              className="flex h-6 w-6 items-center justify-center rounded-full text-white"
+   301→              style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)", boxShadow: "0 4px 10px -3px rgba(194,65,12,.55)" }}
+   302→            >
+   303→              <Route className="h-3.5 w-3.5" />
+   304→            </span>
+   305→            <span className="text-sm font-black tracking-tight text-[#3e2c1d]">ATB Notes</span>
+   306→          </a>
+   307→
+   308→          {/* desktop — grouped chapter menu (all six groups). Opens at lg:
+   309→              below that the bar would overflow once every group is shown,
+   310→              so narrower screens get the scrolling chip strip + the
+   311→              full-screen index instead. */}
+   312→          <div className="ml-2 hidden flex-1 items-center gap-1 lg:flex">
+   313→            {GROUPS.map((group) => {
+   314→              const isActive = activeGroup === group.id;
+   315→              const open = openGroup === group.id;
+   316→              return (
+   317→                <div
+   318→                  key={group.id}
+   319→                  className="relative"
+   320→                  onMouseEnter={() => setOpenGroup(group.id)}
+   321→                  onMouseLeave={() => setOpenGroup((g) => (g === group.id ? null : g))}
+   322→                >
+   323→                  <button
+   324→                    type="button"
+   325→                    aria-expanded={open}
+   326→                    aria-haspopup="true"
+   327→                    onClick={() => setOpenGroup(group.id)}
+   328→                    onFocus={() => setOpenGroup(group.id)}
+   329→                    className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[.78rem] font-semibold tracking-wide transition-all duration-200 ${
+   330→                      isActive || open
+   331→                        ? "bg-white/80 text-[#c2410c] shadow-[0_4px_16px_-8px_rgba(70,42,15,.4),inset_0_1px_0_rgba(255,255,255,.9)]"
+   332→                        : "text-[#6b563d] hover:bg-white/55 hover:text-[#3e2c1d] hover:shadow-[inset_0_1px_0_rgba(255,255,255,.9)]"
+   333→                    }`}
+   334→                  >
+   335→                    {group.label}
+   336→                    <span className="text-[.58rem] font-extrabold opacity-45">{String(group.items.length).padStart(2, "0")}</span>
+   337→                    <ChevronDown className={`h-3 w-3 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+   338→                  </button>
+   339→
+   340→                  <AnimatePresence>
+   341→                    {open ? (
+   342→                      <motion.div
+   343→                        key={`${group.id}-panel`}
+   344→                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+   345→                        animate={{ opacity: 1, y: 0, scale: 1 }}
+   346→                        exit={{ opacity: 0, y: 6, scale: 0.98 }}
+   347→                        transition={{ duration: 0.16, ease: "easeOut" }}
+   348→                        className="absolute left-1/2 top-full z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 pt-2"
+   349→                      >
+   350→                        <div
+   351→                          className="overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-1.5 backdrop-blur-2xl"
+   352→                          style={{
+   353→                            WebkitBackdropFilter: "blur(28px) saturate(170%)",
+   354→                            backdropFilter: "blur(28px) saturate(170%)",
+   355→                            boxShadow: "0 24px 70px -18px rgba(50,30,10,.4), inset 0 1px 0 rgba(255,255,255,.85)",
+   356→                          }}
+   357→                        >
+   358→                          <p className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 text-[.58rem] font-extrabold uppercase tracking-[.22em] text-[#b08b5c]">
+   359→                            <BookOpenText className="h-3 w-3" />
+   360→                            {group.label}
+   361→                          <span className="ml-auto font-mono tracking-[.08em] opacity-90">
+   362→                            {group.items.filter((it) => seen.has(it.id)).length}/{group.items.length} read
+   363→                          </span>
+   364→                          </p>
+   365→                          {group.items.map((item, i) => {
+   366→                            const isActiveItem = active === item.id;
+   367→                            return (
+   368→                              <a
+   369→                                key={item.id}
+   370→                                href={`#${item.id}`}
+   371→                                onClick={(e) => {
+   372→                                  e.preventDefault();
+   373→                                  setOpenGroup(null);
+   374→                                  onJumpChapter(item.id);
+   375→                                }}
+   376→                                className={`group flex items-start gap-3 rounded-xl px-3 py-2 transition-colors duration-150 ${
+   377→                                  isActiveItem ? "bg-[#ea580c]/[.08]" : "hover:bg-[#3e2c1d]/[.05]"
+   378→                                }`}
+   379→                              >
+   380→                                <span
+   381→                                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[.58rem] font-black ${
+   382→                                    isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#b08b5c]"
+   383→                                  }`}
+   384→                                  style={isActiveItem ? { background: "linear-gradient(135deg,#ea580c,#c2410c)" } : undefined}
+   385→                                >
+   386→                                  {String(i + 1).padStart(2, "0")}
+   387→                                </span>
+   388→                                <span className="min-w-0">
+   389→                                  <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#c2410c]" : "text-[#3e2c1d]"}`}>
+   390→                                    {item.label}
+   391→                                  </span>
+   392→                                  <span className="mt-0.5 block text-[.7rem] leading-snug text-[#a08568]">{item.desc}</span>
+   393→                                </span>
+   394→                                {isActiveItem ? (
+   395→                                <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#c2410c" }} />
+   396→                              ) : seen.has(item.id) ? (
+   397→                                <Check className="ml-auto mt-1 h-3.5 w-3.5 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
+   398→                              ) : null}
+   399→                              </a>
+   400→                            );
+   401→                          })}
+   402→
+   403→                          {/* Test my knowledge — opens the exam window for this group */}
+   404→                          <div className="mt-1 border-t border-[#f0e2c8] p-1.5">
+   405→                            <button
+   406→                              type="button"
+   407→                              onClick={() => {
+   408→                                setOpenGroup(null);
+   409→                                onOpenExam(group.id);
+   410→                              }}
+   411→                              className="group/exam flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors duration-150 hover:bg-[#3e2c1d]/[.05]"
+   412→                            >
+   413→                              <span
+   414→                                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+   415→                                style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)" }}
+   416→                              >
+   417→                                <PenLine className="h-3.5 w-3.5" />
+   418→                              </span>
+   419→                              <span className="min-w-0">
+   420→                                <span className="block text-[.84rem] font-extrabold leading-tight text-[#c2410c]">
+   421→                                  Test my knowledge
+   422→                                </span>
+   423→                                <span className="mt-0.5 block text-[.68rem] leading-snug text-[#a08568]">
+   424→                                  {ATB_EXAM_BANKS[group.id].questions.length} exam-style questions · pen-paper mode
+   425→                                </span>
+   426→                              </span>
+   427→                              <span className="ml-auto shrink-0 text-[.58rem] font-black uppercase tracking-[.14em] text-[#b08b5c] transition-colors group-hover/exam:text-[#c2410c]">
+   428→                                open →
+   429→                              </span>
+   430→                            </button>
+   431→                          </div>
+   432→                        </div>
+   433→                      </motion.div>
+   434→                    ) : null}
+   435→                  </AnimatePresence>
+   436→                </div>
+   437→              );
+   438→            })}
+   439→          </div>
+   440→
+   441→          {/* below lg — quick chips (horizontal scroll) covering every chapter */}
+   442→          <div className="scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+   443→            {GROUPS.flatMap((g) => g.items).map((item) => (
+   444→              <a
+   445→                key={item.id}
+   446→                href={`#${item.id}`}
+   447→                onClick={(e) => {
+   448→                  e.preventDefault();
+   449→                  onJumpChapter(item.id);
+   450→                }}
+   451→                className={`nav-link ${active === item.id ? "active" : ""}`}
+   452→              >
+   453→                {item.label}
+   454→              </a>
+   455→            ))}
+   456→          </div>
+   457→
+   458→          {/* right cluster — chapter index (small screens) */}
+   459→          <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
+   460→            <button
+   461→              type="button"
+   462→              onClick={() => window.print()}
+   463→              title="Print these notes"
+   464→              aria-label="Print these notes"
+   465→              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c]"
+   466→            >
+   467→              <Printer className="h-4 w-4" />
+   468→            </button>
+   469→            <button
+   470→              type="button"
+   471→              onClick={() => setMobileOpen(true)}
+   472→              aria-label="Open the chapter index"
+   473→              aria-expanded={mobileOpen}
+   474→              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] lg:hidden"
+   475→            >
+   476→              <Menu className="h-4.5 w-4.5" />
+   477→            </button>
+   478→          </div>
+   479→        </div>
+   480→      </div>
+   481→
+   482→      {/* reading progress — width written directly via ref (no re-renders) */}
+   483→      <div className="h-[3px] w-full bg-[#3e2c1d]/10">
+   484→        <div
+   485→          ref={progressRef}
+   486→          className="h-full"
+   487→          style={{ width: "0%", background: "linear-gradient(90deg,#f59e0b,#ea580c,#c2410c)" }}
+   488→        />
+   489→      </div>
+   490→
+   491→      {/* mobile — full-screen structured index */}
+   492→      <AnimatePresence>
+   493→        {mobileOpen ? (
+   494→          <motion.div
+   495→            ref={mobileRef}
+   496→            tabIndex={-1}
+   497→            key="mobile-index"
+   498→            initial={{ opacity: 0 }}
+   499→            animate={{ opacity: 1 }}
+   500→            exit={{ opacity: 0 }}
+   501→            transition={{ duration: 0.18 }}
+   502→            className="fixed inset-0 z-[60] flex flex-col outline-none"
+   503→            style={{ background: "linear-gradient(165deg,#241608 0%,#33200e 55%,#3e2c1d 100%)" }}
+   504→            role="dialog"
+   505→            aria-modal="true"
+   506→            aria-label="Chapter index"
+   507→          >
+   508→            <div className="flex h-14 shrink-0 items-center justify-between px-4">
+   509→              <span className="flex items-center gap-2 text-sm font-black tracking-tight text-[#ffe9c9]">
+   510→                <Route className="h-4 w-4" style={{ color: "#f59e0b" }} />
+   511→                Chapter index
+   512→              <span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[.55rem] font-bold text-[#e9d7bf]">
+   513→                {seen.size}/{ATB_ALL_CHAPTER_IDS.length} read
+   514→              </span>
+   515→              </span>
+   516→              <button
+   517→                type="button"
+   518→                onClick={() => setMobileOpen(false)}
+   519→                aria-label="Close the chapter index"
+   520→                className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#ffe9c9]"
+   521→              >
+   522→                <X className="h-4.5 w-4.5" />
+   523→              </button>
+   524→            </div>
+   525→            <div className="flex-1 overflow-y-auto px-4 pb-10 pt-2">
+   526→              {GROUPS.map((group, gi) => (
+   527→                <motion.div
+   528→                  key={group.id}
+   529→                  initial={{ opacity: 0, y: 14 }}
+   530→                  animate={{ opacity: 1, y: 0 }}
+   531→                  transition={{ delay: 0.05 + gi * 0.06, duration: 0.25 }}
+   532→                  className="mb-5"
+   533→                >
+   534→                  <p className="mb-2 flex items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.24em] text-[#c99a63]">
+   535→                    <span className="h-px w-5" style={{ background: "linear-gradient(90deg,#ea580c,transparent)" }} />
+   536→                    {group.label}
+   537→                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-[.55rem] text-[#e9d7bf]">{group.items.filter((it) => seen.has(it.id)).length}/{group.items.length}</span>
+   538→                  </p>
+   539→                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.04]">
+   540→                    {group.items.map((item, i) => {
+   541→                      const isActiveItem = active === item.id;
+   542→                      return (
+   543→                        <a
+   544→                          key={item.id}
+   545→                          href={`#${item.id}`}
+   546→                          onClick={(e) => {
+   547→                            e.preventDefault();
+   548→                            setMobileOpen(false);
+   549→                            onJumpChapter(item.id);
+   550→                          }}
+   551→                          className={`flex items-center gap-3 px-4 py-3 transition-colors active:bg-white/10 ${
+   552→                            i < group.items.length - 1 ? "border-b border-white/[.06]" : ""
+   553→                          } ${isActiveItem ? "bg-white/[.08]" : ""}`}
+   554→                        >
+   555→                          <span
+   556→                            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[.6rem] font-black"
+   557→                            style={
+   558→                              isActiveItem
+   559→                                ? { background: "linear-gradient(135deg,#ea580c,#c2410c)", color: "#fff7ec" }
+   560→                                : { background: "rgba(255,220,170,.1)", color: "#c99a63" }
+   561→                            }
+   562→                          >
+   563→                            {String(i + 1).padStart(2, "0")}
+   564→                          </span>
+   565→                          <span className="min-w-0 flex-1">
+   566→                            <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#f5c889]" : "text-[#f0e2c8]"}`}>
+   567→                              {item.label}
+   568→                            </span>
+   569→                            <span className="mt-0.5 block text-[.7rem] leading-snug text-[#b99a75]">{item.desc}</span>
+   570→                          </span>
+   571→                          {isActiveItem ? (
+   572→                            <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#f59e0b" }} />
+   573→                          ) : seen.has(item.id) ? (
+   574→                            <Check className="h-4 w-4 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
+   575→                          ) : null}
+   576→                        </a>
+   577→                      );
+   578→                    })}
+   579→
+   580→                    {/* Test my knowledge — per group */}
+   581→                    <button
+   582→                      type="button"
+   583→                      onClick={() => {
+   584→                        setMobileOpen(false);
+   585→                        onOpenExam(group.id);
+   586→                      }}
+   587→                      className="flex w-full items-center gap-2.5 border-t border-white/[.08] px-4 py-3 text-left transition-colors active:bg-white/10"
+   588→                    >
+   589→                      <span
+   590→                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+   591→                        style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)" }}
+   592→                      >
+   593→                        <PenLine className="h-3.5 w-3.5" />
+   594→                      </span>
+   595→                      <span className="text-[.88rem] font-extrabold text-[#f5c889]">Test my knowledge</span>
+   596→                      <span className="ml-auto text-[.6rem] font-black uppercase tracking-[.14em] text-[#c99a63]">
+   597→                        {ATB_EXAM_BANKS[group.id].questions.length} Qs →
+   598→                      </span>
+   599→                    </button>
+   600→                  </div>
+   601→                </motion.div>
+   602→              ))}
+   603→            </div>
+   604→          </motion.div>
+   605→        ) : null}
+   606→      </AnimatePresence>
+   607→    </nav>
+   608→  );
+   609→}
+   610→
+   611→/* ============================================================
+   612→   PracticeHub — the ONE home of pen-paper practice. The hero's
+   613→   "Test my knowledge" button opens this dark studio: one card
+   614→   per chapter group, each launching that group's full exam
+   615→   window. Kept off the reading surface so the main page stays
+   616→   a clean lecture-by-lecture read.
+   617→   ============================================================ */
+   618→function PracticeHub({
+   619→  open,
+   620→  onClose,
+   621→  onOpenExam,
+   622→}: {
+   623→  open: boolean;
+   624→  onClose: () => void;
+   625→  onOpenExam: (g: AtbExamGroup) => void;
+   626→}) {
+   627→  const hubRef = useDialogA11y<HTMLDivElement>(open);
+   628→
+   629→  // Escape closes + body scroll locks while the hub is up
+   630→  useEffect(() => {
+   631→    if (!open) return;
+   632→    document.body.style.overflow = "hidden";
+   633→    const onKey = (e: KeyboardEvent) => {
+   634→      if (e.key === "Escape") onClose();
+   635→    };
+   636→    document.addEventListener("keydown", onKey);
+   637→    return () => {
+   638→      document.body.style.overflow = "";
+   639→      document.removeEventListener("keydown", onKey);
+   640→    };
+   641→  }, [open, onClose]);
+   642→
+   643→  return (
+   644→    <AnimatePresence>
+   645→      {open ? (
+   646→        <motion.div
+   647→          ref={hubRef}
+   648→          tabIndex={-1}
+   649→          key="practice-hub"
+   650→          initial={{ opacity: 0 }}
+   651→          animate={{ opacity: 1 }}
+   652→          exit={{ opacity: 0 }}
+   653→          transition={{ duration: 0.18 }}
+   654→          className="fixed inset-0 z-[65] overflow-y-auto outline-none"
+   655→          style={{
+   656→            background: "rgba(30,18,6,.78)",
+   657→            WebkitBackdropFilter: "blur(12px) saturate(140%)",
+   658→            backdropFilter: "blur(12px) saturate(140%)",
+   659→          }}
+   660→          role="dialog"
+   661→          aria-modal="true"
+   662→          aria-label="Test my knowledge — pen-paper practice"
+   663→          onClick={(e) => {
+   664→            if (e.target === e.currentTarget) onClose();
+   665→          }}
+   666→        >
+   667→          <div
+   668→            className="mx-auto my-6 w-[min(66rem,calc(100vw-1.5rem))] overflow-hidden rounded-3xl border border-white/10 sm:my-10"
+   669→            style={{
+   670→              background: "linear-gradient(165deg,#241608 0%,#33200e 55%,#3e2c1d 100%)",
+   671→              boxShadow: "0 48px 140px -32px rgba(0,0,0,.65)",
+   672→            }}
+   673→          >
+   674→            {/* header */}
+   675→            <div className="flex items-start justify-between gap-4 px-6 pt-6 sm:px-8">
+   676→              <div>
+   677→                <p className="flex items-center gap-2 text-[.6rem] font-extrabold uppercase tracking-[.24em] text-[#c99a63]">
+   678→                  <span className="h-px w-5" style={{ background: "linear-gradient(90deg,#ea580c,transparent)" }} />
+   679→                  Pen-paper practice
+   680→                </p>
+   681→                <h2 className="mt-1.5 text-2xl font-black tracking-tight text-[#ffe9c9] sm:text-3xl">Test my knowledge</h2>
+   682→                <p className="mt-2 max-w-2xl text-[.88rem] leading-relaxed text-[#d9c3a4]">
+   683→                  Every chapter group opens its own exam window: write-the-output, trace-the-pseudocode,
+   684→                  definitions and concept checks — write on real paper first, then mark yourself against
+   685→                  the model answers with instant checking.
+   686→                </p>
+   687→                <p className="mt-2 text-[.64rem] font-black uppercase tracking-[.18em] text-[#a1876a]">
+   688→                  {ATB_TOTAL_QUESTIONS} questions · {ATB_EXAM_GROUPS.length} windows
+   689→                </p>
+   690→              </div>
+   691→              <button
+   692→                type="button"
+   693→                onClick={onClose}
+   694→                aria-label="Close the practice hub"
+   695→                className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#ffe9c9] transition-colors hover:bg-white/20"
+   696→              >
+   697→                <X className="h-4.5 w-4.5" />
+   698→              </button>
+   699→            </div>
+   700→
+   701→            {/* the six exam windows */}
+   702→            <div className="grid gap-3 px-6 pb-7 pt-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
+   703→              {ATB_EXAM_GROUPS.map((g) => {
+   704→                const bank = ATB_EXAM_BANKS[g];
+   705→                return (
+   706→                  <button
+   707→                    key={g}
+   708→                    type="button"
+   709→                    onClick={() => onOpenExam(g)}
+   710→                    className="group flex flex-col items-start rounded-2xl border border-white/10 bg-white/[.05] p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[.09]"
+   711→                    aria-label={`Open the exam window — ${bank.title}`}
+   712→                  >
+   713→                    <span
+   714→                      className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md"
+   715→                      style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)" }}
+   716→                    >
+   717→                      <PenLine className="h-4 w-4" />
+   718→                    </span>
+   719→                    <span className="mt-3 text-[.98rem] font-extrabold leading-tight text-[#f5c889]">{bank.title}</span>
+   720→                    <span className="mt-1 text-[.76rem] leading-snug text-[#cbb392]">{bank.topics}</span>
+   721→                    <span className="mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#c99a63] transition-colors group-hover:text-[#f5c889]">
+   722→                      Test my knowledge · {bank.questions.length} Qs →
+   723→                    </span>
+   724→                  </button>
+   725→                );
+   726→              })}
+   727→            </div>
+   728→          </div>
+   729→        </motion.div>
+   730→      ) : null}
+   731→    </AnimatePresence>
+   732→  );
+   733→}
+   734→
+   735→/* ============================================================
+   736→   LecturePager — prev/next lecture cards closing every lecture,
+   737→   so the sequence reads like a book even without the picker.
+   738→   ============================================================ */
+   739→function LecturePager({ current, onJump }: { current: AtbLecture; onJump: (id: string) => void }) {
+   740→  const idx = ATB_LECTURES.findIndex((l) => l.id === current.id);
+   741→  const prev = idx > 0 ? ATB_LECTURES[idx - 1] : null;
+   742→  const next = idx < ATB_LECTURES.length - 1 ? ATB_LECTURES[idx + 1] : null;
+   743→
+   744→  return (
+   745→    <nav aria-label="Lecture sequence" className="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6">
+   746→      <div className="grid gap-3 sm:grid-cols-2">
+   747→        {prev ? (
+   748→          <button
+   749→            type="button"
+   750→            onClick={() => onJump(prev.id)}
+   751→            className="card-warm lift group flex items-center gap-3 p-4 text-left"
+   752→            aria-label={`Previous: ${prev.code} — ${prev.title}`}
+   753→          >
+   754→            <ArrowLeft className="h-4 w-4 shrink-0 text-[#c2410c] transition-transform duration-200 group-hover:-translate-x-1" />
+   755→            <span className="min-w-0">
+   756→              <span className="block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#a16207]">
+   757→                Previous · {prev.code}
+   758→              </span>
+   759→              <span className="mt-0.5 block truncate text-[.92rem] font-extrabold text-[#3e2c1d]">{prev.title}</span>
+   760→            </span>
+   761→          </button>
+   762→        ) : (
+   763→          <span aria-hidden className="hidden sm:block" />
+   764→        )}
+   765→        {next ? (
+   766→          <button
+   767→            type="button"
+   768→            onClick={() => onJump(next.id)}
+   769→            className="card-warm lift group flex items-center justify-end gap-3 p-4 text-right"
+   770→            aria-label={`Next: ${next.code} — ${next.title}`}
+   771→          >
+   772→            <span className="min-w-0">
+   773→              <span className="block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#a16207]">
+   774→                Next · {next.code}
+   775→              </span>
+   776→              <span className="mt-0.5 block truncate text-[.92rem] font-extrabold text-[#3e2c1d]">{next.title}</span>
+   777→            </span>
+   778→            <ArrowRight className="h-4 w-4 shrink-0 text-[#c2410c] transition-transform duration-200 group-hover:translate-x-1" />
+   779→          </button>
+   780→        ) : (
+   781→          <span className="rounded-2xl border border-dashed border-[#e5c79d] p-4 text-center text-[.78rem] font-bold leading-snug text-[#a08568]">
+   782→            End of the sequence — the next lecture lands here the moment the course sends it.
+   783→          </span>
+   784→        )}
+   785→      </div>
+   786→    </nav>
+   787→  );
+   788→}
+   789→
+   790→/* ============================================================
+   791→   AtbFooter — adapted from the FoC signature footer: same
+   792→   hairline, glow, name-stroke and colophon vibe, retold for
+   793→   shelf 02 of The Atlas.
+   794→   ============================================================ */
+   795→const ATB_SIG_CHIPS = [
+   796→  { icon: BookOpen, label: `${FLAT_ITEMS.length} chapters` },
+   797→  { icon: ListChecks, label: `${ATB_TOTAL_QUESTIONS} practice questions` },
+   798→  { icon: GraduationCap, label: `${ATB_EXAM_GROUPS.length} exam windows` },
+   799→  { icon: MousePointerClick, label: "machines you can poke" },
+   800→];
+   801→
+   802→export function AtbFooter() {
+   803→  return (
+   804→    <footer className="footer-stick relative overflow-hidden">
+   805→      {/* hairline that draws itself from the centre */}
+   806→      <motion.div
+   807→        aria-hidden
+   808→        className="absolute inset-x-0 top-0 h-px"
+   809→        style={{ background: "linear-gradient(90deg, transparent, rgba(150,105,55,.32), transparent)" }}
+   810→        initial={{ scaleX: 0, opacity: 0 }}
+   811→        whileInView={{ scaleX: 1, opacity: 1 }}
+   812→        viewport={{ once: true }}
+   813→        transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+   814→      />
+   815→
+   816→      {/* barely-there warm halo behind the signature */}
+   817→      <div aria-hidden className="sig-glow" />
+   818→
+   819→      <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 py-8 text-center sm:py-10">
+   820→        <motion.p
+   821→          className="sig-eyebrow text-[.58rem] font-semibold uppercase text-[#a1876a]"
+   822→          aria-label="created by"
+   823→          initial={{ opacity: 0, letterSpacing: "1.05em" }}
+   824→          whileInView={{ opacity: 1, letterSpacing: "0.55em" }}
+   825→          viewport={{ once: true }}
+   826→          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+   827→        >
+   828→          created by
+   829→        </motion.p>
+   830→
+   831→        <motion.h2
+   832→          className="footer-name-wrap mt-2.5"
+   833→          aria-label="Arpit Nayan"
+   834→          initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
+   835→          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+   836→          viewport={{ once: true }}
+   837→          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
+   838→        >
+   839→          <span className="footer-name">Arpit&nbsp;Nayan</span>
+   840→        </motion.h2>
+   841→
+   842→        {/* one delicate stroke under the name */}
+   843→        <svg viewBox="0 0 300 22" className="mt-2 h-3.5 w-44" aria-hidden fill="none">
+   844→          <defs>
+   845→            <linearGradient id="atbSigGrad" x1="0" y1="0" x2="1" y2="0">
+   846→              <stop offset="0" stopColor="#c98a3e" stopOpacity="0" />
+   847→              <stop offset="0.5" stopColor="#c98a3e" />
+   848→              <stop offset="1" stopColor="#c98a3e" stopOpacity="0" />
+   849→            </linearGradient>
+   850→          </defs>
+   851→          <motion.path
+   852→            d="M6 12 C 62 4, 118 19, 152 11 C 186 4, 236 17, 294 10"
+   853→            stroke="url(#atbSigGrad)"
+   854→            strokeWidth="1.6"
+   855→            strokeLinecap="round"
+   856→            initial={{ pathLength: 0, opacity: 0 }}
+   857→            whileInView={{ pathLength: 1, opacity: 1 }}
+   858→            viewport={{ once: true }}
+   859→            transition={{ duration: 1.4, ease: "easeInOut", delay: 0.75 }}
+   860→          />
+   861→        </svg>
+   862→
+   863→        {/* the project — a two-line epitaph about what this page is */}
+   864→        <motion.p
+   865→          className="sig-blurb mt-5"
+   866→          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+   867→          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+   868→          viewport={{ once: true }}
+   869→          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 1.0 }}
+   870→        >
+   871→          <b>Algorithmic Thinking in Business</b> — every concept of the course,
+   872→          distilled into one warm, living page you can read, sketch and revise.
+   873→          <span className="mt-1 block">
+   874→            Written for the late-night revision, the last-minute panic, and the
+   875→            quiet joy of an algorithm that finally makes sense.
+   876→          </span>
+   877→        </motion.p>
+   878→
+   879→        {/* the course — instructor credit, quiet but explicit */}
+   880→        <motion.p
+   881→          className="mt-3 text-[.78rem] font-semibold text-[#6f5438]"
+   882→          initial={{ opacity: 0 }}
+   883→          whileInView={{ opacity: 1 }}
+   884→          viewport={{ once: true }}
+   885→          transition={{ duration: 1.0, ease: "easeOut", delay: 1.25 }}
+   886→        >
+   887→          Course: Algorithmic Thinking in Business — Dr. Deepak Kumar Saxena · IIT Jodhpur
+   888→        </motion.p>
+   889→
+   890→        {/* what's inside — a row of calm stat pills */}
+   891→        <div
+   892→          role="list"
+   893→          aria-label="What this project contains"
+   894→          className="mt-4 flex flex-wrap items-center justify-center gap-2"
+   895→        >
+   896→          {ATB_SIG_CHIPS.map((chip, i) => (
+   897→            <motion.span
+   898→              key={chip.label}
+   899→              role="listitem"
+   900→              className="sig-chip"
+   901→              initial={{ opacity: 0, y: 10, scale: 0.92 }}
+   902→              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+   903→              viewport={{ once: true }}
+   904→              transition={{
+   905→                duration: 0.6,
+   906→                ease: [0.22, 1, 0.36, 1],
+   907→                delay: 1.2 + i * 0.1,
+   908→              }}
+   909→            >
+   910→              <chip.icon className="h-3 w-3" strokeWidth={2.2} />
+   911→              {chip.label}
+   912→            </motion.span>
+   913→          ))}
+   914→        </div>
+   915→
+   916→        {/* colophon — what it's built with, in tiny type */}
+   917→        <motion.p
+   918→          className="sig-colo mt-5"
+   919→          initial={{ opacity: 0 }}
+   920→          whileInView={{ opacity: 1 }}
+   921→          viewport={{ once: true }}
+   922→          transition={{ duration: 1.1, ease: "easeOut", delay: 1.7 }}
+   923→        >
+   924→          shelf 02 · the atlas — crafted with next.js · react · tailwind — mmxxvi
+   925→        </motion.p>
+   926→      </div>
+   927→    </footer>
+   928→  );
+   929→}
+   930→
+   931→/* ============================================================
+   932→   AtbApp — the composed subject page: a lecture reader.
+   933→   ============================================================ */
+   934→export function AtbApp({ onExitAtlas }: { onExitAtlas: () => void }) {
+   935→  const [lectureId, setLectureId] = useState<string>(ATB_DEFAULT_LECTURE);
+   936→  const [examGroup, setExamGroup] = useState<AtbExamGroup | null>(null);
+   937→  const [hubOpen, setHubOpen] = useState(false);
+   938→  const lectureIdRef = useRef(lectureId);
+   939→  useEffect(() => {
+   940→    lectureIdRef.current = lectureId;
+   941→  }, [lectureId]);
+   942→
+   943→  const lecture = lectureById(lectureId) ?? ATB_LECTURES[0];
+   944→  const seen = useSeenDisplay(lecture);
+   945→
+   946→  /* pick a lecture from the hero sequence (or the pager) and bring
+   947→     the notes into view — "the lecture number 1 notes will be
+   948→     available below", literally */
+   949→  const selectLecture = useCallback((id: string) => {
+   950→    setLectureId(id);
+   951→    requestAnimationFrame(() =>
+   952→      requestAnimationFrame(() => {
+   953→        const el = document.getElementById("notes-top");
+   954→        if (!el) return;
+   955→        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+   956→        el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+   957→      })
+   958→    );
+   959→  }, []);
+   960→
+   961→  /* chapter jumps — from the nav menus or the ⌘K palette. If the
+   962→     chapter belongs to another lecture, switch first, wait for the
+   963→     render, then run the standard flash-jump */
+   964→  const goToChapter = useCallback((chapterId: string) => {
+   965→    const target = lectureOfChapter(chapterId);
+   966→    if (!target) return;
+   967→    const scrollWhenReady = () => {
+   968→      let frames = 0;
+   969→      const tick = () => {
+   970→        const el = document.getElementById(chapterId);
+   971→        if (el) {
+   972→          jumpTo(el);
+   973→          return;
+   974→        }
+   975→        if (++frames < 240) requestAnimationFrame(tick);
+   976→      };
+   977→      requestAnimationFrame(tick);
+   978→    };
+   979→    if (lectureIdRef.current === target.id) {
+   980→      scrollWhenReady();
+   981→      return;
+   982→    }
+   983→    setLectureId(target.id);
+   984→    requestAnimationFrame(() => requestAnimationFrame(scrollWhenReady));
+   985→  }, []);
+   986→
+   987→  /* ⌘K handoffs (queued + live) route through the lecture-aware jumper */
+   988→  useOpenSection("atb", goToChapter);
+   989→
+   990→  const openExam = useCallback((g: AtbExamGroup) => setExamGroup(g), []);
+   991→  const openHub = useCallback(() => setHubOpen(true), []);
+   992→
+   993→  return (
+   994→    // id="top" — the brand chip links to #top; without a real element here the
+   995→    // client-side router swallows the fragment and the page never scrolls back
+   996→    <div id="top" className="page-wrap warm-canvas">
+   997→      <TopNav onOpenExam={openExam} onExitAtlas={onExitAtlas} onJumpChapter={goToChapter} seen={seen} />
+   998→      <main className="pt-14">
+   999→        <PartBoundary label="Hero">
+  1000→          <AtbHero
+  1001→            activeId={lectureId}
+  1002→            onSelect={selectLecture}
+  1003→            onPractice={openHub}
+  1004→            seen={seen}
+  1005→            totalQuestions={ATB_TOTAL_QUESTIONS}
+  1006→          />
+  1007→        </PartBoundary>
+  1008→
+  1009→        {/* the notes start here — selecting a lecture lands the reader on this line */}
+  1010→        <div id="notes-top" aria-hidden className="relative scroll-mt-16" />
+  1011→
+  1012→        <PartBoundary key={lecture.id} label={`Lecture ${lecture.code} — ${lecture.title}`}>
+  1013→          <motion.div
+  1014→            initial={{ opacity: 0, y: 18 }}
+  1015→            animate={{ opacity: 1, y: 0 }}
+  1016→            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+  1017→          >
+  1018→            {lecture.chapters.map((c) => (
+  1019→              <PartBoundary key={c.id} label={c.label}>
+  1020→                {SECTION_COMPONENTS[c.id]}
+  1021→              </PartBoundary>
+  1022→            ))}
+  1023→            <LecturePager current={lecture} onJump={selectLecture} />
+  1024→          </motion.div>
+  1025→        </PartBoundary>
+  1026→      </main>
+  1027→      <AtbFooter />
+  1028→      <PracticeHub open={hubOpen} onClose={() => setHubOpen(false)} onOpenExam={openExam} />
+  1029→      {examGroup ? <AtbExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
+  1030→    </div>
+  1031→  );
+  1032→}
+  1033→

@@ -1,0 +1,1290 @@
+     1→"use client";
+     2→
+     3→import React, { useEffect, useState } from "react";
+     4→import { motion } from "framer-motion";
+     5→import {
+     6→  AlertTriangle,
+     7→  ArrowDown,
+     8→  ArrowDownToLine,
+     9→  ArrowLeftFromLine,
+    10→  ArrowRightToLine,
+    11→  ArrowUp,
+    12→  ArrowUpFromLine,
+    13→  BookOpen,
+    14→  Building2,
+    15→  Check,
+    16→  Dna,
+    17→  FolderOpen,
+    18→  Layers,
+    19→  MoveHorizontal,
+    20→  MoveVertical,
+    21→  RotateCcw,
+    22→  Share2,
+    23→  Users,
+    24→  X,
+    25→} from "lucide-react";
+    26→import {
+    27→  Callout,
+    28→  CodeBlock,
+    29→  KV,
+    30→  Practice,
+    31→  Quiz,
+    32→  ReadStep,
+    33→  Reveal,
+    34→  Section,
+    35→  SectionHead,
+    36→  StepsFlow,
+    37→  Takeaways,
+    38→} from "@/components/notes/ui";
+    39→
+    40→/* ============================================================
+    41→   ATB · Parts 5 — Module 3: Trees, Traversals, Graphs, DFS/BFS
+    42→   ============================================================ */
+    43→
+    44→type Pt = { x: number; y: number };
+    45→
+    46→/* ============================================================
+    47→   TREES — anatomy diagram (nodes appear level by level)
+    48→   ============================================================ */
+    49→const rise = (delay: number) => ({
+    50→  initial: { opacity: 0, y: -18 },
+    51→  whileInView: { opacity: 1, y: 0 },
+    52→  viewport: { once: true, amount: 0.3 },
+    53→  transition: { duration: 0.55, delay },
+    54→});
+    55→
+    56→function AnatomyTree() {
+    57→  return (
+    58→    <svg
+    59→      viewBox="0 0 640 400"
+    60→      className="mx-auto h-auto w-full max-w-2xl"
+    61→      role="img"
+    62→      aria-label="Anatomy of a tree: root node A, parent nodes B and C, child nodes and two leaf nodes, connected by edges"
+    63→    >
+    64→      <defs>
+    65→        <marker id="m5an" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    66→          <path d="M0,0 L7,3 L0,6 Z" fill="#c99a5b" />
+    67→        </marker>
+    68→      </defs>
+    69→
+    70→      {/* edges — level 2 */}
+    71→      <motion.g {...rise(0.25)}>
+    72→        <line x1="320" y1="64" x2="160" y2="168" stroke="#c99a5b" strokeWidth="2.5" />
+    73→        <line x1="320" y1="64" x2="480" y2="168" stroke="#c99a5b" strokeWidth="2.5" />
+    74→      </motion.g>
+    75→      {/* edges — level 3 */}
+    76→      <motion.g {...rise(0.55)}>
+    77→        <line x1="160" y1="168" x2="85" y2="278" stroke="#c99a5b" strokeWidth="2.5" />
+    78→        <line x1="160" y1="168" x2="235" y2="278" stroke="#c99a5b" strokeWidth="2.5" />
+    79→        <line x1="480" y1="168" x2="410" y2="278" stroke="#c99a5b" strokeWidth="2.5" />
+    80→        <line x1="480" y1="168" x2="555" y2="278" stroke="#c99a5b" strokeWidth="2.5" />
+    81→      </motion.g>
+    82→
+    83→      {/* root */}
+    84→      <motion.g {...rise(0)}>
+    85→        <circle cx="320" cy="64" r="25" fill="#c2410c" />
+    86→        <text x="320" y="70" textAnchor="middle" fontSize="16" fontWeight="800" fill="#fff7ec">A</text>
+    87→      </motion.g>
+    88→      {/* parents */}
+    89→      <motion.g {...rise(0.3)}>
+    90→        <circle cx="160" cy="168" r="21" fill="#f0a04b" />
+    91→        <text x="160" y="174" textAnchor="middle" fontSize="14" fontWeight="800" fill="#3e2c1d">B</text>
+    92→        <circle cx="480" cy="168" r="21" fill="#f0a04b" />
+    93→        <text x="480" y="174" textAnchor="middle" fontSize="14" fontWeight="800" fill="#3e2c1d">C</text>
+    94→      </motion.g>
+    95→      {/* children / leaves */}
+    96→      <motion.g {...rise(0.6)}>
+    97→        <circle cx="85" cy="278" r="19" fill="#fff3e0" stroke="#c99a5b" strokeWidth="2" />
+    98→        <text x="85" y="284" textAnchor="middle" fontSize="13" fontWeight="800" fill="#7c4a12">D</text>
+    99→        <circle cx="235" cy="278" r="19" fill="#fff3e0" stroke="#c99a5b" strokeWidth="2" />
+   100→        <text x="235" y="284" textAnchor="middle" fontSize="13" fontWeight="800" fill="#7c4a12">E</text>
+   101→        <circle cx="410" cy="278" r="19" fill="#fff3e0" stroke="#c99a5b" strokeWidth="2" />
+   102→        <text x="410" y="284" textAnchor="middle" fontSize="13" fontWeight="800" fill="#7c4a12">F</text>
+   103→        <circle cx="555" cy="278" r="19" fill="#fff3e0" stroke="#c99a5b" strokeWidth="2" />
+   104→        <text x="555" y="284" textAnchor="middle" fontSize="13" fontWeight="800" fill="#7c4a12">G</text>
+   105→      </motion.g>
+   106→
+   107→      {/* annotations */}
+   108→      <motion.g {...rise(1)}>
+   109→        <text x="320" y="20" textAnchor="middle" fontSize="11" fontWeight="800" letterSpacing="2" fill="#c2410c">ROOT NODE</text>
+   110→        <line x1="320" y1="26" x2="320" y2="35" stroke="#c99a5b" strokeWidth="1.5" markerEnd="url(#m5an)" />
+   111→        <text x="118" y="140" textAnchor="end" fontSize="11" fontWeight="800" letterSpacing="1.5" fill="#b45309">PARENT</text>
+   112→        <text x="118" y="153" textAnchor="end" fontSize="11" fontWeight="800" letterSpacing="1.5" fill="#b45309">NODE</text>
+   113→        <line x1="122" y1="150" x2="140" y2="158" stroke="#c99a5b" strokeWidth="1.5" markerEnd="url(#m5an)" />
+   114→        <text x="235" y="318" textAnchor="middle" fontSize="10" fontWeight="700" letterSpacing="1" fill="#8a5a06">child nodes of B</text>
+   115→        <rect x="46" y="308" width="78" height="20" rx="10" fill="#7c9a3e" />
+   116→        <text x="85" y="322" textAnchor="middle" fontSize="10" fontWeight="800" fill="#fff7ec">LEAF</text>
+   117→        <rect x="516" y="308" width="78" height="20" rx="10" fill="#7c9a3e" />
+   118→        <text x="555" y="322" textAnchor="middle" fontSize="10" fontWeight="800" fill="#fff7ec">LEAF</text>
+   119→        <text x="243" y="112" fontSize="10" fontWeight="700" fontStyle="italic" fill="#a0410a">edge</text>
+   120→        <text x="101" y="234" fontSize="10" fontWeight="700" fontStyle="italic" fill="#a0410a">edge</text>
+   121→      </motion.g>
+   122→    </svg>
+   123→  );
+   124→}
+   125→
+   126→/* ============================================================
+   127→   TREES — depth, height, subtrees diagram
+   128→   ============================================================ */
+   129→function DepthHeightTree() {
+   130→  const level = (y: number, label: string) => (
+   131→    <g>
+   132→      <line x1="76" y1={y} x2="604" y2={y} stroke="#e8d5b8" strokeWidth="1.5" strokeDasharray="4 6" />
+   133→      <text x="70" y={y + 4} textAnchor="end" fontSize="12" fontWeight="800" fill="#a0410a">{label}</text>
+   134→    </g>
+   135→  );
+   136→  const node = (x: number, y: number, t: string, fill: string, txt: string) => (
+   137→    <g>
+   138→      <circle cx={x} cy={y} r="19" fill={fill} stroke="#c99a5b" strokeWidth="2" />
+   139→      <text x={x} y={y + 5} textAnchor="middle" fontSize="13" fontWeight="800" fill={txt}>{t}</text>
+   140→    </g>
+   141→  );
+   142→  return (
+   143→    <svg
+   144→      viewBox="0 0 680 436"
+   145→      className="mx-auto h-auto w-full max-w-2xl"
+   146→      role="img"
+   147→      aria-label="Tree with depth labels d equals 0 to 3 on each level, height h equals 3 on the right, and two dashed subtree boxes"
+   148→    >
+   149→      <defs>
+   150→        <marker id="m5dh" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+   151→          <path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" />
+   152→        </marker>
+   153→      </defs>
+   154→
+   155→      {/* depth guides */}
+   156→      {level(64, "d = 0")}
+   157→      {level(168, "d = 1")}
+   158→      {level(278, "d = 2")}
+   159→      {level(368, "d = 3")}
+   160→
+   161→      {/* subtree boxes */}
+   162→      <rect x="62" y="134" width="242" height="268" rx="16" fill="rgba(217,119,6,.05)" stroke="#d97706" strokeWidth="1.5" strokeDasharray="7 5" />
+   163→      <text x="70" y="126" fontSize="11" fontWeight="800" fill="#b45309">Subtree 1 — B and everything below it</text>
+   164→      <rect x="374" y="134" width="232" height="176" rx="16" fill="rgba(217,119,6,.05)" stroke="#d97706" strokeWidth="1.5" strokeDasharray="7 5" />
+   165→      <text x="382" y="126" fontSize="11" fontWeight="800" fill="#b45309">Subtree 2 — C and everything below it</text>
+   166→
+   167→      {/* edges */}
+   168→      <line x1="330" y1="64" x2="170" y2="168" stroke="#c99a5b" strokeWidth="2.5" />
+   169→      <line x1="330" y1="64" x2="490" y2="168" stroke="#c99a5b" strokeWidth="2.5" />
+   170→      <line x1="170" y1="168" x2="110" y2="278" stroke="#c99a5b" strokeWidth="2.5" />
+   171→      <line x1="170" y1="168" x2="250" y2="278" stroke="#c99a5b" strokeWidth="2.5" />
+   172→      <line x1="490" y1="168" x2="420" y2="278" stroke="#c99a5b" strokeWidth="2.5" />
+   173→      <line x1="490" y1="168" x2="560" y2="278" stroke="#c99a5b" strokeWidth="2.5" />
+   174→      <line x1="110" y1="278" x2="150" y2="368" stroke="#c99a5b" strokeWidth="2.5" />
+   175→
+   176→      {/* nodes */}
+   177→      {node(330, 64, "A", "#c2410c", "#fff7ec")}
+   178→      {node(170, 168, "B", "#f0a04b", "#3e2c1d")}
+   179→      {node(490, 168, "C", "#f0a04b", "#3e2c1d")}
+   180→      {node(110, 278, "D", "#fff3e0", "#7c4a12")}
+   181→      {node(250, 278, "E", "#fff3e0", "#7c4a12")}
+   182→      {node(420, 278, "F", "#fff3e0", "#7c4a12")}
+   183→      {node(560, 278, "G", "#fff3e0", "#7c4a12")}
+   184→      {node(150, 368, "H", "#7c9a3e", "#fff7ec")}
+   185→
+   186→      {/* height bracket */}
+   187→      <line x1="640" y1="64" x2="640" y2="368" stroke="#c2410c" strokeWidth="2.5" />
+   188→      <line x1="632" y1="64" x2="648" y2="64" stroke="#c2410c" strokeWidth="2.5" />
+   189→      <line x1="632" y1="368" x2="648" y2="368" stroke="#c2410c" strokeWidth="2.5" />
+   190→      <text x="640" y="48" textAnchor="middle" fontSize="12" fontWeight="800" fill="#c2410c">height</text>
+   191→      <text x="640" y="392" textAnchor="middle" fontSize="12" fontWeight="800" fill="#c2410c">h = 3</text>
+   192→      <line x1="612" y1="374" x2="630" y2="370" stroke="#c2410c" strokeWidth="1.5" markerEnd="url(#m5dh)" />
+   193→      <text x="576" y="390" textAnchor="end" fontSize="10" fontWeight="600" fill="#8a5a06">root → deepest leaf H</text>
+   194→    </svg>
+   195→  );
+   196→}
+   197→
+   198→/* ============================================================
+   199→   TREES — section
+   200→   ============================================================ */
+   201→const TREE_SPOTS = [
+   202→  { icon: Users, title: "Family tree", chain: ["Grandparents", "Parents", "You + siblings"] },
+   203→  { icon: FolderOpen, title: "Folder structure", chain: ["Semester 1", "Algorithmic Thinking", "Presentations"] },
+   204→  { icon: Building2, title: "Corporate hierarchy", chain: ["CEO", "Manager", "Team Leader", "Worker"] },
+   205→  { icon: BookOpen, title: "Book classification", chain: ["Genre", "Author", "Book title"] },
+   206→  { icon: Dna, title: "Biology", chain: ["Animal", "Vertebrate", "Mammal", "Dog"] },
+   207→];
+   208→
+   209→export function AtbTreesSection() {
+   210→  return (
+   211→    <Section id="trees">
+   212→      <SectionHead
+   213→        eyebrow="Module 3 · Non-linear data structures — trees"
+   214→        title={
+   215→          <>
+   216→            <span className="grad-text">Trees</span> — hierarchy, drawn upside down
+   217→          </>
+   218→        }
+   219→        lead="Arrays line data up in a single row. Trees let data branch. Every org chart, folder structure and family album is one — drawn upside down, with the root at the top and the leaves at the bottom."
+   220→      />
+   221→
+   222→      <ReadStep n="1" title="From family album to data structure" sub="A flat list is not enough when the data itself is shaped like a family" />
+   223→      <Reveal>
+   224→        <Callout kind="story" title="The album that would not sit still">
+   225→          <p>
+   226→            Line every family member up in an <strong>array</strong> and you get a flat list —
+   227→            one name after another, no structure. But you also want the{" "}
+   228→            <strong>hierarchy</strong>: grandparents → parents → you → siblings. That
+   229→            branching shape is a <strong>tree</strong>: one element at the top (the{" "}
+   230→            <em>root</em>), others hanging below it, level after level. Real trees grow up;
+   231→            data trees are drawn <strong>upside down</strong> — root at the top, growing downward.
+   232→          </p>
+   233→        </Callout>
+   234→      </Reveal>
+   235→
+   236→      <ReadStep n="2" title="Anatomy of a tree" sub="Root, parent, child, leaf — and the edge that joins them" />
+   237→      <Reveal>
+   238→        <div className="card-warm p-5 md:p-7">
+   239→          <AnatomyTree />
+   240→          <div className="mt-4 flex items-start justify-center gap-2 text-[.84rem] leading-relaxed text-[#8c2f2f]">
+   241→            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+   242→            <p>
+   243→              <strong>One parent per child.</strong> A node cannot have two parents — that
+   244→              single rule is what keeps a tree a tree.
+   245→            </p>
+   246→          </div>
+   247→        </div>
+   248→      </Reveal>
+   249→
+   250→      <ReadStep n="3" title="Depth, height, subtrees" sub="Three measuring sticks you will use on every tree" />
+   251→      <Reveal>
+   252→        <div className="card-warm p-5 md:p-7">
+   253→          <DepthHeightTree />
+   254→          <div className="mt-5 grid gap-2">
+   255→            <KV k="depth (d)" v="edges on the path from the root DOWN to a node — the root sits at d = 0, its children at d = 1, and here H reaches d = 3" />
+   256→            <KV k="height (h)" v="edges on the longest root → leaf path — here h = 3 (A → B → D → H); a lone root has height 0" />
+   257→            <KV k="subtree" v="any node plus everything below it — node B heads Subtree 1; every node is the root of its own subtree" />
+   258→          </div>
+   259→        </div>
+   260→      </Reveal>
+   261→
+   262→      <ReadStep n="4" title="Where you already met trees" sub="Five hierarchies you use without calling them data structures" />
+   263→      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+   264→        {TREE_SPOTS.map((s, i) => (
+   265→          <Reveal key={s.title} delay={i * 60}>
+   266→            <div className="card-warm lift flex h-full flex-col gap-3 p-5">
+   267→              <div className="flex items-center gap-3">
+   268→                <span
+   269→                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+   270→                  style={{ background: "linear-gradient(135deg,#fde8cf,#fbcf9f)", color: "#8a3d10" }}
+   271→                >
+   272→                  <s.icon className="h-5 w-5" />
+   273→                </span>
+   274→                <h4 className="text-[.95rem] font-bold text-[#3e2c1d]">{s.title}</h4>
+   275→              </div>
+   276→              <div className="flex flex-wrap items-center gap-1.5">
+   277→                {s.chain.map((c, j) => (
+   278→                  <React.Fragment key={c}>
+   279→                    {j > 0 ? <ArrowDown className="h-3 w-3 text-[#c2410c]" aria-hidden /> : null}
+   280→                    <span className="rounded-lg border border-[#ecd9bd] bg-[#fffaf1] px-2 py-1 text-[.72rem] font-semibold text-[#7c4a12]">
+   281→                      {c}
+   282→                    </span>
+   283→                  </React.Fragment>
+   284→                ))}
+   285→              </div>
+   286→            </div>
+   287→          </Reveal>
+   288→        ))}
+   289→      </div>
+   290→
+   291→      <div className="mt-10 grid gap-5 lg:grid-cols-2">
+   292→        <Reveal>
+   293→          <Quiz
+   294→            q="The first element of a tree, drawn at the top, is the…"
+   295→            options={["leaf", "root", "edge", "subtree"]}
+   296→            answer={1}
+   297→            explain="The root is the one node with no parent — everything else hangs below it. Leaves are the opposite extreme: nodes with no children."
+   298→          />
+   299→        </Reveal>
+   300→        <Reveal delay={100}>
+   301→          <Quiz
+   302→            q="A node without children is a…"
+   303→            options={["root", "leaf", "parent", "branch"]}
+   304→            answer={1}
+   305→            explain="Leaves end the branches — by definition a leaf has zero children. Parents (by definition) have at least one."
+   306→          />
+   307→        </Reveal>
+   308→      </div>
+   309→
+   310→      <Reveal className="mt-8">
+   311→        <Practice
+   312→          title="Trees — pen & paper"
+   313→          items={[
+   314→            {
+   315→              q: <>Draw a tree with 3 levels and label its <strong>root</strong>, one <strong>parent</strong>, its <strong>children</strong> and two <strong>leaves</strong>.</>,
+   316→              hint: "Root at the top; every leaf is a node with no children below it.",
+   317→            },
+   318→            {
+   319→              q: <>Name <strong>3 business hierarchies</strong> that are trees, and say what plays the root in each.</>,
+   320→              hint: "Org chart, product categories, approval chains — the CEO / category / final approver is usually the root.",
+   321→            },
+   322→          ]}
+   323→        />
+   324→      </Reveal>
+   325→    </Section>
+   326→  );
+   327→}
+   328→
+   329→/* ============================================================
+   330→   TRAVERSALS — shared tree + interactive player
+   331→   ============================================================ */
+   332→type TravKey = "pre" | "in" | "post";
+   333→
+   334→const T_POS: Record<string, Pt> = {
+   335→  A: { x: 220, y: 46 },
+   336→  B: { x: 118, y: 150 },
+   337→  C: { x: 322, y: 150 },
+   338→  D: { x: 66, y: 246 },
+   339→  E: { x: 170, y: 246 },
+   340→};
+   341→const T_EDGES: [string, string][] = [
+   342→  ["A", "B"],
+   343→  ["A", "C"],
+   344→  ["B", "D"],
+   345→  ["B", "E"],
+   346→];
+   347→const T_SEQ: Record<TravKey, string[]> = {
+   348→  pre: ["A", "B", "D", "E", "C"],
+   349→  in: ["D", "B", "E", "A", "C"],
+   350→  post: ["D", "E", "B", "C", "A"],
+   351→};
+   352→const T_CARDS: { key: TravKey; name: string; rule: string; result: string; blurb: string }[] = [
+   353→  { key: "pre", name: "Pre-order", rule: "Root → Left → Right", result: "A B D E C", blurb: "copy a tree top-down" },
+   354→  { key: "in", name: "In-order", rule: "Left → Root → Right", result: "D B E A C", blurb: "sorted output from a BST" },
+   355→  { key: "post", name: "Post-order", rule: "Left → Right → Root", result: "D E B C A", blurb: "finish children before the parent" },
+   356→];
+   357→
+   358→function TravTree({ seq, step, mini = false }: { seq: string[]; step: number; mini?: boolean }) {
+   359→  const rank = (n: string) => seq.indexOf(n);
+   360→  const seen = (n: string) => rank(n) > -1 && rank(n) < step;
+   361→  return (
+   362→    <svg
+   363→      viewBox="0 0 440 292"
+   364→      className="mx-auto h-auto w-full"
+   365→      style={{ maxWidth: mini ? 180 : 380 }}
+   366→      aria-hidden={mini || undefined}
+   367→      role={mini ? undefined : "img"}
+   368→      aria-label={mini ? undefined : "Tree A with children B and C; B has children D and E, showing the current traversal order"}
+   369→    >
+   370→      {T_EDGES.map(([a, b]) => (
+   371→        <line
+   372→          key={`${a}${b}`}
+   373→          x1={T_POS[a].x}
+   374→          y1={T_POS[a].y}
+   375→          x2={T_POS[b].x}
+   376→          y2={T_POS[b].y}
+   377→          stroke="rgba(201,154,91,.65)"
+   378→          strokeWidth="2.5"
+   379→        />
+   380→      ))}
+   381→      {Object.entries(T_POS).map(([n, p]) => {
+   382→        const on = seen(n);
+   383→        const cur = rank(n) === step - 1;
+   384→        return (
+   385→          <g key={n}>
+   386→            {cur ? <circle cx={p.x} cy={p.y} r="27" fill="none" stroke="#f59e0b" strokeWidth="3" /> : null}
+   387→            <circle
+   388→              cx={p.x}
+   389→              cy={p.y}
+   390→              r="20"
+   391→              fill={on ? "#ea580c" : "rgba(255,246,232,.09)"}
+   392→              stroke={on ? "#c2410c" : "rgba(245,158,11,.45)"}
+   393→              strokeWidth="2"
+   394→            />
+   395→            <text
+   396→              x={p.x}
+   397→              y={p.y + 5}
+   398→              textAnchor="middle"
+   399→              fontSize="14"
+   400→              fontWeight="800"
+   401→              fill={on ? "#fff7ec" : "#f5e6cd"}
+   402→            >
+   403→              {n}
+   404→            </text>
+   405→            {on ? (
+   406→              <g>
+   407→                <circle cx={p.x + 24} cy={p.y - 24} r="11" fill="#2b1b10" stroke="#f5c889" strokeWidth="1.5" />
+   408→                <text x={p.x + 24} y={p.y - 20} textAnchor="middle" fontSize="10" fontWeight="800" fill="#f5c889">
+   409→                  {rank(n) + 1}
+   410→                </text>
+   411→              </g>
+   412→            ) : null}
+   413→          </g>
+   414→        );
+   415→      })}
+   416→    </svg>
+   417→  );
+   418→}
+   419→
+   420→function TraversalLab() {
+   421→  const [mode, setMode] = useState<TravKey>("pre");
+   422→  const [step, setStep] = useState(5);
+   423→  const seq = T_SEQ[mode];
+   424→
+   425→  useEffect(() => {
+   426→    if (step >= seq.length) return;
+   427→    const t = window.setTimeout(() => setStep((s) => s + 1), 620);
+   428→    return () => window.clearTimeout(t);
+   429→  }, [step, seq.length]);
+   430→
+   431→  const play = (k: TravKey) => {
+   432→    setMode(k);
+   433→    setStep(0);
+   434→  };
+   435→
+   436→  return (
+   437→    <div className="card-warm p-5 md:p-7">
+   438→      <div className="grid gap-4 md:grid-cols-3">
+   439→        {T_CARDS.map((c) => {
+   440→          const active = mode === c.key;
+   441→          return (
+   442→            <button
+   443→              key={c.key}
+   444→              type="button"
+   445→              onClick={() => play(c.key)}
+   446→              aria-pressed={active}
+   447→              aria-label={`Replay the ${c.name} traversal animation`}
+   448→              className={`card-warm lift flex flex-col gap-2 rounded-xl p-4 text-left transition-all ${
+   449→                active ? "ring-2 ring-[#f59e0b]" : ""
+   450→              }`}
+   451→            >
+   452→              <span className="text-[.7rem] font-extrabold uppercase tracking-[.18em] text-[#f5c889]">
+   453→                {c.name}
+   454→              </span>
+   455→              <span className="font-mono text-[.78rem] font-bold text-[#ffd9ae]">{c.rule}</span>
+   456→              <span className="text-[.78rem] text-[#cbb392]">{c.blurb}</span>
+   457→              <TravTree seq={T_SEQ[c.key]} step={5} mini />
+   458→              <span className="font-mono text-[.8rem] font-bold text-[#f5e6cd]">{c.result}</span>
+   459→            </button>
+   460→          );
+   461→        })}
+   462→      </div>
+   463→
+   464→      <div className="mt-6 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.05)" }}>
+   465→        <p className="text-center text-[.72rem] font-extrabold uppercase tracking-[.2em] text-[#b98d5f]">
+   466→          watch it walk — click a card above to replay
+   467→        </p>
+   468→        <div className="mt-2">
+   469→          <TravTree seq={seq} step={step} />
+   470→        </div>
+   471→        <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+   472→          {seq.map((n, i) => (
+   473→            <span
+   474→              key={`${mode}-${n}`}
+   475→              className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border font-mono text-sm font-bold transition-all duration-300 ${
+   476→                i < step
+   477→                  ? `border-[rgba(245,158,11,.5)] bg-[rgba(234,88,12,.22)] text-[#ffd9ae] ${i === step - 1 ? "anim-pop" : ""}`
+   478→                  : "border-[rgba(245,158,11,.16)] text-[#8a6a48]"
+   479→              }`}
+   480→            >
+   481→              {n}
+   482→            </span>
+   483→          ))}
+   484→        </div>
+   485→      </div>
+   486→    </div>
+   487→  );
+   488→}
+   489→
+   490→/* level-order card */
+   491→function LevelOrderViz() {
+   492→  const pos: Record<string, Pt> = {
+   493→    A: { x: 240, y: 46 },
+   494→    B: { x: 138, y: 150 },
+   495→    C: { x: 342, y: 150 },
+   496→    D: { x: 86, y: 246 },
+   497→    E: { x: 190, y: 246 },
+   498→  };
+   499→  const band = (top: number, h: number, o: number, label: string, ly: number) => (
+   500→    <g>
+   501→      <rect x="40" y={top} width="400" height={h} rx="14" fill={`rgba(245,158,11,${o})`} stroke="rgba(245,158,11,.3)" strokeDasharray="6 5" />
+   502→      <text x="430" y={ly} textAnchor="end" fontSize="11" fontWeight="800" letterSpacing="1.5" fill="#f5c889">{label}</text>
+   503→    </g>
+   504→  );
+   505→  return (
+   506→    <svg
+   507→      viewBox="0 0 460 292"
+   508→      className="mx-auto h-auto w-full max-w-md"
+   509→      role="img"
+   510→      aria-label="Level order traversal: the tree read level by level, A then B and C, then D and E"
+   511→    >
+   512→      {band(18, 58, 0.14, "LEVEL 0", 38)}
+   513→      {band(122, 58, 0.09, "LEVEL 1", 142)}
+   514→      {band(218, 58, 0.05, "LEVEL 2", 238)}
+   515→      {[["A", "B"], ["A", "C"], ["B", "D"], ["B", "E"]].map(([a, b]) => (
+   516→        <line key={`${a}${b}`} x1={pos[a].x} y1={pos[a].y} x2={pos[b].x} y2={pos[b].y} stroke="rgba(201,154,91,.65)" strokeWidth="2.5" />
+   517→      ))}
+   518→      {Object.entries(pos).map(([n, p]) => (
+   519→        <g key={n}>
+   520→          <circle cx={p.x} cy={p.y} r="20" fill="#ea580c" stroke="#c2410c" strokeWidth="2" />
+   521→          <text x={p.x} y={p.y + 5} textAnchor="middle" fontSize="14" fontWeight="800" fill="#fff7ec">{n}</text>
+   522→        </g>
+   523→      ))}
+   524→    </svg>
+   525→  );
+   526→}
+   527→
+   528→export function AtbTraversalsSection() {
+   529→  return (
+   530→    <Section id="traversals" dark>
+   531→      <SectionHead
+   532→        dark
+   533→        eyebrow="Module 3 · Tree traversals"
+   534→        title={
+   535→          <>
+   536→            Reading a tree <span className="grad-text">four ways</span>
+   537→          </>
+   538→        }
+   539→        lead="A tree is useless if you cannot walk it. A traversal visits every node exactly once — and the order you choose changes the answer you get. Our demo tree: A at the root, children B and C, and D, E under B."
+   540→      />
+   541→
+   542→      <ReadStep dark n="1" title="The depth-first trio" sub="Pre-order, in-order, post-order — same tree, three visits" />
+   543→      <Reveal>
+   544→        <TraversalLab />
+   545→      </Reveal>
+   546→
+   547→      <ReadStep dark n="2" title="Level order — the breadth-first reading" sub="Top to bottom, left to right, one layer at a time" />
+   548→      <div className="grid gap-5 lg:grid-cols-2">
+   549→        <Reveal>
+   550→          <div className="card-warm p-5 md:p-6">
+   551→            <LevelOrderViz />
+   552→          </div>
+   553→        </Reveal>
+   554→        <Reveal delay={100}>
+   555→          <div className="card-warm flex h-full flex-col gap-4 p-6 md:p-7">
+   556→            <div>
+   557→              <span className="chip">breadth-first</span>
+   558→              <h4 className="mt-3 text-xl font-bold text-[#f5e6cd]">Reads the tree like text</h4>
+   559→              <p className="mt-2 text-[.9rem] leading-relaxed text-[#e9d7bf]">
+   560→                Level order finishes <strong>every node at the current depth</strong> before going
+   561→                a single step deeper — top-to-bottom, left-to-right. Result on our tree:{" "}
+   562→                <strong className="font-mono text-[#ffd9ae]">A B C D E</strong>.
+   563→              </p>
+   564→            </div>
+   565→            <div className="grid gap-2">
+   566→              {[
+   567→                { lv: "Level 0", nodes: "A", note: "the root alone" },
+   568→                { lv: "Level 1", nodes: "B C", note: "children of A, left to right" },
+   569→                { lv: "Level 2", nodes: "D E", note: "children of B, left to right" },
+   570→              ].map((r) => (
+   571→                <div
+   572→                  key={r.lv}
+   573→                  className="flex items-center gap-3 rounded-xl border border-[rgba(245,158,11,.18)] bg-[rgba(43,27,16,.5)] px-3.5 py-2.5"
+   574→                >
+   575→                  <span className="w-16 shrink-0 text-[.7rem] font-extrabold uppercase tracking-wider text-[#f5c889]">{r.lv}</span>
+   576→                  <span className="font-mono text-sm font-bold text-[#ffd9ae]">{r.nodes}</span>
+   577→                  <span className="ml-auto text-[.76rem] text-[#cbb392]">{r.note}</span>
+   578→                </div>
+   579→              ))}
+   580→            </div>
+   581→            <p className="mt-auto text-[.82rem] leading-relaxed text-[#cbb392]">
+   582→              Business read: pre-order reads an org chart like a CEO telling the story;
+   583→              level order reads it like HR — <strong>entire seniority bands, one band at a time</strong>.
+   584→            </p>
+   585→          </div>
+   586→        </Reveal>
+   587→      </div>
+   588→
+   589→      <Reveal className="mt-8">
+   590→        <Callout dark kind="insight" title="Same tree, four readings">
+   591→          Four traversals, one tree — pick the order that answers your question. <strong>Pre-order</strong>{" "}
+   592→          hands you the hierarchy top-down (reporting lines, a table of contents). <strong>In-order</strong>{" "}
+   593→          pours a binary search tree out <em>sorted</em>. <strong>Post-order</strong> settles children before
+   594→          parents (closing sub-ledgers before the group total). <strong>Level order</strong> is the org-wide
+   595→          announcement: whole levels at once.
+   596→        </Callout>
+   597→      </Reveal>
+   598→
+   599→      <div className="mt-8 grid gap-5 lg:grid-cols-2">
+   600→        <Reveal>
+   601→          <Quiz
+   602→            q="For the tree above (A with children B, C; B with children D, E), pre-order gives…"
+   603→            options={["A B C D E", "A B D E C", "D B E A C", "D E B C A"]}
+   604→            answer={1}
+   605→            explain="Pre-order = Root, Left, Right: visit A, finish the whole left subtree under B (B, then D, then E), then C. The other options are level order, in-order and post-order respectively."
+   606→          />
+   607→        </Reveal>
+   608→        <Reveal delay={100}>
+   609→          <Practice
+   610→            title="Traversals — from memory"
+   611→            items={[
+   612→              {
+   613→                q: <>Write the <strong>in-order</strong> traversal of <code className="font-mono text-[.82rem] text-[#ffd9ae]">A(B(D,E),C)</code> without looking up.</>,
+   614→                hint: "Left → Root → Right: finish everything under B first.",
+   615→              },
+   616→              {
+   617→                q: <>Invent a small company org tree (3 levels, 5–7 people) and write its <strong>pre-order</strong>.</>,
+   618→                hint: "CEO, then the whole left-hand department, then the right — Root → Left → Right.",
+   619→              },
+   620→            ]}
+   621→          />
+   622→        </Reveal>
+   623→      </div>
+   624→    </Section>
+   625→  );
+   626→}
+   627→
+   628→/* ============================================================
+   629→   GRAPHS — the lecture graph (light)
+   630→   ============================================================ */
+   631→const G_POS: Record<string, Pt> = {
+   632→  C: { x: 120, y: 50 },
+   633→  A: { x: 280, y: 50 },
+   634→  B: { x: 440, y: 50 },
+   635→  S: { x: 120, y: 170 },
+   636→  P: { x: 215, y: 170 },
+   637→  Q: { x: 345, y: 170 },
+   638→  R: { x: 440, y: 170 },
+   639→  X: { x: 170, y: 290 },
+   640→  Y: { x: 390, y: 290 },
+   641→};
+   642→const G_EDGES: [string, string][] = [
+   643→  ["C", "S"],
+   644→  ["A", "P"],
+   645→  ["A", "Q"],
+   646→  ["B", "R"],
+   647→  ["S", "P"],
+   648→  ["S", "X"],
+   649→  ["P", "X"],
+   650→  ["Q", "R"],
+   651→  ["Q", "Y"],
+   652→  ["R", "Y"],
+   653→  ["X", "Y"],
+   654→];
+   655→const HOT_EDGES = new Set(["AP", "SP", "PX"]);
+   656→
+   657→function GEdge({ a, b, hot = false }: { a: Pt; b: Pt; hot?: boolean }) {
+   658→  return (
+   659→    <line
+   660→      x1={a.x}
+   661→      y1={a.y}
+   662→      x2={b.x}
+   663→      y2={b.y}
+   664→      stroke={hot ? "#d97706" : "#dcc9a4"}
+   665→      strokeWidth={hot ? 4 : 2}
+   666→    />
+   667→  );
+   668→}
+   669→
+   670→function GNode({ x, y, t, hot = false }: { x: number; y: number; t: string; hot?: boolean }) {
+   671→  return (
+   672→    <g>
+   673→      {hot ? <circle cx={x} cy={y} r="27" fill="none" stroke="#d97706" strokeWidth="2" strokeDasharray="5 4" /> : null}
+   674→      <circle cx={x} cy={y} r="20" fill={hot ? "#d97706" : "#fff8ec"} stroke={hot ? "#b45309" : "#c99a5b"} strokeWidth="2" />
+   675→      <text x={x} y={y + 5} textAnchor="middle" fontSize="14" fontWeight="800" fill={hot ? "#fff7ec" : "#7c4a12"}>
+   676→        {t}
+   677→      </text>
+   678→    </g>
+   679→  );
+   680→}
+   681→
+   682→function LectureGraph() {
+   683→  return (
+   684→    <svg
+   685→      viewBox="0 0 560 340"
+   686→      className="mx-auto h-auto w-full max-w-xl"
+   687→      role="img"
+   688→      aria-label="Graph with vertices C A B on top, S P Q R in the middle, X Y at the bottom and eleven edges; P is highlighted with degree 3"
+   689→    >
+   690→      {G_EDGES.map(([a, b]) => (
+   691→        <GEdge key={`${a}${b}`} a={G_POS[a]} b={G_POS[b]} hot={HOT_EDGES.has(`${a}${b}`) || HOT_EDGES.has(`${b}${a}`)} />
+   692→      ))}
+   693→      {Object.entries(G_POS).map(([n, p]) => (
+   694→        <GNode key={n} x={p.x} y={p.y} t={n} hot={n === "P"} />
+   695→      ))}
+   696→      <text x="40" y="112" fontSize="12" fontWeight="800" fill="#b45309">Degree(P) = 3</text>
+   697→      <line x1="128" y1="120" x2="196" y2="152" stroke="#b45309" strokeWidth="1.5" strokeDasharray="3 3" />
+   698→      <text x="280" y="326" textAnchor="middle" fontSize="11" fontWeight="700" fill="#8a5a06">
+   699→        gold edges = the three edges touching P → degree 3
+   700→      </text>
+   701→    </svg>
+   702→  );
+   703→}
+   704→
+   705→/* ============================================================
+   706→   GRAPHS — dichotomy micro-SVGs
+   707→   ============================================================ */
+   708→function DichArt({ kind }: { kind: string }) {
+   709→  const dot = (x: number, y: number, t: string, f = "#f0a04b") => (
+   710→    <g>
+   711→      <circle cx={x} cy={y} r="11" fill={f} />
+   712→      <text x={x} y={y + 4} textAnchor="middle" fontSize="10" fontWeight="800" fill="#3e2c1d">{t}</text>
+   713→    </g>
+   714→  );
+   715→  switch (kind) {
+   716→    case "dir":
+   717→      return (
+   718→        <svg viewBox="0 0 220 66" className="h-16 w-full" aria-hidden>
+   719→          {dot(30, 22, "A")}
+   720→          {dot(110, 22, "B")}
+   721→          <line x1="43" y1="22" x2="97" y2="22" stroke="#c99a5b" strokeWidth="2.5" />
+   722→          <text x="70" y="52" textAnchor="middle" fontSize="9" fontWeight="700" fill="#8a5a06">cousin of · two-way</text>
+   723→          {dot(150, 22, "C", "#b45309")}
+   724→          {dot(200, 22, "D", "#b45309")}
+   725→          <line x1="162" y1="22" x2="184" y2="22" stroke="#c2410c" strokeWidth="2.5" />
+   726→          <path d="M182 17 L190 22 L182 27" stroke="#c2410c" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+   727→          <text x="176" y="52" textAnchor="middle" fontSize="9" fontWeight="700" fill="#c2410c">son of · one-way</text>
+   728→        </svg>
+   729→      );
+   730→    case "wgt":
+   731→      return (
+   732→        <svg viewBox="0 0 220 66" className="h-16 w-full" aria-hidden>
+   733→          {dot(30, 26, "A")}
+   734→          {dot(100, 26, "B")}
+   735→          <line x1="43" y1="26" x2="87" y2="26" stroke="#c99a5b" strokeWidth="2.5" />
+   736→          <text x="65" y="52" textAnchor="middle" fontSize="9" fontWeight="700" fill="#8a5a06">knows · equal</text>
+   737→          {dot(140, 26, "C", "#b45309")}
+   738→          {dot(200, 26, "D", "#b45309")}
+   739→          <line x1="152" y1="26" x2="188" y2="26" stroke="#d97706" strokeWidth="3.5" />
+   740→          <rect x="158" y="8" width="24" height="15" rx="4" fill="#d97706" />
+   741→          <text x="170" y="19" textAnchor="middle" fontSize="9" fontWeight="800" fill="#fff7ec">5</text>
+   742→          <text x="170" y="52" textAnchor="middle" fontSize="9" fontWeight="700" fill="#c2410c">brother of · strong</text>
+   743→        </svg>
+   744→      );
+   745→    case "con":
+   746→      return (
+   747→        <svg viewBox="0 0 220 66" className="h-16 w-full" aria-hidden>
+   748→          <line x1="30" y1="22" x2="70" y2="22" stroke="#c99a5b" strokeWidth="2" />
+   749→          <line x1="30" y1="22" x2="50" y2="46" stroke="#c99a5b" strokeWidth="2" />
+   750→          <line x1="70" y1="22" x2="50" y2="46" stroke="#c99a5b" strokeWidth="2" />
+   751→          {dot(30, 22, "a")}
+   752→          {dot(70, 22, "b")}
+   753→          {dot(50, 46, "c")}
+   754→          <line x1="150" y1="22" x2="180" y2="22" stroke="#dcc9a4" strokeWidth="2" />
+   755→          {dot(150, 22, "d", "#e3b08a")}
+   756→          {dot(180, 22, "e", "#e3b08a")}
+   757→          {dot(165, 46, "f", "#e3b08a")}
+   758→          <line x1="98" y1="30" x2="122" y2="30" stroke="#be4a4a" strokeWidth="2" strokeDasharray="3 4" />
+   759→        </svg>
+   760→      );
+   761→    case "cyc":
+   762→      return (
+   763→        <svg viewBox="0 0 220 66" className="h-16 w-full" aria-hidden>
+   764→          <line x1="45" y1="20" x2="25" y2="48" stroke="#c99a5b" strokeWidth="2.5" />
+   765→          <line x1="45" y1="20" x2="70" y2="48" stroke="#c99a5b" strokeWidth="2.5" />
+   766→          <line x1="29" y1="42" x2="66" y2="42" stroke="#c99a5b" strokeWidth="2.5" />
+   767→          {dot(45, 20, "A")}
+   768→          {dot(27, 48, "B")}
+   769→          {dot(68, 48, "C")}
+   770→          <text x="48" y="64" textAnchor="middle" fontSize="9" fontWeight="700" fill="#c2410c">A–B–C–A · cycles</text>
+   771→          {dot(150, 20, "A", "#7c9a3e")}
+   772→          {dot(130, 50, "B", "#7c9a3e")}
+   773→          {dot(175, 50, "C", "#7c9a3e")}
+   774→          <line x1="145" y1="30" x2="135" y2="40" stroke="#7c9a3e" strokeWidth="2.5" />
+   775→          <line x1="160" y1="30" x2="170" y2="40" stroke="#7c9a3e" strokeWidth="2.5" />
+   776→          <text x="153" y="64" textAnchor="middle" fontSize="9" fontWeight="700" fill="#5c7325">parents of C · no way back</text>
+   777→        </svg>
+   778→      );
+   779→    default:
+   780→      return (
+   781→        <svg viewBox="0 0 220 66" className="h-16 w-full" aria-hidden>
+   782→          {dot(110, 32, "A", "#d97706")}
+   783→          {[18, 55, 200, 165].map((x, i) => (
+   784→            <g key={x}>
+   785→              <line
+   786→                x1={i < 2 ? 94 : 126}
+   787→                y1={i < 2 ? 26 : 38}
+   788→                x2={i < 2 ? x + 6 : x - 6}
+   789→                y2={i < 2 ? 12 : 52}
+   790→                stroke={i < 2 ? "#c2410c" : "#7c9a3e"}
+   791→                strokeWidth="2.5"
+   792→              />
+   793→              <circle cx={i < 2 ? x : x} cy={i < 2 ? 10 : 54} r="5" fill={i < 2 ? "#c2410c" : "#7c9a3e"} />
+   794→            </g>
+   795→          ))}
+   796→          <text x="30" y="8" fontSize="9" fontWeight="800" fill="#c2410c">in-degree 2</text>
+   797→          <text x="196" y="64" textAnchor="end" fontSize="9" fontWeight="800" fill="#5c7325">out-degree 3</text>
+   798→        </svg>
+   799→      );
+   800→  }
+   801→}
+   802→
+   803→const DICHOTOMIES = [
+   804→  {
+   805→    kind: "dir",
+   806→    title: "Undirected vs Directed",
+   807→    rows: ["Undirected — “cousin of”: the link works both ways", "Directed — “son of”: arrows one way only, giving each vertex an in-degree and an out-degree"],
+   808→  },
+   809→  {
+   810→    kind: "wgt",
+   811→    title: "Unweighted vs Weighted",
+   812→    rows: ["Unweighted — “knows”: every edge counts the same", "Weighted — “brother of” vs “cousin of”: edges carry strength values"],
+   813→  },
+   814→  {
+   815→    kind: "con",
+   816→    title: "Connected vs Disconnected",
+   817→    rows: ["Connected — one community: every vertex reachable from every other", "Disconnected — isolated groups: a native Indian and a native Chinese with no path between"],
+   818→  },
+   819→  {
+   820→    kind: "cyc",
+   821→    title: "Cyclic vs Acyclic",
+   822→    rows: ["Cyclic — A–B–C–A friends triangle: a path returns to its start", "Acyclic — A and B parents of C: no path ever loops back (a tree is this)"],
+   823→  },
+   824→  {
+   825→    kind: "deg",
+   826→    title: "In-degree vs Out-degree",
+   827→    rows: ["In-degree — arrows pointing AT the vertex", "Out-degree — arrows leaving it; on undirected graphs they collapse into one degree"],
+   828→  },
+   829→];
+   830→
+   831→export function AtbGraphsSection() {
+   832→  return (
+   833→    <Section id="graphs">
+   834→      <SectionHead
+   835→        eyebrow="Module 3 · Graphs"
+   836→        title={
+   837→          <>
+   838→            <span className="grad-text">Graphs</span> — when one parent isn&apos;t enough
+   839→          </>
+   840→        }
+   841→        lead="Friendship, roads, bank transfers: real relationships refuse to live under a single parent. Trees represent hierarchy; graphs represent relationship — the general structure underneath both."
+   842→      />
+   843→
+   844→      <ReadStep n="1" title="Trees can&apos;t do friendship" sub="The one-parent rule that graphs break on purpose" />
+   845→      <div className="grid gap-5 md:grid-cols-2">
+   846→        <Reveal>
+   847→          <div className="card-warm h-full p-6" style={{ borderColor: "#eec3b6", background: "#fdf0ec" }}>
+   848→            <div className="flex items-center gap-2 text-[.8rem] font-extrabold uppercase tracking-[.14em]" style={{ color: "#be4a4a" }}>
+   849→              <X className="h-4 w-4" /> the tree rule
+   850→            </div>
+   851→            <p className="mt-2 text-[.92rem] leading-relaxed text-[#2b2014]">
+   852→              In a tree, every child has <strong>exactly ONE parent</strong>. Works for org charts
+   853→              and folders — hopeless for &ldquo;who is friends with whom&rdquo;, where anyone can connect to anyone.
+   854→            </p>
+   855→          </div>
+   856→        </Reveal>
+   857→        <Reveal delay={100}>
+   858→          <div className="card-warm h-full p-6" style={{ borderColor: "#c9d8a4", background: "#f4f6e8" }}>
+   859→            <div className="flex items-center gap-2 text-[.8rem] font-extrabold uppercase tracking-[.14em]" style={{ color: "#5c7325" }}>
+   860→              <Check className="h-4 w-4" /> the graph upgrade
+   861→            </div>
+   862→            <p className="mt-2 text-[.92rem] leading-relaxed text-[#2b2014]">
+   863→              A <strong>graph</strong> drops the rule: any vertex may connect to any other. Friendship,
+   864→              roads, the internet — <strong>trees represent hierarchy, GRAPHS represent relationship</strong>.
+   865→            </p>
+   866→          </div>
+   867→        </Reveal>
+   868→      </div>
+   869→
+   870→      <ReadStep n="2" title="V and E — the whole graph in two sets" sub="The lecture graph, drawn and formalised" />
+   871→      <Reveal>
+   872→        <div className="card-warm p-5 md:p-7">
+   873→          <LectureGraph />
+   874→          <div className="mt-5 grid gap-2">
+   875→            <KV k="Vertex (node)" v="one object / entity — a person, account, city, product" />
+   876→            <KV k="Edge" v="a relationship / connection between two vertices — friendship, a road, a transaction" />
+   877→            <KV k="G = (V, E)" v="every graph is just its vertex set V and its edge set E — nothing more" />
+   878→          </div>
+   879→          <div className="mt-4">
+   880→            <CodeBlock
+   881→              title="the lecture graph, formally"
+   882→              runnable={false}
+   883→              code={`V = {A, B, C, P, Q, R, S, X, Y}
+   884→
+   885→E = {CS, AP, AQ, BR, SP, QR,
+   886→     SX, PX, QY, RY, XY}        # 11 edges
+   887→
+   888→degree(P) = 3        # edges AP, SP, PX touch P
+   889→degrees: C=1, A=2, B=1 · S=3, P=3, Q=3, R=3, X=3, Y=3
+   890→Σ degrees = 22 = 2 × |E|     # every edge has two ends`}
+   891→            />
+   892→          </div>
+   893→        </div>
+   894→      </Reveal>
+   895→
+   896→      <ReadStep n="3" title="Five dichotomies" sub="Five either/or switches that classify any graph at a glance" />
+   897→      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+   898→        {DICHOTOMIES.map((d, i) => (
+   899→          <Reveal key={d.kind} delay={i * 60}>
+   900→            <div className="card-warm lift flex h-full flex-col gap-2 p-5">
+   901→              <h4 className="text-[.95rem] font-bold text-[#3e2c1d]">{d.title}</h4>
+   902→              <DichArt kind={d.kind} />
+   903→              <ul className="mt-1 grid gap-1.5">
+   904→                {d.rows.map((r) => (
+   905→                  <li key={r} className="flex gap-2 text-[.8rem] leading-relaxed text-[#4a3826]">
+   906→                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#d97706]" aria-hidden />
+   907→                    {r}
+   908→                  </li>
+   909→                ))}
+   910→              </ul>
+   911→            </div>
+   912→          </Reveal>
+   913→        ))}
+   914→        <Reveal delay={300}>
+   915→          <div className="card-warm flex h-full flex-col justify-center gap-2 p-5" style={{ background: "linear-gradient(150deg,#fffaf0,#fdeed6)" }}>
+   916→            <p className="eyebrow">the punchline</p>
+   917→            <p className="text-[.88rem] leading-relaxed text-[#2b2014]">
+   918→              Flip all five switches to <strong>undirected · unweighted · connected · acyclic · one-parent</strong>{" "}
+   919→              and a graph collapses back into… a <strong>tree</strong>. Every tree is a graph; most graphs are not trees.
+   920→            </p>
+   921→          </div>
+   922→        </Reveal>
+   923→      </div>
+   924→
+   925→      <div className="mt-10 grid gap-5 lg:grid-cols-2">
+   926→        <Reveal>
+   927→          <Quiz
+   928→            q="Degree of a vertex ="
+   929→            options={["its height", "number of edges directly connected to it", "number of subtrees", "its depth"]}
+   930→            answer={1}
+   931→            explain="Degree counts the edges touching the vertex — P touches AP, SP and PX, so degree(P) = 3. Height and depth belong to trees, not to graph vertices."
+   932→          />
+   933→        </Reveal>
+   934→        <Reveal delay={100}>
+   935→          <Quiz
+   936→            q="Trees represent hierarchy; graphs represent…"
+   937→            options={["sorted data", "relationships", "loops only", "arrays"]}
+   938→            answer={1}
+   939→            explain="Graphs are the general language of relationships: any entity may connect to any other, with no parent rules at all."
+   940→          />
+   941→        </Reveal>
+   942→      </div>
+   943→
+   944→      <Reveal className="mt-8">
+   945→        <Practice
+   946→          title="Graphs — pen & paper"
+   947→          items={[
+   948→            {
+   949→              q: <>Draw 4 friends (you + 3) with friendship edges, then list <strong>V</strong> and <strong>E</strong> for your graph.</>,
+   950→              hint: "V is the set of names; E is the set of pairs — write each edge as two letters, like XY.",
+   951→            },
+   952→            {
+   953→              q: <>Compute the <strong>degree of every vertex</strong> in your friend graph and check the sum equals twice the number of edges.</>,
+   954→              hint: "Each edge has exactly two ends, so degrees always add up to 2 × |E|.",
+   955→            },
+   956→          ]}
+   957→        />
+   958→      </Reveal>
+   959→    </Section>
+   960→  );
+   961→}
+   962→
+   963→/* ============================================================
+   964→   DFS & BFS — dark walk-through
+   965→   ============================================================ */
+   966→function DGNode({ x, y, t, rank, tone }: { x: number; y: number; t: string; rank: number; tone: string }) {
+   967→  const on = rank > -1;
+   968→  return (
+   969→    <g>
+   970→      <circle cx={x} cy={y} r="20" fill={on ? tone : "rgba(255,246,232,.09)"} stroke={on ? tone : "rgba(245,158,11,.45)"} strokeWidth="2" />
+   971→      <text x={x} y={y + 5} textAnchor="middle" fontSize="14" fontWeight="800" fill={on ? "#fff7ec" : "#f5e6cd"}>
+   972→        {t}
+   973→      </text>
+   974→      {on ? (
+   975→        <g>
+   976→          <circle cx={x + 24} cy={y - 24} r="11" fill="#2b1b10" stroke="#f5c889" strokeWidth="1.5" />
+   977→          <text x={x + 24} y={y - 20} textAnchor="middle" fontSize="10" fontWeight="800" fill="#f5c889">
+   978→            {rank + 1}
+   979→          </text>
+   980→        </g>
+   981→      ) : null}
+   982→    </g>
+   983→  );
+   984→}
+   985→
+   986→function GraphWalk({ seq, tone, label }: { seq: string[]; tone: string; label: string }) {
+   987→  return (
+   988→    <svg
+   989→      viewBox="0 0 560 340"
+   990→      className="mx-auto h-auto w-full max-w-xl"
+   991→      role="img"
+   992→      aria-label={`${label}: visiting order ${seq.join(", ")} over the nine-vertex lecture graph`}
+   993→    >
+   994→      {G_EDGES.map(([a, b]) => (
+   995→        <line key={`${a}${b}`} x1={G_POS[a].x} y1={G_POS[a].y} x2={G_POS[b].x} y2={G_POS[b].y} stroke="rgba(201,154,91,.5)" strokeWidth="2" />
+   996→      ))}
+   997→      {Object.entries(G_POS).map(([n, p]) => (
+   998→        <DGNode key={n} x={p.x} y={p.y} t={n} rank={seq.indexOf(n)} tone={tone} />
+   999→      ))}
+  1000→    </svg>
+  1001→  );
+  1002→}
+  1003→
+  1004→function StackVisual() {
+  1005→  const cells = ["S", "X", "P", "A"];
+  1006→  return (
+  1007→    <div className="flex items-end gap-4">
+  1008→      <div className="flex w-20 flex-col-reverse gap-1.5">
+  1009→        {cells.map((c, i) => (
+  1010→          <div
+  1011→            key={c}
+  1012→            className={`flex h-10 items-center justify-center rounded-lg border font-mono text-sm font-bold ${
+  1013→              i === 0
+  1014→                ? "border-[#f59e0b] bg-[rgba(234,88,12,.28)] text-[#ffd9ae]"
+  1015→                : "border-[rgba(245,158,11,.3)] bg-[rgba(255,246,232,.06)] text-[#e9d7bf]"
+  1016→            }`}
+  1017→          >
+  1018→            {c}
+  1019→          </div>
+  1020→        ))}
+  1021→      </div>
+  1022→      <div className="grid gap-2 pb-1 text-[.74rem] font-semibold text-[#cbb392]">
+  1023→        <span className="flex items-center gap-1.5">
+  1024→          <ArrowUp className="h-3.5 w-3.5 text-[#f5c889]" /> top — pop from here
+  1025→        </span>
+  1026→        <span className="flex items-center gap-1.5">
+  1027→          <ArrowDown className="h-3.5 w-3.5 text-[#f5c889]" /> bottom — first pushed
+  1028→        </span>
+  1029→      </div>
+  1030→    </div>
+  1031→  );
+  1032→}
+  1033→
+  1034→function QueueVisual() {
+  1035→  const cells = ["A", "P", "Q", "X"];
+  1036→  return (
+  1037→    <div className="flex items-center gap-3">
+  1038→      <span className="text-[.74rem] font-semibold text-[#cbb392]">front ←</span>
+  1039→      <div className="flex gap-1.5">
+  1040→        {cells.map((c, i) => (
+  1041→          <div
+  1042→            key={c}
+  1043→            className={`flex h-10 w-10 items-center justify-center rounded-lg border font-mono text-sm font-bold ${
+  1044→              i === 0
+  1045→                ? "border-[#f59e0b] bg-[rgba(217,119,6,.3)] text-[#ffd9ae]"
+  1046→                : "border-[rgba(245,158,11,.3)] bg-[rgba(255,246,232,.06)] text-[#e9d7bf]"
+  1047→            }`}
+  1048→          >
+  1049→            {c}
+  1050→          </div>
+  1051→        ))}
+  1052→      </div>
+  1053→      <span className="text-[.74rem] font-semibold text-[#cbb392]">← rear — enqueue here</span>
+  1054→    </div>
+  1055→  );
+  1056→}
+  1057→
+  1058→const DFS_STEPS = [
+  1059→  { label: "Push the start node", sub: "stack = [A]", icon: <ArrowDownToLine className="h-4 w-4" style={{ color: "#f5c889" }} /> },
+  1060→  { label: "Pop the top & mark visited", sub: "newest node leaves first", icon: <ArrowUpFromLine className="h-4 w-4" style={{ color: "#f5c889" }} /> },
+  1061→  { label: "Push its unvisited neighbours", sub: "they pile on top of the stack", icon: <Layers className="h-4 w-4" style={{ color: "#f5c889" }} /> },
+  1062→  { label: "Repeat until the stack is empty", sub: "stuck? backtrack — the stack remembers", icon: <RotateCcw className="h-4 w-4" style={{ color: "#f5c889" }} /> },
+  1063→];
+  1064→const BFS_STEPS = [
+  1065→  { label: "Enqueue the start node", sub: "queue = [A]", icon: <ArrowRightToLine className="h-4 w-4" style={{ color: "#f5c889" }} /> },
+  1066→  { label: "Dequeue the front & mark visited", sub: "oldest node leaves first", icon: <ArrowLeftFromLine className="h-4 w-4" style={{ color: "#f5c889" }} /> },
+  1067→  { label: "Enqueue its unvisited neighbours", sub: "they line up at the rear", icon: <Share2 className="h-4 w-4" style={{ color: "#f5c889" }} /> },
+  1068→  { label: "Repeat until the queue is empty", sub: "level after level, front to back", icon: <RotateCcw className="h-4 w-4" style={{ color: "#f5c889" }} /> },
+  1069→];
+  1070→
+  1071→export function AtbDfsBfsSection() {
+  1072→  return (
+  1073→    <Section id="dfsbfs" dark>
+  1074→      <SectionHead
+  1075→        dark
+  1076→        eyebrow="Module 3 · Graph traversals"
+  1077→        title={
+  1078→          <>
+  1079→            DFS &amp; BFS — <span className="grad-text">two ways to explore a network</span>
+  1080→          </>
+  1081→        }
+  1082→        lead="Same nine vertices, same eleven edges as before. How you explore decides what you learn: dive deep and ask whether a connection exists, or sweep wide and ask how close everything is."
+  1083→      />
+  1084→
+  1085→      <ReadStep dark n="1" title="Depth First Search (DFS)" sub="Follow one path as far as it goes — then backtrack" />
+  1086→      <div className="grid gap-5 lg:grid-cols-2">
+  1087→        <Reveal>
+  1088→          <div className="card-warm h-full p-6">
+  1089→            <ul className="grid gap-3 text-[.9rem] leading-relaxed text-[#e9d7bf]">
+  1090→              {[
+  1091→                <>Go <strong>as far as possible along one path</strong> before backtracking.</>,
+  1092→                <>Visit an <strong>unvisited neighbour</strong>, keep following unvisited neighbours until a node has <strong>no unexplored connections</strong> left.</>,
+  1093→                <>Then <strong>backtrack</strong> to the last junction and repeat from there.</>,
+  1094→              ].map((li, i) => (
+  1095→                <li key={i} className="flex gap-3">
+  1096→                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[.7rem] font-bold" style={{ background: "rgba(245,158,11,.18)", color: "#f5c889" }}>
+  1097→                    {i + 1}
+  1098→                  </span>
+  1099→                  <span>{li}</span>
+  1100→                </li>
+  1101→              ))}
+  1102→            </ul>
+  1103→            <div className="mt-4 rounded-xl border border-[rgba(245,158,11,.2)] bg-[rgba(43,27,16,.5)] p-4">
+  1104→              <p className="text-[.7rem] font-extrabold uppercase tracking-[.2em] text-[#b98d5f]">the question DFS answers</p>
+  1105→              <p className="mt-1 text-[.92rem] font-semibold text-[#ffd9ae]">
+  1106→                “Does ANY connection exist between two nodes?”
+  1107→              </p>
+  1108→            </div>
+  1109→          </div>
+  1110→        </Reveal>
+  1111→        <Reveal delay={100}>
+  1112→          <div className="card-warm p-5">
+  1113→            <GraphWalk seq={["A", "P", "X", "S", "C", "Q", "Y", "R", "B"]} tone="#ea580c" label="DFS" />
+  1114→            <p className="mt-3 text-center text-[.82rem] leading-relaxed text-[#cbb392]">
+  1115→              DFS order: <span className="font-mono font-bold text-[#ffd9ae]">A P X S C Q Y R B</span>
+  1116→              <br />
+  1117→              (equally valid alternative: <span className="font-mono text-[.78rem]">A Q Y R B P X S</span> — depends on neighbour order)
+  1118→            </p>
+  1119→          </div>
+  1120→        </Reveal>
+  1121→      </div>
+  1122→
+  1123→      <ReadStep dark n="2" title="DFS runs on a STACK" sub="Last in, first out — the mechanism behind the deep dive" />
+  1124→      <Reveal>
+  1125→        <StepsFlow steps={DFS_STEPS} />
+  1126→      </Reveal>
+  1127→      <div className="mt-5 grid gap-5 lg:grid-cols-2">
+  1128→        <Reveal>
+  1129→          <div className="card-warm p-6">
+  1130→            <p className="text-[.7rem] font-extrabold uppercase tracking-[.2em] text-[#b98d5f]">the stack, mid-run</p>
+  1131→            <div className="mt-4">
+  1132→              <StackVisual />
+  1133→            </div>
+  1134→            <p className="mt-4 text-[.82rem] leading-relaxed text-[#cbb392]">
+  1135→              A pushed, then P, then X, then S — <strong>the top of the stack is always the next visit</strong>.
+  1136→              Empty stack = exploration complete.
+  1137→            </p>
+  1138→          </div>
+  1139→        </Reveal>
+  1140→        <Reveal delay={100}>
+  1141→          <CodeBlock
+  1142→            dark
+  1143→            title="dfs.py — the whole idea in seven lines"
+  1144→            runnable={false}
+  1145→            code={`def dfs(graph, start):
+  1146→    stack = [start]
+  1147→    while stack:
+  1148→        node = stack.pop()      # take the TOP
+  1149→        if node not in visited:
+  1150→            mark node visited
+  1151→            for nb in graph[node]:
+  1152→                if nb not visited:
+  1153→                    stack.push(nb)`}
+  1154→            note="Pop from the top → pile new neighbours on top → the search dives deep before it ever looks sideways. That is the stack's personality."
+  1155→          />
+  1156→        </Reveal>
+  1157→      </div>
+  1158→
+  1159→      <ReadStep dark n="3" title="Breadth First Search (BFS)" sub="Visit ALL nodes at the current depth before going deeper" />
+  1160→      <div className="grid gap-5 lg:grid-cols-2">
+  1161→        <Reveal>
+  1162→          <div className="card-warm p-5">
+  1163→            <GraphWalk seq={["A", "P", "Q", "X", "Y", "S", "R", "C", "B"]} tone="#d97706" label="BFS" />
+  1164→            <p className="mt-3 text-center text-[.82rem] leading-relaxed text-[#cbb392]">
+  1165→              BFS order: <span className="font-mono font-bold text-[#ffd9ae]">A P Q X Y S R C B</span>
+  1166→              <br />
+  1167→              (alternative: <span className="font-mono text-[.78rem]">A Q P Y X R S B C</span>)
+  1168→            </p>
+  1169→          </div>
+  1170→        </Reveal>
+  1171→        <Reveal delay={100}>
+  1172→          <div className="card-warm h-full p-6">
+  1173→            <ul className="grid gap-3 text-[.9rem] leading-relaxed text-[#e9d7bf]">
+  1174→              {[
+  1175→                <>Visit <strong>all nodes at the current depth</strong> before going one level deeper.</>,
+  1176→                <>The search <strong>expands outward from the source</strong> like a ripple — neighbours first, neighbours-of-neighbours next.</>,
+  1177→                <>Because every vertex is reached by its <strong>shortest</strong> route, BFS answers closeness questions.</>,
+  1178→              ].map((li, i) => (
+  1179→                <li key={i} className="flex gap-3">
+  1180→                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[.7rem] font-bold" style={{ background: "rgba(245,158,11,.18)", color: "#f5c889" }}>
+  1181→                    {i + 1}
+  1182→                  </span>
+  1183→                  <span>{li}</span>
+  1184→                </li>
+  1185→              ))}
+  1186→            </ul>
+  1187→            <div className="mt-4 rounded-xl border border-[rgba(245,158,11,.2)] bg-[rgba(43,27,16,.5)] p-4">
+  1188→              <p className="text-[.7rem] font-extrabold uppercase tracking-[.2em] text-[#b98d5f]">the question BFS answers</p>
+  1189→              <p className="mt-1 text-[.92rem] font-semibold text-[#ffd9ae]">
+  1190→                “What is the MINIMUM degree of separation?”
+  1191→              </p>
+  1192→            </div>
+  1193→          </div>
+  1194→        </Reveal>
+  1195→      </div>
+  1196→
+  1197→      <ReadStep dark n="4" title="BFS runs on a QUEUE" sub="First in, first out — the mechanism behind the ripple" />
+  1198→      <Reveal>
+  1199→        <StepsFlow steps={BFS_STEPS} />
+  1200→      </Reveal>
+  1201→      <div className="mt-5 grid gap-5 lg:grid-cols-2">
+  1202→        <Reveal>
+  1203→          <div className="card-warm p-6">
+  1204→            <p className="text-[.7rem] font-extrabold uppercase tracking-[.2em] text-[#b98d5f]">the queue, mid-run</p>
+  1205→            <div className="mt-4">
+  1206→              <QueueVisual />
+  1207→            </div>
+  1208→            <p className="mt-4 text-[.82rem] leading-relaxed text-[#cbb392]">
+  1209→              A left first (front of the line), so A is explored before anything discovered after it —{" "}
+  1210→              <strong>distance order is preserved</strong>, which is exactly why BFS finds shortest paths.
+  1211→            </p>
+  1212→          </div>
+  1213→        </Reveal>
+  1214→        <Reveal delay={100}>
+  1215→          <CodeBlock
+  1216→            dark
+  1217→            title="bfs.py — same shape, different container"
+  1218→            runnable={false}
+  1219→            code={`def bfs(graph, start):
+  1220→    queue = [start]
+  1221→    while queue:
+  1222→        node = queue.dequeue()   # take the FRONT
+  1223→        if node not in visited:
+  1224→            mark node visited
+  1225→            for nb in graph[node]:
+  1226→                if nb not visited:
+  1227→                    queue.enqueue(nb)`}
+  1228→            note="Swap the stack for a queue and the personality flips: deep dive becomes level-by-level sweep. One line of code, completely different behaviour."
+  1229→          />
+  1230→        </Reveal>
+  1231→      </div>
+  1232→
+  1233→      <Reveal className="mt-10">
+  1234→        <div className="grid gap-5 md:grid-cols-2">
+  1235→          <div className="card-warm p-6" style={{ borderColor: "rgba(234,88,12,.4)" }}>
+  1236→            <div className="flex items-center gap-3">
+  1237→              <MoveVertical className="h-5 w-5" style={{ color: "#f5c889" }} />
+  1238→              <h4 className="text-lg font-bold text-[#f5e6cd]">DFS ↔ stack ↔ go deep</h4>
+  1239→            </div>
+  1240→            <p className="mt-2 text-[.88rem] leading-relaxed text-[#e9d7bf]">
+  1241→              One path to the end, backtrack, repeat. Reachability: <strong>“is there any connection?”</strong>
+  1242→            </p>
+  1243→          </div>
+  1244→          <div className="card-warm p-6" style={{ borderColor: "rgba(217,119,6,.5)" }}>
+  1245→            <div className="flex items-center gap-3">
+  1246→              <MoveHorizontal className="h-5 w-5" style={{ color: "#f5c889" }} />
+  1247→              <h4 className="text-lg font-bold text-[#f5e6cd]">BFS ↔ queue ↔ go wide</h4>
+  1248→            </div>
+  1249→            <p className="mt-2 text-[.88rem] leading-relaxed text-[#e9d7bf]">
+  1250→              Every neighbour before every distance-2 node. Closeness: <strong>“fewest handshakes?”</strong>
+  1251→            </p>
+  1252→          </div>
+  1253→        </div>
+  1254→      </Reveal>
+  1255→
+  1256→      <div className="mt-8 grid gap-5 lg:grid-cols-2">
+  1257→        <Reveal>
+  1258→          <Quiz
+  1259→            q="DFS is implemented with a…"
+  1260→            options={["queue", "stack", "heap", "hash table"]}
+  1261→            answer={1}
+  1262→            explain="DFS pops the most recently discovered node — that is a stack (LIFO). BFS is the queue twin (FIFO)."
+  1263→          />
+  1264→        </Reveal>
+  1265→        <Reveal delay={100}>
+  1266→          <Quiz
+  1267→            q="You need the minimum number of handshakes between two people. Use…"
+  1268→            options={["DFS", "BFS", "pre-order", "in-order"]}
+  1269→            answer={1}
+  1270→            explain="Minimum handshakes = shortest path in an unweighted graph = BFS: it reaches everyone in increasing distance order, so the first time you meet the target is guaranteed to be via the fewest handshakes."
+  1271→          />
+  1272→        </Reveal>
+  1273→      </div>
+  1274→
+  1275→      <Reveal className="mt-10">
+  1276→        <Takeaways
+  1277→          dark
+  1278→          items={[
+  1279→            <>Trees store <strong>hierarchies</strong>: root → parent → child → leaf, one parent per child.</>,
+  1280→            <><strong>Depth</strong> counts edges from the root to a node; <strong>height</strong> counts edges from the root to the deepest leaf.</>,
+  1281→            <>Traversals read a tree — <strong>pre/in/post-order are depth-first</strong>; <strong>level order is breadth-first</strong>.</>,
+  1282→            <>Graphs capture <strong>relationships</strong>: G = (V, E), in directed/undirected, weighted/unweighted, connected/disconnected, cyclic/acyclic flavours.</>,
+  1283→            <><strong>DFS (stack)</strong> goes deep — “does any connection exist?”; <strong>BFS (queue)</strong> goes wide — “what is the minimum degree of separation?”</>,
+  1284→          ]}
+  1285→        />
+  1286→      </Reveal>
+  1287→    </Section>
+  1288→  );
+  1289→}
+  1290→

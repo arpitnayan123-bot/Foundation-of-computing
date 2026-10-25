@@ -1,0 +1,1390 @@
+     1→     1→"use client";
+     2→     2→
+     3→     3→import React, { useState } from "react";
+     4→     4→import { AnimatePresence, motion } from "framer-motion";
+     5→     5→import {
+     6→     6→  AlertTriangle,
+     7→     7→  Check,
+     8→     8→  Coins,
+     9→     9→  Fingerprint,
+    10→    10→  FileCheck,
+    11→    11→  Gauge,
+    12→    12→  HeartPulse,
+    13→    13→  KeyRound,
+    14→    14→  Landmark,
+    15→    15→  Link,
+    16→    16→  Link2Off,
+    17→    17→  Lock,
+    18→    18→  RefreshCcw,
+    19→    19→  RotateCcw,
+    20→    20→  Ruler,
+    21→    21→  ScrollText,
+    22→    22→  ShieldCheck,
+    23→    23→  X,
+    24→    24→  Zap,
+    25→    25→} from "lucide-react";
+    26→    26→import {
+    27→    27→  Callout,
+    28→    28→  KV,
+    29→    29→  Practice,
+    30→    30→  Quiz,
+    31→    31→  ReadStep,
+    32→    32→  Reveal,
+    33→    33→  Section,
+    34→    34→  SectionHead,
+    35→    35→  Takeaways,
+    36→    36→} from "@/components/notes/ui";
+    37→    37→
+    38→    38→/* ============================================================
+    39→    39→   ATB · Parts 6 — Lecture 6: Tree types, Hashing, Blockchain
+    40→    40→   ============================================================ */
+    41→    41→
+    42→    42→/* ============================================================
+    43→    43→   TREE TYPES — gallery art
+    44→    44→   ============================================================ */
+    45→    45→function TN({
+    46→    46→  x,
+    47→    47→  y,
+    48→    48→  t,
+    49→    49→  r = 13,
+    50→    50→  fill = "#fff3e0",
+    51→    51→  stroke = "#c99a5b",
+    52→    52→  txt = "#7c4a12",
+    53→    53→  fs = 11,
+    54→    54→  dash = false,
+    55→    55→}: {
+    56→    56→  x: number;
+    57→    57→  y: number;
+    58→    58→  t: string;
+    59→    59→  r?: number;
+    60→    60→  fill?: string;
+    61→    61→  stroke?: string;
+    62→    62→  txt?: string;
+    63→    63→  fs?: number;
+    64→    64→  dash?: boolean;
+    65→    65→}) {
+    66→    66→  return (
+    67→    67→    <g>
+    68→    68→      <circle cx={x} cy={y} r={r} fill={fill} stroke={stroke} strokeWidth="2" strokeDasharray={dash ? "4 3" : undefined} />
+    69→    69→      <text x={x} y={y + fs * 0.36} textAnchor="middle" fontSize={fs} fontWeight="800" fill={txt}>
+    70→    70→        {t}
+    71→    71→      </text>
+    72→    72→    </g>
+    73→    73→  );
+    74→    74→}
+    75→    75→function TE({ a, b, c }: { a: [number, number]; b: [number, number]; c?: string }) {
+    76→    76→  return <line x1={a[0]} y1={a[1]} x2={b[0]} y2={b[1]} stroke={c ?? "#c99a5b"} strokeWidth="2" />;
+    77→    77→}
+    78→    78→
+    79→    79→function GeneralTreeArt() {
+    80→    80→  return (
+    81→    81→    <svg viewBox="0 0 220 140" className="mx-auto h-auto w-full max-w-[230px]" aria-hidden>
+    82→    82→      <TE a={[110, 22]} b={[40, 74]} />
+    83→    83→      <TE a={[110, 22]} b={[110, 74]} />
+    84→    84→      <TE a={[110, 22]} b={[180, 74]} />
+    85→    85→      <TE a={[40, 74]} b={[25, 120]} />
+    86→    86→      <TE a={[40, 74]} b={[60, 120]} />
+    87→    87→      <TN x={110} y={22} t="●" fill="#c2410c" stroke="#c2410c" txt="#fff7ec" />
+    88→    88→      <TN x={40} y={74} t="●" fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+    89→    89→      <TN x={110} y={74} t="●" fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+    90→    90→      <TN x={180} y={74} t="●" fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+    91→    91→      <TN x={25} y={120} t="●" fill="#fff3e0" />
+    92→    92→      <TN x={60} y={120} t="●" fill="#fff3e0" />
+    93→    93→    </svg>
+    94→    94→  );
+    95→    95→}
+    96→    96→function BinaryTreeArt() {
+    97→    97→  return (
+    98→    98→    <svg viewBox="0 0 220 140" className="mx-auto h-auto w-full max-w-[230px]" aria-hidden>
+    99→    99→      <TE a={[110, 22]} b={[60, 74]} />
+   100→   100→      <TE a={[110, 22]} b={[160, 74]} />
+   101→   101→      <TE a={[60, 74]} b={[35, 120]} />
+   102→   102→      <TE a={[60, 74]} b={[85, 120]} />
+   103→   103→      <TE a={[160, 74]} b={[135, 120]} />
+   104→   104→      <TN x={110} y={22} t="●" fill="#c2410c" stroke="#c2410c" txt="#fff7ec" />
+   105→   105→      <TN x={60} y={74} t="●" fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+   106→   106→      <TN x={160} y={74} t="●" fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+   107→   107→      <TN x={35} y={120} t="●" fill="#fff3e0" />
+   108→   108→      <TN x={85} y={120} t="●" fill="#fff3e0" />
+   109→   109→      <TN x={135} y={120} t="●" fill="#fff3e0" />
+   110→   110→    </svg>
+   111→   111→  );
+   112→   112→}
+   113→   113→function CompleteTreeArt() {
+   114→   114→  return (
+   115→   115→    <svg viewBox="0 0 220 140" className="mx-auto h-auto w-full max-w-[230px]" aria-hidden>
+   116→   116→      <TE a={[110, 22]} b={[60, 74]} />
+   117→   117→      <TE a={[110, 22]} b={[160, 74]} />
+   118→   118→      <TE a={[60, 74]} b={[30, 120]} />
+   119→   119→      <TE a={[60, 74]} b={[90, 120]} />
+   120→   120→      <TE a={[160, 74]} b={[150, 120]} />
+   121→   121→      <TN x={110} y={22} t="●" fill="#c2410c" stroke="#c2410c" txt="#fff7ec" />
+   122→   122→      <TN x={60} y={74} t="●" fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+   123→   123→      <TN x={160} y={74} t="●" fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+   124→   124→      <TN x={30} y={120} t="●" fill="#fff3e0" />
+   125→   125→      <TN x={90} y={120} t="●" fill="#fff3e0" />
+   126→   126→      <TN x={150} y={120} t="●" fill="#fff3e0" />
+   127→   127→      <TN x={205} y={120} t="" r={11} fill="none" stroke="#d97706" dash />
+   128→   128→      <text x="205" y="123" textAnchor="middle" fontSize="10" fontWeight="800" fill="#d97706">?</text>
+   129→   129→    </svg>
+   130→   130→  );
+   131→   131→}
+   132→   132→function BSTArt() {
+   133→   133→  return (
+   134→   134→    <svg viewBox="0 0 220 150" className="mx-auto h-auto w-full max-w-[230px]" role="img" aria-label="Binary search tree: 50 with 30 and 70 below, then 20, 40, 60 and 80">
+   135→   135→      <TE a={[110, 24]} b={[60, 74]} />
+   136→   136→      <TE a={[110, 24]} b={[160, 74]} />
+   137→   137→      <TE a={[60, 74]} b={[30, 122]} />
+   138→   138→      <TE a={[60, 74]} b={[90, 122]} />
+   139→   139→      <TE a={[160, 74]} b={[135, 122]} />
+   140→   140→      <TE a={[160, 74]} b={[185, 122]} />
+   141→   141→      <TN x={110} y={24} t="50" fill="#c2410c" stroke="#c2410c" txt="#fff7ec" />
+   142→   142→      <TN x={60} y={74} t="30" fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+   143→   143→      <TN x={160} y={74} t="70" fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+   144→   144→      <TN x={30} y={122} t="20" />
+   145→   145→      <TN x={90} y={122} t="40" />
+   146→   146→      <TN x={135} y={122} t="60" />
+   147→   147→      <TN x={185} y={122} t="80" />
+   148→   148→      <text x="110" y="146" textAnchor="middle" fontSize="9" fontWeight="700" fill="#8a5a06">left &lt; parent &lt; right, everywhere</text>
+   149→   149→    </svg>
+   150→   150→  );
+   151→   151→}
+   152→   152→function AVLArt() {
+   153→   153→  return (
+   154→   154→    <svg viewBox="0 0 220 132" className="mx-auto h-auto w-full max-w-[230px]" role="img" aria-label="AVL rotation: a 20, 30, 50 chain rotates into a balanced tree rooted at 30">
+   155→   155→      <defs>
+   156→   156→        <marker id="m6av" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+   157→   157→          <path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" />
+   158→   158→        </marker>
+   159→   159→      </defs>
+   160→   160→      <TE a={[30, 26]} b={[55, 62]} />
+   161→   161→      <TE a={[55, 62]} b={[80, 98]} />
+   162→   162→      <TN x={30} y={26} t="20" r={12} fs={10} />
+   163→   163→      <TN x={55} y={62} t="30" r={12} fs={10} />
+   164→   164→      <TN x={80} y={98} t="50" r={12} fs={10} />
+   165→   165→      <text x="16" y="12" fontSize="9" fontWeight="800" fill="#be4a4a">bf = −2</text>
+   166→   166→      <path d="M96 62 C 114 40, 128 40, 146 58" fill="none" stroke="#c2410c" strokeWidth="2.5" markerEnd="url(#m6av)" />
+   167→   167→      <text x="121" y="32" textAnchor="middle" fontSize="9" fontWeight="800" fill="#c2410c">rotate</text>
+   168→   168→      <TE a={[175, 46]} b={[148, 94]} />
+   169→   169→      <TE a={[175, 46]} b={[202, 94]} />
+   170→   170→      <TN x={175} y={46} t="30" r={12} fs={10} fill="#7c9a3e" stroke="#7c9a3e" txt="#fff7ec" />
+   171→   171→      <TN x={148} y={94} t="20" r={12} fs={10} />
+   172→   172→      <TN x={202} y={94} t="50" r={12} fs={10} />
+   173→   173→      <text x="175" y="124" textAnchor="middle" fontSize="9" fontWeight="700" fill="#5c7325">balanced · |bf| ≤ 1</text>
+   174→   174→    </svg>
+   175→   175→  );
+   176→   176→}
+   177→   177→function HeapArt() {
+   178→   178→  return (
+   179→   179→    <div className="grid grid-cols-2 gap-2">
+   180→   180→      <div>
+   181→   181→        <p className="text-center text-[.64rem] font-extrabold uppercase tracking-wider text-[#8a5a06]">Max-heap · parent ≥ children</p>
+   182→   182→        <svg viewBox="0 0 120 132" className="mx-auto h-auto w-full" aria-hidden>
+   183→   183→          <TE a={[60, 22]} b={[28, 68]} />
+   184→   184→          <TE a={[60, 22]} b={[90, 68]} />
+   185→   185→          <TE a={[28, 68]} b={[14, 114]} />
+   186→   186→          <TE a={[28, 68]} b={[44, 114]} />
+   187→   187→          <TN x={60} y={22} t="80" r={12} fs={10} fill="#c2410c" stroke="#c2410c" txt="#fff7ec" />
+   188→   188→          <TN x={28} y={68} t="70" r={11} fs={9} fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+   189→   189→          <TN x={90} y={68} t="60" r={11} fs={9} fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+   190→   190→          <TN x={14} y={114} t="45" r={10} fs={8} />
+   191→   191→          <TN x={44} y={114} t="55" r={10} fs={8} />
+   192→   192→        </svg>
+   193→   193→      </div>
+   194→   194→      <div>
+   195→   195→        <p className="text-center text-[.64rem] font-extrabold uppercase tracking-wider text-[#8a5a06]">Min-heap · parent ≤ children</p>
+   196→   196→        <svg viewBox="0 0 120 132" className="mx-auto h-auto w-full" aria-hidden>
+   197→   197→          <TE a={[60, 22]} b={[30, 68]} />
+   198→   198→          <TE a={[60, 22]} b={[92, 68]} />
+   199→   199→          <TE a={[92, 68]} b={[78, 114]} />
+   200→   200→          <TE a={[92, 68]} b={[108, 114]} />
+   201→   201→          <TN x={60} y={22} t="20" r={12} fs={10} fill="#7c9a3e" stroke="#7c9a3e" txt="#fff7ec" />
+   202→   202→          <TN x={30} y={68} t="30" r={11} fs={9} fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+   203→   203→          <TN x={92} y={68} t="25" r={11} fs={9} fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+   204→   204→          <TN x={78} y={114} t="25" r={10} fs={8} />
+   205→   205→          <TN x={108} y={114} t="45" r={10} fs={8} />
+   206→   206→        </svg>
+   207→   207→      </div>
+   208→   208→    </div>
+   209→   209→  );
+   210→   210→}
+   211→   211→
+   212→   212→const TREE_TYPES = [
+   213→   213→  {
+   214→   214→    name: "General tree",
+   215→   215→    rule: "any number of children per node",
+   216→   216→    art: <GeneralTreeArt />,
+   217→   217→    desc: "The free-form family. No limit on how many branches a node sprouts.",
+   218→   218→    use: ["folders", "family trees", "org structure", "biological taxonomy"],
+   219→   219→  },
+   220→   220→  {
+   221→   221→    name: "Binary tree",
+   222→   222→    rule: "at most 2 children per node",
+   223→   223→    art: <BinaryTreeArt />,
+   224→   224→    desc: "Every node picks left or right — the backbone of tournament brackets and yes/no decisions.",
+   225→   225→    use: ["tournament knockouts", "decision trees", "flowcharts"],
+   226→   226→  },
+   227→   227→  {
+   228→   228→    name: "Complete binary tree",
+   229→   229→    rule: "all levels full, last level filled left → right",
+   230→   230→    art: <CompleteTreeArt />,
+   231→   231→    desc: "Packed like an array with no gaps — the shape that makes heaps and array-backed trees possible.",
+   232→   232→    use: ["heaps", "array storage"],
+   233→   233→  },
+   234→   234→  {
+   235→   235→    name: "Binary search tree",
+   236→   236→    rule: "left subtree < parent < right subtree",
+   237→   237→    art: <BSTArt />,
+   238→   238→    desc: "Ordered at every node, so search discards half the tree at each step — like binary search you can draw.",
+   239→   239→    use: ["student-ID search", "dictionary search"],
+   240→   240→  },
+   241→   241→  {
+   242→   242→    name: "AVL tree",
+   243→   243→    rule: "self-balancing BST · balance factor ≤ 1 · uses ROTATIONS",
+   244→   244→    art: <AVLArt />,
+   245→   245→    desc: "A BST that refuses to grow lopsided: when a branch gets too tall, a rotation tips it back into balance.",
+   246→   246→    use: ["library catalogue", "in-memory indexing"],
+   247→   247→  },
+   248→   248→  {
+   249→   249→    name: "Heaps",
+   250→   250→    rule: "complete binary tree + ordering rule",
+   251→   251→    art: <HeapArt />,
+   252→   252→    desc: "Max-heap: parent ≥ children. Min-heap: parent ≤ children. The root is always the extreme — instant best/worst.",
+   253→   253→    use: ["priority queues"],
+   254→   254→  },
+   255→   255→];
+   256→   256→
+   257→   257→/* ============================================================
+   258→   258→   TREE TYPES — the bad hair day (chain → rotated balanced)
+   259→   259→   ============================================================ */
+   260→   260→function BadHairDay() {
+   261→   261→  const chain: [number, number, string][] = [
+   262→   262→    [46, 44, "20"],
+   263→   263→    [86, 80, "30"],
+   264→   264→    [126, 116, "50"],
+   265→   265→    [166, 152, "60"],
+   266→   266→    [206, 188, "70"],
+   267→   267→    [246, 224, "80"],
+   268→   268→  ];
+   269→   269→  return (
+   270→   270→    <svg
+   271→   271→      viewBox="0 0 760 268"
+   272→   272→      className="mx-auto h-auto w-full max-w-3xl"
+   273→   273→      role="img"
+   274→   274→      aria-label="Inserting 20, 30, 50, 60, 70, 80 in order builds a right-leaning chain of height 5; an AVL rotation rebalances it into a tree of height 2"
+   275→   275→    >
+   276→   276→      <defs>
+   277→   277→        <marker id="m6rot" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+   278→   278→          <path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" />
+   279→   279→        </marker>
+   280→   280→      </defs>
+   281→   281→      {/* chain */}
+   282→   282→      {chain.slice(0, -1).map(([x, y], i) => (
+   283→   283→        <TE key={i} a={[x + 12, y + 8]} b={[chain[i + 1][0] - 12, chain[i + 1][1] - 8]} />
+   284→   284→      ))}
+   285→   285→      {chain.map(([x, y, t], i) => (
+   286→   286→        <TN key={t} x={x} y={y} t={t} r={14} fill={i === 0 ? "#c2410c" : "#f0a04b"} stroke={i === 0 ? "#c2410c" : "#f0a04b"} txt={i === 0 ? "#fff7ec" : "#3e2c1d"} />
+   287→   287→      ))}
+   288→   288→      <text x="146" y="20" textAnchor="middle" fontSize="11" fontWeight="800" fill="#b45309">insert 20, 30, 50, 60, 70, 80 — in order</text>
+   289→   289→      <text x="146" y="254" textAnchor="middle" fontSize="10" fontWeight="700" fill="#be4a4a">height 5 · a linked list in disguise · search O(n)</text>
+   290→   290→
+   291→   291→      {/* rotation arrow */}
+   292→   292→      <path d="M292 134 C 332 86, 372 86, 412 122" fill="none" stroke="#c2410c" strokeWidth="3" markerEnd="url(#m6rot)" />
+   293→   293→      <text x="352" y="80" textAnchor="middle" fontSize="11" fontWeight="800" fill="#c2410c">AVL rotation</text>
+   294→   294→
+   295→   295→      {/* balanced */}
+   296→   296→      <TE a={[560, 48]} b={[478, 116]} />
+   297→   297→      <TE a={[560, 48]} b={[642, 116]} />
+   298→   298→      <TE a={[478, 116]} b={[436, 184]} />
+   299→   299→      <TE a={[478, 116]} b={[520, 184]} />
+   300→   300→      <TE a={[642, 116]} b={[600, 184]} />
+   301→   301→      <TE a={[642, 116]} b={[684, 184]} />
+   302→   302→      <TN x={560} y={48} t="50" r={15} fs={12} fill="#c2410c" stroke="#c2410c" txt="#fff7ec" />
+   303→   303→      <TN x={478} y={116} t="30" r={14} fs={11} fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+   304→   304→      <TN x={642} y={116} t="70" r={14} fs={11} fill="#f0a04b" stroke="#f0a04b" txt="#3e2c1d" />
+   305→   305→      <TN x={436} y={184} t="20" r={13} fs={10} />
+   306→   306→      <TN x={520} y={184} t="40" r={13} fs={10} />
+   307→   307→      <TN x={600} y={184} t="60" r={13} fs={10} />
+   308→   308→      <TN x={684} y={184} t="80" r={13} fs={10} />
+   309→   309→      <text x="560" y="222" textAnchor="middle" fontSize="10" fontWeight="700" fill="#5c7325">same values · height 2 · search O(log n)</text>
+   310→   310→    </svg>
+   311→   311→  );
+   312→   312→}
+   313→   313→
+   314→   314→/* ============================================================
+   315→   315→   TREE TYPES — section
+   316→   316→   ============================================================ */
+   317→   317→export function AtbTreeTypesSection() {
+   318→   318→  return (
+   319→   319→    <Section id="treetypes">
+   320→   320→      <SectionHead
+   321→   321→        eyebrow="Lecture 6 · Tree types"
+   322→   322→        title={
+   323→   323→          <>
+   324→   324→            <span className="grad-text">Six trees</span> every manager should recognise
+   325→   325→          </>
+   326→   326→        }
+   327→   327→        lead="All trees are not equal. Six flavours cover nearly every hierarchy you will meet in business — and two of them are the reason databases and schedulers feel instant."
+   328→   328→      />
+   329→   329→
+   330→   330→      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+   331→   331→        {TREE_TYPES.map((t, i) => (
+   332→   332→          <Reveal key={t.name} delay={i * 50}>
+   333→   333→            <div className="card-warm lift flex h-full flex-col gap-2 p-5">
+   334→   334→              <h4 className="text-[1rem] font-bold text-[#3e2c1d]">{t.name}</h4>
+   335→   335→              <p className="font-mono text-[.72rem] font-bold text-[#c2410c]">{t.rule}</p>
+   336→   336→              <div className="rounded-xl bg-[#fffaf1] p-2" style={{ border: "1px dashed #ecd9bd" }}>
+   337→   337→                {t.art}
+   338→   338→              </div>
+   339→   339→              <p className="text-[.82rem] leading-relaxed text-[#4a3826]">{t.desc}</p>
+   340→   340→              <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
+   341→   341→                {t.use.map((u) => (
+   342→   342→                  <span key={u} className="chip">{u}</span>
+   343→   343→                ))}
+   344→   344→              </div>
+   345→   345→            </div>
+   346→   346→          </Reveal>
+   347→   347→        ))}
+   348→   348→      </div>
+   349→   349→
+   350→   350→      <ReadStep n="1" title="The BST&apos;s bad hair day" sub="Insert sorted data into a plain BST and it loses its superpower" />
+   351→   351→      <Reveal>
+   352→   352→        <div className="card-warm p-5 md:p-7">
+   353→   353→          <BadHairDay />
+   354→   354→          <div className="mt-5 grid gap-3 md:grid-cols-2">
+   355→   355→            <div className="rounded-xl p-3.5 text-[.85rem] leading-relaxed" style={{ background: "rgba(190,74,74,.1)", border: "1px solid rgba(190,74,74,.3)" }}>
+   356→   356→              <strong style={{ color: "#8c2f2f" }}>Unbalanced:</strong> <span className="text-[#2b2014]">every insertion lands on the right — the tree degenerates into a chain and search crawls node by node, O(n).</span>
+   357→   357→            </div>
+   358→   358→            <div className="rounded-xl p-3.5 text-[.85rem] leading-relaxed" style={{ background: "rgba(124,154,62,.12)", border: "1px solid rgba(124,154,62,.35)" }}>
+   359→   359→              <strong style={{ color: "#5c7325" }}>After a rotation:</strong> <span className="text-[#2b2014]">the AVL tree tips the chain back into balance — height drops from 5 to 2 and search leaps, O(log n).</span>
+   360→   360→            </div>
+   361→   361→          </div>
+   362→   362→        </div>
+   363→   363→      </Reveal>
+   364→   364→
+   365→   365→      <div className="mt-10 grid gap-5 lg:grid-cols-2">
+   366→   366→        <Reveal>
+   367→   367→          <Quiz
+   368→   368→            q="In a BST, values smaller than the parent go…"
+   369→   369→            options={["right", "left", "either", "up"]}
+   370→   370→            answer={1}
+   371→   371→            explain="The BST invariant: left subtree < parent < right subtree. Smaller values live left, larger right — at every single node."
+   372→   372→          />
+   373→   373→        </Reveal>
+   374→   374→        <Reveal delay={100}>
+   375→   375→          <Quiz
+   376→   376→            q="Which tree powers a priority queue?"
+   377→   377→            options={["AVL", "heap", "general tree", "deque"]}
+   378→   378→            answer={1}
+   379→   379→            explain="A heap keeps the extreme (max or min) at the root of a complete binary tree — enqueue anything, dequeue the priority in O(log n)."
+   380→   380→          />
+   381→   381→        </Reveal>
+   382→   382→      </div>
+   383→   383→
+   384→   384→      <Reveal className="mt-8">
+   385→   385→        <Practice
+   386→   386→          title="Tree types — pen & paper"
+   387→   387→          items={[
+   388→   388→            {
+   389→   389→              q: <>Insert <code className="font-mono text-[.82rem] text-[#a0410a]">50, 30, 70, 20, 40</code> into an empty BST — draw the result.</>,
+   390→   390→              hint: "50 becomes the root; every later value walks down: smaller goes left, larger goes right.",
+   391→   391→            },
+   392→   392→            {
+   393→   393→              q: <>Why is the <strong>in-order traversal</strong> of a BST special?</>,
+   394→   394→              hint: "Left → Root → Right visits values in exactly sorted ascending order.",
+   395→   395→            },
+   396→   396→          ]}
+   397→   397→        />
+   398→   398→      </Reveal>
+   399→   399→    </Section>
+   400→   400→  );
+   401→   401→}
+   402→   402→
+   403→   403→/* ============================================================
+   404→   404→   HASHING — function → digest SVG
+   405→   405→   ============================================================ */
+   406→   406→function HashBoxSVG() {
+   407→   407→  return (
+   408→   408→    <svg
+   409→   409→      viewBox="0 0 720 190"
+   410→   410→      className="mx-auto h-auto w-full max-w-2xl"
+   411→   411→      role="img"
+   412→   412→      aria-label="A short input and a huge input both pass through the hash function and come out as digests of the same fixed length"
+   413→   413→    >
+   414→   414→      <defs>
+   415→   415→        <marker id="m6h" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+   416→   416→          <path d="M0,0 L7,3 L0,6 Z" fill="#c99a5b" />
+   417→   417→        </marker>
+   418→   418→      </defs>
+   419→   419→      <rect x="16" y="28" width="180" height="40" rx="10" fill="#fff3e0" stroke="#c99a5b" strokeWidth="2" />
+   420→   420→      <text x="106" y="46" textAnchor="middle" fontSize="12" fontWeight="800" fill="#3e2c1d">“Hello”</text>
+   421→   421→      <text x="106" y="60" textAnchor="middle" fontSize="9" fill="#8a5a06">5 characters</text>
+   422→   422→      <rect x="16" y="112" width="180" height="40" rx="10" fill="#fff3e0" stroke="#c99a5b" strokeWidth="2" />
+   423→   423→      <text x="106" y="130" textAnchor="middle" fontSize="12" fontWeight="800" fill="#3e2c1d">an entire book</text>
+   424→   424→      <text x="106" y="144" textAnchor="middle" fontSize="9" fill="#8a5a06">millions of characters</text>
+   425→   425→      <path d="M196 48 C 246 48, 258 72, 296 82" fill="none" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6h)" />
+   426→   426→      <path d="M196 132 C 246 132, 258 108, 296 98" fill="none" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6h)" />
+   427→   427→      <rect x="300" y="58" width="150" height="66" rx="14" fill="#b45309" />
+   428→   428→      <text x="375" y="88" textAnchor="middle" fontSize="15" fontWeight="800" fill="#fff7ec">hash()</text>
+   429→   429→      <text x="375" y="106" textAnchor="middle" fontSize="9" fill="#fde8cf">the fingerprint machine</text>
+   430→   430→      <path d="M450 82 C 490 72, 500 54, 536 48" fill="none" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6h)" />
+   431→   431→      <path d="M450 100 C 490 110, 500 128, 536 134" fill="none" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6h)" />
+   432→   432→      <rect x="540" y="28" width="164" height="40" rx="10" fill="#fde8cf" stroke="#d97706" strokeWidth="2" />
+   433→   433→      <text x="622" y="52" textAnchor="middle" fontFamily="monospace" fontSize="11" fontWeight="700" fill="#7c4a12">a1b2c3d4e5f6</text>
+   434→   434→      <rect x="540" y="112" width="164" height="40" rx="10" fill="#fde8cf" stroke="#d97706" strokeWidth="2" />
+   435→   435→      <text x="622" y="136" textAnchor="middle" fontFamily="monospace" fontSize="11" fontWeight="700" fill="#7c4a12">9f8e7d6c5b4a</text>
+   436→   436→      <text x="622" y="176" textAnchor="middle" fontSize="10" fontWeight="700" fill="#8a5a06">same length — always. That is the digest.</text>
+   437→   437→    </svg>
+   438→   438→  );
+   439→   439→}
+   440→   440→
+   441→   441→/* ============================================================
+   442→   442→   HASHING — mod lab (interactive)
+   443→   443→   ============================================================ */
+   444→   444→const MOD_INPUTS = [101, 107, 113, 128, 149];
+   445→   445→
+   446→   446→function ModHashLab() {
+   447→   447→  const [pick, setPick] = useState(101);
+   448→   448→  const idx = pick % 10;
+   449→   449→  return (
+   450→   450→    <div className="card-warm p-5 md:p-7">
+   451→   451→      <p className="text-[.7rem] font-extrabold uppercase tracking-[.2em] text-[#a0410a]">try it — the hello-world hash</p>
+   452→   452→      <div className="mt-3 flex flex-wrap gap-2">
+   453→   453→        {MOD_INPUTS.map((n) => (
+   454→   454→          <button
+   455→   455→            key={n}
+   456→   456→            type="button"
+   457→   457→            onClick={() => setPick(n)}
+   458→   458→            aria-pressed={pick === n}
+   459→   459→            aria-label={`Hash roll number ${n} with mod 10`}
+   460→   460→            className={`rounded-full px-4 py-1.5 font-mono text-[.82rem] font-bold transition-all duration-200 ${
+   461→   461→              pick === n
+   462→   462→                ? "text-white shadow-md"
+   463→   463→                : "border border-[#ecd9bd] bg-white/70 text-[#7c4a12] hover:border-[#e0a45e]"
+   464→   464→            }`}
+   465→   465→            style={pick === n ? { background: "linear-gradient(135deg,#ea580c,#c2410c)" } : undefined}
+   466→   466→          >
+   467→   467→            {n}
+   468→   468→          </button>
+   469→   469→        ))}
+   470→   470→      </div>
+   471→   471→      <div className="mt-5 rounded-2xl bg-[#fffaf1] p-4 text-center" style={{ border: "1px dashed #ecd9bd" }}>
+   472→   472→        <p key={pick} className="anim-pop font-mono text-2xl font-extrabold text-[#3e2c1d] md:text-3xl">
+   473→   473→          {pick} <span className="text-[#c2410c]">mod</span> 10 = <span className="text-[#c2410c]">{idx}</span>
+   474→   474→        </p>
+   475→   475→        <p className="mt-1 text-[.76rem] text-[#8a5a06]">the hash of roll number {pick} is its last digit — index {idx}</p>
+   476→   476→        <div className="mt-4 flex flex-wrap justify-center gap-1.5">
+   477→   477→          {Array.from({ length: 10 }).map((_, i) => (
+   478→   478→            <span
+   479→   479→              key={i}
+   480→   480→              className={`flex h-10 w-10 items-center justify-center rounded-lg border font-mono text-sm font-bold transition-all duration-300 ${
+   481→   481→                i === idx
+   482→   482→                  ? "border-[#c2410c] bg-[#ea580c] text-white shadow-md"
+   483→   483→                  : "border-[#ecd9bd] bg-white/70 text-[#b08968]"
+   484→   484→              }`}
+   485→   485→            >
+   486→   486→              {i}
+   487→   487→            </span>
+   488→   488→          ))}
+   489→   489→        </div>
+   490→   490→      </div>
+   491→   491→      <div className="mt-4 flex flex-wrap gap-2">
+   492→   492→        <span className="chip"><strong>x</strong>&nbsp;= how many unique hash values you want</span>
+   493→   493→        <span className="chip">mod 10 → 10 values → indexes 0–9</span>
+   494→   494→        <span className="chip">mod 100 → indexes 0–99</span>
+   495→   495→      </div>
+   496→   496→    </div>
+   497→   497→  );
+   498→   498→}
+   499→   499→
+   500→   500→/* ============================================================
+   501→   501→   HASHING — collision & chaining SVG
+   502→   502→   ============================================================ */
+   503→   503→function CollisionSVG() {
+   504→   504→  return (
+   505→   505→    <svg
+   506→   506→      viewBox="0 0 720 260"
+   507→   507→      className="mx-auto h-auto w-full max-w-3xl"
+   508→   508→      role="img"
+   509→   509→      aria-label="Hash table with chaining: index 2 holds a linked chain of three colliding keys, index 4 holds one key"
+   510→   510→    >
+   511→   511→      <defs>
+   512→   512→        <marker id="m6c" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+   513→   513→          <path d="M0,0 L7,3 L0,6 Z" fill="#c99a5b" />
+   514→   514→        </marker>
+   515→   515→      </defs>
+   516→   516→      <rect x="20" y="40" width="100" height="44" rx="10" fill="#fde8cf" stroke="#d97706" strokeWidth="2" />
+   517→   517→      <text x="70" y="67" textAnchor="middle" fontSize="14" fontWeight="800" fill="#7c4a12">2</text>
+   518→   518→      <rect x="20" y="104" width="100" height="44" rx="10" fill="none" stroke="#e3cfa9" strokeWidth="1.5" strokeDasharray="4 4" />
+   519→   519→      <text x="70" y="131" textAnchor="middle" fontSize="12" fill="#c9a97e">…</text>
+   520→   520→      <rect x="20" y="170" width="100" height="44" rx="10" fill="#fde8cf" stroke="#d97706" strokeWidth="2" />
+   521→   521→      <text x="70" y="197" textAnchor="middle" fontSize="14" fontWeight="800" fill="#7c4a12">4</text>
+   522→   522→
+   523→   523→      <line x1="120" y1="62" x2="156" y2="62" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6c)" />
+   524→   524→      <rect x="160" y="40" width="150" height="44" rx="10" fill="#fff3e0" stroke="#c99a5b" strokeWidth="2" />
+   525→   525→      <text x="235" y="67" textAnchor="middle" fontFamily="monospace" fontSize="11" fontWeight="700" fill="#7c4a12">M24SME012</text>
+   526→   526→      <line x1="310" y1="62" x2="366" y2="62" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6c)" />
+   527→   527→      <text x="338" y="52" textAnchor="middle" fontSize="9" fontStyle="italic" fill="#a0410a">next</text>
+   528→   528→      <rect x="370" y="40" width="150" height="44" rx="10" fill="#fff3e0" stroke="#be4a4a" strokeWidth="2" />
+   529→   529→      <text x="445" y="67" textAnchor="middle" fontFamily="monospace" fontSize="11" fontWeight="700" fill="#7c4a12">P25SME002</text>
+   530→   530→      <line x1="520" y1="62" x2="576" y2="62" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6c)" />
+   531→   531→      <text x="548" y="52" textAnchor="middle" fontSize="9" fontStyle="italic" fill="#a0410a">next</text>
+   532→   532→      <rect x="580" y="40" width="126" height="44" rx="10" fill="#fff3e0" stroke="#be4a4a" strokeWidth="2" />
+   533→   533→      <text x="643" y="67" textAnchor="middle" fontFamily="monospace" fontSize="11" fontWeight="700" fill="#7c4a12">B26SME112</text>
+   534→   534→      <text x="420" y="26" textAnchor="middle" fontSize="11" fontWeight="800" fill="#be4a4a">three different keys hash to 2 → collision!</text>
+   535→   535→
+   536→   536→      <line x1="120" y1="192" x2="156" y2="192" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6c)" />
+   537→   537→      <rect x="160" y="170" width="150" height="44" rx="10" fill="#fff3e0" stroke="#c99a5b" strokeWidth="2" />
+   538→   538→      <text x="235" y="197" textAnchor="middle" fontFamily="monospace" fontSize="11" fontWeight="700" fill="#7c4a12">M25SME044</text>
+   539→   539→      <text x="430" y="197" fontSize="10" fontWeight="600" fill="#8a5a06">no clash here — one key, one slot</text>
+   540→   540→    </svg>
+   541→   541→  );
+   542→   542→}
+   543→   543→
+   544→   544→/* ============================================================
+   545→   545→   HASHING — password login SVG + integrity SVG
+   546→   546→   ============================================================ */
+   547→   547→function PasswordFlowSVG() {
+   548→   548→  return (
+   549→   549→    <svg
+   550→   550→      viewBox="0 0 760 210"
+   551→   551→      className="mx-auto h-auto w-full max-w-2xl"
+   552→   552→      role="img"
+   553→   553→      aria-label="At login the typed password is hashed and compared with the stored hash; on match, access is granted"
+   554→   554→    >
+   555→   555→      <defs>
+   556→   556→        <marker id="m6p" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+   557→   557→          <path d="M0,0 L7,3 L0,6 Z" fill="#c99a5b" />
+   558→   558→        </marker>
+   559→   559→      </defs>
+   560→   560→      <rect x="20" y="50" width="190" height="44" rx="10" fill="#fff3e0" stroke="#c99a5b" strokeWidth="2" />
+   561→   561→      <text x="115" y="69" textAnchor="middle" fontFamily="monospace" fontSize="11" fontWeight="700" fill="#3e2c1d">password123</text>
+   562→   562→      <text x="115" y="85" textAnchor="middle" fontSize="9" fill="#8a5a06">typed at login</text>
+   563→   563→      <line x1="210" y1="72" x2="256" y2="72" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6p)" />
+   564→   564→      <rect x="260" y="44" width="130" height="56" rx="14" fill="#b45309" />
+   565→   565→      <text x="325" y="77" textAnchor="middle" fontSize="14" fontWeight="800" fill="#fff7ec">hash()</text>
+   566→   566→      <line x1="390" y1="72" x2="436" y2="72" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6p)" />
+   567→   567→      <rect x="440" y="50" width="170" height="44" rx="10" fill="#fde8cf" stroke="#d97706" strokeWidth="2" />
+   568→   568→      <text x="525" y="77" textAnchor="middle" fontFamily="monospace" fontSize="11" fontWeight="700" fill="#7c4a12">42f749ade7f9…</text>
+   569→   569→      <rect x="440" y="140" width="170" height="40" rx="10" fill="#eef4dd" stroke="#9ab86b" strokeWidth="2" />
+   570→   570→      <text x="525" y="159" textAnchor="middle" fontFamily="monospace" fontSize="10" fontWeight="700" fill="#44621d">42f749ade7f9…</text>
+   571→   571→      <text x="525" y="173" textAnchor="middle" fontSize="9" fill="#5c7325">stored hash (from signup)</text>
+   572→   572→      <path d="M610 72 C 646 74, 660 88, 668 96" fill="none" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6p)" />
+   573→   573→      <path d="M610 160 C 646 158, 660 122, 668 114" fill="none" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6p)" />
+   574→   574→      <circle cx="696" cy="105" r="26" fill="#7c9a3e" />
+   575→   575→      <text x="696" y="113" textAnchor="middle" fontSize="20" fontWeight="800" fill="#fff7ec">✓</text>
+   576→   576→      <text x="696" y="150" textAnchor="middle" fontSize="10" fontWeight="700" fill="#5c7325">equal → access granted</text>
+   577→   577→    </svg>
+   578→   578→  );
+   579→   579→}
+   580→   580→function IntegritySVG() {
+   581→   581→  return (
+   582→   582→    <svg
+   583→   583→      viewBox="0 0 780 210"
+   584→   584→      className="mx-auto h-auto w-full max-w-2xl"
+   585→   585→      role="img"
+   586→   586→      aria-label="Integrity check: sender hashes the file and sends file plus hash; receiver recomputes the hash; both digests match, so the file is intact"
+   587→   587→    >
+   588→   588→      <defs>
+   589→   589→        <marker id="m6i" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+   590→   590→          <path d="M0,0 L7,3 L0,6 Z" fill="#c99a5b" />
+   591→   591→        </marker>
+   592→   592→      </defs>
+   593→   593→      <rect x="20" y="30" width="160" height="44" rx="10" fill="#fff3e0" stroke="#c99a5b" strokeWidth="2" />
+   594→   594→      <text x="100" y="57" textAnchor="middle" fontSize="11" fontWeight="700" fill="#3e2c1d">original file</text>
+   595→   595→      <line x1="180" y1="52" x2="216" y2="52" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6i)" />
+   596→   596→      <rect x="220" y="30" width="110" height="44" rx="12" fill="#b45309" />
+   597→   597→      <text x="275" y="57" textAnchor="middle" fontSize="12" fontWeight="800" fill="#fff7ec">hash()</text>
+   598→   598→      <line x1="330" y1="52" x2="366" y2="52" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6i)" />
+   599→   599→      <rect x="370" y="34" width="150" height="36" rx="9" fill="#fde8cf" stroke="#d97706" strokeWidth="2" />
+   600→   600→      <text x="445" y="57" textAnchor="middle" fontFamily="monospace" fontSize="11" fontWeight="700" fill="#7c4a12">H1 = 7a3f9b</text>
+   601→   601→
+   602→   602→      <text x="300" y="112" textAnchor="middle" fontSize="10" fontWeight="700" fontStyle="italic" fill="#8a5a06">file + H1 travel together over the network</text>
+   603→   603→
+   604→   604→      <rect x="20" y="140" width="160" height="40" rx="10" fill="#fff3e0" stroke="#c99a5b" strokeWidth="2" />
+   605→   605→      <text x="100" y="165" textAnchor="middle" fontSize="11" fontWeight="700" fill="#3e2c1d">received file</text>
+   606→   606→      <line x1="180" y1="160" x2="216" y2="160" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6i)" />
+   607→   607→      <rect x="220" y="140" width="110" height="40" rx="12" fill="#b45309" />
+   608→   608→      <text x="275" y="165" textAnchor="middle" fontSize="11" fontWeight="800" fill="#fff7ec">hash() again</text>
+   609→   609→      <line x1="330" y1="160" x2="366" y2="160" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6i)" />
+   610→   610→      <rect x="370" y="142" width="150" height="36" rx="9" fill="#fde8cf" stroke="#d97706" strokeWidth="2" />
+   611→   611→      <text x="445" y="165" textAnchor="middle" fontFamily="monospace" fontSize="11" fontWeight="700" fill="#7c4a12">H2 = 7a3f9b</text>
+   612→   612→
+   613→   613→      <path d="M520 52 C 590 52, 620 66, 656 80" fill="none" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6i)" />
+   614→   614→      <path d="M520 160 C 590 160, 620 116, 656 102" fill="none" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#m6i)" />
+   615→   615→      <circle cx="690" cy="91" r="28" fill="#7c9a3e" />
+   616→   616→      <text x="690" y="99" textAnchor="middle" fontSize="20" fontWeight="800" fill="#fff7ec">✓</text>
+   617→   617→      <text x="690" y="136" textAnchor="middle" fontSize="10" fontWeight="700" fill="#5c7325">equal → intact</text>
+   618→   618→      <text x="690" y="152" textAnchor="middle" fontSize="9" fill="#be4a4a">mismatch → tampered</text>
+   619→   619→    </svg>
+   620→   620→  );
+   621→   621→}
+   622→   622→
+   623→   623→/* ============================================================
+   624→   624→   HASHING — section
+   625→   625→   ============================================================ */
+   626→   626→const GOOD_HASH = [
+   627→   627→  "fast to calculate",
+   628→   628→  "consistent — same key → same index",
+   629→   629→  "even distribution across indexes",
+   630→   630→  "fewer collisions",
+   631→   631→  "uses the key effectively",
+   632→   632→];
+   633→   633→const HASH_PROPS = [
+   634→   634→  { icon: RefreshCcw, name: "Deterministic", desc: "the same input always produces the same hash — no randomness, ever" },
+   635→   635→  { icon: Ruler, name: "Fixed-length output", desc: "a tweet or a terabyte: the digest is always the same size" },
+   636→   636→  { icon: Lock, name: "One-way", desc: "you can hash forward, but you cannot recover the input from the hash" },
+   637→   637→  { icon: Zap, name: "Avalanche effect", desc: "change one letter of the input and the hash changes wildly, beyond recognition" },
+   638→   638→  { icon: ShieldCheck, name: "Collision-resistant", desc: "two different inputs landing on the same hash is astronomically unlikely" },
+   639→   639→  { icon: Gauge, name: "Computing speed", desc: "fast for file integrity checks; deliberately slow for password hashing" },
+   640→   640→];
+   641→   641→
+   642→   642→export function AtbHashingSection() {
+   643→   643→  return (
+   644→   644→    <Section id="hashing">
+   645→   645→      <SectionHead
+   646→   646→        eyebrow="Lecture 6 · Hashing"
+   647→   647→        title={
+   648→   648→          <>
+   649→   649→            <span className="grad-text">Hashing</span> — fixed-length fingerprints
+   650→   650→          </>
+   651→   651→        }
+   652→   652→        lead="A hash function takes any input and returns a fixed-length fingerprint called a digest. That one idea powers instant lookup tables, password vaults and tamper-evident files."
+   653→   653→      />
+   654→   654→
+   655→   655→      <ReadStep n="1" title="From function to hash" sub="A normal function maps inputs to outputs — a hash pins the output size" />
+   656→   656→      <Reveal>
+   657→   657→        <div className="card-warm p-5 md:p-7">
+   658→   658→          <div className="flex items-center gap-3">
+   659→   659→            <Fingerprint className="h-5 w-5" style={{ color: "#c2410c" }} />
+   660→   660→            <p className="text-[.92rem] leading-relaxed text-[#2b2014]">
+   661→   661→              Recall the <strong>function box</strong>: input → function → output. A{" "}
+   662→   662→              <strong>hash function</strong> is a function with one iron rule: the output is{" "}
+   663→   663→              <strong>always the same fixed length</strong> — that output is the <strong>digest</strong>.
+   664→   664→            </p>
+   665→   665→          </div>
+   666→   666→          <div className="mt-5">
+   667→   667→            <HashBoxSVG />
+   668→   668→          </div>
+   669→   669→        </div>
+   670→   670→      </Reveal>
+   671→   671→
+   672→   672→      <ReadStep n="2" title="mod — the hello-world hash" sub="The remainder is a perfectly respectable hash function" />
+   673→   673→      <ModHashLab />
+   674→   674→
+   675→   675→      <ReadStep n="3" title="From normal table to hash table" sub="Scan every row, or jump straight to the answer" />
+   676→   676→      <div className="grid gap-5 lg:grid-cols-2">
+   677→   677→        <Reveal>
+   678→   678→          <div className="card-warm overflow-hidden">
+   679→   679→            <p className="eyebrow px-6 pt-5">before — the normal table</p>
+   680→   680→            <div className="mt-3 overflow-x-auto px-4 pb-5">
+   681→   681→              <table className="warm-table min-w-[380px]">
+   682→   682→                <thead>
+   683→   683→                  <tr><th>Roll No</th><th>Name</th></tr>
+   684→   684→                </thead>
+   685→   685→                <tbody>
+   686→   686→                  <tr><td className="font-mono text-[.8rem] font-bold text-[#7c4a12]">B26SME001</td><td>Amar Sharma</td></tr>
+   687→   687→                  <tr><td className="font-mono text-[.8rem] font-bold text-[#7c4a12]">M26ME002</td><td>Akbar Khan</td></tr>
+   688→   688→                  <tr><td className="font-mono text-[.8rem] font-bold text-[#7c4a12]">P25ELE0003</td><td>Anothony Gonzalves</td></tr>
+   689→   689→                </tbody>
+   690→   690→              </table>
+   691→   691→            </div>
+   692→   692→            <p className="px-6 pb-5 text-[.8rem] text-muted-warm">Searching means <strong>scanning row after row</strong> until you stumble on the key.</p>
+   693→   693→          </div>
+   694→   694→        </Reveal>
+   695→   695→        <Reveal delay={100}>
+   696→   696→          <div className="card-warm overflow-hidden">
+   697→   697→            <p className="eyebrow px-6 pt-5">after — the hash table</p>
+   698→   698→            <div className="mt-3 overflow-x-auto px-4 pb-5">
+   699→   699→              <table className="warm-table min-w-[420px]">
+   700→   700→                <thead>
+   701→   701→                  <tr><th>Index (hash)</th><th>Roll No (Key)</th><th>Name (Value)</th></tr>
+   702→   702→                </thead>
+   703→   703→                <tbody>
+   704→   704→                  <tr><td className="font-mono font-bold text-[#a0410a]">1</td><td className="font-mono text-[.8rem] font-bold text-[#7c4a12]">B26SME001</td><td>Amar Sharma</td></tr>
+   705→   705→                  <tr><td className="font-mono font-bold text-[#a0410a]">2</td><td className="font-mono text-[.8rem] font-bold text-[#7c4a12]">M26ME002</td><td>Akbar Khan</td></tr>
+   706→   706→                  <tr><td className="font-mono font-bold text-[#a0410a]">3</td><td className="font-mono text-[.8rem] font-bold text-[#7c4a12]">P25ELE0003</td><td>Anothony Gonzalves</td></tr>
+   707→   707→                </tbody>
+   708→   708→              </table>
+   709→   709→            </div>
+   710→   710→            <p className="px-6 pb-5 text-[.8rem] text-muted-warm">The hash of the key <strong>is the row address</strong> — search lands on the answer directly.</p>
+   711→   711→          </div>
+   712→   712→        </Reveal>
+   713→   713→      </div>
+   714→   714→      <Reveal className="mt-5">
+   715→   715→        <div className="grid gap-2 md:grid-cols-3">
+   716→   716→          <KV k="key" v="identifies the record — here the roll number" />
+   717→   717→          <KV k="value" v="the data you store — here the student name" />
+   718→   718→          <KV k="index" v="the hash value pointing at the key&apos;s location → quick search" />
+   719→   719→        </div>
+   720→   720→      </Reveal>
+   721→   721→
+   722→   722→      <ReadStep n="4" title="Collisions &amp; chaining" sub="Two keys, one index — the hash table&apos;s only real fight" />
+   723→   723→      <Reveal>
+   724→   724→        <div className="card-warm p-5 md:p-7">
+   725→   725→          <CollisionSVG />
+   726→   726→          <div className="mt-5 grid gap-3 md:grid-cols-2">
+   727→   727→            <div className="rounded-xl p-3.5 text-[.85rem] leading-relaxed" style={{ background: "rgba(190,74,74,.1)", border: "1px solid rgba(190,74,74,.3)" }}>
+   728→   728→              <strong style={{ color: "#8c2f2f" }}>Collision:</strong> <span className="text-[#2b2014]">the same hash produced for two different inputs. With finitely many indexes and infinitely many keys, it is inevitable.</span>
+   729→   729→            </div>
+   730→   730→            <div className="rounded-xl p-3.5 text-[.85rem] leading-relaxed" style={{ background: "rgba(124,154,62,.12)", border: "1px solid rgba(124,154,62,.35)" }}>
+   731→   731→              <strong style={{ color: "#5c7325" }}>The fix — hash chaining:</strong> <span className="text-[#2b2014]">each index keeps a linked list; colliding keys simply queue up behind the first.</span>
+   732→   732→            </div>
+   733→   733→          </div>
+   734→   734→        </div>
+   735→   735→      </Reveal>
+   736→   736→
+   737→   737→      <ReadStep n="5" title="What makes a good hash function" sub="Five habits of a well-behaved fingerprinter" />
+   738→   738→      <Reveal>
+   739→   739→        <div className="flex flex-wrap gap-2">
+   740→   740→          {GOOD_HASH.map((g) => (
+   741→   741→            <span key={g} className="chip">
+   742→   742→              <Check className="h-3.5 w-3.5" style={{ color: "#7c9a3e" }} /> {g}
+   743→   743→            </span>
+   744→   744→          ))}
+   745→   745→        </div>
+   746→   746→      </Reveal>
+   747→   747→
+   748→   748→      <ReadStep n="6" title="Hashing for cybersecurity" sub="The same fingerprint idea, pointed at security" />
+   749→   749→      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+   750→   750→        {HASH_PROPS.map((p, i) => (
+   751→   751→          <Reveal key={p.name} delay={i * 50}>
+   752→   752→            <div className="card-warm lift h-full p-5">
+   753→   753→              <div className="flex items-center gap-3">
+   754→   754→                <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: "linear-gradient(135deg,#fde8cf,#fbcf9f)", color: "#8a3d10" }}>
+   755→   755→                  <p.icon className="h-4.5 w-4.5" />
+   756→   756→                </span>
+   757→   757→                <h4 className="text-[.92rem] font-bold text-[#3e2c1d]">{p.name}</h4>
+   758→   758→              </div>
+   759→   759→              <p className="mt-2 text-[.82rem] leading-relaxed text-[#4a3826]">{p.desc}</p>
+   760→   760→            </div>
+   761→   761→          </Reveal>
+   762→   762→        ))}
+   763→   763→      </div>
+   764→   764→
+   765→   765→      <ReadStep n="7" title="Two business use cases" sub="Where the fingerprint earns its salary" />
+   766→   766→      <div className="grid gap-5 lg:grid-cols-2">
+   767→   767→        <Reveal>
+   768→   768→          <div className="card-warm flex h-full flex-col p-5 md:p-6">
+   769→   769→            <div className="flex items-center gap-2">
+   770→   770→              <KeyRound className="h-4.5 w-4.5" style={{ color: "#c2410c" }} />
+   771→   771→              <h4 className="text-[1rem] font-bold text-[#3e2c1d]">(a) Password storage</h4>
+   772→   772→            </div>
+   773→   773→            <div className="mt-4 overflow-hidden rounded-xl" style={{ border: "1px solid var(--line-warm)" }}>
+   774→   774→              <div className="flex items-center gap-3 px-4 py-3" style={{ background: "#fdecec" }}>
+   775→   775→                <X className="h-4 w-4 shrink-0" style={{ color: "#be4a4a" }} />
+   776→   776→                <span className="font-mono text-[.85rem] font-bold text-[#8c2f2f] line-through">password123</span>
+   777→   777→                <span className="ml-auto text-[.7rem] font-extrabold uppercase tracking-wider text-[#be4a4a]">never store this</span>
+   778→   778→              </div>
+   779→   779→              <div className="flex items-center gap-3 border-t px-4 py-3" style={{ borderColor: "#e8dcc0", background: "#eef4dd" }}>
+   780→   780→                <Check className="h-4 w-4 shrink-0" style={{ color: "#7c9a3e" }} />
+   781→   781→                <span className="font-mono text-[.85rem] font-bold text-[#44621d]">42f749ade7f9e195bf</span>
+   782→   782→                <span className="ml-auto text-[.7rem] font-extrabold uppercase tracking-wider text-[#5c7325]">store the hash</span>
+   783→   783→              </div>
+   784→   784→            </div>
+   785→   785→            <p className="mt-4 text-[.86rem] leading-relaxed text-[#2b2014]">
+   786→   786→              At login the site <strong>hashes the password you type</strong> and compares it with the
+   787→   787→              stored hash — the plain password itself is never kept, so a leaked database leaks no passwords.
+   788→   788→            </p>
+   789→   789→            <div className="mt-4">
+   790→   790→              <PasswordFlowSVG />
+   791→   791→            </div>
+   792→   792→          </div>
+   793→   793→        </Reveal>
+   794→   794→        <Reveal delay={100}>
+   795→   795→          <div className="card-warm flex h-full flex-col p-5 md:p-6">
+   796→   796→            <div className="flex items-center gap-2">
+   797→   797→              <FileCheck className="h-4.5 w-4.5" style={{ color: "#c2410c" }} />
+   798→   798→              <h4 className="text-[1rem] font-bold text-[#3e2c1d]">(b) Integrity checks</h4>
+   799→   799→            </div>
+   800→   800→            <p className="mt-4 text-[.86rem] leading-relaxed text-[#2b2014]">
+   801→   801→              Sender hashes the file and <strong>sends file + hash together</strong>. The receiver
+   802→   802→              recomputes the hash of what arrived: <strong>equal ✓ → intact</strong>; different ✗ → altered in transit.
+   803→   803→            </p>
+   804→   804→            <div className="mt-4">
+   805→   805→              <IntegritySVG />
+   806→   806→            </div>
+   807→   807→          </div>
+   808→   808→        </Reveal>
+   809→   809→      </div>
+   810→   810→
+   811→   811→      <div className="mt-10 grid gap-5 lg:grid-cols-2">
+   812→   812→        <Reveal>
+   813→   813→          <Quiz
+   814→   814→            q="101 mod 10 = ?"
+   815→   815→            options={["10", "1", "0", "101"]}
+   816→   816→            answer={1}
+   817→   817→            explain="mod gives the remainder after division by 10 — for 101 that is 1. Handy: mod 10 is just the last digit."
+   818→   818→          />
+   819→   819→        </Reveal>
+   820→   820→        <Reveal delay={100}>
+   821→   821→          <Quiz
+   822→   822→            q="Storing password hashes instead of passwords protects users because hashes are…"
+   823→   823→            options={["sorted", "one-way", "reversible", "shorter"]}
+   824→   824→            answer={1}
+   825→   825→            explain="Hashing is one-way: from 42f749ade7f9e195bf you cannot get password123 back. Attackers can only try guesses — and the avalanche effect makes even close guesses useless."
+   826→   826→          />
+   827→   827→        </Reveal>
+   828→   828→      </div>
+   829→   829→
+   830→   830→      <Reveal className="mt-8">
+   831→   831→        <Practice
+   832→   832→          title="Hashing — pen & paper"
+   833→   833→          items={[
+   834→   834→            {
+   835→   835→              q: <>Hash three roll numbers of your choice with <strong>mod 10</strong> and place each in a 10-slot table.</>,
+   836→   836→              hint: "The hash is the last digit — that digit is the slot index.",
+   837→   837→            },
+   838→   838→            {
+   839→   839→              q: <>Explain the <strong>avalanche effect</strong> in one line.</>,
+   840→   840→              hint: "Tiny input change → a completely different digest.",
+   841→   841→            },
+   842→   842→          ]}
+   843→   843→        />
+   844→   844→      </Reveal>
+   845→   845→    </Section>
+   846→   846→  );
+   847→   847→}
+   848→   848→
+   849→   849→/* ============================================================
+   850→   850→   BLOCKCHAIN — block anatomy + chain growth SVGs
+   851→   851→   ============================================================ */
+   852→   852→function BlockAnatomySVG() {
+   853→   853→  return (
+   854→   854→    <svg
+   855→   855→      viewBox="0 0 560 214"
+   856→   856→      className="mx-auto h-auto w-full max-w-xl"
+   857→   857→      role="img"
+   858→   858→      aria-label="Anatomy of a blockchain block: a header holding the hash of the previous block and the hash of the current block, plus a body of transactions"
+   859→   859→    >
+   860→   860→      <rect x="60" y="18" width="440" height="180" rx="14" fill="rgba(255,246,232,.05)" stroke="rgba(245,158,11,.35)" strokeWidth="2" />
+   861→   861→      <path d="M60 32 Q60 18 74 18 H486 Q500 18 500 32 V96 H60 Z" fill="rgba(245,158,11,.14)" />
+   862→   862→      <text x="80" y="44" fontSize="10" fontWeight="800" letterSpacing="2" fill="#f5c889">HEADER</text>
+   863→   863→      <text x="80" y="68" fontFamily="monospace" fontSize="11" fill="#ffd9ae">hash of previous block : H_prev</text>
+   864→   864→      <text x="80" y="86" fontFamily="monospace" fontSize="11" fill="#ffd9ae">hash of current block : H_cur</text>
+   865→   865→      <line x1="60" y1="96" x2="500" y2="96" stroke="rgba(245,158,11,.3)" strokeWidth="1.5" />
+   866→   866→      <text x="80" y="126" fontSize="10" fontWeight="800" letterSpacing="2" fill="#f5c889">TRANSACTIONS</text>
+   867→   867→      <text x="80" y="152" fontFamily="monospace" fontSize="11" fill="#e9d7bf">Tx 1 · Ama → Bao · 1.0</text>
+   868→   868→      <text x="80" y="174" fontFamily="monospace" fontSize="11" fill="#e9d7bf">Tx 2 · Cy → Di · 0.4</text>
+   869→   869→      <text x="320" y="212" textAnchor="middle" fontSize="10" fontWeight="600" fill="#b98d5f">header = the tamper seal · body = the payload</text>
+   870→   870→    </svg>
+   871→   871→  );
+   872→   872→}
+   873→   873→
+   874→   874→function ChainGrowSVG() {
+   875→   875→  const blocks = [
+   876→   876→    { prev: "NULL", hash: "H1", tx: "Tx 1, Tx 2" },
+   877→   877→    { prev: "H1", hash: "H2", tx: "Tx 3, Tx 4" },
+   878→   878→    { prev: "H2", hash: "H3", tx: "Tx 5, Tx 6" },
+   879→   879→    { prev: "H3", hash: "H4", tx: "Tx 7, Tx 8" },
+   880→   880→  ];
+   881→   881→  return (
+   882→   882→    <svg
+   883→   883→      viewBox="0 0 780 196"
+   884→   884→      className="mx-auto h-auto w-full max-w-3xl"
+   885→   885→      role="img"
+   886→   886→      aria-label="The chain: a genesis block whose previous-hash is NULL, followed by blocks storing the hash of the block before them"
+   887→   887→    >
+   888→   888→      <defs>
+   889→   889→        <marker id="m6ch" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+   890→   890→          <path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" />
+   891→   891→        </marker>
+   892→   892→      </defs>
+   893→   893→      {blocks.map((b, i) => {
+   894→   894→        const x = 15 + i * 198;
+   895→   895→        return (
+   896→   896→          <motion.g
+   897→   897→            key={b.hash}
+   898→   898→            initial={{ opacity: 0, x: -16 }}
+   899→   899→            whileInView={{ opacity: 1, x: 0 }}
+   900→   900→            viewport={{ once: true, amount: 0.4 }}
+   901→   901→            transition={{ duration: 0.5, delay: i * 0.22 }}
+   902→   902→          >
+   903→   903→            <rect x={x} y="30" width="150" height="130" rx="12" fill="rgba(255,246,232,.05)" stroke="rgba(245,158,11,.35)" strokeWidth="2" />
+   904→   904→            {i === blocks.length - 1 ? (
+   905→   905→              <rect x={x} y="30" width="150" height="54" rx="12" fill="rgba(245,158,11,.16)">
+   906→   906→                <animate attributeName="opacity" values="1;0.55;1" dur="2.6s" repeatCount="indefinite" />
+   907→   907→              </rect>
+   908→   908→            ) : (
+   909→   909→              <rect x={x} y="30" width="150" height="54" rx="12" fill="rgba(245,158,11,.14)" />
+   910→   910→            )}
+   911→   911→            <text x={x + 12} y="50" fontFamily="monospace" fontSize="9" fill="#ffd9ae">prev: {b.prev}</text>
+   912→   912→            <text x={x + 12} y="72" fontFamily="monospace" fontSize="9" fill="#ffd9ae">hash: {b.hash}</text>
+   913→   913→            <text x={x + 12} y="106" fontSize="9" fontWeight="800" letterSpacing="1.5" fill="#f5c889">TX</text>
+   914→   914→            <text x={x + 12} y="126" fontFamily="monospace" fontSize="9" fill="#e9d7bf">{b.tx}</text>
+   915→   915→            {i < blocks.length - 1 ? (
+   916→   916→              <g>
+   917→   917→                <line x1={x + 152} y1="95" x2={x + 194} y2="95" stroke="#f5c889" strokeWidth="2" markerEnd="url(#m6ch)" />
+   918→   918→                <text x={x + 173} y="118" textAnchor="middle" fontSize="8" fill="#b98d5f">prev hash</text>
+   919→   919→              </g>
+   920→   920→            ) : null}
+   921→   921→            {i === 0 ? (
+   922→   922→              <text x={x + 75} y="182" textAnchor="middle" fontSize="9" fontWeight="700" fill="#b98d5f">genesis · prev = NULL</text>
+   923→   923→            ) : null}
+   924→   924→          </motion.g>
+   925→   925→        );
+   926→   926→      })}
+   927→   927→    </svg>
+   928→   928→  );
+   929→   929→}
+   930→   930→
+   931→   931→/* ============================================================
+   932→   932→   BLOCKCHAIN — interactive tamper demo (the showpiece)
+   933→   933→   ============================================================ */
+   934→   934→function TamperDemo() {
+   935→   935→  const [tampered, setTampered] = useState(false);
+   936→   936→
+   937→   937→  const blockCls = (bad: boolean) =>
+   938→   938→    `relative flex-1 rounded-xl border p-4 transition-colors duration-300 ${
+   939→   939→      bad
+   940→   940→        ? "border-[rgba(190,74,74,.65)] bg-[rgba(190,74,74,.12)]"
+   941→   941→        : "border-[rgba(245,158,11,.3)] bg-[rgba(43,27,16,.55)]"
+   942→   942→    }`;
+   943→   943→
+   944→   944→  return (
+   945→   945→    <div
+   946→   946→      className="rounded-2xl border p-5 transition-colors duration-300 md:p-7"
+   947→   947→      style={{
+   948→   948→        borderColor: tampered ? "rgba(190,74,74,.5)" : "rgba(255,214,160,.18)",
+   949→   949→        background: "rgba(43,27,16,.5)",
+   950→   950→      }}
+   951→   951→    >
+   952→   952→      <div className="flex flex-wrap items-center gap-3">
+   953→   953→        <div>
+   954→   954→          <p className="text-[.7rem] font-extrabold uppercase tracking-[.2em] text-[#b98d5f]">live demo</p>
+   955→   955→          <h4 className="text-lg font-bold text-[#f5e6cd]">Try to cheat the chain</h4>
+   956→   956→        </div>
+   957→   957→        <div className="ml-auto flex gap-2">
+   958→   958→          <button
+   959→   959→            type="button"
+   960→   960→            onClick={() => setTampered(true)}
+   961→   961→            disabled={tampered}
+   962→   962→            aria-label="Tamper with block 2 — change its transactions"
+   963→   963→            className="flex items-center gap-1.5 rounded-full px-4 py-2 text-[.8rem] font-bold transition-all duration-200 disabled:cursor-default disabled:opacity-50"
+   964→   964→            style={{ background: "linear-gradient(135deg,#be4a4a,#8c2f2f)", color: "#fff7ec" }}
+   965→   965→          >
+   966→   966→            <AlertTriangle className="h-3.5 w-3.5" /> Tamper block 2
+   967→   967→          </button>
+   968→   968→          {tampered ? (
+   969→   969→            <button
+   970→   970→              type="button"
+   971→   971→              onClick={() => setTampered(false)}
+   972→   972→              aria-label="Reset the chain to a valid state"
+   973→   973→              className="flex items-center gap-1.5 rounded-full border border-[rgba(245,158,11,.4)] px-4 py-2 text-[.8rem] font-bold text-[#f5c889] transition-colors hover:border-[#f5c889]"
+   974→   974→            >
+   975→   975→              <RotateCcw className="h-3.5 w-3.5" /> Reset
+   976→   976→            </button>
+   977→   977→          ) : null}
+   978→   978→        </div>
+   979→   979→      </div>
+   980→   980→
+   981→   981→      <div className="mt-5 flex flex-col items-stretch gap-3 lg:flex-row lg:items-center">
+   982→   982→        {/* block 1 */}
+   983→   983→        <div className={blockCls(false)}>
+   984→   984→          <p className="text-[.66rem] font-extrabold uppercase tracking-[.18em] text-[#f5c889]">block 1 · genesis</p>
+   985→   985→          <p className="mt-2 font-mono text-[.78rem] text-[#e9d7bf]">prev : <span className="text-[#b98d5f]">NULL</span></p>
+   986→   986→          <p className="font-mono text-[.78rem] text-[#e9d7bf]">hash : <span className="text-[#ffd9ae]">H1</span></p>
+   987→   987→          <p className="mt-2 font-mono text-[.76rem] text-[#cbb392]">Tx: Ama → Bao · 1.0</p>
+   988→   988→        </div>
+   989→   989→        <Conn bad={false} />
+   990→   990→        {/* block 2 */}
+   991→   991→        <div className={blockCls(tampered)}>
+   992→   992→          {tampered ? (
+   993→   993→            <span className="absolute -top-2.5 right-3 rounded-full bg-[#be4a4a] px-2 py-0.5 text-[.6rem] font-extrabold uppercase tracking-wider text-white">
+   994→   994→              tampered
+   995→   995→            </span>
+   996→   996→          ) : null}
+   997→   997→          <p className="text-[.66rem] font-extrabold uppercase tracking-[.18em] text-[#f5c889]">block 2</p>
+   998→   998→          <p className="mt-2 font-mono text-[.78rem] text-[#e9d7bf]">prev : <span className="text-[#ffd9ae]">H1</span> <span className="text-[#7c9a3e]">✓</span></p>
+   999→   999→          <p className="font-mono text-[.78rem]">
+  1000→  1000→            <span className="text-[#e9d7bf]">hash : </span>
+  1001→  1001→            {tampered ? (
+  1002→  1002→              <span className="anim-pop text-[#f0a8a8]">H2′</span>
+  1003→  1003→            ) : (
+  1004→  1004→              <span className="text-[#ffd9ae]">H2</span>
+  1005→  1005→            )}
+  1006→  1006→          </p>
+  1007→  1007→          <p className="mt-2 font-mono text-[.76rem]">
+  1008→  1008→            <span className={tampered ? "text-[#f0a8a8]" : "text-[#cbb392]"}>
+  1009→  1009→              {tampered ? "Tx: Transactions++" : "Tx: Bao → Cy · 0.4"}
+  1010→  1010→            </span>
+  1011→  1011→          </p>
+  1012→  1012→        </div>
+  1013→  1013→        <Conn bad={tampered} />
+  1014→  1014→        {/* block 3 */}
+  1015→  1015→        <div className={blockCls(tampered)}>
+  1016→  1016→          <p className="text-[.66rem] font-extrabold uppercase tracking-[.18em] text-[#f5c889]">block 3</p>
+  1017→  1017→          <p className="mt-2 font-mono text-[.78rem]">
+  1018→  1018→            <span className="text-[#e9d7bf]">prev : </span>
+  1019→  1019→            <span className="text-[#ffd9ae]">H2</span>
+  1020→  1020→            {tampered ? <span className="anim-pop ml-1 text-[#f0a8a8]">≠ H2′ !</span> : <span className="text-[#7c9a3e]"> ✓</span>}
+  1021→  1021→          </p>
+  1022→  1022→          <p className="font-mono text-[.78rem] text-[#e9d7bf]">hash : <span className="text-[#ffd9ae]">H3</span></p>
+  1023→  1023→          <p className="mt-2 font-mono text-[.76rem] text-[#cbb392]">Tx: Cy → Di · 2.2</p>
+  1024→  1024→        </div>
+  1025→  1025→      </div>
+  1026→  1026→
+  1027→  1027→      <AnimatePresence>
+  1028→  1028→        {tampered ? (
+  1029→  1029→          <motion.div
+  1030→  1030→            key="tamper-banner"
+  1031→  1031→            initial={{ opacity: 0, y: 12 }}
+  1032→  1032→            animate={{ opacity: 1, y: 0 }}
+  1033→  1033→            exit={{ opacity: 0, y: 8 }}
+  1034→  1034→            transition={{ duration: 0.25 }}
+  1035→  1035→            role="status"
+  1036→  1036→            className="mt-5 flex items-start gap-3 rounded-xl border p-4"
+  1037→  1037→            style={{ borderColor: "rgba(190,74,74,.55)", background: "rgba(190,74,74,.12)" }}
+  1038→  1038→          >
+  1039→  1039→            <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" style={{ color: "#f0a8a8" }} />
+  1040→  1040→            <p className="text-[.88rem] font-semibold leading-relaxed text-[#ffd9c9]">
+  1041→  1041→              One changed block changes its hash → the missing link exposes tampering instantly.
+  1042→  1042→              Block 3 expected <span className="font-mono">H2</span> but block 2 now hashes to{" "}
+  1043→  1043→              <span className="font-mono">H2′</span> — the chain refuses to accept it.
+  1044→  1044→            </p>
+  1045→  1045→          </motion.div>
+  1046→  1046→        ) : null}
+  1047→  1047→      </AnimatePresence>
+  1048→  1048→    </div>
+  1049→  1049→  );
+  1050→  1050→}
+  1051→  1051→
+  1052→  1052→function Conn({ bad }: { bad: boolean }) {
+  1053→  1053→  return (
+  1054→  1054→    <div className="flex flex-col items-center gap-1 lg:w-16">
+  1055→  1055→      {bad ? <Link2Off className="h-4 w-4" style={{ color: "#f0a8a8" }} aria-label="broken link" /> : null}
+  1056→  1056→      <svg viewBox="0 0 64 16" className="h-4 w-14" aria-hidden>
+  1057→  1057→        <line x1="2" y1="8" x2="50" y2="8" stroke={bad ? "#f0a8a8" : "#f5c889"} strokeWidth="2.5" />
+  1058→  1058→        <path d="M46 2 L58 8 L46 14" stroke={bad ? "#f0a8a8" : "#f5c889"} strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+  1059→  1059→      </svg>
+  1060→  1060→      <span className="text-[.6rem] font-bold uppercase tracking-wider" style={{ color: bad ? "#f0a8a8" : "#b98d5f" }}>
+  1061→  1061→        {bad ? "broken" : "links"}
+  1062→  1062→      </span>
+  1063→  1063→    </div>
+  1064→  1064→  );
+  1065→  1065→}
+  1066→  1066→
+  1067→  1067→/* ============================================================
+  1068→  1068→   BLOCKCHAIN — Merkle tree, comparison table, network SVG
+  1069→  1069→   ============================================================ */
+  1070→  1070→function MerkleSVG() {
+  1071→  1071→  const leaves = [
+  1072→  1072→    { x: 70, t: "H1" },
+  1073→  1073→    { x: 165, t: "H2" },
+  1074→  1074→    { x: 260, t: "H3" },
+  1075→  1075→    { x: 380, t: "H4" },
+  1076→  1076→    { x: 475, t: "H5" },
+  1077→  1077→    { x: 570, t: "H6" },
+  1078→  1078→  ];
+  1079→  1079→  return (
+  1080→  1080→    <svg
+  1081→  1081→      viewBox="0 0 640 276"
+  1082→  1082→      className="mx-auto h-auto w-full max-w-2xl"
+  1083→  1083→      role="img"
+  1084→  1084→      aria-label="Merkle tree: transaction hashes H1 to H6 are paired up into H123 and H456, which hash to the single root H123456 stored in the block header"
+  1085→  1085→    >
+  1086→  1086→      <line x1="70" y1="210" x2="180" y2="146" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1087→  1087→      <line x1="165" y1="210" x2="180" y2="146" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1088→  1088→      <line x1="260" y1="210" x2="180" y2="146" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1089→  1089→      <line x1="380" y1="210" x2="460" y2="146" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1090→  1090→      <line x1="475" y1="210" x2="460" y2="146" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1091→  1091→      <line x1="570" y1="210" x2="460" y2="146" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1092→  1092→      <line x1="180" y1="130" x2="320" y2="62" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1093→  1093→      <line x1="460" y1="130" x2="320" y2="62" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1094→  1094→      {leaves.map((l) => (
+  1095→  1095→        <g key={l.t}>
+  1096→  1096→          <circle cx={l.x} cy="225" r="15" fill="rgba(255,246,232,.09)" stroke="rgba(245,158,11,.4)" strokeWidth="2" />
+  1097→  1097→          <text x={l.x} y="229" textAnchor="middle" fontSize="9" fontWeight="800" fill="#f5e6cd">{l.t}</text>
+  1098→  1098→        </g>
+  1099→  1099→      ))}
+  1100→  1100→      <circle cx="180" cy="130" r="19" fill="#b45309" />
+  1101→  1101→      <text x="180" y="134" textAnchor="middle" fontSize="9" fontWeight="800" fill="#fff7ec">H123</text>
+  1102→  1102→      <circle cx="460" cy="130" r="19" fill="#b45309" />
+  1103→  1103→      <text x="460" y="134" textAnchor="middle" fontSize="9" fontWeight="800" fill="#fff7ec">H456</text>
+  1104→  1104→      <circle cx="320" cy="46" r="23" fill="#ea580c" />
+  1105→  1105→      <text x="320" y="50" textAnchor="middle" fontSize="9" fontWeight="800" fill="#fff7ec">H123456</text>
+  1106→  1106→      <text x="320" y="14" textAnchor="middle" fontSize="10" fontWeight="800" letterSpacing="1.5" fill="#f5c889">MERKLE ROOT — stored in the header</text>
+  1107→  1107→      <text x="320" y="266" textAnchor="middle" fontSize="9" fill="#b98d5f">H1…H6 = hash of each transaction · pair them, hash again, up to one root</text>
+  1108→  1108→    </svg>
+  1109→  1109→  );
+  1110→  1110→}
+  1111→  1111→
+  1112→  1112→const BC_ROWS = [
+  1113→  1113→  { f: "Connects via", ll: "a pointer / reference to the NEXT node", bc: "the HASH OF THE PREVIOUS BLOCK" },
+  1114→  1114→  { f: "The link is", ll: "a memory address", bc: "a cryptographic hash" },
+  1115→  1115→  { f: "Lives on", ll: "ONE computer", bc: "blocks stored across the nodes of a NETWORK" },
+  1116→  1116→];
+  1117→  1117→
+  1118→  1118→function NodeNetworkSVG() {
+  1119→  1119→  const nodes: [number, number][] = [
+  1120→  1120→    [80, 60],
+  1121→  1121→    [230, 36],
+  1122→  1122→    [380, 70],
+  1123→  1123→    [120, 160],
+  1124→  1124→    [300, 150],
+  1125→  1125→    [410, 180],
+  1126→  1126→  ];
+  1127→  1127→  const links: [number, number][] = [
+  1128→  1128→    [0, 1],
+  1129→  1129→    [1, 2],
+  1130→  1130→    [0, 3],
+  1131→  1131→    [1, 4],
+  1132→  1132→    [2, 4],
+  1133→  1133→    [3, 4],
+  1134→  1134→    [2, 5],
+  1135→  1135→    [4, 5],
+  1136→  1136→  ];
+  1137→  1137→  return (
+  1138→  1138→    <svg
+  1139→  1139→      viewBox="0 0 460 214"
+  1140→  1140→      className="mx-auto h-auto w-full max-w-md"
+  1141→  1141→      role="img"
+  1142→  1142→      aria-label="A decentralised peer network: every node holds a copy of the chain and talks to its peers"
+  1143→  1143→    >
+  1144→  1144→      {links.map(([a, b], i) => (
+  1145→  1145→        <line key={i} x1={nodes[a][0]} y1={nodes[a][1]} x2={nodes[b][0]} y2={nodes[b][1]} stroke="rgba(201,154,91,.5)" strokeWidth="2" />
+  1146→  1146→      ))}
+  1147→  1147→      {nodes.map(([x, y], i) => (
+  1148→  1148→        <g key={i}>
+  1149→  1149→          {i === 4 ? <circle cx={x} cy={y} r="21" fill="none" stroke="#ea580c" strokeWidth="2" strokeDasharray="5 4" /> : null}
+  1150→  1150→          <circle cx={x} cy={y} r="14" fill={i === 4 ? "#ea580c" : "rgba(255,246,232,.09)"} stroke={i === 4 ? "#ea580c" : "rgba(245,158,11,.45)"} strokeWidth="2" />
+  1151→  1151→        </g>
+  1152→  1152→      ))}
+  1153→  1153→      <text x="300" y="196" textAnchor="middle" fontSize="10" fontWeight="800" fill="#f5c889">your node</text>
+  1154→  1154→    </svg>
+  1155→  1155→  );
+  1156→  1156→}
+  1157→  1157→
+  1158→  1158→/* ============================================================
+  1159→  1159→   BLOCKCHAIN — section
+  1160→  1160→   ============================================================ */
+  1161→  1161→const BC_APPS = [
+  1162→  1162→  { icon: Coins, name: "Cryptocurrencies", desc: "secure, decentralised transfer of value — Bitcoin runs on exactly this chain" },
+  1163→  1163→  { icon: ScrollText, name: "Smart contracts", desc: "programs that auto-execute when predefined conditions are met — no middleman" },
+  1164→  1164→  { icon: Landmark, name: "Revenue & land records", desc: "tamper-resistant ownership trails that cannot be quietly rewritten" },
+  1165→  1165→  { icon: HeartPulse, name: "Health records", desc: "integrity plus access control — the history of a file is provable" },
+  1166→  1166→];
+  1167→  1167→
+  1168→  1168→export function AtbBlockchainSection() {
+  1169→  1169→  return (
+  1170→  1170→    <Section id="blockchain" dark>
+  1171→  1171→      <SectionHead
+  1172→  1172→        dark
+  1173→  1173→        eyebrow="Lecture 6 · Blockchain"
+  1174→  1174→        title={
+  1175→  1175→          <>
+  1176→  1176→            Blockchain — <span className="grad-text">a linked list that guards itself</span>
+  1177→  1177→          </>
+  1178→  1178→        }
+  1179→  1179→        lead="Take a linked list, swap memory pointers for hashes, and spread the copies across a network. The result is a ledger where quietly editing the past is mathematically impossible."
+  1180→  1180→      />
+  1181→  1181→
+  1182→  1182→      <ReadStep dark n="1" title="Recall the linked list — then upgrade it" sub="Same shape, stronger glue" />
+  1183→  1183→      <div className="grid gap-5 md:grid-cols-2">
+  1184→  1184→        <Reveal>
+  1185→  1185→          <div className="card-warm h-full p-6">
+  1186→  1186→            <div className="flex items-center gap-2">
+  1187→  1187→              <Link className="h-4.5 w-4.5" style={{ color: "#f5c889" }} />
+  1188→  1188→              <h4 className="text-[.95rem] font-bold text-[#f5e6cd]">Linked list node</h4>
+  1189→  1189→            </div>
+  1190→  1190→            <p className="mt-3 text-[.88rem] leading-relaxed text-[#e9d7bf]">
+  1191→  1191→              Each node stores data plus a pointer that links to the <strong>NEXT</strong> item —
+  1192→  1192→              in practice, a <strong>memory address</strong>. Useful, but nothing about it proves the data is untouched.
+  1193→  1193→            </p>
+  1194→  1194→          </div>
+  1195→  1195→        </Reveal>
+  1196→  1196→        <Reveal delay={100}>
+  1197→  1197→          <div className="card-warm h-full p-6" style={{ borderColor: "rgba(234,88,12,.4)" }}>
+  1198→  1198→            <div className="flex items-center gap-2">
+  1199→  1199→              <ShieldCheck className="h-4.5 w-4.5" style={{ color: "#f5c889" }} />
+  1200→  1200→              <h4 className="text-[.95rem] font-bold text-[#f5e6cd]">Blockchain block</h4>
+  1201→  1201→            </div>
+  1202→  1202→            <p className="mt-3 text-[.88rem] leading-relaxed text-[#e9d7bf]">
+  1203→  1203→              Each block stores <strong>transactions</strong>, its own hash, and the{" "}
+  1204→  1204→              <strong>HASH OF THE PREVIOUS BLOCK</strong> — cryptographic glue instead of memory
+  1205→  1205→              addresses. The pointer becomes a <strong>seal</strong>.
+  1206→  1206→            </p>
+  1207→  1207→          </div>
+  1208→  1208→        </Reveal>
+  1209→  1209→      </div>
+  1210→  1210→
+  1211→  1211→      <ReadStep dark n="2" title="Anatomy of a block — and the growing chain" sub="Header seals the past; the body carries the transactions" />
+  1212→  1212→      <Reveal>
+  1213→  1213→        <div className="card-warm p-5 md:p-7">
+  1214→  1214→          <BlockAnatomySVG />
+  1215→  1215→          <div className="mt-6">
+  1216→  1216→            <ChainGrowSVG />
+  1217→  1217→          </div>
+  1218→  1218→          <p className="mt-4 text-center text-[.84rem] text-[#cbb392]">
+  1219→  1219→            Genesis block: <span className="font-mono text-[#ffd9ae]">prev = NULL, hash H1</span> — then every
+  1220→  1220→            new block stores the hash of the one before it.
+  1221→  1221→          </p>
+  1222→  1222→        </div>
+  1223→  1223→      </Reveal>
+  1224→  1224→      <Reveal className="mt-5">
+  1225→  1225→        <Callout dark kind="why" title="The append-only rule">
+  1226→  1226→          You <strong>never delete or edit</strong> a block. Something new happened? A{" "}
+  1227→  1227→          <strong>NEW block is added</strong> carrying the new transactions. The old blocks stay
+  1228→  1228→          exactly as they were — that is what makes history auditable.
+  1229→  1229→        </Callout>
+  1230→  1230→      </Reveal>
+  1231→  1231→
+  1232→  1232→      <ReadStep dark n="3" title="Break it yourself — the tamper demo" sub="Change one block&apos;s transactions and watch the chain catch fire" />
+  1233→  1233→      <Reveal>
+  1234→  1234→        <TamperDemo />
+  1235→  1235→      </Reveal>
+  1236→  1236→
+  1237→  1237→      <ReadStep dark n="4" title="A Merkle tree lives inside" sub="Proving the TRANSACTIONS were not edited" />
+  1238→  1238→      <div className="grid gap-5 lg:grid-cols-2">
+  1239→  1239→        <Reveal>
+  1240→  1240→          <div className="card-warm p-5">
+  1241→  1241→            <MerkleSVG />
+  1242→  1242→          </div>
+  1243→  1243→        </Reveal>
+  1244→  1244→        <Reveal delay={100}>
+  1245→  1245→          <div className="card-warm flex h-full flex-col justify-center gap-3 p-6">
+  1246→  1246→            <p className="text-[.9rem] leading-relaxed text-[#e9d7bf]">
+  1247→  1247→              The header stores the <strong>root of a Merkle tree</strong>: hash every transaction
+  1248→  1248→              (H1…H6), pair the hashes and hash again (H123, H456), until one{" "}
+  1249→  1249→              <strong>root (H123456)</strong> remains.
+  1250→  1250→            </p>
+  1251→  1251→            <p className="text-[.9rem] leading-relaxed text-[#e9d7bf]">
+  1252→  1252→              Edit <em>any</em> transaction and its leaf hash changes — which changes the pair, which
+  1253→  1253→              changes the root. <strong>The header no longer matches, and the tampering is exposed.</strong>
+  1254→  1254→            </p>
+  1255→  1255→            <div className="rounded-xl border border-[rgba(245,158,11,.2)] bg-[rgba(43,27,16,.5)] p-4 text-[.84rem] leading-relaxed text-[#cbb392]">
+  1256→  1256→              One root summarizes thousands of transactions — that is how a light wallet verifies a
+  1257→  1257→              huge block without downloading it all.
+  1258→  1258→            </div>
+  1259→  1259→          </div>
+  1260→  1260→        </Reveal>
+  1261→  1261→      </div>
+  1262→  1262→
+  1263→  1263→      <ReadStep dark n="5" title="Blockchain vs linked list" sub="Three rows that summarise the whole upgrade" />
+  1264→  1264→      <Reveal>
+  1265→  1265→        <div className="card-warm overflow-x-auto p-4 md:p-6">
+  1266→  1266→          <table className="w-full min-w-[560px] border-separate" style={{ borderSpacing: 0 }}>
+  1267→  1267→            <thead>
+  1268→  1268→              <tr>
+  1269→  1269→                {["", "Linked list", "Blockchain"].map((h, i) => (
+  1270→  1270→                  <th
+  1271→  1271→                    key={h}
+  1272→  1272→                    className="px-4 py-3 text-left text-[.72rem] font-extrabold uppercase tracking-[.16em]"
+  1273→  1273→                    style={{
+  1274→  1274→                      color: "#f5c889",
+  1275→  1275→                      background: "rgba(245,158,11,.12)",
+  1276→  1276→                      borderTop: "1px solid rgba(245,158,11,.25)",
+  1277→  1277→                      borderTopLeftRadius: i === 0 ? ".7rem" : 0,
+  1278→  1278→                      borderTopRightRadius: i === 2 ? ".7rem" : 0,
+  1279→  1279→                      borderBottom: "1px solid rgba(245,158,11,.25)",
+  1280→  1280→                    }}
+  1281→  1281→                  >
+  1282→  1282→                    {h}
+  1283→  1283→                  </th>
+  1284→  1284→                ))}
+  1285→  1285→              </tr>
+  1286→  1286→            </thead>
+  1287→  1287→            <tbody>
+  1288→  1288→              {BC_ROWS.map((r, ri) => (
+  1289→  1289→                <tr key={r.f}>
+  1290→  1290→                  {[
+  1291→  1291→                    <span key="f" className="font-bold text-[#f5c889]">{r.f}</span>,
+  1292→  1292→                    <span key="ll" className="text-[#e9d7bf]">{r.ll}</span>,
+  1293→  1293→                    <span key="bc" className="font-semibold text-[#ffd9ae]">{r.bc}</span>,
+  1294→  1294→                  ].map((cell, ci) => (
+  1295→  1295→                    <td
+  1296→  1296→                      key={ci}
+  1297→  1297→                      className="px-4 py-3 align-top text-[.86rem] leading-relaxed"
+  1298→  1298→                      style={{
+  1299→  1299→                        background: "rgba(255,246,232,.04)",
+  1300→  1300→                        borderBottom: "1px solid rgba(255,214,160,.14)",
+  1301→  1301→                        borderLeft: ci === 0 ? "1px solid rgba(255,214,160,.14)" : undefined,
+  1302→  1302→                        borderRight: ci === 2 ? "1px solid rgba(255,214,160,.14)" : undefined,
+  1303→  1303→                        borderRadius: ri === BC_ROWS.length - 1 && ci === 0 ? "0 0 0 .7rem" : undefined,
+  1304→  1304→                      }}
+  1305→  1305→                    >
+  1306→  1306→                      {cell}
+  1307→  1307→                    </td>
+  1308→  1308→                  ))}
+  1309→  1309→                </tr>
+  1310→  1310→              ))}
+  1311→  1311→            </tbody>
+  1312→  1312→          </table>
+  1313→  1313→        </div>
+  1314→  1314→      </Reveal>
+  1315→  1315→
+  1316→  1316→      <ReadStep dark n="6" title="Decentralised — many nodes, one agreement" sub="Nobody owns the chain; everyone verifies it" />
+  1317→  1317→      <div className="grid gap-5 lg:grid-cols-2">
+  1318→  1318→        <Reveal>
+  1319→  1319→          <div className="card-warm p-5">
+  1320→  1320→            <NodeNetworkSVG />
+  1321→  1321→          </div>
+  1322→  1322→        </Reveal>
+  1323→  1323→        <Reveal delay={100}>
+  1324→  1324→          <div className="card-warm flex h-full flex-col gap-3 p-6">
+  1325→  1325→            <p className="text-[.9rem] leading-relaxed text-[#e9d7bf]">
+  1326→  1326→              The blockchain lives on <strong>many nodes</strong> at once. Before a new block joins,
+  1327→  1327→              the nodes must <strong>AGREE that it is valid</strong> — that agreement is the{" "}
+  1328→  1328→              <strong>consensus mechanism</strong>.
+  1329→  1329→            </p>
+  1330→  1330→            <ul className="grid gap-2">
+  1331→  1331→              {[
+  1332→  1332→                "follows the protocol",
+  1333→  1333→                "connects to other nodes",
+  1334→  1334→                "uses cryptographic keys / identities",
+  1335→  1335→                "validates · stores · shares blocks",
+  1336→  1336→              ].map((d) => (
+  1337→  1337→                <li key={d} className="flex items-center gap-3 rounded-xl border border-[rgba(245,158,11,.18)] bg-[rgba(43,27,16,.5)] px-3.5 py-2.5">
+  1338→  1338→                  <Check className="h-4 w-4 shrink-0" style={{ color: "#f5c889" }} />
+  1339→  1339→                  <span className="text-[.86rem] text-[#e9d7bf]">{d}</span>
+  1340→  1340→                </li>
+  1341→  1341→              ))}
+  1342→  1342→            </ul>
+  1343→  1343→            <p className="mt-auto text-[.82rem] leading-relaxed text-[#cbb392]">
+  1344→  1344→              A node is just a computer playing by the rules — but <strong>all of them together</strong>{" "}
+  1345→  1345→              make rewriting history pointless.
+  1346→  1346→            </p>
+  1347→  1347→          </div>
+  1348→  1348→        </Reveal>
+  1349→  1349→      </div>
+  1350→  1350→
+  1351→  1351→      <ReadStep dark n="7" title="Where blockchains go to work" sub="Four applications you can explain in a meeting" />
+  1352→  1352→      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  1353→  1353→        {BC_APPS.map((a, i) => (
+  1354→  1354→          <Reveal key={a.name} delay={i * 60}>
+  1355→  1355→            <div className="card-warm lift h-full p-5">
+  1356→  1356→              <span className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: "rgba(245,158,11,.16)", color: "#f5c889" }}>
+  1357→  1357→                <a.icon className="h-5 w-5" />
+  1358→  1358→              </span>
+  1359→  1359→              <h4 className="mt-3 text-[.92rem] font-bold text-[#f5e6cd]">{a.name}</h4>
+  1360→  1360→              <p className="mt-1.5 text-[.8rem] leading-relaxed text-[#cbb392]">{a.desc}</p>
+  1361→  1361→            </div>
+  1362→  1362→          </Reveal>
+  1363→  1363→        ))}
+  1364→  1364→      </div>
+  1365→  1365→
+  1366→  1366→      <Reveal className="mt-10">
+  1367→  1367→        <Quiz
+  1368→  1368→          q="Editing an old block in a blockchain…"
+  1369→  1369→          options={["is ignored", "changes its hash and breaks the chain", "requires a password", "updates all hashes automatically"]}
+  1370→  1370→          answer={1}
+  1371→  1371→          explain="Changing a block changes its hash — so the next block's stored 'hash of previous block' no longer matches. The chain is visibly broken, and every honest node rejects it."
+  1372→  1372→        />
+  1373→  1373→      </Reveal>
+  1374→  1374→
+  1375→  1375→      <Reveal className="mt-8">
+  1376→  1376→        <Takeaways
+  1377→  1377→          dark
+  1378→  1378→          items={[
+  1379→  1379→            <>Blockchain works <strong>LIKE a linked list</strong> (blocks in sequence) but is <strong>not</strong> one — hashes replace memory pointers.</>,
+  1380→  1380→            <><strong>Hashes connect blocks and guard the data</strong>: each header stores the hash of the previous block.</>,
+  1381→  1381→            <>Blocks store a <strong>Merkle-tree root</strong>, so edited transactions change the root and are detected.</>,
+  1382→  1382→            <>Blocks live on <strong>many network nodes</strong> that must agree a new block is valid (consensus).</>,
+  1383→  1383→            <>Applications: <strong>cryptocurrencies, smart contracts, revenue/land records, health records</strong>.</>,
+  1384→  1384→          ]}
+  1385→  1385→        />
+  1386→  1386→      </Reveal>
+  1387→  1387→    </Section>
+  1388→  1388→  );
+  1389→  1389→}
+  1390→  1390→

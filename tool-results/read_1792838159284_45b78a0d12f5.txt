@@ -1,0 +1,662 @@
+     1→"use client";
+     2→
+     3→import { PartBoundary } from "@/components/notes/PartBoundary";
+     4→import { useDialogA11y } from "@/components/notes/exam-runtime";
+     5→
+     6→import React, { useEffect, useRef, useState } from "react";
+     7→import { AnimatePresence, motion } from "framer-motion";
+     8→import { Compass, Menu, X, ChevronDown, BookOpenText, FlaskConical, PenLine, Map } from "lucide-react";
+     9→import { PyReadyToast } from "@/components/notes/ui";
+    10→import { PythonLab } from "@/components/notes/Playground";
+    11→import { ExamWindow } from "@/components/notes/ExamWindow";
+    12→import { EXAM_BANKS, EXAM_GROUPS, TOTAL_QUESTIONS, type ExamGroup } from "@/components/notes/questions";
+    13→import { Hero, WhySection, ComputingSection, PillarsSection } from "@/components/notes/Part1";
+    14→import { DataSection } from "@/components/notes/Part2";
+    15→import { AlgorithmSection, HardwareSection } from "@/components/notes/Part3";
+    16→import { SoftwareSection, ProgrammingSection } from "@/components/notes/Part4";
+    17→import { BasicsSection, ListsSection } from "@/components/notes/Part5";
+    18→import { IfSection, DictsSection } from "@/components/notes/Part6";
+    19→import { WhileSection, FunctionsSection, Footer } from "@/components/notes/Part7";
+    20→import { ArgsSection } from "@/components/notes/Part8";
+    21→import { FuncsScaleSection } from "@/components/notes/Part9";
+    22→import { ClassesSection } from "@/components/notes/Part10";
+    23→
+    24→/* ============================================================
+    25→   FocApp — the complete "Foundations of Computing" revision
+    26→   companion, registered as shelf 01 of THE ATLAS.
+    27→
+    28→   Formerly src/app/page.tsx; now mounted by the Atlas router
+    29→   (src/app/page.tsx) when the reader enters this subject.
+    30→   `onExitAtlas` returns the reader to the Atlas landing page.
+    31→   ============================================================ */
+    32→
+    33→/* ============================================================
+    34→   Structured chapter map — the top bar is organised into
+    35→   four groups instead of a flat 17-chip strip. Each group owns
+    36→   a "Test my knowledge" exam window (see questions.ts).
+    37→   ============================================================ */
+    38→const GROUPS: {
+    39→  id: ExamGroup;
+    40→  label: string;
+    41→  items: { id: string; label: string; desc: string }[];
+    42→}[] = [
+    43→  {
+    44→    id: "foundations",
+    45→    label: "Foundations",
+    46→    items: [
+    47→      { id: "why", label: "Why code?", desc: "What programming actually unlocks" },
+    48→      { id: "computing", label: "Computing", desc: "Input → process → output, everywhere" },
+    49→      { id: "pillars", label: "4 Pillars", desc: "Decompose · patterns · abstraction · algorithms" },
+    50→      { id: "data", label: "Data", desc: "Data → information → knowledge → wisdom" },
+    51→    ],
+    52→  },
+    53→  {
+    54→    id: "machines",
+    55→    label: "Machines",
+    56→    items: [
+    57→      { id: "algorithm", label: "Algorithms", desc: "Recipes a machine can follow" },
+    58→      { id: "hardware", label: "Hardware", desc: "CPU, memory, sensors & I/O" },
+    59→      { id: "software", label: "Software", desc: "OS, apps, compilers & interpreters" },
+    60→    ],
+    61→  },
+    62→  {
+    63→    id: "pycore",
+    64→    label: "Python Core",
+    65→    items: [
+    66→      { id: "python", label: "Python", desc: "Meet the language" },
+    67→      { id: "basics", label: "Basics", desc: "Variables, strings, numbers, input" },
+    68→      { id: "lists", label: "Lists", desc: "Ordered collections, slices, tuples" },
+    69→      { id: "if", label: "If / Else", desc: "Decisions, comparisons, logic" },
+    70→      { id: "dicts", label: "Dictionaries", desc: "Key–value pairs & nesting" },
+    71→      { id: "while", label: "While Loops", desc: "Repeat until the job is done" },
+    72→    ],
+    73→  },
+    74→  {
+    75→    id: "pro",
+    76→    label: "Functions & OOP",
+    77→    items: [
+    78→      { id: "functions", label: "Functions", desc: "Define, call, reuse — first steps" },
+    79→      { id: "args", label: "Args & Return", desc: "Positional, keyword, defaults, return" },
+    80→      { id: "funcs2", label: "Funcs × Lists", desc: "Passing lists, *args, **kwargs, modules" },
+    81→      { id: "classes", label: "Classes", desc: "Objects, __init__, inheritance" },
+    82→    ],
+    83→  },
+    84→];
+    85→
+    86→const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
+    87→
+    88→function groupOf(id: string): string | null {
+    89→  for (const g of GROUPS) if (g.items.some((i) => i.id === id)) return g.id;
+    90→  return null;
+    91→}
+    92→
+    93→/* ============================================================
+    94→   TopNav — structured chapter menu + Python Lab button +
+    95→   a "Test my knowledge" launcher inside every chapter group.
+    96→
+    97→   PERF: the old version called setProgress()/setActive() on
+    98→   EVERY scroll event, re-rendering the nav dozens of times per
+    99→   second. Now the progress bar is written straight to the DOM
+   100→   through a ref inside a requestAnimationFrame, and React state
+   101→   updates only when the value actually CHANGES.
+   102→   ============================================================ */
+   103→function TopNav({
+   104→  onOpenLab,
+   105→  onOpenExam,
+   106→  onExitAtlas,
+   107→}: {
+   108→  onOpenLab: () => void;
+   109→  onOpenExam: (g: ExamGroup) => void;
+   110→  onExitAtlas: () => void;
+   111→}) {
+   112→  const [active, setActive] = useState<string>("");
+   113→  const [openGroup, setOpenGroup] = useState<string | null>(null);
+   114→  const [mobileOpen, setMobileOpen] = useState(false);
+   115→  const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
+   116→  const [pyReady, setPyReady] = useState(false);
+   117→  const navRef = useRef<HTMLElement>(null);
+   118→  const progressRef = useRef<HTMLDivElement>(null);
+   119→  const activeRef = useRef("");
+   120→
+   121→  useEffect(() => {
+   122→    let ticking = false;
+   123→    const update = () => {
+   124→      ticking = false;
+   125→      const doc = document.documentElement;
+   126→      const total = doc.scrollHeight - doc.clientHeight;
+   127→      const pct = total > 0 ? (doc.scrollTop / total) * 100 : 0;
+   128→      if (progressRef.current) progressRef.current.style.width = `${pct}%`;
+   129→
+   130→      // scroll-spy: only touch React state when the section changes
+   131→      const probe = window.innerHeight * 0.32;
+   132→      let current = "";
+   133→      for (const item of FLAT_ITEMS) {
+   134→        const el = document.getElementById(item.id);
+   135→        if (el && el.getBoundingClientRect().top <= probe) current = item.id;
+   136→      }
+   137→      if (current !== activeRef.current) {
+   138→        activeRef.current = current;
+   139→        setActive(current);
+   140→      }
+   141→    };
+   142→    const onScroll = () => {
+   143→      if (!ticking) {
+   144→        ticking = true;
+   145→        requestAnimationFrame(update);
+   146→      }
+   147→    };
+   148→    update();
+   149→    window.addEventListener("scroll", onScroll, { passive: true });
+   150→    window.addEventListener("resize", onScroll);
+   151→    return () => {
+   152→      window.removeEventListener("scroll", onScroll);
+   153→      window.removeEventListener("resize", onScroll);
+   154→    };
+   155→  }, []);
+   156→
+   157→  // shared Python runtime status
+   158→  useEffect(() => {
+   159→    const onReady = () => setPyReady(true);
+   160→    window.addEventListener("foc-py-ready", onReady);
+   161→    return () => window.removeEventListener("foc-py-ready", onReady);
+   162→  }, []);
+   163→
+   164→  // close dropdown on outside click / Escape
+   165→  useEffect(() => {
+   166→    const onDown = (e: MouseEvent) => {
+   167→      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenGroup(null);
+   168→    };
+   169→    const onKey = (e: KeyboardEvent) => {
+   170→      if (e.key === "Escape") {
+   171→        setOpenGroup(null);
+   172→        setMobileOpen(false);
+   173→      }
+   174→    };
+   175→    document.addEventListener("mousedown", onDown);
+   176→    document.addEventListener("keydown", onKey);
+   177→    return () => {
+   178→      document.removeEventListener("mousedown", onDown);
+   179→      document.removeEventListener("keydown", onKey);
+   180→    };
+   181→  }, []);
+   182→
+   183→  // lock body scroll while the mobile index is open
+   184→  useEffect(() => {
+   185→    document.body.style.overflow = mobileOpen ? "hidden" : "";
+   186→    return () => {
+   187→      document.body.style.overflow = "";
+   188→    };
+   189→  }, [mobileOpen]);
+   190→
+   191→  const activeGroup = active ? groupOf(active) : null;
+   192→
+   193→  return (
+   194→    <nav ref={navRef} aria-label="Chapters" className="fixed inset-x-0 top-0 z-50">
+   195→      <div className="nav-shell">
+   196→        <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-3 sm:px-5">
+   197→          {/* back to The Atlas — the shelf this subject lives on */}
+   198→          <button
+   199→            type="button"
+   200→            onClick={onExitAtlas}
+   201→            title="Back to The Atlas — the subject shelf"
+   202→            aria-label="Back to The Atlas"
+   203→            className="flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3 text-[.64rem] font-extrabold uppercase tracking-[.14em] text-[#8a5f30] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/85 hover:text-[#c2410c]"
+   204→          >
+   205→            <Map className="h-3.5 w-3.5" />
+   206→            <span className="hidden sm:inline">Atlas</span>
+   207→          </button>
+   208→
+   209→          {/* brand — quiet glass chip, Apple-quiet rather than loud gradient */}
+   210→          <a
+   211→            href="#top"
+   212→            className="flex shrink-0 items-center gap-2 rounded-full border border-white/70 bg-white/60 py-1.5 pl-2 pr-3.5 shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/80"
+   213→          >
+   214→            <span
+   215→              className="flex h-6 w-6 items-center justify-center rounded-full text-white"
+   216→              style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)", boxShadow: "0 4px 10px -3px rgba(194,65,12,.55)" }}
+   217→            >
+   218→              <Compass className="h-3.5 w-3.5" />
+   219→            </span>
+   220→            <span className="text-sm font-black tracking-tight text-[#3e2c1d]">FoC Notes</span>
+   221→          </a>
+   222→
+   223→          {/* desktop — grouped chapter menu (all four groups, Python Core
+   224→              included). Opens at lg: below that the bar would overflow once
+   225→              the Python Core group is shown, so narrower screens get the
+   226→              scrolling chip strip + the full-screen index instead. */}
+   227→          <div className="ml-2 hidden flex-1 items-center gap-1 lg:flex">
+   228→            {GROUPS.map((group) => {
+   229→              const isActive = activeGroup === group.id;
+   230→              const open = openGroup === group.id;
+   231→              return (
+   232→                <div
+   233→                  key={group.id}
+   234→                  className="relative"
+   235→                  onMouseEnter={() => setOpenGroup(group.id)}
+   236→                  onMouseLeave={() => setOpenGroup((g) => (g === group.id ? null : g))}
+   237→                >
+   238→                  <button
+   239→                    type="button"
+   240→                    aria-expanded={open}
+   241→                    aria-haspopup="true"
+   242→                    onClick={() => setOpenGroup(group.id)}
+   243→                    onFocus={() => setOpenGroup(group.id)}
+   244→                    className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[.78rem] font-semibold tracking-wide transition-all duration-200 ${
+   245→                      isActive || open
+   246→                        ? "bg-white/80 text-[#c2410c] shadow-[0_4px_16px_-8px_rgba(70,42,15,.4),inset_0_1px_0_rgba(255,255,255,.9)]"
+   247→                        : "text-[#6b563d] hover:bg-white/55 hover:text-[#3e2c1d] hover:shadow-[inset_0_1px_0_rgba(255,255,255,.9)]"
+   248→                    }`}
+   249→                  >
+   250→                    {group.label}
+   251→                    <span className="text-[.58rem] font-extrabold opacity-45">{String(group.items.length).padStart(2, "0")}</span>
+   252→                    <ChevronDown className={`h-3 w-3 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+   253→                  </button>
+   254→
+   255→                  <AnimatePresence>
+   256→                    {open ? (
+   257→                      <motion.div
+   258→                        key={`${group.id}-panel`}
+   259→                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+   260→                        animate={{ opacity: 1, y: 0, scale: 1 }}
+   261→                        exit={{ opacity: 0, y: 6, scale: 0.98 }}
+   262→                        transition={{ duration: 0.16, ease: "easeOut" }}
+   263→                        className="absolute left-1/2 top-full z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 pt-2"
+   264→                      >
+   265→                        <div
+   266→                          className="overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-1.5 backdrop-blur-2xl"
+   267→                          style={{
+   268→                            WebkitBackdropFilter: "blur(28px) saturate(170%)",
+   269→                            backdropFilter: "blur(28px) saturate(170%)",
+   270→                            boxShadow: "0 24px 70px -18px rgba(50,30,10,.4), inset 0 1px 0 rgba(255,255,255,.85)",
+   271→                          }}
+   272→                        >
+   273→                          <p className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 text-[.58rem] font-extrabold uppercase tracking-[.22em] text-[#b08b5c]">
+   274→                            <BookOpenText className="h-3 w-3" />
+   275→                            {group.label}
+   276→                          </p>
+   277→                          {group.items.map((item, i) => {
+   278→                            const isActiveItem = active === item.id;
+   279→                            return (
+   280→                              <a
+   281→                                key={item.id}
+   282→                                href={`#${item.id}`}
+   283→                                onClick={() => setOpenGroup(null)}
+   284→                                className={`group flex items-start gap-3 rounded-xl px-3 py-2 transition-colors duration-150 ${
+   285→                                  isActiveItem ? "bg-[#ea580c]/[.08]" : "hover:bg-[#3e2c1d]/[.05]"
+   286→                                }`}
+   287→                              >
+   288→                                <span
+   289→                                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[.58rem] font-black ${
+   290→                                    isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#b08b5c]"
+   291→                                  }`}
+   292→                                  style={isActiveItem ? { background: "linear-gradient(135deg,#ea580c,#c2410c)" } : undefined}
+   293→                                >
+   294→                                  {String(i + 1).padStart(2, "0")}
+   295→                                </span>
+   296→                                <span className="min-w-0">
+   297→                                  <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#c2410c]" : "text-[#3e2c1d]"}`}>
+   298→                                    {item.label}
+   299→                                  </span>
+   300→                                  <span className="mt-0.5 block text-[.7rem] leading-snug text-[#a08568]">{item.desc}</span>
+   301→                                </span>
+   302→                                {isActiveItem ? <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#c2410c" }} /> : null}
+   303→                              </a>
+   304→                            );
+   305→                          })}
+   306→
+   307→                          {/* Test my knowledge — opens the exam window for this group */}
+   308→                          <div className="mt-1 border-t border-[#f0e2c8] p-1.5">
+   309→                            <button
+   310→                              type="button"
+   311→                              onClick={() => {
+   312→                                setOpenGroup(null);
+   313→                                onOpenExam(group.id);
+   314→                              }}
+   315→                              className="group/exam flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors duration-150 hover:bg-[#3e2c1d]/[.05]"
+   316→                            >
+   317→                              <span
+   318→                                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+   319→                                style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)" }}
+   320→                              >
+   321→                                <PenLine className="h-3.5 w-3.5" />
+   322→                              </span>
+   323→                              <span className="min-w-0">
+   324→                                <span className="block text-[.84rem] font-extrabold leading-tight text-[#c2410c]">
+   325→                                  Test my knowledge
+   326→                                </span>
+   327→                                <span className="mt-0.5 block text-[.68rem] leading-snug text-[#a08568]">
+   328→                                  {EXAM_BANKS[group.id].questions.length} exam-style questions · pen-paper mode
+   329→                                </span>
+   330→                              </span>
+   331→                              <span className="ml-auto shrink-0 text-[.58rem] font-black uppercase tracking-[.14em] text-[#b08b5c] transition-colors group-hover/exam:text-[#c2410c]">
+   332→                                open →
+   333→                              </span>
+   334→                            </button>
+   335→                          </div>
+   336→                        </div>
+   337→                      </motion.div>
+   338→                    ) : null}
+   339→                  </AnimatePresence>
+   340→                </div>
+   341→              );
+   342→            })}
+   343→          </div>
+   344→
+   345→          {/* below lg — quick chips (horizontal scroll) covering every
+   346→              chapter, Python Core included */}
+   347→          <div className="scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+   348→            {GROUPS.flatMap((g) => g.items).map((item) => (
+   349→              <a key={item.id} href={`#${item.id}`} className={`nav-link ${active === item.id ? "active" : ""}`}>
+   350→                {item.label}
+   351→              </a>
+   352→            ))}
+   353→          </div>
+   354→
+   355→          {/* right cluster — Python Lab (replaces the old LIVE PYTHON chip) */}
+   356→          <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
+   357→            <button
+   358→              type="button"
+   359→              onClick={onOpenLab}
+   360→              title="Open the Python Lab — a Colab-style notebook where you can run your own code"
+   361→              className="hidden items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3.5 py-1.5 text-[.66rem] font-extrabold uppercase tracking-[.14em] text-[#8a5f30] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-md transition-all duration-200 hover:bg-white/85 hover:text-[#c2410c] sm:flex"
+   362→            >
+   363→              <FlaskConical className="h-3.5 w-3.5" />
+   364→              Python Lab
+   365→              <span
+   366→                className={`h-1.5 w-1.5 rounded-full ${pyReady ? "" : "opacity-60"}`}
+   367→                style={{
+   368→                  background: pyReady ? "#6f9e3f" : "#d6bd97",
+   369→                  boxShadow: pyReady ? "0 0 0 3px rgba(143,174,93,.25)" : undefined,
+   370→                }}
+   371→              />
+   372→            </button>
+   373→            <button
+   374→              type="button"
+   375→              onClick={onOpenLab}
+   376→              aria-label="Open the Python Lab"
+   377→              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#8a5f30] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] lg:hidden"
+   378→            >
+   379→              <FlaskConical className="h-4 w-4" />
+   380→            </button>
+   381→            <button
+   382→              type="button"
+   383→              onClick={() => setMobileOpen(true)}
+   384→              aria-label="Open the chapter index"
+   385→              aria-expanded={mobileOpen}
+   386→              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] lg:hidden"
+   387→            >
+   388→              <Menu className="h-4.5 w-4.5" />
+   389→            </button>
+   390→          </div>
+   391→        </div>
+   392→      </div>
+   393→
+   394→      {/* reading progress — width written directly via ref (no re-renders) */}
+   395→      <div className="h-[3px] w-full bg-[#3e2c1d]/10">
+   396→        <div
+   397→          ref={progressRef}
+   398→          className="h-full"
+   399→          style={{ width: "0%", background: "linear-gradient(90deg,#f59e0b,#ea580c,#c2410c)" }}
+   400→        />
+   401→      </div>
+   402→
+   403→      {/* mobile — full-screen structured index */}
+   404→      <AnimatePresence>
+   405→        {mobileOpen ? (
+   406→          <motion.div
+   407→            ref={mobileRef}
+   408→            tabIndex={-1}
+   409→            key="mobile-index"
+   410→            initial={{ opacity: 0 }}
+   411→            animate={{ opacity: 1 }}
+   412→            exit={{ opacity: 0 }}
+   413→            transition={{ duration: 0.18 }}
+   414→            className="fixed inset-0 z-[60] flex flex-col outline-none"
+   415→            style={{ background: "linear-gradient(165deg,#241608 0%,#33200e 55%,#3e2c1d 100%)" }}
+   416→            role="dialog"
+   417→            aria-modal="true"
+   418→            aria-label="Chapter index"
+   419→          >
+   420→            <div className="flex h-14 shrink-0 items-center justify-between px-4">
+   421→              <span className="flex items-center gap-2 text-sm font-black tracking-tight text-[#ffe9c9]">
+   422→                <Compass className="h-4 w-4" style={{ color: "#f59e0b" }} />
+   423→                Chapter index
+   424→              </span>
+   425→              <button
+   426→                type="button"
+   427→                onClick={() => setMobileOpen(false)}
+   428→                aria-label="Close the chapter index"
+   429→                className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#ffe9c9]"
+   430→              >
+   431→                <X className="h-4.5 w-4.5" />
+   432→              </button>
+   433→            </div>
+   434→            <div className="flex-1 overflow-y-auto px-4 pb-10 pt-2">
+   435→              {GROUPS.map((group, gi) => (
+   436→                <motion.div
+   437→                  key={group.id}
+   438→                  initial={{ opacity: 0, y: 14 }}
+   439→                  animate={{ opacity: 1, y: 0 }}
+   440→                  transition={{ delay: 0.05 + gi * 0.06, duration: 0.25 }}
+   441→                  className="mb-5"
+   442→                >
+   443→                  <p className="mb-2 flex items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.24em] text-[#c99a63]">
+   444→                    <span className="h-px w-5" style={{ background: "linear-gradient(90deg,#ea580c,transparent)" }} />
+   445→                    {group.label}
+   446→                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-[.55rem] text-[#e9d7bf]">{group.items.length}</span>
+   447→                  </p>
+   448→                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.04]">
+   449→                    {group.items.map((item, i) => {
+   450→                      const isActiveItem = active === item.id;
+   451→                      return (
+   452→                        <a
+   453→                          key={item.id}
+   454→                          href={`#${item.id}`}
+   455→                          onClick={() => setMobileOpen(false)}
+   456→                          className={`flex items-center gap-3 px-4 py-3 transition-colors active:bg-white/10 ${
+   457→                            i < group.items.length - 1 ? "border-b border-white/[.06]" : ""
+   458→                          } ${isActiveItem ? "bg-white/[.08]" : ""}`}
+   459→                        >
+   460→                          <span
+   461→                            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[.6rem] font-black"
+   462→                            style={
+   463→                              isActiveItem
+   464→                                ? { background: "linear-gradient(135deg,#ea580c,#c2410c)", color: "#fff7ec" }
+   465→                                : { background: "rgba(255,220,170,.1)", color: "#c99a63" }
+   466→                            }
+   467→                          >
+   468→                            {String(i + 1).padStart(2, "0")}
+   469→                          </span>
+   470→                          <span className="min-w-0 flex-1">
+   471→                            <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#f5c889]" : "text-[#f0e2c8]"}`}>
+   472→                              {item.label}
+   473→                            </span>
+   474→                            <span className="mt-0.5 block text-[.7rem] leading-snug text-[#b99a75]">{item.desc}</span>
+   475→                          </span>
+   476→                          {isActiveItem ? <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#f59e0b" }} /> : null}
+   477→                        </a>
+   478→                      );
+   479→                    })}
+   480→
+   481→                    {/* Test my knowledge — per group */}
+   482→                    <button
+   483→                      type="button"
+   484→                      onClick={() => {
+   485→                        setMobileOpen(false);
+   486→                        onOpenExam(group.id);
+   487→                      }}
+   488→                      className="flex w-full items-center gap-2.5 border-t border-white/[.08] px-4 py-3 text-left transition-colors active:bg-white/10"
+   489→                    >
+   490→                      <span
+   491→                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+   492→                        style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)" }}
+   493→                      >
+   494→                        <PenLine className="h-3.5 w-3.5" />
+   495→                      </span>
+   496→                      <span className="text-[.88rem] font-extrabold text-[#f5c889]">Test my knowledge</span>
+   497→                      <span className="ml-auto text-[.6rem] font-black uppercase tracking-[.14em] text-[#c99a63]">
+   498→                        {EXAM_BANKS[group.id].questions.length} Qs →
+   499→                      </span>
+   500→                    </button>
+   501→                  </div>
+   502→                </motion.div>
+   503→              ))}
+   504→            </div>
+   505→          </motion.div>
+   506→        ) : null}
+   507→      </AnimatePresence>
+   508→    </nav>
+   509→  );
+   510→}
+   511→
+   512→/* ============================================================
+   513→   PracticeBand — the only place on the main page where
+   514→   "Test my knowledge" is written: one card per chapter group.
+   515→   Clicking opens that group's full exam window.
+   516→   ============================================================ */
+   517→function PracticeBand({ onOpenExam }: { onOpenExam: (g: ExamGroup) => void }) {
+   518→  return (
+   519→    <section aria-label="Test my knowledge — pen-paper practice" className="relative border-y border-[#ecd9bd] bg-[#fffaf1]/70">
+   520→      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+   521→        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+   522→          <div>
+   523→            <span className="eyebrow">Pen-paper practice</span>
+   524→            <h2 className="mt-2 text-2xl font-bold md:text-3xl">Test my knowledge</h2>
+   525→            <p className="mt-2 max-w-xl text-[.9rem] leading-relaxed text-muted-warm">
+   526→              The end term is written by hand — so every chapter group opens its own
+   527→              exam window: write-the-output, trace-the-code, definitions and small
+   528→              programs, with model answers and instant checking.
+   529→            </p>
+   530→          </div>
+   531→          <p className="shrink-0 text-[.68rem] font-black uppercase tracking-[.18em] text-[#a16207]">
+   532→            {TOTAL_QUESTIONS} questions · 4 windows
+   533→          </p>
+   534→        </div>
+   535→
+   536→        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+   537→          {EXAM_GROUPS.map((g) => {
+   538→            const bank = EXAM_BANKS[g];
+   539→            return (
+   540→              <button
+   541→                key={g}
+   542→                type="button"
+   543→                onClick={() => onOpenExam(g)}
+   544→                className="card-warm lift group flex flex-col items-start p-5 text-left"
+   545→                aria-label={`Test my knowledge — ${bank.title}`}
+   546→              >
+   547→                <span
+   548→                  className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md"
+   549→                  style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)" }}
+   550→                >
+   551→                  <PenLine className="h-4 w-4" />
+   552→                </span>
+   553→                <span className="mt-3 text-[.98rem] font-extrabold leading-tight text-[#3e2c1d]">{bank.title}</span>
+   554→                <span className="mt-1 text-[.74rem] leading-snug text-muted-warm">{bank.topics}</span>
+   555→                <span className="mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#c2410c]">
+   556→                  Test my knowledge · {bank.questions.length} Qs →
+   557→                </span>
+   558→              </button>
+   559→            );
+   560→          })}
+   561→        </div>
+   562→      </div>
+   563→    </section>
+   564→  );
+   565→}
+   566→
+   567→export function FocApp({ onExitAtlas }: { onExitAtlas: () => void }) {
+   568→  /* the ⌘K palette may have left a lab handoff flag before this
+   569→     app mounted — read it once at init (client-only component) */
+   570→  const [labOpen, setLabOpen] = useState(() => {
+   571→    try {
+   572→      if (sessionStorage.getItem("atlas:open-lab") === "1") {
+   573→        sessionStorage.removeItem("atlas:open-lab");
+   574→        return true;
+   575→      }
+   576→    } catch {
+   577→      /* private mode — flag unreadable, start closed */
+   578→    }
+   579→    return false;
+   580→  });
+   581→  const [examGroup, setExamGroup] = useState<ExamGroup | null>(null);
+   582→  const openExam = (g: ExamGroup) => setExamGroup(g);
+   583→
+   584→  /* once FoC is on stage the palette just broadcasts this event */
+   585→  useEffect(() => {
+   586→    const onOpenLab = () => setLabOpen(true);
+   587→    window.addEventListener("atlas:open-lab", onOpenLab);
+   588→    return () => window.removeEventListener("atlas:open-lab", onOpenLab);
+   589→  }, []);
+   590→
+   591→  return (
+   592→    // id="top" — the brand chip links to #top; without a real element here the
+   593→    // client-side router swallows the fragment and the page never scrolls back
+   594→    <div id="top" className="page-wrap warm-canvas">
+   595→      <TopNav onOpenLab={() => setLabOpen(true)} onOpenExam={openExam} onExitAtlas={onExitAtlas} />
+   596→      <main className="pt-14">
+   597→        <PartBoundary label="Hero">
+   598→          <Hero onOpenLab={() => setLabOpen(true)}  />
+   599→        </PartBoundary>
+   600→        <PartBoundary label="PracticeBand">
+   601→          <PracticeBand onOpenExam={openExam}  />
+   602→        </PartBoundary>
+   603→        <PartBoundary label="Why">
+   604→          <WhySection  />
+   605→        </PartBoundary>
+   606→        <PartBoundary label="Computing">
+   607→          <ComputingSection  />
+   608→        </PartBoundary>
+   609→        <PartBoundary label="Pillars">
+   610→          <PillarsSection  />
+   611→        </PartBoundary>
+   612→        <PartBoundary label="Data">
+   613→          <DataSection  />
+   614→        </PartBoundary>
+   615→        <PartBoundary label="Algorithm">
+   616→          <AlgorithmSection  />
+   617→        </PartBoundary>
+   618→        <PartBoundary label="Hardware">
+   619→          <HardwareSection  />
+   620→        </PartBoundary>
+   621→        <PartBoundary label="Software">
+   622→          <SoftwareSection  />
+   623→        </PartBoundary>
+   624→        <PartBoundary label="Programming">
+   625→          <ProgrammingSection  />
+   626→        </PartBoundary>
+   627→        <PartBoundary label="Basics">
+   628→          <BasicsSection  />
+   629→        </PartBoundary>
+   630→        <PartBoundary label="Lists">
+   631→          <ListsSection  />
+   632→        </PartBoundary>
+   633→        <PartBoundary label="If">
+   634→          <IfSection  />
+   635→        </PartBoundary>
+   636→        <PartBoundary label="Dicts">
+   637→          <DictsSection  />
+   638→        </PartBoundary>
+   639→        <PartBoundary label="While">
+   640→          <WhileSection  />
+   641→        </PartBoundary>
+   642→        <PartBoundary label="Functions">
+   643→          <FunctionsSection  />
+   644→        </PartBoundary>
+   645→        <PartBoundary label="Args">
+   646→          <ArgsSection  />
+   647→        </PartBoundary>
+   648→        <PartBoundary label="FuncsScale">
+   649→          <FuncsScaleSection  />
+   650→        </PartBoundary>
+   651→        <PartBoundary label="Classes">
+   652→          <ClassesSection  />
+   653→        </PartBoundary>
+   654→      </main>
+   655→      <Footer />
+   656→      <PyReadyToast />
+   657→      <PythonLab open={labOpen} onClose={() => setLabOpen(false)} />
+   658→      {examGroup ? <ExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
+   659→    </div>
+   660→  );
+   661→}
+   662→

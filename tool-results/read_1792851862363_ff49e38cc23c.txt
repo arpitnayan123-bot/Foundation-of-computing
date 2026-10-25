@@ -1,0 +1,867 @@
+     1→"use client";
+     2→
+     3→/* ============================================================
+     4→   THE ATLAS — dark premium animated landing.
+     5→
+     6→   Design language: a midnight gallery. Deep space canvas with
+     7→   film grain, aurora washes and ghost typography.
+     8→
+     9→   THE SHELF LAW: every subject box is poured from the SAME
+    10→   mould — one dark frosted-glass build, one layout, one
+    11→   minimal-premium feel, set two boxes side by side. The only
+    12→   things a box may call its own: its sigil (icon + accent)
+    13→   and one whisper of ambient motion (sweep / aura / scan /
+    14→   spotlight / shimmer / drift).
+    15→
+    16→   The router in src/app/page.tsx mounts this view for "#/atlas"
+    17→   and delegates to a subject app for "#/subject/<id>".
+    18→   ============================================================ */
+    19→
+    20→import React, { useEffect, useRef, useState } from "react";
+    21→import {
+    22→  animate,
+    23→  motion,
+    24→  useInView,
+    25→} from "framer-motion";
+    26→import {
+    27→  ArrowDown,
+    28→  ArrowUpRight,
+    29→  Command as CommandIcon,
+    30→  FlaskConical,
+    31→  GraduationCap,
+    32→  Lock,
+    33→  Map as MapIcon,
+    34→  PenLine,
+    35→  Waypoints,
+    36→} from "lucide-react";
+    37→import { SUBJECTS, type Subject, type SubjectAmbience } from "./subjects";
+    38→import { dueCounts } from "@/lib/sm2";
+    39→import { readProgressCounts } from "@/lib/progress";
+    40→import { goalStatus } from "@/lib/goal";
+    41→import Hero57 from "@/components/originkit/hero-57";
+    42→
+    43→/* ---------------------------------------------- easing + reveal */
+    44→const EASE = [0.22, 1, 0.36, 1] as const;
+    45→
+    46→function Rise({
+    47→  children,
+    48→  delay = 0,
+    49→  className = "",
+    50→  y = 26,
+    51→}: {
+    52→  children: React.ReactNode;
+    53→  delay?: number;
+    54→  className?: string;
+    55→  y?: number;
+    56→}) {
+    57→  return (
+    58→    <motion.div
+    59→      className={className}
+    60→      initial={{ opacity: 0, y }}
+    61→      whileInView={{ opacity: 1, y: 0 }}
+    62→      viewport={{ once: true, margin: "0px 0px -60px 0px" }}
+    63→      transition={{ duration: 0.8, delay, ease: EASE }}
+    64→    >
+    65→      {children}
+    66→    </motion.div>
+    67→  );
+    68→}
+    69→
+    70→/* ---------------------------------------------- floating glyphs */
+    71→const GLYPHS: { ch: string; left: string; top: string; size: string; delay: string }[] = [
+    72→  { ch: "0 1", left: "5%", top: "15%", size: "3.4rem", delay: "0s" },
+    73→  { ch: "λ", left: "89%", top: "19%", size: "3rem", delay: "1.2s" },
+    74→  { ch: "{ }", left: "82%", top: "63%", size: "2.6rem", delay: "2s" },
+    75→  { ch: "Σ", left: "8%", top: "71%", size: "2.8rem", delay: ".6s" },
+    76→  { ch: "→", left: "47%", top: "7%", size: "2.2rem", delay: "1.6s" },
+    77→  { ch: "π", left: "28%", top: "86%", size: "2.4rem", delay: "2.6s" },
+    78→  { ch: "Δ", left: "70%", top: "37%", size: "2rem", delay: "3.1s" },
+    79→];
+    80→
+    81→/* ---------------------------------------------- count-up stat */
+    82→function Stat({
+    83→  value,
+    84→  render,
+    85→  label,
+    86→  delay = 0,
+    87→}: {
+    88→  value: number;
+    89→  render?: (n: number) => React.ReactNode;
+    90→  label: string;
+    91→  delay?: number;
+    92→}) {
+    93→  const ref = useRef<HTMLDivElement>(null);
+    94→  const inView = useInView(ref, { once: true, margin: "-40px" });
+    95→  const [n, setN] = useState(0);
+    96→
+    97→  useEffect(() => {
+    98→    if (!inView) return;
+    99→    const controls = animate(0, value, {
+   100→      duration: 1.5,
+   101→      delay,
+   102→      ease: EASE,
+   103→      onUpdate: (v) => setN(Math.round(v)),
+   104→    });
+   105→    return () => controls.stop();
+   106→  }, [inView, value, delay]);
+   107→
+   108→  return (
+   109→    <div ref={ref} className="flex flex-col items-center gap-1">
+   110→      <span className="font-display text-3xl font-black tracking-tight text-[#f7ecdd] md:text-4xl">
+   111→        {render ? render(n) : n}
+   112→      </span>
+   113→      <span className="text-[.62rem] font-extrabold uppercase tracking-[.22em] text-[#8d7b63]">{label}</span>
+   114→    </div>
+   115→  );
+   116→}
+   117→
+   118→/* ============================================================
+   119→   SMALL SHARED PIECES — every card speaks the same language
+   120→   ============================================================ */
+   121→
+   122→function ShelfTag({ children, color = "#b49a78" }: { children: React.ReactNode; color?: string }) {
+   123→  return (
+   124→    <p className="font-mono text-[.6rem] font-bold uppercase tracking-[.28em]" style={{ color }}>
+   125→      {children}
+   126→    </p>
+   127→  );
+   128→}
+   129→
+   130→function LiveBadge({ accent }: { accent: string }) {
+   131→  return (
+   132→    <span
+   133→      className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[.56rem] font-black uppercase tracking-[.18em]"
+   134→      style={{ borderColor: `${accent}55`, color: accent, background: `${accent}14` }}
+   135→    >
+   136→      <span
+   137→        className="atlas-live-dot h-1.5 w-1.5 rounded-full"
+   138→        style={{ background: accent, boxShadow: `0 0 0 3px ${accent}30` }}
+   139→      />
+   140→      live
+   141→    </span>
+   142→  );
+   143→}
+   144→
+   145→function LockedBadge() {
+   146→  return (
+   147→    <span className="flex items-center gap-1.5 rounded-full border border-white/12 bg-white/[.04] px-2.5 py-1 text-[.56rem] font-black uppercase tracking-[.18em] text-[#8d7b63]">
+   148→      <Lock className="h-2.5 w-2.5" />
+   149→      reserved
+   150→    </span>
+   151→  );
+   152→}
+   153→
+   154→/* ============================================================
+   155→   THE AMBIENCE — six whispers of motion, one per box.
+   156→   Everything else on the card is identical.
+   157→   ============================================================ */
+   158→
+   159→function Ambience({ kind, accent }: { kind: SubjectAmbience; accent: string }) {
+   160→  switch (kind) {
+   161→    /* 01 · FoC — a sheet of light glides across the frosted glass */
+   162→    case "sweep":
+   163→      return <span className="glass-sweep" aria-hidden />;
+   164→
+   165→    /* 02 · ATB — one soft aura breathing behind the glass */
+   166→    case "aura":
+   167→      return (
+   168→        <span
+   169→          aria-hidden
+   170→          className="amb-breathe pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full"
+   171→          style={{ background: `${accent}30` }}
+   172→        />
+   173→      );
+   174→
+   175→    /* 03 · scan — a thin sonar hairline sweeping down, "brewing" */
+   176→    case "scan":
+   177→      return <span aria-hidden className="amb-scan" style={{ ["--scan-color" as string]: accent }} />;
+   178→
+   179→    /* 04 · spotlight — the light follows your cursor */
+   180→    case "spotlight":
+   181→      return (
+   182→        <span
+   183→          aria-hidden
+   184→          className="amb-spot"
+   185→          style={{ ["--spot-color" as string]: `${accent}26` }}
+   186→        />
+   187→      );
+   188→
+   189→    /* 05 · shimmer — a foil hairline sliding along the top edge */
+   190→    case "shimmer":
+   191→      return (
+   192→        <span
+   193→          aria-hidden
+   194→          className="amb-shimmer"
+   195→          style={{ background: `linear-gradient(90deg, transparent 20%, ${accent} 50%, transparent 80%)` }}
+   196→        />
+   197→      );
+   198→
+   199→    /* 06 · drift — two warm coals slowly floating under the glass */
+   200→    case "drift":
+   201→      return (
+   202→        <>
+   203→          <span
+   204→            aria-hidden
+   205→            className="amb-glow anim-floaty h-36 w-36"
+   206→            style={{ background: accent, left: "-3rem", bottom: "-3rem", animationDelay: "0s" }}
+   207→          />
+   208→          <span
+   209→            aria-hidden
+   210→            className="amb-glow anim-floaty h-24 w-24"
+   211→            style={{ background: "#f5c889", right: "-2rem", top: "2rem", animationDelay: "-4s" }}
+   212→          />
+   213→        </>
+   214→      );
+   215→  }
+   216→}
+   217→
+   218→/* ============================================================
+   219→   THE SUBJECT BOX — one mould, six pours.
+   220→   Identical layout, identical chrome, identical motion
+   221→   personality; only the sigil + the ambience whisper differ.
+   222→   ============================================================ */
+   223→
+   224→interface CardProps {
+   225→  subject: Subject;
+   226→  index: number;
+   227→  onEnter: (id: string) => void;
+   228→}
+   229→
+   230→/* cards due for spaced review on this shelf — read once after mount so the
+   231→   first paint stays hydration-stable; renders nothing until the store says so */
+   232→function DueBadge({ subjectId }: { subjectId: string }) {
+   233→  const [n, setN] = useState(0);
+   234→  useEffect(() => {
+   235→    /* rAF-deferred: keeps the first paint hydration-stable */
+   236→    const raf = requestAnimationFrame(() => setN(dueCounts()[subjectId] ?? 0));
+   237→    return () => cancelAnimationFrame(raf);
+   238→  }, [subjectId]);
+   239→  if (n <= 0) return null;
+   240→  return (
+   241→    <span
+   242→      className="glass-chip rounded-full px-2.5 py-1 font-mono text-[.6rem] font-bold uppercase tracking-[.14em] text-[#f5c889]"
+   243→      title="Cards due for spaced review — open the ledger (⌘K → ledger)"
+   244→    >
+   245→      {n} due
+   246→    </span>
+   247→  );
+   248→}
+   249→
+   250→/* chapters read on this shelf — same hydration-safe pattern as DueBadge;
+   251→   silent until the reader has actually walked at least one chapter */
+   252→function ChaptersBadge({ subjectId, total }: { subjectId: string; total: number }) {
+   253→  const [seen, setSeen] = useState(0);
+   254→  useEffect(() => {
+   255→    const raf = requestAnimationFrame(() => setSeen(readProgressCounts()[subjectId] ?? 0));
+   256→    return () => cancelAnimationFrame(raf);
+   257→  }, [subjectId]);
+   258→  if (seen <= 0 || total <= 0) return null;
+   259→  const done = seen >= total;
+   260→  return (
+   261→    <span
+   262→      className="glass-chip rounded-full px-2.5 py-1 font-mono text-[.6rem] font-bold uppercase tracking-[.14em]"
+   263→      style={{ color: done ? "#a9c977" : "#c9b99f" }}
+   264→      title="Chapters read — tracked as you scroll the notes"
+   265→    >
+   266→      {done ? "✓ " : ""}
+   267→      {seen}/{total} read
+   268→    </span>
+   269→  );
+   270→}
+   271→
+   272→function SubjectCard({ subject, index, onEnter }: CardProps) {
+   273→  const live = subject.status === "live";
+   274→  const spotRef = useRef<HTMLElement | null>(null);
+   275→  const setSpotRef = (el: HTMLElement | null) => {
+   276→    spotRef.current = el;
+   277→  };
+   278→
+   279→  /* cursor spotlight — wired only for the "spotlight" ambience */
+   280→  const onSpotMove = (e: React.MouseEvent) => {
+   281→    if (subject.ambience !== "spotlight") return;
+   282→    const el = spotRef.current;
+   283→    if (!el) return;
+   284→    const r = el.getBoundingClientRect();
+   285→    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+   286→    el.style.setProperty("--my", `${e.clientY - r.top}px`);
+   287→  };
+   288→
+   289→  const inner = (
+   290→    <>
+   291→      <Ambience kind={subject.ambience} accent={subject.accent} />
+   292→      {/* icon micro-motion — the sigil wakes on hover */}
+   293→      <span
+   294→        aria-hidden
+   295→        className="pointer-events-none absolute left-6 top-6 h-12 w-12 rounded-2xl opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-60 md:left-7"
+   296→        style={{ background: subject.accent }}
+   297→      />
+   298→
+   299→      <div className="relative flex items-start justify-between gap-3">
+   300→        <span className="glass-chip flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
+   301→          <subject.icon className="h-5 w-5" style={{ color: live ? subject.accent : `${subject.accent}cc` }} />
+   302→        </span>
+   303→        {live ? (
+   304→          <span className="flex items-center gap-2">
+   305→            <ChaptersBadge subjectId={subject.id} total={subject.chapters ?? 0} />
+   306→            <DueBadge subjectId={subject.id} />
+   307→            <LiveBadge accent={subject.accent} />
+   308→          </span>
+   309→        ) : (
+   310→          <LockedBadge />
+   311→        )}
+   312→      </div>
+   313→
+   314→      <div className="relative mt-6">
+   315→        <ShelfTag color={live ? "#b49a78" : "#77685a"}>shelf {subject.shelf}</ShelfTag>
+   316→        <h3
+   317→          className={`mt-2 font-display text-2xl font-black leading-tight md:text-[1.55rem] ${
+   318→            live ? "text-[#f7ecdd]" : "text-[#cfc0a8]"
+   319→          }`}
+   320→        >
+   321→          {subject.title}
+   322→        </h3>
+   323→        <p className={`mt-2.5 text-[.88rem] leading-relaxed ${live ? "text-[#c9b99f]" : "text-[#8d7f6c]"}`}>
+   324→          {live ? subject.description : subject.tagline}
+   325→        </p>
+   326→      </div>
+   327→
+   328→      <div className="relative mt-4 flex flex-wrap gap-1.5">
+   329→        {subject.topics.slice(0, live ? 5 : 1).map((t) => (
+   330→          <span key={t} className="glass-chip rounded-full px-2.5 py-1 text-[.66rem] font-semibold text-[#ecdcc2]">
+   331→            {t}
+   332→          </span>
+   333→        ))}
+   334→      </div>
+   335→
+   336→      <div className="relative mt-auto flex items-center justify-between gap-3 border-t border-white/10 pt-4">
+   337→        {live ? (
+   338→          <>
+   339→            <span className="font-mono text-[.64rem] uppercase tracking-[.16em] text-[#8d7b63]">
+   340→              {subject.chapters} chapters · {subject.questions} questions · {subject.examWindows} windows
+   341→            </span>
+   342→            <span className="flex shrink-0 items-center gap-1 text-[.68rem] font-black uppercase tracking-[.16em] text-[#f5c889] transition-transform duration-300 group-hover:translate-x-1">
+   343→              enter <ArrowUpRight className="h-3.5 w-3.5" />
+   344→            </span>
+   345→          </>
+   346→        ) : (
+   347→          <>
+   348→            <span className="font-mono text-[.62rem] uppercase tracking-[.18em] text-[#5d5142]">
+   349→              awaiting syllabus — the pdf drops here
+   350→            </span>
+   351→            <span className="flex shrink-0 items-center gap-1 font-mono text-[.62rem] uppercase tracking-[.18em] text-[#6d5f4f]">
+   352→              soon
+   353→            </span>
+   354→          </>
+   355→        )}
+   356→      </div>
+   357→    </>
+   358→  );
+   359→
+   360→  const shell =
+   361→    "group card-glass relative flex h-full min-h-[19.5rem] w-full flex-col overflow-hidden rounded-[1.7rem] p-6 text-left md:p-7";
+   362→
+   363→  return (
+   364→    <motion.div
+   365→      initial={{ opacity: 0, y: 34, filter: "blur(8px)" }}
+   366→      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+   367→      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
+   368→      transition={{ duration: 0.85, delay: 0.06 * index, ease: EASE }}
+   369→      className="min-w-0"
+   370→    >
+   371→      {live ? (
+   372→        <motion.button
+   373→          ref={setSpotRef}
+   374→          type="button"
+   375→          onClick={() => onEnter(subject.id)}
+   376→          aria-label={`Open ${subject.title} notes`}
+   377→          onMouseMove={onSpotMove}
+   378→          whileHover={{ y: -5 }}
+   379→          whileTap={{ scale: 0.985 }}
+   380→          transition={{ duration: 0.35, ease: EASE }}
+   381→          className={shell}
+   382→        >
+   383→          <span className="glass-gloss" aria-hidden />
+   384→          {inner}
+   385→        </motion.button>
+   386→      ) : (
+   387→        <div ref={setSpotRef} onMouseMove={onSpotMove} className={shell} aria-label={`${subject.title} — awaiting syllabus`}>
+   388→          <span className="glass-gloss" aria-hidden />
+   389→          {inner}
+   390→        </div>
+   391→      )}
+   392→    </motion.div>
+   393→  );
+   394→}
+   395→
+   396→/* ---------------------------------------------- next-shelf tile */
+   397→
+   398→function NextShelfTile({ index, shelf }: { index: number; shelf: string }) {
+   399→  return (
+   400→    <motion.div
+   401→      initial={{ opacity: 0, y: 30 }}
+   402→      whileInView={{ opacity: 1, y: 0 }}
+   403→      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
+   404→      transition={{ duration: 0.8, delay: 0.06 * index, ease: EASE }}
+   405→      className="min-w-0 md:col-span-2"
+   406→    >
+   407→      <div className="group relative flex h-full min-h-[11rem] flex-col justify-between overflow-hidden rounded-[1.7rem] border border-dashed border-white/12 bg-black/40 p-6 md:p-7">
+   408→        {/* ghost numeral */}
+   409→        <span
+   410→          aria-hidden
+   411→          className="text-ghost pointer-events-none absolute -right-4 -top-8 select-none font-display text-[9rem] font-black leading-none"
+   412→        >
+   413→          {shelf}
+   414→        </span>
+   415→
+   416→        <div className="relative">
+   417→          <ShelfTag color="#b49a78">next drop</ShelfTag>
+   418→          <h3 className="mt-2 flex items-center gap-2 font-display text-2xl font-black text-[#f7ecdd] md:text-[1.55rem]">
+   419→            Shelf {shelf} is loading
+   420→            <span className="flex items-end gap-1 pb-1.5" aria-hidden>
+   421→              {[0, 1, 2].map((i) => (
+   422→                <span
+   423→                  key={i}
+   424→                  className="dot-pulse h-1.5 w-1.5 rounded-full bg-[#f5c889]"
+   425→                  style={{ animationDelay: `${i * 0.22}s` }}
+   426→                />
+   427→              ))}
+   428→            </span>
+   429→          </h3>
+   430→          <p className="mt-2.5 max-w-md text-[.88rem] leading-relaxed text-[#a89a86]">
+   431→            The atlas grows one PDF at a time. Drop the next syllabus and this tile comes
+   432→            alive — distilled, animated, made runnable. Same mould, every single time.
+   433→          </p>
+   434→        </div>
+   435→
+   436→        <div className="relative mt-6">
+   437→          <div className="load-bar h-1 w-full max-w-xs rounded-full bg-white/[.07]" aria-hidden />
+   438→          <p className="mt-3 font-mono text-[.6rem] uppercase tracking-[.22em] text-[#6d5f4f]">
+   439→            awaiting syllabus · shelf {shelf} of 06
+   440→          </p>
+   441→        </div>
+   442→      </div>
+   443→    </motion.div>
+   444→  );
+   445→}
+   446→
+   447→/* today's daily-goal progress — a tiny hydration-safe ring that rides
+   448→   the pill nav; one click lands on the ledger where the ring lives */
+   449→function GoalChip() {
+   450→  const [goal, setGoal] = useState<{ done: number; target: number; met: boolean } | null>(null);
+   451→  useEffect(() => {
+   452→    /* rAF-deferred: keeps the first paint hydration-stable */
+   453→    const raf = requestAnimationFrame(() => {
+   454→      const g = goalStatus();
+   455→      setGoal({ done: g.done, target: g.target, met: g.met });
+   456→    });
+   457→    return () => cancelAnimationFrame(raf);
+   458→  }, []);
+   459→  if (!goal) return null;
+   460→  const R = 7;
+   461→  const C = 2 * Math.PI * R;
+   462→  const p = Math.max(0, Math.min(1, goal.target > 0 ? goal.done / goal.target : 0));
+   463→  const tone = goal.met ? "#8fae5d" : "#f5c889";
+   464→  return (
+   465→    <button
+   466→      type="button"
+   467→      onClick={() => {
+   468→        window.location.hash = "#/ledger";
+   469→        window.scrollTo(0, 0);
+   470→      }}
+   471→      aria-label={`Daily goal: ${goal.done} of ${goal.target} answers today — open the ledger`}
+   472→      title={`Daily goal — ${goal.done}/${goal.target} answers today`}
+   473→      className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[.05] px-2.5 py-1 font-mono text-[.6rem] font-bold tracking-wide text-[#cbb89a] transition hover:bg-white/[.12] hover:text-[#f5c889]"
+   474→    >
+   475→      <svg viewBox="0 0 18 18" className="h-3.5 w-3.5 -rotate-90" aria-hidden>
+   476→        <circle cx="9" cy="9" r={R} fill="none" stroke="#ffffff1c" strokeWidth="2.4" />
+   477→        <circle
+   478→          cx="9"
+   479→          cy="9"
+   480→          r={R}
+   481→          fill="none"
+   482→          stroke={tone}
+   483→          strokeWidth="2.4"
+   484→          strokeLinecap="round"
+   485→          strokeDasharray={C}
+   486→          strokeDashoffset={C * (1 - p)}
+   487→        />
+   488→      </svg>
+   489→      {goal.done}/{goal.target}
+   490→    </button>
+   491→  );
+   492→}
+   493→
+   494→/* ============================================================
+   495→   THE LANDING
+   496→   ============================================================ */
+   497→
+   498→export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
+   499→  const liveSubjects = SUBJECTS.filter((s) => s.status === "live");
+   500→  const liveCount = liveSubjects.length;
+   501→  const totalChapters = liveSubjects.reduce((n, s) => n + (s.chapters ?? 0), 0);
+   502→  const totalQuestions = liveSubjects.reduce((n, s) => n + (s.questions ?? 0), 0);
+   503→  const nextShelf = SUBJECTS.find((s) => s.status === "soon")?.shelf;
+   504→
+   505→  const scrollToShelf = () => {
+   506→    document.getElementById("shelf")?.scrollIntoView({ behavior: "smooth", block: "start" });
+   507→  };
+   508→
+   509→  return (
+   510→    <div className="atlas-root">
+   511→      {/* ------- layered night background ------- */}
+   512→      <div className="atlas-bg" aria-hidden>
+   513→        <div className="atlas-grid" />
+   514→        {GLYPHS.map((g, i) => (
+   515→          <span
+   516→            key={i}
+   517→            className="atlas-glyph anim-floaty"
+   518→            style={{ left: g.left, top: g.top, fontSize: g.size, animationDelay: g.delay }}
+   519→          >
+   520→            {g.ch}
+   521→          </span>
+   522→        ))}
+   523→        <div className="atlas-noise" />
+   524→        <div className="atlas-vignette" />
+   525→      </div>
+   526→
+   527→      {/* ------- floating pill nav ------- */}
+   528→      <nav aria-label="Atlas" className="fixed inset-x-0 top-3 z-50 flex justify-center px-3 sm:top-4 sm:px-4">
+   529→        <div className="flex h-12 w-full max-w-3xl items-center gap-3 rounded-full border border-white/10 bg-[#0a0710]/60 py-2 pl-4 pr-2 shadow-[0_18px_50px_-22px_rgba(0,0,0,.85)] backdrop-blur-xl">
+   530→          <span className="flex items-center gap-2.5">
+   531→            <img
+   532→              src="/atlas-logo.svg"
+   533→              alt=""
+   534→              aria-hidden
+   535→              className="h-7 w-7 rounded-lg shadow-[0_6px_18px_-6px_rgba(234,88,12,.7)]"
+   536→            />
+   537→            <span className="font-display text-[1rem] font-black tracking-tight text-[#f7ecdd]">The Atlas</span>
+   538→          </span>
+   539→          <span className="ml-auto hidden font-mono text-[.56rem] uppercase tracking-[.2em] text-[#8d7b63] md:inline">
+   540→            mapped &amp; built by Arpit Nayan
+   541→          </span>
+   542→          <button
+   543→            type="button"
+   544→            onClick={() => window.dispatchEvent(new CustomEvent("atlas:cmdk"))}
+   545→            aria-label="Open the command palette (Command K)"
+   546→            title="Command palette — ⌘K"
+   547→            className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[.05] px-2.5 py-1 font-mono text-[.6rem] font-bold tracking-wide text-[#cbb89a] transition hover:bg-white/[.12] hover:text-[#f5c889]"
+   548→          >
+   549→            <CommandIcon aria-hidden className="h-3 w-3" />
+   550→            K
+   551→          </button>
+   552→          <GoalChip />
+   553→          <span
+   554→            className="flex items-center gap-1.5 rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 py-1 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889]"
+   555→            title={`${liveCount} shelves live — ${SUBJECTS.length - liveCount} reserved`}
+   556→          >
+   557→            <span className="atlas-live-dot h-1.5 w-1.5 rounded-full bg-[#f59e0b]" />
+   558→            {liveCount}/{SUBJECTS.length} live
+   559→          </span>
+   560→        </div>
+   561→      </nav>
+   562→
+   563→      <main className="flex-1">
+   564→        {/* ------- hero — the scene IS the design; the badge + THE ATLAS ride it ------- */}
+   565→        <Hero57>
+   566→          <div className="relative flex w-full flex-col items-center px-4 text-center">
+   567→            {/* institution — rides the sky, directly above the wordmark */}
+   568→            <motion.span
+   569→              initial={{ opacity: 0, y: 18 }}
+   570→              animate={{ opacity: 1, y: 0 }}
+   571→              transition={{ delay: 0.12, duration: 0.7, ease: EASE }}
+   572→              className="flex flex-wrap items-center justify-center gap-2 rounded-full border border-[#f5c889]/20 bg-[#0a0709]/55 px-4 py-1.5 text-[.64rem] font-extrabold uppercase tracking-[.24em] text-[#c9b99f] backdrop-blur-md sm:px-5"
+   573→            >
+   574→              <GraduationCap className="h-3.5 w-3.5 shrink-0" style={{ color: "#f5c889" }} />
+   575→              <span className="text-[#f7ecdd]">IIT Jodhpur</span>
+   576→              <span className="hidden h-3 w-px bg-white/15 sm:block" aria-hidden />
+   577→              <span>B.S. in Management and Technology</span>
+   578→            </motion.span>
+   579→
+   580→            {/* wordmark — sun-kissed gradient fill, lit by the scene's key light */}
+   581→            <h1
+   582→              aria-label="The Atlas"
+   583→              className="atlas-lit mt-7 font-display font-black leading-[.92] tracking-tight"
+   584→            >
+   585→              <span className="sr-only">The Atlas</span>
+   586→              <span aria-hidden className="block whitespace-nowrap text-[13.5vw] sm:text-[12.5vw] lg:text-[9.75rem]">
+   587→                {"THE".split("").map((ch, i) => (
+   588→                  <motion.span
+   589→                    key={`a-${i}`}
+   590→                    className="inline-block bg-gradient-to-b from-[#fff8ec] via-[#f7ecdd] to-[#eec27d] bg-clip-text text-transparent"
+   591→                    initial={{ opacity: 0, y: 60, filter: "blur(14px)" }}
+   592→                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+   593→                    transition={{ delay: 0.25 + i * 0.06, duration: 0.9, ease: EASE }}
+   594→                  >
+   595→                    {ch === " " ? "\u00A0" : ch}
+   596→                  </motion.span>
+   597→                ))}
+   598→                <motion.span
+   599→                  className="inline-block"
+   600→                  initial={{ opacity: 0 }}
+   601→                  animate={{ opacity: 1 }}
+   602→                  transition={{ delay: 0.5, duration: 0.4 }}
+   603→                >
+   604→                  &nbsp;
+   605→                </motion.span>
+   606→                {"ATLAS".split("").map((ch, i) => (
+   607→                  <motion.span
+   608→                    key={`b-${i}`}
+   609→                    className="inline-block bg-gradient-to-b from-[#fff8ec] via-[#f7ecdd] to-[#e8913f] bg-clip-text text-transparent"
+   610→                    initial={{ opacity: 0, y: 60, filter: "blur(14px)" }}
+   611→                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+   612→                    transition={{ delay: 0.45 + i * 0.06, duration: 0.9, ease: EASE }}
+   613→                  >
+   614→                    {ch}
+   615→                  </motion.span>
+   616→                ))}
+   617→              </span>
+   618→            </h1>
+   619→          </div>
+   620→        </Hero57>
+   621→
+   622→        {/* ------- below the design — the words, on whole black ------- */}
+   623→        <section
+   624→          aria-label="The Atlas in one breath"
+   625→          className="relative px-4 pb-20 pt-16 text-center sm:px-6 md:pb-24 md:pt-20"
+   626→        >
+   627→          {/* bridge — the scene's asphalt melts its last warmth into true black */}
+   628→          <div
+   629→            aria-hidden
+   630→            className="pointer-events-none absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-[#070509] to-transparent"
+   631→          />
+   632→
+   633→          {/* the horizon, distilled — a sleek line of golden light born from a
+   634→              single point, drawn across the black, then dissolved into the page */}
+   635→          <div className="ember-line" aria-hidden />
+   636→
+   637→          <div className="relative mx-auto mt-14 flex max-w-3xl flex-col items-center md:mt-16">
+   638→            {/* the crazy one-liner */}
+   639→            <motion.p
+   640→              initial={{ opacity: 0, y: 22 }}
+   641→              animate={{ opacity: 1, y: 0 }}
+   642→              transition={{ delay: 0.72, duration: 0.8, ease: EASE }}
+   643→              className="mt-6 font-display text-xl font-black tracking-tight text-[#f7ecdd] sm:text-2xl md:text-[1.7rem]"
+   644→            >
+   645→              Six subjects. One map. <span className="atlas-sheen">Zero boring pages.</span>
+   646→            </motion.p>
+   647→
+   648→            <motion.p
+   649→              initial={{ opacity: 0, y: 22 }}
+   650→              animate={{ opacity: 1, y: 0 }}
+   651→              transition={{ delay: 0.82, duration: 0.8, ease: EASE }}
+   652→              className="mt-4 max-w-2xl text-balance text-base leading-relaxed text-[#e3d4bd] md:text-lg"
+   653→            >
+   654→              This is not a notes site — it&apos;s your syllabus rebuilt as an experience.
+   655→              Diagrams that move, machines you can poke, exams you can actually survive,
+   656→              and a real CPython kernel living in this tab.{" "}
+   657→              <span className="text-[#f7ecdd]">Not PDFs. Atlas pages.</span>
+   658→            </motion.p>
+   659→
+   660→            <motion.div
+   661→              initial={{ opacity: 0, y: 22 }}
+   662→              animate={{ opacity: 1, y: 0 }}
+   663→              transition={{ delay: 0.95, duration: 0.8, ease: EASE }}
+   664→              className="mt-9 flex flex-col items-center gap-3 sm:flex-row"
+   665→            >
+   666→              <button
+   667→                type="button"
+   668→                onClick={() => onEnter("foc")}
+   669→                className="group flex h-12 items-center gap-2.5 rounded-full px-7 text-[.78rem] font-black uppercase tracking-[.16em] text-[#1c0f04] transition-transform duration-300 hover:-translate-y-0.5"
+   670→                style={{
+   671→                  background: "linear-gradient(135deg,#f5c889,#ea580c)",
+   672→                  boxShadow: "0 18px 44px -14px rgba(234,88,12,.65)",
+   673→                }}
+   674→              >
+   675→                Enter shelf 01 — Foundations
+   676→                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+   677→              </button>
+   678→              <button
+   679→                type="button"
+   680→                onClick={scrollToShelf}
+   681→                className="group flex h-12 items-center gap-2 rounded-full border border-white/15 bg-[#0a0709]/50 px-6 text-[.78rem] font-black uppercase tracking-[.16em] text-[#e9d7bf] backdrop-blur-md transition-colors duration-300 hover:border-white/30 hover:bg-[#0a0709]/75"
+   682→              >
+   683→                Browse the shelf
+   684→                <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+   685→              </button>
+   686→            </motion.div>
+   687→
+   688→            {/* stats */}
+   689→            <motion.div
+   690→              initial={{ opacity: 0, y: 26 }}
+   691→              animate={{ opacity: 1, y: 0 }}
+   692→              transition={{ delay: 1.1, duration: 0.9, ease: EASE }}
+   693→              className="mt-14 grid grid-cols-2 gap-x-10 gap-y-6 sm:grid-cols-4 sm:gap-x-14"
+   694→            >
+   695→              <Stat value={SUBJECTS.length} label="shelves" delay={0} />
+   696→              <Stat value={totalChapters} label="chapters live" delay={0.1} />
+   697→              <Stat value={totalQuestions} label="exam questions" delay={0.2} />
+   698→              <div className="flex flex-col items-center gap-1">
+   699→                <span className="font-display text-3xl font-black tracking-tight text-[#f7ecdd] md:text-4xl">∞</span>
+   700→                <span className="text-[.62rem] font-extrabold uppercase tracking-[.22em] text-[#8d7b63]">live code runs</span>
+   701→              </div>
+   702→            </motion.div>
+   703→          </div>
+   704→        </section>
+   705→
+   706→        {/* ------- marquee ------- */}
+   707→        <div className="relative overflow-hidden border-y border-white/[.06] py-3.5" aria-hidden>
+   708→          <div className="marquee-track">
+   709→            {[0, 1].map((dup) => (
+   710→              <div key={dup} className="flex shrink-0 items-center gap-14 pr-14">
+   711→                {[
+   712→                  "notes with a pulse",
+   713→                  "diagrams that dance",
+   714→                  "machines you can poke",
+   715→                  "exams you can survive",
+   716→                  "zero pdf energy",
+   717→                  "built different",
+   718→                  "cpython 3.12 in your tab",
+   719→                  "read · sketch · run",
+   720→                ].map((t) => (
+   721→                  <span
+   722→                    key={t}
+   723→                    className="flex items-center gap-3.5 whitespace-nowrap font-mono text-[.64rem] font-bold uppercase tracking-[.26em] text-[#8d7b63]"
+   724→                  >
+   725→                    {t}
+   726→                    <span className="h-1 w-1 rounded-full bg-[#f59e0b]/70" />
+   727→                  </span>
+   728→                ))}
+   729→              </div>
+   730→            ))}
+   731→          </div>
+   732→        </div>
+   733→
+   734→        {/* ------- the shelf (one mould, six pours, two per row) ------- */}
+   735→        <section id="shelf" aria-label="The subject shelf" className="relative mx-auto w-full max-w-5xl scroll-mt-20 px-4 py-20 sm:px-6 md:py-28">
+   736→          <Rise className="mb-12 md:mb-16">
+   737→            <span className="flex items-center gap-2 text-[.7rem] font-extrabold uppercase tracking-[.24em] text-[#f5c889]">
+   738→              <span className="h-px w-8 bg-gradient-to-r from-[#ea580c] to-transparent" />
+   739→              the shelf
+   740→            </span>
+   741→            <h2 className="mt-4 max-w-3xl font-display text-3xl font-black leading-tight text-[#f7ecdd] md:text-5xl">
+   742→              Pick a shelf. <span className="atlas-sheen">Enter a world.</span>
+   743→            </h2>
+   744→            <p className="mt-4 max-w-2xl text-[.95rem] leading-relaxed text-[#a89a86] md:text-base">
+   745→              Six boxes, one mould — the same dark frosted build, set two by two. Only the
+   746→              sigil changes, and one whisper of motion. Same soul, every time.
+   747→            </p>
+   748→          </Rise>
+   749→
+   750→          <div className="grid gap-4 md:grid-cols-2 md:gap-5">
+   751→            {SUBJECTS.map((s, i) => (
+   752→              <SubjectCard key={s.id} subject={s} index={i} onEnter={onEnter} />
+   753→            ))}
+   754→            {nextShelf ? <NextShelfTile index={SUBJECTS.length} shelf={nextShelf} /> : null}
+   755→          </div>
+   756→        </section>
+   757→
+   758→        {/* ------- why it hits different ------- */}
+   759→        <section aria-label="Why it hits different" className="relative border-t border-white/[.06]">
+   760→          <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 md:py-24">
+   761→            <Rise className="mb-12 text-center md:mb-16">
+   762→              <span className="text-[.7rem] font-extrabold uppercase tracking-[.24em] text-[#f5c889]">
+   763→                why it hits different
+   764→              </span>
+   765→              <h2 className="mx-auto mt-4 max-w-2xl font-display text-3xl font-black leading-tight text-[#f7ecdd] md:text-4xl">
+   766→                Notes, but make it <em className="italic">cinema.</em>
+   767→              </h2>
+   768→              <p className="mx-auto mt-4 max-w-xl text-[.92rem] leading-relaxed text-[#a89a86]">
+   769→                Three obsessions separate an Atlas page from every PDF you&apos;ve ever
+   770→                suffered through.
+   771→              </p>
+   772→            </Rise>
+   773→
+   774→            <div className="grid gap-4 md:grid-cols-3 md:gap-5">
+   775→              {[
+   776→                {
+   777→                  n: "01",
+   778→                  icon: FlaskConical,
+   779→                  accent: "#f59e0b",
+   780→                  title: "Python that actually runs",
+   781→                  body: "Every snippet executes on a genuine CPython 3.12 kernel compiled to WebAssembly. Predict the output on paper, press ▶ Run, argue with the machine — it never gets tired.",
+   782→                },
+   783→                {
+   784→                  n: "02",
+   785→                  icon: PenLine,
+   786→                  accent: "#f43f5e",
+   787→                  title: "Exams you can survive",
+   788→                  body: "The end term is written by hand, so practice is too: write-the-output, trace-the-code, definitions and small programs — model answers and instant checking included.",
+   789→                },
+   790→                {
+   791→                  n: "03",
+   792→                  icon: Waypoints,
+   793→                  accent: "#84cc16",
+   794→                  title: "Diagrams that refuse to sit still",
+   795→                  body: "DIKW pyramids, CPU pipelines, memory boxes, decision flowcharts — concepts rendered as living machines you can click, hover and rewind instead of figures you squint at.",
+   796→                },
+   797→              ].map((f, i) => (
+   798→                <Rise key={f.n} delay={0.08 * i} className="h-full">
+   799→                  <div className="group relative h-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/70 p-6 transition-all duration-500 hover:-translate-y-1 hover:border-white/20 md:p-7">
+   800→                    <span
+   801→                      aria-hidden
+   802→                      className="text-ghost pointer-events-none absolute -right-2 -top-6 select-none font-display text-[6.5rem] font-black leading-none"
+   803→                    >
+   804→                      {f.n}
+   805→                    </span>
+   806→                    <span
+   807→                      className="relative flex h-11 w-11 items-center justify-center rounded-xl border"
+   808→                      style={{
+   809→                        background: `${f.accent}14`,
+   810→                        borderColor: `${f.accent}35`,
+   811→                        boxShadow: `0 10px 26px -12px ${f.accent}80`,
+   812→                      }}
+   813→                    >
+   814→                      <f.icon className="h-5 w-5" style={{ color: f.accent }} />
+   815→                    </span>
+   816→                    <h3 className="relative mt-5 font-display text-lg font-black text-[#f7ecdd]">{f.title}</h3>
+   817→                    <p className="relative mt-2.5 text-[.88rem] leading-relaxed text-[#a89a86]">{f.body}</p>
+   818→                  </div>
+   819→                </Rise>
+   820→              ))}
+   821→            </div>
+   822→          </div>
+   823→        </section>
+   824→
+   825→        {/* ------- the promise ------- */}
+   826→        <section aria-label="The Atlas promise" className="relative mx-auto w-full max-w-4xl px-4 py-24 text-center sm:px-6 md:py-32">
+   827→          <Rise>
+   828→            <p className="font-display text-2xl font-medium italic leading-snug text-[#e9d7bf] md:text-[2.6rem] md:leading-[1.25]">
+   829→              “Built for the night before.{" "}
+   830→              <span className="atlas-sheen font-black not-italic">Remembered long after.</span>
+   831→              ”
+   832→            </p>
+   833→            <p className="mx-auto mt-6 max-w-xl text-[.9rem] leading-relaxed text-[#8d7b63]">
+   834→              That&apos;s the whole point of an Atlas page — it compresses the panic of
+   835→              revision into something you can watch, poke and run, so the syllabus
+   836→              finally sticks.
+   837→            </p>
+   838→          </Rise>
+   839→        </section>
+   840→      </main>
+   841→
+   842→      {/* ------- footer (sticky-bottom pattern) ------- */}
+   843→      <footer className="mt-auto border-t border-white/[.06] bg-black">
+   844→        <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-5 px-4 py-10 sm:px-6 md:flex-row md:justify-between">
+   845→          <div className="flex items-center gap-3">
+   846→            <span
+   847→              className="flex h-8 w-8 items-center justify-center rounded-lg text-[#070509]"
+   848→              style={{ background: "linear-gradient(135deg,#f5c889,#ea580c)" }}
+   849→            >
+   850→              <MapIcon className="h-4 w-4" strokeWidth={2.4} />
+   851→            </span>
+   852→            <div>
+   853→              <p className="font-display text-[.95rem] font-black text-[#f7ecdd]">The Atlas</p>
+   854→              <p className="font-mono text-[.58rem] uppercase tracking-[.2em] text-[#8d7b63]">
+   855→                mapped &amp; built by Arpit Nayan
+   856→              </p>
+   857→            </div>
+   858→          </div>
+   859→          <p className="sig-colo text-center md:text-right">
+   860→            next.js · react · tailwind · framer-motion · pyodide — mmxxvi
+   861→          </p>
+   862→        </div>
+   863→      </footer>
+   864→    </div>
+   865→  );
+   866→}
+   867→

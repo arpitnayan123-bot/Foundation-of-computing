@@ -1,0 +1,735 @@
+     1→     1→"use client";
+     2→     2→
+     3→     3→/* ============================================================
+     4→     4→   TEST MY KNOWLEDGE — THE ONE EXAM ENGINE.
+     5→     5→
+     6→     6→   All five shelves (FoC / ATB / FA / EBH / STM) used to carry a
+     7→     7→   550-line clone of this window each. Every difference between
+     8→     8→   them was pure presentation — colors, labels, copy — so the
+     9→     9→   engine now takes an `ExamTheme` and a plain bank object, and
+    10→    10→   each shelf ships a ~70-line wrapper that only declares its
+    11→    11→   theme. Logic (drafts, drift-proof clock, focus trap, scoring)
+    12→    12→   lives here and is shared.
+    13→    13→
+    14→    14→   Question shape is structural, not nominal: any bank whose
+    15→    15→   questions carry { id, type, q, options?, answer?, code?,
+    16→    16→   answerText?, solution?, explain? } plugs straight in.
+    17→    17→   ============================================================ */
+    18→    18→
+    19→    19→import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+    20→    20→import { motion } from "framer-motion";
+    21→    21→import {
+    22→    22→  X,
+    23→    23→  ChevronLeft,
+    24→    24→  ChevronRight,
+    25→    25→  PenLine,
+    26→    26→  ListChecks,
+    27→    27→  RotateCcw,
+    28→    28→  Trophy,
+    29→    29→  Timer,
+    30→    30→  GraduationCap,
+    31→    31→  Check,
+    32→    32→  Eye,
+    33→    33→  Printer,
+    34→    34→} from "lucide-react";
+    35→    35→import {
+    36→    36→  clearExamDraft,
+    37→    37→  draftHasWork,
+    38→    38→  examDraftKey,
+    39→    39→  flushExamDraft,
+    40→    40→  loadExamDraft,
+    41→    41→  saveExamDraft,
+    42→    42→  useDialogA11y,
+    43→    43→} from "./exam-runtime";
+    44→    44→import { gradeQuestion } from "@/lib/sm2";
+    45→    45→import { logAttempt } from "@/lib/ledger";
+    46→    46→
+    47→    47→/* ---------------- theme contract ---------------- */
+    48→    48→
+    49→    49→export interface ExamTypeMeta {
+    50→    50→  label: string;
+    51→    51→  color: string;
+    52→    52→  bg: string;
+    53→    53→}
+    54→    54→
+    55→    55→export interface ExamTier {
+    56→    56→  t: string;
+    57→    57→  c: string;
+    58→    58→}
+    59→    59→
+    60→    60→export interface ExamTheme {
+    61→    61→  /** draft namespace, e.g. "foc" — must stay stable per subject */
+    62→    62→  key: string;
+    63→    63→  /** extra class on the shell for shelf-specific CSS, e.g. "stm-exam" */
+    64→    64→  rootClass?: string;
+    65→    65→  /** full-screen backdrop gradient */
+    66→    66→  pageBg: string;
+    67→    67→  /** header band gradient */
+    68→    68→  headerBg: string;
+    69→    69→  /** pen-line sigil gradient */
+    70→    70→  sigil: string;
+    71→    71→  /** bright text on the dark header */
+    72→    72→  titleOnDark: string;
+    73→    73→  /** muted subtitle on the dark header */
+    74→    74→  subOnDark: string;
+    75→    75→  /** pill text on the dark header */
+    76→    76→  chipOnDark: string;
+    77→    77→  /** bottom bar border color */
+    78→    78→  footerBorder: string;
+    79→    79→  /** bottom bar background (alpha allowed) */
+    80→    80→  footerBg: string;
+    81→    81→  /** bottom-bar hint sentence */
+    82→    82→  footerNote: string;
+    83→    83→  /** label above the textarea */
+    84→    84→  paperLabel: string;
+    85→    85→  /** placeholder for write-the-output questions */
+    86→    86→  outputPlaceholder: string;
+    87→    87→  /** per-question-type chip colors + labels, in display order */
+    88→    88→  typeMeta: Record<string, ExamTypeMeta>;
+    89→    89→  /** result-report verdict tiers */
+    90→    90→  tiers: {
+    91→    91→    topper: ExamTier;
+    92→    92→    solid: ExamTier;
+    93→    93→    getting: ExamTier;
+    94→    94→    restart: ExamTier;
+    95→    95→  };
+    96→    96→}
+    97→    97→
+    98→    98→/* ---------------- structural bank contract ---------------- */
+    99→    99→
+   100→   100→export interface EngineQuestion {
+   101→   101→  id: string;
+   102→   102→  type: string;
+   103→   103→  q: string;
+   104→   104→  code?: string;
+   105→   105→  options?: string[];
+   106→   106→  answer?: number;
+   107→   107→  answerText?: string;
+   108→   108→  solution?: string;
+   109→   109→  explain?: string;
+   110→   110→  /** schedule this question grades into when it differs from theme.key
+   111→   111→   *  (cross-shelf review sessions mix subjects in one paper) */
+   112→   112→  subject?: string;
+   113→   113→  /** the question's id in its own subject's schedule, when `id` was
+   114→   114→   *  namespaced to stay unique inside a mixed bank */
+   115→   115→  srcId?: string;
+   116→   116→}
+   117→   117→
+   118→   118→export interface EngineBank {
+   119→   119→  title: string;
+   120→   120→  subtitle: string;
+   121→   121→  questions: EngineQuestion[];
+   122→   122→}
+   123→   123→
+   124→   124→type QStatus = "unattempted" | "correct" | "wrong" | "revealed";
+   125→   125→interface QState {
+   126→   126→  chosen?: number;
+   127→   127→  typed?: string;
+   128→   128→  revealed?: boolean;
+   129→   129→  status: QStatus;
+   130→   130→}
+   131→   131→
+   132→   132→function fmt(sec: number) {
+   133→   133→  const m = Math.floor(sec / 60);
+   134→   134→  const s = sec % 60;
+   135→   135→  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+   136→   136→}
+   137→   137→
+   138→   138→export function ExamEngine({
+   139→   139→  theme,
+   140→   140→  bank,
+   141→   141→  draftId,
+   142→   142→  onClose,
+   143→   143→}: {
+   144→   144→  theme: ExamTheme;
+   145→   145→  bank: EngineBank;
+   146→   146→  /** stable per-window id (the exam group) — namespaces the draft */
+   147→   147→  draftId: string;
+   148→   148→  onClose: () => void;
+   149→   149→}) {
+   150→   150→  const qs = bank.questions;
+   151→   151→
+   152→   152→  /* ---- draft restore: a refresh or an accidental Escape keeps your work ---- */
+   153→   153→  const DRAFT_KEY = examDraftKey(theme.key, draftId);
+   154→   154→  const draft = useMemo(() => loadExamDraft(DRAFT_KEY), [DRAFT_KEY]);
+   155→   155→  const restored = useMemo(() => {
+   156→   156→    if (!draft) return null;
+   157→   157→    let n = 0;
+   158→   158→    for (const s of Object.values(draft.states)) {
+   159→   159→      const st = s as QState | undefined;
+   160→   160→      if (st && (st.status === "correct" || st.status === "wrong" || st.revealed)) n += 1;
+   161→   161→    }
+   162→   162→    return n > 0 ? n : null;
+   163→   163→  }, [draft]);
+   164→   164→
+   165→   165→  const [idx, setIdx] = useState(() => Math.min(Math.max(draft?.idx ?? 0, 0), qs.length - 1));
+   166→   166→  const [states, setStates] = useState<Record<string, QState>>(() => {
+   167→   167→    const fresh: Record<string, QState> = Object.fromEntries(
+   168→   168→      bank.questions.map((q) => [q.id, { status: "unattempted" as QStatus }])
+   169→   169→    );
+   170→   170→    if (draft) {
+   171→   171→      for (const q of bank.questions) {
+   172→   172→        const d = draft.states[q.id] as QState | undefined;
+   173→   173→        if (d && typeof d.status === "string") fresh[q.id] = d;
+   174→   174→      }
+   175→   175→    }
+   176→   176→    return fresh;
+   177→   177→  });
+   178→   178→  const [finished, setFinished] = useState(false);
+   179→   179→  /* drift-proof clock: seconds = base + (now − startedAt), derived from the
+   180→   180→     wall clock — never tick-counted, so background-tab throttling can't
+   181→   181→     silently under-report the elapsed time. Survives refresh via the draft. */
+   182→   182→  const [clock, setClock] = useState(() => ({
+   183→   183→    base: draft?.base ?? 0,
+   184→   184→    startedAt: draft?.startedAt ?? Date.now(),
+   185→   185→  }));
+   186→   186→  const [now, setNow] = useState(() => Date.now());
+   187→   187→  const seconds = Math.max(0, Math.floor(clock.base + (now - clock.startedAt) / 1000));
+   188→   188→  const bodyRef = useRef<HTMLDivElement>(null);
+   189→   189→  /* one ledger row per attempt-cycle — "back to questions" then finishing
+   190→   190→     again must not double-log; retake() re-arms it */
+   191→   191→  const loggedRef = useRef(false);
+   192→   192→
+   193→   193→  /* scroll lock (the timer below stops ticking on the results view) */
+   194→   194→  useEffect(() => {
+   195→   195→    document.body.style.overflow = "hidden";
+   196→   196→    return () => {
+   197→   197→      document.body.style.overflow = "";
+   198→   198→    };
+   199→   199→  }, []);
+   200→   200→
+   201→   201→  useEffect(() => {
+   202→   202→    if (finished) return;
+   203→   203→    const t = window.setInterval(() => setNow(Date.now()), 1000);
+   204→   204→    return () => window.clearInterval(t);
+   205→   205→  }, [finished]);
+   206→   206→
+   207→   207→  /* draft autosave — debounced inside saveExamDraft, flushed on close/finish */
+   208→   208→  useEffect(() => {
+   209→   209→    if (finished) return;
+   210→   210→    if (draftHasWork(states as Record<string, unknown>)) {
+   211→   211→      saveExamDraft(DRAFT_KEY, {
+   212→   212→        idx,
+   213→   213→        states: states as Record<string, unknown>,
+   214→   214→        base: clock.base,
+   215→   215→        startedAt: clock.startedAt,
+   216→   216→      });
+   217→   217→    }
+   218→   218→  }, [states, idx, clock, finished, DRAFT_KEY]);
+   219→   219→
+   220→   220→  const closeWindow = useCallback(() => {
+   221→   221→    flushExamDraft(); // the attempt is kept — reopening this window restores it
+   222→   222→    onClose();
+   223→   223→  }, [onClose]);
+   224→   224→
+   225→   225→  /** freeze the clock, clear the draft, log the attempt, show the report */
+   226→   226→  function finish() {
+   227→   227→    flushExamDraft();
+   228→   228→    clearExamDraft(DRAFT_KEY);
+   229→   229→    setClock({ base: seconds, startedAt: Date.now() });
+   230→   230→    setFinished(true);
+   231→   231→    if (!loggedRef.current) {
+   232→   232→      loggedRef.current = true;
+   233→   233→      /* one row per subject: single-shelf windows log exactly one row
+   234→   234→         (subject = theme.key, unchanged behaviour); mixed review sessions
+   235→   235→         split into per-shelf rows so each shelf's accuracy stays true */
+   236→   236→      const groups = new Map<string, { c: number; t: number }>();
+   237→   237→      for (const qq of qs) {
+   238→   238→        const s = states[qq.id]?.status;
+   239→   239→        if (s !== "correct" && s !== "wrong") continue;
+   240→   240→        const subj = qq.subject ?? theme.key;
+   241→   241→        const g = groups.get(subj) ?? { c: 0, t: 0 };
+   242→   242→        g.t += 1;
+   243→   243→        if (s === "correct") g.c += 1;
+   244→   244→        groups.set(subj, g);
+   245→   245→      }
+   246→   246→      const answered = groups.size > 0;
+   247→   247→      const rows: { subject: string; correct: number; total: number }[] = answered
+   248→   248→        ? [...groups.entries()].map(([subject, g]) => ({ subject, correct: g.c, total: g.t }))
+   249→   249→        : [{ subject: theme.key, correct: score.correct, total: score.total }];
+   250→   250→      for (const r of rows) {
+   251→   251→        logAttempt({
+   252→   252→          subject: r.subject,
+   253→   253→          group: draftId,
+   254→   254→          title: bank.title,
+   255→   255→          correct: r.correct,
+   256→   256→          total: r.total,
+   257→   257→          pct: Math.round((r.correct / Math.max(1, r.total)) * 100),
+   258→   258→          seconds,
+   259→   259→        });
+   260→   260→      }
+   261→   261→    }
+   262→   262→  }
+   263→   263→
+   264→   264→  const q = qs[idx];
+   265→   265→  const st = states[q.id];
+   266→   266→
+   267→   267→  /* keyboard flow — ←/→ move, keys 1–4 answer the MCQ on stage,
+   268→   268→     ↵ advances (next question, or the report on the last one).
+   269→   269→     Typing surfaces keep their keys: textareas, the ⌘K search
+   270→   270→     input, and focused buttons (where ↵ already means "press"). */
+   271→   271→  useEffect(() => {
+   272→   272→    const onKey = (e: KeyboardEvent) => {
+   273→   273→      const t = e.target;
+   274→   274→      const inTextarea = t instanceof HTMLTextAreaElement;
+   275→   275→      if (e.key === "Escape" && !inTextarea) closeWindow();
+   276→   276→      if (finished || inTextarea || e.isComposing || e.metaKey || e.ctrlKey || e.altKey) return;
+   277→   277→      if (t instanceof HTMLInputElement) return; // palette search etc.
+   278→   278→      if (e.key === "ArrowRight") {
+   279→   279→        setIdx((i) => Math.min(i + 1, qs.length - 1));
+   280→   280→      } else if (e.key === "ArrowLeft") {
+   281→   281→        setIdx((i) => Math.max(i - 1, 0));
+   282→   282→      } else if (e.key === "Enter") {
+   283→   283→        if (e.repeat) return;
+   284→   284→        if (t instanceof HTMLButtonElement || t instanceof HTMLAnchorElement || t instanceof HTMLSelectElement) return;
+   285→   285→        if (idx < qs.length - 1) go(idx + 1);
+   286→   286→        else finish();
+   287→   287→      } else if (!e.repeat) {
+   288→   288→        // keys 1–4 pick an option — same contract as clicking the row
+   289→   289→        const n = Number(e.key);
+   290→   290→        if (!Number.isInteger(n) || n < 1 || n > 4) return;
+   291→   291→        if (q.type !== "mcq" || st.status === "correct" || st.status === "wrong") return;
+   292→   292→        if (n <= (q.options?.length ?? 0)) chooseMCQ(n - 1);
+   293→   293→      }
+   294→   294→    };
+   295→   295→    document.addEventListener("keydown", onKey);
+   296→   296→    return () => document.removeEventListener("keydown", onKey);
+   297→   297→  }, [finished, closeWindow, qs.length, idx, q, st]);
+   298→   298→
+   299→   299→  const patch = (id: string, p: Partial<QState>) =>
+   300→   300→    setStates((prev) => ({ ...prev, [id]: { ...prev[id], ...p } }));
+   301→   301→
+   302→   302→  /* scoring — byType rows follow the theme's declared type order */
+   303→   303→  const typeKeys = useMemo(() => Object.keys(theme.typeMeta), [theme]);
+   304→   304→  const score = useMemo(() => {
+   305→   305→    let correct = 0;
+   306→   306→    let wrong = 0;
+   307→   307→    let answered = 0;
+   308→   308→    const byType: Record<string, { c: number; t: number }> = {};
+   309→   309→    for (const t of typeKeys) byType[t] = { c: 0, t: 0 };
+   310→   310→    for (const qq of qs) {
+   311→   311→      const row = (byType[qq.type] ??= { c: 0, t: 0 });
+   312→   312→      row.t += 1;
+   313→   313→      const s = states[qq.id]?.status ?? "unattempted";
+   314→   314→      if (s === "correct" || s === "wrong") answered += 1;
+   315→   315→      if (s === "correct") {
+   316→   316→        correct += 1;
+   317→   317→        row.c += 1;
+   318→   318→      }
+   319→   319→      if (s === "wrong") wrong += 1;
+   320→   320→    }
+   321→   321→    return { correct, wrong, answered, byType, total: qs.length };
+   322→   322→  }, [states, qs, typeKeys]);
+   323→   323→
+   324→   324→  const pct = Math.round((score.correct / score.total) * 100);
+   325→   325→  const verdict =
+   326→   326→    pct >= 85 ? theme.tiers.topper : pct >= 60 ? theme.tiers.solid : pct >= 35 ? theme.tiers.getting : theme.tiers.restart;
+   327→   327→
+   328→   328→  function chooseMCQ(i: number) {
+   329→   329→    if (st.status === "correct" || st.status === "wrong") return;
+   330→   330→    const ok = i === q.answer;
+   331→   331→    patch(q.id, {
+   332→   332→      chosen: i,
+   333→   333→      revealed: true,
+   334→   334→      status: ok ? "correct" : "wrong",
+   335→   335→    });
+   336→   336→    // SM-2: first-try MCQ answers are trusted fully (5), misses reset the card (2)
+   337→   337→    // — routed to the question's own shelf in mixed review sessions
+   338→   338→    gradeQuestion(q.subject ?? theme.key, q.srcId ?? q.id, ok ? 5 : 2);
+   339→   339→  }
+   340→   340→
+   341→   341→  function selfCheck(ok: boolean) {
+   342→   342→    patch(q.id, { status: ok ? "correct" : "wrong" });
+   343→   343→    // SM-2: the model answer was visible — grade honestly but trust less
+   344→   344→    gradeQuestion(q.subject ?? theme.key, q.srcId ?? q.id, ok ? 3 : 1);
+   345→   345→  }
+   346→   346→
+   347→   347→  function retake() {
+   348→   348→    setStates(Object.fromEntries(qs.map((qq) => [qq.id, { status: "unattempted" as QStatus }])));
+   349→   349→    setIdx(0);
+   350→   350→    setClock({ base: 0, startedAt: Date.now() });
+   351→   351→    setNow(Date.now());
+   352→   352→    setFinished(false);
+   353→   353→    loggedRef.current = false; // a retake is a new, honest attempt
+   354→   354→    clearExamDraft(DRAFT_KEY);
+   355→   355→    bodyRef.current?.scrollTo({ top: 0 });
+   356→   356→  }
+   357→   357→
+   358→   358→  function go(i: number) {
+   359→   359→    setIdx(i);
+   360→   360→    bodyRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+   361→   361→  }
+   362→   362→
+   363→   363→  /* ---------------- results view ---------------- */
+   364→   364→  if (finished) {
+   365→   365→    const mcqMeta = theme.typeMeta.mcq ?? Object.values(theme.typeMeta)[0];
+   366→   366→    return (
+   367→   367→      <ExamShell
+   368→   368→        theme={theme}
+   369→   369→        bank={bank}
+   370→   370→        score={score}
+   371→   371→        seconds={seconds}
+   372→   372→        onClose={closeWindow}
+   373→   373→        restoredCount={restored}
+   374→   374→        onExit={() => setFinished(false)}
+   375→   375→        scrollRef={bodyRef}
+   376→   376→      >
+   377→   377→        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+   378→   378→          <div className="exam-result-card">
+   379→   379→            <div className="exam-score-ring" style={{ borderColor: pct >= 60 ? "#8fae5d" : "#e0a45e" }}>
+   380→   380→              <span className="exam-score-num">{pct}%</span>
+   381→   381→              <span className="exam-score-sub">
+   382→   382→                {score.correct} / {score.total}
+   383→   383→              </span>
+   384→   384→            </div>
+   385→   385→            <div>
+   386→   386→              <h3 className="font-display text-2xl font-bold text-[#2b1d10]">Result report</h3>
+   387→   387→              <p className="mt-1 text-[.95rem] font-semibold" style={{ color: verdict.c }} role="status">
+   388→   388→                {verdict.t}
+   389→   389→              </p>
+   390→   390→              <div className="mt-3 flex flex-wrap gap-2 text-[.72rem] font-bold">
+   391→   391→                <span className="exam-chip" style={{ background: "#eef4dd", color: "#44621d" }}>✓ {score.correct} correct</span>
+   392→   392→                <span className="exam-chip" style={{ background: "#fdecec", color: "#8c2f2f" }}>✗ {score.wrong} wrong</span>
+   393→   393→                <span className="exam-chip" style={{ background: "#f3e8d2", color: "#6f5438" }}>• {score.total - score.answered} unattempted</span>
+   394→   394→                <span className="exam-chip" style={{ background: mcqMeta.bg, color: mcqMeta.color }}>
+   395→   395→                  <Timer className="mr-1 inline h-3 w-3" />
+   396→   396→                  {fmt(seconds)}
+   397→   397→                </span>
+   398→   398→              </div>
+   399→   399→            </div>
+   400→   400→          </div>
+   401→   401→
+   402→   402→          {/* per-type breakdown */}
+   403→   403→          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+   404→   404→            {typeKeys.map((t) => {
+   405→   405→              const meta = theme.typeMeta[t];
+   406→   406→              const d = score.byType[t];
+   407→   407→              if (!meta || !d) return null;
+   408→   408→              return (
+   409→   409→                <div key={t} className="flex items-center justify-between rounded-xl border border-[#e8dcc0] bg-[#fffdf9] px-4 py-3">
+   410→   410→                  <span className="text-[.8rem] font-bold" style={{ color: meta.color }}>
+   411→   411→                    {meta.label}
+   412→   412→                  </span>
+   413→   413→                  <span className="text-[.8rem] font-extrabold text-[#2b1d10]">
+   414→   414→                    {d.c} / {d.t}
+   415→   415→                  </span>
+   416→   416→                </div>
+   417→   417→              );
+   418→   418→            })}
+   419→   419→          </div>
+   420→   420→
+   421→   421→          {/* review the misses */}
+   422→   422→          {score.correct < score.total ? (
+   423→   423→            <div className="mt-6">
+   424→   424→              <p className="exam-eyebrow">
+   425→   425→                <Printer className="h-3.5 w-3.5" />
+   426→   426→                Review &amp; rewrite these by hand
+   427→   427→              </p>
+   428→   428→              <div className="mt-3 grid gap-3">
+   429→   429→                {qs.map((qq) => {
+   430→   430→                  const s = states[qq.id]?.status ?? "unattempted";
+   431→   431→                  if (s === "correct") return null;
+   432→   432→                  const model =
+   433→   433→                    qq.type === "mcq"
+   434→   434→                      ? (qq.options?.[qq.answer ?? 0] ?? "")
+   435→   435→                      : qq.answerText ?? qq.solution ?? "";
+   436→   436→                  return (
+   437→   437→                    <div key={qq.id} className="rounded-xl border border-[#e8dcc0] bg-[#fffdf9] p-4">
+   438→   438→                      <p className="text-[.88rem] font-bold leading-snug text-[#2b1d10]">{qq.q}</p>
+   439→   439→                      {qq.code ? <pre className="exam-code mt-2">{qq.code}</pre> : null}
+   440→   440→                      <p className="mt-2 text-[.82rem] leading-relaxed" style={{ color: s === "wrong" ? "#8c2f2f" : "#6f5438" }}>
+   441→   441→                        <strong>{s === "wrong" ? "Missed —" : "Unattempted —"}</strong>{" "}
+   442→   442→                        <span className="whitespace-pre-wrap font-mono text-[.78rem] text-[#2f2013]">{model}</span>
+   443→   443→                      </p>
+   444→   444→                      {qq.explain ? <p className="mt-1 text-[.78rem] leading-relaxed text-[#6f5438]">{qq.explain}</p> : null}
+   445→   445→                    </div>
+   446→   446→                  );
+   447→   447→                })}
+   448→   448→              </div>
+   449→   449→            </div>
+   450→   450→          ) : null}
+   451→   451→
+   452→   452→          <div className="mt-7 flex flex-wrap justify-center gap-3">
+   453→   453→            <button type="button" onClick={retake} className="exam-btn exam-btn-primary">
+   454→   454→              <RotateCcw className="h-4 w-4" />
+   455→   455→              Retake this test
+   456→   456→            </button>
+   457→   457→            <button type="button" onClick={() => setFinished(false)} className="exam-btn">
+   458→   458→              <ListChecks className="h-4 w-4" />
+   459→   459→              Back to questions
+   460→   460→            </button>
+   461→   461→          </div>
+   462→   462→        </motion.div>
+   463→   463→      </ExamShell>
+   464→   464→    );
+   465→   465→  }
+   466→   466→
+   467→   467→  /* ---------------- question view ---------------- */
+   468→   468→  const meta = theme.typeMeta[q.type] ?? theme.typeMeta.mcq ?? Object.values(theme.typeMeta)[0];
+   469→   469→  const mcqLocked = st.status === "correct" || st.status === "wrong";
+   470→   470→
+   471→   471→  return (
+   472→   472→    <ExamShell
+   473→   473→      theme={theme}
+   474→   474→      bank={bank}
+   475→   475→      score={score}
+   476→   476→      seconds={seconds}
+   477→   477→      onClose={closeWindow}
+   478→   478→      restoredCount={restored}
+   479→   479→      onExit={() => finish()}
+   480→   480→      scrollRef={bodyRef}
+   481→   481→    >
+   482→   482→      <motion.div key={q.id} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.22, ease: "easeOut" }}>
+   483→   483→        {/* type chip + counter */}
+   484→   484→        <div className="flex flex-wrap items-center gap-2">
+   485→   485→          <span className="exam-type-chip" style={{ color: meta.color, background: meta.bg }}>
+   486→   486→            {meta.label}
+   487→   487→          </span>
+   488→   488→          <span className="text-[.72rem] font-extrabold uppercase tracking-[.16em] text-[#8a6d4f]">
+   489→   489→            Question {idx + 1} of {qs.length}
+   490→   490→          </span>
+   491→   491→        </div>
+   492→   492→
+   493→   493→        {/* question */}
+   494→   494→        <h3 className="font-display mt-3 text-xl font-bold leading-snug text-[#2b1d10] md:text-[1.35rem]">{q.q}</h3>
+   495→   495→
+   496→   496→        {q.code ? <pre className="exam-code mt-4">{q.code}</pre> : null}
+   497→   497→
+   498→   498→        {/* answer area */}
+   499→   499→        {q.type === "mcq" ? (
+   500→   500→          <div className="mt-4 grid gap-2">
+   501→   501→            {q.options?.map((opt, i) => {
+   502→   502→              const isAnswer = i === q.answer;
+   503→   503→              const chosen = st.chosen === i;
+   504→   504→              let cls = "exam-opt";
+   505→   505→              if (mcqLocked && isAnswer) cls += " exam-opt-correct";
+   506→   506→              else if (mcqLocked && chosen) cls += " exam-opt-wrong";
+   507→   507→              return (
+   508→   508→                <button key={i} type="button" disabled={mcqLocked} onClick={() => chooseMCQ(i)} className={cls}>
+   509→   509→                  <span className="exam-opt-letter">{String.fromCharCode(65 + i)}</span>
+   510→   510→                  <span className="font-mono text-[.86rem]">{opt}</span>
+   511→   511→                  {mcqLocked && isAnswer ? <Check className="ml-auto h-4 w-4" /> : null}
+   512→   512→                </button>
+   513→   513→              );
+   514→   514→            })}
+   515→   515→          </div>
+   516→   516→        ) : (
+   517→   517→          <div className="mt-4">
+   518→   518→            <label htmlFor={`ta-${q.id}`} className="text-[.74rem] font-bold uppercase tracking-[.14em] text-[#8a6d4f]">
+   519→   519→              {theme.paperLabel}
+   520→   520→            </label>
+   521→   521→            <textarea
+   522→   522→              id={`ta-${q.id}`}
+   523→   523→              value={st.typed ?? ""}
+   524→   524→              onChange={(e) => patch(q.id, { typed: e.target.value })}
+   525→   525→              spellCheck={false}
+   526→   526→              rows={q.type === "short" ? 4 : 6}
+   527→   527→              placeholder={q.type === "output" ? theme.outputPlaceholder : q.type === "code" ? "# write your program here…" : "your answer…"}
+   528→   528→              className="exam-ta"
+   529→   529→            />
+   530→   530→            {!st.revealed ? (
+   531→   531→              <button type="button" onClick={() => patch(q.id, { revealed: true })} className="exam-btn mt-2">
+   532→   532→                <Eye className="h-4 w-4" />
+   533→   533→                Reveal the model answer
+   534→   534→              </button>
+   535→   535→            ) : (
+   536→   536→              <motion.div
+   537→   537→                initial={{ opacity: 0, y: 10 }}
+   538→   538→                animate={{ opacity: 1, y: 0 }}
+   539→   539→                className="mt-3"
+   540→   540→                role="status"
+   541→   541→              >
+   542→   542→                <div className="exam-answer">
+   543→   543→                  <p className="exam-eyebrow">
+   544→   544→                    <GraduationCap className="h-3.5 w-3.5" />
+   545→   545→                    Model answer
+   546→   546→                  </p>
+   547→   547→                  {q.solution ? <pre className="exam-code mt-2">{q.solution}</pre> : null}
+   548→   548→                  {q.answerText ? (
+   549→   549→                    <p className={`mt-2 whitespace-pre-wrap font-mono text-[.82rem] leading-relaxed text-[#2f2013] ${q.solution ? "text-[.78rem]" : ""}`}>
+   550→   550→                      {q.answerText}
+   551→   551→                    </p>
+   552→   552→                  ) : null}
+   553→   553→                  {q.explain ? <p className="mt-2 text-[.82rem] leading-relaxed text-[#6f5438]">{q.explain}</p> : null}
+   554→   554→                </div>
+   555→   555→                {st.status !== "correct" && st.status !== "wrong" ? (
+   556→   556→                  <div className="mt-3 flex flex-wrap items-center gap-2">
+   557→   557→                    <span className="text-[.74rem] font-bold uppercase tracking-[.12em] text-[#8a6d4f]">Self-check:</span>
+   558→   558→                    <button type="button" onClick={() => selfCheck(true)} className="exam-btn" style={{ color: "#44621d" }}>
+   559→   559→                      <Check className="h-4 w-4" /> I got it
+   560→   560→                    </button>
+   561→   561→                    <button type="button" onClick={() => selfCheck(false)} className="exam-btn" style={{ color: "#8c2f2f" }}>
+   562→   562→                      <X className="h-4 w-4" /> Not yet
+   563→   563→                    </button>
+   564→   564→                  </div>
+   565→   565→                ) : null}
+   566→   566→              </motion.div>
+   567→   567→            )}
+   568→   568→          </div>
+   569→   569→        )}
+   570→   570→
+   571→   571→        {/* MCQ explanation */}
+   572→   572→        {q.type === "mcq" && mcqLocked && q.explain ? (
+   573→   573→          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="exam-answer mt-3" role="status">
+   574→   574→            <p className="text-[.88rem] font-bold" style={{ color: st.status === "correct" ? "#44621d" : "#8c2f2f" }}>
+   575→   575→              {st.status === "correct" ? "Correct." : "Not quite."}
+   576→   576→            </p>
+   577→   577→            <p className="mt-1 text-[.85rem] leading-relaxed text-[#2f2013]">{q.explain}</p>
+   578→   578→          </motion.div>
+   579→   579→        ) : null}
+   580→   580→
+   581→   581→        {/* navigator */}
+   582→   582→        <div className="exam-nav">
+   583→   583→          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+   584→   584→            <p className="exam-eyebrow">
+   585→   585→              <ListChecks className="h-3.5 w-3.5" />
+   586→   586→              Jump to a question
+   587→   587→            </p>
+   588→   588→            <p className="hidden items-center gap-2.5 text-[.58rem] font-bold uppercase tracking-[.1em] text-[#8a6d4f] sm:flex" aria-hidden>
+   589→   589→              <span>
+   590→   590→                <kbd className="exam-kbd">1–4</kbd> answer
+   591→   591→              </span>
+   592→   592→              <span>
+   593→   593→                <kbd className="exam-kbd">↵</kbd> next
+   594→   594→              </span>
+   595→   595→              <span>
+   596→   596→                <kbd className="exam-kbd">←→</kbd> move
+   597→   597→              </span>
+   598→   598→            </p>
+   599→   599→          </div>
+   600→   600→          <div className="mt-2 flex flex-wrap gap-1.5">
+   601→   601→            {qs.map((qq, i) => {
+   602→   602→              const s = states[qq.id]?.status ?? "unattempted";
+   603→   603→              const cls =
+   604→   604→                i === idx
+   605→   605→                  ? "exam-dot exam-dot-current"
+   606→   606→                  : s === "correct"
+   607→   607→                  ? "exam-dot exam-dot-ok"
+   608→   608→                  : s === "wrong"
+   609→   609→                  ? "exam-dot exam-dot-bad"
+   610→   610→                  : s === "revealed"
+   611→   611→                  ? "exam-dot exam-dot-rev"
+   612→   612→                  : "exam-dot";
+   613→   613→              return (
+   614→   614→                <button key={qq.id} type="button" onClick={() => go(i)} className={cls} aria-label={`Go to question ${i + 1}`}>
+   615→   615→                  {i + 1}
+   616→   616→                </button>
+   617→   617→              );
+   618→   618→            })}
+   619→   619→          </div>
+   620→   620→        </div>
+   621→   621→
+   622→   622→        {/* prev / next */}
+   623→   623→        <div className="mt-6 flex items-center justify-between pb-2">
+   624→   624→          <button type="button" onClick={() => go(Math.max(0, idx - 1))} disabled={idx === 0} className="exam-btn">
+   625→   625→            <ChevronLeft className="h-4 w-4" />
+   626→   626→            Prev
+   627→   627→          </button>
+   628→   628→          {idx < qs.length - 1 ? (
+   629→   629→            <button type="button" onClick={() => go(idx + 1)} className="exam-btn exam-btn-primary">
+   630→   630→              Next
+   631→   631→              <ChevronRight className="h-4 w-4" />
+   632→   632→            </button>
+   633→   633→          ) : (
+   634→   634→            <button type="button" onClick={() => finish()} className="exam-btn exam-btn-primary">
+   635→   635→              <Trophy className="h-4 w-4" />
+   636→   636→              Finish &amp; see score
+   637→   637→            </button>
+   638→   638→          )}
+   639→   639→        </div>
+   640→   640→      </motion.div>
+   641→   641→    </ExamShell>
+   642→   642→  );
+   643→   643→}
+   644→   644→
+   645→   645→/* ---------------- shared shell (header + footer) ---------------- */
+   646→   646→function ExamShell({
+   647→   647→  theme,
+   648→   648→  bank,
+   649→   649→  score,
+   650→   650→  seconds,
+   651→   651→  children,
+   652→   652→  onClose,
+   653→   653→  onExit,
+   654→   654→  scrollRef,
+   655→   655→  restoredCount,
+   656→   656→}: {
+   657→   657→  theme: ExamTheme;
+   658→   658→  bank: EngineBank;
+   659→   659→  score: { correct: number; total: number; answered: number };
+   660→   660→  seconds: number;
+   661→   661→  children: React.ReactNode;
+   662→   662→  onClose: () => void;
+   663→   663→  onExit: () => void;
+   664→   664→  scrollRef: React.RefObject<HTMLDivElement | null>;
+   665→   665→  restoredCount?: number | null;
+   666→   666→}) {
+   667→   667→  const shellRef = useDialogA11y<HTMLDivElement>(true);
+   668→   668→  return (
+   669→   669→    <motion.div
+   670→   670→      ref={shellRef}
+   671→   671→      tabIndex={-1}
+   672→   672→      initial={{ opacity: 0, scale: 0.99 }}
+   673→   673→      animate={{ opacity: 1, scale: 1 }}
+   674→   674→      transition={{ duration: 0.2, ease: "easeOut" }}
+   675→   675→      className={`fixed inset-0 z-[80] flex flex-col outline-none ${theme.rootClass ?? ""}`}
+   676→   676→      style={{ background: theme.pageBg }}
+   677→   677→      role="dialog"
+   678→   678→      aria-modal="true"
+   679→   679→      aria-label={`Test my knowledge — ${bank.title}`}
+   680→   680→    >
+   681→   681→      {/* header */}
+   682→   682→      <div className="shrink-0 border-b border-black/20" style={{ background: theme.headerBg }}>
+   683→   683→        <div className="mx-auto flex max-w-3xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 sm:px-6">
+   684→   684→          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl" style={{ background: theme.sigil }}>
+   685→   685→            <PenLine className="h-4.5 w-4.5 text-white" />
+   686→   686→          </span>
+   687→   687→          <div className="min-w-0">
+   688→   688→            <p className="text-[.95rem] font-black leading-tight" style={{ color: theme.titleOnDark }}>Test my knowledge — {bank.title}</p>
+   689→   689→            <p className="text-[.68rem] leading-tight" style={{ color: theme.subOnDark }}>{bank.subtitle} · pen-paper practice</p>
+   690→   690→          </div>
+   691→   691→          <div className="ml-auto flex items-center gap-2">
+   692→   692→            <span className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[.06] px-2.5 py-1 text-[.62rem] font-extrabold uppercase tracking-[.12em]" style={{ color: theme.chipOnDark }}>
+   693→   693→              <Timer className="h-3 w-3" />
+   694→   694→              {fmt(seconds)}
+   695→   695→            </span>
+   696→   696→            <span className="rounded-full border border-white/15 bg-white/[.06] px-2.5 py-1 text-[.62rem] font-extrabold uppercase tracking-[.12em]" style={{ color: theme.chipOnDark }}>
+   697→   697→              ✓ {score.correct}/{score.total}
+   698→   698→            </span>
+   699→   699→            {restoredCount ? (
+   700→   700→              <span
+   701→   701→                className="rounded-full border border-white/15 bg-white/[.06] px-2.5 py-1 text-[.62rem] font-extrabold uppercase tracking-[.12em]"
+   702→   702→                style={{ color: theme.chipOnDark }}
+   703→   703→                title="Saved attempt restored — this window keeps your work for the whole tab session"
+   704→   704→              >
+   705→   705→                ↺ restored
+   706→   706→              </span>
+   707→   707→            ) : null}
+   708→   708→            <button type="button" onClick={onClose} aria-label="Close the exam window" className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-white/[.06] transition hover:bg-white/[.14]" style={{ color: theme.titleOnDark }}>
+   709→   709→              <X className="h-4 w-4" />
+   710→   710→            </button>
+   711→   711→          </div>
+   712→   712→        </div>
+   713→   713→      </div>
+   714→   714→
+   715→   715→      {/* body */}
+   716→   716→      <div ref={scrollRef} className="flex-1 overflow-y-auto">
+   717→   717→        <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:py-8">{children}</div>
+   718→   718→      </div>
+   719→   719→
+   720→   720→      {/* bottom bar */}
+   721→   721→      <div className="shrink-0 border-t" style={{ borderColor: theme.footerBorder, background: theme.footerBg }}>
+   722→   722→        <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-2.5 sm:px-6">
+   723→   723→          <p className="hidden text-[.68rem] font-semibold text-[#8a6d4f] sm:block">
+   724→   724→            {theme.footerNote}
+   725→   725→          </p>
+   726→   726→          <button type="button" onClick={onExit} className="exam-btn ml-auto">
+   727→   727→            <Trophy className="h-4 w-4" />
+   728→   728→            Finish &amp; see score
+   729→   729→          </button>
+   730→   730→        </div>
+   731→   731→      </div>
+   732→   732→    </motion.div>
+   733→   733→  );
+   734→   734→}
+   735→   735→

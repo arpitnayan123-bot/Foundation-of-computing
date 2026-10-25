@@ -1,0 +1,1190 @@
+     1→"use client";
+     2→
+     3→import React, { useState } from "react";
+     4→import { AnimatePresence, motion } from "framer-motion";
+     5→import {
+     6→  ArrowDown,
+     7→  ArrowRight,
+     8→  Banknote,
+     9→  BookOpen,
+    10→  BookOpenCheck,
+    11→  Braces,
+    12→  Coffee,
+    13→  Database,
+    14→  Flame,
+    15→  FunctionSquare,
+    16→  GraduationCap,
+    17→  Hash,
+    18→  ListOrdered,
+    19→  Percent,
+    20→  PenLine,
+    21→  Play,
+    22→  RotateCcw,
+    23→  Sigma,
+    24→  ToggleLeft,
+    25→  Type,
+    26→  User,
+    27→  Workflow,
+    28→} from "lucide-react";
+    29→import {
+    30→  Callout,
+    31→  CodeBlock,
+    32→  KV,
+    33→  Practice,
+    34→  Quiz,
+    35→  ReadStep,
+    36→  Reveal,
+    37→  Section,
+    38→  SectionHead,
+    39→  StepsFlow,
+    40→  Takeaways,
+    41→} from "@/components/notes/ui";
+    42→
+    43→/* ============================================================
+    44→   Shared SVG geometry + animation primitives (this file only)
+    45→   ============================================================ */
+    46→const pOval = (cx: number, cy: number, rx: number, ry: number) =>
+    47→  `M ${cx - rx} ${cy} a ${rx} ${ry} 0 1 0 ${rx * 2} 0 a ${rx} ${ry} 0 1 0 ${-rx * 2} 0 Z`;
+    48→const pRect = (cx: number, y: number, w: number, h: number) =>
+    49→  `M ${cx - w / 2} ${y} h ${w} v ${h} h ${-w} Z`;
+    50→const pPara = (cx: number, y: number, w: number, h: number, sk = 16) =>
+    51→  `M ${cx - w / 2 + sk} ${y} h ${w - sk} l ${-sk} ${h} h ${-(w - sk)} Z`;
+    52→const pDiamond = (cx: number, cy: number, w: number, h: number) =>
+    53→  `M ${cx} ${cy - h / 2} L ${cx + w / 2} ${cy} L ${cx} ${cy + h / 2} L ${cx - w / 2} ${cy} Z`;
+    54→
+    55→type FlowLine = { t: string; x: number; y: number; size?: number; fill?: string; weight?: number };
+    56→
+    57→function FlowNode({
+    58→  d,
+    59→  fill,
+    60→  stroke,
+    61→  lines,
+    62→  delay = 0,
+    63→}: {
+    64→  d: string;
+    65→  fill: string;
+    66→  stroke?: string;
+    67→  lines: FlowLine[];
+    68→  delay?: number;
+    69→}) {
+    70→  return (
+    71→    <motion.g
+    72→      initial={{ opacity: 0, y: 12 }}
+    73→      whileInView={{ opacity: 1, y: 0 }}
+    74→      viewport={{ once: true, margin: "-30px" }}
+    75→      transition={{ duration: 0.4, delay, ease: "easeOut" }}
+    76→    >
+    77→      <path d={d} fill={fill} stroke={stroke ?? "none"} strokeWidth={stroke ? 1.5 : 0} />
+    78→      {lines.map((l) => (
+    79→        <text
+    80→          key={l.t}
+    81→          x={l.x}
+    82→          y={l.y}
+    83→          textAnchor="middle"
+    84→          fontSize={l.size ?? 12}
+    85→          fontWeight={l.weight ?? 700}
+    86→          fill={l.fill ?? "#3e2c1d"}
+    87→        >
+    88→          {l.t}
+    89→        </text>
+    90→      ))}
+    91→    </motion.g>
+    92→  );
+    93→}
+    94→
+    95→function FlowEdge({
+    96→  d,
+    97→  stroke,
+    98→  marker,
+    99→  delay = 0,
+   100→}: {
+   101→  d: string;
+   102→  stroke: string;
+   103→  marker: string;
+   104→  delay?: number;
+   105→}) {
+   106→  return (
+   107→    <motion.path
+   108→      d={d}
+   109→      fill="none"
+   110→      stroke={stroke}
+   111→      strokeWidth={2}
+   112→      strokeLinecap="round"
+   113→      markerEnd={`url(#${marker})`}
+   114→      initial={{ pathLength: 0, opacity: 0 }}
+   115→      whileInView={{ pathLength: 1, opacity: 1 }}
+   116→      viewport={{ once: true, margin: "-30px" }}
+   117→      transition={{ duration: 0.45, delay, ease: "easeInOut" }}
+   118→    />
+   119→  );
+   120→}
+   121→
+   122→/* ============================================================
+   123→   HERO
+   124→   ============================================================ */
+   125→const HERO_SHAPES = [
+   126→  { kind: "rounded", top: "13%", left: "6%", size: 56, dur: 7.2, delay: 0, rot: -8, color: "#c2410c" },
+   127→  { kind: "diamond", top: "68%", left: "9%", size: 48, dur: 8.4, delay: 0.8, rot: 6, color: "#d97706" },
+   128→  { kind: "para", top: "20%", left: "87%", size: 60, dur: 7.8, delay: 0.4, rot: 4, color: "#ea580c" },
+   129→  { kind: "rect", top: "60%", left: "89%", size: 50, dur: 8.8, delay: 1.4, rot: -6, color: "#b45309" },
+   130→  { kind: "oval", top: "40%", left: "3%", size: 46, dur: 9.2, delay: 2, rot: 0, color: "#7c9a3e" },
+   131→  { kind: "diamond", top: "82%", left: "44%", size: 40, dur: 8, delay: 1.1, rot: 10, color: "#be4a4a" },
+   132→] as const;
+   133→
+   134→function HeroShape({ b }: { b: (typeof HERO_SHAPES)[number] }) {
+   135→  const s = b.size;
+   136→  const paths: Record<string, React.ReactNode> = {
+   137→    rounded: <rect x="2" y="6" width={s - 4} height={s * 0.62} rx={s * 0.31} />,
+   138→    diamond: <path d={`M ${s / 2} 2 L ${s - 2} ${s * 0.4} L ${s / 2} ${s * 0.78} L 2 ${s * 0.4} Z`} />,
+   139→    para: <path d={`M ${s * 0.3} 4 H ${s - 2} L ${s * 0.7} ${s * 0.7} H 2 Z`} />,
+   140→    rect: <rect x="3" y={s * 0.12} width={s - 6} height={s * 0.66} />,
+   141→    oval: <ellipse cx={s / 2} cy={s * 0.4} rx={s / 2 - 2} ry={s * 0.28} />,
+   142→  };
+   143→  return (
+   144→    <motion.div
+   145→      aria-hidden
+   146→      className="pointer-events-none absolute"
+   147→      style={{ top: b.top, left: b.left, rotate: b.rot, opacity: 0.5 }}
+   148→      animate={{ y: [0, -12, 0] }}
+   149→      transition={{ duration: b.dur, repeat: Infinity, ease: "easeInOut", delay: b.delay }}
+   150→    >
+   151→      <svg width={s} height={s * 0.8} viewBox={`0 0 ${s} ${s * 0.8}`} fill="none" stroke={b.color} strokeWidth={2}>
+   152→        {paths[b.kind]}
+   153→      </svg>
+   154→    </motion.div>
+   155→  );
+   156→}
+   157→
+   158→export function AtbHero() {
+   159→  return (
+   160→    <header id="top" className="relative flex min-h-[94vh] flex-col items-center justify-center overflow-hidden px-4 pb-24 pt-16 sm:pb-16">
+   161→      {/* ambient washes — static (cheap), like every shelf hero */}
+   162→      <div aria-hidden className="pointer-events-none absolute inset-0">
+   163→        <div className="absolute -left-24 top-16 h-80 w-80 rounded-full blur-3xl" style={{ background: "rgba(245,158,11,.18)" }} />
+   164→        <div className="absolute -right-16 bottom-24 h-96 w-96 rounded-full blur-3xl" style={{ background: "rgba(194,65,12,.14)" }} />
+   165→        <div className="absolute left-1/3 top-1/2 h-64 w-64 rounded-full blur-3xl" style={{ background: "rgba(217,119,6,.12)" }} />
+   166→      </div>
+   167→
+   168→      {/* animated backdrop — dashed algorithm path + pulsing decision points + floating symbols */}
+   169→      <svg aria-hidden viewBox="0 0 1200 620" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full">
+   170→        <motion.path
+   171→          d="M -30 480 C 180 380 320 570 560 470 C 780 380 900 250 1230 330"
+   172→          fill="none" stroke="#c99a5b" strokeWidth="2" strokeDasharray="3 10" strokeLinecap="round"
+   173→          initial={{ pathLength: 0, opacity: 0 }}
+   174→          animate={{ pathLength: 1, opacity: 0.5 }}
+   175→          transition={{ duration: 2.6, ease: "easeInOut", delay: 0.4 }}
+   176→        />
+   177→        {[
+   178→          { x: 170, y: 452 },
+   179→          { x: 560, y: 470 },
+   180→          { x: 960, y: 306 },
+   181→        ].map((p, i) => (
+   182→          <motion.circle
+   183→            key={i} cx={p.x} cy={p.y} r={6} fill="none" stroke="#c2410c" strokeWidth={2}
+   184→            style={{ transformBox: "fill-box", transformOrigin: "center" }}
+   185→            animate={{ opacity: [0.2, 0.85, 0.2], scale: [1, 1.4, 1] }}
+   186→            transition={{ duration: 3, repeat: Infinity, delay: i * 0.7 }}
+   187→          />
+   188→        ))}
+   189→      </svg>
+   190→      <div aria-hidden className="pointer-events-none absolute inset-0">
+   191→        {HERO_SHAPES.map((b, i) => (
+   192→          <HeroShape key={i} b={b} />
+   193→        ))}
+   194→      </div>
+   195→
+   196→      <div className="relative z-10 mx-auto max-w-4xl text-center">
+   197→        <Reveal>
+   198→          <span className="chip mx-auto">
+   199→            <BookOpenCheck className="h-3.5 w-3.5" />
+   200→            Shelf 02 · B.S. in Management and Technology · IIT Jodhpur
+   201→          </span>
+   202→        </Reveal>
+   203→        <Reveal delay={120}>
+   204→          <h1 className="mt-6 text-5xl font-black leading-[1.05] tracking-tight md:text-7xl">
+   205→            Algorithmic Thinking in <span className="grad-text">Business</span>
+   206→          </h1>
+   207→        </Reveal>
+   208→        <Reveal delay={240}>
+   209→          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-warm">
+   210→            How do you turn a business mess — queues, inventory, payrolls, ledgers — into steps a
+   211→            machine can follow? This course answers it with zero code: data structures and
+   212→            algorithms, drawn, traced and reasoned like a manager, not a programmer.
+   213→          </p>
+   214→        </Reveal>
+   215→
+   216→        <Reveal delay={300}>
+   217→          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+   218→            <a
+   219→              href="#intro"
+   220→              className="rounded-full px-7 py-3.5 text-sm font-bold text-white shadow-lg transition hover:scale-[1.03]"
+   221→              style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)", boxShadow: "0 14px 30px -12px rgba(194,65,12,.55)" }}
+   222→            >
+   223→              Start Module 1 <ArrowRight className="ml-1 inline h-4 w-4" />
+   224→            </a>
+   225→            <a
+   226→              href="#practice"
+   227→              title="Straight to the exam windows — write-the-output, trace-the-pseudocode, concept checks"
+   228→              className="group inline-flex items-center gap-2 rounded-full border border-[#e5c79d] bg-[#fffdf9] px-7 py-3.5 text-sm font-bold text-[#7c4a12] transition hover:bg-[#fdf1e0]"
+   229→            >
+   230→              <PenLine className="h-4 w-4 text-[#c2410c] transition-transform duration-300 group-hover:-rotate-12" />
+   231→              Test my knowledge
+   232→            </a>
+   233→          </div>
+   234→        </Reveal>
+   235→
+   236→        {/* course meta — instructor / textbook */}
+   237→        <div className="mx-auto mt-12 grid max-w-3xl gap-4 md:grid-cols-2">
+   238→          <Reveal delay={360}>
+   239→            <div className="card-warm lift h-full p-5 text-left">
+   240→              <span className="chip"><User className="h-3.5 w-3.5" /> Instructor</span>
+   241→              <p className="mt-3 text-lg font-extrabold text-[#3e2c1d]">Dr. Deepak Kumar Saxena</p>
+   242→              <p className="mt-1 text-[.82rem] leading-relaxed text-muted-warm">
+   243→                Associate Professor — Information Systems &amp; Digital Transformation
+   244→              </p>
+   245→              <p className="mt-2 text-[.78rem] leading-relaxed text-[#8a6b45]">
+   246→                BE IT · M.Tech IIT Kanpur · PhD Trinity College Dublin
+   247→              </p>
+   248→              <p className="mt-1 text-[.78rem] font-semibold text-[#a0410a]">ex-ISRO scientist</p>
+   249→            </div>
+   250→          </Reveal>
+   251→          <Reveal delay={430}>
+   252→            <div className="card-warm lift h-full p-5 text-left">
+   253→              <span className="chip"><BookOpen className="h-3.5 w-3.5" /> Textbook</span>
+   254→              <p className="mt-3 text-lg font-extrabold leading-snug text-[#3e2c1d]">
+   255→                &ldquo;Codeless Data Structures and Algorithms&rdquo;
+   256→              </p>
+   257→              <p className="mt-2 text-[.82rem] text-muted-warm">Armstrong Subero · Apress</p>
+   258→              <p className="mt-3 text-[.78rem] leading-relaxed text-[#8a6b45]">
+   259→                Every idea in this course is taught drawn and traced — never language-first.
+   260→              </p>
+   261→            </div>
+   262→          </Reveal>
+   263→        </div>
+   264→
+   265→        <Reveal delay={560}>
+   266→          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
+   267→            {[
+   268→              ["3", "modules"],
+   269→              ["19", "chapters"],
+   270→              ["30", "exam questions"],
+   271→            ].map(([n, l]) => (
+   272→              <div key={l} className="text-center">
+   273→                <p className="grad-text text-3xl font-black">{n}</p>
+   274→                <p className="text-[.72rem] font-bold uppercase tracking-[.18em] text-[#8a6b45]">{l}</p>
+   275→              </div>
+   276→            ))}
+   277→          </div>
+   278→        </Reveal>
+   279→      </div>
+   280→
+   281→      <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
+   282→        <a href="#intro" aria-label="Scroll to Module 1" className="anim-bob rounded-full border border-[#ecd9bd] bg-[#fffdf9]/80 p-3 text-[#c2410c]">
+   283→          <ArrowDown className="h-5 w-5" />
+   284→        </a>
+   285→      </div>
+   286→    </header>
+   287→  );
+   288→}
+   289→
+   290→/* ============================================================
+   291→   MODULE 1 · INTRODUCTION (id="intro")
+   292→   ============================================================ */
+   293→function BetweenArrow() {
+   294→  return (
+   295→    <svg viewBox="0 0 60 24" className="hidden h-6 w-14 shrink-0 self-center md:block" aria-hidden>
+   296→      <path d="M2 12 H50" stroke="#c2410c" strokeWidth="2.5" fill="none" />
+   297→      <path d="M46 5 L56 12 L46 19" stroke="#c2410c" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+   298→    </svg>
+   299→  );
+   300→}
+   301→
+   302→function Tag({ label, bg, fg, border }: { label: string; bg: string; fg: string; border: string }) {
+   303→  return (
+   304→    <span className="rounded-full px-2.5 py-1 text-[.7rem] font-extrabold tracking-wide" style={{ background: bg, color: fg, border: `1px solid ${border}` }}>
+   305→      → {label}
+   306→    </span>
+   307→  );
+   308→}
+   309→
+   310→export function AtbIntroSection() {
+   311→  return (
+   312→    <Section id="intro">
+   313→      <SectionHead
+   314→        eyebrow="Module 1 · Introduction to algorithms"
+   315→        title={
+   316→          <>
+   317→            An algorithm is just a <span className="grad-text">recipe</span> a machine can follow
+   318→          </>
+   319→        }
+   320→        lead="Every business task — brewing tea, running payroll, approving a loan — can be rewritten as a small set of organised steps. This module builds the four working definitions you will use for the rest of the course."
+   321→      />
+   322→
+   323→      <ReadStep n="1" title="Start with chai" sub="One cup of tea contains the entire vocabulary of the module." />
+   324→
+   325→      <Reveal>
+   326→        <div className="flex flex-col gap-3 md:flex-row md:items-stretch">
+   327→          {/* DATA */}
+   328→          <div className="card-warm lift flex-1 p-5">
+   329→            <div className="flex items-center gap-2">
+   330→              <Coffee className="h-5 w-5" style={{ color: "#c2410c" }} />
+   331→              <h4 className="font-bold text-[#3e2c1d]">Ingredients</h4>
+   332→            </div>
+   333→            <ul className="mt-3 grid gap-1.5 text-[.88rem] text-[#2b2014]">
+   334→              {["1 cup water", "1 cup milk", "2–3 tsp loose black tea", "2–3 tsp sugar"].map((i) => (
+   335→                <li key={i} className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full" style={{ background: "#f59e0b" }} />{i}</li>
+   336→              ))}
+   337→            </ul>
+   338→            <div className="mt-4"><Tag label="DATA" bg="#fdf1dd" fg="#a0410a" border="#f0d9ba" /></div>
+   339→          </div>
+   340→          <BetweenArrow />
+   341→          {/* VARIABLES + FUNCTIONS */}
+   342→          <div className="card-warm lift flex-1 p-5">
+   343→            <div className="flex items-center gap-2">
+   344→              <Flame className="h-5 w-5" style={{ color: "#b45309" }} />
+   345→              <h4 className="font-bold text-[#3e2c1d]">Equipment</h4>
+   346→            </div>
+   347→            <div className="mt-3 rounded-xl border border-[#f3e2c8] bg-[#fffaf1] p-3">
+   348→              <p className="text-[.88rem] font-semibold text-[#2b2014]">Gas / induction stove · strainer</p>
+   349→              <p className="text-[.76rem] text-[#8a6b45]">do actual work on the data</p>
+   350→              <div className="mt-2"><Tag label="FUNCTIONS" bg="#eef4dd" fg="#44621d" border="#cfe0ae" /></div>
+   351→            </div>
+   352→            <div className="mt-3 rounded-xl border border-[#f3e2c8] bg-[#fffaf1] p-3">
+   353→              <p className="text-[.88rem] font-semibold text-[#2b2014]">Saucepan · teacups</p>
+   354→              <p className="text-[.76rem] text-[#8a6b45]">hold the data while steps run</p>
+   355→              <div className="mt-2"><Tag label="VARIABLES" bg="#f3e8fb" fg="#6b3fa0" border="#e0cdf2" /></div>
+   356→            </div>
+   357→          </div>
+   358→          <BetweenArrow />
+   359→          {/* ALGORITHM */}
+   360→          <div className="card-warm lift flex-1 p-5">
+   361→            <div className="flex items-center gap-2">
+   362→              <ListOrdered className="h-5 w-5" style={{ color: "#d97706" }} />
+   363→              <h4 className="font-bold text-[#3e2c1d]">Steps</h4>
+   364→            </div>
+   365→            <ol className="mt-3 grid gap-1.5 text-[.88rem] text-[#2b2014]">
+   366→              {[
+   367→                "Add water and boil",
+   368→                "Add tea leaves, boil 1 min",
+   369→                "Pour milk, add sugar",
+   370→                "Gentle boil",
+   371→                "Simmer 2–3 min",
+   372→                "Strain and serve",
+   373→              ].map((s, i) => (
+   374→                <li key={s} className="flex items-center gap-2">
+   375→                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[.62rem] font-bold text-white" style={{ background: "linear-gradient(135deg,#f59e0b,#c2410c)" }}>{i + 1}</span>
+   376→                  {s}
+   377→                </li>
+   378→              ))}
+   379→            </ol>
+   380→            <div className="mt-4"><Tag label="ALGORITHM" bg="#fbe4d8" fg="#9c3a10" border="#f2c8ae" /></div>
+   381→          </div>
+   382→        </div>
+   383→      </Reveal>
+   384→
+   385→      <ReadStep n="2" title="The working definitions" sub="Four words you will meet in every lecture, every exam question." />
+   386→
+   387→      <Reveal>
+   388→        <div className="grid gap-2 md:grid-cols-2">
+   389→          <KV k="Data" v="The actual values you work with — water, milk, tea, sugar… or marks, salaries, stock counts." />
+   390→          <KV k="Variables" v="Where you store data during computation — the saucepan holds the tea while it cooks; S1 holds a mark." />
+   391→          <KV k="Algorithm" v="Organised steps that convert the data into the desired output." />
+   392→          <KV k="Function" v="A subgroup of organised steps that forms part of the algorithm — reusable, like “boil” or “strain”." />
+   393→        </div>
+   394→      </Reveal>
+   395→
+   396→      <Reveal className="mt-4">
+   397→        <Callout kind="story" title="Why business students care">
+   398→          A payroll run, a loan approval, an inventory reorder — each one is an algorithm. Data goes
+   399→          in (hours worked, credit score, stock level), organised steps run in between, and a
+   400→          decision comes out. Once you see the shape{" "}
+   401→          <strong>business process = data + algorithm</strong>, you can redesign any of them.
+   402→        </Callout>
+   403→      </Reveal>
+   404→
+   405→      <ReadStep n="3" title="From recipe to flowchart" sub="Words describe an algorithm; pictures make it impossible to misread." />
+   406→
+   407→      <Reveal>
+   408→        <div className="card-warm p-6">
+   409→          <p className="text-[.95rem] leading-relaxed text-[#2b2014]">
+   410→            The six chai steps work as text — but real algorithms branch, loop and join, and words
+   411→            start to lie. The next section draws this exact recipe as a{" "}
+   412→            <strong>flowchart</strong> using only four symbols. First, check yourself:
+   413→          </p>
+   414→          <div className="mt-5 grid gap-4 md:grid-cols-2">
+   415→            <Quiz
+   416→              q="In the tea recipe, the saucepan and teacups are best described as…"
+   417→              options={["Data", "Variables", "Functions", "Output"]}
+   418→              answer={1}
+   419→              explain="They hold the ingredients while the steps run — storage places, i.e. variables. The stove and strainer do work (functions); the ingredients themselves are the data."
+   420→              source="Lecture 1 · working definitions"
+   421→            />
+   422→            <Quiz
+   423→              q="An algorithm is…"
+   424→              options={["Any programming language", "Organised steps that convert data into the desired output", "A chart of the company", "A type of flowchart"]}
+   425→              answer={1}
+   426→              explain="By definition: organised steps that convert data into the desired output. Languages and flowcharts are only ways to write the algorithm down."
+   427→              source="Lecture 1 · definition"
+   428→            />
+   429→          </div>
+   430→        </div>
+   431→      </Reveal>
+   432→
+   433→      <Reveal className="mt-6">
+   434→        <Practice
+   435→          title="Pen-paper drill"
+   436→          items={[
+   437→            { q: "Define data, variable, algorithm and function in one line each — no peeking at the cards above.", hint: "Data is the what; variables are the where; the algorithm is the how; functions are the reusable inside." },
+   438→            { q: "Write the tea algorithm as 6 numbered steps, then label each step INPUT, OUTPUT or PROCESS.", hint: "Adding water/milk/tea/sugar are inputs; straining and serving are outputs; boiling and simmering are processing." },
+   439→            { q: "List the 4 working definitions from memory. Repeat tomorrow until all four come out in order.", hint: "D-V-A-F: Data, Variables, Algorithm, Function." },
+   440→          ]}
+   441→        />
+   442→      </Reveal>
+   443→    </Section>
+   444→  );
+   445→}
+   446→
+   447→/* ============================================================
+   448→   MODULE 1 · FLOWCHARTS (id="flowcharts")
+   449→   ============================================================ */
+   450→const TEA_SEQ: { kind: "oval" | "para" | "rect" | "diamond"; label: string }[] = [
+   451→  { kind: "oval", label: "START" },
+   452→  { kind: "para", label: "Add water" },
+   453→  { kind: "rect", label: "Boil the water" },
+   454→  { kind: "para", label: "Add tea leaves" },
+   455→  { kind: "rect", label: "Boil for 1 minute" },
+   456→  { kind: "para", label: "Add milk and sugar" },
+   457→  { kind: "rect", label: "Simmer for 2–3 minutes" },
+   458→  { kind: "rect", label: "Strain the tea" },
+   459→  { kind: "para", label: "Serve tea" },
+   460→  { kind: "oval", label: "END" },
+   461→];
+   462→
+   463→function TeaFlow({ withDecision }: { withDecision: boolean }) {
+   464→  const CX = 210;
+   465→  const seq = [...TEA_SEQ];
+   466→  if (withDecision) seq.splice(7, 0, { kind: "diamond", label: "Looks OK?" });
+   467→  const H = { oval: 36, para: 38, rect: 38, diamond: 64 } as const;
+   468→  const W = { oval: 116, para: 216, rect: 202, diamond: 160 } as const;
+   469→  let cursor = 16;
+   470→  const rows = seq.map((n) => {
+   471→    const top = cursor;
+   472→    const h = H[n.kind];
+   473→    cursor = top + h + 26;
+   474→    return { ...n, top, h, cy: top + h / 2, bottom: top + h };
+   475→  });
+   476→  const dial = rows.findIndex((r) => r.kind === "diamond");
+   477→  const simmer = rows[6];
+   478→  const vbH = rows[rows.length - 1].bottom + 22;
+   479→
+   480→  const fillFor = (kind: string, label: string) =>
+   481→    kind === "oval" ? (label === "START" ? "#c2410c" : "#3e2c1d") : kind === "para" ? "#f0a04b" : kind === "diamond" ? "#b45309" : "#ffefd6";
+   482→  const strokeFor = (kind: string) => (kind === "rect" ? "#c99a5b" : undefined);
+   483→  const textFill = (kind: string) => (kind === "rect" || kind === "para" ? "#3e2c1d" : "#fff7ec");
+   484→  const dFor = (r: (typeof rows)[number]) =>
+   485→    r.kind === "oval" ? pOval(CX, r.cy, W.oval / 2, r.h / 2) : r.kind === "para" ? pPara(CX, r.top, W.para, r.h) : r.kind === "diamond" ? pDiamond(CX, r.cy, W.diamond, r.h) : pRect(CX, r.top, W.rect, r.h);
+   486→
+   487→  return (
+   488→    <svg viewBox={`0 0 420 ${vbH}`} className="mx-auto h-auto w-full max-w-sm" role="img" aria-label={withDecision ? "Tea algorithm flowchart with a decision loop" : "Tea algorithm flowchart"}>
+   489→      <defs>
+   490→        <marker id="atbTeaA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c99a5b" /></marker>
+   491→        <marker id="atbTeaR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#be4a4a" /></marker>
+   492→        <marker id="atbTeaY" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7c9a3e" /></marker>
+   493→      </defs>
+   494→      {rows.slice(1).map((r, i) => (
+   495→        <FlowEdge key={`e${i}`} d={`M ${CX} ${rows[i].bottom} V ${r.top - 2}`} stroke={i === dial && withDecision ? "#7c9a3e" : "#c99a5b"} marker={i === dial && withDecision ? "atbTeaY" : "atbTeaA"} delay={0.1 + i * 0.14} />
+   496→      ))}
+   497→      {withDecision ? (
+   498→        <>
+   499→          <FlowEdge d={`M ${CX - W.diamond / 2} ${rows[dial].cy} H 46 V ${simmer.cy} H ${CX - W.rect / 2 - 6}`} stroke="#be4a4a" marker="atbTeaR" delay={0.6 + rows.length * 0.14} />
+   500→          <motion.text x={104} y={rows[dial].cy - 8} fontSize={11} fontWeight={800} fill="#be4a4a" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1 }}>NO — not ready</motion.text>
+   501→          <motion.text x={CX + 14} y={rows[dial].bottom + 16} fontSize={11} fontWeight={800} fill="#5d7a2e" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1 }}>YES</motion.text>
+   502→        </>
+   503→      ) : null}
+   504→      {rows.map((r, i) => (
+   505→        <FlowNode key={r.label} d={dFor(r)} fill={fillFor(r.kind, r.label)} stroke={strokeFor(r.kind)} delay={0.05 + i * 0.14}
+   506→          lines={[{ t: r.label, x: CX, y: r.cy + 4, fill: textFill(r.kind) }]} />
+   507→      ))}
+   508→    </svg>
+   509→  );
+   510→}
+   511→
+   512→export function AtbFlowchartsSection() {
+   513→  return (
+   514→    <Section id="flowcharts">
+   515→      <SectionHead
+   516→        eyebrow="Module 1 · Flowcharts"
+   517→        title={
+   518→          <>
+   519→            Drawing algorithms — the <span className="grad-text">four symbols</span>
+   520→          </>
+   521→        }
+   522→        lead="A flowchart is the diagram version of an algorithm. Entire company processes are documented with just these shapes — master them once, read any process map forever."
+   523→      />
+   524→
+   525→      <ReadStep n="1" title="The symbol kit" sub="Four shapes plus arrows cover almost every flowchart you will ever draw." />
+   526→
+   527→      <Reveal>
+   528→        <div className="card-warm p-5 md:p-7">
+   529→          <svg viewBox="0 0 800 236" className="h-auto w-full" role="img" aria-label="The four flowchart symbols: rounded rectangle, rectangle, parallelogram, diamond, plus flow arrows">
+   530→            <defs>
+   531→              <marker id="atbSymA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker>
+   532→            </defs>
+   533→            {[
+   534→              { cx: 80, name: "Rounded rectangle", use: "START / END", d: "M 30 78 H 130 A 22 22 0 0 1 130 142 H 30 A 22 22 0 0 1 30 78 Z", fill: "#c2410c", tf: "#fff7ec", inner: "Start" },
+   535→              { cx: 240, name: "Rectangle", use: "PROCESSING statement", d: pRect(240, 82, 124, 56), fill: "#ffefd6", tf: "#3e2c1d", inner: "x = x + 1" },
+   536→              { cx: 400, name: "Parallelogram", use: "INPUT / OUTPUT", d: pPara(400, 82, 138, 56, 20), fill: "#f0a04b", tf: "#3e2c1d", inner: "INPUT x" },
+   537→              { cx: 566, name: "Diamond", use: "DECISION", d: pDiamond(566, 110, 148, 84), fill: "#b45309", tf: "#fff7ec", inner: "x > 0 ?" },
+   538→            ].map((s, i) => (
+   539→              <motion.g key={s.name} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: i * 0.16 }}>
+   540→                <motion.path d={s.d} fill={s.fill} stroke="#8a5a10" strokeWidth={1.5} initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.16 }} />
+   541→                <text x={s.cx} y={114} textAnchor="middle" fontSize={12} fontWeight={700} fill={s.tf}>{s.inner}</text>
+   542→                <text x={s.cx} y={182} textAnchor="middle" fontSize={12.5} fontWeight={800} fill="#3e2c1d">{s.name}</text>
+   543→                <text x={s.cx} y={202} textAnchor="middle" fontSize={10.5} fontWeight={700} fill="#a0410a" letterSpacing={1}>{s.use}</text>
+   544→              </motion.g>
+   545→            ))}
+   546→            <motion.g initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.7 }}>
+   547→              <motion.path d="M 660 110 H 742" stroke="#c2410c" strokeWidth={3} fill="none" markerEnd="url(#atbSymA)" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.76 }} />
+   548→              <text x={702} y={182} textAnchor="middle" fontSize={12.5} fontWeight={800} fill="#3e2c1d">Arrows</text>
+   549→              <text x={702} y={202} textAnchor="middle" fontSize={10.5} fontWeight={700} fill="#a0410a" letterSpacing={1}>FLOW</text>
+   550→            </motion.g>
+   551→          </svg>
+   552→        </div>
+   553→      </Reveal>
+   554→
+   555→      <ReadStep n="2" title="The tea flowchart" sub="The six chai steps, one symbol at a time — watch the flow draw itself." />
+   556→
+   557→      <Reveal>
+   558→        <div className="card-warm p-5 md:p-7">
+   559→          <TeaFlow withDecision={false} />
+   560→        </div>
+   561→      </Reveal>
+   562→
+   563→      <ReadStep n="3" title="Adding a decision" sub="One diamond turns a straight line into a smart, self-checking process." />
+   564→
+   565→      <div className="grid gap-5 lg:grid-cols-5">
+   566→        <Reveal className="lg:col-span-3">
+   567→          <div className="card-warm h-full p-5 md:p-7">
+   568→            <TeaFlow withDecision />
+   569→            <p className="mt-2 text-center text-[.78rem] text-muted-warm">
+   570→              The rose edge loops back — “No, keep simmering” — until the tea is ready.
+   571→            </p>
+   572→          </div>
+   573→        </Reveal>
+   574→        <Reveal delay={120} className="lg:col-span-2">
+   575→          <div className="flex h-full flex-col gap-4">
+   576→            <Callout kind="insight" title="Decisions make algorithms smart">
+   577→              A diamond asks a yes/no question. <strong>Yes</strong> and <strong>No</strong> each
+   578→              open a branch — and a branch that loops backwards gives you a{" "}
+   579→              <strong>loop</strong>: repeat until the answer flips. Branching + looping is the
+   580→              entire control vocabulary of every business rule ever written.
+   581→            </Callout>
+   582→            <div className="card-warm p-5">
+   583→              <p className="eyebrow">Trace it</p>
+   584→              <p className="mt-2 text-[.88rem] leading-relaxed text-[#2b2014]">
+   585→                Under-brewed pot: the flow passes the diamond 3 times before Strain — the loop edge
+   586→                (rose) fired twice. The algorithm never “guesses”: it checks, branches, repeats.
+   587→              </p>
+   588→            </div>
+   589→          </div>
+   590→        </Reveal>
+   591→      </div>
+   592→
+   593→      <Reveal className="mt-6">
+   594→        <div className="grid gap-4 md:grid-cols-2">
+   595→          <Quiz
+   596→            q="Which symbol would you use for 'INPUT the length and width'?"
+   597→            options={["Rectangle", "Diamond", "Parallelogram", "Oval"]}
+   598→            answer={2}
+   599→            explain="Input and output steps use the parallelogram; the rectangle is for processing statements, the diamond for decisions, the oval for start/end."
+   600→            source="Lecture 1 · symbol kit"
+   601→          />
+   602→          <Practice
+   603→            title="Flowchart drills"
+   604→            items={[
+   605→              { q: "Draw the tea flowchart from memory — all 10 nodes, correct symbols.", hint: "Parallelograms: add water, add leaves, add milk & sugar, serve. Rectangles: boil, boil 1 min, simmer, strain." },
+   606→              { q: "Mark each step as I/O or processing. Which single step becomes a decision if the taster is picky?", hint: "Simmer — split it into “Looks OK?” with a loop back." },
+   607→            ]}
+   608→          />
+   609→        </div>
+   610→      </Reveal>
+   611→    </Section>
+   612→  );
+   613→}
+   614→
+   615→/* ============================================================
+   616→   MODULE 1 · ATM — DECISIONS (id="atm", dark)
+   617→   ============================================================ */
+   618→const ATM_STEPS: { n: string; t: string; d?: string; branches?: { tag: string; text: string; tone: "olive" | "rose" }[] }[] = [
+   619→  { n: "1", t: "START", d: "A customer walks up and the session begins." },
+   620→  { n: "2", t: "Check card", d: "The machine checks whether a card was inserted and reads it." },
+   621→  { n: "3", t: "Request PIN", d: "Screen displays: “Please enter your 4-digit PIN”." },
+   622→  { n: "4", t: "Input PIN", d: "The customer types it — data enters a variable." },
+   623→  { n: "5", t: "Check if PIN correct", d: "Compare the entered PIN with the stored PIN." },
+   624→  {
+   625→    n: "6", t: "Branch on PIN",
+   626→    branches: [
+   627→      { tag: "6a", text: "PIN correct → input amount", tone: "olive" },
+   628→      { tag: "6b", text: "Incorrect → end", tone: "rose" },
+   629→    ],
+   630→  },
+   631→  {
+   632→    n: "7", t: "Branch on balance",
+   633→    branches: [
+   634→      { tag: "7a", text: "Balance available → release cash", tone: "olive" },
+   635→      { tag: "7b", text: "Not available → end", tone: "rose" },
+   636→    ],
+   637→  },
+   638→  { n: "8", t: "END", d: "Card returns, session closes — every path ends here." },
+   639→];
+   640→
+   641→function AtmFlow() {
+   642→  const CX = 350;
+   643→  const node = (d: string, fill: string, stroke: string | undefined, lines: FlowLine[], delay: number) => (
+   644→    <FlowNode key={lines[0].t} d={d} fill={fill} stroke={stroke} lines={lines} delay={delay} />
+   645→  );
+   646→  return (
+   647→    <svg viewBox="0 0 640 640" className="mx-auto h-auto w-full max-w-xl" role="img" aria-label="ATM cash withdrawal flowchart with two decisions whose No branches both route to End">
+   648→      <defs>
+   649→        <marker id="atbAtmN" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c99a5b" /></marker>
+   650→        <marker id="atbAtmY" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#9cbf62" /></marker>
+   651→        <marker id="atbAtmR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#e28b8b" /></marker>
+   652→      </defs>
+   653→      {/* neutral spine */}
+   654→      <FlowEdge d={`M ${CX} 47 V 62`} stroke="#c99a5b" marker="atbAtmN" delay={0.15} />
+   655→      <FlowEdge d={`M ${CX} 102 V 126`} stroke="#c99a5b" marker="atbAtmN" delay={0.4} />
+   656→      <FlowEdge d={`M ${CX} 166 V 190`} stroke="#c99a5b" marker="atbAtmN" delay={0.65} />
+   657→      <FlowEdge d={`M ${CX} 230 V 234`} stroke="#c99a5b" marker="atbAtmN" delay={0.9} />
+   658→      <FlowEdge d={`M ${CX} 298 V 322`} stroke="#9cbf62" marker="atbAtmY" delay={1.15} />
+   659→      <FlowEdge d={`M ${CX} 362 V 386`} stroke="#c99a5b" marker="atbAtmN" delay={1.35} />
+   660→      <FlowEdge d={`M ${CX} 450 V 474`} stroke="#9cbf62" marker="atbAtmY" delay={1.6} />
+   661→      <FlowEdge d={`M ${CX} 514 V 545`} stroke="#c99a5b" marker="atbAtmN" delay={1.85} />
+   662→      {/* rose No-lane: both decisions → End */}
+   663→      <FlowEdge d="M 260 268 H 120 V 566 H 291" stroke="#be4a4a" marker="atbAtmR" delay={1.5} />
+   664→      <FlowEdge d="M 245 420 H 120 V 566 H 291" stroke="#be4a4a" marker="atbAtmR" delay={2} />
+   665→      <motion.g fill="#e28b8b" fontSize={11} fontWeight={800} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1.6 }}>
+   666→        <text x={136} y={258}>NO</text>
+   667→        <text x={136} y={410}>NO</text>
+   668→        <text x={196} y={556}>both join here</text>
+   669→      </motion.g>
+   670→      <motion.g fill="#9cbf62" fontSize={11} fontWeight={800} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1.3 }}>
+   671→        <text x={360} y={314}>YES</text>
+   672→        <text x={360} y={466}>YES</text>
+   673→      </motion.g>
+   674→      {/* nodes */}
+   675→      {node(pOval(CX, 30, 56, 17), "#c2410c", undefined, [{ t: "START", x: CX, y: 34, fill: "#fff7ec" }], 0)}
+   676→      {node(pRect(CX, 66, 196, 36), "rgba(255,236,210,.07)", "#c99a5b", [{ t: "Check card", x: CX, y: 88, fill: "#f7ecdd" }], 0.2)}
+   677→      {node(pPara(CX, 130, 214, 36), "#b45309", undefined, [{ t: "Request PIN", x: CX, y: 152, fill: "#fff3e0" }], 0.45)}
+   678→      {node(pPara(CX, 194, 214, 36), "#b45309", undefined, [{ t: "Input PIN", x: CX, y: 216, fill: "#fff3e0" }], 0.7)}
+   679→      {node(pDiamond(CX, 268, 180, 60), "rgba(245,158,11,.16)", "#f5a623", [{ t: "Pin OK?", x: CX, y: 272, fill: "#ffe4bd" }], 0.95)}
+   680→      {node(pPara(CX, 326, 214, 36), "#b45309", undefined, [{ t: "Input amount", x: CX, y: 348, fill: "#fff3e0" }], 1.2)}
+   681→      {node(pDiamond(CX, 420, 210, 60), "rgba(245,158,11,.16)", "#f5a623", [{ t: "Balance available?", x: CX, y: 424, fill: "#ffe4bd", size: 11.5 }], 1.45)}
+   682→      {node(pRect(CX, 478, 196, 36), "rgba(255,236,210,.07)", "#c99a5b", [{ t: "Release cash", x: CX, y: 500, fill: "#f7ecdd" }], 1.7)}
+   683→      {node(pOval(CX, 566, 56, 17), "rgba(255,236,210,.10)", "#c99a5b", [{ t: "END", x: CX, y: 570, fill: "#f7ecdd" }], 1.95)}
+   684→    </svg>
+   685→  );
+   686→}
+   687→
+   688→export function AtbAtmSection() {
+   689→  return (
+   690→    <Section id="atm" dark>
+   691→      <SectionHead
+   692→        dark
+   693→        eyebrow="Module 1 · Decisions in flowcharts"
+   694→        title={
+   695→          <>
+   696→            The ATM machine — <span className="grad-text">branching</span> in action
+   697→          </>
+   698→        }
+   699→        lead="One real machine, two decisions, four outcomes. Trace it once and every approval workflow you will ever meet — loans, refunds, KYC — becomes obvious."
+   700→      />
+   701→
+   702→      <ReadStep dark n="1" title="The numbered algorithm" sub="Eight steps; steps 6 and 7 each hide a two-way branch." />
+   703→
+   704→      <div className="grid gap-4 sm:grid-cols-2">
+   705→        {ATM_STEPS.map((s, i) => (
+   706→          <Reveal key={s.n} delay={i * 60}>
+   707→            <div className="card-warm flex h-full gap-3 p-4">
+   708→              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f59e0b] to-[#c2410c] text-[.8rem] font-extrabold text-white">{s.n}</span>
+   709→              <div>
+   710→                <p className="font-bold text-[#f5e6cd]">{s.t}</p>
+   711→                {s.d ? <p className="mt-1 text-[.84rem] leading-relaxed text-[#cbb392]">{s.d}</p> : null}
+   712→                {s.branches ? (
+   713→                  <div className="mt-2 flex flex-wrap gap-2">
+   714→                    {s.branches.map((b) => (
+   715→                      <span key={b.tag} className="rounded-full px-2.5 py-1 text-[.72rem] font-bold"
+   716→                        style={b.tone === "olive" ? { background: "rgba(124,154,62,.18)", color: "#c4d9a0", border: "1px solid rgba(124,154,62,.4)" } : { background: "rgba(190,74,74,.18)", color: "#eba3a3", border: "1px solid rgba(190,74,74,.4)" }}>
+   717→                        {b.tag} · {b.text}
+   718→                      </span>
+   719→                    ))}
+   720→                  </div>
+   721→                ) : null}
+   722→              </div>
+   723→            </div>
+   724→          </Reveal>
+   725→        ))}
+   726→      </div>
+   727→
+   728→      <ReadStep dark n="2" title="The same algorithm as a flowchart" sub="Yes edges in olive, No edges in rose — and watch both No edges join." />
+   729→
+   730→      <Reveal>
+   731→        <div className="card-warm p-5 md:p-7">
+   732→          <AtmFlow />
+   733→        </div>
+   734→      </Reveal>
+   735→
+   736→      <Reveal className="mt-5">
+   737→        <Callout dark kind="why" title="Branches + joins = every business process">
+   738→          A loan application: check credit score (branch), verify income (branch), then{" "}
+   739→          <strong>join</strong> into one approval decision. A refund request, a KYC check, an
+   740→          insurance claim — same skeleton: inputs, checks, branches, a join, one end. If you can
+   741→          draw the ATM, you can draw your company.
+   742→        </Callout>
+   743→      </Reveal>
+   744→
+   745→      <Reveal className="mt-6">
+   746→        <div className="grid gap-4 md:grid-cols-2">
+   747→          <Quiz
+   748→            q="In the ATM flowchart, the two No branches both lead to…"
+   749→            options={["Request PIN again", "Release cash", "End", "Input amount"]}
+   750→            answer={2}
+   751→            explain="Both failure checks route to the same END oval — the rose lane is a join. Real ATMs add retries around this skeleton, but the lecture version ends on any failure."
+   752→            source="Lecture 1 · ATM example"
+   753→          />
+   754→          <Practice
+   755→            title="Branch drills"
+   756→            items={[
+   757→              { q: "Trace what happens when the PIN is wrong: list every node the flow visits, in order.", hint: "Start → Check card → Request PIN → Input PIN → Pin OK? → NO lane → End. Five nodes, never reaching amount." },
+   758→              { q: "Write the 6a/6b branch pattern for a UPI payment (balance check + limit check).", hint: "6a: within limit → check balance; 6b: over limit → decline. Mirror the ATM diamonds." },
+   759→            ]}
+   760→          />
+   761→        </div>
+   762→      </Reveal>
+   763→    </Section>
+   764→  );
+   765→}
+   766→
+   767→/* ============================================================
+   768→   MODULE 1 · PSEUDOCODE & FUNCTIONS (id="pseudocode")
+   769→   ============================================================ */
+   770→const PSEUDO_ONE = 'IF AVG IS MORE THAN 60, OUTPUT "FIRST CLASS"';
+   771→
+   772→const PSEUDO_FN = `DEFINE S1, S2, S3, S4, S5 AS INTEGER
+   773→INPUT S1, S2, S3, S4, S5
+   774→DEFINE AVG AS FLOAT
+   775→AVG = AVERAGE(S1, S2, S3, S4, S5)
+   776→OUTPUT AVG
+   777→IF AVG IS MORE THAN 60, OUTPUT "FIRST CLASS"`;
+   778→
+   779→export function AtbCodeSection() {
+   780→  return (
+   781→    <Section id="pseudocode">
+   782→      <SectionHead
+   783→        eyebrow="Module 1 · Functions, pseudocode & code"
+   784→        title={
+   785→          <>
+   786→            From pseudocode to code — and the <span className="grad-text">function</span> in between
+   787→          </>
+   788→        }
+   789→        lead="The same algorithm can be said three ways. Pseudocode keeps the precision of code without the syntax; functions keep the algorithm short by hiding repeated work in reusable boxes."
+   790→      />
+   791→
+   792→      <ReadStep n="1" title="Three levels of saying it" sub="Same idea — increasing formality. None of them is “the algorithm”; they all describe it." />
+   793→
+   794→      <div className="grid gap-4 md:grid-cols-3">
+   795→        <Reveal>
+   796→          <div className="card-warm lift h-full p-5">
+   797→            <span className="chip"><ListOrdered className="h-3.5 w-3.5" /> Algorithm</span>
+   798→            <p className="mt-3 text-[.88rem] leading-relaxed text-[#2b2014]">
+   799→              Plain English steps anyone can follow:
+   800→            </p>
+   801→            <ol className="mt-2 grid gap-1 text-[.84rem] text-[#5d4a35]">
+   802→              <li>1. Input five marks</li>
+   803→              <li>2. Add them together</li>
+   804→              <li>3. Divide by 5</li>
+   805→              <li>4. Output the average</li>
+   806→            </ol>
+   807→          </div>
+   808→        </Reveal>
+   809→        <Reveal delay={100}>
+   810→          <div className="card-warm h-full p-5">
+   811→            <span className="chip"><Braces className="h-3.5 w-3.5" /> Pseudocode</span>
+   812→            <p className="mt-3 text-[.88rem] leading-relaxed text-[#2b2014]">
+   813→              “A code-like statement that is understandable in English”:
+   814→            </p>
+   815→            <div className="mt-3">
+   816→              <CodeBlock title="pseudocode.txt" code={PSEUDO_ONE} runnable={false} />
+   817→            </div>
+   818→          </div>
+   819→        </Reveal>
+   820→        <Reveal delay={200}>
+   821→          <div className="card-warm lift h-full p-5">
+   822→            <span className="chip"><Workflow className="h-3.5 w-3.5" /> Code</span>
+   823→            <p className="mt-3 text-[.88rem] leading-relaxed text-[#2b2014]">
+   824→              Implemented in a real language — <strong>C/C++, Java, Python</strong> — so a machine
+   825→              can execute it.
+   826→            </p>
+   827→            <p className="mt-3 text-[.8rem] leading-relaxed text-[#8a6b45]">
+   828→              In this course we stop one step before: you trace the pseudocode on paper; the
+   829→              machine never sees a line of it.
+   830→            </p>
+   831→          </div>
+   832→        </Reveal>
+   833→      </div>
+   834→
+   835→      <ReadStep n="2" title="Functions = reusable boxes" sub="Name a common task once, call it everywhere." />
+   836→
+   837→      <div className="grid items-center gap-5 lg:grid-cols-2">
+   838→        <Reveal>
+   839→          <div className="card-warm p-5 md:p-7">
+   840→            <svg viewBox="0 0 320 200" className="mx-auto h-auto w-full max-w-xs" role="img" aria-label="Function as a pre-defined process box: inputs in, one output out">
+   841→              <defs>
+   842→                <marker id="atbFnA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker>
+   843→              </defs>
+   844→              <FlowEdge d="M 160 16 V 56" stroke="#c2410c" marker="atbFnA" delay={0.2} />
+   845→              <FlowEdge d="M 160 134 V 174" stroke="#7c9a3e" marker="atbFnA" delay={0.55} />
+   846→              <FlowNode d={pRect(160, 62, 150, 66)} fill="#ffefd6" stroke="#c2410c" delay={0.35} lines={[{ t: "AVERAGE", x: 160, y: 90, size: 14, fill: "#3e2c1d" }, { t: "pre-defined process", x: 160, y: 110, size: 9, weight: 600, fill: "#8a6b45" }]} />
+   847→              <motion.path d="M 96 62 V 128 M 224 62 V 128" stroke="#c2410c" strokeWidth={2.5} fill="none" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.5 }} />
+   848→              <text x={172} y={30} fontSize={11} fontWeight={700} fill="#a0410a">S1 … S5 in</text>
+   849→              <text x={172} y={166} fontSize={11} fontWeight={700} fill="#4d6b1f">62 out</text>
+   850→            </svg>
+   851→            <p className="mt-1 text-center text-[.78rem] text-muted-warm">
+   852→              The double side-bars mark a <strong>pre-defined process</strong> — a function call.
+   853→            </p>
+   854→          </div>
+   855→        </Reveal>
+   856→        <div className="grid gap-3">
+   857→          {[
+   858→            { call: "AVERAGE(S1, S2, S3, S4, S5)", out: "62", note: "adds the five marks, divides by 5" },
+   859→            { call: "square(x)", out: "x²", note: "multiplies the input by itself" },
+   860→            { call: 'UPPERCASE("abc")', out: '"ABC"', note: "returns the text in capitals" },
+   861→          ].map((f, i) => (
+   862→            <Reveal key={f.call} delay={i * 100}>
+   863→              <div className="card-warm lift flex flex-wrap items-center gap-x-3 gap-y-1 p-4">
+   864→                <FunctionSquare className="h-4 w-4 shrink-0" style={{ color: "#c2410c" }} />
+   865→                <code className="rounded-md bg-[#fdf1e0] px-2 py-0.5 font-mono text-[.82rem] font-bold text-[#7c4a12]">{f.call}</code>
+   866→                <ArrowRight className="h-4 w-4 text-[#c99a5b]" />
+   867→                <code className="font-mono text-[.86rem] font-bold text-[#4d6b1f]">{f.out}</code>
+   868→                <span className="ml-auto text-[.76rem] text-muted-warm">{f.note}</span>
+   869→              </div>
+   870→            </Reveal>
+   871→          ))}
+   872→        </div>
+   873→      </div>
+   874→
+   875→      <ReadStep n="3" title="Pseudocode with a function" sub="The main flow stays six lines — the adding lives inside AVERAGE." />
+   876→
+   877→      <div className="grid items-start gap-5 lg:grid-cols-5">
+   878→        <Reveal className="lg:col-span-3">
+   879→          <CodeBlock title="average.pseudo" code={PSEUDO_FN} runnable={false}
+   880→            note="AVERAGE(S1…S5) is the function call — in the flowchart it appears as a pre-defined process box (rectangle with double side-bars)." />
+   881→        </Reveal>
+   882→        <Reveal delay={120} className="lg:col-span-2">
+   883→          <Callout kind="insight" title="Why functions simplify algorithms">
+   884→            Functions <strong>carry out common tasks</strong> so the main algorithm never repeats
+   885→            them. Need the average of 5 marks in ten places? Write <code className="font-mono text-[.8rem]">AVERAGE</code> once.
+   886→            The flowchart shows the call as a single box — readers can trust it without re-reading
+   887→            the internals.
+   888→          </Callout>
+   889→        </Reveal>
+   890→      </div>
+   891→
+   892→      <Reveal className="mt-6">
+   893→        <div className="grid gap-4 md:grid-cols-2">
+   894→          <Quiz
+   895→            q="Pseudocode is…"
+   896→            options={["A programming language", "A code-like statement that is understandable in English", "Machine code", "A flowchart symbol"]}
+   897→            answer={1}
+   898→            explain="Pseudocode borrows the shape of code (DEFINE, INPUT, IF…) but stays readable as English — it is a design tool, not something a machine runs."
+   899→            source="Lecture 1 · three levels"
+   900→          />
+   901→          <Practice
+   902→            title="Function drills"
+   903→            items={[
+   904→              { q: "Write AVERAGE as a function: what are its inputs, what does it do, what does it return?", hint: "Inputs S1…S5; steps: SUM = S1+…+S5, return SUM/5." },
+   905→              { q: "Split the tea algorithm into 3 functions — Boil, Add, Serve. Which steps go inside each?", hint: "Boil: heat water/tea; Add: milk, sugar, leaves; Serve: strain + pour. The main flow becomes 3 calls." },
+   906→            ]}
+   907→          />
+   908→        </div>
+   909→      </Reveal>
+   910→    </Section>
+   911→  );
+   912→}
+   913→
+   914→/* ============================================================
+   915→   MODULE 1 · WORKED EXAMPLE — AVERAGE MARKS (id="average")
+   916→   ============================================================ */
+   917→type MemStep = { code: string; cap: string; box?: string; val?: string };
+   918→
+   919→const AVG_LINES: MemStep[] = [
+   920→  { code: "DEFINE S1 AS INTEGER", cap: "Variable created — an empty box named S1", box: "S1" },
+   921→  { code: "INPUT S1", cap: "Data value put into the variable — 60 drops in", box: "S1", val: "60" },
+   922→  { code: "DEFINE S2 AS INTEGER", cap: "Variable created — an empty box named S2", box: "S2" },
+   923→  { code: "INPUT S2", cap: "65 drops into S2", box: "S2", val: "65" },
+   924→  { code: "DEFINE S3 AS INTEGER", cap: "Variable created — an empty box named S3", box: "S3" },
+   925→  { code: "INPUT S3", cap: "70 drops into S3", box: "S3", val: "70" },
+   926→  { code: "DEFINE S4 AS INTEGER", cap: "Variable created — an empty box named S4", box: "S4" },
+   927→  { code: "INPUT S4", cap: "55 drops into S4", box: "S4", val: "55" },
+   928→  { code: "DEFINE S5 AS INTEGER", cap: "Variable created — an empty box named S5", box: "S5" },
+   929→  { code: "INPUT S5", cap: "60 drops into S5 — all the data is in memory", box: "S5", val: "60" },
+   930→  { code: "DEFINE SUM AS INTEGER", cap: "Variable created — SUM will collect the total", box: "SUM" },
+   931→  { code: "SUM = S1 + S2 + S3 + S4 + S5", cap: "The boxes are read and added — SUM fills with 310", box: "SUM", val: "310" },
+   932→  { code: "DEFINE AVG AS FLOAT", cap: "Variable created — AVG will hold the average", box: "AVG" },
+   933→  { code: "AVG = SUM / 5", cap: "310 ÷ 5 — AVG fills with 62", box: "AVG", val: "62" },
+   934→  { code: "OUTPUT AVG", cap: "The answer leaves memory — the machine shows 62" },
+   935→];
+   936→
+   937→const AVG_BOXES = ["S1", "S2", "S3", "S4", "S5", "SUM", "AVG"];
+   938→
+   939→function MemBox({ label, value, created, hot }: { label: string; value: string | null; created: boolean; hot: boolean }) {
+   940→  return (
+   941→    <div className="flex flex-col items-center gap-1.5">
+   942→      <span className="font-mono text-[.62rem] font-bold uppercase tracking-widest text-[#8a6b45]">{label}</span>
+   943→      <div
+   944→        className={`flex h-16 w-[68px] items-center justify-center rounded-xl border-2 font-mono text-lg font-bold shadow-inner transition-all duration-300 ${
+   945→          hot ? "border-[#f5a623] shadow-[0_0_20px_rgba(245,166,35,.4)]" : created ? "border-[#6b543a]" : "border-dashed border-[#d9c5a5]"
+   946→        }`}
+   947→        style={{ background: created ? "linear-gradient(150deg,#4a3a26,#2f2113)" : "rgba(74,58,38,.10)" }}
+   948→      >
+   949→        <AnimatePresence mode="wait">
+   950→          <motion.span
+   951→            key={value ?? "empty"}
+   952→            initial={{ y: -14, opacity: 0 }}
+   953→            animate={{ y: 0, opacity: 1 }}
+   954→            exit={{ y: 10, opacity: 0 }}
+   955→            transition={{ duration: 0.25 }}
+   956→            className={value ? "text-white" : created ? "text-[#a08760]" : "text-transparent"}
+   957→          >
+   958→            {value ?? "·"}
+   959→          </motion.span>
+   960→        </AnimatePresence>
+   961→      </div>
+   962→    </div>
+   963→  );
+   964→}
+   965→
+   966→function AverageLab() {
+   967→  const [step, setStep] = useState(0);
+   968→  const total = AVG_LINES.length;
+   969→  const boxVal = (b: string) => {
+   970→    for (let i = step - 1; i >= 0; i--) {
+   971→      if (AVG_LINES[i].box === b && AVG_LINES[i].val) return AVG_LINES[i].val as string;
+   972→    }
+   973→    return null;
+   974→  };
+   975→  const boxCreated = (b: string) => AVG_LINES.some((l, i) => i < step && l.box === b);
+   976→  const activeBox = step > 0 ? AVG_LINES[step - 1].box : undefined;
+   977→  const done = step === total;
+   978→
+   979→  return (
+   980→    <div className="card-warm overflow-hidden">
+   981→      <div className="flex flex-wrap items-center gap-3 border-b border-[#f3e2c8] bg-[#fdf6e9] px-5 py-3">
+   982→        <span className="chip"><Database className="h-3.5 w-3.5" /> Memory-box stepper</span>
+   983→        <span className="ml-auto rounded-full border border-[#f0d9ba] bg-white/70 px-3 py-1 font-mono text-[.72rem] font-bold text-[#a0410a]">
+   984→          Step {step} / {total}
+   985→        </span>
+   986→      </div>
+   987→
+   988→      <div className="grid gap-5 p-5 lg:grid-cols-2">
+   989→        {/* pseudocode panel */}
+   990→        <div className="rounded-xl border border-[#f3e2c8] bg-[#fffaf1] p-3">
+   991→          <p className="eyebrow mb-2">Pseudocode</p>
+   992→          <ol className="grid gap-0.5">
+   993→            {AVG_LINES.map((l, i) => {
+   994→              const isCur = i === step - 1;
+   995→              const past = i < step - 1;
+   996→              return (
+   997→                <li key={l.code} className={`flex items-center gap-2 rounded-lg px-2 py-1 font-mono text-[.74rem] transition-colors duration-300 ${isCur ? "border-l-4 border-[#c2410c] bg-[#fdf1e0] font-bold text-[#7c4a12]" : past ? "text-[#6f5438]" : "text-[#b59a77]"}`}>
+   998→                  <span className="w-5 shrink-0 text-right text-[.62rem] opacity-60">{i + 1}</span>
+   999→                  {l.code}
+  1000→                </li>
+  1001→              );
+  1002→            })}
+  1003→          </ol>
+  1004→        </div>
+  1005→
+  1006→        {/* memory panel */}
+  1007→        <div className="flex flex-col">
+  1008→          <div className="flex flex-wrap justify-center gap-x-3 gap-y-4 py-2">
+  1009→            {AVG_BOXES.map((b) => (
+  1010→              <MemBox key={b} label={b} value={boxVal(b)} created={boxCreated(b)} hot={activeBox === b} />
+  1011→            ))}
+  1012→          </div>
+  1013→          <div className="mt-4 flex min-h-[3.4rem] items-center justify-center rounded-xl border border-[#f3e2c8] bg-[#fffaf1] px-4 text-center">
+  1014→            <AnimatePresence mode="wait">
+  1015→              <motion.p key={step} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.22 }} className="text-[.86rem] leading-relaxed text-[#2b2014]">
+  1016→                {step === 0 ? "Press “Next step” and watch memory fill up, one instruction at a time." : AVG_LINES[step - 1].cap}
+  1017→              </motion.p>
+  1018→            </AnimatePresence>
+  1019→          </div>
+  1020→          <div className="mt-4 flex flex-wrap items-center gap-3">
+  1021→            <button
+  1022→              type="button"
+  1023→              onClick={() => setStep((s) => Math.min(s + 1, total))}
+  1024→              disabled={done}
+  1025→              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[.82rem] font-bold text-white shadow-md transition enabled:hover:scale-[1.04] disabled:opacity-40"
+  1026→              style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)" }}
+  1027→            >
+  1028→              <Play className="h-3.5 w-3.5" /> Next step ▻
+  1029→            </button>
+  1030→            <button
+  1031→              type="button"
+  1032→              onClick={() => setStep(0)}
+  1033→              className="inline-flex items-center gap-2 rounded-full border border-[#e5c79d] bg-[#fffdf9] px-5 py-2.5 text-[.82rem] font-bold text-[#7c4a12] transition hover:bg-[#fdf1e0]"
+  1034→            >
+  1035→              <RotateCcw className="h-3.5 w-3.5" /> Reset
+  1036→            </button>
+  1037→            {done ? (
+  1038→              <span className="anim-pop inline-flex items-center gap-2 rounded-full px-4 py-2 text-[.8rem] font-extrabold" style={{ background: "#eef4dd", color: "#44621d", border: "1px solid #cfe0ae" }}>
+  1039→                OUTPUT → 62
+  1040→              </span>
+  1041→            ) : null}
+  1042→          </div>
+  1043→        </div>
+  1044→      </div>
+  1045→    </div>
+  1046→  );
+  1047→}
+  1048→
+  1049→const PSEUDO_FC = `DEFINE S1, S2, S3, S4, S5, SUM AS INTEGER
+  1050→INPUT S1, S2, S3, S4, S5
+  1051→SUM = S1 + S2 + S3 + S4 + S5
+  1052→DEFINE AVG AS FLOAT
+  1053→AVG = SUM / 5
+  1054→OUTPUT AVG
+  1055→IF AVG IS MORE THAN 60, OUTPUT "FIRST CLASS"`;
+  1056→
+  1057→const DTYPES = [
+  1058→  { icon: Hash, name: "Integer", holds: "Round numbers — no decimal part", ex: "Number of students, courses, books" },
+  1059→  { icon: Sigma, name: "Float", holds: "Decimal numbers", ex: "Temperature, interest rate, CGPA" },
+  1060→  { icon: ToggleLeft, name: "Boolean", holds: "0 or 1 — true / false", ex: "On/off, eligible/ineligible, pass/fail" },
+  1061→  { icon: Type, name: "Character", holds: "Text — letters, words, sentences", ex: "Name, address, description, role, book title" },
+  1062→];
+  1063→
+  1064→export function AtbAverageSection() {
+  1065→  return (
+  1066→    <Section id="average">
+  1067→      <SectionHead
+  1068→        eyebrow="Module 1 · Worked example"
+  1069→        title={
+  1070→          <>
+  1071→            Average marks — <span className="grad-text">arithmetic</span> vs algorithm
+  1072→          </>
+  1073→        }
+  1074→        lead="Five marks, one average. The school answer is a number; the algorithmic answer is a machine-followable process — and the difference is exactly what this course is about."
+  1075→      />
+  1076→
+  1077→      <ReadStep n="1" title="The school way" sub="Arithmetic gets the answer — but it forgets the method." />
+  1078→
+  1079→      <Reveal>
+  1080→        <div className="card-warm p-6">
+  1081→          <p className="text-center font-mono text-lg font-bold text-[#3e2c1d] md:text-2xl">
+  1082→            Average = (60 + 65 + 70 + 55 + 60) / 5 = <span className="grad-text">310 / 5 = 62</span>
+  1083→          </p>
+  1084→          <div className="mt-5">
+  1085→            <StepsFlow
+  1086→              steps={[
+  1087→                { label: "Add the marks", sub: "60 + 65 + 70 + 55 + 60 = 310", icon: <Banknote className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+  1088→                { label: "Divide by the number of subjects", sub: "310 ÷ 5 = 62", icon: <Percent className="h-5 w-5" style={{ color: "#7c9a3e" }} /> },
+  1089→              ]}
+  1090→            />
+  1091→          </div>
+  1092→        </div>
+  1093→      </Reveal>
+  1094→
+  1095→      <ReadStep n="2" title="The algorithmic way — memory boxes" sub="Step through the pseudocode and watch each variable appear, receive data and compute." />
+  1096→
+  1097→      <Reveal>
+  1098→        <AverageLab />
+  1099→      </Reveal>
+  1100→
+  1101→      <ReadStep n="3" title="Data types matter" sub="Every variable is declared with a pre-determined datatype." />
+  1102→
+  1103→      <Reveal>
+  1104→        <div className="card-warm overflow-x-auto p-1.5">
+  1105→          <table className="warm-table">
+  1106→            <thead>
+  1107→              <tr><th>Type</th><th>What it holds</th><th>Business examples</th></tr>
+  1108→            </thead>
+  1109→            <tbody>
+  1110→              {DTYPES.map((t) => (
+  1111→                <tr key={t.name}>
+  1112→                  <td><span className="inline-flex items-center gap-2 font-bold text-[#a0410a]"><t.icon className="h-4 w-4" />{t.name}</span></td>
+  1113→                  <td>{t.holds}</td>
+  1114→                  <td className="text-[#5d4a35]">{t.ex}</td>
+  1115→                </tr>
+  1116→              ))}
+  1117→            </tbody>
+  1118→          </table>
+  1119→        </div>
+  1120→      </Reveal>
+  1121→      <Reveal className="mt-3">
+  1122→        <p className="text-[.85rem] leading-relaxed text-muted-warm">
+  1123→          Note: modern languages can <strong>infer the type from the first input</strong> — assign
+  1124→          8.74 to a fresh variable and it quietly becomes a float. Older languages force you to
+  1125→          declare it up front, as our pseudocode does.
+  1126→        </p>
+  1127→      </Reveal>
+  1128→
+  1129→      <ReadStep n="4" title="Level up: FIRST CLASS" sub="One IF statement turns the average into a decision." />
+  1130→
+  1131→      <div className="grid items-start gap-5 lg:grid-cols-2">
+  1132→        <Reveal>
+  1133→          <CodeBlock title="first_class.pseudo" code={PSEUDO_FC} runnable={false} output="62.0"
+  1134→            note="AVG is a FLOAT, so the machine prints 62.0 — and because 62.0 IS MORE THAN 60, the IF fires." />
+  1135→        </Reveal>
+  1136→        <Reveal delay={120}>
+  1137→          <div className="card-warm flex h-full flex-col justify-center gap-5 p-5">
+  1138→            <div className="flex flex-wrap justify-center gap-x-3 gap-y-4">
+  1139→              <MemBox label="SUM" value="310" created hot={false} />
+  1140→              <MemBox label="AVG" value="62.0" created hot />
+  1141→              <div className="flex flex-col items-center justify-end gap-1.5">
+  1142→                <span className="font-mono text-[.62rem] font-bold uppercase tracking-widest text-[#8a6b45]">IF fires</span>
+  1143→                <span className="anim-pop inline-flex items-center gap-2 rounded-xl px-4 py-2.5 font-mono text-[.85rem] font-extrabold" style={{ background: "#eef4dd", color: "#44621d", border: "1px solid #cfe0ae" }}>
+  1144→                  <GraduationCap className="h-4 w-4" /> FIRST CLASS
+  1145→                </span>
+  1146→              </div>
+  1147→            </div>
+  1148→            <p className="text-center text-[.8rem] leading-relaxed text-muted-warm">
+  1149→              Same five marks as the lab above — but SUM is reused, AVG is a float, and the output
+  1150→              is now a verdict, not just a number.
+  1151→            </p>
+  1152→          </div>
+  1153→        </Reveal>
+  1154→      </div>
+  1155→
+  1156→      <Reveal className="mt-6">
+  1157→        <div className="grid gap-4 md:grid-cols-2">
+  1158→          <Quiz
+  1159→            q="CGPA = 8.74. Best primitive type?"
+  1160→            options={["Integer", "Float", "Boolean", "Character"]}
+  1161→            answer={1}
+  1162→            explain="8.74 has a decimal part — CGPA values are floats (that is exactly why AVG was DEFINE-d AS FLOAT in the lab)."
+  1163→            source="Lecture 1 · datatypes"
+  1164→          />
+  1165→          <Quiz
+  1166→            q="AVG is defined as INTEGER but SUM/5 = 62.5. What happens conceptually?"
+  1167→            options={["It stays 62.5 — nothing changes", "The decimal part is dropped — it becomes 62", "The program always crashes", "It becomes the text “62.5”"]}
+  1168→            answer={1}
+  1169→            explain="An integer box cannot hold a decimal part — conceptually it is truncated to 62. This is why the lecture declares AVG AS FLOAT before dividing."
+  1170→            source="Lecture 1 · datatypes"
+  1171→          />
+  1172→        </div>
+  1173→      </Reveal>
+  1174→
+  1175→      <Reveal className="mt-6">
+  1176→        <Takeaways
+  1177→          items={[
+  1178→            <>An <strong>algorithm</strong> is a series of steps to complete a task — chai, payroll or an ATM withdrawal.</>,
+  1179→            <>It can be represented as a <strong>flowchart</strong> (four symbols + arrows) or as <strong>pseudocode</strong>.</>,
+  1180→            <>Algorithms get <strong>more complex as details are added</strong> — each decision adds a branch.</>,
+  1181→            <>They are finally implemented in languages like <strong>C/C++, Java and Python</strong> — but the thinking comes first.</>,
+  1182→            <>Variables can have <strong>pre-determined datatypes</strong> (integer, float, boolean, character); modern languages can infer them.</>,
+  1183→            <><strong>Functions</strong> simplify algorithms by carrying out common tasks — shown in flowcharts as pre-defined process boxes.</>,
+  1184→          ]}
+  1185→        />
+  1186→      </Reveal>
+  1187→    </Section>
+  1188→  );
+  1189→}
+  1190→

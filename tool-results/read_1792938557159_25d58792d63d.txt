@@ -1,0 +1,1321 @@
+     1→"use client";
+     2→
+     3→/* ============================================================
+     4→   ATB — "Algorithmic Thinking in Business" · shelf 02
+     5→   FILE 1/2 — Module 2 · Linear data structures
+     6→   Part 3: Arrays (light) · Linked lists (dark)
+     7→   ============================================================ */
+     8→
+     9→import React, { useState } from "react";
+    10→import { motion } from "framer-motion";
+    11→import {
+    12→  AlertTriangle, ArrowRight, Check, GraduationCap, Hash, Home, Link2, ListMusic, Lock, MapPin,
+    13→  Network, Play, Plus, Repeat, Search, Shuffle, SkipBack, SkipForward, Trash2, X,
+    14→} from "lucide-react";
+    15→import {
+    16→  Callout, CodeBlock, Practice, Quiz, ReadStep, Reveal, Section, SectionHead, StepsFlow, Takeaways,
+    17→} from "@/components/notes/ui";
+    18→
+    19→/* ---------- local button (real <button>, aria-labelled) ---------- */
+    20→
+    21→function OpBtn({ onClick, children, tone = "ghost", dark = false, disabled = false }: {
+    22→  onClick: () => void; children: React.ReactNode; tone?: "warm" | "ghost"; dark?: boolean; disabled?: boolean;
+    23→}) {
+    24→  const style: React.CSSProperties =
+    25→    tone === "warm"
+    26→      ? { background: "linear-gradient(135deg,#ea580c,#c2410c)", color: "#fff7ec" }
+    27→      : { background: dark ? "rgba(255,246,232,.06)" : "#fffdf9", color: dark ? "#f0dfc8" : "#7c4a12", border: `1px solid ${dark ? "rgba(255,214,160,.22)" : "#e5c79d"}` };
+    28→  return (
+    29→    <button
+    30→      type="button"
+    31→      onClick={onClick}
+    32→      style={style}
+    33→      disabled={disabled}
+    34→      className={`rounded-xl px-3.5 py-2 text-[.8rem] font-bold shadow-sm transition-transform duration-200 ${disabled ? "cursor-not-allowed opacity-40" : "hover:-translate-y-0.5"}`}
+    35→    >
+    36→      {children}
+    37→    </button>
+    38→  );
+    39→}
+    40→
+    41→/* ============================================================
+    42→   ARRAYS — SVG pieces
+    43→   ============================================================ */
+    44→
+    45→const ARR_VALS = [60, 65, 70, 55, 60];
+    46→
+    47→function ArrayStrip({ selected }: { selected: number | null }) {
+    48→  return (
+    49→    <svg viewBox="0 0 620 152" className="h-auto w-full" role="img" aria-label="Array Sub with five cells holding 60, 65, 70, 55, 60 at indices 0 to 4">
+    50→      <defs>
+    51→        <marker id="arr3-ptr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker>
+    52→      </defs>
+    53→      <text x="35" y="24" fontSize="11" fontWeight="700" fill="#8a5a06">index →</text>
+    54→      {ARR_VALS.map((v, i) => {
+    55→        const x = 35 + i * 112, on = selected === i;
+    56→        return (
+    57→          <g key={i}>
+    58→            <text x={x + 50} y="44" textAnchor="middle" fontSize="13" fontWeight="700" fill={on ? "#c2410c" : "#8a5a06"}>{i}</text>
+    59→            <rect x={x} y="52" width="100" height="56" rx="10" fill={on ? "#f6ad3c" : "#fde8cf"} stroke={on ? "#c2410c" : "#e2b075"} strokeWidth={on ? 3 : 1.5} />
+    60→            <text x={x + 50} y="87" textAnchor="middle" fontSize="19" fontWeight="800" fill="#3e2c1d">{v}</text>
+    61→          </g>
+    62→        );
+    63→      })}
+    64→      {/* sweeping highlight (transform only) */}
+    65→      <motion.rect y="52" width="100" height="56" rx="10" fill="#f59e0b" aria-hidden initial={{ opacity: 0.22 }} animate={{ x: [35, 483] }} transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.1 }} />
+    66→      <line x1="85" y1="112" x2="85" y2="126" stroke="#c2410c" strokeWidth="1.5" markerEnd="url(#arr3-ptr)" />
+    67→      <text x="85" y="142" textAnchor="middle" fontSize="12" fontWeight="700" fill="#c2410c">Sub[0] = 60</text>
+    68→      <line x1="421" y1="112" x2="421" y2="126" stroke="#c2410c" strokeWidth="1.5" markerEnd="url(#arr3-ptr)" />
+    69→      <text x="421" y="142" textAnchor="middle" fontSize="12" fontWeight="700" fill="#c2410c">Sub[3] = 55</text>
+    70→    </svg>
+    71→  );
+    72→}
+    73→
+    74→function ArrayStripLab() {
+    75→  const [sel, setSel] = useState<number | null>(null);
+    76→  return (
+    77→    <div className="card-warm p-6 md:p-8">
+    78→      <div className="flex items-center gap-3">
+    79→        <Search className="h-6 w-6" style={{ color: "#c2410c" }} />
+    80→        <h3 className="text-xl font-bold md:text-2xl">Same type, instant access</h3>
+    81→      </div>
+    82→      <p className="mt-3 max-w-4xl text-[.93rem] leading-relaxed text-[#2b2014]">
+    83→        Five students&apos; marks live in <strong>one array named Sub</strong> — every element is
+    84→        the <strong>same data type</strong>, every element carries an <strong>index</strong>, and
+    85→        any element is reachable in <strong>one direct jump</strong>: no scanning, no searching.
+    86→      </p>
+    87→      <div className="mt-5 rounded-2xl p-4" style={{ background: "#fffaf1", border: "1px dashed #e5c79d" }}>
+    88→        <ArrayStrip selected={sel} />
+    89→      </div>
+    90→      <div className="mt-4 flex flex-wrap items-center gap-2">
+    91→        {ARR_VALS.map((_, i) => <OpBtn key={i} onClick={() => setSel(i)}>read Sub[{i}]</OpBtn>)}
+    92→        <OpBtn onClick={() => setSel(null)}>clear</OpBtn>
+    93→      </div>
+    94→      <p className="mt-3 min-h-[1.6rem] font-mono-warm text-[.85rem] font-bold text-[#a0410a]" aria-live="polite">
+    95→        {sel === null ? "→ click a position above — the answer comes back instantly." : `Sub[${sel}] → ${ARR_VALS[sel]}   // direct access: one jump, zero scanning`}
+    96→      </p>
+    97→      <div className="mt-2 flex flex-wrap gap-2">
+    98→        <span className="chip"><Check className="h-3.5 w-3.5" aria-hidden /> stores the same data type</span>
+    99→        <span className="chip"><Hash className="h-3.5 w-3.5" aria-hidden /> every element is indexed (0, 1, 2, …)</span>
+   100→        <span className="chip"><ArrowRight className="h-3.5 w-3.5" aria-hidden /> direct access by index</span>
+   101→      </div>
+   102→    </div>
+   103→  );
+   104→}
+   105→
+   106→const MARKS = [
+   107→  [72, 88, 91, 67], [55, 60, 71, 80], [60, 65, 70, 55], [91, 78, 84, 90], [45, 52, 61, 58],
+   108→];
+   109→
+   110→function TwoDGrid() {
+   111→  const hot = (i: number, j: number) => (i === 2 && j === 1) || (i === 4 && j === 3);
+   112→  return (
+   113→    <svg viewBox="0 0 560 336" className="h-auto w-full" role="img" aria-label="Two-dimensional array of student marks: five rows of students, four columns of subjects, with Sub[2,1] and Sub[4,3] highlighted">
+   114→      <defs>
+   115→        <marker id="grid3-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#b45309" /></marker>
+   116→      </defs>
+   117→      <text x="14" y="30" fontSize="11" fontWeight="700" fill="#8a5a06">students (i) ↓</text>
+   118→      {[0, 1, 2, 3].map((j) => <text key={j} x={118 + j * 88 + 44} y="46" textAnchor="middle" fontSize="12" fontWeight="700" fill="#8a5a06">subject {j}</text>)}
+   119→      {MARKS.map((row, i) => row.map((m, j) => {
+   120→        const x = 118 + j * 88, y = 56 + i * 46, on = hot(i, j);
+   121→        return (
+   122→          <g key={`${i}-${j}`}>
+   123→            <rect x={x} y={y} width="84" height="42" rx="8" fill={on ? "#f6ad3c" : i % 2 ? "#fde8cf" : "#fff3e0"} stroke={on ? "#c2410c" : "#e8cfa5"} strokeWidth={on ? 3 : 1.4} />
+   124→            <text x={x + 42} y={y + 27} textAnchor="middle" fontSize="15" fontWeight="700" fill="#3e2c1d">{m}</text>
+   125→            {j === 0 ? <text x="106" y={y + 27} textAnchor="end" fontSize="12" fontWeight="700" fill="#6f5438">student {i}</text> : null}
+   126→          </g>
+   127→        );
+   128→      }))}
+   129→      <line x1="18" y1="171" x2="110" y2="171" stroke="#b45309" strokeWidth="2" markerEnd="url(#grid3-ah)" />
+   130→      <text x="18" y="158" fontSize="12" fontWeight="800" fill="#b45309">Sub[2,1] → 65</text>
+   131→      <line x1="542" y1="300" x2="474" y2="272" stroke="#b45309" strokeWidth="2" markerEnd="url(#grid3-ah)" />
+   132→      <text x="546" y="318" textAnchor="end" fontSize="12" fontWeight="800" fill="#b45309">Sub[4,3] → 58</text>
+   133→    </svg>
+   134→  );
+   135→}
+   136→
+   137→/* ---------- insert trio (framer-motion stagger) ---------- */
+   138→
+   139→const CW = 56, STEP = 64;
+   140→
+   141→function Cells({ vals }: { vals: (number | null)[] }) {
+   142→  return (
+   143→    <>
+   144→      {vals.map((v, i) => (
+   145→        <g key={i}>
+   146→          <rect x={30 + i * STEP} y="34" width={CW} height="44" rx="8" fill={v === null ? "none" : "#fde8cf"} stroke={v === null ? "#c99a5b" : "#e2b075"} strokeWidth="1.6" strokeDasharray={v === null ? "5 4" : undefined} />
+   147→          {v !== null ? <text x={30 + i * STEP + CW / 2} y="62" textAnchor="middle" fontSize="16" fontWeight="800" fill="#3e2c1d">{v}</text> : null}
+   148→        </g>
+   149→      ))}
+   150→    </>
+   151→  );
+   152→}
+   153→
+   154→function TrioCard({ title, tone, svg, caption }: { title: string; tone: string; svg: React.ReactNode; caption: string }) {
+   155→  return (
+   156→    <div className="card-warm p-5">
+   157→      <p className="flex items-center gap-2 text-[.86rem] font-extrabold text-[#7c4a12]"><Plus className="h-4 w-4" style={{ color: tone }} /> {title}</p>
+   158→      <svg viewBox="0 0 372 112" className="mt-3 h-auto w-full" role="img" aria-label={caption}>{svg}</svg>
+   159→      <p className="mt-1 text-[.78rem] font-bold text-[#6f5438]">{caption}</p>
+   160→    </div>
+   161→  );
+   162→}
+   163→
+   164→function InsertTrio() {
+   165→  const pop = (x: number, d: number) => (
+   166→    <motion.g initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: d, duration: 0.4 }}>
+   167→      <rect x={x} y="34" width={CW} height="44" rx="8" fill="#f6d5c0" stroke="#c2410c" strokeWidth="2" />
+   168→      <text x={x + CW / 2} y="62" textAnchor="middle" fontSize="16" fontWeight="800" fill="#8a2f0f">99</text>
+   169→    </motion.g>
+   170→  );
+   171→  const shift = (kids: React.ReactNode) => (
+   172→    <motion.g initial={{ x: 0 }} whileInView={{ x: STEP }} viewport={{ once: true }} transition={{ delay: 0.4, duration: 0.6, ease: "easeInOut" }}>{kids}</motion.g>
+   173→  );
+   174→  return (
+   175→    <div className="grid gap-5 md:grid-cols-3">
+   176→      <TrioCard title="Insert at the END" tone="#7c9a3e" caption="shifts: 0 — just write into the free slot"
+   177→        svg={<>
+   178→          <Cells vals={[10, 20, 30, 40, null]} />
+   179→          <text x="314" y="20" fontSize="13" fontWeight="800" fill="#7c9a3e">99</text>
+   180→          <line x1="314" y1="24" x2="314" y2="30" stroke="#7c9a3e" strokeWidth="1.6" />
+   181→          {pop(30 + 4 * STEP, 0.45)}
+   182→        </>} />
+   183→      <TrioCard title="Insert at the BEGINNING" tone="#be4a4a" caption="shifts: n — every element moves right"
+   184→        svg={<>
+   185→          <rect x={30 + 4 * STEP} y="34" width={CW} height="44" rx="8" fill="none" stroke="#c99a5b" strokeWidth="1.6" strokeDasharray="5 4" />
+   186→          {shift(<Cells vals={[10, 20, 30, 40]} />)}
+   187→          {pop(30, 0.85)}
+   188→        </>} />
+   189→      <TrioCard title="Insert in the MIDDLE (Arr[2])" tone="#b45309" caption="shifts: everything after Arr[2] moves"
+   190→        svg={<>
+   191→          <Cells vals={[10, 20, null, null, null]} />
+   192→          {shift(<>
+   193→            <rect x={30 + 2 * STEP} y="34" width={CW} height="44" rx="8" fill="#fde8cf" stroke="#e2b075" strokeWidth="1.6" />
+   194→            <text x={30 + 2 * STEP + CW / 2} y="62" textAnchor="middle" fontSize="16" fontWeight="800" fill="#3e2c1d">30</text>
+   195→            <rect x={30 + 3 * STEP} y="34" width={CW} height="44" rx="8" fill="#fde8cf" stroke="#e2b075" strokeWidth="1.6" />
+   196→            <text x={30 + 3 * STEP + CW / 2} y="62" textAnchor="middle" fontSize="16" fontWeight="800" fill="#3e2c1d">40</text>
+   197→          </>)}
+   198→          {pop(30 + 2 * STEP, 0.85)}
+   199→        </>} />
+   200→    </div>
+   201→  );
+   202→}
+   203→
+   204→/* ============================================================
+   205→   LINKED LISTS — SVG pieces
+   206→   ============================================================ */
+   207→
+   208→function LlNode({ x, y, label, w = 150 }: { x: number; y: number; label: string; w?: number }) {
+   209→  return (
+   210→    <g>
+   211→      <rect x={x} y={y} width={w} height="52" rx="9" fill="#fde8cf" stroke="#c99a5b" strokeWidth="1.6" />
+   212→      <rect x={x + w - 58} y={y} width="58" height="52" rx="9" fill="#b45309" stroke="#c99a5b" strokeWidth="1.6" />
+   213→      <text x={x + (w - 58) / 2} y={y + 32} textAnchor="middle" fontSize="14" fontWeight="800" fill="#3e2c1d">{label}</text>
+   214→      <text x={x + w - 29} y={y + 31} textAnchor="middle" fontSize="11" fontWeight="700" fill="#fff7ec">next</text>
+   215→    </g>
+   216→  );
+   217→}
+   218→
+   219→function PlaylistChain() {
+   220→  const xs = [96, 306, 516];
+   221→  const inp = (d: number) => ({ initial: { opacity: 0, x: -20 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { delay: d, duration: 0.45 } });
+   222→  return (
+   223→    <svg viewBox="0 0 740 132" className="h-auto w-full" role="img" aria-label="Linked list playlist: Head points to Song 1, which points to Song 2, which points to Song 3, whose pointer is Null">
+   224→      <defs>
+   225→        <marker id="ll-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker>
+   226→      </defs>
+   227→      <motion.g {...inp(0)}>
+   228→        <rect x="10" y="40" width="56" height="52" rx="9" fill="#c2410c" />
+   229→        <text x="38" y="71" textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff7ec">Head</text>
+   230→      </motion.g>
+   231→      <motion.line x1="66" y1="66" x2="90" y2="66" stroke="#f5c889" strokeWidth="2" markerEnd="url(#ll-ah)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} />
+   232→      {xs.map((x, i) => (
+   233→        <motion.g key={x} {...inp(0.25 + i * 0.25)}>
+   234→          <LlNode x={x} y={40} label={`Song ${i + 1}`} />
+   235→          {i < 2 ? <line x1={x + 150} y1="66" x2={x + 204} y2="66" stroke="#f5c889" strokeWidth="2" markerEnd="url(#ll-ah)" /> : <text x={x + 121} y="30" textAnchor="middle" fontSize="12" fontWeight="800" fill="#f0a8a8">Null</text>}
+   236→        </motion.g>
+   237→      ))}
+   238→      <text x="360" y="122" textAnchor="middle" fontSize="12" fontWeight="600" fill="#cbb392">each node = data + a pointer to the next node — the chain can grow song by song</text>
+   239→    </svg>
+   240→  );
+   241→}
+   242→
+   243→function FlavourMinis() {
+   244→  const box = (x: number, y: number, t: string, k: string) => (
+   245→    <g key={k}>
+   246→      <rect x={x} y={y} width="72" height="40" rx="8" fill="#fde8cf" stroke="#c99a5b" strokeWidth="1.4" />
+   247→      <text x={x + 36} y={y + 25} textAnchor="middle" fontSize="12" fontWeight="700" fill="#3e2c1d">{t}</text>
+   248→    </g>
+   249→  );
+   250→  const mk = <T extends string>(id: T, fill: string) => (
+   251→    <marker id={id} markerWidth="7" markerHeight="7" refX="5.5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill={fill} /></marker>
+   252→  );
+   253→  const S = ["S1", "S2", "S3"];
+   254→  return (
+   255→    <div className="grid gap-5 md:grid-cols-3">
+   256→      <div className="card-warm p-5">
+   257→        <p className="text-[.95rem] font-extrabold text-[#f5c889]">Singly linked list</p>
+   258→        <svg viewBox="0 0 320 92" className="mt-2 h-auto w-full" role="img" aria-label="Singly linked list: arrows point forward only">
+   259→          <defs>{mk("fl-s", "#f5c889")}</defs>
+   260→          {S.map((t, i) => box(14 + i * 104, 26, t, t))}
+   261→          <line x1="86" y1="46" x2="112" y2="46" stroke="#f5c889" strokeWidth="2" markerEnd="url(#fl-s)" />
+   262→          <line x1="190" y1="46" x2="216" y2="46" stroke="#f5c889" strokeWidth="2" markerEnd="url(#fl-s)" />
+   263→          <text x="292" y="50" fontSize="11" fontWeight="700" fill="#f0a8a8">Null</text>
+   264→        </svg>
+   265→        <span className="chip mt-2">Lecture 7 · play next</span>
+   266→        <p className="mt-2 text-[.82rem] leading-relaxed text-[#cbb392]">Sequential playback — the chain is walked head → end, one <strong>next</strong> pointer at a time.</p>
+   267→      </div>
+   268→      <div className="card-warm p-5">
+   269→        <p className="text-[.95rem] font-extrabold text-[#f5c889]">Doubly linked list</p>
+   270→        <svg viewBox="0 0 320 92" className="mt-2 h-auto w-full" role="img" aria-label="Doubly linked list: arrows point forward and backward">
+   271→          <defs>{mk("fl-d", "#f5c889")}</defs>
+   272→          {S.map((t, i) => box(14 + i * 104, 26, t, t))}
+   273→          <line x1="88" y1="38" x2="112" y2="38" stroke="#f5c889" strokeWidth="2" markerEnd="url(#fl-d)" />
+   274→          <line x1="190" y1="38" x2="216" y2="38" stroke="#f5c889" strokeWidth="2" markerEnd="url(#fl-d)" />
+   275→          <line x1="114" y1="56" x2="90" y2="56" stroke="#e0a45e" strokeWidth="2" markerEnd="url(#fl-d)" />
+   276→          <line x1="216" y1="56" x2="192" y2="56" stroke="#e0a45e" strokeWidth="2" markerEnd="url(#fl-d)" />
+   277→        </svg>
+   278→        <span className="chip mt-2">Lecture 7 · play previous</span>
+   279→        <p className="mt-2 text-[.82rem] leading-relaxed text-[#cbb392]">Both directions — <strong>play next</strong> and <strong>play previous</strong> both work.</p>
+   280→      </div>
+   281→      <div className="card-warm p-5">
+   282→        <p className="text-[.95rem] font-extrabold text-[#f5c889]">Circular linked list</p>
+   283→        <svg viewBox="0 0 320 92" className="mt-2 h-auto w-full" role="img" aria-label="Circular linked list: the last node loops back to the head">
+   284→          <defs>{mk("fl-c", "#e0a45e")}</defs>
+   285→          {S.map((t, i) => box(14 + i * 104, 34, t, t))}
+   286→          <line x1="86" y1="54" x2="112" y2="54" stroke="#f5c889" strokeWidth="2" markerEnd="url(#fl-c)" />
+   287→          <line x1="190" y1="54" x2="216" y2="54" stroke="#f5c889" strokeWidth="2" markerEnd="url(#fl-c)" />
+   288→          <path d="M 288 32 C 280 6, 60 6, 44 30" fill="none" stroke="#e0a45e" strokeWidth="2" markerEnd="url(#fl-c)" />
+   289→          <text x="160" y="16" textAnchor="middle" fontSize="10.5" fontWeight="700" fill="#e0a45e">back to Head</text>
+   290→        </svg>
+   291→        <span className="chip mt-2">Lecture 7 · repeat / shuffle</span>
+   292→        <p className="mt-2 text-[.82rem] leading-relaxed text-[#cbb392]">The playlist <strong>starts over</strong> after the last song — repeat and shuffle live here, and the same loop drives menu systems.</p>
+   293→      </div>
+   294→    </div>
+   295→  );
+   296→}
+   297→
+   298→function RewireLab() {
+   299→  const [wired, setWired] = useState(false);
+   300→  return (
+   301→    <div className="card-warm p-6 md:p-8">
+   302→      <div className="flex flex-wrap items-center gap-3">
+   303→        <p className="text-xl font-bold md:text-2xl">Surgery in two pointer moves</p>
+   304→        <span className="chip">0 cells shifted — an array would move everything after Song 2</span>
+   305→      </div>
+   306→      <p className="mt-2 max-w-4xl text-[.92rem] leading-relaxed text-[#e9d7bf]">
+   307→        To insert <strong>Song 2a</strong> between Song 2 and Song 3, no element moves. We only
+   308→        rewrite <strong>two pointers</strong>: Song2.next → 2a, then 2a.next → Song3.
+   309→      </p>
+   310→      <div className="mt-5 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.05)" }}>
+   311→        <svg viewBox="0 0 760 212" className="h-auto w-full" role="img" aria-label="Inserting Song 2a into a linked list by rewiring two pointers">
+   312→          <defs>
+   313→            <marker id="rw-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker>
+   314→            <marker id="rw-x" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f0a8a8" /></marker>
+   315→          </defs>
+   316→          <LlNode x={24} y={24} label="Song 1" />
+   317→          <LlNode x={290} y={24} label="Song 2" />
+   318→          <LlNode x={560} y={24} label="Song 3" />
+   319→          <line x1="174" y1="50" x2="284" y2="50" stroke="#f5c889" strokeWidth="2" markerEnd="url(#rw-ah)" />
+   320→          <motion.line x1="440" y1="50" x2="554" y2="50" stroke={wired ? "#f0a8a8" : "#f5c889"} strokeWidth="2" strokeDasharray={wired ? "6 5" : undefined} markerEnd={wired ? "url(#rw-x)" : "url(#rw-ah)"} animate={{ opacity: wired ? 0.55 : 1 }} />
+   321→          {wired ? <text x="497" y="40" textAnchor="middle" fontSize="11" fontWeight="800" fill="#f0a8a8">✗ rewired away</text> : null}
+   322→          <motion.g initial={false} animate={{ opacity: wired ? 1 : 0 }} transition={{ duration: 0.4 }}>
+   323→            <LlNode x={400} y={140} label="Song 2a" />
+   324→            <line x1="412" y1="76" x2="446" y2="134" stroke="#f5c889" strokeWidth="2" markerEnd="url(#rw-ah)" />
+   325→            <text x="392" y="112" fontSize="10.5" fontWeight="700" fill="#f5c889">move 1</text>
+   326→            <line x1="552" y1="152" x2="636" y2="82" stroke="#f5c889" strokeWidth="2" markerEnd="url(#rw-ah)" />
+   327→            <text x="600" y="130" fontSize="10.5" fontWeight="700" fill="#f5c889">move 2</text>
+   328→          </motion.g>
+   329→        </svg>
+   330→      </div>
+   331→      <div className="mt-4 flex flex-wrap items-center gap-2">
+   332→        <OpBtn tone="warm" onClick={() => setWired(true)}>Rewire in 2 moves</OpBtn>
+   333→        <OpBtn dark onClick={() => setWired(false)}>Reset</OpBtn>
+   334→        <span className="font-mono-warm text-[.82rem] font-bold" style={{ color: "#f5c889" }} aria-live="polite">
+   335→          {wired ? "Song2.next → 2a · 2a.next → Song3 — done. Nothing else was touched." : "Before: Song2.next → Song3 (direct)."}
+   336→        </span>
+   337→      </div>
+   338→    </div>
+   339→  );
+   340→}
+   341→
+   342→function ListsOfLists() {
+   343→  const rows = [
+   344→    { y: 18, name: "Playlist 1", songs: ["1A", "1B", "1C"] },
+   345→    { y: 88, name: "Playlist 2", songs: ["2A", "2B"] },
+   346→    { y: 158, name: "Playlist 3", songs: ["3A", "3B", "3C"] },
+   347→    { y: 228, name: "Playlist 4", songs: ["4A", "4B"] },
+   348→  ];
+   349→  return (
+   350→    <svg viewBox="0 0 700 292" className="h-auto w-full" role="img" aria-label="A user owns four playlists and each playlist holds its own chain of songs — a linked list of linked lists">
+   351→      <defs>
+   352→        <marker id="lol-ah" markerWidth="7" markerHeight="7" refX="5.5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#f5c889" /></marker>
+   353→      </defs>
+   354→      <rect x="14" y="120" width="104" height="52" rx="10" fill="#c2410c" />
+   355→      <text x="66" y="151" textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff7ec">User 1</text>
+   356→      {rows.map((r) => (
+   357→        <g key={r.y}>
+   358→          <rect x="182" y={r.y} width="122" height="42" rx="9" fill="#b45309" stroke="#c99a5b" strokeWidth="1.4" />
+   359→          <text x="243" y={r.y + 26} textAnchor="middle" fontSize="12" fontWeight="800" fill="#fff7ec">{r.name}</text>
+   360→          <line x1="118" y1="146" x2="176" y2={r.y + 21} stroke="#f5c889" strokeWidth="1.8" markerEnd="url(#lol-ah)" />
+   361→          <line x1="304" y1={r.y + 21} x2="360" y2={r.y + 21} stroke="#f5c889" strokeWidth="1.8" markerEnd="url(#lol-ah)" />
+   362→          {r.songs.map((s, i) => (
+   363→            <g key={s}>
+   364→              <rect x={366 + i * 84} y={r.y + 5} width="70" height="32" rx="8" fill="#fde8cf" stroke="#c99a5b" strokeWidth="1.3" />
+   365→              <text x={366 + i * 84 + 35} y={r.y + 26} textAnchor="middle" fontSize="11.5" fontWeight="700" fill="#3e2c1d">{s}</text>
+   366→              {i > 0 ? <line x1={366 + (i - 1) * 84 + 70} y1={r.y + 21} x2={366 + i * 84 - 6} y2={r.y + 21} stroke="#f5c889" strokeWidth="1.6" markerEnd="url(#lol-ah)" /> : null}
+   367→            </g>
+   368→          ))}
+   369→          <text x={366 + r.songs.length * 84 + 6} y={r.y + 26} fontSize="13" fontWeight="700" fill="#cbb392">…</text>
+   370→        </g>
+   371→      ))}
+   372→    </svg>
+   373→  );
+   374→}
+   375→
+   376→/* ============================================================
+   377→   LECTURE 7 — interactive machines (linked lists)
+   378→   Unique SVG marker prefixes per machine: mm- · tv- · dl- · sf-
+   379→   ============================================================ */
+   380→
+   381→/* curved pointer path between two boxes, trimmed so arrowheads stay visible */
+   382→function hopPath(
+   383→  ax: number, ay: number, hwa: number, hha: number,
+   384→  bx: number, by: number, hwb: number, hhb: number,
+   385→  bend: number
+   386→): string {
+   387→  const dx = bx - ax, dy = by - ay;
+   388→  const len = Math.hypot(dx, dy) || 1;
+   389→  const ux = dx / len, uy = dy / len;
+   390→  const exit = (hw: number, hh: number) =>
+   391→    Math.min(Math.abs(ux) < 1e-6 ? Infinity : hw / Math.abs(ux), Math.abs(uy) < 1e-6 ? Infinity : hh / Math.abs(uy));
+   392→  const sx = ax + ux * (exit(hwa, hha) + 6);
+   393→  const sy = ay + uy * (exit(hwa, hha) + 6);
+   394→  const ex = bx - ux * (exit(hwb, hhb) + 4);
+   395→  const ey = by - uy * (exit(hwb, hhb) + 4);
+   396→  const mx = (sx + ex) / 2 - uy * bend;
+   397→  const my = (sy + ey) / 2 + ux * bend;
+   398→  const f = (n: number) => n.toFixed(1);
+   399→  return `M ${f(sx)} ${f(sy)} Q ${f(mx)} ${f(my)} ${f(ex)} ${f(ey)}`;
+   400→}
+   401→
+   402→/* data + next node with an optional highlight state (traversal / delete) */
+   403→function L7Node({ x, y, label, active = false, dead = false }: {
+   404→  x: number; y: number; label: string; active?: boolean; dead?: boolean;
+   405→}) {
+   406→  return (
+   407→    <g>
+   408→      <rect x={x} y={y} width={150} height={52} rx={9} fill={dead ? "#d9d2c6" : active ? "#f6ad3c" : "#fde8cf"} stroke={dead ? "#6b6154" : active ? "#f5c889" : "#c99a5b"} strokeWidth={active ? 2.5 : 1.6} />
+   409→      <rect x={x + 92} y={y} width={58} height={52} rx={9} fill={dead ? "#8a8175" : active ? "#c2410c" : "#b45309"} stroke={dead ? "#6b6154" : "#c99a5b"} strokeWidth={1.6} />
+   410→      <text x={x + 46} y={y + 32} textAnchor="middle" fontSize={14} fontWeight={800} fill={dead ? "#57504a" : active ? "#7c2d0a" : "#3e2c1d"}>{label}</text>
+   411→      <text x={x + 121} y={y + 31} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff7ec">next</text>
+   412→    </g>
+   413→  );
+   414→}
+   415→
+   416→/* ---------- machine 1 · MemoryMapLab ---------- */
+   417→
+   418→const MM_SONGS = ["Song 1", "Song 2", "Song 3", "Song 4", "Song 5"];
+   419→const MM_ARRAY_ADDR = ["1000", "1048", "1096", "1144", "1192"];
+   420→const MM_SCATTER = [
+   421→  { name: "Song 1", addr: "0724", next: "2044", x: 96, y: 22 },
+   422→  { name: "Song 2", addr: "2044", next: "1048", x: 520, y: 30 },
+   423→  { name: "Song 3", addr: "1048", next: "1556", x: 300, y: 128 },
+   424→  { name: "Song 4", addr: "1556", next: "0312", x: 560, y: 168 },
+   425→  { name: "Song 5", addr: "0312", next: null, x: 110, y: 236 },
+   426→];
+   427→
+   428→function MmArrayView() {
+   429→  return (
+   430→    <g>
+   431→      {MM_SONGS.map((s, i) => {
+   432→        const x = 44 + i * 118;
+   433→        return (
+   434→          <motion.g key={s} initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08, duration: 0.4 }}>
+   435→            <text x={x + 59} y="88" textAnchor="middle" fontSize="12" fontWeight="700" fill="#b99a75">{i}</text>
+   436→            <rect x={x} y="96" width="118" height="64" fill="#fde8cf" stroke="#e2b075" strokeWidth="1.5" />
+   437→            <text x={x + 59} y="135" textAnchor="middle" fontSize="14.5" fontWeight="800" fill="#3e2c1d">{s}</text>
+   438→            <text x={x + 59} y="186" textAnchor="middle" fontSize="11.5" fontWeight="700" fill="#b99a75">{MM_ARRAY_ADDR[i]}</text>
+   439→          </motion.g>
+   440→        );
+   441→      })}
+   442→      <motion.rect x="38" y="90" width="606" height="76" rx="10" fill="none" stroke="#c99a5b" strokeWidth="1.4" strokeDasharray="7 6"
+   443→        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.5 }} />
+   444→      <motion.text x="341" y="238" textAnchor="middle" fontSize="12" fontWeight="700" fill="#cbb392"
+   445→        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.65 }}>
+   446→        one contiguous block — addresses run consecutively (stride 48)
+   447→      </motion.text>
+   448→      <motion.text x="341" y="264" textAnchor="middle" fontSize="11.5" fontWeight="600" fill="#b99a75"
+   449→        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
+   450→        direct access: Sub[i] jumps straight to 1000 + i × 48 — but no cell can move without moving the block
+   451→      </motion.text>
+   452→    </g>
+   453→  );
+   454→}
+   455→
+   456→function MmListView() {
+   457→  const hops = [
+   458→    { d: hopPath(36, 50, 30, 20, 181, 50, 85, 28, 0), delay: 0.15 },
+   459→    { d: hopPath(181, 50, 85, 28, 605, 58, 85, 28, 34), delay: 0.3 },
+   460→    { d: hopPath(605, 58, 85, 28, 385, 156, 85, 28, -34), delay: 0.45 },
+   461→    { d: hopPath(385, 156, 85, 28, 645, 196, 85, 28, 30), delay: 0.6 },
+   462→    { d: hopPath(645, 196, 85, 28, 195, 264, 85, 28, -30), delay: 0.75 },
+   463→    { d: hopPath(195, 264, 85, 28, 330, 276, 16, 9, 22), delay: 0.9 },
+   464→  ];
+   465→  return (
+   466→    <g>
+   467→      {hops.map((h, i) => (
+   468→        <motion.path key={i} d={h.d} fill="none" stroke="#f5c889" strokeWidth="2" markerEnd="url(#mm-ah)"
+   469→          initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }}
+   470→          transition={{ delay: h.delay, duration: 0.45, ease: "easeInOut" }} />
+   471→      ))}
+   472→      <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.05 }}>
+   473→        <rect x="6" y="30" width="60" height="40" rx="9" fill="#c2410c" />
+   474→        <text x="36" y="55" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#fff7ec">Head</text>
+   475→      </motion.g>
+   476→      {MM_SCATTER.map((n, i) => (
+   477→        <motion.g key={n.name} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + i * 0.1, duration: 0.4 }}>
+   478→          <text x={n.x + 2} y={n.y - 7} fontSize="10" fontWeight="700" fill="#b99a75">addr {n.addr}</text>
+   479→          <rect x={n.x} y={n.y} width="170" height="56" rx="9" fill="#fde8cf" stroke="#c99a5b" strokeWidth="1.6" />
+   480→          <rect x={n.x + 104} y={n.y} width="66" height="56" rx="9" fill="#b45309" stroke="#c99a5b" strokeWidth="1.6" />
+   481→          <text x={n.x + 52} y={n.y + 33} textAnchor="middle" fontSize="13.5" fontWeight="800" fill="#3e2c1d">{n.name}</text>
+   482→          <text x={n.x + 137} y={n.y + 22} textAnchor="middle" fontSize="9" fontWeight="700" fill="#ffe9cf">next</text>
+   483→          <text x={n.x + 137} y={n.y + 41} textAnchor="middle" fontSize="11" fontWeight="800" fill={n.next === null ? "#ffd6d6" : "#fff7ec"}>{n.next ?? "Null"}</text>
+   484→        </motion.g>
+   485→      ))}
+   486→      <motion.text x="312" y="281" fontSize="12" fontWeight="800" fill="#f0a8a8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}>Null</motion.text>
+   487→    </g>
+   488→  );
+   489→}
+   490→
+   491→function MemoryMapLab() {
+   492→  const [mode, setMode] = useState<"array" | "list">("array");
+   493→  const [tick, setTick] = useState(0);
+   494→  const visit = (m: "array" | "list") => {
+   495→    setMode(m);
+   496→    setTick((t) => t + 1);
+   497→  };
+   498→  return (
+   499→    <div className="card-warm p-6 md:p-8">
+   500→      <div className="flex flex-wrap items-center gap-3">
+   501→        <MapPin className="h-6 w-6" style={{ color: "#f5c889" }} aria-hidden />
+   502→        <p className="text-xl font-bold md:text-2xl">One playlist, two memory maps</p>
+   503→        <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · scattered memory</span>
+   504→      </div>
+   505→      <p className="mt-2 max-w-4xl text-[.92rem] leading-relaxed text-[#e9d7bf]">
+   506→        The same five songs, stored two ways. Flip between the maps and watch where the data actually sits —
+   507→        and what carries the order.
+   508→      </p>
+   509→      <div className="mt-4 flex flex-wrap gap-2">
+   510→        <OpBtn tone={mode === "array" ? "warm" : "ghost"} dark={mode !== "array"} onClick={() => visit("array")}>Array — one packed block</OpBtn>
+   511→        <OpBtn tone={mode === "list" ? "warm" : "ghost"} dark={mode !== "list"} onClick={() => visit("list")}>Linked list — scattered anywhere</OpBtn>
+   512→      </div>
+   513→      <div className="mt-4 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.05)" }}>
+   514→        <svg viewBox="0 0 760 330" className="h-auto w-full" role="img"
+   515→          aria-label={mode === "array"
+   516→            ? "Array memory map: five song cells touching in one contiguous block at consecutive addresses 1000 to 1192"
+   517→            : "Linked list memory map: the same five songs scattered at unrelated addresses 0724, 2044, 1048, 1556 and 0312, connected by next pointers starting at the head, the last node pointing to Null"}>
+   518→          <defs>
+   519→            <marker id="mm-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker>
+   520→          </defs>
+   521→          <g key={`${mode}-${tick}`}>
+   522→            {mode === "array" ? <MmArrayView /> : <MmListView />}
+   523→          </g>
+   524→        </svg>
+   525→      </div>
+   526→      <p className="mt-3 min-h-[1.6rem] font-mono-warm text-[.85rem] font-bold" style={{ color: "#f5c889" }} aria-live="polite">
+   527→        {mode === "array"
+   528→          ? "→ Array: cells touch, addresses run 1000 · 1048 · 1096 · 1144 · 1192 — position predicts the neighbour."
+   529→          : "→ Linked list: same five songs at 0724 · 2044 · 1048 · 1556 · 0312 — the connections create the sequence, not physical proximity."}
+   530→      </p>
+   531→      <p className="mt-2 text-[.86rem] leading-relaxed text-[#cbb392]">
+   532→        <strong style={{ color: "#f5c889" }}>Arrays store elements in consecutive memory locations</strong>; linked
+   533→        lists use <strong style={{ color: "#f5c889" }}>pointers — addresses — to link elements regardless of their
+   534→        physical memory locations</strong>.
+   535→      </p>
+   536→    </div>
+   537→  );
+   538→}
+   539→
+   540→/* ---------- machine 2 · TraversalLab ---------- */
+   541→
+   542→function TraversalLab() {
+   543→  const [variant, setVariant] = useState<"singly" | "doubly" | "circular">("singly");
+   544→  const [pos, setPos] = useState(0);
+   545→  const [status, setStatus] = useState("Now playing Song 1 — Head → S1 → S2 → S3 → Null. Use Next / Prev to walk the chain.");
+   546→  const pick = (v: "singly" | "doubly" | "circular") => {
+   547→    setVariant(v);
+   548→    setPos(0);
+   549→    setStatus(
+   550→      v === "singly"
+   551→        ? "Singly: one direction only — Next walks forward, Prev is dead (no prev pointers exist)."
+   552→        : v === "doubly"
+   553→          ? "Doubly: every node also carries a prev pointer — Next and Prev both work."
+   554→          : "Circular: the last node points back to the head — the walk never dead-ends."
+   555→    );
+   556→  };
+   557→  const next = () => {
+   558→    if (pos < 2) {
+   559→      setPos(pos + 1);
+   560→      setStatus(`Next → now playing Song ${pos + 2} — followed the .next pointer.`);
+   561→    } else if (variant === "circular") {
+   562→      setPos(0);
+   563→      setStatus("Repeat — Song 3.next loops back to the head: Song 1 plays again.");
+   564→    }
+   565→  };
+   566→  const prev = () => {
+   567→    if (variant === "singly") return;
+   568→    if (pos > 0) {
+   569→      setPos(pos - 1);
+   570→      setStatus(`Prev → now playing Song ${pos} — one prev pointer backwards.`);
+   571→    } else if (variant === "circular") {
+   572→      setPos(2);
+   573→      setStatus("Wrapped — in a circular list the head's previous is the last node: Song 3 plays.");
+   574→    }
+   575→  };
+   576→  const reset = () => {
+   577→    setPos(0);
+   578→    setStatus("Reset — now playing Song 1.");
+   579→  };
+   580→  const nextDisabled = variant !== "circular" && pos === 2;
+   581→  const prevDisabled = variant === "singly" || (variant === "doubly" && pos === 0);
+   582→  return (
+   583→    <div className="card-warm p-6 md:p-8">
+   584→      <div className="flex flex-wrap items-center gap-3">
+   585→        <Play className="h-6 w-6" style={{ color: "#f5c889" }} aria-hidden />
+   586→        <p className="text-xl font-bold md:text-2xl">Walk the chain — next / prev, three ways</p>
+   587→        <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · traversal lab</span>
+   588→      </div>
+   589→      <p className="mt-2 max-w-4xl text-[.92rem] leading-relaxed text-[#e9d7bf]">
+   590→        Same three nodes, three navigation personalities. Switch the flavour, then walk: <strong>Next</strong>{" "}
+   591→        follows <span className="font-mono-warm">.next</span>; <strong>Prev</strong> needs a{" "}
+   592→        <span className="font-mono-warm">prev</span> pointer — only the doubly list has one — and only the circular
+   593→        list can wrap at the ends.
+   594→      </p>
+   595→      <div className="mt-5 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.05)" }}>
+   596→        <svg viewBox="0 0 760 210" className="h-auto w-full" role="img"
+   597→          aria-label={variant === "singly"
+   598→            ? "Singly linked list: Head, S1, S2, S3, Null — forward arrows only, the now-playing node glows"
+   599→            : variant === "doubly"
+   600→              ? "Doubly linked list: Head, S1, S2, S3 with prev and next pointers, the now-playing node glows"
+   601→              : "Circular linked list: Head, S1, S2, S3 with the last node looping back to the head, the now-playing node glows"}>
+   602→          <defs>
+   603→            <marker id="tv-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker>
+   604→            <marker id="tv-back" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#e0a45e" /></marker>
+   605→          </defs>
+   606→          {variant === "circular" ? (
+   607→            <g>
+   608→              <path d="M 619 68 C 560 4, 120 4, 46 66" fill="none" stroke="#e0a45e" strokeWidth="2" markerEnd="url(#tv-back)" />
+   609→              <text x="330" y="20" textAnchor="middle" fontSize="10.5" fontWeight="700" fill="#e0a45e">last node → back to Head (repeat)</text>
+   610→            </g>
+   611→          ) : null}
+   612→          {variant === "doubly" ? (
+   613→            <g>
+   614→              <path d="M 326 134 C 308 152, 288 152, 272 138" fill="none" stroke="#e0a45e" strokeWidth="2" markerEnd="url(#tv-back)" />
+   615→              <path d="M 540 134 C 522 152, 502 152, 486 138" fill="none" stroke="#e0a45e" strokeWidth="2" markerEnd="url(#tv-back)" />
+   616→              <text x="640" y="152" fontSize="10" fontWeight="700" fill="#e0a45e">prev pointers</text>
+   617→            </g>
+   618→          ) : null}
+   619→          <rect x="8" y="79" width="56" height="46" rx="9" fill="#c2410c" />
+   620→          <text x="36" y="107" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#fff7ec">Head</text>
+   621→          <line x1="64" y1="102" x2="110" y2="102" stroke="#f5c889" strokeWidth="2" markerEnd="url(#tv-ah)" />
+   622→          {[0, 1].map((i) => (
+   623→            <line key={`fw-${i}`} x1={270 + i * 214} y1="102" x2={324 + i * 214} y2="102" stroke="#f5c889" strokeWidth="2" markerEnd="url(#tv-ah)" />
+   624→          ))}
+   625→          {[0, 1, 2].map((i) => (
+   626→            <L7Node key={`n-${i}`} x={116 + i * 214} y={76} label={`S${i + 1}`} active={pos === i} />
+   627→          ))}
+   628→          {variant !== "circular" ? (
+   629→            <g>
+   630→              <line x1="698" y1="102" x2="704" y2="102" stroke="#f5c889" strokeWidth="2" markerEnd="url(#tv-ah)" />
+   631→              <text x="710" y="106" fontSize="11.5" fontWeight="800" fill="#f0a8a8">Null</text>
+   632→            </g>
+   633→          ) : null}
+   634→          <motion.rect key={`${variant}-${pos}`} x={116 + pos * 214 - 6} y={70} width={162} height={64} rx={12} fill="none" stroke="#f5c889" strokeWidth="2"
+   635→            initial={{ opacity: 0 }} animate={{ opacity: [0.35, 0.95, 0.35] }} transition={{ duration: 1.8, repeat: Infinity }} />
+   636→        </svg>
+   637→      </div>
+   638→      <div className="mt-4 flex flex-wrap items-center gap-2">
+   639→        <OpBtn tone={variant === "singly" ? "warm" : "ghost"} dark={variant !== "singly"} onClick={() => pick("singly")}>Singly</OpBtn>
+   640→        <OpBtn tone={variant === "doubly" ? "warm" : "ghost"} dark={variant !== "doubly"} onClick={() => pick("doubly")}>Doubly</OpBtn>
+   641→        <OpBtn tone={variant === "circular" ? "warm" : "ghost"} dark={variant !== "circular"} onClick={() => pick("circular")}>Circular</OpBtn>
+   642→        <span className="mx-1 hidden h-6 w-px sm:block" style={{ background: "rgba(255,214,160,.25)" }} aria-hidden />
+   643→        <OpBtn tone="warm" onClick={next} disabled={nextDisabled}>
+   644→          <span className="inline-flex items-center gap-1.5"><SkipForward className="h-3.5 w-3.5" aria-hidden /> Next</span>
+   645→        </OpBtn>
+   646→        <OpBtn dark onClick={prev} disabled={prevDisabled}>
+   647→          <span className="inline-flex items-center gap-1.5"><SkipBack className="h-3.5 w-3.5" aria-hidden /> Prev</span>
+   648→        </OpBtn>
+   649→        <OpBtn dark onClick={reset}>Reset</OpBtn>
+   650→      </div>
+   651→      {variant === "singly" ? (
+   652→        <p className="mt-2 flex items-center gap-1.5 text-[.8rem] font-bold" style={{ color: "#f0a8a8" }}>
+   653→          <X className="h-3.5 w-3.5 shrink-0" aria-hidden /> a singly linked list cannot walk backwards — no prev pointers
+   654→        </p>
+   655→      ) : null}
+   656→      {nextDisabled ? (
+   657→        <p className="mt-2 flex items-center gap-1.5 text-[.8rem] font-bold" style={{ color: "#f0a8a8" }}>
+   658→          <X className="h-3.5 w-3.5 shrink-0" aria-hidden /> S3.next → Null — the chain ends here (only a circular list continues)
+   659→        </p>
+   660→      ) : null}
+   661→      {variant === "doubly" && pos === 0 ? (
+   662→        <p className="mt-2 flex items-center gap-1.5 text-[.8rem] font-bold" style={{ color: "#f0a8a8" }}>
+   663→          <X className="h-3.5 w-3.5 shrink-0" aria-hidden /> S1.prev → Null — even a doubly list stops at the head (only a circular one wraps)
+   664→        </p>
+   665→      ) : null}
+   666→      <p className="mt-2 min-h-[1.6rem] font-mono-warm text-[.85rem] font-bold" style={{ color: "#f5c889" }} aria-live="polite">{status}</p>
+   667→    </div>
+   668→  );
+   669→}
+   670→
+   671→/* ---------- machine 3 · DeleteLab ---------- */
+   672→
+   673→function DeleteLab() {
+   674→  const [deleted, setDeleted] = useState(false);
+   675→  return (
+   676→    <div className="card-warm p-6 md:p-8">
+   677→      <div className="flex flex-wrap items-center gap-3">
+   678→        <Trash2 className="h-6 w-6" style={{ color: "#f0a8a8" }} aria-hidden />
+   679→        <p className="text-xl font-bold md:text-2xl">Delete Song 2 — one pointer rewrite</p>
+   680→        <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · delete = redirect</span>
+   681→      </div>
+   682→      <p className="mt-2 max-w-4xl text-[.92rem] leading-relaxed text-[#e9d7bf]">
+   683→        Deletion is the mirror of insertion: <strong style={{ color: "#f5c889" }}>redirect the previous node&apos;s
+   684→        pointer</strong> around the victim. Song 2 itself is <strong>not erased</strong> — it stays in memory but
+   685→        leaves the active list.
+   686→      </p>
+   687→      <div className="mt-5 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.05)" }}>
+   688→        <svg viewBox="0 0 760 196" className="h-auto w-full" role="img" aria-label="Deleting Song 2: Song 1's next pointer is redirected straight to Song 3 along a bypass arc while Song 2 fades out, still sitting in memory">
+   689→          <defs>
+   690→            <marker id="dl-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker>
+   691→            <marker id="dl-x" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f0a8a8" /></marker>
+   692→          </defs>
+   693→          <rect x="6" y="44" width="56" height="44" rx="9" fill="#c2410c" />
+   694→          <text x="34" y="71" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#fff7ec">Head</text>
+   695→          <line x1="62" y1="66" x2="94" y2="66" stroke="#f5c889" strokeWidth="2" markerEnd="url(#dl-ah)" />
+   696→          <L7Node x={100} y={40} label="Song 1" />
+   697→          <motion.line x1="254" y1="66" x2="324" y2="66"
+   698→            animate={{ stroke: deleted ? "#f0a8a8" : "#f5c889", opacity: deleted ? 0.55 : 1 }}
+   699→            strokeDasharray={deleted ? "6 5" : undefined}
+   700→            markerEnd={deleted ? "url(#dl-x)" : "url(#dl-ah)"} />
+   701→          <motion.text x="289" y="52" textAnchor="middle" fontSize="10.5" fontWeight="800" fill="#f0a8a8"
+   702→            initial={false} animate={{ opacity: deleted ? 1 : 0 }}>✗ rewired away</motion.text>
+   703→          <motion.line x1="484" y1="66" x2="544" y2="66"
+   704→            animate={{ stroke: deleted ? "#6b6154" : "#f5c889", opacity: deleted ? 0.22 : 1 }}
+   705→            markerEnd={deleted ? "url(#dl-x)" : "url(#dl-ah)"} />
+   706→          <motion.path d="M 226 96 C 330 176, 490 176, 546 76" fill="none" stroke="#f5c889" strokeWidth="2"
+   707→            initial={{ pathLength: 0, opacity: 0 }} animate={deleted ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
+   708→            transition={{ duration: 0.6, ease: "easeInOut" }} markerEnd="url(#dl-ah)" />
+   709→          <motion.g animate={{ opacity: deleted ? 0.35 : 1 }} transition={{ duration: 0.45 }}>
+   710→            <L7Node x={330} y={40} label="Song 2" dead={deleted} />
+   711→            <motion.text x="405" y="128" textAnchor="middle" fontSize="10.5" fontWeight="700" fill="#b9a58c"
+   712→              initial={false} animate={{ opacity: deleted ? 1 : 0 }}>still in memory — no longer in the list</motion.text>
+   713→          </motion.g>
+   714→          <L7Node x={550} y={40} label="Song 3" />
+   715→          <text x="710" y="71" fontSize="11.5" fontWeight="800" fill="#f0a8a8">Null</text>
+   716→        </svg>
+   717→      </div>
+   718→      <div className="mt-4 flex flex-wrap items-center gap-2">
+   719→        <OpBtn tone="warm" onClick={() => setDeleted(true)}>Delete Song 2</OpBtn>
+   720→        <OpBtn dark onClick={() => setDeleted(false)}>Reset</OpBtn>
+   721→        <span className="font-mono-warm text-[.82rem] font-bold" style={{ color: "#f5c889" }} aria-live="polite">
+   722→          {deleted
+   723→            ? "One pointer rewrite: Song1.next → Song 3. An array would shift every element after Song 2."
+   724→            : "Before: Head → Song 1 → Song 2 → Song 3 → Null."}
+   725→        </span>
+   726→      </div>
+   727→      <p className="mt-4 text-[.88rem] leading-relaxed text-[#cbb392]">
+   728→        The lecture&apos;s three facts about deletion: only the <strong style={{ color: "#f5c889" }}>pointer
+   729→        connections are adjusted</strong> — the previous node is redirected to point at the node after the deleted
+   730→        one; the deleted element <strong style={{ color: "#f5c889" }}>remains in memory</strong> but is no longer part
+   731→        of the active list; and the operation is <strong style={{ color: "#f5c889" }}>extremely efficient compared to
+   732→        array deletion</strong>, which must shift every later element to close the gap.
+   733→      </p>
+   734→    </div>
+   735→  );
+   736→}
+   737→
+   738→/* ---------- machine 4 · ShuffleLab ---------- */
+   739→
+   740→const SF_NODES = [
+   741→  { n: 1, addr: "0724", x: 60, y: 34 },
+   742→  { n: 2, addr: "2044", x: 540, y: 26 },
+   743→  { n: 3, addr: "1048", x: 120, y: 200 },
+   744→  { n: 4, addr: "1556", x: 520, y: 206 },
+   745→];
+   746→
+   747→function shuffledOrder(prev: number[]): number[] {
+   748→  const p = [1, 2, 3, 4];
+   749→  do {
+   750→    for (let i = p.length - 1; i > 0; i--) {
+   751→      const j = Math.floor(Math.random() * (i + 1));
+   752→      [p[i], p[j]] = [p[j], p[i]];
+   753→    }
+   754→  } while (p.every((v, i) => v === prev[i]));
+   755→  return p;
+   756→}
+   757→
+   758→function ShuffleLab() {
+   759→  const [order, setOrder] = useState<number[]>([1, 2, 3, 4]);
+   760→  const [count, setCount] = useState(1);
+   761→  const [status, setStatus] = useState("The original order: Head → Song 1 → Song 2 → Song 3 → Song 4 → Null.");
+   762→  const nextOf = (n: number) => {
+   763→    const i = order.indexOf(n);
+   764→    return i === 3 ? "Null" : `S${order[i + 1]}`;
+   765→  };
+   766→  const shuffle = () => {
+   767→    const p = shuffledOrder(order);
+   768→    setOrder(p);
+   769→    setCount((c) => c + 1);
+   770→    setStatus(`Ordering #${count + 1} of 24 — Head → ${p.map((n) => `Song ${n}`).join(" → ")} → Null. Same four nodes, same addresses — only the pointers were rewritten.`);
+   771→  };
+   772→  const reset = () => {
+   773→    setOrder([1, 2, 3, 4]);
+   774→    setCount(1);
+   775→    setStatus("Reset — Head → Song 1 → Song 2 → Song 3 → Song 4 → Null.");
+   776→  };
+   777→  const pts = [
+   778→    { x: 38, y: 142, hw: 32, hh: 20, id: 0 },
+   779→    ...order.map((n) => {
+   780→      const m = SF_NODES[n - 1];
+   781→      return { x: m.x + 85, y: m.y + 28, hw: 85, hh: 28, id: n };
+   782→    }),
+   783→  ];
+   784→  const hops: { d: string; key: string }[] = [];
+   785→  for (let i = 0; i < pts.length - 1; i++) {
+   786→    hops.push({
+   787→      d: hopPath(pts[i].x, pts[i].y, pts[i].hw, pts[i].hh, pts[i + 1].x, pts[i + 1].y, pts[i + 1].hw, pts[i + 1].hh, i % 2 ? -38 : 38),
+   788→      key: `${i}-${pts[i].id}-${pts[i + 1].id}`,
+   789→    });
+   790→  }
+   791→  hops.push({
+   792→    d: hopPath(pts[4].x, pts[4].y, 85, 28, 384, 264, 16, 8, -30),
+   793→    key: `4-${pts[4].id}-null`,
+   794→  });
+   795→  return (
+   796→    <div className="card-warm p-6 md:p-8">
+   797→      <div className="flex flex-wrap items-center gap-3">
+   798→        <Shuffle className="h-6 w-6" style={{ color: "#f5c889" }} aria-hidden />
+   799→        <p className="text-xl font-bold md:text-2xl">Shuffle — the songs never move</p>
+   800→        <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · reshuffling = pointers</span>
+   801→      </div>
+   802→      <p className="mt-2 max-w-4xl text-[.92rem] leading-relaxed text-[#e9d7bf]">
+   803→        Four song nodes at <strong style={{ color: "#f5c889" }}>fixed memory locations</strong>. Press shuffle and
+   804→        watch the <strong>visiting path</strong> re-route around them: Head → some new order → … → Null.
+   805→      </p>
+   806→      <div className="mt-5 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.05)" }}>
+   807→        <svg viewBox="0 0 760 292" className="h-auto w-full" role="img" aria-label="Four fixed song nodes and a re-routing visiting path from the head through all four songs to Null — only the arrows and next pointers change when shuffled">
+   808→          <defs>
+   809→            <marker id="sf-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker>
+   810→          </defs>
+   811→          {hops.map((h, i) => (
+   812→            <motion.path key={h.key} d={h.d} fill="none" stroke="#f5c889" strokeWidth="2" markerEnd="url(#sf-ah)"
+   813→              initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }}
+   814→              transition={{ duration: 0.3, delay: 0.05 + i * 0.12, ease: "easeInOut" }} />
+   815→          ))}
+   816→          <rect x="6" y="122" width="64" height="40" rx="9" fill="#c2410c" />
+   817→          <text x="38" y="147" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#fff7ec">Head</text>
+   818→          {SF_NODES.map((m) => (
+   819→            <g key={m.n}>
+   820→              <rect x={m.x} y={m.y} width={170} height={56} rx={9} fill="#fde8cf" stroke="#c99a5b" strokeWidth={1.6} />
+   821→              <rect x={m.x + 104} y={m.y} width={66} height={56} rx={9} fill="#b45309" stroke="#c99a5b" strokeWidth={1.6} />
+   822→              <text x={m.x + 52} y={m.y + 33} textAnchor="middle" fontSize={14} fontWeight={800} fill="#3e2c1d">{`Song ${m.n}`}</text>
+   823→              <text x={m.x + 137} y={m.y + 22} textAnchor="middle" fontSize={9} fontWeight={700} fill="#ffe9cf">next</text>
+   824→              <text x={m.x + 137} y={m.y + 41} textAnchor="middle" fontSize={11} fontWeight={800} fill={nextOf(m.n) === "Null" ? "#ffd6d6" : "#fff7ec"}>{nextOf(m.n)}</text>
+   825→              <text x={m.x + 85} y={m.y + 74} textAnchor="middle" fontSize={10} fontWeight={700} fill="#b99a75">addr {m.addr} · fixed</text>
+   826→            </g>
+   827→          ))}
+   828→          <text x="384" y="286" textAnchor="middle" fontSize="12" fontWeight="800" fill="#f0a8a8">Null</text>
+   829→        </svg>
+   830→      </div>
+   831→      <div className="mt-4 flex flex-wrap items-center gap-2">
+   832→        <OpBtn tone="warm" onClick={shuffle}>Shuffle</OpBtn>
+   833→        <OpBtn dark onClick={reset}>Reset</OpBtn>
+   834→        <span className="font-mono-warm text-[.82rem] font-bold" style={{ color: "#f5c889" }} aria-live="polite">{status}</span>
+   835→      </div>
+   836→      <div className="mt-2">
+   837→        <span className="chip"><Shuffle className="h-3.5 w-3.5" aria-hidden /> ordering #{count} of 24 possible orders</span>
+   838→      </div>
+   839→      <p className="mt-3 text-[.88rem] leading-relaxed text-[#cbb392]">
+   840→        <strong style={{ color: "#f5c889" }}>The data elements stay in their memory locations</strong> — every node
+   841→        keeps its address in every ordering. Only <strong style={{ color: "#f5c889" }}>the pointer connections are
+   842→        rearranged</strong> to create a different order — that is how random / shuffle playback works without
+   843→        physically moving data.
+   844→      </p>
+   845→    </div>
+   846→  );
+   847→}
+   848→
+   849→/* ============================================================
+   850→   EXPORTED — ARRAYS SECTION (light)
+   851→   ============================================================ */
+   852→
+   853→const OPS = [
+   854→  { op: "Read / Access", what: "Retrieve the value stored at a position", biz: "Total the sales of all stores, one by one", fast: true },
+   855→  { op: "Search", what: "Find a specific item in the array", biz: "Search a customer ID in the database", fast: false },
+   856→  { op: "Insert", what: "Add a new value at a position", biz: "Add a new employee to the staff list", fast: false },
+   857→  { op: "Update", what: "Change the value at a position", biz: "Update stock quantity after every sale", fast: true },
+   858→  { op: "Delete", what: "Remove a value from a position", biz: "Remove a discontinued product", fast: true },
+   859→];
+   860→
+   861→export function AtbArraysSection() {
+   862→  return (
+   863→    <Section id="arrays">
+   864→      <SectionHead
+   865→        eyebrow="Module 2 · Linear data structures — arrays"
+   866→        title={<><span className="grad-text">Arrays</span> — numbered boxes in a row</>}
+   867→        lead="The first linear structure: one name, one block of memory, positions numbered from 0. Arrays are the structure every other structure is measured against — because of one superpower: direct access."
+   868→      />
+   869→
+   870→      <ReadStep n="1" title="Two addresses, one idea" sub="Why structure beats scatter" />
+   871→      <div className="grid gap-5 md:grid-cols-2">
+   872→        <Reveal>
+   873→          <div className="card-warm h-full p-6">
+   874→            <div className="flex items-center gap-2">
+   875→              <MapPin className="h-5 w-5" style={{ color: "#be4a4a" }} />
+   876→              <span className="text-[.75rem] font-extrabold uppercase tracking-[.16em] text-[#be4a4a]">Address 1 · scattered</span>
+   877→            </div>
+   878→            <p className="mt-3 rounded-xl bg-[#fbe9e4] p-3.5 text-[.92rem] font-semibold italic leading-relaxed text-[#7c2f2f]">
+   879→              &ldquo;C/o Shri Jagat Murari, Near Quantum School, Opposite Café Youth, New City&rdquo;
+   880→            </p>
+   881→            <p className="mt-3 text-[.9rem] leading-relaxed text-[#2b2014]">
+   882→              Everything is described by <strong>landmarks</strong> — nothing predicts its
+   883→              neighbours. Most likely an <strong>independent house</strong>: the next house could
+   884→              be anything, anywhere. <strong>Like loose variables</strong> — each one lives on its own.
+   885→            </p>
+   886→          </div>
+   887→        </Reveal>
+   888→        <Reveal delay={120}>
+   889→          <div className="card-warm h-full p-6">
+   890→            <div className="flex items-center gap-2">
+   891→              <Home className="h-5 w-5" style={{ color: "#7c9a3e" }} />
+   892→              <span className="text-[.75rem] font-extrabold uppercase tracking-[.16em]" style={{ color: "#5c7a24" }}>Address 2 · structured</span>
+   893→            </div>
+   894→            <p className="mt-3 rounded-xl p-3.5 text-[.92rem] font-semibold italic leading-relaxed" style={{ background: "#eef4dd", color: "#44621d" }}>
+   895→              &ldquo;House No. 53, New Friends Colony&rdquo;
+   896→            </p>
+   897→            <p className="mt-3 text-[.9rem] leading-relaxed text-[#2b2014]">
+   898→              A house <strong>numbered 53</strong> sits inside a planned colony — houses{" "}
+   899→              <strong>52 and 54 must be right beside it</strong>. Position predicts neighbours.{" "}
+   900→              <strong>That is an array</strong>: a row of same-type values, numbered, side by side.
+   901→            </p>
+   902→            <div className="mt-3 flex items-center gap-1.5 text-[.8rem] font-bold text-[#6f5438]">
+   903→              {[51, 52, 53, 54, 55].map((h) => (
+   904→                <span key={h} className="rounded-md px-2 py-1" style={{ background: h === 53 ? "#f6ad3c" : "#fde8cf", border: "1px solid #e2b075", color: h === 53 ? "#7c2d0a" : "#7c4a12" }}>{h}</span>
+   905→              ))}
+   906→              <ArrowRight className="h-4 w-4" style={{ color: "#c2410c" }} aria-hidden />
+   907→            </div>
+   908→          </div>
+   909→        </Reveal>
+   910→      </div>
+   911→
+   912→      <ReadStep n="2" title="Same type, instant access" sub="One name — Sub — five numbered cells" />
+   913→      <Reveal><ArrayStripLab /></Reveal>
+   914→      <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   915→        <Reveal>
+   916→          <CodeBlock title="sub_array.c — fixed size, declared up front" runnable={false}
+   917→            code={`/* C / C++ — the size is fixed at declaration */
+   918→int Sub[5] = {60, 65, 70, 55, 60};
+   919→
+   920→printf("%d", Sub[0]);   // 60  ← first element
+   921→printf("%d", Sub[3]);   // 55  ← direct access`} />
+   922→        </Reveal>
+   923→        <Reveal delay={100}>
+   924→          <CodeBlock title="sub_array.py — same idea, friendlier syntax" runnable={false}
+   925→            code={`# Python — square brackets instead of braces
+   926→Sub = [60, 65, 70, 55, 60]
+   927→
+   928→print(Sub[0])   # 60  ← indexing starts at 0
+   929→print(Sub[3])   # 55  ← one direct jump`} />
+   930→        </Reveal>
+   931→      </div>
+   932→
+   933→      <ReadStep n="3" title="Two dimensions" sub="Marks for MULTIPLE students, multiple subjects" />
+   934→      <Reveal>
+   935→        <div className="card-warm p-6 md:p-8">
+   936→          <p className="max-w-4xl text-[.93rem] leading-relaxed text-[#2b2014]">
+   937→            One row of marks served <strong>one student</strong>. Now imagine every student&apos;s
+   938→            marks for every subject: a <strong>2-D array</strong> — rows indexed by{" "}
+   939→            <strong>i</strong> (student), columns indexed by <strong>j</strong> (subject). One pair
+   940→            of numbers addresses any cell: <span className="font-mono-warm font-bold text-[#a0410a]">Sub[i, j]</span>.
+   941→          </p>
+   942→          <div className="mt-5 rounded-2xl p-4" style={{ background: "#fffaf1", border: "1px dashed #e5c79d" }}><TwoDGrid /></div>
+   943→          <p className="mt-3 font-mono-warm text-[.84rem] font-bold text-[#a0410a]">
+   944→            Sub[2,1] → 65 (student 2, subject 1) · Sub[4,3] → 58 (student 4, subject 3) — still one direct jump each.
+   945→          </p>
+   946→        </div>
+   947→      </Reveal>
+   948→
+   949→      <ReadStep n="4" title="The five operations + business use cases" sub="What you can DO to an array — and what it costs" />
+   950→      <Reveal>
+   951→        <div className="card-warm overflow-hidden">
+   952→          <div className="overflow-x-auto p-4 md:p-6">
+   953→            <table className="warm-table min-w-[720px]">
+   954→              <thead><tr><th>Operation</th><th>What it does</th><th>Business use case</th><th>Speed</th></tr></thead>
+   955→              <tbody>
+   956→                {OPS.map((r) => (
+   957→                  <tr key={r.op}>
+   958→                    <td className="font-bold text-[#7c4a12]">{r.op}</td>
+   959→                    <td>{r.what}</td>
+   960→                    <td>{r.biz}</td>
+   961→                    <td>
+   962→                      <span className="rounded-full px-2.5 py-1 text-[.72rem] font-extrabold" style={r.fast ? { background: "rgba(124,154,62,.16)", color: "#4c6b1f" } : { background: "rgba(245,158,11,.18)", color: "#92600a" }}>
+   963→                        {r.fast ? "✓ instantaneous" : "≈ depends on position"}
+   964→                      </span>
+   965→                    </td>
+   966→                  </tr>
+   967→                ))}
+   968→              </tbody>
+   969→            </table>
+   970→          </div>
+   971→        </div>
+   972→      </Reveal>
+   973→
+   974→      <ReadStep n="5" title="How insert really works" sub="Watch the cells move — the position decides the price" />
+   975→      <Reveal><InsertTrio /></Reveal>
+   976→      <Reveal className="mt-5">
+   977→        <Callout kind="why" title="The pattern behind the trio">
+   978→          Inserting at the <strong>end</strong> is free — nothing after it. The further{" "}
+   979→          <strong>forward</strong> you insert, the more elements must <strong>shift right</strong>{" "}
+   980→          to open the gap. That is why the table says insert &ldquo;depends on position&rdquo; —
+   981→          while Read and Update never move anything, wherever you aim.
+   982→        </Callout>
+   983→      </Reveal>
+   984→
+   985→      <ReadStep n="6" title="Search &amp; update by value" sub="The five-step loop the lecture walks through" />
+   986→      <Reveal>
+   987→        <StepsFlow steps={[
+   988→          { label: "Start", sub: "index = 0", icon: <Play className="h-4 w-4" style={{ color: "#c2410c" }} /> },
+   989→          { label: "Compare", sub: "is Arr[index] the search term?", icon: <Search className="h-4 w-4" style={{ color: "#c2410c" }} /> },
+   990→          { label: "Yes → stop", sub: "found — return index", icon: <Check className="h-4 w-4" style={{ color: "#5c7a24" }} /> },
+   991→          { label: "No → move on", sub: "index = index + 1", icon: <ArrowRight className="h-4 w-4" style={{ color: "#c2410c" }} /> },
+   992→          { label: "Repeat", sub: "until found or array ends", icon: <Repeat className="h-4 w-4" style={{ color: "#c2410c" }} /> },
+   993→        ]} />
+   994→      </Reveal>
+   995→      <Reveal className="mt-5">
+   996→        <CodeBlock title="array_search.pseudo — the loop, written down" runnable={false}
+   997→          code={`SEARCH(Arr, N, term):
+   998→    index ← 0
+   999→    while index < N:
+  1000→        if Arr[index] = term:  return index   // yes → stop
+  1001→        index ← index + 1                     // no → move on
+  1002→    return NOT FOUND                          // loop ended empty-handed
+  1003→
+  1004→UPDATE(Arr, term, newValue):                  // business: stock after a sale
+  1005→    pos ← SEARCH(Arr, N, term)
+  1006→    if pos ≠ NOT FOUND:  Arr[pos] ← newValue  // update is instant once found`} />
+  1007→      </Reveal>
+  1008→
+  1009→      <Reveal className="mt-12">
+  1010→        <h3 className="text-2xl font-bold">Benefits vs <span className="grad-text">challenges</span></h3>
+  1011→      </Reveal>
+  1012→      <div className="mt-5 grid gap-5 md:grid-cols-2">
+  1013→        {[
+  1014→          { head: "Benefits", tone: "#5c7a24", icon: Check, items: [
+  1015→            "Easy to understand — a numbered row of boxes",
+  1016→            "Memory-saving — contiguous allocation, no gaps, no per-item overhead",
+  1017→            "Faster processing — direct access to any position",
+  1018→            "Ideal for predictable datasets — fixed count, same type (30 days of sales)",
+  1019→            "The foundation for other structures — stacks, queues, matrices build on arrays",
+  1020→          ] },
+  1021→          { head: "Challenges", tone: "#be4a4a", icon: AlertTriangle, items: [
+  1022→            "Fixed length — waste if declared too large, overflow if too small",
+  1023→            "Some operations depend on the element's position (search, insert)",
+  1024→            "Needs contiguous memory — one free block big enough for the whole array",
+  1025→            "Inefficient for frequent modifications — inserts and deletes shift cells",
+  1026→            "Resizing costs time and resources — grow means allocate + copy everything",
+  1027→          ] },
+  1028→        ].map((col, ci) => (
+  1029→          <Reveal key={col.head} delay={ci * 120}>
+  1030→            <div className="card-warm h-full p-6">
+  1031→              <p className="text-[.8rem] font-extrabold uppercase tracking-[.16em]" style={{ color: col.tone }}>{col.head}</p>
+  1032→              <ul className="mt-3 grid gap-2.5 text-[.9rem] text-[#2b2014]">
+  1033→                {col.items.map((t) => (
+  1034→                  <li key={t} className="flex items-start gap-2.5">
+  1035→                    <col.icon className="mt-0.5 h-4 w-4 shrink-0" style={{ color: col.tone }} aria-hidden />
+  1036→                    <span>{t}</span>
+  1037→                  </li>
+  1038→                ))}
+  1039→              </ul>
+  1040→            </div>
+  1041→          </Reveal>
+  1042→        ))}
+  1043→      </div>
+  1044→
+  1045→      <div className="mt-10 grid gap-5 md:grid-cols-2">
+  1046→        <Reveal>
+  1047→          <Quiz source="Concept check" q="Sub = [60, 65, 70, 55, 60] — what does Sub[3] return?"
+  1048→            options={["70", "55", "60", "65"]} answer={1}
+  1049→            explain="Indexing starts at 0, so Sub[3] is the FOURTH value: 60, 65, 70, 55 → 55. And because the position is known, the answer comes back in one direct jump." />
+  1050→        </Reveal>
+  1051→        <Reveal delay={100}>
+  1052→          <Quiz source="Concept check" q="Which operation is instantaneous in an array, no matter how big it is?"
+  1053→            options={["Search for a value", "Read at a known index", "Insert at the beginning", "Find the position of a value"]} answer={1}
+  1054→            explain="Reading Sub[i] is one direct jump — the index IS the address. Search and find-position must scan; insert at the beginning shifts every element right." />
+  1055→        </Reveal>
+  1056→      </div>
+  1057→      <Reveal className="mt-5">
+  1058→        <Practice title="Pen-and-paper drills — arrays" items={[
+  1059→          { q: "Write the search algorithm in exactly five steps: start index = 0 → compare → yes, stop → no, increment → repeat.", hint: "Each step must be unambiguous — a computer executes it without guessing." },
+  1060→          { q: "A store keeps its daily sales figure for 30 days. Why is an array the ideal structure for this?", hint: "Fixed count, same data type, and any day is read directly by its number." },
+  1061→          { q: "Trace inserting 99 at the beginning of [10, 20, 30]. How many values move, and where does each go?", hint: "Every existing element shifts one position to the right — then 99 lands at index 0." },
+  1062→        ]} />
+  1063→      </Reveal>
+  1064→    </Section>
+  1065→  );
+  1066→}
+  1067→
+  1068→/* ============================================================
+  1069→   EXPORTED — LINKED LISTS SECTION (dark)
+  1070→   ============================================================ */
+  1071→
+  1072→export function AtbListSection() {
+  1073→  return (
+  1074→    <Section id="linkedlists" dark>
+  1075→      <SectionHead
+  1076→        dark
+  1077→        eyebrow="Lecture 7 · Linked lists & linear structures"
+  1078→        title={<><span className="grad-text">Linked lists</span> — a playlist that never overflows</>}
+  1079→        lead="The second major linear data structure after arrays. When the number of items is unknown and changes constantly, contiguity becomes a cage — links beat contiguity: every item carries the address of the next, so data can live anywhere and the chain can reshape itself in cheap pointer moves."
+  1080→      />
+  1081→
+  1082→      <ReadStep dark n="1" title="Where arrays crack" sub="Linear order, the row's three limitations — and when arrays still win" />
+  1083→      <Reveal>
+  1084→        <div className="card-warm p-6 md:p-8">
+  1085→          <span className="chip"><ArrowRight className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · linear data structures</span>
+  1086→          <p className="mt-3 max-w-4xl text-[.93rem] leading-relaxed text-[#e9d7bf]">
+  1087→            A <strong style={{ color: "#f5c889" }}>linear data structure</strong> arranges its elements{" "}
+  1088→            <strong style={{ color: "#f5c889" }}>sequentially, in a logical order</strong>: the elements are connected
+  1089→            so that reaching one item lets you move on to its neighbours. Arrays are the first member of this family —
+  1090→            they use <strong>indexing</strong> for direct access, because the position IS the address. This lecture
+  1091→            adds the second member, and it starts from the cracks in the first.
+  1092→          </p>
+  1093→          <div className="mt-5 grid gap-5 md:grid-cols-3">
+  1094→            {[
+  1095→              { icon: Hash, tone: "#f5c889", t: "Fixed size", chip: "Lecture 7 · limitation 1", d: "The size must be defined in advance. Adding elements beyond the initial size means redefining the entire array." },
+  1096→              { icon: AlertTriangle, tone: "#f0a8a8", t: "Inefficient middle modifications", chip: "Lecture 7 · limitation 2", d: "Deleting or inserting in the middle forces the other elements to shift — or leaves null spaces behind." },
+  1097→              { icon: Lock, tone: "#cbb392", t: "Static structure", chip: "Lecture 7 · limitation 3", d: "Limited flexibility when data requirements change — the row cannot reshape itself." },
+  1098→            ].map((c) => (
+  1099→              <div key={c.t} className="rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}>
+  1100→                <div className="flex items-center gap-2">
+  1101→                  <c.icon className="h-5 w-5 shrink-0" style={{ color: c.tone }} aria-hidden />
+  1102→                  <span className="text-[.88rem] font-extrabold leading-snug text-[#f5e6cd]">{c.t}</span>
+  1103→                </div>
+  1104→                <p className="mt-2 text-[.86rem] leading-relaxed text-[#cbb392]">{c.d}</p>
+  1105→                <span className="chip mt-3">{c.chip}</span>
+  1106→              </div>
+  1107→            ))}
+  1108→          </div>
+  1109→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+  1110→            <div className="rounded-2xl p-5" style={{ background: "rgba(255,236,210,.04)" }}>
+  1111→              <p className="text-[.8rem] font-extrabold uppercase tracking-[.16em]" style={{ color: "#f0a8a8" }}>When arrays hurt</p>
+  1112→              <ul className="mt-3 grid gap-3 text-[.9rem] leading-relaxed text-[#e9d7bf]">
+  1113→                <li className="flex items-start gap-3">
+  1114→                  <X className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#f0a8a8" }} aria-hidden />
+  1115→                  <span>You need elements <strong>connected</strong> — but you don&apos;t know in advance how many there will be. An array forces you to guess a size.</span>
+  1116→                </li>
+  1117→                <li className="flex items-start gap-3">
+  1118→                  <X className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#f0a8a8" }} aria-hidden />
+  1119→                  <span>You <strong>frequently add, delete or rearrange items</strong> — every array insert shifts cells and every resize copies the world.</span>
+  1120→                </li>
+  1121→              </ul>
+  1122→              <p className="mt-3 text-[.85rem] leading-relaxed text-[#cbb392]">
+  1123→                A music playlist does both, all day: songs get added at any position, removed, reordered — and nobody
+  1124→                knows at breakfast how many songs you will have by midnight.
+  1125→              </p>
+  1126→            </div>
+  1127→            <Callout kind="insight" dark title="Lecture 7 · best use case — keep the array when…">
+  1128→              You know the <strong>exact number of elements in advance</strong> and <strong>direct access is a
+  1129→              priority</strong> — 30 days of sales, a fixed 8×6 programme. Linked lists take over when the count is{" "}
+  1130→              <strong>unknown in advance</strong>, items are <strong>frequently added, deleted and rearranged</strong>,
+  1131→              and <strong>flexibility with dynamic sizing is essential</strong>.
+  1132→            </Callout>
+  1133→          </div>
+  1134→        </div>
+  1135→      </Reveal>
+  1136→
+  1137→      <ReadStep dark n="2" title="The chain in memory" sub="Head = the bus stop · node = data + pointer · last node → Null" />
+  1138→      <div className="grid gap-5 lg:grid-cols-2">
+  1139→        <Reveal>
+  1140→          <div className="card-warm h-full p-6">
+  1141→            <span className="chip"><MapPin className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · head = the bus stop</span>
+  1142→            <p className="mt-3 text-[.92rem] leading-relaxed text-[#e9d7bf]">
+  1143→              Every linked list starts at a <strong style={{ color: "#f5c889" }}>head node</strong> — the{" "}
+  1144→              <strong>entry point</strong>. The lecture&apos;s analogy: <strong>the bus stop</strong>. Wherever the
+  1145→              buses are parked across the city, every journey boards at the same stop — you always enter the list
+  1146→              through the head.
+  1147→            </p>
+  1148→            <p className="mt-3 text-[.92rem] leading-relaxed text-[#e9d7bf]">
+  1149→              Each node carries <strong style={{ color: "#f5c889" }}>data</strong> plus a{" "}
+  1150→              <strong style={{ color: "#f5c889" }}>connection — a pointer, an address</strong> — to the next node. The
+  1151→              last node points to <strong style={{ color: "#f0a8a8" }}>Null</strong>: no next stop, the journey ends.
+  1152→            </p>
+  1153→            <p className="mt-3 text-[.9rem] leading-relaxed text-[#cbb392]">
+  1154→              And the nodes themselves? <strong style={{ color: "#f5c889" }}>Not contiguous.</strong> They can be
+  1155→              scattered anywhere in memory — the connections create the logical sequence, not physical proximity.
+  1156→            </p>
+  1157→          </div>
+  1158→        </Reveal>
+  1159→        <Reveal delay={120}>
+  1160→          <div className="card-warm h-full p-6">
+  1161→            <div className="rounded-2xl p-3" style={{ background: "rgba(255,236,210,.04)" }}><PlaylistChain /></div>
+  1162→            <p className="mt-3 text-[.86rem] leading-relaxed text-[#cbb392]">
+  1163→              <strong style={{ color: "#f5c889" }}>Head</strong> holds the first node&apos;s address; each node ={" "}
+  1164→              <strong style={{ color: "#f5c889" }}>data + pointer</strong>; the last node&apos;s pointer is{" "}
+  1165→              <strong style={{ color: "#f0a8a8" }}>Null</strong> — the chain simply ends.
+  1166→            </p>
+  1167→          </div>
+  1168→        </Reveal>
+  1169→      </div>
+  1170→      <Reveal className="mt-5"><MemoryMapLab /></Reveal>
+  1171→      <Reveal className="mt-5">
+  1172→        <Quiz source="Concept check" q="Compared with an array, linked-list nodes live…"
+  1173→          options={["in consecutive memory locations", "anywhere in memory, connected by pointers", "inside the head node", "in a fixed 2-D grid"]} answer={1}
+  1174→          explain="Arrays occupy consecutive locations — position predicts the neighbour. Linked-list nodes can be scattered anywhere in memory; the pointer chain defines the logical order, not physical proximity." />
+  1175→      </Reveal>
+  1176→
+  1177→      <ReadStep dark n="3" title="Three flavours" sub="Play next · play previous · repeat — then walk all three" />
+  1178→      <Reveal><FlavourMinis /></Reveal>
+  1179→      <Reveal className="mt-5"><TraversalLab /></Reveal>
+  1180→
+  1181→      <ReadStep dark n="4" title="Surgery — insert & delete" sub="Rewire two pointers to insert · redirect one to delete" />
+  1182→      <Reveal><RewireLab /></Reveal>
+  1183→      <Reveal className="mt-5"><DeleteLab /></Reveal>
+  1184→
+  1185→      <ReadStep dark n="5" title="Shuffle — pointers, not songs" sub="Random playback without moving a single song" />
+  1186→      <Reveal><ShuffleLab /></Reveal>
+  1187→
+  1188→      <ReadStep dark n="6" title="Lists of lists — and how to choose" sub="Nested chains — then the lecture's choosing checklist" />
+  1189→      <Reveal>
+  1190→        <div className="card-warm p-6 md:p-8">
+  1191→          <div className="rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}><ListsOfLists /></div>
+  1192→          <Callout kind="insight" dark title="This is how real apps nest flexible data">
+  1193→            User → playlists → songs is <strong>a linked list whose elements are themselves linked
+  1194→            lists</strong>. Because every level is a chain, users can own any number of playlists
+  1195→            and each playlist can hold any number of songs — nothing was ever pre-declared.
+  1196→          </Callout>
+  1197→        </div>
+  1198→      </Reveal>
+  1199→      <Reveal className="mt-5">
+  1200→        <div className="card-warm p-6 md:p-8">
+  1201→          <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · nested lists in the wild</span>
+  1202→          <p className="mt-3 max-w-4xl text-[.92rem] leading-relaxed text-[#e9d7bf]">
+  1203→            A <strong style={{ color: "#f5c889" }}>linked list of linked lists</strong> handles complex data with
+  1204→            multiple levels of relationships — anywhere a thing owns a varying number of smaller things:
+  1205→          </p>
+  1206→          <div className="mt-4 grid gap-5 md:grid-cols-3">
+  1207→            {[
+  1208→              { icon: GraduationCap, t: "University structure", d: "A programme → semesters → courses: each semester node owns its own chain of course nodes." },
+  1209→              { icon: ListMusic, t: "Multi-playlist systems", d: "A user → playlists → songs — exactly the map above, any count at every level." },
+  1210→              { icon: Network, t: "Hierarchical org data", d: "Departments → teams → people — hierarchy with a varying number of sub-elements at each level." },
+  1211→            ].map((c) => (
+  1212→              <div key={c.t} className="rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}>
+  1213→                <c.icon className="h-5 w-5" style={{ color: "#f5c889" }} aria-hidden />
+  1214→                <p className="mt-2 text-[.9rem] font-extrabold text-[#f5e6cd]">{c.t}</p>
+  1215→                <p className="mt-1.5 text-[.85rem] leading-relaxed text-[#cbb392]">{c.d}</p>
+  1216→              </div>
+  1217→            ))}
+  1218→          </div>
+  1219→        </div>
+  1220→      </Reveal>
+  1221→      <Reveal className="mt-5">
+  1222→        <div className="card-warm p-6 md:p-8">
+  1223→          <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · fixed vs variable</span>
+  1224→          <p className="mt-3 text-xl font-bold md:text-2xl">The academic programme, both ways</p>
+  1225→          <div className="mt-4 grid gap-5 md:grid-cols-2">
+  1226→            <div className="rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}>
+  1227→              <p className="font-mono-warm text-[.74rem] font-bold uppercase tracking-wider" style={{ color: "#f5c889" }}>Situation 1 · fixed</p>
+  1228→              <p className="mt-2 text-[.88rem] leading-relaxed text-[#e9d7bf]">
+  1229→                <strong>8 semesters × 6 courses each</strong>, same for the whole batch → a{" "}
+  1230→                <strong style={{ color: "#f5c889" }}>2-D array</strong> (Sem[i, j]). Efficient memory usage and fast
+  1231→                direct access to any course.
+  1232→              </p>
+  1233→            </div>
+  1234→            <div className="rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}>
+  1235→              <p className="font-mono-warm text-[.74rem] font-bold uppercase tracking-wider" style={{ color: "#f5c889" }}>Situation 2 · variable</p>
+  1236→              <p className="mt-2 text-[.88rem] leading-relaxed text-[#e9d7bf]">
+  1237→                Semesters and courses per semester <strong>vary student by student</strong> — retakes, deferrals → a{" "}
+  1238→                <strong style={{ color: "#f5c889" }}>linked list of linked lists</strong>: each semester is a node
+  1239→                owning its own course chain, growing and shrinking freely.
+  1240→              </p>
+  1241→            </div>
+  1242→          </div>
+  1243→        </div>
+  1244→      </Reveal>
+  1245→      <Reveal className="mt-5">
+  1246→        <div className="card-warm overflow-hidden">
+  1247→          <div className="px-4 pt-4 md:px-6 md:pt-6">
+  1248→            <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · choosing checklist</span>
+  1249→          </div>
+  1250→          <div className="overflow-x-auto p-4 md:p-6">
+  1251→            <table className="warm-table min-w-[640px]">
+  1252→              <thead><tr><th>Scenario</th><th>Best structure</th><th>Why</th></tr></thead>
+  1253→              <tbody>
+  1254→                <tr>
+  1255→                  <td className="font-bold text-[#7c4a12]">Fixed number of known elements, direct access needed</td>
+  1256→                  <td>Array — a 2-D array for multiple dimensions</td>
+  1257→                  <td>Efficient memory usage and fast direct access</td>
+  1258→                </tr>
+  1259→                <tr>
+  1260→                  <td className="font-bold text-[#7c4a12]">Variable number of elements, frequent additions / deletions</td>
+  1261→                  <td>Linked list</td>
+  1262→                  <td>Flexibility and ease of modification</td>
+  1263→                </tr>
+  1264→                <tr>
+  1265→                  <td className="font-bold text-[#7c4a12]">Hierarchical structure, varying number of sub-elements</td>
+  1266→                  <td>Nested linked lists</td>
+  1267→                  <td>Accommodates complexity and variability at multiple levels</td>
+  1268→                </tr>
+  1269→              </tbody>
+  1270→            </table>
+  1271→          </div>
+  1272→        </div>
+  1273→      </Reveal>
+  1274→
+  1275→      <div className="mt-10 grid gap-5 md:grid-cols-2">
+  1276→        <Reveal>
+  1277→          <Quiz source="Concept check" q="In a singly linked list, the last node's pointer holds…"
+  1278→            options={["the head's address", "Null", "its own address", "the tail's address"]} answer={1}
+  1279→            explain="Null is the chain's full stop — it marks 'there is no next node'. Only a CIRCULAR list would point the last node back at the head." />
+  1280→        </Reveal>
+  1281→        <Reveal delay={100}>
+  1282→          <Quiz source="Concept check" q="Frequent inserts anywhere + unknown final length — which structure fits best?"
+  1283→            options={["Array", "Linked list", "2-D array", "Stack"]} answer={1}
+  1284→            explain="A linked list inserts by rewiring two pointers — no shifting — and grows node by node, so the length never has to be predicted." />
+  1285→        </Reveal>
+  1286→        <Reveal>
+  1287→          <Quiz source="Concept check" q="After deleting Song 2 by rewiring Song1.next → Song 3, Song 2 itself…"
+  1288→            options={["is erased from memory at once", "is still in memory but no longer part of the list", "moves to the end of the list", "becomes the new head"]} answer={1}
+  1289→            explain="Deletion is only a redirect of the previous node's pointer — nothing is wiped, nothing shifts. Song 2 keeps sitting at its memory address until something overwrites it; it has simply left the active chain. An array deletion, by contrast, would shift every later element." />
+  1290→        </Reveal>
+  1291→        <Reveal delay={100}>
+  1292→          <Quiz source="Concept check" q="When a playlist is shuffled, what actually moves?"
+  1293→            options={["The song files, into a new packed block", "Nothing physical — only the pointer connections change order", "The head node, to a random song", "The nodes are physically re-sorted by name"]} answer={1}
+  1294→            explain="Reshuffling rewrites the pointer connections only: every node stays at its memory address, and the visiting path (Head → … → Null) defines the new playback order. That is how random playback works without physically moving data — and why reshuffling is cheap." />
+  1295→        </Reveal>
+  1296→      </div>
+  1297→      <Reveal className="mt-5">
+  1298→        <Practice title="Pen-and-paper drills — linked lists" items={[
+  1299→          { q: "Trace deleting the HEAD node of Head → A → B → Null. What exactly must change, and where does A end up?", hint: "Head itself holds a pointer — repoint Head to B. Node A still sits in memory; it has simply left the list." },
+  1300→          { q: "Draw four nodes scattered at made-up addresses (0312, 0724, 1556, 2044) and wire TWO different shuffle orders through them. Count how many pointers you rewrote each time.", hint: "Every node keeps its address; only the next-cells change — 4 pointer writes per shuffle (the last visited node writes Null)." },
+  1301→          { q: "Insert Song 2a between Song 2 and Song 3: write the two pointer moves in order, and say why the order matters.", hint: "Song2.next → 2a first, then 2a.next → Song 3. Do it backwards and the rest of the chain is orphaned." },
+  1302→          { q: "The academic programme: the regular batch is a fixed 8 semesters × 6 courses, but retakes and deferrals make real students differ. Which structure fits each situation, and why?", hint: "Fixed + known + direct access → 2-D array. Variable at two levels → linked list of linked lists." },
+  1303→        ]} />
+  1304→      </Reveal>
+  1305→      <Reveal className="mt-10">
+  1306→        <div className="mb-4 flex flex-wrap items-center gap-2">
+  1307→          <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · key takeaways</span>
+  1308→        </div>
+  1309→        <Takeaways dark items={[
+  1310→          <>Flexibility — <strong>dynamic sizing through pointer-based connections</strong>: the list grows and shrinks node by node, with no size declared in advance.</>,
+  1311→          <>Memory efficiency — elements <strong>need not be contiguous</strong>; scattered nodes can use memory anywhere, because the links carry the order.</>,
+  1312→          <>Directional variants — <strong>single, doubly and circular</strong> address different navigation requirements: play next, play previous, repeat.</>,
+  1313→          <>Operation efficiency — insertion and deletion are <strong>simpler than in arrays</strong>: pointer rewiring instead of shifting elements.</>,
+  1314→          <>Hierarchical applications — <strong>nested linked lists</strong> handle complex multi-level structures: programmes → semesters → courses, users → playlists → songs.</>,
+  1315→          <>Practical implementation — modern languages provide <strong>built-in linked list implementations</strong>; understanding the conceptual mechanics is still essential.</>,
+  1316→        ]} />
+  1317→      </Reveal>
+  1318→    </Section>
+  1319→  );
+  1320→}
+  1321→

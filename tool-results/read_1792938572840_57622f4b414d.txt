@@ -1,0 +1,442 @@
+   880→            </p>
+   881→            <p className="mt-3 text-[.9rem] leading-relaxed text-[#2b2014]">
+   882→              Everything is described by <strong>landmarks</strong> — nothing predicts its
+   883→              neighbours. Most likely an <strong>independent house</strong>: the next house could
+   884→              be anything, anywhere. <strong>Like loose variables</strong> — each one lives on its own.
+   885→            </p>
+   886→          </div>
+   887→        </Reveal>
+   888→        <Reveal delay={120}>
+   889→          <div className="card-warm h-full p-6">
+   890→            <div className="flex items-center gap-2">
+   891→              <Home className="h-5 w-5" style={{ color: "#7c9a3e" }} />
+   892→              <span className="text-[.75rem] font-extrabold uppercase tracking-[.16em]" style={{ color: "#5c7a24" }}>Address 2 · structured</span>
+   893→            </div>
+   894→            <p className="mt-3 rounded-xl p-3.5 text-[.92rem] font-semibold italic leading-relaxed" style={{ background: "#eef4dd", color: "#44621d" }}>
+   895→              &ldquo;House No. 53, New Friends Colony&rdquo;
+   896→            </p>
+   897→            <p className="mt-3 text-[.9rem] leading-relaxed text-[#2b2014]">
+   898→              A house <strong>numbered 53</strong> sits inside a planned colony — houses{" "}
+   899→              <strong>52 and 54 must be right beside it</strong>. Position predicts neighbours.{" "}
+   900→              <strong>That is an array</strong>: a row of same-type values, numbered, side by side.
+   901→            </p>
+   902→            <div className="mt-3 flex items-center gap-1.5 text-[.8rem] font-bold text-[#6f5438]">
+   903→              {[51, 52, 53, 54, 55].map((h) => (
+   904→                <span key={h} className="rounded-md px-2 py-1" style={{ background: h === 53 ? "#f6ad3c" : "#fde8cf", border: "1px solid #e2b075", color: h === 53 ? "#7c2d0a" : "#7c4a12" }}>{h}</span>
+   905→              ))}
+   906→              <ArrowRight className="h-4 w-4" style={{ color: "#c2410c" }} aria-hidden />
+   907→            </div>
+   908→          </div>
+   909→        </Reveal>
+   910→      </div>
+   911→
+   912→      <ReadStep n="2" title="Same type, instant access" sub="One name — Sub — five numbered cells" />
+   913→      <Reveal><ArrayStripLab /></Reveal>
+   914→      <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   915→        <Reveal>
+   916→          <CodeBlock title="sub_array.c — fixed size, declared up front" runnable={false}
+   917→            code={`/* C / C++ — the size is fixed at declaration */
+   918→int Sub[5] = {60, 65, 70, 55, 60};
+   919→
+   920→printf("%d", Sub[0]);   // 60  ← first element
+   921→printf("%d", Sub[3]);   // 55  ← direct access`} />
+   922→        </Reveal>
+   923→        <Reveal delay={100}>
+   924→          <CodeBlock title="sub_array.py — same idea, friendlier syntax" runnable={false}
+   925→            code={`# Python — square brackets instead of braces
+   926→Sub = [60, 65, 70, 55, 60]
+   927→
+   928→print(Sub[0])   # 60  ← indexing starts at 0
+   929→print(Sub[3])   # 55  ← one direct jump`} />
+   930→        </Reveal>
+   931→      </div>
+   932→
+   933→      <ReadStep n="3" title="Two dimensions" sub="Marks for MULTIPLE students, multiple subjects" />
+   934→      <Reveal>
+   935→        <div className="card-warm p-6 md:p-8">
+   936→          <p className="max-w-4xl text-[.93rem] leading-relaxed text-[#2b2014]">
+   937→            One row of marks served <strong>one student</strong>. Now imagine every student&apos;s
+   938→            marks for every subject: a <strong>2-D array</strong> — rows indexed by{" "}
+   939→            <strong>i</strong> (student), columns indexed by <strong>j</strong> (subject). One pair
+   940→            of numbers addresses any cell: <span className="font-mono-warm font-bold text-[#a0410a]">Sub[i, j]</span>.
+   941→          </p>
+   942→          <div className="mt-5 rounded-2xl p-4" style={{ background: "#fffaf1", border: "1px dashed #e5c79d" }}><TwoDGrid /></div>
+   943→          <p className="mt-3 font-mono-warm text-[.84rem] font-bold text-[#a0410a]">
+   944→            Sub[2,1] → 65 (student 2, subject 1) · Sub[4,3] → 58 (student 4, subject 3) — still one direct jump each.
+   945→          </p>
+   946→        </div>
+   947→      </Reveal>
+   948→
+   949→      <ReadStep n="4" title="The five operations + business use cases" sub="What you can DO to an array — and what it costs" />
+   950→      <Reveal>
+   951→        <div className="card-warm overflow-hidden">
+   952→          <div className="overflow-x-auto p-4 md:p-6">
+   953→            <table className="warm-table min-w-[720px]">
+   954→              <thead><tr><th>Operation</th><th>What it does</th><th>Business use case</th><th>Speed</th></tr></thead>
+   955→              <tbody>
+   956→                {OPS.map((r) => (
+   957→                  <tr key={r.op}>
+   958→                    <td className="font-bold text-[#7c4a12]">{r.op}</td>
+   959→                    <td>{r.what}</td>
+   960→                    <td>{r.biz}</td>
+   961→                    <td>
+   962→                      <span className="rounded-full px-2.5 py-1 text-[.72rem] font-extrabold" style={r.fast ? { background: "rgba(124,154,62,.16)", color: "#4c6b1f" } : { background: "rgba(245,158,11,.18)", color: "#92600a" }}>
+   963→                        {r.fast ? "✓ instantaneous" : "≈ depends on position"}
+   964→                      </span>
+   965→                    </td>
+   966→                  </tr>
+   967→                ))}
+   968→              </tbody>
+   969→            </table>
+   970→          </div>
+   971→        </div>
+   972→      </Reveal>
+   973→
+   974→      <ReadStep n="5" title="How insert really works" sub="Watch the cells move — the position decides the price" />
+   975→      <Reveal><InsertTrio /></Reveal>
+   976→      <Reveal className="mt-5">
+   977→        <Callout kind="why" title="The pattern behind the trio">
+   978→          Inserting at the <strong>end</strong> is free — nothing after it. The further{" "}
+   979→          <strong>forward</strong> you insert, the more elements must <strong>shift right</strong>{" "}
+   980→          to open the gap. That is why the table says insert &ldquo;depends on position&rdquo; —
+   981→          while Read and Update never move anything, wherever you aim.
+   982→        </Callout>
+   983→      </Reveal>
+   984→
+   985→      <ReadStep n="6" title="Search &amp; update by value" sub="The five-step loop the lecture walks through" />
+   986→      <Reveal>
+   987→        <StepsFlow steps={[
+   988→          { label: "Start", sub: "index = 0", icon: <Play className="h-4 w-4" style={{ color: "#c2410c" }} /> },
+   989→          { label: "Compare", sub: "is Arr[index] the search term?", icon: <Search className="h-4 w-4" style={{ color: "#c2410c" }} /> },
+   990→          { label: "Yes → stop", sub: "found — return index", icon: <Check className="h-4 w-4" style={{ color: "#5c7a24" }} /> },
+   991→          { label: "No → move on", sub: "index = index + 1", icon: <ArrowRight className="h-4 w-4" style={{ color: "#c2410c" }} /> },
+   992→          { label: "Repeat", sub: "until found or array ends", icon: <Repeat className="h-4 w-4" style={{ color: "#c2410c" }} /> },
+   993→        ]} />
+   994→      </Reveal>
+   995→      <Reveal className="mt-5">
+   996→        <CodeBlock title="array_search.pseudo — the loop, written down" runnable={false}
+   997→          code={`SEARCH(Arr, N, term):
+   998→    index ← 0
+   999→    while index < N:
+  1000→        if Arr[index] = term:  return index   // yes → stop
+  1001→        index ← index + 1                     // no → move on
+  1002→    return NOT FOUND                          // loop ended empty-handed
+  1003→
+  1004→UPDATE(Arr, term, newValue):                  // business: stock after a sale
+  1005→    pos ← SEARCH(Arr, N, term)
+  1006→    if pos ≠ NOT FOUND:  Arr[pos] ← newValue  // update is instant once found`} />
+  1007→      </Reveal>
+  1008→
+  1009→      <Reveal className="mt-12">
+  1010→        <h3 className="text-2xl font-bold">Benefits vs <span className="grad-text">challenges</span></h3>
+  1011→      </Reveal>
+  1012→      <div className="mt-5 grid gap-5 md:grid-cols-2">
+  1013→        {[
+  1014→          { head: "Benefits", tone: "#5c7a24", icon: Check, items: [
+  1015→            "Easy to understand — a numbered row of boxes",
+  1016→            "Memory-saving — contiguous allocation, no gaps, no per-item overhead",
+  1017→            "Faster processing — direct access to any position",
+  1018→            "Ideal for predictable datasets — fixed count, same type (30 days of sales)",
+  1019→            "The foundation for other structures — stacks, queues, matrices build on arrays",
+  1020→          ] },
+  1021→          { head: "Challenges", tone: "#be4a4a", icon: AlertTriangle, items: [
+  1022→            "Fixed length — waste if declared too large, overflow if too small",
+  1023→            "Some operations depend on the element's position (search, insert)",
+  1024→            "Needs contiguous memory — one free block big enough for the whole array",
+  1025→            "Inefficient for frequent modifications — inserts and deletes shift cells",
+  1026→            "Resizing costs time and resources — grow means allocate + copy everything",
+  1027→          ] },
+  1028→        ].map((col, ci) => (
+  1029→          <Reveal key={col.head} delay={ci * 120}>
+  1030→            <div className="card-warm h-full p-6">
+  1031→              <p className="text-[.8rem] font-extrabold uppercase tracking-[.16em]" style={{ color: col.tone }}>{col.head}</p>
+  1032→              <ul className="mt-3 grid gap-2.5 text-[.9rem] text-[#2b2014]">
+  1033→                {col.items.map((t) => (
+  1034→                  <li key={t} className="flex items-start gap-2.5">
+  1035→                    <col.icon className="mt-0.5 h-4 w-4 shrink-0" style={{ color: col.tone }} aria-hidden />
+  1036→                    <span>{t}</span>
+  1037→                  </li>
+  1038→                ))}
+  1039→              </ul>
+  1040→            </div>
+  1041→          </Reveal>
+  1042→        ))}
+  1043→      </div>
+  1044→
+  1045→      <div className="mt-10 grid gap-5 md:grid-cols-2">
+  1046→        <Reveal>
+  1047→          <Quiz source="Concept check" q="Sub = [60, 65, 70, 55, 60] — what does Sub[3] return?"
+  1048→            options={["70", "55", "60", "65"]} answer={1}
+  1049→            explain="Indexing starts at 0, so Sub[3] is the FOURTH value: 60, 65, 70, 55 → 55. And because the position is known, the answer comes back in one direct jump." />
+  1050→        </Reveal>
+  1051→        <Reveal delay={100}>
+  1052→          <Quiz source="Concept check" q="Which operation is instantaneous in an array, no matter how big it is?"
+  1053→            options={["Search for a value", "Read at a known index", "Insert at the beginning", "Find the position of a value"]} answer={1}
+  1054→            explain="Reading Sub[i] is one direct jump — the index IS the address. Search and find-position must scan; insert at the beginning shifts every element right." />
+  1055→        </Reveal>
+  1056→      </div>
+  1057→      <Reveal className="mt-5">
+  1058→        <Practice title="Pen-and-paper drills — arrays" items={[
+  1059→          { q: "Write the search algorithm in exactly five steps: start index = 0 → compare → yes, stop → no, increment → repeat.", hint: "Each step must be unambiguous — a computer executes it without guessing." },
+  1060→          { q: "A store keeps its daily sales figure for 30 days. Why is an array the ideal structure for this?", hint: "Fixed count, same data type, and any day is read directly by its number." },
+  1061→          { q: "Trace inserting 99 at the beginning of [10, 20, 30]. How many values move, and where does each go?", hint: "Every existing element shifts one position to the right — then 99 lands at index 0." },
+  1062→        ]} />
+  1063→      </Reveal>
+  1064→    </Section>
+  1065→  );
+  1066→}
+  1067→
+  1068→/* ============================================================
+  1069→   EXPORTED — LINKED LISTS SECTION (dark)
+  1070→   ============================================================ */
+  1071→
+  1072→export function AtbListSection() {
+  1073→  return (
+  1074→    <Section id="linkedlists" dark>
+  1075→      <SectionHead
+  1076→        dark
+  1077→        eyebrow="Lecture 7 · Linked lists & linear structures"
+  1078→        title={<><span className="grad-text">Linked lists</span> — a playlist that never overflows</>}
+  1079→        lead="The second major linear data structure after arrays. When the number of items is unknown and changes constantly, contiguity becomes a cage — links beat contiguity: every item carries the address of the next, so data can live anywhere and the chain can reshape itself in cheap pointer moves."
+  1080→      />
+  1081→
+  1082→      <ReadStep dark n="1" title="Where arrays crack" sub="Linear order, the row's three limitations — and when arrays still win" />
+  1083→      <Reveal>
+  1084→        <div className="card-warm p-6 md:p-8">
+  1085→          <span className="chip"><ArrowRight className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · linear data structures</span>
+  1086→          <p className="mt-3 max-w-4xl text-[.93rem] leading-relaxed text-[#e9d7bf]">
+  1087→            A <strong style={{ color: "#f5c889" }}>linear data structure</strong> arranges its elements{" "}
+  1088→            <strong style={{ color: "#f5c889" }}>sequentially, in a logical order</strong>: the elements are connected
+  1089→            so that reaching one item lets you move on to its neighbours. Arrays are the first member of this family —
+  1090→            they use <strong>indexing</strong> for direct access, because the position IS the address. This lecture
+  1091→            adds the second member, and it starts from the cracks in the first.
+  1092→          </p>
+  1093→          <div className="mt-5 grid gap-5 md:grid-cols-3">
+  1094→            {[
+  1095→              { icon: Hash, tone: "#f5c889", t: "Fixed size", chip: "Lecture 7 · limitation 1", d: "The size must be defined in advance. Adding elements beyond the initial size means redefining the entire array." },
+  1096→              { icon: AlertTriangle, tone: "#f0a8a8", t: "Inefficient middle modifications", chip: "Lecture 7 · limitation 2", d: "Deleting or inserting in the middle forces the other elements to shift — or leaves null spaces behind." },
+  1097→              { icon: Lock, tone: "#cbb392", t: "Static structure", chip: "Lecture 7 · limitation 3", d: "Limited flexibility when data requirements change — the row cannot reshape itself." },
+  1098→            ].map((c) => (
+  1099→              <div key={c.t} className="rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}>
+  1100→                <div className="flex items-center gap-2">
+  1101→                  <c.icon className="h-5 w-5 shrink-0" style={{ color: c.tone }} aria-hidden />
+  1102→                  <span className="text-[.88rem] font-extrabold leading-snug text-[#f5e6cd]">{c.t}</span>
+  1103→                </div>
+  1104→                <p className="mt-2 text-[.86rem] leading-relaxed text-[#cbb392]">{c.d}</p>
+  1105→                <span className="chip mt-3">{c.chip}</span>
+  1106→              </div>
+  1107→            ))}
+  1108→          </div>
+  1109→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+  1110→            <div className="rounded-2xl p-5" style={{ background: "rgba(255,236,210,.04)" }}>
+  1111→              <p className="text-[.8rem] font-extrabold uppercase tracking-[.16em]" style={{ color: "#f0a8a8" }}>When arrays hurt</p>
+  1112→              <ul className="mt-3 grid gap-3 text-[.9rem] leading-relaxed text-[#e9d7bf]">
+  1113→                <li className="flex items-start gap-3">
+  1114→                  <X className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#f0a8a8" }} aria-hidden />
+  1115→                  <span>You need elements <strong>connected</strong> — but you don&apos;t know in advance how many there will be. An array forces you to guess a size.</span>
+  1116→                </li>
+  1117→                <li className="flex items-start gap-3">
+  1118→                  <X className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#f0a8a8" }} aria-hidden />
+  1119→                  <span>You <strong>frequently add, delete or rearrange items</strong> — every array insert shifts cells and every resize copies the world.</span>
+  1120→                </li>
+  1121→              </ul>
+  1122→              <p className="mt-3 text-[.85rem] leading-relaxed text-[#cbb392]">
+  1123→                A music playlist does both, all day: songs get added at any position, removed, reordered — and nobody
+  1124→                knows at breakfast how many songs you will have by midnight.
+  1125→              </p>
+  1126→            </div>
+  1127→            <Callout kind="insight" dark title="Lecture 7 · best use case — keep the array when…">
+  1128→              You know the <strong>exact number of elements in advance</strong> and <strong>direct access is a
+  1129→              priority</strong> — 30 days of sales, a fixed 8×6 programme. Linked lists take over when the count is{" "}
+  1130→              <strong>unknown in advance</strong>, items are <strong>frequently added, deleted and rearranged</strong>,
+  1131→              and <strong>flexibility with dynamic sizing is essential</strong>.
+  1132→            </Callout>
+  1133→          </div>
+  1134→        </div>
+  1135→      </Reveal>
+  1136→
+  1137→      <ReadStep dark n="2" title="The chain in memory" sub="Head = the bus stop · node = data + pointer · last node → Null" />
+  1138→      <div className="grid gap-5 lg:grid-cols-2">
+  1139→        <Reveal>
+  1140→          <div className="card-warm h-full p-6">
+  1141→            <span className="chip"><MapPin className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · head = the bus stop</span>
+  1142→            <p className="mt-3 text-[.92rem] leading-relaxed text-[#e9d7bf]">
+  1143→              Every linked list starts at a <strong style={{ color: "#f5c889" }}>head node</strong> — the{" "}
+  1144→              <strong>entry point</strong>. The lecture&apos;s analogy: <strong>the bus stop</strong>. Wherever the
+  1145→              buses are parked across the city, every journey boards at the same stop — you always enter the list
+  1146→              through the head.
+  1147→            </p>
+  1148→            <p className="mt-3 text-[.92rem] leading-relaxed text-[#e9d7bf]">
+  1149→              Each node carries <strong style={{ color: "#f5c889" }}>data</strong> plus a{" "}
+  1150→              <strong style={{ color: "#f5c889" }}>connection — a pointer, an address</strong> — to the next node. The
+  1151→              last node points to <strong style={{ color: "#f0a8a8" }}>Null</strong>: no next stop, the journey ends.
+  1152→            </p>
+  1153→            <p className="mt-3 text-[.9rem] leading-relaxed text-[#cbb392]">
+  1154→              And the nodes themselves? <strong style={{ color: "#f5c889" }}>Not contiguous.</strong> They can be
+  1155→              scattered anywhere in memory — the connections create the logical sequence, not physical proximity.
+  1156→            </p>
+  1157→          </div>
+  1158→        </Reveal>
+  1159→        <Reveal delay={120}>
+  1160→          <div className="card-warm h-full p-6">
+  1161→            <div className="rounded-2xl p-3" style={{ background: "rgba(255,236,210,.04)" }}><PlaylistChain /></div>
+  1162→            <p className="mt-3 text-[.86rem] leading-relaxed text-[#cbb392]">
+  1163→              <strong style={{ color: "#f5c889" }}>Head</strong> holds the first node&apos;s address; each node ={" "}
+  1164→              <strong style={{ color: "#f5c889" }}>data + pointer</strong>; the last node&apos;s pointer is{" "}
+  1165→              <strong style={{ color: "#f0a8a8" }}>Null</strong> — the chain simply ends.
+  1166→            </p>
+  1167→          </div>
+  1168→        </Reveal>
+  1169→      </div>
+  1170→      <Reveal className="mt-5"><MemoryMapLab /></Reveal>
+  1171→      <Reveal className="mt-5">
+  1172→        <Quiz source="Concept check" q="Compared with an array, linked-list nodes live…"
+  1173→          options={["in consecutive memory locations", "anywhere in memory, connected by pointers", "inside the head node", "in a fixed 2-D grid"]} answer={1}
+  1174→          explain="Arrays occupy consecutive locations — position predicts the neighbour. Linked-list nodes can be scattered anywhere in memory; the pointer chain defines the logical order, not physical proximity." />
+  1175→      </Reveal>
+  1176→
+  1177→      <ReadStep dark n="3" title="Three flavours" sub="Play next · play previous · repeat — then walk all three" />
+  1178→      <Reveal><FlavourMinis /></Reveal>
+  1179→      <Reveal className="mt-5"><TraversalLab /></Reveal>
+  1180→
+  1181→      <ReadStep dark n="4" title="Surgery — insert & delete" sub="Rewire two pointers to insert · redirect one to delete" />
+  1182→      <Reveal><RewireLab /></Reveal>
+  1183→      <Reveal className="mt-5"><DeleteLab /></Reveal>
+  1184→
+  1185→      <ReadStep dark n="5" title="Shuffle — pointers, not songs" sub="Random playback without moving a single song" />
+  1186→      <Reveal><ShuffleLab /></Reveal>
+  1187→
+  1188→      <ReadStep dark n="6" title="Lists of lists — and how to choose" sub="Nested chains — then the lecture's choosing checklist" />
+  1189→      <Reveal>
+  1190→        <div className="card-warm p-6 md:p-8">
+  1191→          <div className="rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}><ListsOfLists /></div>
+  1192→          <Callout kind="insight" dark title="This is how real apps nest flexible data">
+  1193→            User → playlists → songs is <strong>a linked list whose elements are themselves linked
+  1194→            lists</strong>. Because every level is a chain, users can own any number of playlists
+  1195→            and each playlist can hold any number of songs — nothing was ever pre-declared.
+  1196→          </Callout>
+  1197→        </div>
+  1198→      </Reveal>
+  1199→      <Reveal className="mt-5">
+  1200→        <div className="card-warm p-6 md:p-8">
+  1201→          <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · nested lists in the wild</span>
+  1202→          <p className="mt-3 max-w-4xl text-[.92rem] leading-relaxed text-[#e9d7bf]">
+  1203→            A <strong style={{ color: "#f5c889" }}>linked list of linked lists</strong> handles complex data with
+  1204→            multiple levels of relationships — anywhere a thing owns a varying number of smaller things:
+  1205→          </p>
+  1206→          <div className="mt-4 grid gap-5 md:grid-cols-3">
+  1207→            {[
+  1208→              { icon: GraduationCap, t: "University structure", d: "A programme → semesters → courses: each semester node owns its own chain of course nodes." },
+  1209→              { icon: ListMusic, t: "Multi-playlist systems", d: "A user → playlists → songs — exactly the map above, any count at every level." },
+  1210→              { icon: Network, t: "Hierarchical org data", d: "Departments → teams → people — hierarchy with a varying number of sub-elements at each level." },
+  1211→            ].map((c) => (
+  1212→              <div key={c.t} className="rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}>
+  1213→                <c.icon className="h-5 w-5" style={{ color: "#f5c889" }} aria-hidden />
+  1214→                <p className="mt-2 text-[.9rem] font-extrabold text-[#f5e6cd]">{c.t}</p>
+  1215→                <p className="mt-1.5 text-[.85rem] leading-relaxed text-[#cbb392]">{c.d}</p>
+  1216→              </div>
+  1217→            ))}
+  1218→          </div>
+  1219→        </div>
+  1220→      </Reveal>
+  1221→      <Reveal className="mt-5">
+  1222→        <div className="card-warm p-6 md:p-8">
+  1223→          <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · fixed vs variable</span>
+  1224→          <p className="mt-3 text-xl font-bold md:text-2xl">The academic programme, both ways</p>
+  1225→          <div className="mt-4 grid gap-5 md:grid-cols-2">
+  1226→            <div className="rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}>
+  1227→              <p className="font-mono-warm text-[.74rem] font-bold uppercase tracking-wider" style={{ color: "#f5c889" }}>Situation 1 · fixed</p>
+  1228→              <p className="mt-2 text-[.88rem] leading-relaxed text-[#e9d7bf]">
+  1229→                <strong>8 semesters × 6 courses each</strong>, same for the whole batch → a{" "}
+  1230→                <strong style={{ color: "#f5c889" }}>2-D array</strong> (Sem[i, j]). Efficient memory usage and fast
+  1231→                direct access to any course.
+  1232→              </p>
+  1233→            </div>
+  1234→            <div className="rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}>
+  1235→              <p className="font-mono-warm text-[.74rem] font-bold uppercase tracking-wider" style={{ color: "#f5c889" }}>Situation 2 · variable</p>
+  1236→              <p className="mt-2 text-[.88rem] leading-relaxed text-[#e9d7bf]">
+  1237→                Semesters and courses per semester <strong>vary student by student</strong> — retakes, deferrals → a{" "}
+  1238→                <strong style={{ color: "#f5c889" }}>linked list of linked lists</strong>: each semester is a node
+  1239→                owning its own course chain, growing and shrinking freely.
+  1240→              </p>
+  1241→            </div>
+  1242→          </div>
+  1243→        </div>
+  1244→      </Reveal>
+  1245→      <Reveal className="mt-5">
+  1246→        <div className="card-warm overflow-hidden">
+  1247→          <div className="px-4 pt-4 md:px-6 md:pt-6">
+  1248→            <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · choosing checklist</span>
+  1249→          </div>
+  1250→          <div className="overflow-x-auto p-4 md:p-6">
+  1251→            <table className="warm-table min-w-[640px]">
+  1252→              <thead><tr><th>Scenario</th><th>Best structure</th><th>Why</th></tr></thead>
+  1253→              <tbody>
+  1254→                <tr>
+  1255→                  <td className="font-bold text-[#7c4a12]">Fixed number of known elements, direct access needed</td>
+  1256→                  <td>Array — a 2-D array for multiple dimensions</td>
+  1257→                  <td>Efficient memory usage and fast direct access</td>
+  1258→                </tr>
+  1259→                <tr>
+  1260→                  <td className="font-bold text-[#7c4a12]">Variable number of elements, frequent additions / deletions</td>
+  1261→                  <td>Linked list</td>
+  1262→                  <td>Flexibility and ease of modification</td>
+  1263→                </tr>
+  1264→                <tr>
+  1265→                  <td className="font-bold text-[#7c4a12]">Hierarchical structure, varying number of sub-elements</td>
+  1266→                  <td>Nested linked lists</td>
+  1267→                  <td>Accommodates complexity and variability at multiple levels</td>
+  1268→                </tr>
+  1269→              </tbody>
+  1270→            </table>
+  1271→          </div>
+  1272→        </div>
+  1273→      </Reveal>
+  1274→
+  1275→      <div className="mt-10 grid gap-5 md:grid-cols-2">
+  1276→        <Reveal>
+  1277→          <Quiz source="Concept check" q="In a singly linked list, the last node's pointer holds…"
+  1278→            options={["the head's address", "Null", "its own address", "the tail's address"]} answer={1}
+  1279→            explain="Null is the chain's full stop — it marks 'there is no next node'. Only a CIRCULAR list would point the last node back at the head." />
+  1280→        </Reveal>
+  1281→        <Reveal delay={100}>
+  1282→          <Quiz source="Concept check" q="Frequent inserts anywhere + unknown final length — which structure fits best?"
+  1283→            options={["Array", "Linked list", "2-D array", "Stack"]} answer={1}
+  1284→            explain="A linked list inserts by rewiring two pointers — no shifting — and grows node by node, so the length never has to be predicted." />
+  1285→        </Reveal>
+  1286→        <Reveal>
+  1287→          <Quiz source="Concept check" q="After deleting Song 2 by rewiring Song1.next → Song 3, Song 2 itself…"
+  1288→            options={["is erased from memory at once", "is still in memory but no longer part of the list", "moves to the end of the list", "becomes the new head"]} answer={1}
+  1289→            explain="Deletion is only a redirect of the previous node's pointer — nothing is wiped, nothing shifts. Song 2 keeps sitting at its memory address until something overwrites it; it has simply left the active chain. An array deletion, by contrast, would shift every later element." />
+  1290→        </Reveal>
+  1291→        <Reveal delay={100}>
+  1292→          <Quiz source="Concept check" q="When a playlist is shuffled, what actually moves?"
+  1293→            options={["The song files, into a new packed block", "Nothing physical — only the pointer connections change order", "The head node, to a random song", "The nodes are physically re-sorted by name"]} answer={1}
+  1294→            explain="Reshuffling rewrites the pointer connections only: every node stays at its memory address, and the visiting path (Head → … → Null) defines the new playback order. That is how random playback works without physically moving data — and why reshuffling is cheap." />
+  1295→        </Reveal>
+  1296→      </div>
+  1297→      <Reveal className="mt-5">
+  1298→        <Practice title="Pen-and-paper drills — linked lists" items={[
+  1299→          { q: "Trace deleting the HEAD node of Head → A → B → Null. What exactly must change, and where does A end up?", hint: "Head itself holds a pointer — repoint Head to B. Node A still sits in memory; it has simply left the list." },
+  1300→          { q: "Draw four nodes scattered at made-up addresses (0312, 0724, 1556, 2044) and wire TWO different shuffle orders through them. Count how many pointers you rewrote each time.", hint: "Every node keeps its address; only the next-cells change — 4 pointer writes per shuffle (the last visited node writes Null)." },
+  1301→          { q: "Insert Song 2a between Song 2 and Song 3: write the two pointer moves in order, and say why the order matters.", hint: "Song2.next → 2a first, then 2a.next → Song 3. Do it backwards and the rest of the chain is orphaned." },
+  1302→          { q: "The academic programme: the regular batch is a fixed 8 semesters × 6 courses, but retakes and deferrals make real students differ. Which structure fits each situation, and why?", hint: "Fixed + known + direct access → 2-D array. Variable at two levels → linked list of linked lists." },
+  1303→        ]} />
+  1304→      </Reveal>
+  1305→      <Reveal className="mt-10">
+  1306→        <div className="mb-4 flex flex-wrap items-center gap-2">
+  1307→          <span className="chip"><Link2 className="h-3.5 w-3.5" aria-hidden /> Lecture 7 · key takeaways</span>
+  1308→        </div>
+  1309→        <Takeaways dark items={[
+  1310→          <>Flexibility — <strong>dynamic sizing through pointer-based connections</strong>: the list grows and shrinks node by node, with no size declared in advance.</>,
+  1311→          <>Memory efficiency — elements <strong>need not be contiguous</strong>; scattered nodes can use memory anywhere, because the links carry the order.</>,
+  1312→          <>Directional variants — <strong>single, doubly and circular</strong> address different navigation requirements: play next, play previous, repeat.</>,
+  1313→          <>Operation efficiency — insertion and deletion are <strong>simpler than in arrays</strong>: pointer rewiring instead of shifting elements.</>,
+  1314→          <>Hierarchical applications — <strong>nested linked lists</strong> handle complex multi-level structures: programmes → semesters → courses, users → playlists → songs.</>,
+  1315→          <>Practical implementation — modern languages provide <strong>built-in linked list implementations</strong>; understanding the conceptual mechanics is still essential.</>,
+  1316→        ]} />
+  1317→      </Reveal>
+  1318→    </Section>
+  1319→  );
+  1320→}
+  1321→

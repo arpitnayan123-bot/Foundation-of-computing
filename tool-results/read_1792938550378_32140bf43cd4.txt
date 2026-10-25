@@ -1,0 +1,560 @@
+   831→        <Practice
+   832→          title="Hashing — pen & paper"
+   833→          items={[
+   834→            {
+   835→              q: <>Hash three roll numbers of your choice with <strong>mod 10</strong> and place each in a 10-slot table.</>,
+   836→              hint: "The hash is the last digit — that digit is the slot index.",
+   837→            },
+   838→            {
+   839→              q: <>Explain the <strong>avalanche effect</strong> in one line.</>,
+   840→              hint: "Tiny input change → a completely different digest.",
+   841→            },
+   842→          ]}
+   843→        />
+   844→      </Reveal>
+   845→    </Section>
+   846→  );
+   847→}
+   848→
+   849→/* ============================================================
+   850→   BLOCKCHAIN — block anatomy + chain growth SVGs
+   851→   ============================================================ */
+   852→function BlockAnatomySVG() {
+   853→  return (
+   854→    <svg
+   855→      viewBox="0 0 560 214"
+   856→      className="mx-auto h-auto w-full max-w-xl"
+   857→      role="img"
+   858→      aria-label="Anatomy of a blockchain block: a header holding the hash of the previous block and the hash of the current block, plus a body of transactions"
+   859→    >
+   860→      <rect x="60" y="18" width="440" height="180" rx="14" fill="rgba(255,246,232,.05)" stroke="rgba(245,158,11,.35)" strokeWidth="2" />
+   861→      <path d="M60 32 Q60 18 74 18 H486 Q500 18 500 32 V96 H60 Z" fill="rgba(245,158,11,.14)" />
+   862→      <text x="80" y="44" fontSize="10" fontWeight="800" letterSpacing="2" fill="#f5c889">HEADER</text>
+   863→      <text x="80" y="68" fontFamily="monospace" fontSize="11" fill="#ffd9ae">hash of previous block : H_prev</text>
+   864→      <text x="80" y="86" fontFamily="monospace" fontSize="11" fill="#ffd9ae">hash of current block : H_cur</text>
+   865→      <line x1="60" y1="96" x2="500" y2="96" stroke="rgba(245,158,11,.3)" strokeWidth="1.5" />
+   866→      <text x="80" y="126" fontSize="10" fontWeight="800" letterSpacing="2" fill="#f5c889">TRANSACTIONS</text>
+   867→      <text x="80" y="152" fontFamily="monospace" fontSize="11" fill="#e9d7bf">Tx 1 · Ama → Bao · 1.0</text>
+   868→      <text x="80" y="174" fontFamily="monospace" fontSize="11" fill="#e9d7bf">Tx 2 · Cy → Di · 0.4</text>
+   869→      <text x="320" y="212" textAnchor="middle" fontSize="10" fontWeight="600" fill="#b98d5f">header = the tamper seal · body = the payload</text>
+   870→    </svg>
+   871→  );
+   872→}
+   873→
+   874→function ChainGrowSVG() {
+   875→  const blocks = [
+   876→    { prev: "NULL", hash: "H1", tx: "Tx 1, Tx 2" },
+   877→    { prev: "H1", hash: "H2", tx: "Tx 3, Tx 4" },
+   878→    { prev: "H2", hash: "H3", tx: "Tx 5, Tx 6" },
+   879→    { prev: "H3", hash: "H4", tx: "Tx 7, Tx 8" },
+   880→  ];
+   881→  return (
+   882→    <svg
+   883→      viewBox="0 0 780 196"
+   884→      className="mx-auto h-auto w-full max-w-3xl"
+   885→      role="img"
+   886→      aria-label="The chain: a genesis block whose previous-hash is NULL, followed by blocks storing the hash of the block before them"
+   887→    >
+   888→      <defs>
+   889→        <marker id="m6ch" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+   890→          <path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" />
+   891→        </marker>
+   892→      </defs>
+   893→      {blocks.map((b, i) => {
+   894→        const x = 15 + i * 198;
+   895→        return (
+   896→          <motion.g
+   897→            key={b.hash}
+   898→            initial={{ opacity: 0, x: -16 }}
+   899→            whileInView={{ opacity: 1, x: 0 }}
+   900→            viewport={{ once: true, amount: 0.4 }}
+   901→            transition={{ duration: 0.5, delay: i * 0.22 }}
+   902→          >
+   903→            <rect x={x} y="30" width="150" height="130" rx="12" fill="rgba(255,246,232,.05)" stroke="rgba(245,158,11,.35)" strokeWidth="2" />
+   904→            {i === blocks.length - 1 ? (
+   905→              <rect x={x} y="30" width="150" height="54" rx="12" fill="rgba(245,158,11,.16)">
+   906→                <animate attributeName="opacity" values="1;0.55;1" dur="2.6s" repeatCount="indefinite" />
+   907→              </rect>
+   908→            ) : (
+   909→              <rect x={x} y="30" width="150" height="54" rx="12" fill="rgba(245,158,11,.14)" />
+   910→            )}
+   911→            <text x={x + 12} y="50" fontFamily="monospace" fontSize="9" fill="#ffd9ae">prev: {b.prev}</text>
+   912→            <text x={x + 12} y="72" fontFamily="monospace" fontSize="9" fill="#ffd9ae">hash: {b.hash}</text>
+   913→            <text x={x + 12} y="106" fontSize="9" fontWeight="800" letterSpacing="1.5" fill="#f5c889">TX</text>
+   914→            <text x={x + 12} y="126" fontFamily="monospace" fontSize="9" fill="#e9d7bf">{b.tx}</text>
+   915→            {i < blocks.length - 1 ? (
+   916→              <g>
+   917→                <line x1={x + 152} y1="95" x2={x + 194} y2="95" stroke="#f5c889" strokeWidth="2" markerEnd="url(#m6ch)" />
+   918→                <text x={x + 173} y="118" textAnchor="middle" fontSize="8" fill="#b98d5f">prev hash</text>
+   919→              </g>
+   920→            ) : null}
+   921→            {i === 0 ? (
+   922→              <text x={x + 75} y="182" textAnchor="middle" fontSize="9" fontWeight="700" fill="#b98d5f">genesis · prev = NULL</text>
+   923→            ) : null}
+   924→          </motion.g>
+   925→        );
+   926→      })}
+   927→    </svg>
+   928→  );
+   929→}
+   930→
+   931→/* ============================================================
+   932→   BLOCKCHAIN — interactive tamper demo (the showpiece)
+   933→   ============================================================ */
+   934→function TamperDemo() {
+   935→  const [tampered, setTampered] = useState(false);
+   936→
+   937→  const blockCls = (bad: boolean) =>
+   938→    `relative flex-1 rounded-xl border p-4 transition-colors duration-300 ${
+   939→      bad
+   940→        ? "border-[rgba(190,74,74,.65)] bg-[rgba(190,74,74,.12)]"
+   941→        : "border-[rgba(245,158,11,.3)] bg-[rgba(43,27,16,.55)]"
+   942→    }`;
+   943→
+   944→  return (
+   945→    <div
+   946→      className="rounded-2xl border p-5 transition-colors duration-300 md:p-7"
+   947→      style={{
+   948→        borderColor: tampered ? "rgba(190,74,74,.5)" : "rgba(255,214,160,.18)",
+   949→        background: "rgba(43,27,16,.5)",
+   950→      }}
+   951→    >
+   952→      <div className="flex flex-wrap items-center gap-3">
+   953→        <div>
+   954→          <p className="text-[.7rem] font-extrabold uppercase tracking-[.2em] text-[#b98d5f]">live demo</p>
+   955→          <h4 className="text-lg font-bold text-[#f5e6cd]">Try to cheat the chain</h4>
+   956→        </div>
+   957→        <div className="ml-auto flex gap-2">
+   958→          <button
+   959→            type="button"
+   960→            onClick={() => setTampered(true)}
+   961→            disabled={tampered}
+   962→            aria-label="Tamper with block 2 — change its transactions"
+   963→            className="flex items-center gap-1.5 rounded-full px-4 py-2 text-[.8rem] font-bold transition-all duration-200 disabled:cursor-default disabled:opacity-50"
+   964→            style={{ background: "linear-gradient(135deg,#be4a4a,#8c2f2f)", color: "#fff7ec" }}
+   965→          >
+   966→            <AlertTriangle className="h-3.5 w-3.5" /> Tamper block 2
+   967→          </button>
+   968→          {tampered ? (
+   969→            <button
+   970→              type="button"
+   971→              onClick={() => setTampered(false)}
+   972→              aria-label="Reset the chain to a valid state"
+   973→              className="flex items-center gap-1.5 rounded-full border border-[rgba(245,158,11,.4)] px-4 py-2 text-[.8rem] font-bold text-[#f5c889] transition-colors hover:border-[#f5c889]"
+   974→            >
+   975→              <RotateCcw className="h-3.5 w-3.5" /> Reset
+   976→            </button>
+   977→          ) : null}
+   978→        </div>
+   979→      </div>
+   980→
+   981→      <div className="mt-5 flex flex-col items-stretch gap-3 lg:flex-row lg:items-center">
+   982→        {/* block 1 */}
+   983→        <div className={blockCls(false)}>
+   984→          <p className="text-[.66rem] font-extrabold uppercase tracking-[.18em] text-[#f5c889]">block 1 · genesis</p>
+   985→          <p className="mt-2 font-mono text-[.78rem] text-[#e9d7bf]">prev : <span className="text-[#b98d5f]">NULL</span></p>
+   986→          <p className="font-mono text-[.78rem] text-[#e9d7bf]">hash : <span className="text-[#ffd9ae]">H1</span></p>
+   987→          <p className="mt-2 font-mono text-[.76rem] text-[#cbb392]">Tx: Ama → Bao · 1.0</p>
+   988→        </div>
+   989→        <Conn bad={false} />
+   990→        {/* block 2 */}
+   991→        <div className={blockCls(tampered)}>
+   992→          {tampered ? (
+   993→            <span className="absolute -top-2.5 right-3 rounded-full bg-[#be4a4a] px-2 py-0.5 text-[.6rem] font-extrabold uppercase tracking-wider text-white">
+   994→              tampered
+   995→            </span>
+   996→          ) : null}
+   997→          <p className="text-[.66rem] font-extrabold uppercase tracking-[.18em] text-[#f5c889]">block 2</p>
+   998→          <p className="mt-2 font-mono text-[.78rem] text-[#e9d7bf]">prev : <span className="text-[#ffd9ae]">H1</span> <span className="text-[#7c9a3e]">✓</span></p>
+   999→          <p className="font-mono text-[.78rem]">
+  1000→            <span className="text-[#e9d7bf]">hash : </span>
+  1001→            {tampered ? (
+  1002→              <span className="anim-pop text-[#f0a8a8]">H2′</span>
+  1003→            ) : (
+  1004→              <span className="text-[#ffd9ae]">H2</span>
+  1005→            )}
+  1006→          </p>
+  1007→          <p className="mt-2 font-mono text-[.76rem]">
+  1008→            <span className={tampered ? "text-[#f0a8a8]" : "text-[#cbb392]"}>
+  1009→              {tampered ? "Tx: Transactions++" : "Tx: Bao → Cy · 0.4"}
+  1010→            </span>
+  1011→          </p>
+  1012→        </div>
+  1013→        <Conn bad={tampered} />
+  1014→        {/* block 3 */}
+  1015→        <div className={blockCls(tampered)}>
+  1016→          <p className="text-[.66rem] font-extrabold uppercase tracking-[.18em] text-[#f5c889]">block 3</p>
+  1017→          <p className="mt-2 font-mono text-[.78rem]">
+  1018→            <span className="text-[#e9d7bf]">prev : </span>
+  1019→            <span className="text-[#ffd9ae]">H2</span>
+  1020→            {tampered ? <span className="anim-pop ml-1 text-[#f0a8a8]">≠ H2′ !</span> : <span className="text-[#7c9a3e]"> ✓</span>}
+  1021→          </p>
+  1022→          <p className="font-mono text-[.78rem] text-[#e9d7bf]">hash : <span className="text-[#ffd9ae]">H3</span></p>
+  1023→          <p className="mt-2 font-mono text-[.76rem] text-[#cbb392]">Tx: Cy → Di · 2.2</p>
+  1024→        </div>
+  1025→      </div>
+  1026→
+  1027→      <AnimatePresence>
+  1028→        {tampered ? (
+  1029→          <motion.div
+  1030→            key="tamper-banner"
+  1031→            initial={{ opacity: 0, y: 12 }}
+  1032→            animate={{ opacity: 1, y: 0 }}
+  1033→            exit={{ opacity: 0, y: 8 }}
+  1034→            transition={{ duration: 0.25 }}
+  1035→            role="status"
+  1036→            className="mt-5 flex items-start gap-3 rounded-xl border p-4"
+  1037→            style={{ borderColor: "rgba(190,74,74,.55)", background: "rgba(190,74,74,.12)" }}
+  1038→          >
+  1039→            <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" style={{ color: "#f0a8a8" }} />
+  1040→            <p className="text-[.88rem] font-semibold leading-relaxed text-[#ffd9c9]">
+  1041→              One changed block changes its hash → the missing link exposes tampering instantly.
+  1042→              Block 3 expected <span className="font-mono">H2</span> but block 2 now hashes to{" "}
+  1043→              <span className="font-mono">H2′</span> — the chain refuses to accept it.
+  1044→            </p>
+  1045→          </motion.div>
+  1046→        ) : null}
+  1047→      </AnimatePresence>
+  1048→    </div>
+  1049→  );
+  1050→}
+  1051→
+  1052→function Conn({ bad }: { bad: boolean }) {
+  1053→  return (
+  1054→    <div className="flex flex-col items-center gap-1 lg:w-16">
+  1055→      {bad ? <Link2Off className="h-4 w-4" style={{ color: "#f0a8a8" }} aria-label="broken link" /> : null}
+  1056→      <svg viewBox="0 0 64 16" className="h-4 w-14" aria-hidden>
+  1057→        <line x1="2" y1="8" x2="50" y2="8" stroke={bad ? "#f0a8a8" : "#f5c889"} strokeWidth="2.5" />
+  1058→        <path d="M46 2 L58 8 L46 14" stroke={bad ? "#f0a8a8" : "#f5c889"} strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+  1059→      </svg>
+  1060→      <span className="text-[.6rem] font-bold uppercase tracking-wider" style={{ color: bad ? "#f0a8a8" : "#b98d5f" }}>
+  1061→        {bad ? "broken" : "links"}
+  1062→      </span>
+  1063→    </div>
+  1064→  );
+  1065→}
+  1066→
+  1067→/* ============================================================
+  1068→   BLOCKCHAIN — Merkle tree, comparison table, network SVG
+  1069→   ============================================================ */
+  1070→function MerkleSVG() {
+  1071→  const leaves = [
+  1072→    { x: 70, t: "H1" },
+  1073→    { x: 165, t: "H2" },
+  1074→    { x: 260, t: "H3" },
+  1075→    { x: 380, t: "H4" },
+  1076→    { x: 475, t: "H5" },
+  1077→    { x: 570, t: "H6" },
+  1078→  ];
+  1079→  return (
+  1080→    <svg
+  1081→      viewBox="0 0 640 276"
+  1082→      className="mx-auto h-auto w-full max-w-2xl"
+  1083→      role="img"
+  1084→      aria-label="Merkle tree: transaction hashes H1 to H6 are paired up into H123 and H456, which hash to the single root H123456 stored in the block header"
+  1085→    >
+  1086→      <line x1="70" y1="210" x2="180" y2="146" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1087→      <line x1="165" y1="210" x2="180" y2="146" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1088→      <line x1="260" y1="210" x2="180" y2="146" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1089→      <line x1="380" y1="210" x2="460" y2="146" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1090→      <line x1="475" y1="210" x2="460" y2="146" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1091→      <line x1="570" y1="210" x2="460" y2="146" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1092→      <line x1="180" y1="130" x2="320" y2="62" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1093→      <line x1="460" y1="130" x2="320" y2="62" stroke="rgba(201,154,91,.6)" strokeWidth="2" />
+  1094→      {leaves.map((l) => (
+  1095→        <g key={l.t}>
+  1096→          <circle cx={l.x} cy="225" r="15" fill="rgba(255,246,232,.09)" stroke="rgba(245,158,11,.4)" strokeWidth="2" />
+  1097→          <text x={l.x} y="229" textAnchor="middle" fontSize="9" fontWeight="800" fill="#f5e6cd">{l.t}</text>
+  1098→        </g>
+  1099→      ))}
+  1100→      <circle cx="180" cy="130" r="19" fill="#b45309" />
+  1101→      <text x="180" y="134" textAnchor="middle" fontSize="9" fontWeight="800" fill="#fff7ec">H123</text>
+  1102→      <circle cx="460" cy="130" r="19" fill="#b45309" />
+  1103→      <text x="460" y="134" textAnchor="middle" fontSize="9" fontWeight="800" fill="#fff7ec">H456</text>
+  1104→      <circle cx="320" cy="46" r="23" fill="#ea580c" />
+  1105→      <text x="320" y="50" textAnchor="middle" fontSize="9" fontWeight="800" fill="#fff7ec">H123456</text>
+  1106→      <text x="320" y="14" textAnchor="middle" fontSize="10" fontWeight="800" letterSpacing="1.5" fill="#f5c889">MERKLE ROOT — stored in the header</text>
+  1107→      <text x="320" y="266" textAnchor="middle" fontSize="9" fill="#b98d5f">H1…H6 = hash of each transaction · pair them, hash again, up to one root</text>
+  1108→    </svg>
+  1109→  );
+  1110→}
+  1111→
+  1112→const BC_ROWS = [
+  1113→  { f: "Connects via", ll: "a pointer / reference to the NEXT node", bc: "the HASH OF THE PREVIOUS BLOCK" },
+  1114→  { f: "The link is", ll: "a memory address", bc: "a cryptographic hash" },
+  1115→  { f: "Lives on", ll: "ONE computer", bc: "blocks stored across the nodes of a NETWORK" },
+  1116→];
+  1117→
+  1118→function NodeNetworkSVG() {
+  1119→  const nodes: [number, number][] = [
+  1120→    [80, 60],
+  1121→    [230, 36],
+  1122→    [380, 70],
+  1123→    [120, 160],
+  1124→    [300, 150],
+  1125→    [410, 180],
+  1126→  ];
+  1127→  const links: [number, number][] = [
+  1128→    [0, 1],
+  1129→    [1, 2],
+  1130→    [0, 3],
+  1131→    [1, 4],
+  1132→    [2, 4],
+  1133→    [3, 4],
+  1134→    [2, 5],
+  1135→    [4, 5],
+  1136→  ];
+  1137→  return (
+  1138→    <svg
+  1139→      viewBox="0 0 460 214"
+  1140→      className="mx-auto h-auto w-full max-w-md"
+  1141→      role="img"
+  1142→      aria-label="A decentralised peer network: every node holds a copy of the chain and talks to its peers"
+  1143→    >
+  1144→      {links.map(([a, b], i) => (
+  1145→        <line key={i} x1={nodes[a][0]} y1={nodes[a][1]} x2={nodes[b][0]} y2={nodes[b][1]} stroke="rgba(201,154,91,.5)" strokeWidth="2" />
+  1146→      ))}
+  1147→      {nodes.map(([x, y], i) => (
+  1148→        <g key={i}>
+  1149→          {i === 4 ? <circle cx={x} cy={y} r="21" fill="none" stroke="#ea580c" strokeWidth="2" strokeDasharray="5 4" /> : null}
+  1150→          <circle cx={x} cy={y} r="14" fill={i === 4 ? "#ea580c" : "rgba(255,246,232,.09)"} stroke={i === 4 ? "#ea580c" : "rgba(245,158,11,.45)"} strokeWidth="2" />
+  1151→        </g>
+  1152→      ))}
+  1153→      <text x="300" y="196" textAnchor="middle" fontSize="10" fontWeight="800" fill="#f5c889">your node</text>
+  1154→    </svg>
+  1155→  );
+  1156→}
+  1157→
+  1158→/* ============================================================
+  1159→   BLOCKCHAIN — section
+  1160→   ============================================================ */
+  1161→const BC_APPS = [
+  1162→  { icon: Coins, name: "Cryptocurrencies", desc: "secure, decentralised transfer of value — Bitcoin runs on exactly this chain" },
+  1163→  { icon: ScrollText, name: "Smart contracts", desc: "programs that auto-execute when predefined conditions are met — no middleman" },
+  1164→  { icon: Landmark, name: "Revenue & land records", desc: "tamper-resistant ownership trails that cannot be quietly rewritten" },
+  1165→  { icon: HeartPulse, name: "Health records", desc: "integrity plus access control — the history of a file is provable" },
+  1166→];
+  1167→
+  1168→export function AtbBlockchainSection() {
+  1169→  return (
+  1170→    <Section id="blockchain" dark>
+  1171→      <SectionHead
+  1172→        dark
+  1173→        eyebrow="Lecture 6 · Blockchain"
+  1174→        title={
+  1175→          <>
+  1176→            Blockchain — <span className="grad-text">a linked list that guards itself</span>
+  1177→          </>
+  1178→        }
+  1179→        lead="Take a linked list, swap memory pointers for hashes, and spread the copies across a network. The result is a ledger where quietly editing the past is mathematically impossible."
+  1180→      />
+  1181→
+  1182→      <ReadStep dark n="1" title="Recall the linked list — then upgrade it" sub="Same shape, stronger glue" />
+  1183→      <div className="grid gap-5 md:grid-cols-2">
+  1184→        <Reveal>
+  1185→          <div className="card-warm h-full p-6">
+  1186→            <div className="flex items-center gap-2">
+  1187→              <Link className="h-4.5 w-4.5" style={{ color: "#f5c889" }} />
+  1188→              <h4 className="text-[.95rem] font-bold text-[#f5e6cd]">Linked list node</h4>
+  1189→            </div>
+  1190→            <p className="mt-3 text-[.88rem] leading-relaxed text-[#e9d7bf]">
+  1191→              Each node stores data plus a pointer that links to the <strong>NEXT</strong> item —
+  1192→              in practice, a <strong>memory address</strong>. Useful, but nothing about it proves the data is untouched.
+  1193→            </p>
+  1194→          </div>
+  1195→        </Reveal>
+  1196→        <Reveal delay={100}>
+  1197→          <div className="card-warm h-full p-6" style={{ borderColor: "rgba(234,88,12,.4)" }}>
+  1198→            <div className="flex items-center gap-2">
+  1199→              <ShieldCheck className="h-4.5 w-4.5" style={{ color: "#f5c889" }} />
+  1200→              <h4 className="text-[.95rem] font-bold text-[#f5e6cd]">Blockchain block</h4>
+  1201→            </div>
+  1202→            <p className="mt-3 text-[.88rem] leading-relaxed text-[#e9d7bf]">
+  1203→              Each block stores <strong>transactions</strong>, its own hash, and the{" "}
+  1204→              <strong>HASH OF THE PREVIOUS BLOCK</strong> — cryptographic glue instead of memory
+  1205→              addresses. The pointer becomes a <strong>seal</strong>.
+  1206→            </p>
+  1207→          </div>
+  1208→        </Reveal>
+  1209→      </div>
+  1210→
+  1211→      <ReadStep dark n="2" title="Anatomy of a block — and the growing chain" sub="Header seals the past; the body carries the transactions" />
+  1212→      <Reveal>
+  1213→        <div className="card-warm p-5 md:p-7">
+  1214→          <BlockAnatomySVG />
+  1215→          <div className="mt-6">
+  1216→            <ChainGrowSVG />
+  1217→          </div>
+  1218→          <p className="mt-4 text-center text-[.84rem] text-[#cbb392]">
+  1219→            Genesis block: <span className="font-mono text-[#ffd9ae]">prev = NULL, hash H1</span> — then every
+  1220→            new block stores the hash of the one before it.
+  1221→          </p>
+  1222→        </div>
+  1223→      </Reveal>
+  1224→      <Reveal className="mt-5">
+  1225→        <Callout dark kind="why" title="The append-only rule">
+  1226→          You <strong>never delete or edit</strong> a block. Something new happened? A{" "}
+  1227→          <strong>NEW block is added</strong> carrying the new transactions. The old blocks stay
+  1228→          exactly as they were — that is what makes history auditable.
+  1229→        </Callout>
+  1230→      </Reveal>
+  1231→
+  1232→      <ReadStep dark n="3" title="Break it yourself — the tamper demo" sub="Change one block&apos;s transactions and watch the chain catch fire" />
+  1233→      <Reveal>
+  1234→        <TamperDemo />
+  1235→      </Reveal>
+  1236→
+  1237→      <ReadStep dark n="4" title="A Merkle tree lives inside" sub="Proving the TRANSACTIONS were not edited" />
+  1238→      <div className="grid gap-5 lg:grid-cols-2">
+  1239→        <Reveal>
+  1240→          <div className="card-warm p-5">
+  1241→            <MerkleSVG />
+  1242→          </div>
+  1243→        </Reveal>
+  1244→        <Reveal delay={100}>
+  1245→          <div className="card-warm flex h-full flex-col justify-center gap-3 p-6">
+  1246→            <p className="text-[.9rem] leading-relaxed text-[#e9d7bf]">
+  1247→              The header stores the <strong>root of a Merkle tree</strong>: hash every transaction
+  1248→              (H1…H6), pair the hashes and hash again (H123, H456), until one{" "}
+  1249→              <strong>root (H123456)</strong> remains.
+  1250→            </p>
+  1251→            <p className="text-[.9rem] leading-relaxed text-[#e9d7bf]">
+  1252→              Edit <em>any</em> transaction and its leaf hash changes — which changes the pair, which
+  1253→              changes the root. <strong>The header no longer matches, and the tampering is exposed.</strong>
+  1254→            </p>
+  1255→            <div className="rounded-xl border border-[rgba(245,158,11,.2)] bg-[rgba(43,27,16,.5)] p-4 text-[.84rem] leading-relaxed text-[#cbb392]">
+  1256→              One root summarizes thousands of transactions — that is how a light wallet verifies a
+  1257→              huge block without downloading it all.
+  1258→            </div>
+  1259→          </div>
+  1260→        </Reveal>
+  1261→      </div>
+  1262→
+  1263→      <ReadStep dark n="5" title="Blockchain vs linked list" sub="Three rows that summarise the whole upgrade" />
+  1264→      <Reveal>
+  1265→        <div className="card-warm overflow-x-auto p-4 md:p-6">
+  1266→          <table className="w-full min-w-[560px] border-separate" style={{ borderSpacing: 0 }}>
+  1267→            <thead>
+  1268→              <tr>
+  1269→                {["", "Linked list", "Blockchain"].map((h, i) => (
+  1270→                  <th
+  1271→                    key={h}
+  1272→                    className="px-4 py-3 text-left text-[.72rem] font-extrabold uppercase tracking-[.16em]"
+  1273→                    style={{
+  1274→                      color: "#f5c889",
+  1275→                      background: "rgba(245,158,11,.12)",
+  1276→                      borderTop: "1px solid rgba(245,158,11,.25)",
+  1277→                      borderTopLeftRadius: i === 0 ? ".7rem" : 0,
+  1278→                      borderTopRightRadius: i === 2 ? ".7rem" : 0,
+  1279→                      borderBottom: "1px solid rgba(245,158,11,.25)",
+  1280→                    }}
+  1281→                  >
+  1282→                    {h}
+  1283→                  </th>
+  1284→                ))}
+  1285→              </tr>
+  1286→            </thead>
+  1287→            <tbody>
+  1288→              {BC_ROWS.map((r, ri) => (
+  1289→                <tr key={r.f}>
+  1290→                  {[
+  1291→                    <span key="f" className="font-bold text-[#f5c889]">{r.f}</span>,
+  1292→                    <span key="ll" className="text-[#e9d7bf]">{r.ll}</span>,
+  1293→                    <span key="bc" className="font-semibold text-[#ffd9ae]">{r.bc}</span>,
+  1294→                  ].map((cell, ci) => (
+  1295→                    <td
+  1296→                      key={ci}
+  1297→                      className="px-4 py-3 align-top text-[.86rem] leading-relaxed"
+  1298→                      style={{
+  1299→                        background: "rgba(255,246,232,.04)",
+  1300→                        borderBottom: "1px solid rgba(255,214,160,.14)",
+  1301→                        borderLeft: ci === 0 ? "1px solid rgba(255,214,160,.14)" : undefined,
+  1302→                        borderRight: ci === 2 ? "1px solid rgba(255,214,160,.14)" : undefined,
+  1303→                        borderRadius: ri === BC_ROWS.length - 1 && ci === 0 ? "0 0 0 .7rem" : undefined,
+  1304→                      }}
+  1305→                    >
+  1306→                      {cell}
+  1307→                    </td>
+  1308→                  ))}
+  1309→                </tr>
+  1310→              ))}
+  1311→            </tbody>
+  1312→          </table>
+  1313→        </div>
+  1314→      </Reveal>
+  1315→
+  1316→      <ReadStep dark n="6" title="Decentralised — many nodes, one agreement" sub="Nobody owns the chain; everyone verifies it" />
+  1317→      <div className="grid gap-5 lg:grid-cols-2">
+  1318→        <Reveal>
+  1319→          <div className="card-warm p-5">
+  1320→            <NodeNetworkSVG />
+  1321→          </div>
+  1322→        </Reveal>
+  1323→        <Reveal delay={100}>
+  1324→          <div className="card-warm flex h-full flex-col gap-3 p-6">
+  1325→            <p className="text-[.9rem] leading-relaxed text-[#e9d7bf]">
+  1326→              The blockchain lives on <strong>many nodes</strong> at once. Before a new block joins,
+  1327→              the nodes must <strong>AGREE that it is valid</strong> — that agreement is the{" "}
+  1328→              <strong>consensus mechanism</strong>.
+  1329→            </p>
+  1330→            <ul className="grid gap-2">
+  1331→              {[
+  1332→                "follows the protocol",
+  1333→                "connects to other nodes",
+  1334→                "uses cryptographic keys / identities",
+  1335→                "validates · stores · shares blocks",
+  1336→              ].map((d) => (
+  1337→                <li key={d} className="flex items-center gap-3 rounded-xl border border-[rgba(245,158,11,.18)] bg-[rgba(43,27,16,.5)] px-3.5 py-2.5">
+  1338→                  <Check className="h-4 w-4 shrink-0" style={{ color: "#f5c889" }} />
+  1339→                  <span className="text-[.86rem] text-[#e9d7bf]">{d}</span>
+  1340→                </li>
+  1341→              ))}
+  1342→            </ul>
+  1343→            <p className="mt-auto text-[.82rem] leading-relaxed text-[#cbb392]">
+  1344→              A node is just a computer playing by the rules — but <strong>all of them together</strong>{" "}
+  1345→              make rewriting history pointless.
+  1346→            </p>
+  1347→          </div>
+  1348→        </Reveal>
+  1349→      </div>
+  1350→
+  1351→      <ReadStep dark n="7" title="Where blockchains go to work" sub="Four applications you can explain in a meeting" />
+  1352→      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  1353→        {BC_APPS.map((a, i) => (
+  1354→          <Reveal key={a.name} delay={i * 60}>
+  1355→            <div className="card-warm lift h-full p-5">
+  1356→              <span className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: "rgba(245,158,11,.16)", color: "#f5c889" }}>
+  1357→                <a.icon className="h-5 w-5" />
+  1358→              </span>
+  1359→              <h4 className="mt-3 text-[.92rem] font-bold text-[#f5e6cd]">{a.name}</h4>
+  1360→              <p className="mt-1.5 text-[.8rem] leading-relaxed text-[#cbb392]">{a.desc}</p>
+  1361→            </div>
+  1362→          </Reveal>
+  1363→        ))}
+  1364→      </div>
+  1365→
+  1366→      <Reveal className="mt-10">
+  1367→        <Quiz
+  1368→          q="Editing an old block in a blockchain…"
+  1369→          options={["is ignored", "changes its hash and breaks the chain", "requires a password", "updates all hashes automatically"]}
+  1370→          answer={1}
+  1371→          explain="Changing a block changes its hash — so the next block's stored 'hash of previous block' no longer matches. The chain is visibly broken, and every honest node rejects it."
+  1372→        />
+  1373→      </Reveal>
+  1374→
+  1375→      <Reveal className="mt-8">
+  1376→        <Takeaways
+  1377→          dark
+  1378→          items={[
+  1379→            <>Blockchain works <strong>LIKE a linked list</strong> (blocks in sequence) but is <strong>not</strong> one — hashes replace memory pointers.</>,
+  1380→            <><strong>Hashes connect blocks and guard the data</strong>: each header stores the hash of the previous block.</>,
+  1381→            <>Blocks store a <strong>Merkle-tree root</strong>, so edited transactions change the root and are detected.</>,
+  1382→            <>Blocks live on <strong>many network nodes</strong> that must agree a new block is valid (consensus).</>,
+  1383→            <>Applications: <strong>cryptocurrencies, smart contracts, revenue/land records, health records</strong>.</>,
+  1384→          ]}
+  1385→        />
+  1386→      </Reveal>
+  1387→    </Section>
+  1388→  );
+  1389→}
+  1390→
