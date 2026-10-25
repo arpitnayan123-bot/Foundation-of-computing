@@ -140,7 +140,8 @@ const PROPS: AtbExamQuestion[] = [
 
 /* ------------------------------------------------------------
    GROUP 3 — LINEAR  (indexing · operations · 2D arrays ·
-                      singly / doubly / circular)
+                      memory maps · insert/delete · shuffle ·
+                      nested lists · singly / doubly / circular)
    ------------------------------------------------------------ */
 const LINEAR: AtbExamQuestion[] = [
   {
@@ -191,6 +192,38 @@ const LINEAR: AtbExamQuestion[] = [
     answer: 3,
     explain:
       "Circularity removes the dead end: the last node’s next pointer points back to the head, so you can start at any node and still walk the entire list. In a plain singly linked list the last node points to Null, a doubly linked list adds a prev pointer to every node, and pointing to itself would be a one-node cycle — not a list.",
+  },
+  {
+    id: "l6",
+    type: "mcq",
+    q: "Compared with an array, how are linked-list nodes stored in memory?",
+    options: [
+      "Contiguously — one packed block",
+      "Scattered anywhere, connected by pointers",
+      "In a fixed 2-D grid",
+      "Inside the head node",
+    ],
+    answer: 1,
+    explain:
+      "Arrays occupy consecutive locations, so a position predicts its neighbours. A linked list's nodes can live anywhere in memory — the pointer chain defines the logical order, not physical proximity. That is why a playlist's songs can sit scattered across memory and still play in perfect sequence.",
+  },
+  {
+    id: "l7",
+    type: "output",
+    q: "Head → Song 1 → Song 2 → Song 3 → Null. Song 2 is deleted. State exactly what changes.",
+    answerText:
+      "One pointer is rewritten: Song 1.next now holds Song 3's address.\nSong 2 stays in memory — it is simply no longer part of the active list.",
+    explain:
+      "Deletion in a linked list is a redirect of the previous node's pointer; nothing shifts (an array would move every element after the deleted one), and the removed node remains in memory until something overwrites it.",
+  },
+  {
+    id: "l8",
+    type: "short",
+    q: "A university programme has 8 semesters × 6 courses each for the regular batch — but retakes and deferrals make the real structure vary student by student. Which structures fit each situation, and why?",
+    answerText:
+      "Situation 1 — fixed: 8 semesters × 6 courses → a 2-D array (Sem[i, j]). The count is known in advance, memory is used efficiently and any course is reached by direct access.\nSituation 2 — variable: semesters and courses per semester vary (retakes, deferrals) → a linked list of linked lists: each semester is a node owning its own chain of courses, so both levels grow and shrink freely without redefining anything.",
+    explain:
+      "The choosing rule from the lecture: fixed + known count + direct access → the array family; variable + frequent structural change → chains of chains. Name the structure AND the reason for each situation — that is where the marks sit.",
   },
 ];
 
@@ -378,8 +411,8 @@ export const ATB_EXAM_BANKS: Record<AtbExamGroup, AtbExamBank> = {
   linear: {
     group: "linear",
     title: "Linear DS",
-    subtitle: "indexing from 0 · the five operations · 2D arrays · singly · doubly · circular",
-    topics: "Indexing · operations · 2D arrays · singly/doubly/circular",
+    subtitle: "indexing from 0 · the five operations · 2D arrays · memory maps · insert & delete · shuffle · nested lists · singly · doubly · circular",
+    topics: "Indexing · operations · 2D arrays · memory maps · insert/delete · shuffle · nested lists · singly/doubly/circular",
     questions: LINEAR,
   },
   stackq: {
