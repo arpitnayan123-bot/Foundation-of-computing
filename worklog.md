@@ -659,3 +659,37 @@ Work Log:
 Stage Summary:
 - Vercel build blockers eliminated: type-check now passes on the full tracked tree; remote main @ c765fe1, 0 dirty files
 - Known runtime caveat (non-blocking): /api/sync uses SQLite (db/custom.db) — serverless FS is ephemeral on Vercel, so that one feature needs a hosted DB if it must persist in production
+
+---
+Task ID: m4-e
+Agent: general-purpose
+Task: mktg/questions.ts — 8 exam banks, 48 questions
+
+Work Log:
+- Read worklog (skimmed last entries, Tasks 1/21/22/23), ATB schema reference (src/components/atb/questions.ts — mirrored field-for-field: id/type/q/code?/options?/answer?/answerText?/explain?, bank = group/title/subtitle/topics/questions, derived total via reduce), MKTG chapter table (lectures.ts — 8 groups with labels Foundations/Concepts/Value & Exchange/Gap & Loyalty/STP/Positioning/Consumer Mind/Psych & Bias) and the full 3,077-line upload/marketing-lectures.txt (Lectures 1–28)
+- Built src/components/mktg/questions.ts: types MktgExamGroup/MktgQuestionType/MktgExamQuestion/MktgExamBank + MKTG_EXAM_BANKS (Record of 8 banks) + MKTG_EXAM_GROUPS + MKTG_TOTAL_QUESTIONS; zero imports, no "use client", bank-scoped ids f/c/v/l/s/p/k/b 1–6
+- 48 questions grounded line-by-line in the notes: cold-coffee P&L (₹9,600/₹5,600/₹4,000) and the pen (L2), AMA + four flows + ten entities + vada-pao triad + demand states + closed system (L3–L4), chai ₹20/250/500 + CPV + app-friction case + micro/macro + Zomato exchange + ₹5 vs ₹5,000 pen + Camellias (L5–L7), Itch Guard/Kohler/Clean & Clear + purchase chain + pizza-in-10-minutes + 34-min 2★/5★ panel + 20–90%/$100-vs-$20/60-70%-vs-5-8% + impulse (L8–L10), Netflix six + Zudio/Pulsar/L'Oréal/Nike + Surf Excel 25→75 panel + Colgate five + Tupo ₹450-vs-₹150 + SAFE + Sensodyne 3Qs (L11–L14), Accor tiers + Gypsy extended frame + NIKEiD/Share a Coke + Gillette POD→POP + three circles + Dettol/Savlon/Oral-B case (L15–L17), desired-state buying + eras/heuristic-vs-nudge + five stages + messy middle + skip/reverse/loop + shampoo autopsy + framework cycle (L18–L22), Freud iceberg/samosa + theory-match quotes + Maslow order + Free Chai Rule + perception categories/Horlicks + almonds panel (D ~9/10, ₹1,000/₹800/₹550/₹2,700) + Gestalt + four biases with exact figures (L23–L28)
+- Every question carries a 2–4 sentence teaching-voice explain; "output" type used only where a numeric/case answer truly exists (6 of 8 banks, incl. the cold-coffee data panel)
+- Verification: bunx tsc --noEmit | grep "mktg/questions" → empty (clean); bun run lint | grep "mktg/questions" → empty (clean); rg counts → 48 "id:", 48 "explain:", 6×6 questions per bank (29 mcq + 6 output + 13 short)
+
+Stage Summary:
+- Shelf 06 exam engine data complete: src/components/mktg/questions.ts — 8 banks / 48 questions / 6 "output" case panels, all numbers sourced from marketing-lectures.txt
+- Type mix: 29 mcq · 13 short · 6 output; MKTG_TOTAL_QUESTIONS = 48; tsc + lint clean for the new file; worklog untouched above this entry
+
+---
+Task ID: 24
+Agent: Z.ai Code (main)
+Task: Shelf 06 — "Principles of Marketing" (the sixth self), Lectures 1–28
+
+Work Log:
+- Extracted the 70-page Marketing PDF (L1–L28) to upload/marketing-lectures.txt via pdftotext; pinned the structure in src/components/mktg/lectures.ts (28 lectures, 53 chapters, 8 chapter groups/exam windows; L22 blank in source → honest recap22)
+- 4 parallel parts agents (m4-a…m4-d) built MktgParts1–4.tsx (53 sections, ~140 machines); exam-bank agent (m4-e) built questions.ts (8 banks, 48 Qs: 29 mcq · 13 short · 6 output, MKTG_TOTAL_QUESTIONS=48); agents were stopped mid-verify — deliverables were on disk, verification completed by main
+- Fixed agent residue: mangled destructure + wrong setter names in PenMachine/ChaiMachine (sed), missing Watch/Ticket/Armchair/Quiz imports, EnvPick null-narrowing, unterminated JSX in MktgChaiSection, 6 setState-in-effect sites (stop logic folded into timeouts), 14 react-hooks/static-components sites (Panel/BigNum/TabBtn/Track hoisted to module scope as Mktg* helpers)
+- Built the shell: MktgHero.tsx (lecture sequence, "Lecture N" eyebrows, teal→gold hero), MktgApp.tsx (TopNav 8 groups, PracticeHub, MktgLectureHead — the "Principles of Marketing Lecture N" band on every lecture, LecturePager, MktgFooter), MktgExamWindow.tsx + MKTG_EXAM_THEME (lagoon/teal)
+- Wired the atlas: subjects.ts (shelf 06 live, shelf 07 reserved, "beacon" ambience), page.tsx mount, question-counts 48 / section-counts 53, chapter-index +53 entries (generated via bun), search.ts + question-lookup.ts loaders, globals.css .mktg-canvas, build-search-corpus.ts + rebuild (53 chapters / 48 questions indexed)
+- Browser verification (agent-browser): landing card → hero → "Principles of Marketing Lecture 1" band → lecture switching → anticipation tabs → cold-coffee P&L live readout (₹9,600/₹5,600/₹4,000) → practice hub 8 windows → Foundations window grading (1/6 + explanation) → three-circles chapter → console 0 errors/warnings; mobile 375px overflow found (535px) → root-caused to grid-item min-width:auto in hero ol + LecturePager → min-w-0 fixes in MktgHero/MktgApp AND the same pre-existing ATB latent overflow (388px) fixed the same way
+- Final gates: tsc --noEmit → 0 errors; eslint → 0 errors; corpus rebuild → 148 chapters/333 questions total
+
+Stage Summary:
+- Shelf 06 LIVE: 28 lectures · 53 chapters · ~140 interactive machines · 8 exam windows · 48 questions — boutique teal & champagne, "Principles of Marketing Lecture N" hero band on every lecture
+- All commits made locally as Arpit Nayan; NOT pushed — awaiting user's PAT
