@@ -1,0 +1,3078 @@
+Lecture 1 starts
+Introduction to Marketing: Understanding Customers,
+Markets, Brands and Value
+Overview of the Course
+This course introduces marketing as a comprehensive business discipline that extends far beyond
+selling products or creating advertisements. Marketing is fundamentally about understanding customer
+needs, analyzing how people make purchasing decisions, exploring brand preferences, and enabling
+businesses to create meaningful value for their customers.
+
+What Marketing Really Means
+• Marketing is not limited to selling or product promotion
+• It encompasses understanding consumer behavior and decision-making processes
+• It explores why customers prefer certain brands over competitors
+• It focuses on creating value rather than just transacting sales
+
+Marketing in Everyday Life
+Marketing permeates all aspects of daily consumer experience, including:
+• Mobile devices and technology we use
+• Clothing and fashion choices
+• Food and dining preferences
+• Mobile applications and digital platforms
+• Brand trust and loyalty decisions
+
+Key Learning Objectives
+By the end of this course, students will understand:
+• How companies identify and analyze customer needs
+• Product and service design strategies
+• Pricing strategies and value determination
+• Brand building and development
+• Effective communication and marketing messaging
+• Methods for establishing and maintaining long-term customer relationships
+
+Course Significance
+This course aims to equip students with the ability to recognize and analyze marketing in their everyday
+lives while developing a comprehensive understanding of marketing as a critical business discipline
+within the BAS program in management and technology.
+
+
+
+
+                                      Marketing - Lecture Notes | Page 1
+Lecture 2 starts
+Introduction to Marketing: Understanding Customer Value
+and Business Success
+This lecture provides a foundational overview of marketing as a critical business function that extends
+far beyond selling and advertising. The course aims to equip students with the ability to recognize
+marketing in everyday life and understand its essential role in organizational success.
+
+Course Overview and Evaluation
+• Instructor: Anuj Kapoor, Assistant Professor of Marketing at SME IIT Jodhpur
+• Background: PhD from Faculty of Management Studies Delhi; MBA from Symbiosis Pune; Engineering
+  from North Cap University; Six years of industry experience in consumer insights, market research,
+  and innovation
+• Course Duration: Full semester with continuous engagement required
+
+Evaluation Components
+• Group Marketing Plan (20 marks): Collaborative project developed throughout the semester with
+  submission at the end
+• One-Page Assignments: Concise submissions limiting answers to one page; exceeding page limit
+  results in mark deduction
+• End-Term Examination: Mandatory assessment component
+• Business School Competitions (20 marks, Optional): National and international hackathons and
+  competitions; marks can offset other components if missed
+• Reference Material: Philip Kotler, Keller, Kervyn Sheth, and Shaynish's 2025 edition available online
+  and on Amazon
+
+The Fundamental Concept of Marketing: Anticipation
+Case Studies Demonstrating Importance of Anticipation
+BlackBerry's Decline
+• Stock price gradually declined after Apple launched iPhone in 2007
+• Reached bottom in 2010 and further declined with Android's launch in 2008
+• Company eventually went bankrupt due to failure to anticipate market shift
+Hertz's Collapse
+• Faced decline after Uber's 2019 launch with $17 billion valuation
+• Business model relied on owning car fleet, resulting in high capital and maintenance costs
+• Uber's asset-light model (outsourced drivers and vehicles) proved superior
+• Company exited global market by 2018 but remains operational in southern India
+Blockbuster's Failure
+• Movie rental company declined as Netflix evolved from DVD rentals to online streaming
+• Netflix introduced personalized recommendations (2002) and streaming service (2012)
+• Despite having competitive advantage, Blockbuster CEO dismissed Netflix as non-competitive
+• Company went bankrupt as OTT model disrupted industry
+
+Pattern of Organizational Decline
+• Initial gradual performance drop followed by sudden collapse
+• Organizations that anticipate market changes pivot successfully before sudden decline
+• Those unable to anticipate face rapid market exit
+
+
+
+
+                                    Marketing - Lecture Notes | Page 2
+Definition of Marketing's Core Function
+Marketing is the function that enables organizations to anticipate consumer needs and market
+evolution. Success requires understanding not only current consumer requirements but also predicting
+future needs and demands. Anticipation allows companies to create products consumers will value
+before competitors do.
+
+Financial Value of Marketing
+Key Financial Metrics
+Top Line: Revenue generated through sales; represents total money earned by organization
+Bottom Line: Profit calculated as Sales minus Cost
+Fundamental Principle: There must be a top line (revenue) for there to be a bottom line (profit)
+
+Practical Example: Cafe Cold Coffee Sales
+• Price per glass: 120 rupees
+• Daily sales volume: 80 glasses
+• Cost per glass: 70 rupees
+• Total Revenue: 120 x 80 = 9,600 rupees
+• Total Cost: 70 x 80 = 5,600 rupees
+• Profit: 9,600 - 5,600 = 4,000 rupees
+Marketing ensures steady revenue streams, directly enabling profit generation and organizational
+financial success.
+
+Marketing vs. Selling: Key Distinctions
+Fundamental Difference
+Selling focuses on pushing products to consumers after creation; emphasizes product attributes and
+features.
+Marketing begins with understanding consumer needs before product creation; customer-centric
+approach precedes product development.
+
+Practical Example: The Pen
+Sales-Dominant Approach: Highlights pen attributes (writes flawlessly, black color, good grip, improves
+exam marks)
+Marketing Approach: Asks preliminary questions to understand customer requirements
+• Do you prefer ballpoint, pilot, or ink pens?
+• What is your budget?
+• Do you prefer fine or broad nib?
+• What color do you prefer?
+Understanding customer needs before presenting product ensures better fit and more successful sales
+outcomes.
+
+Marketing Definition
+Marketing is the process of:
+• Understanding consumer needs and preferences
+• Creating value through product or service development
+• Communicating value to consumers
+• Delivering value through satisfactory transactions
+When value is successfully delivered, customers become advocates, speak positively about the brand,
+and generate repeat business and revenue.
+
+
+
+
+                                     Marketing - Lecture Notes | Page 3
+Marketing Activities Identification
+Examples of Marketing
+• Product Design: Smaller shampoo sachets for one rupee targets value-conscious consumers
+• Promotional Pricing: Restaurant offering 20% discount uses promotion element of marketing mix
+• Consumer Research: Brand studying student preferences for iced coffee represents marketing
+  research
+• Notifications: Zomato sending time-targeted humorous notifications about food deals uses digital
+  marketing to trigger purchase intent
+• Point-of-Purchase Placement: Keeping chocolates near billing counter uses retail marketing strategy
+  to increase impulse purchases
+
+Examples of Sales (vs. Marketing)
+• Salesperson convincing customer to buy a laptop through direct persuasion
+
+Marketing-Sales Relationship
+Sales represents the transaction that results from successful marketing. Marketing creates awareness,
+builds desire, and communicates value; sales completes the transaction. Both are essential, but
+marketing precedes and enables sales.
+
+Course Structure and Future Topics
+Upcoming lectures will address:
+• Evolution of Marketing: How marketing concepts and practices have developed over time
+• Need vs. Want vs. Demand: Understanding fundamental consumer behavior concepts that
+  distinguish customer requirements from desires to actual purchasing behavior
+Students are encouraged to maintain a repository of notes on brands, organizations, and marketing
+concepts encountered throughout the course for practical application and future reference.
+
+
+
+
+                                   Marketing - Lecture Notes | Page 4
+Lecture 3 starts
+Understanding Marketing: Definitions, Concepts, and
+Application
+Overview
+Marketing is fundamentally an outside-in approach that starts with understanding customer needs
+rather than simply selling products. It involves creating, communicating, and delivering value to
+customers, clients, partners, and society. While often confused with selling, marketing and sales are
+distinct activities - marketing gathers insights from the market to inform product development, while
+selling pushes products to consumers.
+
+Marketing Definitions and Perspectives
+Theoretical Definition (American Marketing Association)
+• Marketing is the activity, set of institutions, and processes for creating value, communicating,
+  delivering, and exchanging offerings that have value for customers, clients, partners, and society at
+  large.
+Business Perspective
+• Identifying and meeting human and social needs
+• Making lives better by making better things
+• Connecting with consumers (Apple CEO perspective)
+Examples of Effective Marketing
+• Google: Products and services that are relevant and required by consumers, effectively connecting
+  with target audiences
+• IKEA: Revolutionized furniture through DIY concept - providing quality, aesthetically pleasing
+  furniture that consumers could assemble themselves, solving the problem of tedious furniture
+  installation
+• Urban Ladder and PepperFry: Captured untapped Indian market by recognizing that modern
+  consumers move frequently between cities and don't want to keep furniture for generations; offered
+  convenient, economical furniture solutions
+Additional Marketing Success Stories
+• Uber and Ola: Successfully replicated the traditional agency model in digital format, enabling drivers
+  to receive 25-30 bookings daily instead of 1-2 through traditional channels
+• Apple iPod: Steve Jobs stated that "marketing is about meeting needs profitably" - combining great
+  products with business viability
+• Seth Godin's Philosophy: Marketing is not about selling more products but making better things that
+  create genuine value for consumers
+
+Marketing vs. Selling
+Key Distinction
+• Marketing (Outside-In Approach): Gathering information from the market about consumer needs,
+  wants, and market dynamics, then bringing this knowledge into the organization
+• Selling (Inside-Out Approach): Taking a finished product created by the organization and pushing it to
+  consumers through various channels (retailers, distribution, online)
+Both are essential and interconnected - marketing cannot succeed without sales, and sales cannot
+succeed without marketing insights.
+
+The Marketing System Framework
+Two Core Components
+
+
+
+                                     Marketing - Lecture Notes | Page 5
+• Industry: Collection of sellers
+• Market: Collection of buyers
+Four Key Flows
+• Communication: From industry to market about products, offers, and promotions
+• Goods and Services: Tangible offerings from industry to market
+• Money: Payment from consumers to sellers
+• Information: Market feedback that helps organizations redesign and refine products
+
+What Can Be Marketed
+Marketing extends far beyond tangible products. The following elements can all be effectively
+marketed:
+Goods (Physical Products)
+• Example: Apple iWatch - tangible products with specific features
+Services
+• Salon services: B-Blunt, Tony and Guy, local salons each market distinct value propositions (premium
+  vs. economical, different experiences)
+• Each service has unique selling points that appeal to different consumer segments
+Experiences
+• Imagica (amusement park): Not marketed through rides and features, but through the emotional
+  experience - happiness, joy, creating memories with family
+• Sunburn Festival: Markets the overall experience of attending rather than specific performances
+• Coca-Cola "Make a Friend" Campaign: Connected consumers across geographic boundaries
+  (India-Pakistan) through vending machines, marketing connection and friendship rather than the
+  beverage itself
+Financial Services
+• American Express: Doesn't directly sell credit cards; markets the experience of having Amex,
+  promoting "don't take on the world without it" and positioning the card as "the gateway to great
+  experiences"
+Persons/Individuals
+• The Rock (Dwayne Johnson): Launched Papatui brand leveraging personal brand and trust
+• Oprah Winfrey: Launched skincare products based on personal credibility
+• Indian Examples: Hrithik Roshan (HRX brand), Virat Kohli, Kirti Sanon (Hyphen brand)
+• Consumers purchase based on initial trust and interest in the individual before the product
+Places and Destinations
+• Rajasthan Tourism: Campaign "Agar Neha ne Rajasthan dekha, toh Aran bhi dekh hi lega" promoted
+  the place through individuals, revitalizing tourism
+• Marketing geographical locations and their unique characteristics
+Properties and Real Estate
+• World Towers (Mumbai): Marketed through name, location, and facilities
+• Trump Towers (Delhi): Leverages Trump legacy and premium positioning
+• The Camellias (Gurgaon): Priced at 85-100 crores per apartment; marketed through ambience,
+  views, amenities, and status symbol value
+Organizations
+• Harvard Business School: Markets itself through faculty quality, student caliber, legacy, leadership,
+  and organizational reputation
+Information
+• NIRF Rankings: Institutes leverage ranking information for marketing
+
+
+
+                                    Marketing - Lecture Notes | Page 6
+• ACSB Accreditation: Serves as marketing credential for business schools
+Ideas
+• Zomato: "Hungry" campaign for New Year - connected the idea of celebrating (Happy New Year) with
+  ordering food, marketing through conceptual connection rather than direct product promotion
+• Blinkit: "Food mangoge, do minute mein dunga" vs. Zomato's "Kheer mangoge, kheer dengunge" -
+  combined ideas of daily necessities and finished products
+
+The Need-Want-Demand Triad
+Three Interconnected Concepts
+Need: Basic human requirement
+• Biological or fundamental necessity (food, shelter, clothing)
+• Pre-exists naturally
+• Marketers do not create needs
+Want: Need directed toward a specific object
+• Occurs when a need is attached to a particular product or solution
+• Influenced by marketing, culture, and personal preferences
+• Example: The need for food becomes a want for pizza, tandoori chicken, or vada pao
+Demand: Want backed by ability to pay
+• Converts want into actual purchasing behavior
+• Directly influenced by consumer purchasing power
+• Example: With 20 rupees, demand is limited to vada pao; with more money, all three options become
+  possible
+Practical Example
+• Starbucks locations in Tier 1 vs. Tier 3 cities - consumers may want Starbucks coffee, but only in Tier
+  1 cities do they have the ability to pay 300 rupees for a coffee, creating demand
+Marketer Focus
+• Cannot create needs (they pre-exist)
+• Can create and shape wants
+• Can influence demand through pricing, availability, and promotion
+
+Types of Consumer Needs
+• Stated Needs: What customers explicitly ask for ("I want a car")
+• Real Needs: The underlying meaning behind stated needs ("want a car with low operating costs", not
+  just low price)
+• Unstated Needs: Expectations customers don't verbalize. Great service and warranty expected but
+  not always mentioned upfront
+• Delight Needs: Non-essential features that create satisfaction. Built-in GPS system when not
+  explicitly requested
+• Secret Needs: Intangible, often unspoken desires. Buying a luxury car as a status symbol, not merely
+  for transportation
+
+Demand States
+Negative Demand
+• Consumers actively avoid the product and may pay to prevent it
+• Example: Dentist appointments; purchasing ad-free music subscriptions
+Non-Existent Demand
+• Consumers unaware of or uninterested in products
+• Example: BlackBerry Key2 with limited consumer awareness
+
+
+                                    Marketing - Lecture Notes | Page 7
+Latent Demand
+• Strong underlying need that current products cannot satisfy
+• Example: Consumers wanting better smartphone cameras than currently available
+Declining Demand
+• Products purchased less frequently over time
+• Examples: Floppy disks, CDs, LCDs, older technology-based products
+• Consumers move to newer alternatives as technology evolves
+Irregular Demand
+• Seasonal or fluctuating demand patterns
+• Examples: Air conditioners and coolers; seasonal fruits and foods
+Full Demand
+• Products consistently purchased at adequate marketplace levels
+• Example: Over-the-counter (OTC) drugs always in demand
+Overfull Demand
+• Demand exceeds available supply
+• Examples: Bread and milk in grocery stores; regularly sold out items
+Unwholesome Demand
+• Products with demand but socially undesirable consequences
+• Examples: Cigarettes, tobacco, alcohol
+
+Key Marketing Principles
+• Needs are generally pre-existing; marketers recognize rather than create them
+• Wants and demands are malleable and can be shaped through marketing strategies
+• Successful marketing requires understanding all types of needs and demand states
+• Marketing must address customer needs profitably to be sustainable
+• The most effective marketing connects consumers with products through meaningful ideas,
+  experiences, or emotional connections rather than direct product promotion
+
+
+
+
+                                   Marketing - Lecture Notes | Page 8
+Lecture 4 starts
+Introduction to Marketing and Understanding Consumer
+Behavior
+Overview of the Course Structure and Instructor Background
+This is the introductory session for the "Content and Principles of Marketing" course. The course
+includes two live sessions per week, with weekend sessions of 50 minutes led by the instructor for
+concept delivery and doubt-clearing, followed by 15 minutes with teaching assistants. The course
+employs an interactive pedagogy combining English and Hindi to ensure accessibility for all students.
+The instructor, Anush Pal Kapoor, is a faculty member at the School of Management and
+Entrepreneurship at IIT Jodhpur, with a background spanning six years in industry (HDFC, Michael Page,
+Nokia) and over six years in academia. He holds a PhD in neuro-marketing and multi-sensory
+experience from FMS, University of Delhi.
+
+Assessment and Evaluation Components
+• Group Marketing Plan (20 marks): Students work collaboratively on a group marketing plan with
+  comprehensive details provided by the instructor
+• One-Page Assignments (20 marks): Work assignments must be completed within a strict one-page
+  format with no exceptions
+• Mid-Term Examination: Major component of continuous assessment
+• Quizzes: Regular quizzes included as part of continuous evaluation
+• Optional Competition Component (20 marks): Participation in national or international B-school
+  competitions or marketing-related Olympiads requires prior approval from the instructor; marks
+  awarded to winners, runners-up, or finalists; completely voluntary
+Note on Study Materials: The final examination has a 60-mark weightage. Note-taking is optional and
+depends on individual learning preferences; all content will be covered in 30 sessions.
+
+Fundamental Concept: The Closed System of Consumers
+Understanding Consumer Mind
+The human mind operates as a closed system by default, constantly recycling familiar options, known
+brands, and established habits. Consumers are naturally resistant to new information due to
+information overload - they are exposed to countless advertisements and brands daily. The mind
+selectively opens only when something triggers genuine interest or creates a compelling reason to
+consider alternatives.
+
+The Linear Relationship Between Interest and Openness
+Marketing effectiveness is measured by a linear relationship:
+• X-axis: Openness to receive information
+• Y-axis: Interest in the product, brand, or service
+For consumers to transition from a closed system to an open system, two conditions must be met
+simultaneously:
+• Interest generation: The marketing effort must spark genuine interest in the product or brand
+• Information receptivity: The consumer must become open to receiving and processing new
+  information
+
+Breaking the Closed System Loop
+Every consumer has a unique "breaking point" - a threshold at which they become willing to explore
+beyond their established preferences. Marketing efforts (such as promotional offers, celebrity
+endorsements, limited-time deals, or exclusive collections) serve as "interrupts" that break the habitual
+loop and create openness to new possibilities.
+
+
+                                     Marketing - Lecture Notes | Page 9
+Key Principle: If a consumer is interested in something, they will be open to learning more about it.
+Conversely, openness to information indicates underlying interest. This relationship remains
+consistently linear across different consumer segments.
+
+Marketing vs. Sales: Two Fundamental Approaches
+Inside-Out Approach (Sales)
+• Focuses on what the organization has produced or created
+• Pushes existing products to consumers
+• Centers on transaction completion
+
+Outside-In Approach (Marketing)
+• Begins with understanding consumer needs, desires, and preferences
+• Conducts market research to gather consumer insights
+• Develops strategies based on consumer information
+• Focuses on relationship building rather than immediate transactions
+Critical Distinction: Marketing always starts with the customer, not the product. While products are
+essential for business operations, understanding and opening the consumer's closed system is the
+prerequisite for successful marketing efforts.
+
+The Business Value of Marketing
+Revenue and Profit Framework
+Organizations operate with two primary financial metrics:
+• Top Line (Revenue/Sales): The total income generated from selling products or services; calculated
+  as the number of products sold multiplied by their selling price
+• Bottom Line (Profit): The net income remaining after deducting costs from revenue; calculated as
+  Revenue minus Total Costs
+Critical Relationship: Without a top line (revenue), there cannot be a bottom line (profit). Every
+organization, regardless of its nature - including NGOs and social enterprises - requires revenue to
+sustain operations, pay employees, and continue functioning.
+The Role of Marketing: An organization's financial success fundamentally depends on its marketing
+ability to generate revenue. Marketing encompasses multiple strategic components including pricing,
+product development, promotion, and distribution, all working together to create consumer demand
+and drive sales.
+concepts
+• Relevant internship and professional experience
+• Ability to combine theoretical knowledge with practical insights
+The teaching assistants are:
+• Harshita: From Punjab; passionate about understanding people's psychology and connecting
+  business ideas with consumer needs
+• Kushi Bafna: Has 1.5 years of marketing work experience; currently studying AI's impact on business
+• Sharad: B-Farm graduate bringing a unique perspective to marketing
+• Amog: Former data analyst with interest in marketing collaboration and doubt-solving
+• Shivangi: Brings 3+ years of experience in international sales and service delivery, plus digital
+  marketing internship background
+• Sheetal: Commerce graduate with interest in marketing's creative aspects and people-business
+  connections
+
+Important Reminders for Students
+• Respect classroom etiquette by avoiding repeated questions in chat
+
+
+
+                                    Marketing - Lecture Notes | Page 10
+• Utilize the LMS platform for course materials and question submission
+• Engage actively in group discussions and assignments
+• Take responsibility for stepping outside comfort zones during the course duration
+• Participate in optional competitions and activities for additional learning
+• Provide constructive feedback to improve course delivery
+• All recordings will be available on the LMS for review
+Next Session Focus: The course will continue building on fundamental concepts while introducing new
+topics each week, with doubt-clearing sessions led by teaching assistants and the instructor,
+maintaining a balance between theoretical foundations and practical applications in marketing
+
+
+
+
+                                    Marketing - Lecture Notes | Page 11
+Lecture 5 starts
+Understanding Customer Perceived Value
+This lecture explores the fundamental marketing concept of customer perceived value, examining how
+consumers evaluate the worth of products and services beyond their listed price.
+
+Overview of Customer Perceived Value
+Customer perceived value is not merely about the price printed on a product; rather, it is a calculation
+made in the consumer's mind based on the benefits received minus the costs incurred. The value is
+highly subjective and contextual, varying based on individual situations and circumstances.
+
+Key Illustration: The Chai Example
+• Roadside tea (₹20): Economical option, suitable for casual consumption
+• Café tea (₹250): Preferred for business meetings and professional settings due to improved
+  ambiance and impression management
+• Airport tea (₹500): Selected when no other options are available or when traveling
+The same product carries different perceived values depending on the consumer's context and needs.
+
+Theoretical Framework of Customer Perceived Value
+Formula: Customer Perceived Value = Benefits - Costs
+
+Components of Benefits
+Benefits extend beyond the physical product and include:
+• Psychological Benefit: The core functional advantage (e.g., a jacket keeping you warm during winter)
+• Functional Benefit: Practical utility features (e.g., pockets, hoodie, wind resistance)
+• Economic Benefit: The monetary value and savings associated with the purchase
+• Extended Psychological Benefit: The social perception and status associated with owning the
+  product; how others perceive the consumer based on their choice
+The extended psychological benefit is particularly powerful in modern marketing, as it influences how
+consumers feel about social acceptability and personal image.
+
+Components of Costs
+Costs are not limited to direct monetary expenses but include:
+• Direct Cost: The actual price paid for the product or service
+• Abstract Costs:
+• Time investment required to purchase and obtain the product
+• Effort and energy expended
+• Psychological stress (e.g., worrying about parking, traffic)
+• Disposal costs and after-sales service considerations
+Example: Ordering ice cream from a delivery app may have a higher monetary cost but lower abstract
+costs (no travel time, no parking concerns, convenience of home delivery) compared to visiting a
+physical store.
+
+Limitations of Different Benefits
+• Psychological Benefit: Limited by the maximum warmth a jacket can provide
+• Functional Benefit: Constrained by practical design limits and risk of cognitive overload with too
+  many features
+• Economic Benefit: Cannot be reduced indefinitely without causing business losses
+• Extended Psychological Benefit: No inherent limitation; organizations can continuously enhance
+  perception through branding and marketing efforts
+
+
+
+                                    Marketing - Lecture Notes | Page 12
+How Organizations Create Value
+Organizations can enhance customer perceived value through two primary strategies:
+• Increase Benefits: Improve the product quality, features, or emotional appeal
+• Reduce Costs: Lower prices, simplify processes, or reduce friction in the purchase and usage
+  experience
+
+Real-World Examples
+Denim Jeans Pricing:
+• Generic jeans: ₹1,000-1,500
+• Levi's jeans: ₹3,900-5,900
+• Armani jeans: ₹25,000-50,000
+The product remains physically similar, but the brand creates an extended psychological benefit
+through brand equity, influencing perceived value significantly.
+Amazon Prime Integration: Organizations reduce friction by integrating shopping experiences within
+entertainment platforms. The "Add to Cart" button appearing during advertisements on OTT platforms
+makes purchasing easier, reducing the abstract cost of obtaining products.
+Mobile Application Comparison:
+• Application A: Better playlists but includes frequent ads and complex six-step login process
+• Application B: Simpler one-step login with minimal friction
+Despite Application A being free, Application B offers superior perceived value due to reduced friction.
+
+Key Takeaways
+• Value is Subjective: The worth of a product varies from person to person and situation to situation.
+  What holds high value for one consumer may not for another.
+• More Features is Not More Value: Adding excessive features can create cognitive overload and
+  confusion rather than enhancing value. A balanced approach is necessary.
+• Features vs. Benefits:
+• Features: Describe what the product has (e.g., memory foam in a mattress)
+• Benefits: Explain why consumers should care (e.g., better sleep and reduced discomfort)
+Effective marketing communicates benefits rather than merely listing features, as consumers purchase
+products for what they can do for them, not for the features themselves.
+• Context Matters: Value changes based on circumstances, even when the product remains identical.
+• Balance is Essential: When adding features or reducing prices, organizations must maintain a
+  balance to avoid diminishing returns.
+
+Strategic Implications for Organizations
+• Focus on extended psychological benefit as it offers the greatest flexibility and requires only creative
+  marketing strategies
+• Recognize that reducing friction in the purchase, use, and disposal process significantly enhances
+  perceived value
+• Communicate benefits clearly rather than overwhelming consumers with features
+• Understand that true value creation involves a careful balance between improving benefits and
+  reducing costs
+
+
+
+
+                                    Marketing - Lecture Notes | Page 13
+Lecture 6 starts
+Marketing Environment and Exchange Systems
+Overview
+This lecture covers two primary topics: the marketing environment in which organizations operate, and
+the concept of marketing as an exchange system. The lecture emphasizes that marketing involves far
+more complex exchanges than simply trading money for products.
+
+Marketing Environment
+Task Environment (Micro Environment)
+The task environment consists of the immediate entities with which marketing directly interacts:
+• Suppliers: Provide resources needed for operations
+• Customers: The target market for products and services
+• Competitors: Other organizations offering similar products or services
+
+Broad Environment (Macro Environment)
+The broad or macro environment comprises indirect factors that organizations must consider:
+• Demographic Elements: Age groups, socio-economic status, income levels, and population
+  characteristics
+• Political-Legal Elements: Government policies, regulations, minimum wage laws, and food safety
+  standards
+• Economic Elements: GST reforms, recessions, inflation, and market conditions
+• Socio-Cultural Elements: Consumption patterns, dietary preferences, and cultural backgrounds that
+  influence consumer behavior
+• Physical Elements: Climate, environmental conditions, and natural factors affecting operations
+• Technological Elements: Innovations such as transitions from floppy disks to cloud storage, UPI
+  payments, and digital platforms
+
+Marketing as an Exchange System
+Beyond Money-for-Product Transactions
+Marketing exchanges involve far more than the simple transfer of money for a product. Multiple
+elements are exchanged in every marketing transaction, including:
+• Benefits and convenience
+• Costs and efforts
+• Information and personal data
+• Time and attention
+• Risk and trust
+
+Practical Example: Food Delivery (Zomato)
+When a consumer orders food through Zomato, they exchange:
+• Money: Payment for the meal
+• Personal Information: Address, contact details, location, preferences, and dietary choices
+• Time: Searching through menus and restaurants
+• Ratings and Reviews: Feedback on the experience
+In return, consumers receive:
+• The Meal Itself: The physical product
+• Convenience: Access to multiple restaurants and cuisines in one platform
+
+
+
+                                    Marketing - Lecture Notes | Page 14
+• Information: Restaurant ratings, reviews, and delivery tracking
+• Multiple Choices: Access to diverse dining options
+• Transparency: Real-time order tracking and delivery status
+
+Modern Exchange Economy Framework
+The modern exchange economy consists of interconnected markets with continuous exchanges and
+transactions:
+• Resource Market to Manufacturing Market: Resources exchanged for money
+• Manufacturing Market to Intermediary Market: Finished goods exchanged for money
+• Intermediary Market to Consumer Market: Products and services exchanged for money
+• Consumer Market to Resource Market: Money exchanged for resources and labor
+• Government Market: Sits centrally, exchanging taxes and services with all other markets
+
+Key Concepts: Exchange, Transaction, and Relationship
+Exchange
+• Definition: The process of offering and receiving something of value in return
+• Nature: Not limited to money; can involve information, convenience, effort, time, or any element of
+  value
+• Scope: Broader than buying and selling; fundamental to all marketing systems
+
+Transaction
+• Definition: An agreed-upon exchange where terms are clearly defined and performance is expected
+  to occur
+• Characteristics: Always involves money or monetary value between two parties on agreed terms and
+  conditions
+• Distinction: More specific than exchange; captures value at a particular moment in time
+
+Relationship
+• Definition: An ongoing series of exchanges and transactions that build value over time
+• Foundation: Built on the mutual satisfaction from exchanges and transactions
+• Development: Occurs when both parties consistently receive value, leading to loyalty, repeat
+  business, and advocacy
+• Importance: Transforms one-time transactions into long-term partnerships
+
+Differentiating the Three Concepts
+• Exchange | Nature: Offering and receiving value | Scope: Broader; includes all types of value
+  exchange | Outcome: Foundation of marketing
+• Transaction | Nature: Agreed-upon exchange with money involved | Scope: Specific moment in time;
+  involves monetary terms | Outcome: Completed sale or service delivery
+• Relationship | Nature: Series of exchanges over time | Scope: Extended period; multiple touchpoints |
+  Outcome: Customer loyalty and advocacy
+
+Simple Marketing System Components
+A basic marketing system consists of:
+• Industry: The set of sellers/producers
+• Market: The set of buyers/consumers
+• Communication Flow: Information exchange between industry and market
+• Goods and Services Flow: Products moving from industry to market
+• Money Flow: Payment moving from market to industry
+• Information Flow: Feedback and data moving from market to industry
+
+
+                                   Marketing - Lecture Notes | Page 15
+This system is dynamic and continuous, with all elements constantly interacting.
+
+Customer Journey Mapping Exercise
+When mapping a food delivery transaction (Zomato example), identify the following elements:
+Key Participants: Student, Restaurant, Delivery Partner, Platform
+What Each Party Gives and Receives:
+• Student Gives: Payment, time, attention, personal data, trust
+• Student Receives: Meal, convenience, tracking information
+• Restaurant Gives: Food, menu information, packaging
+• Restaurant Receives: Orders, revenue, visibility
+• Delivery Partner Gives: Pickup, delivery, reliability
+• Delivery Partner Receives: Earnings, access to orders
+• Platform Gives: App interface, restaurant matching, payment processing, tracking
+• Platform Receives: Commission, data, loyalty, ratings
+Identifying Exchanges vs. Transactions:
+• Most activities throughout the customer journey are exchanges of various values (information,
+  convenience, trust)
+• The specific moment when payment is processed and confirmed represents the transaction
+• Relationships develop when repeat orders occur and when customers become advocates for the
+  platform
+
+Summary
+Marketing operates within two distinct environments and functions fundamentally as an exchange
+system. While transactions involving money are important, the broader concept of exchange -
+encompassing time, information, convenience, trust, and effort - forms the foundation of modern
+marketing. Understanding the interplay between exchanges, transactions, and long-term relationships
+is essential for comprehending how marketing creates value for all parties involved.
+
+
+
+
+                                     Marketing - Lecture Notes | Page 16
+Lecture 7 starts
+Fundamental Concepts in Customer Perceived Value and
+Marketing Exchange
+Overview
+This session focused on clarifying key concepts related to customer perceived value, emphasizing the
+critical distinctions between commonly confused terms and explaining how value is determined through
+the relationship between benefits and sacrifices rather than price alone.
+
+Key Concepts Clarified
+1. Value vs. Price
+• Value is not equal to price - An expensive product does not necessarily provide higher value
+• Value is subjective and depends on the individual consumer's perception
+• A low-priced item can be more valuable than a high-priced item depending on the context and the
+  benefits derived
+• Example: A ₹5 pen for exam writing provides the same functional value as a ₹5,000 pen, but the
+  latter gains additional value from extended psychological benefits when signing important
+  documents
+
+2. Features vs. Benefits
+• Features are product characteristics, while benefits are the value derived from those features
+• Not every feature generates a benefit for every consumer
+• Features do not directly translate to benefits
+• Example: A pen with a fine nib (feature) may provide the benefit of smooth writing without ink
+  spillage (benefit), but this benefit is not universal to all users
+
+3. Benefits vs. Value
+• Benefits alone do not constitute value - value only emerges when benefits are compared against
+  sacrifices
+• The formula is: Value = Benefits - Sacrifices
+• A consumer perceives value when they believe the benefits they gain outweigh the sacrifices they
+  make
+
+4. Sacrifices and Costs
+Sacrifices extend beyond monetary cost and include:
+• Direct costs: The monetary amount paid for the product
+• Abstract/indirect costs: Time spent searching, effort to compare products, physical travel to stores,
+  psychological costs, and opportunity costs
+• Example: Purchasing a laptop involves not just the purchase price but also time invested in research,
+  effort to visit physical stores, and the opportunity to use that money elsewhere
+
+Components of Customer Perceived Benefit
+The lecture identified multiple dimensions of benefits:
+• Functional benefits: Direct utility and performance of the product
+• Psychological benefits: Emotional satisfaction and confidence
+• Economic benefits: Price-related advantages and discounts
+• Personal benefits: Individual satisfaction
+• Image benefits: How the product affects one's social perception
+
+
+
+
+                                     Marketing - Lecture Notes | Page 17
+• Extended psychological benefits: Social status, social acceptability, and how others perceive the
+  consumer using the product
+
+Limitations of Benefit Components
+• Functional, psychological, and economic benefits have upper and lower caps - they cannot be
+  increased indefinitely without increasing costs
+• Extended psychological benefits have no limitations - these are entirely subjective and can create
+  significant value differences
+• Example: The same ₹100 pen can be sold for ₹5,000 or even higher based solely on the extended
+  psychological benefit created through branding and perception
+
+Luxury Sector and Value Perception
+• Luxury brands primarily operate by manipulating extended psychological benefits
+• They emphasize exclusivity, premiumness, social status, and belonging to elite circles
+• The "overcharging" in luxury sectors is justified through enhanced psychological benefits rather than
+  superior functional attributes
+• Example: A ₹100 crore apartment in an exclusive society like Camellias derives its value from social
+  status and association with prominent individuals, not from superior functional features
+
+Marketing Without Physical Products
+• Marketing can exist without physical products or services
+• Marketing involves exchange of information, attention, data, and concepts - not solely monetary
+  transactions
+• Example: Concepts marketed for social causes, religious beliefs, or attention-based economy (like
+  free apps that collect user data)
+
+Consumer Perspective and Value
+• Value assessment is entirely subjective and individual-driven
+• Different consumers will derive different values from the same product
+• A target audience comprises individuals with similar value perceptions, not necessarily those with
+  the most purchasing power
+• Aspirational consumers also constitute target audiences
+
+Key Takeaways
+• Never confuse value with price - lower-priced items can be more valuable
+• Features and benefits are distinct concepts
+• Benefits become value only when compared against sacrifices
+• Sacrifices include both direct monetary costs and abstract costs
+• Extended psychological benefits are the most powerful lever for increasing perceived value
+• Marketing fundamentals must be clearly understood before applying complex frameworks and
+  concepts
+
+
+
+
+                                      Marketing - Lecture Notes | Page 18
+Lecture 8 starts
+Expectation Gap, Satisfaction, and Loyalty in Marketing
+This module explores the fundamental marketing concepts of expectation gap, customer satisfaction,
+and loyalty, and how they work together to drive consumer purchasing behavior and brand loyalty.
+
+Existing State and Desired State
+Every consumer exists in two states that drive purchasing decisions:
+• Existing State (ES): The current situation or condition a consumer is in
+• Desired State (DS): The ideal situation a consumer wants to achieve or the state they believe they
+  deserve
+Organizations create value in consumers' minds by manipulating these states in three ways:
+• Reducing Existing State: Highlighting negative aspects of the current situation (e.g., Itch Guard
+  advertisements showing embarrassment from scratching in public)
+• Elevating Desired State: Promoting a better, more aspirational lifestyle (e.g., Kohler emphasizing
+  premium quality and higher social status)
+• Dual Approach: Simultaneously reducing the existing state while elevating the desired state (e.g.,
+  Clean and Clear addressing oily skin concerns while promoting confidence)
+
+The Expectation Gap and Breaking Consumer Inertia
+The gap between existing and desired states creates an "inertia" that motivates consumers to take
+action:
+• When existing state and desired state are aligned, consumers perceive no need for a product
+• By creating a gap between these states, marketers instigate the desire to purchase
+• The larger the gap, the stronger the motivation to bridge it through product consumption
+• Breaking this inertia is essential for marketers to demonstrate product value
+
+The Value Purchase Chain
+The value purchase chain represents the journey from consumer awareness to loyalty:
+• Value Creation: Emerges from the gap between existing and desired states
+• Purchase Intention: Consumers develop the intention to buy when value is perceived
+• Actual Purchase: Consumers follow through with the transaction (though impulsive purchases may
+  skip the intention phase)
+• Experience: Consumers use the product and form either positive or negative experiences
+• Satisfaction: Based on how well the product meets expectations
+• Loyalty: Repeated satisfaction over time leads to repeated purchases and brand loyalty
+
+Customer Satisfaction
+Customer satisfaction is transaction-based and depends on comparing expectation with perceived
+performance:
+• Satisfaction Formula: Satisfaction is high when perceived performance closely matches or exceeds
+  expectations
+• Expectation Gap: The difference between what consumers expect and what they actually receive
+  determines satisfaction levels
+• Asymmetric Impact: The negative effect of failing to meet expectations is significantly stronger than
+  the positive effect of exceeding expectations
+• Critical Threshold: There exists both an upper and lower limit to expectations; delivering far below or
+  unexpectedly above expectations (like pizza in 10 minutes) can create doubt about product
+
+
+
+                                    Marketing - Lecture Notes | Page 19
+  authenticity
+
+Customer Loyalty
+Loyalty differs from satisfaction as it represents repeated satisfaction over multiple transactions:
+• Loyalty is built on consistent satisfaction across multiple purchases over time
+• Loyal consumers continue purchasing because they consistently derive value from the product or
+  service
+• Loyalty cannot be created through rewards alone; it requires consistent product performance that
+  meets or exceeds expectations
+• If consumers are not satisfied, they will not become loyal, regardless of reward programs
+
+Key Differences Between Satisfaction and Loyalty
+• Satisfaction: Based on a single transaction or experience
+• Loyalty: Built on repeated positive experiences over an extended period
+• Causation: Satisfaction leads to loyalty when consistently maintained; lack of satisfaction prevents
+  loyalty development
+
+Real-World Example: Apple AirPods vs. Bose
+Apple AirPods gained greater market share than Bose despite Bose having superior audio quality
+because:
+• Ecosystem Integration: Seamless pairing with Apple devices created higher perceived value
+• Design: Sleek, modern design appealed to consumers and communicated status
+• Functionality: Ability to use a single earbud provided flexibility Bose couldn't match
+• Value Perception: Consumers perceived greater value from Apple's integration and design despite
+  Bose's technical superiority
+• Expectation vs. Performance: Apple exceeded consumer expectations, while Bose failed to deliver on
+  perceived performance
+• Loyalty Development: Satisfied Apple consumers became loyal, purchasing successive generations
+  at higher prices, while Bose consumers switched to competitors
+This example demonstrates that satisfaction depends on meeting customer expectations relative to
+perceived performance, not solely on product quality, and that sustained satisfaction creates loyal
+consumers who continue purchasing over time
+
+
+
+
+                                     Marketing - Lecture Notes | Page 20
+Lecture 9 starts
+Understanding Customer Satisfaction and Loyalty: Key
+Concepts and Financial Impact
+Overview
+This lecture explores the nuances of customer satisfaction and loyalty through practical examples,
+emphasizing how contextual factors influence consumer perception and the critical difference between
+satisfaction and loyalty in driving business profitability.
+
+Customer Satisfaction: Context Matters
+The Food Delivery Example
+Two students ordered the same meal from the same restaurant through a food delivery app with
+identical delivery conditions:
+• Estimated delivery time: 30-35 minutes
+• Actual delivery time: 34 minutes for both orders
+• Food condition: Warm with intact packaging
+• Missing items: Cutlery not included for both
+Different Perceptions, Same Service:
+• First student (2-star rating): Expected delivery within 25 minutes based on previous fast orders.
+  Perceived the 34-minute delivery as disappointing and was frustrated by missing cutlery. Likely to
+  switch to another app.
+• Second student (5-star rating): Expected delivery to take 45-50 minutes due to heavy rain. Received
+  order in 34 minutes with warm food and reliable tracking. Highly satisfied and likely to become a
+  loyal customer.
+Key Insight: Satisfaction is not determined by objective performance alone but by how performance
+compares to customer expectations and contextual factors.
+
+The Role of Expectations and Context
+• Customers evaluate performance against an internal standard (anchor) already present in their
+  minds
+• Context significantly influences expectations:
+• First student's context: Previous fast deliveries created an expectation of 25-minute delivery
+• Second student's context: Rainy weather set realistic expectations of 45-50 minutes
+• The gap between expected service and perceived service determines satisfaction
+• Same delivery time (34 minutes) resulted in two completely different satisfaction levels
+
+Satisfaction vs. Loyalty: A Critical Distinction
+Customer Satisfaction:
+• Transaction-specific evaluation
+• Based on a single purchase or service interaction
+• A satisfied customer may not be loyal
+Customer Loyalty:
+• Willingness to continue choosing, preferring, and supporting a brand when alternatives are available
+• Develops across multiple transactions over time
+• Builds through consistent positive experiences
+Important Distinction: A satisfied customer may not be loyal. For example, a customer highly satisfied
+with Zomato might switch to Swiggy for a 50% discount offer. True loyalty means continuing to choose
+
+
+
+                                    Marketing - Lecture Notes | Page 21
+a brand despite better alternatives being available.
+
+Financial Implications of Loyalty
+Organizations prioritize loyalty programs because loyalty directly impacts profitability:
+Repeat Customer Spending Patterns:
+• Repeat customers spend more than first-time customers on average
+• Repeat customers have higher order values that increase over time
+• Repeat customers spend more than twice their original expenditure within two years post-purchase
+Conversion Rates:
+• Loyal customers have a conversion rate of 60-70%
+• New customers have a conversion rate of only 5-8%
+• Conversion rate: The percentage of items in a shopping cart that are actually purchased
+Business Profit Impact:
+• Increasing retention rate by just 5% can increase business profit by 20-90%
+• Acquiring a new customer costs 5 times more than retaining a loyal customer
+• If acquiring a new customer costs $100, retaining a loyal customer costs approximately $20
+
+The Value Purchase Chain Process
+Components of the Process:
+• Expected Service vs. Perceived Service: The gap between what customers expect and what they
+  perceive determines the value delivered
+• Value Recognition: If perceived service meets or exceeds expected service, value is recognized
+• Intention to Purchase: Positive value recognition drives intention to make a purchase
+• Actual Purchase: Intention leads to actual buying behavior
+• Satisfaction: Positive actual purchase experience creates satisfied customers
+• Increased Brand Value: Satisfied customers place higher value on the brand, product, or platform
+• Loyalty Development: Higher perceived value increases chances of becoming a loyal customer
+• Increased Purchases: Loyal customers make more frequent and larger purchases
+The Reverse Cycle:
+• If the gap between expected and perceived service is negative, value is not recognized
+• Low value recognition leads to low intention to purchase
+• Low intention results in low actual purchase
+• This leads to low satisfaction and minimal loyalty
+• Low loyalty further reduces actual purchase frequency
+Indirect Relationship: There is also an indirect relationship between satisfaction and loyalty - higher
+satisfaction increases the likelihood of loyalty development.
+
+Key Takeaways
+• Satisfaction is transaction-based: Each purchase interaction is evaluated independently
+• Loyalty develops over time: Multiple positive transactions across time periods create loyalty
+• Context shapes perception: Expectations and contextual factors are as important as objective
+  performance metrics
+• Loyalty drives profitability: Organizations must invest in loyalty programs and customer retention
+  strategies
+• The value purchase chain is cyclical: Positive experiences reinforce loyalty, which drives repeat
+  purchases and business growth
+• Customer retention is cost-effective: Retaining loyal customers is significantly more economical than
+  acquiring new customers
+
+
+
+                                     Marketing - Lecture Notes | Page 22
+Lecture 10 starts
+Understanding Existing State, Desired State, and Consumer
+Decision-Making in Marketing
+Overview of the Session
+This lecture integrates two fundamental marketing concepts - the open vs. closed system of the human
+mind and the relationship between existing state (ES) and desired state (DS) - to explain how consumer
+decision-making works and how marketers influence purchasing behavior.
+
+Key Concepts Discussed
+1. Open System vs. Closed System
+• Closed System (Default): By design, the human mind is naturally closed and resistant to new
+  information.
+• Open System: A closed system becomes open when consumers develop curiosity and interest in a
+  product.
+• The Relationship: There is a linear relationship between interest in a product and openness to receive
+  information about it. The more interested you are, the more open you become to learning about that
+  product.
+• Marketer's Role: The job of a marketer is to open this closed system through various tactics -
+  advertisements, celebrity endorsements, packaging, color combinations, pricing, and discounts.
+
+2. Existing State (ES) vs. Desired State (DS)
+• Existing State: Your current situation or the state you are in right now.
+• Desired State: The state you want to reach or where marketers want you to go.
+• When ES = DS: When both states are at the same level, consumers are satisfied and have no need
+  for a new product. Their mind remains closed because there is no gap to fill.
+• Creating the Gap: Marketers create a gap between ES and DS by either:
+• Pulling down the existing state (making consumers feel their current situation is inadequate)
+• Pulling up the desired state (showing them they deserve something better)
+• Doing both simultaneously (most effective strategy)
+
+3. Real-World Example: Itchguard Campaign
+
+Real-World Examples
+Free Mobile Applications
+• Direct Cost: Negligible (app is free to download)
+• Abstract Cost: High (personal data collection, notifications, advertisements, difficulty in uninstalling)
+• Closed to Open System: Users open themselves to the app despite low direct cost because they
+  accept the abstract costs
+
+Gifts (e.g., Pets)
+• Direct Cost: Zero (you received it as a gift)
+• Abstract Cost: Very high (feeding, care, eventual disposal)
+• Consumer Behavior: The gap between ES and DS widens as the responsibility becomes clear
+
+Television Market: Samsung vs. Sony
+• Samsung Strategy: Operates on volume by targeting masses with products at various price points
+  (₹17,000 to ₹5,00,000)
+• Sony Strategy: Focuses on value by positioning as a premium brand for select audiences
+
+
+
+                                    Marketing - Lecture Notes | Page 23
+• ES/DS Application: Samsung effectively pulls down consumers' existing state and raises desired state
+  across mass markets. Sony relies more on raising the desired state for aspirational consumers.
+
+Clean & Clear Campaign
+• Strategy: Simultaneously lowers existing state (highlighting acne/blackheads as a problem) and
+  raises desired state (clean, confident skin)
+• Effectiveness: Creating a gap on both levels generates stronger consumer desperation to purchase
+  and restore balance
+• Ethical Consideration: This approach makes consumers vulnerable by highlighting insecurities
+
+Kohler (Luxury Faucets and Fixtures)
+• Strategy: Keeps existing state positive but raises desired state significantly higher
+• Message: "Your current state is great, but you deserve something better"
+• Target: Affluent consumers who can afford premium products
+
+Impulse Buying
+• Definition: Unplanned purchases made intuitively without deliberate thinking about need or want.
+• Trigger Role: Even impulse buying has triggers (advertisements, discounts, limited-time offers) and
+  involves some unconscious rational assessment.
+• ES/DS Connection: Impulse purchases may not involve traditional changes in ES and DS but are
+  driven by immediate situational factors.
+
+Decision-Making Beyond Purchase
+• Decision Types: Purchase decisions aren't limited to buying. They include:
+• Avoiding a product
+• Speaking positively about a product without buying it
+• Speaking negatively about a product
+• Building loyalty without repeated purchases
+
+Satisfaction vs. Loyalty
+• Satisfaction: Being happy with a product you purchased.
+• Loyalty: Continuing to choose a brand even when competitors are available.
+• The Difference: A satisfied customer may not be loyal if they have alternatives. Loyalty emerges
+  when a customer chooses the same brand over competitors repeatedly.
+
+Attribute-Based Consumer Decisions
+• Every product has multiple attributes (price, design, quality, social status, utility).
+• Consumers prioritize different attributes based on their pain points and needs.
+• A product may follow all marketing principles but still fail if it doesn't address the specific pain points
+  that matter most to a particular consumer segment.
+
+Measuring Purchase Behavior
+• Actual Purchase: Difficult and expensive to measure directly.
+• Proxy Variable - Intention to Purchase: Used by most marketers as a reasonable indicator.
+• Neurometric Tools: Advanced research methods that measure actual brain responses and actual
+  purchases (used by large organizations like Nielsen, Coca-Cola, and Google).
+
+Ethical Considerations in Marketing
+• Marketing operates in "shades of gray" - nothing is purely black or white.
+• Strategies like lowering existing state can be seen as making consumers vulnerable by highlighting
+  insecurities.
+
+
+                                     Marketing - Lecture Notes | Page 24
+• A full ethical examination of marketing practices is essential (to be covered in dedicated ethics
+  module).
+
+Recommendations for Students
+• Continuous Learning: Attend workshops, conferences, and hackathons to gain experience and
+  confidence.
+• Goal: Learning and growth, not just winning competitions.
+• Professional Development: Leverage the IAT (Institution-Affiliated Tag) to participate in events and
+  build professional networks.
+• Research Participation: Engage with available opportunities to apply theoretical concepts practically.
+• Career Development: Invest in yourself consistently over time; transformation happens gradually,
+  not overnight.
+
+Future Topics
+• Digital marketing tools (Google Analytics, SEO, SEM)
+• Dedicated electives in digital marketing analytics and brand management
+• High-involvement vs. low-involvement products
+• Comprehensive ethics in marketing module
+• Case studies on smartphones and other product categories
+
+
+
+
+                                   Marketing - Lecture Notes | Page 25
+Lecture 11 starts
+Segmentation, Targeting, and Positioning (STP):
+Fundamentals and Market Strategy
+Overview
+Segmentation, Targeting, and Positioning (STP) is one of the most fundamental modules in marketing. It
+involves dividing a broad market into distinct groups of consumers with similar characteristics, needs,
+and behaviors, then developing targeted strategies for each segment.
+
+Understanding Market Heterogeneity
+What is Market Heterogeneity?
+• Consumers differ in meaningful ways that affect their purchase and consumption decisions
+• A market appears homogeneous from a distance but reveals significant diversity when examined
+  closely
+• Example: While 100 Netflix users may seem similar, they have vastly different viewing preferences
+  (K-dramas, true crime, anime, documentaries, etc.)
+Why Market Heterogeneity Matters:
+• Consumers differ in who they are, what they want, why they buy, and how they buy
+• Different consumer groups value different product attributes
+• Understanding diversity enables marketers to identify meaningful differences worth addressing
+
+Defining Segmentation
+Core Concept: Segmentation is the process of finding meaningful groups within a market whose
+members are similar enough to be marketed to differently. It involves dividing the market into distinct
+groups of customers (segments).
+Key Distinction:
+• Segmentation is not simply dividing consumers into groups
+• Divisions must be meaningful and usable to create differentiated marketing strategies
+• The differences identified must be actionable and relevant for marketing purposes
+Example - Face Serum Market: Without segmentation, a generic "daily serum for all skin types" may be
+acceptable to many but relevant to few. With segmentation, companies create targeted solutions:
+• Acne control segment
+• Barrier repair segment
+• Hydration and glow segment
+• Pigmentation and marks segment
+Each segment requires different product formulations, ingredient focus, and messaging strategies.
+• Different segments require different messaging strategies and product benefits
+• One-size-fits-all approaches fail to satisfy diverse consumer needs adequately
+The Problem with No Segmentation:
+• Products become acceptable but not relevant to most consumers
+• Marketing messages lack resonance with specific audiences
+• Consumer problems remain incompletely solved
+• Competitive disadvantage in heterogeneous markets
+
+Bases of Segmentation
+Geographic Segmentation
+
+
+
+                                    Marketing - Lecture Notes | Page 26
+Definition: Dividing consumers based on their geographic location and climate conditions.
+Example - Zudio (Tata):
+• Delhi: Heavy focus on winter jackets and layers due to cold weather (October-December)
+• Mumbai: Lightweight, monsoon-friendly clothing for rainy season
+• Bangalore: Casual streetwear for mild, consistent weather year-round
+Application Areas:
+• Climate and weather patterns
+• Regional consumption preferences (e.g., rice vs. wheat consumption across India)
+• Geographic-specific marketing campaigns and product availability
+
+Demographic Segmentation
+Definition: Dividing consumers based on measurable characteristics such as age, gender, income level,
+and education status.
+Example - Bajaj Pulsar:
+• Target audience: Males aged 17-24 (college-going students)
+• Messaging: "Definitely Male" tagline with masculine, energetic branding
+• Positioning: Energy and excitement for young male consumers
+• Result: Clear demographic targeting created strong brand association
+Example - L'Oreal Face Cream Strategy: L'Oreal segments the same product category (face cream) into
+three age-based variants with distinct benefits:
+• 20+ years | Anti-imperfection + Whitening | Glow and skin perfection for young adults
+• 30+ years | Fine Lines + Whitening | Anti-aging and brightness for mature skin
+• 40+ years | Anti-aging + Whitening | Comprehensive anti-aging and glow
+Why This Strategy Works:
+• Same base product with 70-80% identical ingredients
+• Different benefits communicated for each age segment
+• Brand ambassador changes over time to maintain relatability with target audience
+• Ensures consumers can identify with the product suited to their life phase
+Key Insight: Demographics alone don't determine segments; they must be linked with specific benefits
+and aspirations relevant to each age group.
+
+Psychographic Segmentation
+Definition: Dividing consumers based on how they think, their lifestyle, values, attitudes, and
+consumption patterns.
+Core Concept: Psychographic segmentation focuses on consumers' psychological characteristics,
+personality traits, and behavioral patterns rather than demographic facts.
+Example - Nike Shoe Segmentation:
+• Fitness Focused | Gym enthusiasts who push limits daily | Performance shoes | High performance for
+  training
+• Sport Aspirers | Basketball/football players | Sport-specific shoes | Sports performance
+• Style & Status Seekers | Trend-conscious consumers | Air Jordan series | Style and status symbol
+  (e.g., Air Jordan)
+• Sustainability Conscious | Environmentally aware consumers | Nike Move to Zero | Eco-friendly
+  products with sustainability focus
+15 Major Psychographic Segments:
+• Fitness Oriented: Focused on physical health and gym routines
+• Sustainability Conscious: Environmentally aware and responsible consumption
+• Tech Enthusiasts: Early adopters exploring new gadgets and technology
+
+
+
+                                    Marketing - Lecture Notes | Page 27
+• Game Oriented: Interested in trying new games and gaming experiences
+• Beauty and Self-Expression: Express identity through beauty and creative products
+• Minimalists: Prefer simple, clean, meaningful choices over flashy products
+• Status Conscious: Focus on possessions and social perception to create upmarket image
+• Experience Seekers: Spend money on travel, hiking, and experiences over material goods
+• Food Explorers: Passionate about discovering and exploring food
+• Convenience Seekers: Value time-saving solutions like delivery and home ordering
+• Value-Conscious: Focus on getting the best deal regardless of brand or convenience
+• Entertainment Driven: Seek entertainment value from consumption choices
+• Socially Connected: Stay connected, share experiences, seek social validation (active on social
+  media)
+• Adventure Oriented: Drawn to activities like hiking and mountain climbing
+• Productivity Focused: Invest in growth, learning, and personal development
+Application Strategy:
+• Nike tailors product launches and brand ambassador selections to specific psychographic segments
+• Messaging and communication strategies align with how each segment thinks and lives
+• Multiple psychographic profiles can exist beyond these 15 categories based on specific market
+  contexts
+
+Key Differences Between Segments
+Within-Segment Similarity vs. Between-Segment Differences:
+• Members within a segment share similar characteristics, needs, and desires
+• Segments are distinctly different from each other
+• Requires different marketing strategies, messaging, and product positioning for each segment
+Example - Netflix Content Strategy:
+• 100 students watching Netflix appear homogeneous from distance
+• Zooming in reveals six distinct content preference segments (K-drama, true crime, anime, sitcoms,
+  documentaries, scrollers)
+• Each segment requires different marketing messaging:
+• K-drama fans: Emotional messaging
+• True crime fans: Mystery, twists, investigation focus
+• Sitcom fans: Newer episodes, feel-good, familiar content messaging
+
+Common Questions in Segmentation
+What Market Reality Creates the Need for Segmentation?
+• Market heterogeneity - the fundamental reality that consumers are different from one another
+Why is Age-Based Segmentation (e.g., 18-25 years) Not Automatically Useful?
+• Age alone is insufficient for meaningful segmentation
+• Within an age group, consumers have vastly different needs, desires, and preferences
+• Segmentation becomes useful only when combined with other variables (gender, benefits sought,
+  psychographic profiles)
+• Example: 18-25 year-old Netflix users have completely different content preferences
+Can Two Firms Segment the Same Market Differently?
+• Yes, absolutely. Different organizations can segment identical markets using different criteria
+• Segmentation strategy depends on company objectives, resources, and positioning goals
+Segmentation Must Be Meaningful and Relevant:
+• Divisions must create actionable differences that support distinct marketing strategies
+
+
+
+                                   Marketing - Lecture Notes | Page 28
+• Differences should justify varying product formulations, pricing, distribution, and promotional
+  approaches
+
+Strategic Importance
+Why Segmentation Matters for Marketers:
+• Enables targeted product development addressing specific needs
+• Allows creation of relevant marketing communications
+• Justifies differentiated strategies across segments
+• Improves marketing efficiency and ROI
+• Creates competitive advantage through relevance rather than just acceptance
+Historical Context:
+• In mass production eras (1980s-1990s), one-size-fits-all products were viable (e.g., Pond's cold
+  cream)
+• With increasing competition and product variety, segmentation became essential
+• Modern markets require targeted approaches to succeed
+
+
+
+
+                                   Marketing - Lecture Notes | Page 29
+Lecture 12 starts
+Behavioral and Benefit-Based Market Segmentation
+Overview
+This lecture covers two key segmentation methods - behavioral segmentation and benefit-based
+segmentation - using real-world examples like Surf Excel and Colgate. These approaches help
+organizations divide heterogeneous markets into manageable, meaningful consumer groups with
+distinct needs and characteristics.
+
+Behavioral Segmentation
+Behavioral segmentation divides consumers based on how they act and their consumption patterns. It
+includes the following key parameters:
+
+Common Behavioral Metrics
+• Usage Rate: How frequently and intensively consumers use a product. Heavy users who wash clothes
+  frequently need products offering more washes and value for money.
+• Mode of Usage: How consumers use the product. For example, machine-wash users prefer
+  convenience and need better stain removal, making liquid detergents ideal for them.
+• Frequency of Purchase: How often consumers buy the product, distinct from usage rate. This helps
+  identify occasional users who may prefer smaller pack sizes.
+• Pack Size: Different consumer segments require different packaging. Occasional users prefer small
+  sachets, while heavy users benefit from larger, value-oriented bulk packs.
+• Promotional Sensitivity: Consumer responsiveness to offers and discounts. Value seekers actively
+  switch brands based on promotional incentives and special offers.
+
+Surf Excel Case Study
+Surf Excel identified four distinct behavioral segments with tailored products:
+• Heavy Users: Require value packs offering more washes at economical prices
+• Machine-Wash Users: Need liquid detergents with superior stain removal and machine-friendly
+  formulations
+• Occasional Users: Purchase small sachets that prevent product waste
+• Value Seekers: Respond to promotional offers like "buy one get one" deals with mega packs
+By segmenting their market behaviorally, Surf Excel created different products for each segment,
+significantly increasing their market penetration. Without this segmentation, only 25% of potential
+consumers would purchase, whereas behavioral segmentation enables the company to effectively
+target up to 75% of the market.
+
+Benefit-Based Segmentation
+Benefit-based segmentation is the final segmentation method, focusing on what consumers seek from
+products. It emphasizes explicitly communicating the distinct advantages each product offers.
+
+Colgate Toothpaste Example
+Colgate successfully segments its market through five product variants, each addressing different
+consumer needs:
+• Colgate Strong Teeth with Amino Shakti: Targets consumers seeking stronger teeth and better
+  enamel protection
+• Colgate Max Fresh: Addresses the benefit of long-lasting freshness and bad breath prevention
+• Colgate Visible White: Appeals to consumers wanting whiter teeth for improved confidence and social
+  acceptability
+
+
+
+
+                                    Marketing - Lecture Notes | Page 30
+• Colgate Sensitive: Designed for individuals with tooth sensitivity requiring instant relief and pain-free
+  solutions
+• Colgate Total: Offers comprehensive 12-hour protection covering enamel care, gum health, and
+  breath freshness
+Though all products are toothpastes, each variant communicates distinct benefits to different consumer
+segments, enabling Colgate to capture broader market share.
+
+Key Principle of Benefit-Based Segmentation
+Within each segment, consumers are similar to each other; between segments, they are distinctly
+different. This allows organizations to:
+• Communicate specific product benefits to targeted audiences
+• Address diverse consumer needs within the same product category
+• Expand market coverage by serving multiple benefit-seeking segments
+
+Practical Application: Fitness App Segmentation
+An example exercise demonstrated segmenting a new fitness app's market into four distinct segments:
+• Convenience Seekers (Rea, Mohit): Common need - easy and short workouts; targets busy
+  professionals and easily-bored users
+• Performance Seekers (Neha, Karan): Common need - metrics and improvement tracking; appeals to
+  serious fitness enthusiasts monitoring progress
+• Supported Fitness Seekers (Mr. Mehta): Common need - guidance and safety; targets older or
+  health-conscious users requiring expert direction
+• Social Exercisers (Simran): Common need - interaction and motivation; appeals to users seeking
+  community engagement and social validation
+
+Importance of Segmentation
+Managing Market Heterogeneity
+Markets are inherently heterogeneous - consumers have diverse needs, desires, and consumption
+patterns. Segmentation addresses this complexity by:
+• Organizing Chaos: Converting a large, complex consumer base into meaningful, manageable groups
+• Simplifying Strategy: Enabling marketers to cater specifically to each segment's unique requirements
+• Reducing Complexity: Transforming a 10-lakh consumer base into smaller, focused segments with
+  specific characteristics
+
+Strategic Value
+Segmentation is not merely a classification tool - it is the marketer's systematic approach to organizing
+and managing market heterogeneity. Without segmentation, organizations risk:
+• Appealing to no one effectively
+• Wasting resources on misaligned products
+• Missing significant market opportunities
+
+Connection to STP Framework
+This lecture covers the first "S" in STP (Segmentation, Targeting, Positioning):
+• Segmentation: Dividing the market into distinct groups using geographic, demographic,
+  psychographic, behavioral, or benefit-based criteria
+• Targeting: Selecting which segments to prioritize and pursue (covered in subsequent lectures)
+• Positioning: Communicating distinct value propositions to target segments
+
+Key Takeaway
+
+
+
+                                    Marketing - Lecture Notes | Page 31
+Segmentation transforms heterogeneous markets into organized, manageable segments where each
+group has similar needs within the segment but different needs between segments. This systematic
+approach enables marketers to develop tailored products, messaging, and strategies that effectively
+serve diverse consumer populations while maximizing market penetration and organizational efficiency.
+
+
+
+
+                                  Marketing - Lecture Notes | Page 32
+Lecture 13 starts
+Segmentation and Targeting in Real-World Marketing: The
+Tupo Case Study
+This lecture discusses the practical application of market segmentation and targeting strategies
+through the real-world example of Tupo, an innovative personal care brand for growing children.
+
+Overview of Market Segmentation
+Market segmentation involves dividing a homogeneous market into heterogeneous groups with similar
+characteristics. Traditional personal care markets were divided into only two categories:
+• Baby products (0-2 years)
+• Adult and family products (16+ years)
+Tupo identified and filled a previously overlooked market gap for children aged 3-15 years who were
+"too old for baby products but too young for adult products."
+
+Tupo's Segmentation Strategy
+Demographic Segmentation:
+• Age group: 3-15 years (growing children)
+• Life stage: Early childhood through adolescence
+Psychographic Segmentation:
+• Consumer beliefs centered on age-appropriate products
+• Preference for natural and organic ingredients
+• Desire for gentle, non-harsh formulations that prevent skin irritation and infections
+
+Target Audience
+Tupo's targeting extended beyond just children to include:
+• Growing children (3-15 years): Increasingly developing their own preferences and desire for personal
+  products
+• Parents of these children: Primary purchasing decision-makers who prioritize child safety and
+  well-being over price considerations
+The key insight: "Children are old enough to have preferences, but young enough that parents still
+control the wallet and strongly care about their safety."
+
+Product Composition and Strategy
+Tupo differentiated itself through ingredient selection based on traditional home remedies:
+• Turmeric
+• Hibiscus
+• Amla
+• Shikakai
+• Other age-appropriate natural ingredients
+Rather than marketing products as "organic" or "natural," the brand positioned them as remedies
+recommended by grandparents (dadi and nani), creating emotional connection and trust.
+
+Pricing and Market Position
+• Standard market price for 300ML shampoo: ₹150
+• Tupo's pricing for same volume: ₹450
+• Premium positioning justified by age-appropriate formulation and ingredient quality
+• Parents demonstrated willingness to pay premium prices for child health and safety
+
+
+                                    Marketing - Lecture Notes | Page 33
+Key Business Implications
+• Niche Market Creation: Identified unmet market demand through careful observation of changing
+  consumer needs
+• Dual Targeting: Successfully marketed to both children (preference-makers) and parents
+  (purchasers)
+• Product Expansion: Extended product line to include face wash and makeup products tailored for
+  growing children
+• Brand Ambassadorship: Secured partnerships with influential figures like Farah Khan who aligned
+  with brand values
+
+Consumer Behavior Insights
+Modern parenting dynamics have shifted decision-making patterns:
+• Children now have distinct preferences rather than simply using parental products
+• Children actively advocate for specific brands (example: daughters requesting Tupo shampoo with
+  shikakai)
+• Parents value age-appropriate formulations over cost savings
+
+Real-World Marketing Lessons
+The Tupo case demonstrates that successful marketing requires:
+• Living through the problem to identify genuine market gaps
+• Understanding evolving consumer preferences and generational differences
+• Creating authentic value propositions based on genuine needs
+• Balancing consumer preference with purchasing power dynamics
+• Charging premium prices when clear value differentiation exists
+Other brands employing similar niche segmentation strategies include Cetaphil, Bioderma, Plum, Juicy
+Chemistry, and Mama Earth, all of which identified underserved market segments and created
+specialized product categories.
+
+
+
+
+                                   Marketing - Lecture Notes | Page 34
+Lecture 14 starts
+Targeting and Positioning in Marketing Strategy
+Overview
+This lecture covers the second and third components of the STP (Segmentation, Targeting, and
+Positioning) framework, which are essential for effective marketing. After identifying distinct consumer
+groups through segmentation, organizations must strategically select which segments to target and
+then position their offerings distinctively in the minds of consumers.
+
+Targeting: Selecting the Right Segments
+Definition and Importance
+Targeting is the process of evaluating market segments and deciding which segment or segments an
+organization will focus upon. It addresses a critical constraint: organizations have limited budgets and
+resources, making it impossible to effectively market to all identified segments equally. The
+fundamental principle is that if everyone is your priority, then nobody is your priority.
+
+The SAFE Framework for Targeting Decisions
+When evaluating which segments to target, organizations should apply the SAFE
+framework:
+• Size: Assess the market demand within each segment. The segment must be large enough to justify
+  marketing investment and generate revenue.
+• Accessibility: Determine whether the organization can actually reach and serve the segment. A large
+  market with no physical presence or distribution channels is not viable.
+• Fitment: Evaluate whether the brand, product, or service aligns with the segment's needs and
+  preferences. The offering must resonate with the target audience's values and requirements.
+• Economics: Analyze whether serving that segment makes financial sense. Even if all other criteria
+  are met, the business model must be sustainable and profitable for that segment.
+
+Common Targeting Mistakes
+Organizations often fall into two dangerous assumptions:
+• Largest Segment Assumption: The largest market segment is not automatically the best target.
+  Volume matters, but so does value and profit margin. A smaller, more profitable segment may
+  generate greater revenue than a larger segment with lower willingness to pay or higher competition.
+• Fastest Growing Segment Assumption: The fastest-growing segment may not align with the
+  organization's product fit or capabilities. Growth rate alone should not determine targeting decisions;
+  brand capability and product-segment alignment are equally important.
+
+Real-World Examples
+• Netflix: When launching a crime thriller series with a limited promotional budget of 10 crores, Netflix
+  would concentrate resources on the "true crime" segment rather than distributing equally across all
+  six consumer segments. This focused approach maximizes return on investment.
+• Spotify: In the European and Indian markets, Spotify identified students as a prime target segment
+  despite it not being the largest. By offering Spotify Premium for Students at a subsidized price, they
+  achieved higher overall revenue than other segments due to large volume and price elasticity.
+• Sneaker Company Example: For a new running shoe company launching only one product line,
+  analyzing four segments (sneakerheads, first-time runners, marathon runners, comfort walkers)
+  using the SAFE framework reveals that first-time runners is the optimal target. This segment has high
+  market size, medium competition, high brand capability, and medium willingness to pay - superior to
+  other options.
+
+Positioning: Creating Distinctive Market Space
+
+
+                                    Marketing - Lecture Notes | Page 35
+Definition and Purpose
+Positioning is the process of designing an offering and its image so that it occupies a distinctive and
+valued place in the target consumer's mind relative to competitors. It answers the question: "How do
+we differentiate ourselves in the minds of our target audience?"
+
+Key Positioning Concept
+Positioning creates immediate mental associations when consumers encounter a brand or product. For
+example:
+• Dettol is associated with safety and germ protection
+• Adrenaline/action brands are associated with thrill and adventure
+• Coca-Cola dominates the cola category in consumer minds
+• Bisleri is the first brand that comes to mind for mineral water
+These associations are not accidental; they result from deliberate positioning strategies.
+
+Three Fundamental Questions for Positioning
+Every positioning strategy should address:
+• Who is the target audience? (Define specific consumer characteristics and needs)
+• What category are we competing in? (Clarify the competitive landscape and category)
+• Why should this target choose us? (Articulate the unique value proposition and differentiation)
+
+Sensodyne Example: Who, What, Why Analysis
+• Who: Consumers experiencing tooth sensitivity (not those seeking whiteness, freshness, or general
+  oral hygiene)
+• What: Competing in the toothpaste category
+• Why: Provides specialized sensitivity relief and protection, distinguishing it from general-purpose
+  toothpastes like Colgate or Close-Up
+This positioning allows Sensodyne to occupy a distinct space focused specifically on sensitivity relief,
+creating differentiation from broader competitors.
+
+The Complete STP Framework
+The STP framework forms an integrated strategy:
+• Segmentation: Divide the heterogeneous market into distinct, homogeneous groups with similar
+  characteristics but differences between groups
+• Targeting: Select which segments to prioritize based on size, accessibility, fitment, and economics
+• Positioning: Create a distinctive image and value proposition that resonates with the target segment
+  and differentiates from competitors
+This framework ensures that new product launches and marketing campaigns are strategically focused
+rather than attempting to appeal to everyone, which would result in diluted messaging and wasted
+resources
+
+
+
+
+                                    Marketing - Lecture Notes | Page 36
+Lecture 15 starts
+Understanding Positioning Strategy in Marketing
+Positioning is the process of creating a distinct space in the minds of target consumers, going beyond
+just product features to influence consumer perception and psychology. A strong positioning strategy
+allows organizations to operate in both the present market and anticipate future trends.
+
+The Importance of Positioning
+• Mental Space Creation: Positioning is not only about what you do with a product, but equally
+  important is what you do to the minds of consumers. For example, Coca-Cola and Bisleri created
+  distinct brand perceptions in consumers' minds beyond just being beverages.
+• Dual-Time Perspective: Effective positioning puts "one foot in the present and one foot in the future,"
+  requiring organizations to anticipate market changes and consumer needs.
+• Competitive Advantage: By positioning correctly to multiple segments simultaneously, organizations
+  can increase revenue and profitability without one segment negatively influencing the parent
+  company's brand image.
+
+Perceptual Mapping Example: Accor Hotel Group
+The Accor Group demonstrates effective multi-segment positioning through various hotel chains:
+• Ibis Hotels: Economy segment with standard room designs (₹3,000-4,000/night) - targets
+  budget-conscious travelers needing basic accommodations
+• Novotel & Mercure: Mid-range segment with moderate pricing (₹5,000-7,000/night) - offers better
+  room designs and features
+• Pullman & Sofitel Legend: Premium segment (₹9,000-15,000+/night) - superior designs, luxury
+  amenities, and enhanced services
+Key Insight: Despite being the same parent company, each hotel chain targets different consumer
+segments with distinct positioning, allowing Accor to capture multiple market segments without brand
+dilution. Similarly, ITC maintains five-star properties while launching boutique hotel chains to reach
+price-sensitive consumers while preserving the luxury brand image.
+
+Two-Step Positioning Strategy Approach
+Step 1: Frame of Reference
+Frame of reference identifies which brands compete with your product and should be the focus of
+competitive analysis.
+• Natural Frame of Reference: Direct competitors offering similar products. Example: For cooking oil,
+  natural competitors are Safola, Dhara, and Fortune
+• Extended Frame of Reference: Indirect competitors that may substitute your product. Example: Olive
+  oil, pure ghee, and mustard oil serve as alternatives to traditional cooking oils as health
+  consciousness increases
+Critical Lesson - Gypsy King Case Study:
+• Maruti's Gypsy (launched 1985) was positioned as India's first SUV with no direct competitors
+  (natural frame of reference)
+• The company failed to consider extended frame of reference, ignoring potential future competitors
+• Competitors like Tata Sumo and Mahindra Scorpio entered with superior features: AC, power
+  steering, power windows, better mileage, better ride quality, and improved seating arrangements
+• Result: Gypsy's market share declined as consumers switched to better-positioned alternatives
+  despite emotional attachment to the original product
+Key Takeaway: Understanding both natural and extended frames of reference is essential for long-term
+positioning success rather than short-lived market dominance.
+
+
+
+                                    Marketing - Lecture Notes | Page 37
+Step 2: PODs and POPs
+Points of Parity (POPs): Attributes shared with competitors; the bare minimum standards required to be
+competitive in the market
+• Example: Uber, Ola, and Meru all provide cab services - this is their common POP
+• Without POPs, a brand loses competitive credibility and consumer trust
+Points of Differentiation (PODs): Unique attributes that distinguish your brand from competitors
+• Example: Uber and Ola use outsourced driver models with personal vehicles, while Meru owns its
+  fleet - this is their POD
+• Example: Lysol vs. Gainda Phenyl - Lysol's POD includes fragrance (lime flavor), shine, and freshness
+  beyond basic germ-killing and cleaning (which are POPs)
+Important Principle: Removing a POP (common attribute) significantly weakens competitive positioning.
+For instance, if Lysol removed germ-killing capability (a shared POP with traditional phenyl), consumers
+would revert to choosing Gainda Phenyl, despite Lysol's other differentiation features. POPs must be
+maintained while building PODs to create strong market positioning.
+
+
+
+
+                                    Marketing - Lecture Notes | Page 38
+Lecture 16 starts
+Segmentation, Targeting, Positioning, and Micro-Marketing
+in Modern Marketing
+This lecture provides a comprehensive overview of the Segmentation, Targeting, and Positioning (STP)
+framework and its evolution into modern micro-marketing strategies. The STP framework is
+fundamental to marketing as it guides how organizations identify market opportunities and position
+their offerings.
+
+Key Concepts of Segmentation
+• Marketers do not create segments; they identify existing segments in the market based on shared
+  needs and wants
+• Market segments consist of groups of customers with similar needs, characteristics, or behaviors
+• Within-segment homogeneity: Customers within a segment are very similar to each other
+• Between-segment heterogeneity: Customers across different segments are distinctly different
+
+The Four Levels of Micro-Marketing
+Organizations employ different marketing approaches depending on their target audience and business
+objectives:
+
+1. Mass Market
+• Philosophy: Production-centric approach focusing on mass production, mass distribution, and mass
+  promotion
+• Target Audience: Everyone; entire market
+• Key Characteristics:
+• Products are produced in large volumes to reduce unit costs
+• Wide availability across all retail channels
+• Lower prices due to economies of scale
+• Minimal customization or personalization
+• Examples: Coca-Cola, Pepsi, Amul butter, Dettol
+• Advantages: Cost-effective, high volume sales, wide market reach
+• Challenges: Inventory costs if products don't sell, one-size-fits-all approach alienates consumers with
+  specific preferences, waste and storage costs
+
+2. Market Segment
+• Philosophy: Targeting a large but identifiable subgroup within the broader market
+• Target Audience: Specific demographic or psychographic groups
+• Key Characteristics:
+• More customization than mass market but less than niche
+• Products designed to meet specific needs of identified groups
+• Moderate production and distribution
+• Higher personalization than mass marketing
+• Examples:
+• Dove Men Care (personal care for men)
+• Myntra Forward (exclusively designed for Generation Z)
+• Advantages: Better product-market fit, reduced inventory waste, targeted marketing efficiency
+• Focus: Addressing specific needs of defined customer groups within larger markets
+
+3. Niche Market
+
+
+                                    Marketing - Lecture Notes | Page 39
+• Definition: A narrowly defined customer group seeking a distinctive set of benefits; a sub-segment of
+  a larger market segment
+• Characteristics:
+• Very specific and specialized targeting
+• Usually small markets with unique needs
+• Limited competition due to specialized nature
+• Premium pricing common
+• Requires specialization and deep expertise
+• Examples:
+• Nomatic: High-performance travel backpacks for adventure seekers and frequent travelers with
+  specific gear requirements
+• Lush: Handmade, ethically sourced, chemical-free cosmetics targeting conscious consumers willing
+  to pay premium prices
+• Beeswrap: Reusable, compostable food wrapping as alternatives to plastic wrap and aluminum foil
+  for environmentally and health-conscious families
+• Advantages: Limited direct competition, loyal customer base, ability to command premium pricing
+• Challenges: Small market size, requires deep understanding of customer needs
+
+4. Individual/Market of One
+• Philosophy: Marketing and customization at the individual level
+• Target Audience: One individual customer
+• Key Characteristics:
+• Maximum personalization and customization
+• Products or services tailored to individual specifications
+• Higher price points
+• Builds strong individual customer relationships
+• Examples:
+• Nike Customization (NIKEiD): Customers design their own shoes by selecting colors, materials, and
+  graphics
+• Coca-Cola "Share a Coke" Campaign: Personalized bottles with individual names (e.g., "Share a Coke
+  with Rahul") creating personal connection
+• Raymond's Made-to-Measure: Tailored suits fitted to individual body measurements and preferences
+• Matrimonial Sites (Shaadi.com, Jeevansathi.com): Individual-level matching and customization
+• Advantages: Strong emotional connection, willingness to pay premium, highest customer satisfaction
+  potential
+
+Mass Customization and Customerization
+• Mass Customization: Combining mass production efficiency with customized personalization at the
+  individual level
+• Customerization: A blend of mass marketing with customized messaging and product modifications
+• Organizations provide personalized experiences while maintaining efficient production processes
+• Allows companies to reach broader audiences while creating individual relevance
+
+Point of Parity (POP) and Point of Differentiation (POD)
+These concepts are essential to positioning strategy:
+
+Point of Parity (POP)
+• Attributes shared by competing brands in the same category
+• Industry-standard features necessary to compete
+
+
+
+                                    Marketing - Lecture Notes | Page 40
+• Minimum requirements to be considered in the competitive set
+• Example: All disinfectants must kill germs (germ-killing is POP)
+• Without POP, a brand cannot be competitive
+
+Point of Differentiation (POD)
+• Unique attributes that distinguish one brand from competitors
+• Reasons for consumers to choose one brand over another
+• Creates competitive advantage
+• Example: Lysol's POD versus Genda-Final: better fragrance, plastic bottle, superior packaging
+• Example: Oral-B Toothbrush POD: blue indicator bristles that fade to white when it's time to replace
+  the toothbrush
+• Example: Gillette Mark 3 POD (originally): three-blade design vs. two-blade competitors
+
+POD to POP Evolution
+• When competitors copy a POD, it eventually becomes a POP
+• Organizations must continuously innovate to maintain differentiation
+• Example: Three-blade razors (once POD) became POP when other brands adopted them; Gillette then
+  introduced five-blade Fusion as new POD
+
+Strategic Implications
+• Flexibility: Organizations can operate at multiple levels simultaneously with different product lines
+• Brand Portfolio: Large organizations may own multiple brands serving different segments (e.g.,
+  L'Oréal owns multiple distinct brands like Body Shop)
+• Market Research: Success in niche or individual markets requires deep consumer insights and
+  understanding of specific needs
+• Positioning Strategy: Effective STP requires clear understanding of competitors, frame of reference,
+  and meaningful differentiation
+
+Key Takeaways
+• The STP framework guides all marketing decisions and product development
+• Micro-marketing evolution reflects changing consumer preferences for personalization
+• Organizations must balance cost efficiency with customization
+• Understanding POPs and PODs is crucial for competitive positioning
+• The appropriate strategy depends on organizational resources, market conditions, and consumer
+  preferences
+• Continuous innovation is necessary to maintain POD and prevent commoditization
+
+
+
+
+                                    Marketing - Lecture Notes | Page 41
+Lecture 17 starts
+Points of Differentiation (POD) and Points of Parity (POP) in
+Marketing Strategy
+Overview
+This lecture explores the concepts of Points of Differentiation (POD) and Points of Parity (POP), which
+are fundamental elements of positioning strategy. While POPs represent common features shared
+across competitors, PODs are distinctive characteristics that set a brand apart in the marketplace.
+
+Key Concepts
+Points of Parity (POP)
+• Represent features and benefits that are common across all competing brands in a category
+• Address basic consumer expectations and category requirements
+• Examples: A toothbrush maintaining oral hygiene, an antiseptic product having antiseptic properties
+• Must be present to be considered a viable competitor in the market
+
+Points of Differentiation (POD)
+• Represent unique features or benefits that competitors do not offer
+• Create competitive advantage by fulfilling consumer desires in ways competitors cannot
+• Must be valued by consumers and genuinely different from competitor offerings
+• Can eventually become POPs when competitors copy the innovation
+
+Real-World Examples
+Oral-B Toothbrush Case Study
+• Market Challenge: Crowded toothbrush market with multiple brands offering similar products
+• POP: Maintaining oral hygiene (common across all brands)
+• POD: Color-changing bristles that indicate when the brush needs replacement
+• Blue dye fades to white, signaling the need for a new brush
+• Focused on consumer benefit rather than product feature
+• Differentiated Oral-B overnight without changing underlying technology
+• Evolution: Once competitors copied this feature, it transitioned from POD to POP
+
+House of Quirk Case Study
+• Market Challenge: Furniture is expensive and typically considered a long-term investment
+• POP: Furnishing homes with quality furniture
+• POD: Affordable furniture covers and cushioning solutions
+• Provided complete aesthetic makeover at minimal cost
+• Allowed consumers to change furniture appearance every 10 days
+• Created a niche between traditional furniture sales and basic cushion covers
+• Offered flexibility without requiring major financial investment
+
+Dettol vs. Savlon Antiseptic Case Study
+• Initial Market Position: Dettol dominated with strong association as "mother's favorite"
+• POP: Antiseptic properties
+• Challenge: Stinging sensation during application caused consumer discomfort
+Savlon's Entry:
+• Matched POP: Antiseptic properties
+
+
+
+                                    Marketing - Lecture Notes | Page 42
+• Introduced POD: "No sting" formula
+• Used emotional advertising (child not experiencing pain) to shift consumer preference
+• Gained significant market share by addressing a pain point competitors ignored
+Dettol's Response:
+• Smartly repositioned the sting as evidence of effectiveness
+• Converted their limitation into a POD: "Sting means it's working"
+• Reframed the consumer narrative through advertising
+• Successfully regained market leadership
+
+Visual Framework: The Three Circles Model
+The relationship between POPs and PODs can be visualized using three overlapping circles:
+• Circle 1: Consumer desires
+• Circle 2: Competitor features
+• Circle 3: Your organization's features
+Positioning Elements:
+• POP Location: At the intersection of all three circles (where consumer need overlaps with both your
+   and competitor offerings)
+• POD Location: At the intersection of consumer desire and your features, but excluding competitor
+   features (unique value proposition)
+• Invalid Positioning: Features you offer that competitors also offer without matching consumer desires
+
+Important Principles
+POD to POP Transition
+• PODs have a finite lifespan as competitive advantages
+• Once competitors copy a differentiation, it automatically becomes a POP
+• Example: Dettol's motion-sensor hand wash dispenser
+• Initially a POD
+• Became expensive and impractical for home use due to high frequency of use
+• Did not achieve market adoption as a universal feature
+• Remained primarily in commercial establishments
+
+Two-Step Positioning Strategy
+Determine Frame of Reference
+• Identify natural competitors (direct competitors)
+• Identify extended competitors (indirect/substitute alternatives)
+• Understand what POPs must be present
+Identify Points of Differentiation
+• Discover gaps between competitor offerings and consumer desires
+• Develop unique features that fulfill these unmet needs
+• Ensure POD aligns with target consumer values
+
+Critical Success Factors for POD
+• Must be valued by consumers: The differentiation should address a genuine consumer need or desire
+• Must be defensible: Preferably based on sustainable competitive advantages (technology, patents,
+   brand equity)
+• Must address a market opportunity: Gap between what competitors offer and what consumers want
+• Cannot be easily replicated: If easily copied, it becomes a POP
+
+
+
+
+                                     Marketing - Lecture Notes | Page 43
+• Should be communicated clearly: The target audience must understand and appreciate the
+  differentiation
+
+Integration with STP Framework
+The concepts of POP and POD are integral to the complete Segmentation, Targeting, and Positioning
+(STP) framework:
+• Segmentation: Identify meaningful consumer groups with distinct needs
+• Targeting: Select priority segments to focus marketing efforts
+• Positioning: Create a distinctive place in consumers' minds using POPs and PODs
+• POPs ensure viability in the category
+• PODs create preference and justify premium pricing or market share gains
+
+Key Takeaway
+Successful positioning requires balancing two elements: establishing points of parity to compete in the
+category while simultaneously creating points of differentiation to win consumer preference. The most
+compelling positioning strategies fulfill consumer desires in ways competitors cannot, leveraging the
+overlap between organizational capabilities and unmet market needs.
+
+
+
+
+                                   Marketing - Lecture Notes | Page 44
+Lecture 18 starts
+Understanding Consumer Behavior: Perception, Opinion
+Formation, and Purchase Decisions
+Overview
+Consumer behavior examines why people purchase products and how various factors influence their
+buying decisions. It is a fundamental domain that explores the relationship between consumers, their
+perceptions, desires, and the decision-making process. The module focuses on understanding consumer
+behavior through multiple lenses - from rational decision-making to irrational choices influenced by
+emotions, experiences, and external stimuli.
+
+Why Do People Buy?
+Key Question: The fundamental question in consumer behavior is understanding the motivations behind
+purchases.
+• Purchases are driven by multiple factors: needs, desires, impulses, and emotional states
+• Context significantly influences purchase decisions (e.g., buying coffee at different times of day)
+• Consumers purchase to reach, restore, maintain, or protect a desired state - the gap between their
+  current state and where they wish to be
+• Marketing does not operate on an empty mind; it engages with existing memories, experiences,
+  expectations, desires, identities, biases, and goals
+Marketing Stimulus and Imagination: Consumers respond to imagined consumption almost as strongly
+as actual product information. Visual representations and storytelling create experiences that make
+products feel real and desirable.
+
+Case Studies: Understanding the Story Beyond the Product
+Swiggy Mangoes Advertisement
+• The ad captures sensory appeal through visual representation (water droplets, fresh appearance)
+• Creates imagined consumption - consumers feel they are looking at real mangoes
+• Sells not just a product but an experience and freshness
+
+TRIA Hair Treatment
+• Targets specific audience (people experiencing hair loss or thinning)
+• Attempts to reduce the distance between actual self and desired self
+• Uses before-and-after narratives to show transformation
+• Creates emotional connection by addressing self-esteem concerns
+• Relevance varies by audience; product becomes important only to those experiencing the specific
+  problem
+
+Forest Essential Face Serum
+• Premium product priced at ₹5,500-7,000 for 30ml
+• Uses appearance of evidence as a substitute for quality evaluation
+• Presents statistics (100%, 97%, 94%) to build credibility
+• Focuses on luxury positioning with minimalistic, upmarket packaging
+• Leverages visual appeal and scientific claims to create desirability
+• Sample size for results was only 36, but consumers overlook this limitation and assume they belong
+  to the positive percentage groups
+
+Key Marketing Insight: Story Over Product
+• Marketing creates narratives and storylines, not just product features
+
+
+                                    Marketing - Lecture Notes | Page 45
+• The emotional narrative helps consumers achieve their desired state more than the product itself
+• Consumers frequently use appearance of evidence (how data is presented) rather than actual quality
+  of evidence
+• Successful marketing combines product benefits with storytelling that addresses consumer
+  aspirations and self-esteem
+
+Evolution of Consumer Behavior as a Domain
+Classical Era (1950s-1960s)
+Characteristics:
+• Dominated by classical economics principles
+• Consumers viewed as rational beings making predictable choices
+• People buy only what they need
+• Demand and supply balanced naturally
+• Consumer behavior was predictable and easy to forecast
+
+Cognitive Revolution (1970s-1990s)
+Key Shift: Consumers are irrational beings, not rational decision-makers
+Influential Work: Daniel Kahneman and Amos Tversky introduced breakthrough concepts:
+• Judgment under Uncertainty: Consumer decisions can be irrational with no logical basis
+• Behavior cannot be predicted with certainty; it is often unpredictable
+Evidence Example: When presented with food menu options in morning, people choose varied items
+(idly, biryani, desserts) despite it being early morning. Rational behavior would suggest everyone
+chooses light breakfast options, but varied choices reflect individual experiences, memories, beliefs,
+and preferences.
+Key Concept: Heuristics
+• Mental shortcuts that help consumers make decisions
+• Enable movement from one decision stage to the next
+• Help consumers choose right options efficiently
+• Example: In Nutella Amazon listing, heuristics include 800 ratings, 4.5 stars, ₹311 discount, free
+  delivery, cash back offers, and stock availability
+
+Contemporary Era (Present)
+Nudge Theory: Introduced by Professor Richard Thaler
+Definition: Creating a choice environment that guides consumers toward decisions that are good for
+them ethically and socially without restricting freedom of choice
+Philosophy: Like a mother elephant nudging her baby back on track, marketers create environments
+that help consumers make better choices
+Examples of Nudging:
+• European Trash Disposal: Adding interactive elements (ramp) near trash cans transformed waste
+  disposal into a fun activity, increasing proper trash disposal behavior
+• Staircase Placement: Positioning stairs before elevators encourages physical activity; design
+  influences consumer behavior positively
+• Bestseller Labels: Marking products as "bestsellers" creates choice architecture without demeaning
+  other products; it guides selection toward popular options
+• Product Recommendations: Suggesting products based on consumption patterns guides consumers
+  toward suitable choices
+Difference Between Heuristics and Nudges:
+• Heuristics: Mental shortcuts that help compare options (ratings, prices, discounts)
+
+
+
+
+                                    Marketing - Lecture Notes | Page 46
+• Nudges: Environmental design that guides behavior toward naturally better choices without direct
+  persuasion
+
+Consumer Behavior and Organizational Strategy
+From Consumer Side
+• Behavior indicates consumption patterns
+• Understanding individual behavior reveals preferences and interests
+• Tracking consumption over time identifies patterns (e.g., cosmetics vs. electronics preference)
+
+From Organization Side
+• Identifying consumption patterns enables personalization and customization
+• Organizations can segment consumers based on behavior patterns
+• Allows for targeting and positioning strategies
+• Uses insights to create relevant product offerings
+
+Influence Mechanisms
+Marketers indirectly influence behavior through:
+• Heuristics: Price discounts, ratings, reviews, delivery information
+• Nudges: Choice architecture, bestseller labels, strategic placement
+• These influence desired state achievement, which drives purchasing behavior
+
+Role of Consumer Research and Behavior
+Consumer research and behavior bridge the gap between:
+• Understanding why consumers make decisions
+• Assessing consumption patterns
+• Creating personalized and customized marketing strategies
+• Designing choice environments that guide better decisions
+The domain emerged from recognizing that:
+• Consumers are complex, influenced by emotions and past experiences
+• Behavior can be assessed and influenced indirectly
+• Organizations can better serve consumers by understanding their desired states
+• Ethical marketing nudges consumers toward decisions beneficial to both parties
+
+Summary of Key Takeaways
+• Consumer behavior answers the fundamental question: Why do people buy?
+• People buy to reach, restore, maintain, or protect their desired state
+• Marketing operates on the principle that minds are never empty - they contain memories,
+  experiences, biases, and goals
+• Three evolutionary stages shaped the field: rational consumers to irrational consumers to influenced
+  consumers (via heuristics and nudges)
+• Heuristics provide decision-making shortcuts; nudges create choice environments
+• Understanding behavior enables consumption assessment, pattern identification, and strategic
+  personalization
+• Successful marketing combines storytelling, sensory appeal, and strategic choice architecture to
+  influence consumer decisions
+
+
+
+
+                                    Marketing - Lecture Notes | Page 47
+Lecture 19 starts
+Overview of Consumer Buying Decision Process
+This lecture explores the fundamental concept of the buying decision process in consumer behavior,
+examining both theoretical frameworks and real-world practices in business decision-making.
+
+Difference Between Heuristics and Nudges
+• Heuristics: Mental shortcuts that help compare options (ratings, prices, discounts)
+• Nudges: Environmental design that guides behavior toward naturally better choices without direct
+  persuasion
+
+Consumer Behavior and Organizational Strategy
+From Consumer Side
+• Behavior indicates consumption patterns
+• Understanding individual behavior reveals preferences and interests
+• Tracking consumption over time identifies patterns (e.g., cosmetics vs. electronics preference)
+
+From Organization Side
+• Identifying consumption patterns enables personalization and customization
+• Organizations can segment consumers based on behavior patterns
+• Allows for targeting and positioning strategies
+• Uses insights to create relevant product offerings
+
+Influence Mechanisms
+Marketers indirectly influence behavior through:
+• Heuristics: Price discounts, ratings, reviews, delivery information
+• Nudges: Choice architecture, bestseller labels, strategic placement
+• These influence desired state achievement, which drives purchasing behavior
+
+Role of Consumer Research and Behavior
+Consumer research and behavior bridge the gap between:
+• Understanding why consumers make decisions
+• Assessing consumption patterns
+• Creating personalized and customized marketing strategies
+• Designing choice environments that guide better decisions
+The domain emerged from recognizing that:
+• Consumers are complex, influenced by emotions and past experiences
+• Behavior can be assessed and influenced indirectly
+• Organizations can better serve consumers by understanding their desired states
+• Ethical marketing nudges consumers toward decisions beneficial to both parties
+
+Summary of Key Takeaways
+• Consumer behavior answers the fundamental question: Why do people buy?
+• People buy to reach, restore, maintain, or protect their desired state
+• Marketing operates on the principle that minds are never empty - they contain memories,
+  experiences, biases, and goals
+• Three evolutionary stages shaped the field: rational consumers to irrational consumers to influenced
+  consumers (via heuristics and nudges)
+
+
+
+                                    Marketing - Lecture Notes | Page 48
+• Heuristics provide decision-making shortcuts; nudges create choice environments
+• Understanding behavior enables consumption assessment, pattern identification, and strategic
+  personalization
+• Successful marketing combines storytelling, sensory appeal, and strategic choice architecture to
+  influence consumer decisions
+
+Key Topics Discussed
+Problem Recognition
+• The first stage in consumer decision-making where a need or gap between desired and existing state
+  is identified
+• Can be as simple as feeling hungry or as complex as needing new electronics
+• Acts as the triggering point for all subsequent purchasing decisions
+
+Information Search
+• Second stage where consumers actively seek information about potential solutions
+• Information can be gathered through multiple channels: websites (Amazon, Swiggy Instamart),
+  physical stores, social media, peer recommendations, and expert reviews
+• The extent of search varies based on product importance and consumer involvement
+
+Evaluation of Alternatives
+• Third stage involving comparison of different options within a consideration set
+• Consumers identify key attributes relevant to their purchase (e.g., memory, graphics, price for
+  laptops)
+• Weighted scoring method is often used where importance is assigned to different attributes
+• Final choice is made based on which option provides the best overall value
+
+Purchase Decision
+• Fourth stage where the consumer commits to buying the selected product
+• Represents the actual transaction point
+• Often influenced by heuristics and mental shortcuts that expedite decision-making
+
+Post-Purchase Behavior
+• Fifth stage examining consumer feelings after purchase
+• Can range from satisfaction and confidence to regret and dissatisfaction
+• Critical for customer retention and brand loyalty
+• Often overlooked in theoretical models but essential in real-world scenarios
+
+Heuristics in Consumer Decision-Making
+Definition: Mental shortcuts that enable quick decision-making without extensive analysis
+Examples of Heuristics:
+• Ratings and Reviews: High ratings (e.g., 4.5 stars) provide assurance of product quality
+• Brand Name: Established brands like JBL or Samsung serve as quality indicators
+• Price Discounts: Percentage off or reduced prices influence purchase decisions
+• Scarcity: Limited stock ("Only 6 rooms left") creates urgency to purchase immediately
+• Free Delivery: Adds perceived value to the offering
+• Warranty and Return Policies: Reduce perceived risk
+• Visual Elements: Product images and property photos influence decision-making
+Practical Application: The H&M example demonstrates how heuristics work - items labeled "Few pieces
+left" create urgency, encouraging immediate purchase to avoid stock-outs.
+
+
+
+
+                                   Marketing - Lecture Notes | Page 49
+Linear vs. Non-Linear Decision Process
+Theory Perspective
+• Assumes a linear, sequential process: Recognition, Search, Evaluation, Purchase, Post-Purchase
+• Suggests consumers follow all five stages in order
+
+Reality Perspective
+• Consumer decisions follow a non-linear path
+• Consumers frequently backtrack through stages (e.g., returning from evaluation to information
+  search)
+• Stages can be skipped entirely, particularly for:
+• Low-involvement products
+• Repeat purchases from loyal brands
+• Impulse purchases during sales
+• Products bought on recommendations
+Examples of Non-Linear Behavior:
+• Placing items in a shopping cart and then removing them (returning to evaluation stage)
+• Comparing prices online, then visiting physical stores for confirmation (cycling between stages)
+• Canceling orders after placement
+• Skipping information search when buying familiar brands
+
+The "Messy Middle"
+• Describes the reality of consumer decision-making as an exploration-evaluation loop
+• Consumers constantly explore options and evaluate alternatives in an infinity loop pattern
+• Continues until the gap between desired and existing state is satisfied
+• Results in a non-linear, iterative journey rather than a linear progression
+
+Factors Affecting Decision Process Complexity
+High-Involvement Products (cars, laptops, properties):
+• Consumers follow all five stages methodically
+• Extensive evaluation of alternatives
+• Multiple information sources consulted
+• Test drives, physical visits, and detailed comparisons conducted
+Low-Involvement Products (everyday items, routine purchases):
+• Stages may be compressed or skipped
+• Reduced evaluation of alternatives
+• Purchase may occur based on habit or convenience
+• Heuristics play a more significant role
+Time Constraints:
+• Limited time encourages skipping or compressing stages
+• Consumers prioritize speed over thorough evaluation
+• Heuristics become more critical in expedited decisions
+
+Real-World Purchase Examples from Class
+• Novel Purchase: Online research (Amazon) to Reviews to Physical store comparison to Final online
+  purchase
+• Clothing Purchase: Quality check to Price comparison to Fitting to Purchase with positive feeling
+• Keyboard Purchase: Online platform search to Review analysis to Offer evaluation to Purchase
+• Coffee Purchase: Brand preference-based decision (Davidoff despite cheaper options)
+
+
+                                    Marketing - Lecture Notes | Page 50
+• Jewelry Purchase: Multiple store visits to Selection to Price negotiation to Satisfied purchase
+
+Concept of Cart Abandonment
+• Significant problem in e-commerce where consumers add items but don't complete purchase
+• Represents a stage where consumers reconsider or re-evaluate their decisions
+• Organizations use heuristics (scarcity, limited stock notifications) to reduce abandonment rates
+• Demonstrates non-linear nature of modern consumer behavior
+
+Implications for Marketers
+• Cannot assume consumers follow linear decision paths
+• Must leverage heuristics strategically at various touchpoints
+• Should facilitate easy movement between decision stages (especially revisiting information and
+  evaluation)
+• Need to address post-purchase satisfaction to build loyalty
+• Understanding individual consumer segments helps predict which heuristics will be most effective
+
+
+
+
+                                    Marketing - Lecture Notes | Page 51
+Lecture 20 starts
+Consumer Behavior: Understanding Purchase Decisions and
+Consumer Journey
+Overview of Consumer Behavior
+Consumer behavior is a multidisciplinary field that combines psychology, marketing, anthropology,
+behavioral economics, and neurology to understand why, when, how, and where purchases are made. It
+encompasses not only the purchase decision itself but also the emotions, psychology, and behaviors
+that accompany it. The field emerged through three evolutionary stages, balancing the consumer
+perspective with marketers' efforts to influence purchasing decisions through nudges and heuristics.
+
+Key Definitions of Consumer Behavior
+Schiffman's Definition: Consumer behavior is the study of consumers' choices during searching,
+evaluating, purchasing, and using products and services that satisfy their needs. This emphasizes the
+choice-making process across specific stages and how products/services meet consumer requirements.
+Professor Jain's Definition: Consumer behavior is the study of people and activities associated with
+purchases. It explores how products are chosen, distributed, and used while considering the emotions,
+psychology, and behaviors these processes create.
+
+The Stimulus-Choice Framework
+At its core, consumer behavior operates between two key elements:
+• Stimulus: Any external element that grabs attention momentarily - advertisements, celebrities, color
+  combinations, or any engaging external factor
+• Choice: A consumer's preference and decision to purchase a product, brand, or service
+The entire phenomenon between stimulus and choice constitutes consumer behavior. Understanding
+what stimulus triggered a purchase decision and how it influenced the consumer's mind is essential to
+grasping consumer behavior.
+
+The Five-Stage Consumer Decision-Making Model
+The consumer buying journey typically follows a linear progression through five distinct stages:
+• Need Recognition: The consumer identifies a gap between their current state and desired state. This
+  can be triggered by internal factors (like running out of a product) or external factors (like seeing an
+  advertisement or receiving a recommendation).
+• Information Search: The consumer actively searches for information about potential solutions to their
+  need. This may involve online research, visiting retail stores, checking multiple platforms, or seeking
+  recommendations from others.
+• Evaluation of Alternatives: The consumer compares different options available in the market. This
+  includes comparing specifications, pricing, availability, discounts, and benefits offered by competing
+  brands or products.
+• Purchase Decision: After evaluating alternatives, the consumer makes a final choice and completes
+  the purchase transaction.
+• Post-Purchase Behavior: The consumer's experience after buying and using the product. This can
+  range from satisfaction and happiness to dissatisfaction, regret, or guilt, and significantly influences
+  future purchasing decisions and brand loyalty.
+
+Non-Linear Consumer Journeys
+While the traditional model suggests a linear path through all five stages, real-world consumer behavior
+often deviates from this framework:
+
+Stage Skipping
+
+
+                                    Marketing - Lecture Notes | Page 52
+• Impulse Purchasing: Consumers may jump directly from stimulus to purchase, bypassing need
+  recognition, information search, and evaluation. For example, buying a heavily discounted item (70%
+  off) without prior need or planning.
+• Direct Purchases: When receiving clear instructions or recommendations (e.g., a parent asking to
+  buy ketchup), consumers skip the first three stages and proceed directly to purchase.
+
+Stage Reversal
+• Consumers may move backward in the decision journey. After reaching the evaluation stage, new
+  information might send them back to the search phase to explore additional options.
+• Post-purchase experiences or external feedback might cause consumers to revisit their need
+  recognition, questioning whether the purchase was necessary.
+
+Circular Patterns
+• The consumer journey is not always a simple forward progression but can involve loops, where
+  consumers revisit earlier stages based on new information, changing circumstances, or unexpected
+  feedback from others.
+
+Practical Application: The Autopsy of Purchase
+A classroom exercise analyzing a recent purchase reveals the actual stages a consumer goes through:
+Example Purchase: Moroccan oil shampoo
+• Trigger: Internal need as the existing shampoo was running out
+• Information Search: Checked multiple platforms (Nyka, Amazon, retail stores) for price, expiry dates,
+  availability
+• Alternatives Considered: L'Oreal, Kerastase, Nat Habit, Flam brands with similar benefits
+• Final Decision Factor: A 15% discount on Nyka made the final difference in choosing the product
+• Post-Purchase Experience: Satisfaction and confidence in nourishing hair, leading to happiness and
+  positive feelings
+
+Key Takeaways
+• Consumer decision-making theoretically follows a linear path but often deviates in practice
+• Consumers may skip stages, reverse directions, or loop back through earlier stages based on new
+  information and circumstances
+• Understanding both the theoretical framework and real-world variations is crucial for marketers to
+  effectively influence consumer behavior
+• Post-purchase behavior is as important as the pre-purchase process in shaping future consumer
+  decisions and brand loyalty
+• External factors like discounts, time constraints, recommendations, and availability significantly
+  impact which stages consumers prioritize or skip
+
+
+
+
+                                   Marketing - Lecture Notes | Page 53
+Lecture 21 starts
+Overview of Consumer Decision-Making Journey and
+Integrated Behavior Framework
+Consumer Decision Journey: Non-Linear Path
+• The consumer decision journey is non-linear in nature, contrary to the theoretical assumption of a
+  linear progression
+• Most consumers do not follow a straightforward step-by-step process; instead, they move back and
+  forth between stages
+• The journey is characterized by continuous exploration and evaluation, often referred to as the
+  "messy middle"
+• A strong enough stimulus eventually breaks the exploration-evaluation loop and leads to a purchase
+  decision
+
+The Infinity Loop: Exploration and Evaluation Zone
+• Once a trigger occurs (external stimulus), consumers enter an infinity zone where they continuously
+  explore and evaluate options
+• Consumers compare alternatives across multiple platforms (e.g., Amazon, Flipkart, physical stores)
+  looking for better prices or offers
+• Many items remain in shopping carts or wish lists as consumers delay decisions during extended
+  evaluation periods
+• The exploration-evaluation phase continues until a sufficiently strong trigger converts it into an
+  actual purchase
+
+Variability in Decision-Making Across Purchase Types
+Low-involvement purchases (e.g., pizza at 11:30 PM):
+• Triggered by immediate need or notification
+• Minimal information search or evaluation
+• Quick purchase decision without extensive comparison
+• Often driven by convenience and impulse
+High-involvement purchases (e.g., laptop purchase):
+• Extensive information search and evaluation phase
+• Consideration of specifications, brands, configurations, and price ranges
+• Detailed comparison of alternatives with assigned weightage
+• Significant emotional response post-purchase
+Consumer decision-making is highly subjective and varies from individual to individual; no generalized
+pattern applies to all consumers
+
+Marketing Touchpoints Beyond Point of Sale
+• Marketing does not occur only at the point of sale or during the transaction
+• Marketing influence can occur at any stage of the consumer decision journey:
+• During trigger phase (discounts, celebrity endorsements, events)
+• During information search (discovering product popularity or best sellers)
+• During evaluation (product quality comparisons)
+• During post-purchase (reviews, ratings, recall)
+• Past positive experiences with a product can become trigger points for future purchases, allowing
+  consumers to skip exploration and go directly to purchase
+
+
+
+
+                                        Marketing - Lecture Notes | Page 54
+Integrated Consumer Behavior Framework
+The consumer behavior framework operates through the following cycle:
+Unfulfilled Need/Want/Desire to Creates Fear or Tension to Triggers Internal Drive (motivation to act) to
+Results in Behavior (individual-specific actions) to Leads to Consumption to Achieves Goal Fulfillment
+and Tension Reduction
+
+Key Components of the Framework:
+• Unfulfilled Need: A gap between current state and desired state (e.g., hunger)
+• Fear/Tension: Psychological discomfort created by the unmet need
+• Drive: Internal motivation to take action and reduce tension
+• Behavior: Individual-specific actions taken to address the need (cooking, ordering food, visiting a
+  restaurant, asking family)
+• Consumption: The actual use of a product or service
+• Goal Fulfillment: Satisfaction of the need, leading to tension reduction
+
+Individual Variability in Drive-to-Behavior Transition:
+The transition from drive to behavior is highly subjective and depends on:
+• Individual perceptions
+• Personality traits
+• Ability to learn
+• Personal attitudes
+For example, when hungry, different individuals may choose to cook, order food delivery, visit a
+restaurant, eat what's available at home, or ask family members to prepare food - all driven by the
+same unfulfilled need but manifesting through different behaviors.
+
+Key Takeaways
+• Consumer decision-making is a continuous, non-linear process of exploration and evaluation
+• The decision journey differs significantly based on product involvement level
+• Marketing influences multiple touchpoints throughout the entire decision journey, not just at
+  purchase
+• Consumer behavior is fundamentally driven by the need to reduce tension from unfulfilled needs,
+  wants, or desires
+• All behavioral outcomes are individually and contextually specific, requiring understanding of
+  perception, personality, learning, and attitudes to explain consumer choices
+
+
+
+
+                                    Marketing - Lecture Notes | Page 55
+Lecture 22 starts
+
+
+
+
+              Marketing - Lecture Notes | Page 56
+Lecture 23 starts
+Understanding Theories of Motivation in Consumer Behavior
+This lecture explores the fundamental drivers behind consumer decision-making by examining three
+major theories of motivation that explain why consumers initiate the five-stage decision-making process
+(need recognition, information search, evaluation of alternatives, purchase, and post-purchase
+behavior).
+
+Overview of Motivation Theories
+The lecture introduces three psychological theories of motivation that answer the key question: "Why
+do we do what we do?" These theories - proposed by Freud, Maslow, and Herzberg - provide different
+perspectives on what drives human behavior and consumer decision-making.
+
+Freudian Theory of Motivation
+Core Concept: Behavior is guided by subconscious rather than conscious motivations.
+Three Levels of Mind:
+• Conscious level: Thoughts and beliefs you are fully aware of
+• Pre-conscious level: Memories and information that can be recalled when triggered
+• Unconscious level: Deep desires and memories accessible through dreams
+The Iceberg Analogy: Only 10% of decision-making comes from the conscious mind, while 90%
+originates from the subconscious or pre-conscious mind
+Three Components of Personality:
+• ID: Represents basic instincts and immediate desires (e.g., wanting a samosa right now)
+• Ego: Brings rationality and reality into decisions (e.g., eating only the cover of the samosa to balance
+  desire with health)
+• Super Ego: Represents morality and what is considered correct (e.g., refusing the samosa for health
+  reasons)
+Application: Consumer decisions are motivated by which of these three components dominates -
+whether driven by instinct, reality, or moral considerations.
+
+Maslow's Hierarchy of Needs Theory
+Core Concept: Behavior is driven by the lowest unmet need in a hierarchical pyramid.
+Five-Level Hierarchy (in order):
+• Physiological Needs: Food, water, shelter - basic survival requirements
+• Safety Needs: Security and protection for oneself and family
+• Social Needs: Belonging, love, trust, and affection from others
+• Esteem Needs: Self-esteem, recognition, social status, and respect
+• Self-Actualization: Self-development, personal fulfillment, and realization
+Key Principle: Consumers do not progress to the next level until their current level's needs are satisfied.
+For example, a hungry person would prioritize buying food over purchasing luxury items.
+Life Journey Application:
+• Students focus on physiological and safety needs through education
+• Young professionals build security through employment
+• Mid-career individuals seek social needs and esteem recognition
+• Later in life, people pursue self-actualization and personal meaning
+
+Herzberg's Two-Factor Theory
+Core Concept: Motivation is influenced by two distinct factors - hygiene factors and motivating factors.
+
+
+
+                                    Marketing - Lecture Notes | Page 57
+Hygiene Factors (Job Dissatisfiers):
+• Salary and compensation
+• Working conditions
+• Company policies
+• Supervisor relationships
+• Effect: Their absence creates dissatisfaction, but their presence does not create satisfaction; they
+  only prevent dissatisfaction
+Motivating Factors (Job Satisfiers):
+• Achievement and accomplishment
+• Recognition and appreciation
+• Responsibility
+• Growth and development opportunities
+• Effect: Their presence creates satisfaction and motivation; their absence does not create
+  dissatisfaction but merely neutrality
+The Free Chai Rule Analogy: Free chai at work will not make employees love their jobs, but removing it
+creates discontent. Salary, working conditions, and basic amenities are expected but do not inspire
+motivation. True motivation comes from meaningful work, recognition, and opportunities for growth.
+Dual Approach to Improvement:
+• Reducing dissatisfaction by improving hygiene factors
+• Increasing satisfaction by enhancing motivating factors
+
+Practical Application Examples
+Identifying the Correct Theory:
+• "I hit snooze because part of me wants bed, part of me fears my boss" - Freudian Theory (ID vs.
+  Super Ego conflict)
+• "I cannot focus because hostel Wi-Fi is down" - Maslow's Theory (unmet basic need)
+• "Salary is fine, but my work is boring and I nap at my desk" - Herzberg's Theory (hygiene factor
+  present, motivating factors absent)
+• "I'm over my ex but cried at a sad ad" - Freudian Theory (conscious and unconscious motivations in
+  conflict)
+• "I have food, friends, and a job; now I want to write a novel" - Maslow's Theory (moving toward
+  self-actualization)
+• "I got a raise and my AC fixed, but nobody thanks me; still not excited" - Herzberg's Theory (hygiene
+  improved, but lacking recognition)
+
+Key Takeaways
+• All three theories remain fundamentally relevant to understanding consumer motivation, though
+  applications may evolve with time
+• Consumers may not always progress through needs linearly and might skip certain stages
+• Understanding which motivation theory applies helps predict and influence consumer behavior
+• These motivation theories serve as the foundation for initiating the five-stage consumer
+  decision-making process
+
+
+
+
+                                   Marketing - Lecture Notes | Page 58
+Lecture 24 starts
+Understanding Perception in Consumer Behavior
+This lecture explores the fundamental concept of perception and its critical role in influencing consumer
+decision-making processes. Through various visual exercises and real-world examples, the lecture
+demonstrates how perception shapes the way consumers interpret products and make purchasing
+choices.
+
+What is Perception?
+Perception is the process of how individuals see and interpret the world around them. It is the lens
+through which consumers view products, brands, and services. The lecture emphasizes that perception
+is not based solely on objective reality but is heavily influenced by external cues and stimuli provided
+by marketers.
+Key characteristics of perception:
+• Selective: Consumers only absorb information that aligns with their needs, requirements, and
+  background
+• Subjective: The same product or image can mean completely different things to different individuals
+• Constructive: When given partial information, consumers fill in gaps based on their existing
+  knowledge and beliefs
+• Abstract: Perception varies significantly from person to person and is not universally standardized
+
+How Marketers Influence Perception
+Marketers strategically use external cues and stimuli to shape consumer perception. Through the
+examples of optical illusions (the young lady/elderly lady image and the duck/rabbit image), the lecture
+demonstrates how adding elements - like carrots in the rabbit-duck exercise - can dramatically shift
+how consumers perceive an object.
+Marketing techniques to influence perception:
+• Adding visual elements (packaging design, colors, imagery)
+• Introducing price points and discounts
+• Creating brand associations through endorsements and advertising
+• Attaching meaning and messaging to physical products
+
+Real-World Applications: Brand Perception
+The lecture illustrates how the same model can evoke different product expectations based on brand
+association:
+• Nykaa (cosmetics brand): perception shifts to makeup, skincare, and personal care products
+• Fab India (heritage brand): perception shifts to clothing and accessories
+• Label Life (celebrity-founded brand): perception shifts to fashion and lifestyle products
+Simply by changing the brand name, consumer expectations of what product category the model is
+endorsing completely changes, demonstrating the power of brand perception in decision-making.
+
+The Physical Stimulus vs. Meaning: The Almonds Exercise
+A critical insight from the lecture is that marketing rarely changes the physical product itself. Instead, it
+changes the meaning attached to the product.
+The almond packaging exercise demonstrates this principle:
+• Option A (basic packaging): Acceptable but unremarkable
+• Option B (unimpressive packaging): Least preferred (~4/10 rating)
+• Option C (transparent packaging): Moderately preferred (~6/10 rating) because consumers can see
+  the product
+
+
+                                     Marketing - Lecture Notes | Page 59
+• Option D (premium packaging): Most preferred (~9/10 rating) despite containing essentially the
+  same almonds
+Consumers chose Option D because of perceived benefits (California almonds, gluten-free, high fiber,
+antioxidants, reusable zip-lock) communicated through packaging design - not because the almonds
+themselves were superior.
+Price's influence on perception:
+When prices were revealed (A: ₹1000, B: ₹800, C: ₹550, D: ₹2700), consumer preferences shifted
+dramatically. Many switched to Option C (most economical) or Option B. However, consumers with
+higher purchasing power remained loyal to Option D, demonstrating how price itself becomes a
+perceptual cue - expensive products are perceived as better quality.
+
+Product Categories vs. Perceptual Product Categories
+A crucial distinction highlighted in the lecture is the difference between how consumers naturally
+categorize products and how marketers want them to categorize products.
+Default behavior (by design): Consumers store information as broad product categories (e.g.,
+"toothpaste," "cars," "ketchup")
+Marketing goal (by design): Create perceptual product categories based on specific consumer needs
+and benefits:
+• Toothpaste | Basic Category: General oral care | Perceptual Categories: Sensitive teeth (Sensodyne),
+  Overall protection (Colgate Total), Freshness (Close-up), Whitening (Colgate Visible White)
+• Cars | Basic Category: Vehicles | Perceptual Categories: Hatchbacks, Sedans, Trucks, Ambulances,
+  Fire trucks
+• Ketchup | Basic Category: Condiment | Perceptual Categories: Fresh tomato, Premium, Chef special
+By creating distinct perceptual product categories, marketers can:
+• Cater to different consumer needs and preferences
+• Reduce direct price competition
+• Increase overall market sales by reaching diverse audience segments
+• Build brand loyalty based on specific benefits rather than just product type
+
+The Horlicks Case Study
+Horlicks exemplifies how a single brand creates multiple perceptual product categories:
+• Horlicks Growth Plus: For children's growth and development
+• Horlicks Light: For health-conscious consumers with reduced sugar
+• Horlicks Jr.: For children aged 8-14 years
+• Mother's Horlicks: For pregnant women with specific nutritional needs
+• Women's Horlicks: For women aged 30+ with age-specific nutritional requirements
+Each variant targets a different life stage and need, allowing Horlicks to dominate the market segment
+by addressing diverse consumer perceptions of their own nutritional requirements.
+
+Key Takeaway: Perception and Consumer Decision-Making
+The underlying principle of perception in marketing is that consumers make purchasing decisions based
+on the meaning they attach to products, not solely on the physical characteristics of the products
+themselves.
+Marketers leverage perception by:
+• Designing compelling packaging and visual identities
+• Creating brand messaging that conveys specific benefits
+• Using price as a quality indicator
+• Differentiating products through targeted positioning for specific consumer segments
+
+
+
+
+                                       Marketing - Lecture Notes | Page 60
+Without perception-based differentiation, all products in a category would appear identical to
+consumers, leading them to choose based purely on price or convenience. By strategically managing
+perception, marketers enable consumers to see meaningful differences and make choices aligned with
+their individual needs and values. This is why the same toothpaste product line can include multiple
+variants - each addressing a different perceptual need - and why a single brand like Horlicks can
+successfully maintain numerous product lines catering to different life stages and consumer segments.
+
+
+
+
+                                   Marketing - Lecture Notes | Page 61
+Lecture 25 starts
+Understanding Perception and Gestalt Principles in
+Marketing
+Overview
+This lecture explores how perception works and how marketers can leverage psychological principles to
+influence consumer behavior. The session covers sensory perception thresholds, the Gestalt principle,
+and its practical applications in marketing design and advertising.
+
+Perception and Consumer Behavior
+What is Perception?
+• Perception is what people think in their minds; it is subjective and can change over time
+• First impressions significantly influence consumer perception ("first impression is the last
+  impression")
+• Marketers can strategically mold consumer perception by understanding how the brain processes
+  information
+• Perception has inherent biases that can be leveraged for marketing advantage
+Sensory Perception Process: When consumers receive marketing stimuli, their brain processes it
+through several stages:
+• Sensory Stimuli: Any information received through the senses (sight, touch, smell, sound)
+• Absolute Threshold: The minimum level of stimulus needed to capture attention (e.g., a lit candle in a
+  dark room)
+• Subliminal Perception: Ads that appeal to multiple senses and create emotional connections (e.g., a
+  beverage ad showing pouring liquid with ice cubes appears more appealing than just a bottle)
+• Differential Threshold: The point at which consumers notice a noticeable difference between two
+  stimuli (e.g., adding grains of rice until the weight becomes perceptible)
+Perception Formation Stages: After sensory receptors register stimuli, consumers go through four
+perception stages:
+• Exposure: Encountering the advertisement or product
+• Attention: Focusing on specific elements
+• Interpretation: Making sense of what is perceived
+• Organization: Structuring the perception in the mind
+The final outcome can be a purchase or intent to purchase.
+
+The Gestalt Principle
+Core Concept: The Gestalt principle explains how humans organize visual elements into meaningful
+patterns. Rather than processing images like a camera, the brain actively interprets and organizes
+visual information based on patterns and past experiences.
+Key Characteristics of Gestalt Perception:
+• The brain organizes visual objects into coherent patterns rather than processing individual elements
+  separately
+• The brain predicts what it expects to see based on past experiences
+• When predictions don't match reality, the brain finds the closest matching interpretation
+• Aesthetic and organized interfaces (like Pinterest) help users understand navigation more easily
+
+Gestalt Principles in Marketing and Design
+1. Figure and Ground
+
+
+
+                                    Marketing - Lecture Notes | Page 62
+Concept: The relationship between an object (figure/foreground) and its background (ground/negative
+space)
+How it works:
+• The foreground contains the main object that captures attention
+• The background or negative space provides contrast to make the foreground stand out
+• Clever use of negative space can create visual impressions without explicitly drawing elements
+Marketing Applications:
+• Apple's iPod advertisements used black backgrounds to highlight white cords and devices
+• Book cover designs use negative space to suggest forms (e.g., Peter and the Wolf cover showing a
+  child through silhouette)
+• Sensodyne toothpaste ads highlight white teeth against black backgrounds to emphasize the product
+• Wine bottle and fork designs use negative space to represent both elements simultaneously
+
+2. Continuity
+Concept: Elements arranged in lines or curves are perceived as more related to each other than
+scattered elements
+How it works:
+• The eye follows visual paths along lines, whether straight or curved
+• When two lines cross, the eye continues following the line it was tracing
+• Visual paths guide viewers' attention in a specific direction
+Marketing Applications:
+• Arrow signs on roads guide travelers visually
+• Supermarket product placement groups similar items together (e.g., shampoos together, soaps
+  together) to guide shopping decisions
+• E-commerce websites arrange products in a natural flow: viewers first notice the product, then
+  consider price, and finally check ratings
+• Websites like Cars24 guide users through a natural decision-making sequence: viewing available
+  brands, then evaluation options, inspection services, and finally pricing
+• Consistent layout across pages helps users understand how to navigate without relearning the
+  structure
+
+3. Grouping and Similarity
+Concept: Objects with similar characteristics are perceived as belonging to the same group
+How it works:
+• Similarity can be based on color, shape, size, or visual style
+• Humans naturally group similar items together without explicit instruction
+• Consistent visual structure makes information easier to understand
+Marketing Applications:
+• School uniforms create group identity for students
+• Website menus organize products under different category headings for easier navigation
+• Clothing store sections group shirts, t-shirts, jeans, and shoes separately
+• Promotional offer cards on e-commerce sites follow similar layouts so users quickly recognize them
+  as related information
+• Consistent formatting across product listings helps customers compare options without having to
+  learn a new layout for each item
+
+4. Proximity
+Concept: Objects that are close together are perceived as belonging to a group, while objects with
+larger gaps are seen as separate groups
+
+
+
+
+                                     Marketing - Lecture Notes | Page 63
+How it works:
+• Distance between objects determines grouping perception regardless of color or other characteristics
+• Spacing helps differentiate between categories
+• Proximity creates a frame of reference for comparison
+Marketing Applications:
+• School notice boards separate examination notices, holiday notices, and sports notices through
+  spacing
+• Product cards on websites use spacing to differentiate categories
+• Shoe product displays show price, original price, and discount information together using proximity
+Figure and Ground: Distinguish objects from backgrounds to create focal points
+Continuity: Guide viewers through visual sequences and natural decision-making flows
+Grouping: Organize related information for easier comprehension
+Proximity: Create logical relationships between elements and facilitate comparison
+Closure: Engage consumers by allowing them to mentally complete incomplete information
+By understanding these principles, marketers can design more effective advertisements, improve user
+experience, and influence consumer behavior positively.
+
+
+
+
+                                   Marketing - Lecture Notes | Page 64
+Lecture 26 starts
+Understanding Consumer Behavior: Motivation, Perception,
+and Brand Humanization
+Overview
+This lecture explores fundamental concepts in consumer behavior, including motivation, perception,
+and the critical role of attitude in shaping purchasing decisions. The discussion emphasizes how
+organizations can create emotional connections with consumers by humanizing brands through
+relational rather than transactional approaches.
+
+Key Topics
+Motivation and Perception
+• Motivation drives individuals to act and react based on their needs and desires
+• Perception is how consumers interpret and categorize products, which differs from objective reality
+• Consumers naturally store information as broad product categories (e.g., "cars," "toothpaste"), but
+  organizations benefit by understanding how consumers perceive products differently based on their
+  individual needs
+
+Perceptual Product Categories
+• Consumers organize products mentally based on functional benefits and personal perception, not
+  just product type
+• Example - Toothpaste Market:
+• Sensodyne = tooth sensitivity relief
+• Colgate Total = 24/7 oral hygiene protection
+• Close-Up = fresh breath
+• Each brand occupies a distinct perceptual category despite all being toothpaste
+• Example - Horlicks:
+• Original product expanded into multiple variants targeting different consumer segments (children,
+  adults, diabetics)
+• This segmentation addresses the heterogeneous nature of markets where different consumers have
+  different needs
+
+Attitude as a Bridge Between Perception and Decision
+• Attitude is a favorable or unfavorable response toward something, influenced by multiple factors
+• Bidirectional relationship exists: perception leads to attitude, and attitude influences perception
+• Attitude formation depends on past experiences and fresh experiences
+• Decision Function: Attitude = f(Object, Attributes of Object)
+• The decision is not based solely on the product itself but on the product's attributes as perceived by
+  the consumer
+
+The Power of Attributes
+• Organizations have more flexibility in manipulating product attributes than the core product itself
+• Example - Borges Olive Leaf Infusion Tea:
+• Competed against green tea by highlighting superior attributes
+• 2x antioxidants compared to green tea
+• 4x vitamin C compared to green tea
+• Contains oleuropin (helps regulate blood pressure)
+• Zero caffeine and zero added flavors
+
+
+
+                                    Marketing - Lecture Notes | Page 65
+• These attributes were perception-driven and positioned Borges as superior to competitors
+
+Customer Retention vs. Customer Acquisition
+• Customer Acquisition Cost (CAC): High investment required to attract new customers in an
+  overcrowded market
+• Customer Retention: More cost-effective - retention costs approximately one-seventh to one-tenth of
+  acquisition costs
+• Customer Churn: Major organizational challenge where consumers leave for competitors despite
+  previous efforts to acquire them
+• Focus on retention provides better ROI than constant acquisition efforts
+
+Humanizing Brands: Transactional vs. Relational Approach
+Philosophical Foundation (Epicurus, 340-270 BC)
+• Utilitarian/Transactional Bucket: Most human relationships are exchange-based (you give something,
+  I give something in return)
+• Examples: employer-employee, buyer-seller, even family relationships (siblings, spouses)
+• Love Bucket: Only parent-child relationships are truly non-transactional, based on pure affection
+  without expectation of return
+
+Application in Modern Marketing
+• Traditional approach: Treat products as mere objects to be exchanged (utilitarian bucket)
+• Humanized approach: Connect product attributes with human traits and characteristics (love bucket)
+• By humanizing brands, organizations shift consumer perception from transactional to relational
+
+Case Study - Tire Advertisements
+• Problem: Why show father-daughter relationships in tire commercials?
+• Solution: Humanize the tire by connecting it to human emotions
+• Daughters feel protected and safe with their fathers
+• This emotional connection (safety, protection) relates to tire quality
+• A quality tire provides vehicle stability and safety
+• The tire becomes associated with protecting loved ones, not just a transactional product purchase
+• Result: Consumers place the brand in the "love bucket" (emotional connection) rather than the
+  "utilitarian bucket" (functional value), increasing brand loyalty
+
+Key Takeaway
+Organizations succeed by understanding that consumers don't purchase products - they purchase
+solutions to their needs and emotional satisfaction. By recognizing perceptual product categories,
+leveraging product attributes, and humanizing brands through emotional connections, organizations
+can move consumer relationships from transactional to relational, significantly improving customer
+retention and long-term brand value.
+
+
+
+
+                                     Marketing - Lecture Notes | Page 66
+Lecture 27 starts
+Understanding Humanizing a Brand Through Product
+Attributes and Human Characteristics
+This lecture explores how brands can create emotional connections with consumers by linking product
+attributes to human characteristics, moving beyond purely utilitarian value propositions to create
+meaningful relationships.
+
+The ABC Model of Brand Humanization
+The core framework for humanizing a brand consists of three interconnected components:
+• Attribute (A): The physical features of a product (e.g., tire grooves, paint colors and finishes)
+• Benefit (B): The functional advantages these attributes provide (e.g., anti-skid properties leading to
+  better traction and control)
+• Characteristics (C): Human-like emotions and values associated with those benefits (e.g., safety,
+  belongingness, self-expression)
+By connecting these three elements, brands move beyond selling products to selling emotions and
+values that resonate with consumers on a deeper level.
+
+Case Study: CEAT Tires
+CEAT's advertising exemplifies effective brand humanization:
+• Product Attribute: Groove technology in tires
+• Product Benefit: Anti-skid properties provide better traction and stability
+• Human Connection: Rather than focusing on technical specifications, CEAT's advertisements tell
+  stories of fathers protecting their families. In their classic ad, a father's quick reaction and car control
+  during an emergency situation reinforces the feeling of safety and protection for loved ones
+• Result: Consumers associate CEAT tires with family safety and protection rather than just vehicle
+  performance
+This approach places CEAT in the "love bucket" (emotional/relational) rather than the "utilitarian
+bucket" (transactional), creating stronger brand loyalty.
+
+Case Study: Asian Paints
+Asian Paints demonstrates how humanization works across different product categories:
+• Product Attribute: Paint colors and finishes
+• Product Benefits: Personalized spaces that enable self-expression and create unique environments
+• Human Characteristics: The tagline "Har Ghar Kuch Kehta Hai" (Every home tells a story) connects
+  paint colors to deeper human values:
+• Belongingness: Creating a home that reflects family bonds
+• Self-expression: Using colors to express individual personality
+• Memories and attachment: Colors evoke personal experiences and emotional connections
+• Identity: The home reflects who you are as an individual
+By featuring relatable families and individuals (rather than celebrities) in their advertisements, Asian
+Paints creates a sense of commonality that allows consumers to see themselves in the stories, making
+the emotional connection stronger.
+
+The Love Bucket vs. Utilitarian Bucket
+Utilitarian Approach (Transactional):
+• Focuses on product quality, performance, and value for money
+• Every competitor can offer similar features
+
+
+
+                                     Marketing - Lecture Notes | Page 67
+• Easily replaceable and subject to consumer churn
+Love Bucket Approach (Relational):
+• Incorporates emotional and human elements
+• Creates deeper consumer connections
+• Results in positive word-of-mouth and favorable attitudes
+• Reduces churn by creating brand loyalty beyond functional benefits
+
+Anthropomorphism in Marketing
+Humanizing a brand, also known as anthropomorphism, involves:
+• Relating human-like traits to products and brands
+• Using living elements (humans, animals) to create emotional connections
+• Examples include memorable campaigns like Hutch's pug advertisement, which outperformed many
+  celebrity-endorsed campaigns
+
+The Role of Perception and Attitude
+Consumer behavior involves a sequential decision-making process:
+• Motivation: The drive that initiates a purchase decision
+• Perception: Interpretation of product attributes and features
+• Attitude: Favorable or unfavorable evaluation of the product, which is a function of the object and its
+  attributes
+• Decision: Final purchase choice influenced by attitude toward the brand
+By humanizing a brand, organizations can influence consumer perception and foster favorable attitudes
+that lead to long-term brand preference.
+
+Key Takeaway
+Modern advertising increasingly leverages the ABC model by connecting product attributes to human
+benefits and then to human characteristics like safety, belonging, self-expression, and love. Rather than
+highlighting technical specifications, successful brands tell stories that allow consumers to associate
+products with meaningful human values and emotions. This relational approach creates stronger brand
+loyalty and reduces consumer churn compared to purely transactional marketing strategies.
+
+
+
+
+                                    Marketing - Lecture Notes | Page 68
+Lecture 28 starts
+Understanding Cognitive Biases in Consumer
+Decision-Making
+Overview
+This lecture explores cognitive biases - systematic errors in human judgment and decision-making that
+occur at an unconscious level. The session distinguishes between conscious biases (stereotypes shaped
+by social conditioning) and unconscious biases (cognitive biases that influence purchasing decisions
+without deliberate awareness). These mental shortcuts, or heuristics, help consumers make sense of
+the world but often lead to judgment errors in their choices and preferences.
+
+Main Topics Covered
+Conscious vs. Unconscious Biases
+• Conscious Biases: Stereotypes developed through social conditioning, environmental influences, and
+  how people around us think. Example: The Benetton advertisement controversy where consumers
+  stereotypically associated darker-skinned individuals with criminals and lighter-skinned individuals
+  with authority figures.
+• Unconscious Biases: Cognitive biases that operate at a subconscious level, causing us to misinterpret
+  or misrepresent information. These are unintentional judgment errors that affect consumer behavior.
+
+Anchoring Bias
+• Definition: A cognitive bias where consumers' attention becomes anchored to a specific element or
+  series of elements, which then guides their decision-making process.
+• How it works: Consumers exclude other information and focus solely on the anchored element,
+  moving to the next stage of their purchase decision based on this limited focus
+Examples:
+• In smartphone comparisons, consumers may anchor on price, ratings, or delivery speed
+• Zoom subscription plans highlighting "Save 16%" when switching from monthly to annual billing
+• Organizations benefit by anchoring consumers to longer commitments (annual vs. monthly
+  subscriptions)
+
+Bandwagon Effect
+• Definition: Consumers place greater value on decisions that conform to current trends or please their
+  peer groups. If others are doing something, it must be valuable.
+• Characteristics: The more people who use or purchase something, the greater credibility and value it
+  appears to have.
+• Examples:
+• Course platforms displaying "15,000 people learning on edX today" to attract more enrollees
+• Hotel and resort reviews: Properties with 1,157 reviews and an 8.5 rating appear more credible than
+  those with 281 reviews and 8.1 rating
+• Real-life application: While theory suggests more reviews equal better value, in practice, some
+  consumers prefer fewer reviews because it indicates less crowding and more exclusivity.
+
+Scarcity Effect
+• Definition: When consumers learn that a product is limited or about to run out of stock, they place
+  higher value on it and exhibit greater willingness to purchase compared to when the product is
+  available in abundance.
+• Consumer cognition process:
+• If scarcity is communicated: Higher willingness to purchase
+
+
+
+                                   Marketing - Lecture Notes | Page 69
+• If abundance is communicated: Consumer compares across platforms, prices, and reviews before
+  deciding
+• Examples:
+• Hotel booking websites displaying "Only 6 rooms left at this price" or "Only 3 rooms left" to
+  accelerate purchase decisions
+• H&M checkout carts showing "Few pieces left" for certain products, prompting immediate purchase
+• The scarcity effect diminishes if consumers have alternative options (e.g., different travel
+  destinations)
+• Marketing tactic: Organizations use scarcity messaging to nudge consumers toward purchasing
+  low-involvement products, though inventory often replenishes after 24 hours.
+
+Endowment Effect
+• Definition: Consumers place significantly greater value on products they own compared to identical
+  products they don't own. Ownership creates emotional attachment and perceived value.
+• Characteristics:
+• Selling price vs. buying price discrepancy: When selling an owned product, consumers demand
+  higher prices; when buying the same product from someone else, they offer lower prices
+• Typical price difference observed in classroom activities: Approximately 50% reduction between
+  selling and buying prices
+• Examples:
+• Smartphones: If you own a phone valued at 20,000, you'll sell it for 15,000-18,000 but only offer
+  7,000-10,000 when buying a similar used phone
+• Starbucks naming practice: When baristas call out your name with your order, it creates a sense of
+  ownership and personal connection, increasing perceived value of the product and loyalty to the
+  brand
+• Business application: The endowment effect increases consumer loyalty and brand attachment when
+  personalization elements are incorporated.
+
+Key Takeaways
+• Cognitive biases are subconscious errors in thinking that lead to judgment errors in consumer
+  decision-making
+• These biases function as mental shortcuts (heuristics) that help consumers navigate complex choices
+  but often result in irrational purchasing decisions
+• Organizations and marketers deliberately use these biases to influence consumer behavior through
+  anchoring, bandwagon effects, scarcity messaging, and personalization
+• Understanding these biases helps consumers recognize when they're being influenced and make
+  more deliberate purchasing decisions
+• Biases are not always disadvantageous; they can provide value but may also lead to unnecessary
+  purchases
+
+
+
+
+                                    Marketing - Lecture Notes | Page 70
+
