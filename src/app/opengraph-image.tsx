@@ -131,19 +131,6 @@ export default function OpengraphImage() {
             IIT Jodhpur — B.S. in Management and Technology
           </div>
         </div>
-
-        {/* the quiet signature */}
-        <div
-          style={{
-            display: "flex",
-            color: "rgba(233, 215, 191, 0.6)",
-            fontFamily: SERIF,
-            fontStyle: "italic",
-            fontSize: 26,
-          }}
-        >
-          mapped &amp; built by Arpit Nayan
-        </div>
       </div>
     ),
     size

@@ -526,15 +526,12 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             />
             <span className="whitespace-nowrap font-display text-[1rem] font-black tracking-tight text-[#f7ecdd]">The Atlas</span>
           </span>
-          <span className="ml-auto hidden font-mono text-[.56rem] uppercase tracking-[.2em] text-[#8d7b63] md:inline">
-            mapped &amp; built by Arpit Nayan
-          </span>
           <button
             type="button"
             onClick={() => window.dispatchEvent(new CustomEvent("atlas:cmdk"))}
             aria-label="Open the command palette (Command K)"
             title="Command palette — ⌘K"
-            className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[.05] px-2.5 py-1 font-mono text-[.6rem] font-bold tracking-wide text-[#cbb89a] transition hover:bg-white/[.12] hover:text-[#f5c889]"
+            className="ml-auto flex items-center gap-1 rounded-full border border-white/10 bg-white/[.05] px-2.5 py-1 font-mono text-[.6rem] font-bold tracking-wide text-[#cbb89a] transition hover:bg-white/[.12] hover:text-[#f5c889]"
           >
             <CommandIcon aria-hidden className="h-3 w-3" />
             K
@@ -845,9 +842,6 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             </span>
             <div>
               <p className="font-display text-[.95rem] font-black text-[#f7ecdd]">The Atlas</p>
-              <p className="font-mono text-[.58rem] uppercase tracking-[.2em] text-[#8d7b63]">
-                mapped &amp; built by Arpit Nayan
-              </p>
             </div>
           </div>
           <p className="sig-colo text-center md:text-right">
