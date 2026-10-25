@@ -222,3 +222,33 @@ export const MOCK_EXAM_THEME: ExamTheme = {
     restart: { t: "A hard paper — go back to the notes, then compose another one.", c: "#8c2f2f" },
   },
 };
+/** shelf 06 header — deep lagoon */
+const LAGOON_HEADER = "linear-gradient(160deg,#0c2124,#143236)";
+
+
+/* ---------------- shelf 06 — Principles of Marketing ---------------- */
+export const MKTG_EXAM_THEME: ExamTheme = {
+  key: "mktg",
+  pageBg: "linear-gradient(180deg,#f4f7f4 0%,#eef3ee 100%)",
+  headerBg: LAGOON_HEADER,
+  sigil: "linear-gradient(135deg,#14b8a6,#0f766e)",
+  titleOnDark: "#e9f2ee",
+  subOnDark: "#9fc4ba",
+  chipOnDark: "#cfe6df",
+  footerBorder: "#dbeae5",
+  footerBg: "rgba(248,250,247,0.9)",
+  footerNote: "Exam mode: write on real paper first — then check. That is exactly how the end-term works.",
+  paperLabel: "Write it on paper first — then type your attempt to compare",
+  outputPlaceholder: "e.g. revenue 9,600 · cost 5,600 · profit 4,000",
+  typeMeta: {
+    mcq: { label: "Multiple choice", color: "#0f5f58", bg: "#e2f1ec" },
+    output: { label: "Write the numbers", color: "#7a5a14", bg: "#f7efdc" },
+    short: { label: "Short answer", color: "#28423c", bg: "#eaf1ec" },
+  },
+  tiers: {
+    topper: { t: "Topper tier — you are pen-paper ready.", c: "#3f6b2e" },
+    solid: { t: "Solid. Rewrite the missed answers by hand and you are there.", c: "#8a6414" },
+    getting: { t: "Getting there — go back to the notes for the misses, then retake.", c: "#a97d2c" },
+    restart: { t: "Read the chapter notes once more, then retake — you will crush it.", c: "#8c2f3f" },
+  },
+};
