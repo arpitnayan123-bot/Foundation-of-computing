@@ -311,3 +311,108 @@ Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allow
 [04:17:04.613] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
 [04:17:04.613] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
 [04:17:04.613] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[05:51:49.188] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:51:49.188] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[05:51:49.188] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[05:52:01.803] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:52:01.803] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[05:52:01.803] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:13:40.279] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:13:40.279] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:13:40.280] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:20:38.904] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:20:38.904] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:20:38.904] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:22:15.586] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:22:15.586] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:22:15.586] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:22:46.482] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:22:46.482] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:22:46.482] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:23:36.689] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:23:36.689] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:23:36.689] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:24:46.516] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:24:46.516] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:24:46.516] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:25:05.087] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:25:05.087] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:25:05.087] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:25:25.315] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:25:25.315] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:25:25.315] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:25:33.532] Server  LOG     ✓ Compiled in 388ms
+[06:25:46.045] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:25:46.045] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:25:46.045] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:26:06.204] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:26:06.204] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:26:06.204] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:26:26.758] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:26:26.758] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:26:26.758] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:26:47.541] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:26:47.541] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:26:47.542] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:27:13.169] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:27:13.169] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:27:13.169] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:27:35.317] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:27:35.317] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:27:35.317] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:27:55.416] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:27:55.416] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:27:55.416] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:28:15.431] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:28:15.431] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:28:15.431] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:29:18.014] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:29:18.014] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:29:18.014] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:40:32.939] Server  LOG     ✓ Compiled in 371ms
+[06:42:32.881] Server  LOG     ✓ Compiled in 338ms
+[06:43:08.005] Server  LOG     ✓ Compiled in 303ms
+[06:44:42.491] Server  LOG     ✓ Compiled in 324ms
+[06:45:47.034] Server  LOG     ✓ Compiled in 406ms
+[06:46:12.195] Server  LOG     ✓ Compiled in 577ms
+[06:47:31.075] Server  LOG     ✓ Compiled in 650ms
+[06:48:14.310] Server  LOG     ✓ Compiled in 279ms
+[06:50:02.409] Server  LOG     ✓ Compiled in 310ms
+[06:50:05.815] Server  LOG     ✓ Compiled in 289ms
+[06:50:10.001] Server  LOG     ✓ Compiled in 291ms
+[06:50:44.480] Server  LOG     ✓ Compiled in 633ms
+[06:51:11.443] Server  LOG     ✓ Compiled in 483ms
+[06:51:17.804] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:51:17.804] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:51:17.804] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:51:34.507] Server  LOG     ✓ Compiled in 323ms
+[06:51:34.895] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:51:34.895] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:51:34.895] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[06:53:06.026] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:53:06.026] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:53:06.026] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[07:08:00.228] Server  LOG     ✓ Compiled in 394ms
+[07:10:09.790] Server  LOG     ✓ Compiled in 376ms
+[07:11:41.126] Server  LOG     ✓ Compiled in 1012ms
+[07:12:02.264] Server  LOG     ✓ Compiled in 2.7s
+[07:12:12.839] Server  LOG     ✓ Compiled in 205ms
+[07:13:41.654] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[07:13:43.468] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[07:13:43.468] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[07:13:43.468] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[07:25:15.300] Server  LOG     ✓ Compiled in 302ms
+[07:25:15.677] Server  LOG     ✓ Compiled in 274ms
+[07:25:25.474] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[07:25:26.120] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[07:25:26.120] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[07:25:26.120] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/#/subject/mktg color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/#/subject/mktg","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[07:26:45.646] Server  LOG     ✓ Compiled in 285ms
+[07:26:47.418] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[07:26:47.966] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[07:26:47.966] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[07:26:47.966] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/#/subject/atb color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/#/subject/atb","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[07:27:51.789] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[07:27:52.287] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[07:27:52.288] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[07:27:52.288] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/#/subject/mktg color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/#/subject/mktg","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view

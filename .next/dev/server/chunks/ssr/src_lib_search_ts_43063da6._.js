@@ -30,7 +30,8 @@ module.exports = [
     atb: ()=>__turbopack_context__.A("[project]/src/components/atb/questions.ts [app-ssr] (ecmascript, async loader)").then((m)=>m.ATB_EXAM_BANKS),
     fa: ()=>__turbopack_context__.A("[project]/src/components/fa/questions.ts [app-ssr] (ecmascript, async loader)").then((m)=>m.FA_EXAM_BANKS),
     ebh: ()=>__turbopack_context__.A("[project]/src/components/ebh/questions.ts [app-ssr] (ecmascript, async loader)").then((m)=>m.EBH_EXAM_BANKS),
-    stm: ()=>__turbopack_context__.A("[project]/src/components/stm/questions.ts [app-ssr] (ecmascript, async loader)").then((m)=>m.STM_EXAM_BANKS)
+    stm: ()=>__turbopack_context__.A("[project]/src/components/stm/questions.ts [app-ssr] (ecmascript, async loader)").then((m)=>m.STM_EXAM_BANKS),
+    mktg: ()=>__turbopack_context__.A("[project]/src/components/mktg/questions.ts [app-ssr] (ecmascript, async loader)").then((m)=>m.MKTG_EXAM_BANKS)
 };
 let notesIndexPromise = null;
 /** chapterKey-unique text kept beside the index so hits can be

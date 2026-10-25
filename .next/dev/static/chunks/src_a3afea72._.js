@@ -188,7 +188,8 @@ const QUESTION_COUNTS = {
     atb: 30,
     fa: 40,
     ebh: 40,
-    stm: 40
+    stm: 40,
+    mktg: 48
 };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
@@ -208,6 +209,7 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$compass$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Compass$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/compass.js [app-client] (ecmascript) <export default as Compass>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$landmark$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Landmark$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/landmark.js [app-client] (ecmascript) <export default as Landmark>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$lock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Lock$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/lock.js [app-client] (ecmascript) <export default as Lock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$megaphone$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Megaphone$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/megaphone.js [app-client] (ecmascript) <export default as Megaphone>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$route$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Route$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/route.js [app-client] (ecmascript) <export default as Route>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$scale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Scale$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/scale.js [app-client] (ecmascript) <export default as Scale>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sigma$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Sigma$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/sigma.js [app-client] (ecmascript) <export default as Sigma>");
@@ -337,10 +339,34 @@ const SUBJECTS = [
         ambience: "shimmer"
     },
     {
-        id: "shelf-06",
+        id: "mktg",
         shelf: "06",
+        title: "Principles of Marketing",
+        short: "MKTG Notes",
+        tagline: "Why people buy — and why they keep buying.",
+        description: "The whole course rebuilt as living notes: decline curves for BlackBerry, Hertz and Blockbuster, a cold-coffee P&L you can tune, the ES/DS gap machine, the three-circles POP/POD finder, a Gestalt lab, and 48 exam-style questions across 8 pen-paper windows.",
+        topics: [
+            "Value & exchange",
+            "ES/DS & loyalty",
+            "STP",
+            "Positioning & POD/POP",
+            "Consumer journey",
+            "Perception & biases"
+        ],
+        chapters: 53,
+        questions: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$question$2d$counts$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["QUESTION_COUNTS"].mktg,
+        examWindows: 8,
+        accent: "#14b8a6",
+        accent2: "#0f766e",
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$megaphone$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Megaphone$3e$__["Megaphone"],
+        status: "live",
+        ambience: "beacon"
+    },
+    {
+        id: "shelf-07",
+        shelf: "07",
         title: "Reserved shelf",
-        short: "Shelf 06",
+        short: "Shelf 07",
         tagline: "The next PDF drops here.",
         description: "This shelf fills in as each subject is rebuilt Atlas-style — same living diagrams, same exam simulators, same pen-paper soul.",
         topics: [
@@ -2456,7 +2482,49 @@ _c4 = LockedBadge;
                 lineNumber: 192,
                 columnNumber: 9
             }, this);
-        /* 06 · drift — two warm coals slowly floating under the glass */ case "drift":
+        /* 06 · MKTG — a beacon: one pulsing ring + steady gold dot */ case "beacon":
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                "aria-hidden": true,
+                className: "pointer-events-none absolute -right-12 -top-14 h-52 w-52",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "amb-breathe absolute inset-6 rounded-full border-2",
+                        style: {
+                            borderColor: `${accent}66`
+                        }
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
+                        lineNumber: 203,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "amb-breathe absolute inset-14 rounded-full border",
+                        style: {
+                            borderColor: `${accent}44`,
+                            animationDelay: "-1.6s"
+                        }
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
+                        lineNumber: 207,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "absolute right-10 top-10 h-2.5 w-2.5 rounded-full anim-floaty",
+                        style: {
+                            background: "#e3c26b"
+                        }
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
+                        lineNumber: 211,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
+                lineNumber: 202,
+                columnNumber: 9
+            }, this);
+        /* 07 · drift — two warm coals slowly floating under the glass */ case "drift":
             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2470,7 +2538,7 @@ _c4 = LockedBadge;
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 203,
+                        lineNumber: 222,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2484,7 +2552,7 @@ _c4 = LockedBadge;
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 208,
+                        lineNumber: 227,
                         columnNumber: 11
                     }, this)
                 ]
@@ -2518,7 +2586,7 @@ _c5 = Ambience;
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-        lineNumber: 241,
+        lineNumber: 260,
         columnNumber: 5
     }, this);
 }
@@ -2557,7 +2625,7 @@ _c6 = DueBadge;
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-        lineNumber: 261,
+        lineNumber: 280,
         columnNumber: 5
     }, this);
 }
@@ -2585,7 +2653,7 @@ function SubjectCard({ subject, index, onEnter }) {
                 accent: subject.accent
             }, void 0, false, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 291,
+                lineNumber: 310,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2596,7 +2664,7 @@ function SubjectCard({ subject, index, onEnter }) {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 293,
+                lineNumber: 312,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2611,12 +2679,12 @@ function SubjectCard({ subject, index, onEnter }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 301,
+                            lineNumber: 320,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 300,
+                        lineNumber: 319,
                         columnNumber: 9
                     }, this),
                     live ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2627,37 +2695,37 @@ function SubjectCard({ subject, index, onEnter }) {
                                 total: subject.chapters ?? 0
                             }, void 0, false, {
                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                lineNumber: 305,
+                                lineNumber: 324,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DueBadge, {
                                 subjectId: subject.id
                             }, void 0, false, {
                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                lineNumber: 306,
+                                lineNumber: 325,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LiveBadge, {
                                 accent: subject.accent
                             }, void 0, false, {
                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                lineNumber: 307,
+                                lineNumber: 326,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 304,
+                        lineNumber: 323,
                         columnNumber: 11
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LockedBadge, {}, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 310,
+                        lineNumber: 329,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 299,
+                lineNumber: 318,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2671,7 +2739,7 @@ function SubjectCard({ subject, index, onEnter }) {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 315,
+                        lineNumber: 334,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2679,7 +2747,7 @@ function SubjectCard({ subject, index, onEnter }) {
                         children: subject.title
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 316,
+                        lineNumber: 335,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2687,13 +2755,13 @@ function SubjectCard({ subject, index, onEnter }) {
                         children: live ? subject.description : subject.tagline
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 323,
+                        lineNumber: 342,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 314,
+                lineNumber: 333,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2703,12 +2771,12 @@ function SubjectCard({ subject, index, onEnter }) {
                         children: t
                     }, t, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 330,
+                        lineNumber: 349,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 328,
+                lineNumber: 347,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2727,7 +2795,7 @@ function SubjectCard({ subject, index, onEnter }) {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 339,
+                            lineNumber: 358,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2738,13 +2806,13 @@ function SubjectCard({ subject, index, onEnter }) {
                                     className: "h-3.5 w-3.5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 343,
+                                    lineNumber: 362,
                                     columnNumber: 21
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 342,
+                            lineNumber: 361,
                             columnNumber: 13
                         }, this)
                     ]
@@ -2755,7 +2823,7 @@ function SubjectCard({ subject, index, onEnter }) {
                             children: "awaiting syllabus — the pdf drops here"
                         }, void 0, false, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 348,
+                            lineNumber: 367,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2763,14 +2831,14 @@ function SubjectCard({ subject, index, onEnter }) {
                             children: "soon"
                         }, void 0, false, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 351,
+                            lineNumber: 370,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true)
             }, void 0, false, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 336,
+                lineNumber: 355,
                 columnNumber: 7
             }, this)
         ]
@@ -2820,14 +2888,14 @@ function SubjectCard({ subject, index, onEnter }) {
                     "aria-hidden": true
                 }, void 0, false, {
                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                    lineNumber: 383,
+                    lineNumber: 402,
                     columnNumber: 11
                 }, this),
                 inner
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-            lineNumber: 372,
+            lineNumber: 391,
             columnNumber: 9
         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             ref: setSpotRef,
@@ -2840,19 +2908,19 @@ function SubjectCard({ subject, index, onEnter }) {
                     "aria-hidden": true
                 }, void 0, false, {
                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                    lineNumber: 388,
+                    lineNumber: 407,
                     columnNumber: 11
                 }, this),
                 inner
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-            lineNumber: 387,
+            lineNumber: 406,
             columnNumber: 9
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-        lineNumber: 364,
+        lineNumber: 383,
         columnNumber: 5
     }, this);
 }
@@ -2887,7 +2955,7 @@ _c8 = SubjectCard;
                     children: shelf
                 }, void 0, false, {
                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                    lineNumber: 409,
+                    lineNumber: 428,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2898,7 +2966,7 @@ _c8 = SubjectCard;
                             children: "next drop"
                         }, void 0, false, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 417,
+                            lineNumber: 436,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2921,18 +2989,18 @@ _c8 = SubjectCard;
                                             }
                                         }, i, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 422,
+                                            lineNumber: 441,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 420,
+                                    lineNumber: 439,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 418,
+                            lineNumber: 437,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2940,13 +3008,13 @@ _c8 = SubjectCard;
                             children: "The atlas grows one PDF at a time. Drop the next syllabus and this tile comes alive — distilled, animated, made runnable. Same mould, every single time."
                         }, void 0, false, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 430,
+                            lineNumber: 449,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                    lineNumber: 416,
+                    lineNumber: 435,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2957,7 +3025,7 @@ _c8 = SubjectCard;
                             "aria-hidden": true
                         }, void 0, false, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 437,
+                            lineNumber: 456,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2969,24 +3037,24 @@ _c8 = SubjectCard;
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 438,
+                            lineNumber: 457,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                    lineNumber: 436,
+                    lineNumber: 455,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-            lineNumber: 407,
+            lineNumber: 426,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-        lineNumber: 400,
+        lineNumber: 419,
         columnNumber: 5
     }, this);
 }
@@ -3041,7 +3109,7 @@ _c9 = NextShelfTile;
                         strokeWidth: "2.4"
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 476,
+                        lineNumber: 495,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -3056,13 +3124,13 @@ _c9 = NextShelfTile;
                         strokeDashoffset: C * (1 - p)
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 477,
+                        lineNumber: 496,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 475,
+                lineNumber: 494,
                 columnNumber: 7
             }, this),
             goal.done,
@@ -3071,7 +3139,7 @@ _c9 = NextShelfTile;
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-        lineNumber: 465,
+        lineNumber: 484,
         columnNumber: 5
     }, this);
 }
@@ -3105,7 +3173,7 @@ _c10 = GoalChip;
                 className: "atlas-sigil-aura"
             }, void 0, false, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 508,
+                lineNumber: 527,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3117,25 +3185,25 @@ _c10 = GoalChip;
                     className: "atlas-sigil"
                 }, void 0, false, {
                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                    lineNumber: 510,
+                    lineNumber: 529,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 509,
+                lineNumber: 528,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                 className: "atlas-sigil-shadow"
             }, void 0, false, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 512,
+                lineNumber: 531,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-        lineNumber: 501,
+        lineNumber: 520,
         columnNumber: 5
     }, this);
 }
@@ -3163,7 +3231,7 @@ function AtlasLanding({ onEnter }) {
                         className: "atlas-grid"
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 536,
+                        lineNumber: 555,
                         columnNumber: 9
                     }, this),
                     GLYPHS.map((g, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3177,27 +3245,27 @@ function AtlasLanding({ onEnter }) {
                             children: g.ch
                         }, i, false, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 538,
+                            lineNumber: 557,
                             columnNumber: 11
                         }, this)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "atlas-noise"
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 546,
+                        lineNumber: 565,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "atlas-vignette"
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 547,
+                        lineNumber: 566,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 535,
+                lineNumber: 554,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -3216,7 +3284,7 @@ function AtlasLanding({ onEnter }) {
                                     className: "h-7 w-7 rounded-lg shadow-[0_6px_18px_-6px_rgba(234,88,12,.7)]"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 554,
+                                    lineNumber: 573,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3224,13 +3292,13 @@ function AtlasLanding({ onEnter }) {
                                     children: "The Atlas"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 560,
+                                    lineNumber: 579,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 553,
+                            lineNumber: 572,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3238,7 +3306,7 @@ function AtlasLanding({ onEnter }) {
                             children: "mapped & built by Arpit Nayan"
                         }, void 0, false, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 562,
+                            lineNumber: 581,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3253,19 +3321,19 @@ function AtlasLanding({ onEnter }) {
                                     className: "h-3 w-3"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 572,
+                                    lineNumber: 591,
                                     columnNumber: 13
                                 }, this),
                                 "K"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 565,
+                            lineNumber: 584,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(GoalChip, {}, void 0, false, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 575,
+                            lineNumber: 594,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3276,7 +3344,7 @@ function AtlasLanding({ onEnter }) {
                                     className: "atlas-live-dot h-1.5 w-1.5 rounded-full bg-[#f59e0b]"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 580,
+                                    lineNumber: 599,
                                     columnNumber: 13
                                 }, this),
                                 liveCount,
@@ -3286,18 +3354,18 @@ function AtlasLanding({ onEnter }) {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 576,
+                            lineNumber: 595,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                    lineNumber: 552,
+                    lineNumber: 571,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 551,
+                lineNumber: 570,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -3309,7 +3377,7 @@ function AtlasLanding({ onEnter }) {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AtlasSigil, {}, void 0, false, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 591,
+                                    lineNumber: 610,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].span, {
@@ -3335,7 +3403,7 @@ function AtlasLanding({ onEnter }) {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 600,
+                                            lineNumber: 619,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3343,7 +3411,7 @@ function AtlasLanding({ onEnter }) {
                                             children: "IIT Jodhpur"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 601,
+                                            lineNumber: 620,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3351,20 +3419,20 @@ function AtlasLanding({ onEnter }) {
                                             "aria-hidden": true
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 602,
+                                            lineNumber: 621,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             children: "B.S. in Management and Technology"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 603,
+                                            lineNumber: 622,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 594,
+                                    lineNumber: 613,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -3376,7 +3444,7 @@ function AtlasLanding({ onEnter }) {
                                             children: "The Atlas"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 613,
+                                            lineNumber: 632,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3403,7 +3471,7 @@ function AtlasLanding({ onEnter }) {
                                                         children: ch === " " ? "\u00A0" : ch
                                                     }, `a-${i}`, false, {
                                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                        lineNumber: 616,
+                                                        lineNumber: 635,
                                                         columnNumber: 19
                                                     }, this)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].span, {
@@ -3421,7 +3489,7 @@ function AtlasLanding({ onEnter }) {
                                                     children: " "
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                    lineNumber: 626,
+                                                    lineNumber: 645,
                                                     columnNumber: 17
                                                 }, this),
                                                 "ATLAS".split("").map((ch, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].span, {
@@ -3444,30 +3512,30 @@ function AtlasLanding({ onEnter }) {
                                                         children: ch
                                                     }, `b-${i}`, false, {
                                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                        lineNumber: 635,
+                                                        lineNumber: 654,
                                                         columnNumber: 19
                                                     }, this))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 614,
+                                            lineNumber: 633,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 609,
+                                    lineNumber: 628,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 589,
+                            lineNumber: 608,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 588,
+                        lineNumber: 607,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -3479,7 +3547,7 @@ function AtlasLanding({ onEnter }) {
                                 className: "pointer-events-none absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-[#070509] to-transparent"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                lineNumber: 656,
+                                lineNumber: 675,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3487,7 +3555,7 @@ function AtlasLanding({ onEnter }) {
                                 "aria-hidden": true
                             }, void 0, false, {
                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                lineNumber: 663,
+                                lineNumber: 682,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3515,13 +3583,13 @@ function AtlasLanding({ onEnter }) {
                                                 children: "Zero boring pages."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                lineNumber: 673,
+                                                lineNumber: 692,
                                                 columnNumber: 38
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                        lineNumber: 667,
+                                        lineNumber: 686,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
@@ -3547,13 +3615,13 @@ function AtlasLanding({ onEnter }) {
                                                 children: "Not PDFs. Atlas pages."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                lineNumber: 685,
+                                                lineNumber: 704,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                        lineNumber: 676,
+                                        lineNumber: 695,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -3586,13 +3654,13 @@ function AtlasLanding({ onEnter }) {
                                                         className: "h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                        lineNumber: 704,
+                                                        lineNumber: 723,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                lineNumber: 694,
+                                                lineNumber: 713,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3605,19 +3673,19 @@ function AtlasLanding({ onEnter }) {
                                                         className: "h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                        lineNumber: 712,
+                                                        lineNumber: 731,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                lineNumber: 706,
+                                                lineNumber: 725,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                        lineNumber: 688,
+                                        lineNumber: 707,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -3642,7 +3710,7 @@ function AtlasLanding({ onEnter }) {
                                                 delay: 0
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                lineNumber: 723,
+                                                lineNumber: 742,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Stat, {
@@ -3651,7 +3719,7 @@ function AtlasLanding({ onEnter }) {
                                                 delay: 0.1
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                lineNumber: 724,
+                                                lineNumber: 743,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Stat, {
@@ -3660,7 +3728,7 @@ function AtlasLanding({ onEnter }) {
                                                 delay: 0.2
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                lineNumber: 725,
+                                                lineNumber: 744,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3671,7 +3739,7 @@ function AtlasLanding({ onEnter }) {
                                                         children: "∞"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                        lineNumber: 727,
+                                                        lineNumber: 746,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3679,31 +3747,31 @@ function AtlasLanding({ onEnter }) {
                                                         children: "live code runs"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                        lineNumber: 728,
+                                                        lineNumber: 747,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                lineNumber: 726,
+                                                lineNumber: 745,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                        lineNumber: 717,
+                                        lineNumber: 736,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                lineNumber: 665,
+                                lineNumber: 684,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 651,
+                        lineNumber: 670,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3733,28 +3801,28 @@ function AtlasLanding({ onEnter }) {
                                                     className: "h-1 w-1 rounded-full bg-[#f59e0b]/70"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                    lineNumber: 754,
+                                                    lineNumber: 773,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, t, true, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 749,
+                                            lineNumber: 768,
                                             columnNumber: 19
                                         }, this))
                                 }, dup, false, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 738,
+                                    lineNumber: 757,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 736,
+                            lineNumber: 755,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 735,
+                        lineNumber: 754,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -3772,14 +3840,14 @@ function AtlasLanding({ onEnter }) {
                                                 className: "h-px w-8 bg-gradient-to-r from-[#ea580c] to-transparent"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                lineNumber: 766,
+                                                lineNumber: 785,
                                                 columnNumber: 15
                                             }, this),
                                             "the shelf"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                        lineNumber: 765,
+                                        lineNumber: 784,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3791,13 +3859,13 @@ function AtlasLanding({ onEnter }) {
                                                 children: "Enter a world."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                lineNumber: 770,
+                                                lineNumber: 789,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                        lineNumber: 769,
+                                        lineNumber: 788,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3805,13 +3873,13 @@ function AtlasLanding({ onEnter }) {
                                         children: "Six boxes, one mould — the same dark frosted build, set two by two. Only the sigil changes, and one whisper of motion. Same soul, every time."
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                        lineNumber: 772,
+                                        lineNumber: 791,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                lineNumber: 764,
+                                lineNumber: 783,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3823,7 +3891,7 @@ function AtlasLanding({ onEnter }) {
                                             onEnter: onEnter
                                         }, s.id, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 780,
+                                            lineNumber: 799,
                                             columnNumber: 15
                                         }, this)),
                                     nextShelf ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NextShelfTile, {
@@ -3831,19 +3899,19 @@ function AtlasLanding({ onEnter }) {
                                         shelf: nextShelf
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                        lineNumber: 782,
+                                        lineNumber: 801,
                                         columnNumber: 26
                                     }, this) : null
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                lineNumber: 778,
+                                lineNumber: 797,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 763,
+                        lineNumber: 782,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -3860,7 +3928,7 @@ function AtlasLanding({ onEnter }) {
                                             children: "why it hits different"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 790,
+                                            lineNumber: 809,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3872,13 +3940,13 @@ function AtlasLanding({ onEnter }) {
                                                     children: "cinema."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                    lineNumber: 794,
+                                                    lineNumber: 813,
                                                     columnNumber: 36
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 793,
+                                            lineNumber: 812,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3886,13 +3954,13 @@ function AtlasLanding({ onEnter }) {
                                             children: "Three obsessions separate an Atlas page from every PDF you've ever suffered through."
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 796,
+                                            lineNumber: 815,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 789,
+                                    lineNumber: 808,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3931,7 +3999,7 @@ function AtlasLanding({ onEnter }) {
                                                         children: f.n
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                        lineNumber: 828,
+                                                        lineNumber: 847,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3948,12 +4016,12 @@ function AtlasLanding({ onEnter }) {
                                                             }
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                            lineNumber: 842,
+                                                            lineNumber: 861,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                        lineNumber: 834,
+                                                        lineNumber: 853,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -3961,7 +4029,7 @@ function AtlasLanding({ onEnter }) {
                                                         children: f.title
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                        lineNumber: 844,
+                                                        lineNumber: 863,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3969,34 +4037,34 @@ function AtlasLanding({ onEnter }) {
                                                         children: f.body
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                        lineNumber: 845,
+                                                        lineNumber: 864,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                                lineNumber: 827,
+                                                lineNumber: 846,
                                                 columnNumber: 19
                                             }, this)
                                         }, f.n, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 826,
+                                            lineNumber: 845,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 802,
+                                    lineNumber: 821,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 788,
+                            lineNumber: 807,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 787,
+                        lineNumber: 806,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -4014,14 +4082,14 @@ function AtlasLanding({ onEnter }) {
                                             children: "Remembered long after."
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 858,
+                                            lineNumber: 877,
                                             columnNumber: 15
                                         }, this),
                                         "”"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 856,
+                                    lineNumber: 875,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4029,24 +4097,24 @@ function AtlasLanding({ onEnter }) {
                                     children: "That's the whole point of an Atlas page — it compresses the panic of revision into something you can watch, poke and run, so the syllabus finally sticks."
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 861,
+                                    lineNumber: 880,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 855,
+                            lineNumber: 874,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                        lineNumber: 854,
+                        lineNumber: 873,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 586,
+                lineNumber: 605,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
@@ -4067,12 +4135,12 @@ function AtlasLanding({ onEnter }) {
                                         strokeWidth: 2.4
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                        lineNumber: 878,
+                                        lineNumber: 897,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 874,
+                                    lineNumber: 893,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4082,7 +4150,7 @@ function AtlasLanding({ onEnter }) {
                                             children: "The Atlas"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 881,
+                                            lineNumber: 900,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4090,19 +4158,19 @@ function AtlasLanding({ onEnter }) {
                                             children: "mapped & built by Arpit Nayan"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                            lineNumber: 882,
+                                            lineNumber: 901,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                                    lineNumber: 880,
+                                    lineNumber: 899,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 873,
+                            lineNumber: 892,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4110,24 +4178,24 @@ function AtlasLanding({ onEnter }) {
                             children: "next.js · react · tailwind · framer-motion · pyodide — mmxxvi"
                         }, void 0, false, {
                             fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                            lineNumber: 887,
+                            lineNumber: 906,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                    lineNumber: 872,
+                    lineNumber: 891,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-                lineNumber: 871,
+                lineNumber: 890,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/atlas/AtlasLanding.tsx",
-        lineNumber: 533,
+        lineNumber: 552,
         columnNumber: 5
     }, this);
 }
@@ -4930,6 +4998,430 @@ const CHAPTER_INDEX = [
         desc: "NICE Paper, Go Bananas, McNeil's",
         group: "continuous",
         groupLabel: "Continuous & Sampling"
+    },
+    /* ---- shelf 06 — Principles of Marketing (53 chapters) ---- */ {
+        subject: "mktg",
+        section: "why-mktg",
+        label: "Why marketing?",
+        desc: "Lecture 1 · needs, decisions, brands, value",
+        group: "foundations",
+        groupLabel: "Foundations"
+    },
+    {
+        subject: "mktg",
+        section: "anticipation",
+        label: "Anticipation",
+        desc: "Lecture 2 · BlackBerry · Hertz · Blockbuster",
+        group: "foundations",
+        groupLabel: "Foundations"
+    },
+    {
+        subject: "mktg",
+        section: "topline",
+        label: "Top line & bottom line",
+        desc: "Lecture 2 · the cold-coffee P&L",
+        group: "foundations",
+        groupLabel: "Foundations"
+    },
+    {
+        subject: "mktg",
+        section: "mktg-vs-selling",
+        label: "Marketing vs selling",
+        desc: "Lecture 2 · the pen test",
+        group: "foundations",
+        groupLabel: "Foundations"
+    },
+    {
+        subject: "mktg",
+        section: "definitions",
+        label: "Definitions",
+        desc: "Lecture 3 · AMA · outside-in vs inside-out",
+        group: "concepts",
+        groupLabel: "Concepts"
+    },
+    {
+        subject: "mktg",
+        section: "mktg-system",
+        label: "The marketing system",
+        desc: "Lecture 3 · industry ↔ market, four flows",
+        group: "concepts",
+        groupLabel: "Concepts"
+    },
+    {
+        subject: "mktg",
+        section: "marketable",
+        label: "What can be marketed",
+        desc: "Lecture 3 · the ten entities",
+        group: "concepts",
+        groupLabel: "Concepts"
+    },
+    {
+        subject: "mktg",
+        section: "need-want-demand",
+        label: "Need · Want · Demand",
+        desc: "Lecture 3 · the triad",
+        group: "concepts",
+        groupLabel: "Concepts"
+    },
+    {
+        subject: "mktg",
+        section: "demand-states",
+        label: "Needs & demand states",
+        desc: "Lecture 3 · five needs, eight states",
+        group: "concepts",
+        groupLabel: "Concepts"
+    },
+    {
+        subject: "mktg",
+        section: "closed-system",
+        label: "The closed system",
+        desc: "Lecture 4 · interest × openness",
+        group: "concepts",
+        groupLabel: "Concepts"
+    },
+    {
+        subject: "mktg",
+        section: "biz-value",
+        label: "The business value",
+        desc: "Lecture 4 · top line, bottom line",
+        group: "concepts",
+        groupLabel: "Concepts"
+    },
+    {
+        subject: "mktg",
+        section: "chai-value",
+        label: "The chai example",
+        desc: "Lecture 5 · context sets value",
+        group: "value",
+        groupLabel: "Value & Exchange"
+    },
+    {
+        subject: "mktg",
+        section: "cpv-formula",
+        label: "The value formula",
+        desc: "Lecture 5 · benefits − costs",
+        group: "value",
+        groupLabel: "Value & Exchange"
+    },
+    {
+        subject: "mktg",
+        section: "environment",
+        label: "The environment",
+        desc: "Lecture 6 · micro & macro forces",
+        group: "value",
+        groupLabel: "Value & Exchange"
+    },
+    {
+        subject: "mktg",
+        section: "exchange-system",
+        label: "Exchange systems",
+        desc: "Lecture 6 · beyond money-for-product",
+        group: "value",
+        groupLabel: "Value & Exchange"
+    },
+    {
+        subject: "mktg",
+        section: "value-price-features",
+        label: "Value · price · features",
+        desc: "Lecture 7 · three distinctions",
+        group: "value",
+        groupLabel: "Value & Exchange"
+    },
+    {
+        subject: "mktg",
+        section: "luxury-lever",
+        label: "The luxury lever",
+        desc: "Lecture 7 · the uncapped benefit",
+        group: "value",
+        groupLabel: "Value & Exchange"
+    },
+    {
+        subject: "mktg",
+        section: "es-ds",
+        label: "Existing & desired state",
+        desc: "Lecture 8 · manufacturing the gap",
+        group: "loyalty",
+        groupLabel: "Gap & Loyalty"
+    },
+    {
+        subject: "mktg",
+        section: "purchase-chain",
+        label: "The purchase chain",
+        desc: "Lecture 8 · value to loyalty",
+        group: "loyalty",
+        groupLabel: "Gap & Loyalty"
+    },
+    {
+        subject: "mktg",
+        section: "context-matters",
+        label: "Context matters",
+        desc: "Lecture 9 · one delivery, two ratings",
+        group: "loyalty",
+        groupLabel: "Gap & Loyalty"
+    },
+    {
+        subject: "mktg",
+        section: "loyalty-econ",
+        label: "Loyalty economics",
+        desc: "Lecture 9 · the retention numbers",
+        group: "loyalty",
+        groupLabel: "Gap & Loyalty"
+    },
+    {
+        subject: "mktg",
+        section: "campaigns-esds",
+        label: "Campaigns in ES/DS",
+        desc: "Lecture 10 · Samsung vs Sony & co.",
+        group: "loyalty",
+        groupLabel: "Gap & Loyalty"
+    },
+    {
+        subject: "mktg",
+        section: "beyond-purchase",
+        label: "Beyond purchase",
+        desc: "Lecture 10 · impulse, proxies, ethics",
+        group: "loyalty",
+        groupLabel: "Gap & Loyalty"
+    },
+    {
+        subject: "mktg",
+        section: "heterogeneity",
+        label: "Heterogeneity",
+        desc: "Lecture 11 · 100 users, six audiences",
+        group: "stp",
+        groupLabel: "STP"
+    },
+    {
+        subject: "mktg",
+        section: "bases",
+        label: "Bases of segmentation",
+        desc: "Lecture 11 · geo · demo · psychographic",
+        group: "stp",
+        groupLabel: "STP"
+    },
+    {
+        subject: "mktg",
+        section: "behavioral-benefit",
+        label: "Behavior & benefits",
+        desc: "Lecture 12 · Surf Excel · Colgate",
+        group: "stp",
+        groupLabel: "STP"
+    },
+    {
+        subject: "mktg",
+        section: "tupo-case",
+        label: "Tupo",
+        desc: "Lecture 13 · the 3–15 gap",
+        group: "stp",
+        groupLabel: "STP"
+    },
+    {
+        subject: "mktg",
+        section: "safe-targeting",
+        label: "SAFE targeting",
+        desc: "Lecture 14 · the four gates",
+        group: "stp",
+        groupLabel: "STP"
+    },
+    {
+        subject: "mktg",
+        section: "pos-3q",
+        label: "Positioning's 3 questions",
+        desc: "Lecture 14 · who · what · why",
+        group: "stp",
+        groupLabel: "STP"
+    },
+    {
+        subject: "mktg",
+        section: "accor-map",
+        label: "The Accor map",
+        desc: "Lecture 15 · perceptual mapping",
+        group: "positioning",
+        groupLabel: "Positioning"
+    },
+    {
+        subject: "mktg",
+        section: "frame-podspops",
+        label: "Frames · POPs · PODs",
+        desc: "Lecture 15 · Gypsy King lesson",
+        group: "positioning",
+        groupLabel: "Positioning"
+    },
+    {
+        subject: "mktg",
+        section: "four-levels",
+        label: "The four levels",
+        desc: "Lecture 16 · mass → market of one",
+        group: "positioning",
+        groupLabel: "Positioning"
+    },
+    {
+        subject: "mktg",
+        section: "pop-pod-evolution",
+        label: "POD → POP evolution",
+        desc: "Lecture 16 · the razor ladder",
+        group: "positioning",
+        groupLabel: "Positioning"
+    },
+    {
+        subject: "mktg",
+        section: "three-circles",
+        label: "The three circles",
+        desc: "Lecture 17 · locating POD & POP",
+        group: "positioning",
+        groupLabel: "Positioning"
+    },
+    {
+        subject: "mktg",
+        section: "pod-pop-cases",
+        label: "Case files",
+        desc: "Lecture 17 · Oral-B · Dettol vs Savlon",
+        group: "positioning",
+        groupLabel: "Positioning"
+    },
+    {
+        subject: "mktg",
+        section: "why-buy",
+        label: "Why people buy",
+        desc: "Lecture 18 · desired states & stories",
+        group: "consumer",
+        groupLabel: "Consumer Mind"
+    },
+    {
+        subject: "mktg",
+        section: "eras-nudges",
+        label: "Eras & nudges",
+        desc: "Lecture 18 · rational → nudged",
+        group: "consumer",
+        groupLabel: "Consumer Mind"
+    },
+    {
+        subject: "mktg",
+        section: "five-stages",
+        label: "The five stages",
+        desc: "Lecture 19 · the decision process",
+        group: "consumer",
+        groupLabel: "Consumer Mind"
+    },
+    {
+        subject: "mktg",
+        section: "messy-middle",
+        label: "The messy middle",
+        desc: "Lecture 19 · the infinity loop",
+        group: "consumer",
+        groupLabel: "Consumer Mind"
+    },
+    {
+        subject: "mktg",
+        section: "journey-variations",
+        label: "Journey variations",
+        desc: "Lecture 20 · skip, reverse, loop",
+        group: "consumer",
+        groupLabel: "Consumer Mind"
+    },
+    {
+        subject: "mktg",
+        section: "autopsy-purchase",
+        label: "Autopsy of a purchase",
+        desc: "Lecture 20 · a real purchase, dissected",
+        group: "consumer",
+        groupLabel: "Consumer Mind"
+    },
+    {
+        subject: "mktg",
+        section: "touchpoints-framework",
+        label: "Touchpoints & framework",
+        desc: "Lecture 21 · the behavior cycle",
+        group: "consumer",
+        groupLabel: "Consumer Mind"
+    },
+    {
+        subject: "mktg",
+        section: "recap22",
+        label: "Recap · the journey",
+        desc: "Lecture 22 · the arc, one machine",
+        group: "consumer",
+        groupLabel: "Consumer Mind"
+    },
+    {
+        subject: "mktg",
+        section: "motivation-theories",
+        label: "Three theories",
+        desc: "Lecture 23 · Freud · Maslow · Herzberg",
+        group: "psychology",
+        groupLabel: "Psych & Bias"
+    },
+    {
+        subject: "mktg",
+        section: "theory-match",
+        label: "Theory match",
+        desc: "Lecture 23 · six confessions",
+        group: "psychology",
+        groupLabel: "Psych & Bias"
+    },
+    {
+        subject: "mktg",
+        section: "brand-perception",
+        label: "Perception & brands",
+        desc: "Lecture 24 · the brand flip",
+        group: "psychology",
+        groupLabel: "Psych & Bias"
+    },
+    {
+        subject: "mktg",
+        section: "almonds-price",
+        label: "The almonds experiment",
+        desc: "Lecture 24 · packaging & price",
+        group: "psychology",
+        groupLabel: "Psych & Bias"
+    },
+    {
+        subject: "mktg",
+        section: "sensory-stages",
+        label: "Sensory thresholds",
+        desc: "Lecture 25 · thresholds & 4 stages",
+        group: "psychology",
+        groupLabel: "Psych & Bias"
+    },
+    {
+        subject: "mktg",
+        section: "gestalt-lab",
+        label: "The Gestalt lab",
+        desc: "Lecture 25 · five live demos",
+        group: "psychology",
+        groupLabel: "Psych & Bias"
+    },
+    {
+        subject: "mktg",
+        section: "attitude-buckets",
+        label: "Attitude & the buckets",
+        desc: "Lecture 26 · utilitarian vs love",
+        group: "psychology",
+        groupLabel: "Psych & Bias"
+    },
+    {
+        subject: "mktg",
+        section: "retention-acquisition",
+        label: "Retention vs acquisition",
+        desc: "Lecture 26 · the 1/7th rule",
+        group: "psychology",
+        groupLabel: "Psych & Bias"
+    },
+    {
+        subject: "mktg",
+        section: "abc-humanization",
+        label: "The ABC model",
+        desc: "Lecture 27 · CEAT · Asian Paints",
+        group: "psychology",
+        groupLabel: "Psych & Bias"
+    },
+    {
+        subject: "mktg",
+        section: "bias-lab",
+        label: "The bias lab",
+        desc: "Lecture 28 · four biases live",
+        group: "psychology",
+        groupLabel: "Psych & Bias"
     }
 ];
 const CHAPTER_TOTAL = CHAPTER_INDEX.length;
@@ -5760,6 +6252,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atlas$2
 ;
 ;
 ;
+;
 var _s = __turbopack_context__.k.signature();
 "use client";
 ;
@@ -5879,10 +6372,10 @@ const StmApp = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$
         }, ("TURBOPACK compile-time value", void 0))
 });
 _c5 = StmApp;
-const LedgerView = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(()=>__turbopack_context__.A("[project]/src/components/atlas/LedgerView.tsx [app-client] (ecmascript, next/dynamic entry, async loader)").then((m)=>m.LedgerView), {
+const MktgApp = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(()=>__turbopack_context__.A("[project]/src/components/mktg/MktgApp.tsx [app-client] (ecmascript, next/dynamic entry, async loader)").then((m)=>m.MktgApp), {
     loadableGenerated: {
         modules: [
-            "[project]/src/components/atlas/LedgerView.tsx [app-client] (ecmascript, next/dynamic entry)"
+            "[project]/src/components/mktg/MktgApp.tsx [app-client] (ecmascript, next/dynamic entry)"
         ]
     },
     ssr: false,
@@ -5892,7 +6385,21 @@ const LedgerView = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modu
             columnNumber: 18
         }, ("TURBOPACK compile-time value", void 0))
 });
-_c6 = LedgerView;
+_c6 = MktgApp;
+const LedgerView = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(()=>__turbopack_context__.A("[project]/src/components/atlas/LedgerView.tsx [app-client] (ecmascript, next/dynamic entry, async loader)").then((m)=>m.LedgerView), {
+    loadableGenerated: {
+        modules: [
+            "[project]/src/components/atlas/LedgerView.tsx [app-client] (ecmascript, next/dynamic entry)"
+        ]
+    },
+    ssr: false,
+    loading: ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ShelfLoader, {}, void 0, false, {
+            fileName: "[project]/src/app/page.tsx",
+            lineNumber: 73,
+            columnNumber: 18
+        }, ("TURBOPACK compile-time value", void 0))
+});
+_c7 = LedgerView;
 const SUBJECT_ROUTE = "#/subject/";
 function parseRouteHash(hash) {
     // only route-style hashes (#/…) drive the view; bare anchors (#why)
@@ -5979,7 +6486,7 @@ function Page() {
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atlas$2f$CommandPalette$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CommandPalette"], {}, void 0, false, {
                     fileName: "[project]/src/app/page.tsx",
-                    lineNumber: 135,
+                    lineNumber: 139,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -6011,47 +6518,54 @@ function Page() {
                             onEnter: enterSubject
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 145,
+                            lineNumber: 149,
                             columnNumber: 15
                         }, this) : view.name === "ledger" ? // the ledger — local-first progress, mastery and spaced review
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LedgerView, {
                             onExitAtlas: exitToAtlas
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 148,
+                            lineNumber: 152,
                             columnNumber: 15
                         }, this) : view.id === "foc" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(FocApp, {
                             onExitAtlas: exitToAtlas
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 150,
+                            lineNumber: 154,
                             columnNumber: 15
                         }, this) : view.id === "atb" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AtbApp, {
                             onExitAtlas: exitToAtlas
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 152,
+                            lineNumber: 156,
                             columnNumber: 15
                         }, this) : view.id === "fa" ? // shelf 03 — Financial Accounting, the third live subject
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(FaApp, {
                             onExitAtlas: exitToAtlas
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 155,
+                            lineNumber: 159,
                             columnNumber: 15
                         }, this) : view.id === "ebh" ? // shelf 04 — Economic & Business History, the fourth live subject
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(EbhApp, {
                             onExitAtlas: exitToAtlas
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 158,
+                            lineNumber: 162,
                             columnNumber: 15
                         }, this) : view.id === "stm" ? // shelf 05 — Statistics for Managers, the fifth live subject
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StmApp, {
                             onExitAtlas: exitToAtlas
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 161,
+                            lineNumber: 165,
+                            columnNumber: 15
+                        }, this) : view.id === "mktg" ? // shelf 06 — Principles of Marketing, the sixth live subject
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(MktgApp, {
+                            onExitAtlas: exitToAtlas
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/page.tsx",
+                            lineNumber: 168,
                             columnNumber: 15
                         }, this) : // reserved shelf reached by URL — send the reader back to the map
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AtlasFallback, {
@@ -6059,33 +6573,33 @@ function Page() {
                             onBack: exitToAtlas
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 164,
+                            lineNumber: 171,
                             columnNumber: 15
                         }, this)
                     }, viewKey, false, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 137,
+                        lineNumber: 141,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/page.tsx",
-                    lineNumber: 136,
+                    lineNumber: 140,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/page.tsx",
-            lineNumber: 133,
+            lineNumber: 137,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/page.tsx",
-        lineNumber: 130,
+        lineNumber: 134,
         columnNumber: 5
     }, this);
 }
 _s(Page, "xQirzi6aqaGiOenVBKR086n1cT0=");
-_c7 = Page;
+_c8 = Page;
 function AtlasFallback({ id, onBack }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex min-h-screen flex-col items-center justify-center gap-5 bg-[#070509] px-6 text-center",
@@ -6099,14 +6613,14 @@ function AtlasFallback({ id, onBack }) {
                         children: id.replace("shelf-", "")
                     }, void 0, false, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 177,
+                        lineNumber: 184,
                         columnNumber: 15
                     }, this),
                     " is still reserved."
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 176,
+                lineNumber: 183,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -6114,7 +6628,7 @@ function AtlasFallback({ id, onBack }) {
                 children: "This subject hasn't been rebuilt for the atlas yet — its PDF hasn't dropped."
             }, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 179,
+                lineNumber: 186,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -6124,27 +6638,28 @@ function AtlasFallback({ id, onBack }) {
                 children: "← Back to the atlas"
             }, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 182,
+                lineNumber: 189,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/page.tsx",
-        lineNumber: 175,
+        lineNumber: 182,
         columnNumber: 5
     }, this);
 }
-_c8 = AtlasFallback;
-var _c, _c1, _c2, _c3, _c4, _c5, _c6, _c7, _c8;
+_c9 = AtlasFallback;
+var _c, _c1, _c2, _c3, _c4, _c5, _c6, _c7, _c8, _c9;
 __turbopack_context__.k.register(_c, "ShelfLoader");
 __turbopack_context__.k.register(_c1, "FocApp");
 __turbopack_context__.k.register(_c2, "AtbApp");
 __turbopack_context__.k.register(_c3, "FaApp");
 __turbopack_context__.k.register(_c4, "EbhApp");
 __turbopack_context__.k.register(_c5, "StmApp");
-__turbopack_context__.k.register(_c6, "LedgerView");
-__turbopack_context__.k.register(_c7, "Page");
-__turbopack_context__.k.register(_c8, "AtlasFallback");
+__turbopack_context__.k.register(_c6, "MktgApp");
+__turbopack_context__.k.register(_c7, "LedgerView");
+__turbopack_context__.k.register(_c8, "Page");
+__turbopack_context__.k.register(_c9, "AtlasFallback");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

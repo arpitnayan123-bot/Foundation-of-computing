@@ -22,7 +22,8 @@ const SECTION_COUNTS = {
     atb: 28,
     fa: 16,
     ebh: 18,
-    stm: 16
+    stm: 16,
+    mktg: 53
 };
 const TOTAL_SECTIONS = Object.values(SECTION_COUNTS).reduce(_c = (n, x)=>n + x, 0);
 _c1 = TOTAL_SECTIONS;
@@ -186,7 +187,8 @@ __turbopack_context__.s([
     "atb",
     "fa",
     "ebh",
-    "stm"
+    "stm",
+    "mktg"
 ];
 let indexPromise = null;
 function loadQuestionIndex() {
@@ -195,7 +197,8 @@ function loadQuestionIndex() {
         __turbopack_context__.A("[project]/src/components/atb/questions.ts [app-client] (ecmascript, async loader)").then((m)=>m.ATB_EXAM_BANKS),
         __turbopack_context__.A("[project]/src/components/fa/questions.ts [app-client] (ecmascript, async loader)").then((m)=>m.FA_EXAM_BANKS),
         __turbopack_context__.A("[project]/src/components/ebh/questions.ts [app-client] (ecmascript, async loader)").then((m)=>m.EBH_EXAM_BANKS),
-        __turbopack_context__.A("[project]/src/components/stm/questions.ts [app-client] (ecmascript, async loader)").then((m)=>m.STM_EXAM_BANKS)
+        __turbopack_context__.A("[project]/src/components/stm/questions.ts [app-client] (ecmascript, async loader)").then((m)=>m.STM_EXAM_BANKS),
+        __turbopack_context__.A("[project]/src/components/mktg/questions.ts [app-client] (ecmascript, async loader)").then((m)=>m.MKTG_EXAM_BANKS)
     ]).then((maps)=>{
         const idx = new Map();
         maps.forEach((map, i)=>{

@@ -3,7 +3,7 @@ module.exports = [
 
 __turbopack_context__.v((parentImport) => {
     return Promise.all([
-  "server/chunks/ssr/_23dec63d._.js",
+  "server/chunks/ssr/_976aef65._.js",
   "server/chunks/ssr/src_lib_search_ts_43063da6._.js"
 ].map((chunk) => __turbopack_context__.l(chunk))).then(() => {
         return parentImport("[project]/src/lib/search.ts [app-ssr] (ecmascript)");

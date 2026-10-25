@@ -16,7 +16,7 @@
       "static/chunks/src_components_notes_e9f2e79f._.js",
       "static/chunks/src_lib_5813af7e._.js",
       "static/chunks/node_modules_lucide-react_dist_esm_icons_10c4053a._.js",
-      "static/chunks/src_components_notes_FocApp_tsx_ebc14850._.js"
+      "static/chunks/src_components_notes_FocApp_tsx_5c2bfe11._.js"
     ]
   },
   "[project]/src/components/atb/AtbApp.tsx [app-client] (ecmascript, next/dynamic entry)": {
@@ -35,7 +35,7 @@
       "static/chunks/src_components_atb_d6a43abc._.js",
       "static/chunks/src_lib_dbeb30eb._.js",
       "static/chunks/node_modules_lucide-react_dist_esm_icons_3f89dcdb._.js",
-      "static/chunks/src_components_atb_AtbApp_tsx_ebc14850._.js"
+      "static/chunks/src_components_atb_AtbApp_tsx_5c2bfe11._.js"
     ]
   },
   "[project]/src/components/fa/FaApp.tsx [app-client] (ecmascript, next/dynamic entry)": {
@@ -50,7 +50,7 @@
       "static/chunks/src_components_fa_5afaad22._.js",
       "static/chunks/src_lib_dbeb30eb._.js",
       "static/chunks/node_modules_lucide-react_dist_esm_icons_5eb8f7ab._.js",
-      "static/chunks/src_components_fa_FaApp_tsx_ebc14850._.js"
+      "static/chunks/src_components_fa_FaApp_tsx_5c2bfe11._.js"
     ]
   },
   "[project]/src/components/ebh/EbhApp.tsx [app-client] (ecmascript, next/dynamic entry)": {
@@ -65,7 +65,7 @@
       "static/chunks/src_components_ebh_651ed33d._.js",
       "static/chunks/src_lib_dbeb30eb._.js",
       "static/chunks/node_modules_lucide-react_dist_esm_icons_be199c2d._.js",
-      "static/chunks/src_components_ebh_EbhApp_tsx_ebc14850._.js"
+      "static/chunks/src_components_ebh_EbhApp_tsx_5c2bfe11._.js"
     ]
   },
   "[project]/src/components/stm/StmApp.tsx [app-client] (ecmascript, next/dynamic entry)": {
@@ -83,16 +83,31 @@
       "static/chunks/src_components_stm_30c0a3a2._.js",
       "static/chunks/src_lib_dbeb30eb._.js",
       "static/chunks/node_modules_lucide-react_dist_esm_icons_d86f116c._.js",
-      "static/chunks/src_components_stm_StmApp_tsx_ebc14850._.js"
+      "static/chunks/src_components_stm_StmApp_tsx_5c2bfe11._.js"
+    ]
+  },
+  "[project]/src/components/mktg/MktgApp.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/mktg/MktgApp.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_components_notes_530f6322._.js",
+      "static/chunks/src_components_mktg_MktgParts1_tsx_b0b14f79._.js",
+      "static/chunks/src_components_mktg_MktgParts2_tsx_ed035e52._.js",
+      "static/chunks/src_components_mktg_MktgParts3_tsx_fb6b2d18._.js",
+      "static/chunks/src_components_mktg_MktgParts4_tsx_519a9343._.js",
+      "static/chunks/src_components_mktg_MktgApp_tsx_1af5e858._.js",
+      "static/chunks/src_components_mktg_3c12ab0c._.js",
+      "static/chunks/src_lib_dbeb30eb._.js",
+      "static/chunks/node_modules_lucide-react_dist_esm_icons_aba53654._.js",
+      "static/chunks/src_components_mktg_MktgApp_tsx_5c2bfe11._.js"
     ]
   },
   "[project]/src/components/atlas/LedgerView.tsx [app-client] (ecmascript, next/dynamic entry)": {
     "id": "[project]/src/components/atlas/LedgerView.tsx [app-client] (ecmascript, next/dynamic entry)",
     "files": [
-      "static/chunks/src_components_222d9afa._.js",
+      "static/chunks/src_components_8166448f._.js",
       "static/chunks/src_e553485b._.js",
       "static/chunks/node_modules_lucide-react_dist_esm_icons_3ce3f5bd._.js",
-      "static/chunks/src_components_atlas_LedgerView_tsx_ebc14850._.js"
+      "static/chunks/src_components_atlas_LedgerView_tsx_5c2bfe11._.js"
     ]
   }
 }
