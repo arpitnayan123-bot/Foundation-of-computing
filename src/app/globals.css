@@ -186,6 +186,23 @@ code, pre, .font-mono-warm {
     radial-gradient(900px 700px at 50% 110%, rgba(217, 119, 6, 0.08), transparent 60%);
 }
 
+/* ---------- Shelf 06 canvas — boutique teal & champagne ---------- */
+.mktg-canvas {
+  position: relative;
+  isolation: isolate;
+}
+.mktg-canvas::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 520px at 8% -4%, rgba(20, 184, 166, 0.10), transparent 60%),
+    radial-gradient(800px 500px at 96% 6%, rgba(227, 194, 107, 0.12), transparent 55%),
+    radial-gradient(900px 700px at 50% 110%, rgba(15, 118, 110, 0.08), transparent 60%);
+}
+
 /* ---------- Scrollbar ---------- */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: #f6e9d8; }
