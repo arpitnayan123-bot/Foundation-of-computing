@@ -45,7 +45,7 @@ import { AlgorithmSection, HardwareSection } from "@/components/notes/Part3";
 import { SoftwareSection, ProgrammingSection } from "@/components/notes/Part4";
 import { BasicsSection, ListsSection } from "@/components/notes/Part5";
 import { IfSection, DictsSection } from "@/components/notes/Part6";
-import { WhileSection, FunctionsSection, Footer } from "@/components/notes/Part7";
+import { WhileSection, FunctionsSection } from "@/components/notes/Part7";
 import { ArgsSection } from "@/components/notes/Part8";
 import { FuncsScaleSection } from "@/components/notes/Part9";
 import { ClassesSection } from "@/components/notes/Part10";
@@ -977,7 +977,6 @@ export function FocApp({ onExitAtlas }: { onExitAtlas: () => void }) {
           </motion.div>
         </PartBoundary>
       </main>
-      <Footer />
       <PyReadyToast />
       <PythonLab open={labOpen} onClose={() => setLabOpen(false)} />
       <PracticeHub open={hubOpen} onClose={() => setHubOpen(false)} onOpenExam={openExam} />
