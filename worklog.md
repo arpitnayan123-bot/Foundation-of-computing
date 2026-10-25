@@ -784,3 +784,23 @@ Stage Summary:
 - Reserved shelf 07 is gone; every subject page footer is the minimal "created by Arpit Nayan" signature
 - Chapter totals unchanged (17/28/16/18/16/53), exam windows unchanged (4/6/4/4/5/8), no data-store migrations needed
 - NOT committed — awaiting the user's PAT as instructed
+
+---
+Task ID: 26
+Agent: Z.ai Code (main orchestrator)
+Task: Remove the "created by Arpit Nayan" bottom line WHOLLY from every subject/slide (user clarification of Task 25's minimal-footer interpretation) · granular commits · push with user's PAT
+
+Work Log:
+- Located every attribution: 6 signature footers (notes/Part7 Footer, AtbFooter, FaFooter, EbhFooter, StmFooter, MktgFooter), AtlasLanding pill-nav line + bottom footer line, opengraph-image quiet signature
+- Deleted all 6 signature footer components and their usages — subject pages now end at the LecturePager with no bottom attribution block
+- AtlasLanding: removed "mapped & built by Arpit Nayan" from the floating pill nav (moved ml-auto onto the ⌘K button to preserve layout) and from the bottom footer (kept "The Atlas" name + tech colophon)
+- opengraph-image.tsx: removed the italic "mapped & built by Arpit Nayan" signature block from the social card
+- globals.css: deleted now-dead .sig-eyebrow, .footer-name-wrap, .footer-name(+hover), .sig-glow, .sig-blurb, .sig-chip family, .footer-stick; kept .sig-colo (still used by Atlas colophon)
+- Left Python-lesson sample data ("greet_user('arpit')" → "Hello, Arpit!", playground default name = "Arpit") — course content, not attribution
+- Verification: eslint 0 errors; agent-browser E2E — landing + all 6 shelves (FoC/ATB/FA/EBH/STM/MKTG) report zero "created by"/"Arpit Nayan" text and no <footer> element; landing nav/footer + MKTG bottom screenshots clean; no console/page errors; dev.log compiles clean
+- Granular commits (one per shelf + atlas/OG + css + chore + worklog) as Arpit Nayan, pushed to github.com/arpitnayan123-bot/Foundation-of-computing via one-time PAT URL; post-push git grep "ghp_" → 0 matches
+
+Stage Summary:
+- The "created by Arpit Nayan" bottom line no longer exists ANYWHERE in the app: not on any subject, any lecture, any slide, the landing, or the social preview image
+- Lecture-wise status (for the user's chat report): FoC 17 · ATB 25 (L5/L6 reserved) · FA 16 · EBH 18 · STM 16 · MKTG 28
+- Reserved shelf 07 was already removed in Task 25; landing shows exactly 6 live shelves
