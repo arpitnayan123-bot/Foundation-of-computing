@@ -620,3 +620,24 @@ Work Log:
 Stage Summary:
 - The Lectures 8-25 task is COMPLETE and browser-verified: 25-lecture reader (23 real + 2 reserved), 28 chapters, 4 LIVE-recap Venn galleries, 5 new chapters (graphprops/complexity/search/dijkstra/sorting), 8 exam windows / 45 questions, zero console warnings/errors, lint + tsc clean
 - Known remaining (out of scope until user provides material): Lectures 26-28 and the never-sent L5/L6 summaries — slots already reserved with "awaiting summary" states
+
+---
+Task ID: 22
+Agent: Z.ai Code (main orchestrator)
+Task: Commit everything to GitHub and push — granular history, authored by Arpit Nayan
+
+Work Log:
+- Audited the full git topology: local main (30 commits, "Z User") had NO common ancestor with remote main (09f2fe6, a granular replay lineage already carrying granular-ship + the first three ATB replay commits); remote was missing all lectures-8-25 work + task-21 polish
+- PAT verified via ls-remote; remote refs mapped (main + 2 vercel branches + 2 PR heads); user identity taken from history: Arpit Nayan <281837164+arpitnayan123-bot@users.noreply.github.com>
+- Created safety branch main-local-backup; built ship-granular from origin/main tip in an isolated worktree (/tmp/ship-wt) so the live dev server stayed untouched
+- Measured the delta first: 1,464 files / 555k insertions vs remote — 134 mode-only files, ~1,213 .next cache files (270 MB payload, max blob 50.76 MB < GitHub's 100 MB hard limit), 23 meaningful files; confirmed .env holds only a local DATABASE_URL (no secrets) before committing
+- Replayed the entire delta as 46 granular commits (chronological 2026-10-25 09:20→15:53, author AND committer = Arpit Nayan): sandbox scripts/gateway/env/db/tests/lockfiles → six per-primitive shadcn deletions → six executable-bit normalization commits → the ATB day file-by-file (PDF source, extracted text, lectures re-map, exam banks, AtbParts7 LIVE-recap Venn galleries, AtbParts4/5/6/8 enrichment, AtbParts9 in pre-polish state then the framer-motion fix as its own commit, reader wiring, corpus rebuild) → worklog/tool-results/dev-cache chores
+- Tree-equality check before push: ship-granular vs local main differed only in volatile .next dev-cache appends; all meaningful content byte-identical
+- Pushed 09f2fe6..d97f70f ship-granular -> main (fast-forward, no force, 182 MB, 1,461 objects); GitHub flagged the 50.76 MB sst as a warning only
+- Aligned local main to d97f70f (reset --hard; disk untouched since trees match), removed the worktree + temp branch, deleted FETCH_HEAD, set repo-local user.name/email to Arpit Nayan for all future commits
+- Security: git grep for the PAT across the pushed tree → zero matches; PAT never written to any tracked file or git config
+
+Stage Summary:
+- github.com/arpitnayan123-bot/Foundation-of-computing main = d97f70f: 76 commits total, the lectures 8-25 integration now on GitHub as 46 granular Arpit-Nayan commits on top of the existing granular lineage
+- Local branches: main (= origin/main), main-local-backup (old unrelated 30-commit lineage, kept as safety), granular-replay/granular-ship (historical)
+- Future sessions commit as Arpit Nayan automatically (repo-local config)
