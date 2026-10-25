@@ -42,3 +42,177 @@
  GET / 200 in 55ms (compile: 5ms, render: 50ms)
  GET / 200 in 49ms (compile: 5ms, render: 44ms)
  GET / 200 in 58ms (compile: 6ms, render: 51ms)
+ GET / 200 in 58ms (compile: 5ms, render: 53ms)
+ GET / 200 in 48ms (compile: 3ms, render: 45ms)
+✓ Compiled in 1025ms
+✓ Compiled in 341ms
+✓ Compiled in 594ms
+✓ Compiled in 355ms
+✓ Compiled in 340ms
+✓ Compiled in 720ms
+✓ Compiled in 495ms
+✓ Compiled in 1474ms
+✓ Compiled in 1889ms
+ GET / 200 in 620ms (compile: 180ms, render: 441ms)
+ GET /manifest.webmanifest 200 in 18ms (compile: 4ms, render: 14ms)
+ GET / 200 in 135ms (compile: 5ms, render: 130ms)
+ GET / 200 in 61ms (compile: 4ms, render: 57ms)
+ GET / 200 in 61ms (compile: 4ms, render: 57ms)
+ GET / 200 in 57ms (compile: 3ms, render: 54ms)
+ GET / 200 in 67ms (compile: 6ms, render: 62ms)
+ GET / 200 in 64ms (compile: 5ms, render: 59ms)
+ GET / 200 in 69ms (compile: 6ms, render: 63ms)
+ GET / 200 in 62ms (compile: 3ms, render: 59ms)
+ GET / 200 in 62ms (compile: 3ms, render: 58ms)
+ GET / 200 in 52ms (compile: 4ms, render: 48ms)
+ GET / 200 in 60ms (compile: 4ms, render: 56ms)
+ GET / 200 in 52ms (compile: 3ms, render: 49ms)
+ GET /manifest.webmanifest 200 in 75ms (compile: 39ms, render: 36ms)
+ GET / 200 in 461ms (compile: 6ms, render: 455ms)
+ GET / 200 in 180ms (compile: 8ms, render: 172ms)
+ GET / 200 in 117ms (compile: 6ms, render: 111ms)
+ GET / 200 in 75ms (compile: 5ms, render: 70ms)
+ GET / 200 in 62ms (compile: 4ms, render: 58ms)
+ GET / 200 in 57ms (compile: 5ms, render: 52ms)
+ GET / 200 in 73ms (compile: 3ms, render: 70ms)
+ GET / 200 in 77ms (compile: 3ms, render: 74ms)
+ GET / 200 in 76ms (compile: 5ms, render: 70ms)
+ GET / 200 in 69ms (compile: 3ms, render: 66ms)
+ GET / 200 in 70ms (compile: 6ms, render: 64ms)
+✓ Compiled in 576ms
+ GET / 200 in 53ms (compile: 5ms, render: 49ms)
+✓ Compiled in 1995ms
+ GET / 200 in 1053ms (compile: 224ms, render: 829ms)
+ GET / 200 in 1105ms (compile: 366ms, render: 740ms)
+ GET / 200 in 1080ms (compile: 317ms, render: 763ms)
+ GET / 200 in 1069ms (compile: 287ms, render: 782ms)
+ GET / 200 in 1010ms (compile: 794ms, render: 216ms)
+ GET / 200 in 1015ms (compile: 817ms, render: 198ms)
+ GET /manifest.webmanifest 200 in 28ms (compile: 11ms, render: 17ms)
+✓ Compiled in 0ms
+ GET / 200 in 85ms (compile: 7ms, render: 78ms)
+✓ Compiled in 907ms
+⨯ ReferenceError: QUESTION_COUNTS is not defined
+    at module evaluation (src/components/atlas/subjects.ts:49:16)
+    at module evaluation (src/components/atlas/AtlasLanding.tsx:37:1)
+    at module evaluation (src/app/page.tsx:21:1)
+  47 |     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
+  48 |     chapters: 17,
+> 49 |     questions: QUESTION_COUNTS.foc,
+     |                ^
+  50 |     examWindows: 4,
+  51 |     accent: "#f59e0b",
+  52 |     accent2: "#ea580c", {
+  digest: '865890272'
+}
+✓ Compiled in 3ms
+ GET / 500 in 1080ms (compile: 199ms, render: 881ms)
+⨯ ReferenceError: QUESTION_COUNTS is not defined
+    at module evaluation (src/components/atlas/subjects.ts:49:16)
+    at module evaluation (src/components/atlas/AtlasLanding.tsx:37:1)
+    at module evaluation (src/app/page.tsx:21:1)
+  47 |     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
+  48 |     chapters: 17,
+> 49 |     questions: QUESTION_COUNTS.foc,
+     |                ^
+  50 |     examWindows: 4,
+  51 |     accent: "#f59e0b",
+  52 |     accent2: "#ea580c", {
+  digest: '865890272'
+}
+⨯ ReferenceError: QUESTION_COUNTS is not defined
+    at module evaluation (src/components/atlas/subjects.ts:49:16)
+    at module evaluation (src/components/atlas/AtlasLanding.tsx:37:1)
+    at module evaluation (src/app/page.tsx:21:1)
+  47 |     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
+  48 |     chapters: 17,
+> 49 |     questions: QUESTION_COUNTS.foc,
+     |                ^
+  50 |     examWindows: 4,
+  51 |     accent: "#f59e0b",
+  52 |     accent2: "#ea580c", {
+  digest: '865890272'
+}
+ GET / 500 in 820ms (compile: 4ms, render: 817ms)
+⨯ ReferenceError: QUESTION_COUNTS is not defined
+    at module evaluation (src/components/atlas/subjects.ts:49:16)
+    at module evaluation (src/components/atlas/AtlasLanding.tsx:37:1)
+    at module evaluation (src/app/page.tsx:21:1)
+  47 |     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
+  48 |     chapters: 17,
+> 49 |     questions: QUESTION_COUNTS.foc,
+     |                ^
+  50 |     examWindows: 4,
+  51 |     accent: "#f59e0b",
+  52 |     accent2: "#ea580c", {
+  digest: '865890272'
+}
+ GET /manifest.webmanifest 200 in 10ms (compile: 5ms, render: 5ms)
+ GET / 500 in 933ms (compile: 8ms, render: 925ms)
+ GET / 500 in 534ms (compile: 10ms, render: 524ms)
+ GET /manifest.webmanifest 200 in 5ms (compile: 1750µs, render: 3ms)
+⚠ Fast Refresh had to perform a full reload when ./src/components/atlas/AtlasLanding.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+✓ Compiled in 178ms
+⨯ ReferenceError: QUESTION_COUNTS is not defined
+    at module evaluation (src/components/atlas/subjects.ts:49:16)
+    at module evaluation (src/components/atlas/AtlasLanding.tsx:37:1)
+    at module evaluation (src/app/page.tsx:21:1)
+  47 |     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
+  48 |     chapters: 17,
+> 49 |     questions: QUESTION_COUNTS.foc,
+     |                ^
+  50 |     examWindows: 4,
+  51 |     accent: "#f59e0b",
+  52 |     accent2: "#ea580c", {
+  digest: '865890272'
+}
+⨯ ReferenceError: QUESTION_COUNTS is not defined
+    at module evaluation (src/components/atlas/subjects.ts:49:16)
+    at module evaluation (src/components/atlas/AtlasLanding.tsx:37:1)
+    at module evaluation (src/app/page.tsx:21:1)
+  47 |     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
+  48 |     chapters: 17,
+> 49 |     questions: QUESTION_COUNTS.foc,
+     |                ^
+  50 |     examWindows: 4,
+  51 |     accent: "#f59e0b",
+  52 |     accent2: "#ea580c", {
+  digest: '865890272'
+}
+ GET / 500 in 678ms (compile: 55ms, render: 622ms)
+ GET / 500 in 280ms (compile: 41ms, render: 239ms)
+ GET /manifest.webmanifest 200 in 12ms (compile: 7ms, render: 5ms)
+ GET /manifest.webmanifest 200 in 16ms (compile: 2ms, render: 13ms)
+⚠ Cross origin request detected from preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+⚠ Fast Refresh had to perform a full reload when ./src/components/atlas/subjects.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+✓ Compiled in 228ms
+ GET / 200 in 881ms (compile: 106ms, render: 776ms)
+ GET / 200 in 164ms (compile: 40ms, render: 124ms)
+⚠ Fast Refresh had to perform a full reload when ./src/components/atlas/subjects.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /manifest.webmanifest 200 in 14ms (compile: 3ms, render: 12ms)
+ GET / 200 in 418ms (compile: 14ms, render: 404ms)
+ GET / 200 in 92ms (compile: 11ms, render: 81ms)
+ GET / 200 in 69ms (compile: 4ms, render: 66ms)
+✓ Compiled in 341ms
+✓ Compiled in 188ms
+ GET / 200 in 521ms (compile: 66ms, render: 455ms)
+✓ Compiled in 1474ms
+ GET / 200 in 275ms (compile: 75ms, render: 200ms)
+ GET / 200 in 85ms (compile: 7ms, render: 78ms)
+✓ Compiled in 240ms
+ GET /manifest.webmanifest 200 in 20ms (compile: 8ms, render: 12ms)
+ GET / 200 in 732ms (compile: 100ms, render: 632ms)
+ GET / 200 in 97ms (compile: 4ms, render: 93ms)
+ GET / 200 in 111ms (compile: 6ms, render: 105ms)
+ GET / 200 in 72ms (compile: 10ms, render: 62ms)
+ GET / 200 in 76ms (compile: 5ms, render: 71ms)
+ GET / 200 in 104ms (compile: 6ms, render: 99ms)
+ GET / 200 in 99ms (compile: 3ms, render: 95ms)
+ GET /manifest.webmanifest 200 in 20ms (compile: 7ms, render: 14ms)
+ GET / 200 in 109ms (compile: 3ms, render: 106ms)
+ GET /manifest.webmanifest 200 in 11ms (compile: 6ms, render: 5ms)
+ GET / 200 in 233ms (compile: 3ms, render: 230ms)
+ GET / 200 in 140ms (compile: 5ms, render: 135ms)
+ GET / 200 in 74ms (compile: 7ms, render: 67ms)
+ GET / 200 in 82ms (compile: 4ms, render: 78ms)

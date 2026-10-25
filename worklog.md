@@ -804,3 +804,147 @@ Stage Summary:
 - The "created by Arpit Nayan" bottom line no longer exists ANYWHERE in the app: not on any subject, any lecture, any slide, the landing, or the social preview image
 - Lecture-wise status (for the user's chat report): FoC 17 · ATB 25 (L5/L6 reserved) · FA 16 · EBH 18 · STM 16 · MKTG 28
 - Reserved shelf 07 was already removed in Task 25; landing shows exactly 6 live shelves
+
+---
+Task ID: 27-f
+Agent: general-purpose
+Task: FoC shelf — hero simplification + compact lecture band
+
+Work Log:
+- Read worklog (Tasks 25/26 + L-foc) and the MKTG reference (MktgHero.tsx end-to-end, MktgLectureHead at MktgApp.tsx:697) before touching FoC
+- FocHero.tsx (275 → 222 lines): deleted the long course-description <p> under the h1 and replaced it with the slim Reveal hairline divider (mt-4 h-px w-24, linear-gradient(90deg,transparent,#c98a3e,transparent), delay 200); lecture sequence container mt-8→mt-6 and list max-h-[23rem] gap-2.5→max-h-[19rem] gap-1.5
+- FocHero sequence items collapsed to ONE compact row each: button `group flex w-full items-center gap-2.5 rounded-xl border px-2.5 py-2 text-left transition-all duration-200` keeping FoC's existing active (border #c2410c / ring #ea580c/25 / ember shadow) + inactive (#ecd9bd border, hover lift/bg/shadow) styles; number badge h-8 w-8 rounded-lg text-[.78rem] font-black tabular-nums showing {l.n ?? "·"} (active EMBER_BRIGHT→EMBER gradient, inactive #f7ecdc tint); title min-w-0 flex-1 truncate text-[.86rem] font-bold leading-tight (active #c2410c / inactive #3e2c1d); only the allRead <Check> (h-3.5 w-3.5 shrink-0, FoC olive #8fae5d) survives; added title={l.title} to mirror MktgHero; REMOVED the "Lecture N" eyebrow, "N/N read" counter, blurb line, chapter chips and "reading" pill
+- FocHero search haystack slimmed to lecture-number/code/title/chapter labels — l.blurb and c.desc dropped; counts span ("pen-paper practice · {totalQuestions} questions · …") deleted; stats-strip Reveal block (lectures/chapters/exam questions) deleted; both CTAs kept byte-identical ("Test my knowledge" + FoC-specific amber-outline "PYTHON LAB"/FlaskConical button); header min-h-[94vh]→min-h-[86vh], pb-24→pb-20 (pt-16 sm:pb-16 kept); chip, h1, search input + empty state, scroll arrow, ambient washes + IPO-pipeline SVG all untouched; FocHero never had the md:grid-cols-2 instructor/reference card grid (confirmed — nothing to delete there)
+- FocHero dead code removed: totalQuestions prop + type, EXAM_GROUPS import, FOC_ALL_CHAPTER_IDS import, unused GOLD_LITE constant; header comment updated to describe the compact rows
+- FocApp.tsx FocLectureHead (~749-808) compacted exactly like MktgLectureHead: wrapper pt-12→pt-8; band rounded-3xl p-7 sm:p-10→rounded-2xl p-4 sm:p-5 with softened shadow 0 20px 50px -26px rgba(36,22,8,.5) (ember-dark tone); eyebrow text-[.56rem] gap-1.5 tracking-[.22em] with h-3 w-3 Compass icon and "· Shelf 01" suffix dropped (keeps "Foundations of Computing"); h2 now mt-1 text-xl font-black leading-tight sm:text-2xl — "Lecture {n}" + gold-gradient span "· {title}"; separate title <p> and blurb <p> deleted; chapter chips mt-2.5 flex flex-wrap gap-1.5, each rounded-full border-white/15 bg-white/[.07] px-2.5 py-1 text-[.62rem] font-extrabold keeping FoC tint + the existing preventDefault+jumpTo onClick; ambient pulsing-rings SVG untouched
+- FocApp.tsx call site: totalQuestions={TOTAL_QUESTIONS} removed from <FocHero>; TOTAL_QUESTIONS/EXAM_GROUPS/EXAM_BANKS imports KEPT (still used by PracticeHub at ~700-740); no other file in src/components/notes/ touched
+- Verification: bunx eslint src/components/foc/FocHero.tsx src/components/notes/FocApp.tsx → exit 0 (no warnings/errors); bunx tsc --noEmit → 0 errors; grep confirms no totalQuestions/FOC_ALL_CHAPTER_IDS residue in foc/FocHero (FOC_ALL_CHAPTER_IDS correctly still used in FocApp TopNav counter); no git commands, no dev-server changes, no browser
+- Appended this section to worklog.md
+
+Stage Summary:
+- FoC shelf 01 hero is now the compact MKTG-pattern hero on the deep-ember/cream palette: chip + gradient h1 + hairline divider + one-line-per-lecture searchable sequence + the two CTAs (Test my knowledge, Python Lab) — description paragraph, per-card meta, counts line and stats strip all gone; FocLectureHead is the compact "Lecture N · Title" band with chapter jump-chips
+- Files changed: src/components/foc/FocHero.tsx (275 → 222 lines), src/components/notes/FocApp.tsx (FocLectureHead + FocHero call site only)
+- Gates: eslint exit 0 · tsc 0 errors · Python Lab plumbing, PracticeHub, exam windows, progress/⌘K stores untouched
+---
+Task ID: 27-e
+Agent: general-purpose (STM shelf subagent)
+Task: STM shelf — hero simplification + compact lecture band
+
+Work Log:
+- Read worklog context + the MKTG reference implementation (MktgHero.tsx, MktgLectureHead in MktgApp.tsx) as template
+- StmHero.tsx: deleted the multi-line course-description <p> under the h1; replaced with slim divider Reveal (h-px w-24, linear-gradient 90deg transparent→#8b5cf6→transparent)
+- StmHero.tsx: lecture sequence container mt-8→mt-6, max-h-[23rem] gap-2.5→max-h-[19rem] gap-1.5
+- StmHero.tsx: each sequence item is now ONE compact row — button `group flex w-full items-center gap-2.5 rounded-xl border px-2.5 py-2` (STM active border/ring/shadow kept, compact-scaled); 8×8 rounded-lg tabular-nums number badge showing {l.n ?? "·"} (active violet gradient / inactive #efe9fa tint); truncated bold title; only the allRead Check icon (h-3.5 w-3.5). Removed per-item: "Lecture N" eyebrow, "N/N read" counter, blurb, chapter chips, "reading" pill; badge text switched from l.code to l.n per spec
+- StmHero.tsx: search haystack trimmed to lecture number + code + title + chapter labels (l.blurb and c.desc removed)
+- StmHero.tsx: kept "Test my knowledge" button; deleted the "pen-paper practice · N questions · N exam windows" counts span; DELETED the stats strip Reveal block (lectures/chapters/exam questions)
+- StmHero.tsx: header min-h-[94vh]→min-h-[86vh], pb-24→pb-20; removed totalQuestions prop; dropped now-unused imports/constants (STM_EXAM_GROUPS import, STM_ALL_CHAPTER_IDS, PAPER, BORDER). Spec item 6 (instructor/reference card grid) is a no-op — no such block exists in StmHero (the instructor card lives in StmParts1 lecture notes, out of scope); kept chip, h1, search+empty state, arrow, bell-curve backdrop, floating shapes
+- StmApp.tsx: StmLectureHead compacted like MktgLectureHead — wrapper pt-12→pt-8; band rounded-3xl p-7 sm:p-10→rounded-2xl p-4 sm:p-5; shadow softened to 0 20px 50px -26px rgba(30,16,51,.5); eyebrow text-[.56rem] gap-1.5 tracking-[.22em], icon h-3 w-3, dropped "· Lecture N of 16" suffix; h2 now "Lecture {n}" + gold gradient "· {title}" span at mt-1 text-xl sm:text-2xl; deleted separate title <p> and blurb <p>; chapter chips mt-2.5 gap-1.5, px-2.5 py-1 text-[.62rem], preventDefault+jumpTo kept; ambient rings SVG kept as-is
+- StmApp.tsx: removed totalQuestions={STM_TOTAL_QUESTIONS} from the StmHero call site; KEPT STM_TOTAL_QUESTIONS/STM_EXAM_GROUPS imports — still used by PracticeHub (counts line + window cards)
+- Verification: bunx eslint on both files → exit 0; bunx tsc --noEmit → zero STM-related errors (remaining errors are in fa/ebh/atb/foc heroes being reworked by parallel tasks, not mine)
+
+Stage Summary:
+- STM shelf 05 hero is now the compact MKTG-style pattern: chip → h1 → hairline divider → searchable one-row-per-lecture sequence (max-h 19rem) → "Test my knowledge" → scroll arrow, with the deep-violet theme and bell-curve backdrop intact
+- StmLectureHead is a slim plum band (number · title · chapter jumps), matching the MKTG reference proportions
+- Only src/components/stm/StmHero.tsx and src/components/stm/StmApp.tsx touched; no git ops, no dev-server changes
+
+---
+Task ID: 27-d
+Agent: Z.ai Code (subagent 27-d, general-purpose)
+Task: EBH shelf — hero simplification + compact lecture band
+
+Work Log:
+- Read worklog (Tasks 25/26) for context; studied the MKTG reference implementation (MktgHero.tsx compact sequence, MktgApp.tsx MktgLectureHead compact band) as the template
+- EbhHero.tsx (333 → 280 lines): replaced the 3-line course-description <p> under the h1 with the slim gold divider (Reveal delay 200, h-px w-24 linear-gradient through BRASS #a16207); lecture-sequence container mt-8→mt-6, list max-h-[23rem] gap-2.5→max-h-[19rem] gap-1.5
+- EbhHero.tsx sequence items rebuilt as ONE compact row each (group flex items-center gap-2.5 rounded-xl px-2.5 py-2, EBH active border/ring/shadow + inactive hover kept): h-8 w-8 rounded-lg tabular-nums number badge showing {l.n ?? "·"} (active brass gradient / inactive CHIP_BG tint), truncate .86rem bold title (active #a16207 / inactive #3e2c1d), then only the allRead <Check> h-3.5 w-3.5; added title={l.title} for truncated titles (mirrors MKTG). REMOVED per item: "Lecture N" eyebrow, "N/N read" counter, blurb line, chapter chips, "reading" pill
+- EbhHero.tsx: search haystack trimmed to lecture number + code + title + chapter labels (dropped l.blurb and c.desc); deleted the "pen-paper practice · {totalQuestions} questions · {EBH_EXAM_GROUPS.length} exam windows" span under "Test my knowledge" (button kept verbatim); deleted the lectures/chapters/exam-questions stats strip Reveal block; header min-h-[94vh]→min-h-[86vh], pb-24→pb-20; removed now-unused imports EBH_EXAM_GROUPS and EBH_ALL_CHAPTER_IDS and the totalQuestions prop (no Users/BookOpen existed in this hero — those were MKTG-specific)
+- EbhApp.tsx (905 lines): EbhHero call site no longer passes totalQuestions; EBH_TOTAL_QUESTIONS/EBH_EXAM_GROUPS imports KEPT because the practice hub still uses them (counts line + exam-window grid)
+- EbhApp.tsx EbhLectureHead compacted exactly like MktgLectureHead: wrapper pt-12→pt-8; band rounded-3xl p-7 sm:p-10→rounded-2xl p-4 sm:p-5, shadow softened to 0 20px 50px -26px rgba(36,23,8,.5) (EBH dark bronze tone, BRONZE bg kept); eyebrow text-[.62rem] tracking-[.26em] gap-2→text-[.56rem] tracking-[.22em] gap-1.5 with Landmark h-3.5→h-3, text now just "Economic & Business History" (dropped "Lecture N · N of 18" suffix); h2 → mt-1 text-xl sm:text-2xl "Lecture {n}" + gradient span "· {title}" (kept EBH's #facc15→#ca8a4a gradient); deleted the separate title <p> and blurb <p>; chapter chips mt-5 gap-2 px-3 py-1.5 text-[.68rem]→mt-2.5 gap-1.5 px-2.5 py-1 text-[.62rem] with preventDefault+jumpTo onClick preserved; ambient rings SVG kept as-is
+- Spec note: the instructor/reference md:grid-cols-2 card grid named in the spec does NOT exist in EbhHero (that block was MKTG-only) — nothing to delete there
+- Verification: bunx eslint on both files → exit 0; full bunx tsc --noEmit → 0 errors; grep confirms no residual totalQuestions/blurb/"reading" references in the hero, and EBH data exports still used where needed
+
+Stage Summary:
+- EBH shelf hero now mirrors the MKTG reference: chip + h1 + gold divider + searchable compact one-row lecture sequence (18 rows, max-h 19rem) + "Test my knowledge" button + scroll arrow; description paragraph, per-card metadata, counts line and stats strip all gone; totalQuestions prop removed end-to-end
+- EbhLectureHead is a compact dark-bronze band (eyebrow subject name, "Lecture N · Title" h2, chapter jump chips) with EBH theme intact
+- eslint exit 0; tsc clean; no files outside src/components/ebh/EbhHero.tsx and src/components/ebh/EbhApp.tsx touched; nothing committed
+
+---
+Task ID: 27-c
+Agent: general-purpose (FA shelf subagent)
+Task: FA shelf — hero simplification + compact lecture band
+
+Work Log:
+- Read worklog (Tasks 25/26) for context; studied the MKTG reference implementation (MktgHero.tsx compact sequence, MktgApp.tsx MktgLectureHead compact band) as the template
+- FaHero.tsx (324 → 270 lines): deleted the multi-line course-description <p> under the h1 and replaced it with the slim divider Reveal (delay 200, h-px w-24, linear-gradient 90deg transparent→EMERALD #059669→transparent); lecture-sequence container mt-8→mt-6, list max-h-[23rem] gap-2.5→max-h-[19rem] gap-1.5
+- FaHero.tsx sequence items rebuilt as ONE compact row each: button `group flex w-full items-center gap-2.5 rounded-xl border px-2.5 py-2 text-left transition-all duration-200` keeping FA's active/inactive border+ring+hovers with compact-scaled shadows (active 0 12px 30px -16px emerald; inactive hover 0 10px 26px -18px); h-8 w-8 rounded-lg tabular-nums number badge showing {l.n ?? "·"} (active EMERALD_BRIGHT→EMERALD gradient / inactive #e7f2ec tint); truncate .86rem font-bold title (active #047857 / inactive #3e2c1d); then ONLY the allRead <Check> h-3.5 w-3.5; added title={l.title} for truncated titles (mirrors MKTG). REMOVED per item: "Lecture N" eyebrow, "N/N read" counter, blurb line, chapter chips, "reading" pill (badge text switched from l.code to l.n per spec)
+- FaHero.tsx: search haystack trimmed to lecture number + code + title + chapter labels (dropped l.blurb and c.desc); "Test my knowledge" button kept verbatim, deleted the "pen-paper practice · {totalQuestions} questions · {FA_EXAM_GROUPS.length} exam windows" span; DELETED the lectures/chapters/exam-questions stats strip Reveal block; header min-h-[94vh]→min-h-[86vh], pb-24→pb-20 (pt-16 sm:pb-16 kept)
+- FaHero.tsx: removed the totalQuestions prop from the props interface and dropped now-unused imports FA_EXAM_GROUPS and FA_ALL_CHAPTER_IDS (FA_LECTURES still used by search). Spec item 6 (instructor/reference md:grid-cols-2 card grid) is a NO-OP — no such block exists in FaHero; the only grid-cols-2 is the lecture <ol>. KEPT: chip, h1, search input + empty state, scroll arrow, balance-beam animated backdrop, floating ledger shapes, all four palette constants
+- FaApp.tsx: removed totalQuestions={FA_TOTAL_QUESTIONS} from the <FaHero> call site; KEPT the FA_TOTAL_QUESTIONS/FA_EXAM_GROUPS imports — both still used by PracticeHub (counts line + exam-window grid)
+- FaApp.tsx FaLectureHead compacted exactly like MktgLectureHead: wrapper pt-12→pt-8; band rounded-3xl p-7 sm:p-10→rounded-2xl p-4 sm:p-5, shadow softened to 0 20px 50px -26px rgba(6,40,30,.5) (EMERALD_DARK bg kept); eyebrow text-[.62rem] tracking-[.26em] gap-2→text-[.56rem] tracking-[.22em] gap-1.5 with Scale h-3.5→h-3 and text now just "Financial Accounting" (dropped "· Shelf 03" suffix); h2 → mt-1 text-xl sm:text-2xl "Lecture {n}" + gradient span "· {title}" (kept FA's SAGE_LITE→SAGE gradient); deleted the separate title <p> and blurb <p>; chapter chips mt-5 gap-2 px-3 py-1.5 text-[.68rem]→mt-2.5 gap-1.5 px-2.5 py-1 text-[.62rem] with the preventDefault+jumpTo onClick and FA hover colors preserved; ambient rings SVG kept as-is
+- Verification: `bunx eslint src/components/fa/FaHero.tsx src/components/fa/FaApp.tsx` → exit 0 (no output); `bunx tsc --noEmit --incremental false` → 0 errors. No git commands, no dev-server changes, no agent-browser
+
+Stage Summary:
+- FA shelf 03 hero is now the compact MKTG-style pattern: chip → h1 → emerald hairline divider → searchable one-row-per-lecture sequence (16 rows, max-h 19rem) → "Test my knowledge" → scroll arrow, with the emerald/sage theme and balance-scale backdrop intact
+- FaLectureHead is a slim dark-emerald band (eyebrow subject name, "Lecture N · Title" h2, chapter jump chips) matching the MKTG reference proportions
+- totalQuestions prop removed end-to-end from the FA hero; Only src/components/fa/FaHero.tsx and src/components/fa/FaApp.tsx touched; nothing committed
+
+---
+Task ID: 27-b
+Agent: general-purpose subagent
+Task: ATB shelf — hero simplification + compact lecture band
+
+Work Log:
+- Read worklog + MKTG reference (MktgHero.tsx, MktgApp.tsx MktgLectureHead) as template
+- AtbParts1.tsx AtbHero: deleted the long course-description paragraph under the h1, replaced with slim gold divider Reveal (linear-gradient(90deg,transparent,#c98a3e,transparent), delay 200)
+- Lecture sequence: container mt-8 → mt-6; ol max-h-[23rem] gap-2.5 → max-h-[19rem] gap-1.5 (fixed pre-existing bad indent on that line)
+- Each sequence item collapsed to ONE compact row: button group flex items-center gap-2.5 rounded-xl px-2.5 py-2 (kept ATB active border-[#c2410c]/shadow/ring + inactive hover styles), h-8 w-8 rounded-lg tabular-nums number badge showing l.n ?? "·" (kept active #ea580c→#c2410c gradient / inactive #fde8cf tint), truncate .86rem title (active #c2410c / inactive #3e2c1d, muted opacity-60 for reserved lectures), only remaining trailing element = allRead Check (h-3.5 w-3.5, #8fae5d); removed per item: Lecture N/Appendix eyebrow, live·recap chip, awaiting-summary chip, N/N read counter, blurb line, chapter chips, "reading" pill; added title={l.title} attr mirroring MKTG
+- Search haystack trimmed to lecture N/appendix + code + title + chapter labels (removed l.blurb and c.desc; "appendix module" → "appendix" per spec)
+- Kept "Test my knowledge" button as-is; deleted the counts line under it; deleted the instructor/textbook md:grid-cols-2 card grid (Dr. Deepak Kumar Saxena + Codeless DSA textbook); deleted the lectures/chapters/exam-questions stats strip Reveal
+- header: min-h-[94vh] → min-h-[86vh], pb-24 → pb-20; kept chip, h1, search + empty state, scroll arrow, backdrop + floating shapes
+- Removed now-unused imports: BookOpen, User, RefreshCw (already dead), ATB_ALL_CHAPTER_IDS, whole ATB_EXAM_GROUPS/questions import; dropped totalQuestions from AtbHero props
+- AtbApp.tsx: added compact AtbLectureHead (Lecture N · title band) mirroring MktgLectureHead — dark warm gradient linear-gradient(165deg,#241608,#33200e,#3e2c1d) (ATB's existing practice-hub/mobile-index darks) with spec shadow rgba(40,20,5,.5), BookOpenCheck eyebrow icon (#f59e0b) + #c99a63 small-caps, h2 #f5ead8 with gold gradient span #f5c889→#c99a5b, ambient motion.circle rings (#ea580c/#f5c889), chapter chips (#e8cfa8, hover #f5c889) using preventDefault + getElementById + jumpTo (helper already imported in AtbApp)
+- Mounted band at line 974 inside the lecture PartBoundary's motion.div, before the chapters conditional, gated on lecture.chapters.length > 0 so reserved lectures (L5/L6) keep only their "Slot reserved" card
+- Removed totalQuestions={ATB_TOTAL_QUESTIONS} from the AtbHero call site; kept ATB_TOTAL_QUESTIONS/ATB_EXAM_GROUPS imports (still used by PracticeHub)
+- bunx eslint on both files: exit 0, no errors/warnings; bunx tsc --noEmit: exit 0
+
+Stage Summary:
+- ATB hero is now the MKTG-style compact hero: chip, h1, gold divider, searchable 25-row lecture sequence (h-8 badge + title + allRead check), Test-my-knowledge button, scroll cue — instructor/textbook cards, stats strip and counts line gone
+- Every lecture with notes now opens with a dark warm "Algorithmic Thinking in Business · Lecture N" band with clickable chapter jump chips; reserved lectures unchanged
+- ATB_TOTAL_QUESTIONS/ATB_EXAM_GROUPS remain in use by the practice hub; eslint + tsc both clean
+
+---
+Task ID: 27 (main orchestrator; 27-a MKTG done inline, 27-b..f via 5 parallel agents)
+Agent: Z.ai Code (main orchestrator) + 5 shelf agents (27-b ATB, 27-c FA, 27-d EBH, 27-e STM, 27-f FoC)
+Task: Hero simplification on ALL 6 shelves — number+name-only lecture sequence (no blurbs), remove Instructor/Reference cards, remove lectures/chapters/questions stats strip, remove counts line under "Test my knowledge", slim decorative divider instead of the course-description paragraph, compact premium hero (min-h 86vh), and compact "Subject Lecture N · Title" band (p-4/p-5, text-xl/2xl, no blurb, tighter chapter chips). NO COMMITS until the user says so.
+
+Work Log:
+- 27-a MKTG (inline reference implementation): MktgHero.tsx — removed tagline paragraph (gold divider instead), compact sequence rows (h-8 tabular-nums number badge + truncated .86rem title + allRead check only; max-h 19rem, gap-1.5), deleted Instructors/Reference cards + stats strip + practice counts line, dropped totalQuestions prop; MktgApp.tsx — compact MktgLectureHead (pt-8, rounded-2xl p-4/p-5, "Lecture N · title" h2, no blurb, chips px-2.5 py-1), call site prop removed
+- 27-b ATB (agent): AtbParts1.tsx hero compacted (reserved L5/L6 render muted, no chips); AtbApp.tsx — NEW compact AtbLectureHead added (ATB had none) in existing dark-warm gradient, mounted before chapters when lecture has chapters; totalQuestions prop dropped
+- 27-c FA (agent): FaHero.tsx + FaApp.tsx FaLectureHead compacted per spec (FA had no instructor grid — no-op noted)
+- 27-d EBH (agent): EbhHero.tsx + EbhApp.tsx EbhLectureHead compacted; badge shows 1-18 numbers
+- 27-e STM (agent): StmHero.tsx + StmApp.tsx StmLectureHead compacted (violet theme kept)
+- 27-f FoC (agent): FocHero.tsx + FocApp.tsx FocLectureHead compacted; Python Lab + Test-my-knowledge buttons kept byte-identical
+- Central verification: bun run lint → 0 errors; bunx tsc --noEmit --incremental false → 0 errors; agent-browser E2E — all 6 shelves: zero Instructor/Reference/stats/blurb text, compact band present ("Lecture 1 ·"), MKTG hero + band screenshots confirm the premium look, STM spot-check clean, practice hub opens, L1→L2 lecture switch + band update works; no page errors; dev.log compiles clean
+
+Stage Summary:
+- All 6 shelves now: subject name first, slim divider, compact number+name lecture sequence (searchable), "Test my knowledge" kept, NO instructor/reference cards, NO stats strip, NO counts line, compact lecture band
+- Files changed: MktgHero/MktgApp, AtbParts1/AtbApp (+new AtbLectureHead), FaHero/FaApp, EbhHero/EbhApp, StmHero/StmApp, FocHero/FocApp — 12 files
+- NOT committed per the user's explicit instruction — awaiting their go-ahead
+
+---
+Task ID: 27-h/27-i (verification + granular commit orchestrator)
+Agent: Z.ai Code (main session)
+Task: Finish the six-shelf UI slim-down left uncommitted by the parallel agents (recover from junk UUID commit), remove the remaining user-flagged items (nav-dropdown lecture briefs, Atlas landing descriptions/stats/taglines, dead Instructor/Reference hero code), verify end-to-end, commit granularly and push.
+
+Work Log:
+- Discovered the lost-context agents' completed shelf work (27-b..27-f entries above) sitting uncommitted; junk commit 1ab478c (UUID message, 5MB+ .next cache binaries) contained it — `git reset --mixed ba60676` dropped the junk commit while preserving ALL working-tree src changes
+- Nav dropdowns (all 6 shelves, 12 sites): deleted the per-chapter brief line `<span ...>{item.desc}</span>` from FocApp 385/587, AtbApp 423/600, StmApp 368/545, EbhApp 357/534, FaApp 373/550, MktgApp 355/532 — dropdown rows are now number + name only, per the user's "show only the lecture number and the name"
+- Atlas landing (AtlasLanding.tsx): removed card description/tagline <p>, removed the "{chapters} chapters · {questions} questions · {examWindows} windows" stats line (footer now ENTER only), removed ChaptersBadge ("0/53 read") usage + function + readProgressCounts import, hero stats band slimmed to "6 shelves" + "∞ live code runs" (chapters-live and exam-questions totals deleted), card min-h 19.5rem→16rem
+- subjects.ts: pruned dead fields tagline/description/chapters/questions/examWindows from Subject type + all 6 entries, dropped QUESTION_COUNTS import
+- CommandPalette.tsx: removed sub={s.tagline} from shelf items, made ItemProps.sub optional + conditional sub render; LedgerView.tsx: readTotal fallback subject.chapters→0
+- Dead hero code deleted: StmParts1 216-374 (old StmHero + HERO_TOKENS + HeroToken with "Dr. Deepak Srivastav" Instructor card + textbook Reference), EbhParts1 210-359, FaParts1 209-355 — Instructor/Reference prose no longer exists anywhere in the codebase
+- Verification: bun run lint exit 0; bunx tsc --noEmit exit 0; agent-browser E2E — landing hero (2 stat tiles), landing cards mobile+desktop (icon/LIVE/shelf/title/topics/ENTER only), MKTG Concepts dropdown (01-07 number+name only), ⌘K palette (shelf rows without tagline), compact "Lecture 1 ·" bands on all 6 shelves, DOM sweep all shelves: zero instructor/stats/description text, practice hub opens with 8 windows ("48 QUESTIONS · 8 WINDOWS" hub header kept — inside Test-my-knowledge, which the user said to keep), zero console/page errors after clean reload
+- Commit plan: untrack .next + tsconfig.tsbuildinfo (junk-commit root cause), then one granular commit per shelf (foc/atb/fa/ebh/stm/mktg), one for atlas, one for worklog/dev artifacts; authored as Arpit Nayan; push to origin main with PAT
+
+Stage Summary:
+- All six user complaints resolved app-wide: hero descriptions gone, lecture sequences are number+name only (hero + dropdowns + palette), Instructor/Reference deleted (live AND dead code), all course-stat numbers removed from landing cards + landing hero + shelf heroes, lecture bands compact (kept from the agent round), "Test my knowledge" untouched everywhere
+- No commits existed for this work before this task; everything lands now as granular commits on top of ba60676
