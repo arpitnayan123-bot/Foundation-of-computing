@@ -6,7 +6,6 @@ import {
   ArrowDown,
   ArrowRight,
   Banknote,
-  BookOpen,
   BookOpenCheck,
   Bot,
   Braces,
@@ -22,17 +21,14 @@ import {
   Percent,
   PenLine,
   Play,
-  RefreshCw,
   RotateCcw,
   Search,
   Sigma,
   ToggleLeft,
   Type,
-  User,
   Workflow,
 } from "lucide-react";
-import { ATB_LECTURES, ATB_ALL_CHAPTER_IDS } from "@/components/atb/lectures";
-import { ATB_EXAM_GROUPS } from "@/components/atb/questions";
+import { ATB_LECTURES } from "@/components/atb/lectures";
 import {
   Callout,
   CodeBlock,
@@ -167,13 +163,11 @@ export function AtbHero({
   onSelect,
   onPractice,
   seen,
-  totalQuestions,
 }: {
   activeId: string;
   onSelect: (id: string) => void;
   onPractice: () => void;
   seen: ReadonlySet<string>;
-  totalQuestions: number;
 }) {
   const [query, setQuery] = useState("");
   const q = query.trim().toLowerCase();
@@ -182,18 +176,17 @@ export function AtbHero({
     if (words.length === 0) return ATB_LECTURES;
     return ATB_LECTURES.filter((l) => {
       const hay = [
-        l.n ? `lecture ${l.n}` : "appendix module",
+        l.n ? `lecture ${l.n}` : "appendix",
         l.code.toLowerCase(),
         l.title.toLowerCase(),
-        l.blurb.toLowerCase(),
-        ...l.chapters.map((c) => `${c.label} ${c.desc}`.toLowerCase()),
+        ...l.chapters.map((c) => c.label.toLowerCase()),
       ].join(" ");
       return words.every((w) => hay.includes(w));
     });
   }, [q]);
 
   return (
-    <header id="top" className="relative flex min-h-[94vh] flex-col items-center justify-center overflow-hidden px-4 pb-24 pt-16 sm:pb-16">
+    <header id="top" className="relative flex min-h-[86vh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-16 sm:pb-16">
       {/* ambient washes — static (cheap), like every shelf hero */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute -left-24 top-16 h-80 w-80 rounded-full blur-3xl" style={{ background: "rgba(245,158,11,.18)" }} />
@@ -241,17 +234,13 @@ export function AtbHero({
             Algorithmic Thinking in <span className="grad-text">Business</span>
           </h1>
         </Reveal>
-        <Reveal delay={240}>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-warm">
-            How do you turn a business mess — queues, inventory, payrolls, ledgers — into steps a
-            machine can follow? This course answers it with zero code: data structures and
-            algorithms, drawn, traced and reasoned like a manager, not a programmer.
-          </p>
+        <Reveal delay={200}>
+          <div className="mx-auto mt-4 h-px w-24" style={{ background: "linear-gradient(90deg,transparent,#c98a3e,transparent)" }} />
         </Reveal>
 
         {/* THE LECTURE SEQUENCE — search it, pick a lecture, its notes appear below */}
         <Reveal delay={300}>
-          <div className="mx-auto mt-8 w-full max-w-3xl text-left">
+          <div className="mx-auto mt-6 w-full max-w-3xl text-left">
             <label htmlFor="atb-lecture-search" className="sr-only">
               Search the lecture sequence
             </label>
@@ -270,7 +259,7 @@ export function AtbHero({
 
             {filtered.length > 0 ? (
               <ol
-        className="scrollbar-thin mt-3 grid max-h-[23rem] gap-2.5 overflow-y-auto pr-1 sm:grid-cols-2"
+                className="scrollbar-thin mt-3 grid max-h-[19rem] gap-1.5 overflow-y-auto pr-1 sm:grid-cols-2"
                 aria-label="Lecture sequence — pick a lecture to open its notes below"
               >
                 {filtered.map((l) => {
@@ -284,68 +273,32 @@ export function AtbHero({
                         type="button"
                         onClick={() => onSelect(l.id)}
                         aria-pressed={isActive}
-                        className={`group flex h-full w-full items-start gap-3 rounded-2xl border p-4 text-left transition-all duration-200 ${
+                        title={l.title}
+                        className={`group flex w-full items-center gap-2.5 rounded-xl border px-2.5 py-2 text-left transition-all duration-200 ${
                           isActive
                             ? "border-[#c2410c] bg-white shadow-[0_16px_40px_-18px_rgba(194,65,12,.45)] ring-2 ring-[#ea580c]/25"
                             : "border-[#e5c79d] bg-[#fffdf9]/80 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_34px_-18px_rgba(70,42,15,.4)]"
                         }`}
                       >
                         <span
-                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[.72rem] font-black ${isActive ? "text-white" : ""}`}
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[.78rem] font-black tabular-nums ${isActive ? "text-white" : ""}`}
                           style={
                             isActive
                               ? { background: "linear-gradient(135deg,#ea580c,#c2410c)", boxShadow: "0 6px 14px -6px rgba(194,65,12,.6)" }
                               : { background: "#fde8cf", color: "#9a6b2f" }
                           }
                         >
-                          {l.code}
+                          {l.n ?? "·"}
                         </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="flex items-center gap-2">
-                            <span className="text-[.58rem] font-extrabold uppercase tracking-[.18em] text-[#a16207]">
-                              {l.n ? `Lecture ${l.n}` : "Appendix"}
-                            </span>
-                            {l.live ? (
-                              <span
-                                className="rounded-full px-1.5 py-0.5 text-[.52rem] font-black uppercase tracking-[.14em]"
-                                style={{ background: "#fde8cf", color: "#c2410c", border: "1px solid #f3c99b" }}
-                              >
-                                live · recap
-                              </span>
-                            ) : null}
-                            {isPlaceholder ? (
-                              <span
-                                className="rounded-full px-1.5 py-0.5 text-[.52rem] font-black uppercase tracking-[.14em]"
-                                style={{ background: "#f6f1e6", color: "#a08568", border: "1px dashed #d9c3a4" }}
-                              >
-                                awaiting summary
-                              </span>
-                            ) : null}
-                            {allRead ? (
-                              <Check className="h-3.5 w-3.5" style={{ color: "#8fae5d" }} aria-label="Every chapter read" />
-                            ) : null}
-                            <span className="ml-auto font-mono text-[.6rem] font-bold text-[#b08b5c]">
-                              {isPlaceholder ? "—" : `${readCount}/${l.chapters.length} read`}
-                            </span>
-                          </span>
-                          <span className={`mt-0.5 block text-[.94rem] font-extrabold leading-tight ${isActive ? "text-[#c2410c]" : "text-[#3e2c1d]"}`}>
-                            {l.title}
-                          </span>
-                          <span className="mt-1 block text-[.76rem] leading-snug text-muted-warm">{l.blurb}</span>
-                          {isPlaceholder ? null : (
-                            <span className="mt-2 flex flex-wrap gap-1.5">
-                              {l.chapters.map((c) => (
-                                <span key={c.id} className="rounded-full border border-[#ecd9bd] bg-[#fffaf1] px-2 py-0.5 text-[.62rem] font-bold text-[#8a5f30]">
-                                  {c.label}
-                                </span>
-                              ))}
-                            </span>
-                          )}
+                        <span
+                          className={`min-w-0 flex-1 truncate text-[.86rem] font-bold leading-tight ${
+                            isActive ? "text-[#c2410c]" : "text-[#3e2c1d]"
+                          }${isPlaceholder ? " opacity-60" : ""}`}
+                        >
+                          {l.title}
                         </span>
-                        {isActive ? (
-                          <span className="ml-0.5 shrink-0 self-center rounded-full bg-[#c2410c]/10 px-2 py-1 text-[.55rem] font-black uppercase tracking-[.14em] text-[#c2410c]">
-                            reading
-                          </span>
+                        {allRead ? (
+                          <Check className="h-3.5 w-3.5 shrink-0" style={{ color: "#8fae5d" }} aria-label="Every chapter read" />
                         ) : null}
                       </button>
                     </li>
@@ -371,56 +324,10 @@ export function AtbHero({
                 <PenLine className="h-4 w-4 text-[#c2410c] transition-transform duration-300 group-hover:-rotate-12" />
                 Test my knowledge
               </button>
-              <span className="text-[.64rem] font-bold uppercase tracking-[.16em] text-[#a08568]">
-                pen-paper practice · {totalQuestions} questions · {ATB_EXAM_GROUPS.length} exam windows
-              </span>
             </div>
           </div>
         </Reveal>
 
-        {/* course meta — instructor / textbook */}
-        <div className="mx-auto mt-12 grid max-w-3xl gap-4 md:grid-cols-2">
-          <Reveal delay={360}>
-            <div className="card-warm lift h-full p-5 text-left">
-              <span className="chip"><User className="h-3.5 w-3.5" /> Instructor</span>
-              <p className="mt-3 text-lg font-extrabold text-[#3e2c1d]">Dr. Deepak Kumar Saxena</p>
-              <p className="mt-1 text-[.82rem] leading-relaxed text-muted-warm">
-                Associate Professor — Information Systems &amp; Digital Transformation
-              </p>
-              <p className="mt-2 text-[.78rem] leading-relaxed text-[#8a6b45]">
-                BE IT · M.Tech IIT Kanpur · PhD Trinity College Dublin
-              </p>
-              <p className="mt-1 text-[.78rem] font-semibold text-[#a0410a]">ex-ISRO scientist</p>
-            </div>
-          </Reveal>
-          <Reveal delay={430}>
-            <div className="card-warm lift h-full p-5 text-left">
-              <span className="chip"><BookOpen className="h-3.5 w-3.5" /> Textbook</span>
-              <p className="mt-3 text-lg font-extrabold leading-snug text-[#3e2c1d]">
-                &ldquo;Codeless Data Structures and Algorithms&rdquo;
-              </p>
-              <p className="mt-2 text-[.82rem] text-muted-warm">Armstrong Subero · Apress</p>
-              <p className="mt-3 text-[.78rem] leading-relaxed text-[#8a6b45]">
-                Every idea in this course is taught drawn and traced — never language-first.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-
-        <Reveal delay={560}>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-            {[
-              [String(ATB_LECTURES.filter((l) => l.chapters.length > 0).length), "lectures"],
-              [String(ATB_ALL_CHAPTER_IDS.length), "chapters"],
-              [String(totalQuestions), "exam questions"],
-            ].map(([n, l]) => (
-              <div key={l} className="text-center">
-                <p className="grad-text text-3xl font-black">{n}</p>
-                <p className="text-[.72rem] font-bold uppercase tracking-[.18em] text-[#8a6b45]">{l}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
       </div>
 
       <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">

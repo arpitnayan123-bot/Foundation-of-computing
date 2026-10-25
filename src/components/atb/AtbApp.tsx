@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
+  BookOpenCheck,
   Check,
   ChevronDown,
   BookOpenText,
@@ -419,7 +420,6 @@ function TopNav({
                                   <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#c2410c]" : "text-[#3e2c1d]"}`}>
                                     {item.label}
                                   </span>
-                                  <span className="mt-0.5 block text-[.7rem] leading-snug text-[#a08568]">{item.desc}</span>
                                 </span>
                                 {isActiveItem ? (
                                 <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#c2410c" }} />
@@ -596,7 +596,6 @@ function TopNav({
                             <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#f5c889]" : "text-[#f0e2c8]"}`}>
                               {item.label}
                             </span>
-                            <span className="mt-0.5 block text-[.7rem] leading-snug text-[#b99a75]">{item.desc}</span>
                           </span>
                           {isActiveItem ? (
                             <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#f59e0b" }} />
@@ -763,6 +762,72 @@ function PracticeHub({
 }
 
 /* ============================================================
+   AtbLectureHead — the "Algorithmic Thinking in Business
+   Lecture N" hero band. Compact: the number, the name, the
+   chapter jumps. Ember/warm darks — the same gradient family
+   as the practice hub and the mobile chapter index.
+   ============================================================ */
+function AtbLectureHead({ lecture }: { lecture: AtbLecture }) {
+  return (
+    <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
+      <div
+        className="relative overflow-hidden rounded-2xl p-4 sm:p-5"
+        style={{
+          background: "linear-gradient(165deg,#241608 0%,#33200e 55%,#3e2c1d 100%)",
+          boxShadow: "0 20px 50px -26px rgba(40,20,5,.5)",
+        }}
+      >
+        {/* ambient rings */}
+        <svg aria-hidden viewBox="0 0 600 200" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full opacity-40">
+          {[70, 120, 170].map((r, i) => (
+            <motion.circle
+              key={r} cx={540} cy={100} r={r} fill="none" stroke={i === 2 ? "#f5c889" : "#ea580c"} strokeWidth={1.4}
+              style={{ transformBox: "fill-box", transformOrigin: "center" }}
+              animate={{ opacity: [0.12, 0.4, 0.12], scale: [1, 1.05, 1] }}
+              transition={{ duration: 4.5, repeat: Infinity, delay: i * 0.8 }}
+            />
+          ))}
+        </svg>
+
+        <div className="relative">
+          <p className="flex flex-wrap items-center gap-1.5 text-[.56rem] font-extrabold uppercase tracking-[.22em] text-[#c99a63]">
+            <BookOpenCheck className="h-3 w-3" style={{ color: "#f59e0b" }} />
+            Algorithmic Thinking in Business
+          </p>
+          <h2 className="mt-1 text-xl font-black leading-tight text-[#f5ead8] sm:text-2xl">
+            Lecture {lecture.n}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{ backgroundImage: "linear-gradient(120deg,#f5c889,#c99a5b)" }}
+            >
+              {" "}· {lecture.title}
+            </span>
+          </h2>
+          {lecture.chapters.length > 0 ? (
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
+              {lecture.chapters.map((c) => (
+                <a
+                  key={c.id}
+                  href={`#${c.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById(c.id);
+                    if (el) jumpTo(el);
+                  }}
+                  className="rounded-full border border-white/15 bg-white/[.07] px-2.5 py-1 text-[.62rem] font-extrabold text-[#e8cfa8] transition-colors hover:border-[#f59e0b]/40 hover:bg-white/[.12] hover:text-[#f5c889]"
+                >
+                  {c.label} ↓
+                </a>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
    LecturePager — prev/next lecture cards closing every lecture,
    so the sequence reads like a book even without the picker.
    ============================================================ */
@@ -892,7 +957,6 @@ export function AtbApp({ onExitAtlas }: { onExitAtlas: () => void }) {
             onSelect={selectLecture}
             onPractice={openHub}
             seen={seen}
-            totalQuestions={ATB_TOTAL_QUESTIONS}
           />
         </PartBoundary>
 
@@ -905,6 +969,7 @@ export function AtbApp({ onExitAtlas }: { onExitAtlas: () => void }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
+            {lecture.chapters.length > 0 ? <AtbLectureHead lecture={lecture} /> : null}
             {lecture.chapters.length > 0 ? (
               lecture.chapters.map((c) => (
                 <PartBoundary key={c.id} label={c.label}>
