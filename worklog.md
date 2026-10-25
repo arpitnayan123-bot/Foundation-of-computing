@@ -641,3 +641,21 @@ Stage Summary:
 - github.com/arpitnayan123-bot/Foundation-of-computing main = d97f70f: 76 commits total, the lectures 8-25 integration now on GitHub as 46 granular Arpit-Nayan commits on top of the existing granular lineage
 - Local branches: main (= origin/main), main-local-backup (old unrelated 30-commit lineage, kept as safety), granular-replay/granular-ship (historical)
 - Future sessions commit as Arpit Nayan automatically (repo-local config)
+
+---
+Task ID: 23
+Agent: Z.ai Code (main)
+Task: Fix Vercel deployment failure — "Cannot find module 'socket.io-client'"
+
+Work Log:
+- Traced the Vercel type error to examples/websocket/frontend.tsx (imports socket.io-client, line 4 matches the build log exactly) and examples/websocket/server.ts (imports socket.io — the next error hiding behind it)
+- Root cause: tsconfig include sweeps '**/*.ts' into next build's full type-check; Vercel checks files local turbopack dev never compiles (socket.io-client not in dependencies)
+- Fix 1 (750e241): added examples/, mini-services/, skills/ to tsconfig exclude — demos stay in repo as reference, outside build scope
+- Fix 2 (ffcf70a): added 'prisma generate' before next build — /api/sync (LedgerView) imports @prisma/client which needs the generated client on Vercel
+- Ran bunx tsc --noEmit --incremental false (fresh, cache-free): 0 errors — simulates the exact Vercel phase that failed
+- Confirmed skills/ is gitignored (local-only noise, Vercel never sees it); scripts/build-search-corpus.ts type-checks clean; next.config output:standalone means the cp steps can't fail
+- Pushed 786c330..c765fe1 via one-off PAT URL (4 commits incl. pending dev-log 384a71f); verified remote SHA == local, GitHub API shows all 4 authored+committed as Arpit Nayan, git grep confirms zero PAT traces in tree
+
+Stage Summary:
+- Vercel build blockers eliminated: type-check now passes on the full tracked tree; remote main @ c765fe1, 0 dirty files
+- Known runtime caveat (non-blocking): /api/sync uses SQLite (db/custom.db) — serverless FS is ephemeral on Vercel, so that one feature needs a hosted DB if it must persist in production
