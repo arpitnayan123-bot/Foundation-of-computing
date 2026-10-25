@@ -1,0 +1,780 @@
+     1→     1→"use client";
+     2→     2→
+     3→     3→import { PartBoundary } from "@/components/notes/PartBoundary";
+     4→     4→import { useDialogA11y } from "@/components/notes/exam-runtime";
+     5→     5→
+     6→     6→/* ============================================================
+     7→     7→   FaApp — the complete "Financial Accounting" revision
+     8→     8→   companion, registered as shelf 03 of THE ATLAS.
+     9→     9→
+    10→    10→   Every number is pen-paper work: equations, journals,
+    11→    11→   ledgers, trial balances, trading accounts — and every
+    12→    12→   chapter carries its own living machines (the equation
+    13→    13→   machine, the trial-balance sorter, the prepaid splitter,
+    14→    14→   the gross-profit lab). Mounted by the Atlas router
+    15→    15→   (src/app/page.tsx) when the reader enters the subject;
+    16→    16→   `onExitAtlas` returns the reader to the Atlas landing page.
+    17→    17→   ============================================================ */
+    18→    18→
+    19→    19→import React, { useEffect, useRef, useState } from "react";
+    20→    20→import { AnimatePresence, motion } from "framer-motion";
+    21→    21→import { BookOpen, BookOpenText, ListChecks, Map, Menu, MousePointerClick, PenLine, Scale, X, ChevronDown, GraduationCap, Check, Printer } from "lucide-react";
+    22→    22→import { useSectionProgress } from "@/lib/use-section-progress";
+    23→    23→import { useOpenSection } from "@/lib/use-open-section";
+    24→    24→import {
+    25→    25→  FaAdjustingSection,
+    26→    26→  FaFinalAccountsSection,
+    27→    27→  FaGrossProfitLabSection,
+    28→    28→  FaTradingSection,
+    29→    29→} from "@/components/fa/FaParts4";
+    30→    30→import {
+    31→    31→  FaDualAspectSection,
+    32→    32→  FaElementsSection,
+    33→    33→  FaEquationLabSection,
+    34→    34→  FaEffectsSection,
+    35→    35→} from "@/components/fa/FaParts2";
+    36→    36→import {
+    37→    37→  FaHero,
+    38→    38→  FaWhySection,
+    39→    39→  FaAssumptionsSection,
+    40→    40→  FaEntityConcernSection,
+    41→    41→  FaPeriodicitySection,
+    42→    42→} from "@/components/fa/FaParts1";
+    43→    43→import {
+    44→    44→  FaJournalSection,
+    45→    45→  FaLedgerSection,
+    46→    46→  FaStatementsSection,
+    47→    47→  FaTrialBalanceSection,
+    48→    48→} from "@/components/fa/FaParts3";
+    49→    49→import { FaExamWindow } from "@/components/fa/FaExamWindow";
+    50→    50→import { FA_EXAM_BANKS, FA_EXAM_GROUPS, FA_TOTAL_QUESTIONS, type FaExamGroup } from "@/components/fa/questions";
+    51→    51→
+    52→    52→/* ============================================================
+    53→    53→   Structured chapter map — the top bar is organised into four
+    54→    54→   groups instead of a flat 16-chip strip. Each group owns a
+    55→    55→   "Test my knowledge" pen-paper window (see questions.ts).
+    56→    56→   ============================================================ */
+    57→    57→const GROUPS: {
+    58→    58→  id: FaExamGroup;
+    59→    59→  label: string;
+    60→    60→  items: { id: string; label: string; desc: string }[];
+    61→    61→}[] = [
+    62→    62→  {
+    63→    63→    id: "foundations",
+    64→    64→    label: "Foundations",
+    65→    65→    items: [
+    66→    66→      { id: "why", label: "Why accounting?", desc: "Five openings — every one ends at the same question" },
+    67→    67→      { id: "assumptions", label: "4 assumptions", desc: "Entity · going concern · periodicity · money measurement" },
+    68→    68→      { id: "entity-concern", label: "Entity & concern", desc: "The boundary — and the promise to continue" },
+    69→    69→      { id: "periodicity", label: "Periods & matching", desc: "Time, cut into periods — and the match that follows" },
+    70→    70→    ],
+    71→    71→  },
+    72→    72→  {
+    73→    73→    id: "equation",
+    74→    74→    label: "The Equation",
+    75→    75→    items: [
+    76→    76→      { id: "dual-aspect", label: "Dual aspect", desc: "Every rupee tells two stories" },
+    77→    77→      { id: "elements", label: "The three elements", desc: "Assets, liabilities & equity — the whole cast" },
+    78→    78→      { id: "equation-lab", label: "Equation, worked", desc: "Hot Chocolate · Abraham · Coffee Corner" },
+    79→    79→      { id: "effects", label: "Transaction effects", desc: "The four moves — run the equation machine" },
+    80→    80→    ],
+    81→    81→  },
+    82→    82→  {
+    83→    83→    id: "recording",
+    84→    84→    label: "Recording",
+    85→    85→    items: [
+    86→    86→      { id: "journal", label: "Journal", desc: "The pipeline and the day book — Vogue Company" },
+    87→    87→      { id: "ledger", label: "Ledger", desc: "Posting — the Cash T-account, for real" },
+    88→    88→      { id: "statements", label: "Five statements", desc: "One month of transactions, five shapes" },
+    89→    89→      { id: "trial-balance", label: "Trial balance", desc: "Do the columns agree? — sort Pearl's books" },
+    90→    90→    ],
+    91→    91→  },
+    92→    92→  {
+    93→    93→    id: "closing",
+    94→    94→    label: "Closing",
+    95→    95→    items: [
+    96→    96→      { id: "adjusting", label: "Adjusting entries", desc: "Deferrals & accruals — split the prepaid rupee" },
+    97→    97→      { id: "final-accounts", label: "Final accounts", desc: "Two questions, two statements" },
+    98→    98→      { id: "trading", label: "Trading account", desc: "Did buying and selling pay?" },
+    99→    99→      { id: "gp-lab", label: "Gross profit lab", desc: "Six examples — then drive the ladder" },
+   100→   100→    ],
+   101→   101→  },
+   102→   102→];
+   103→   103→
+   104→   104→const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
+   105→   105→const SECTION_IDS = FLAT_ITEMS.map((i) => i.id);
+   106→   106→
+   107→   107→function groupOf(id: string): string | null {
+   108→   108→  for (const g of GROUPS) if (g.items.some((i) => i.id === id)) return g.id;
+   109→   109→  return null;
+   110→   110→}
+   111→   111→
+   112→   112→/* ============================================================
+   113→   113→   TopNav — structured chapter menu + a "Test my knowledge"
+   114→   114→   launcher inside every chapter group. Same engine as the
+   115→   115→   FoC/ATB shelves: progress bar written via ref inside rAF,
+   116→   116→   React state only when the active section changes.
+   117→   117→   ============================================================ */
+   118→   118→function TopNav({
+   119→   119→  onOpenExam,
+   120→   120→  onExitAtlas,
+   121→   121→}: {
+   122→   122→  onOpenExam: (g: FaExamGroup) => void;
+   123→   123→  onExitAtlas: () => void;
+   124→   124→}) {
+   125→   125→  const [active, setActive] = useState<string>("");
+   126→   126→  const [openGroup, setOpenGroup] = useState<string | null>(null);
+   127→   127→  const [mobileOpen, setMobileOpen] = useState(false);
+   128→   128→  const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
+   129→   129→  const seen = useSectionProgress("fa", SECTION_IDS);
+   130→   130→  const navRef = useRef<HTMLElement>(null);
+   131→   131→  const progressRef = useRef<HTMLDivElement>(null);
+   132→   132→  const activeRef = useRef("");
+   133→   133→
+   134→   134→  useEffect(() => {
+   135→   135→    let ticking = false;
+   136→   136→    const update = () => {
+   137→   137→      ticking = false;
+   138→   138→      const doc = document.documentElement;
+   139→   139→      const total = doc.scrollHeight - doc.clientHeight;
+   140→   140→      const pct = total > 0 ? (doc.scrollTop / total) * 100 : 0;
+   141→   141→      if (progressRef.current) progressRef.current.style.width = `${pct}%`;
+   142→   142→
+   143→   143→      const probe = window.innerHeight * 0.32;
+   144→   144→      let current = "";
+   145→   145→      for (const item of FLAT_ITEMS) {
+   146→   146→        const el = document.getElementById(item.id);
+   147→   147→        if (el && el.getBoundingClientRect().top <= probe) current = item.id;
+   148→   148→      }
+   149→   149→      if (current !== activeRef.current) {
+   150→   150→        activeRef.current = current;
+   151→   151→        setActive(current);
+   152→   152→      }
+   153→   153→    };
+   154→   154→    const onScroll = () => {
+   155→   155→      if (!ticking) {
+   156→   156→        ticking = true;
+   157→   157→        requestAnimationFrame(update);
+   158→   158→      }
+   159→   159→    };
+   160→   160→    update();
+   161→   161→    window.addEventListener("scroll", onScroll, { passive: true });
+   162→   162→    window.addEventListener("resize", onScroll);
+   163→   163→    return () => {
+   164→   164→      window.removeEventListener("scroll", onScroll);
+   165→   165→      window.removeEventListener("resize", onScroll);
+   166→   166→    };
+   167→   167→  }, []);
+   168→   168→
+   169→   169→  useEffect(() => {
+   170→   170→    const onDown = (e: MouseEvent) => {
+   171→   171→      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenGroup(null);
+   172→   172→    };
+   173→   173→    const onKey = (e: KeyboardEvent) => {
+   174→   174→      if (e.key === "Escape") {
+   175→   175→        setOpenGroup(null);
+   176→   176→        setMobileOpen(false);
+   177→   177→      }
+   178→   178→    };
+   179→   179→    document.addEventListener("mousedown", onDown);
+   180→   180→    document.addEventListener("keydown", onKey);
+   181→   181→    return () => {
+   182→   182→      document.removeEventListener("mousedown", onDown);
+   183→   183→      document.removeEventListener("keydown", onKey);
+   184→   184→    };
+   185→   185→  }, []);
+   186→   186→
+   187→   187→  useEffect(() => {
+   188→   188→    document.body.style.overflow = mobileOpen ? "hidden" : "";
+   189→   189→    return () => {
+   190→   190→      document.body.style.overflow = "";
+   191→   191→    };
+   192→   192→  }, [mobileOpen]);
+   193→   193→
+   194→   194→  const activeGroup = active ? groupOf(active) : null;
+   195→   195→
+   196→   196→  return (
+   197→   197→    <nav ref={navRef} aria-label="Chapters" className="fixed inset-x-0 top-0 z-50">
+   198→   198→      <div className="nav-shell">
+   199→   199→        <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-3 sm:px-5">
+   200→   200→          {/* back to The Atlas */}
+   201→   201→          <button
+   202→   202→            type="button"
+   203→   203→            onClick={onExitAtlas}
+   204→   204→            title="Back to The Atlas — the subject shelf"
+   205→   205→            aria-label="Back to The Atlas"
+   206→   206→            className="flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3 text-[.64rem] font-extrabold uppercase tracking-[.14em] text-[#5d6b58] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/85 hover:text-[#047857]"
+   207→   207→          >
+   208→   208→            <Map className="h-3.5 w-3.5" />
+   209→   209→            <span className="hidden sm:inline">Atlas</span>
+   210→   210→          </button>
+   211→   211→
+   212→   212→          {/* brand — FA's emerald sigil on the quiet glass chip */}
+   213→   213→          <a
+   214→   214→            href="#top"
+   215→   215→            className="flex shrink-0 items-center gap-2 rounded-full border border-white/70 bg-white/60 py-1.5 pl-2 pr-3.5 shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/80"
+   216→   216→          >
+   217→   217→            <span
+   218→   218→              className="flex h-6 w-6 items-center justify-center rounded-full text-white"
+   219→   219→              style={{ background: "linear-gradient(135deg,#10b981,#047857)", boxShadow: "0 4px 10px -3px rgba(4,120,87,.55)" }}
+   220→   220→            >
+   221→   221→              <Scale className="h-3.5 w-3.5" />
+   222→   222→            </span>
+   223→   223→            <span className="text-sm font-black tracking-tight text-[#3e2c1d]">FA Notes</span>
+   224→   224→          </a>
+   225→   225→
+   226→   226→          {/* desktop — grouped chapter menu */}
+   227→   227→          <div className="ml-2 hidden flex-1 items-center gap-1 lg:flex">
+   228→   228→            {GROUPS.map((group) => {
+   229→   229→              const isActive = activeGroup === group.id;
+   230→   230→              const open = openGroup === group.id;
+   231→   231→              return (
+   232→   232→                <div
+   233→   233→                  key={group.id}
+   234→   234→                  className="relative"
+   235→   235→                  onMouseEnter={() => setOpenGroup(group.id)}
+   236→   236→                  onMouseLeave={() => setOpenGroup((g) => (g === group.id ? null : g))}
+   237→   237→                >
+   238→   238→                  <button
+   239→   239→                    type="button"
+   240→   240→                    aria-expanded={open}
+   241→   241→                    aria-haspopup="true"
+   242→   242→                    onClick={() => setOpenGroup(group.id)}
+   243→   243→                    onFocus={() => setOpenGroup(group.id)}
+   244→   244→                    className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[.78rem] font-semibold tracking-wide transition-all duration-200 ${
+   245→   245→                      isActive || open
+   246→   246→                        ? "bg-white/80 text-[#047857] shadow-[0_4px_16px_-8px_rgba(70,42,15,.4),inset_0_1px_0_rgba(255,255,255,.9)]"
+   247→   247→                        : "text-[#6b563d] hover:bg-white/55 hover:text-[#3e2c1d] hover:shadow-[inset_0_1px_0_rgba(255,255,255,.9)]"
+   248→   248→                    }`}
+   249→   249→                  >
+   250→   250→                    {group.label}
+   251→   251→                    <span className="text-[.58rem] font-extrabold opacity-45">{String(group.items.length).padStart(2, "0")}</span>
+   252→   252→                    <ChevronDown className={`h-3 w-3 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+   253→   253→                  </button>
+   254→   254→
+   255→   255→                  <AnimatePresence>
+   256→   256→                    {open ? (
+   257→   257→                      <motion.div
+   258→   258→                        key={`${group.id}-panel`}
+   259→   259→                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+   260→   260→                        animate={{ opacity: 1, y: 0, scale: 1 }}
+   261→   261→                        exit={{ opacity: 0, y: 6, scale: 0.98 }}
+   262→   262→                        transition={{ duration: 0.16, ease: "easeOut" }}
+   263→   263→                        className="absolute left-1/2 top-full z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 pt-2"
+   264→   264→                      >
+   265→   265→                        <div
+   266→   266→                          className="overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-1.5 backdrop-blur-2xl"
+   267→   267→                          style={{
+   268→   268→                            WebkitBackdropFilter: "blur(28px) saturate(170%)",
+   269→   269→                            backdropFilter: "blur(28px) saturate(170%)",
+   270→   270→                            boxShadow: "0 24px 70px -18px rgba(50,30,10,.4), inset 0 1px 0 rgba(255,255,255,.85)",
+   271→   271→                          }}
+   272→   272→                        >
+   273→   273→                          <p className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 text-[.58rem] font-extrabold uppercase tracking-[.22em] text-[#7d9a8b]">
+   274→   274→                            <BookOpenText className="h-3 w-3" />
+   275→   275→                            {group.label}
+   276→   276→                          <span className="ml-auto font-mono tracking-[.08em] opacity-90">
+   277→   277→                            {group.items.filter((it) => seen.has(it.id)).length}/{group.items.length} read
+   278→   278→                          </span>
+   279→   279→                          </p>
+   280→   280→                          {group.items.map((item, i) => {
+   281→   281→                            const isActiveItem = active === item.id;
+   282→   282→                            return (
+   283→   283→                              <a
+   284→   284→                                key={item.id}
+   285→   285→                                href={`#${item.id}`}
+   286→   286→                                onClick={() => setOpenGroup(null)}
+   287→   287→                                className={`group flex items-start gap-3 rounded-xl px-3 py-2 transition-colors duration-150 ${
+   288→   288→                                  isActiveItem ? "bg-[#10b981]/[.09]" : "hover:bg-[#3e2c1d]/[.05]"
+   289→   289→                                }`}
+   290→   290→                              >
+   291→   291→                                <span
+   292→   292→                                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[.58rem] font-black ${
+   293→   293→                                    isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#7d9a8b]"
+   294→   294→                                  }`}
+   295→   295→                                  style={isActiveItem ? { background: "linear-gradient(135deg,#10b981,#047857)" } : undefined}
+   296→   296→                                >
+   297→   297→                                  {String(i + 1).padStart(2, "0")}
+   298→   298→                                </span>
+   299→   299→                                <span className="min-w-0">
+   300→   300→                                  <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#047857]" : "text-[#3e2c1d]"}`}>
+   301→   301→                                    {item.label}
+   302→   302→                                  </span>
+   303→   303→                                  <span className="mt-0.5 block text-[.7rem] leading-snug text-[#a08568]">{item.desc}</span>
+   304→   304→                                </span>
+   305→   305→                                {isActiveItem ? (
+   306→   306→                                <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#047857" }} />
+   307→   307→                              ) : seen.has(item.id) ? (
+   308→   308→                                <Check className="ml-auto mt-1 h-3.5 w-3.5 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
+   309→   309→                              ) : null}
+   310→   310→                              </a>
+   311→   311→                            );
+   312→   312→                          })}
+   313→   313→
+   314→   314→                          {/* Test my knowledge — opens the pen-paper window for this group */}
+   315→   315→                          <div className="mt-1 border-t border-[#f0e2c8] p-1.5">
+   316→   316→                            <button
+   317→   317→                              type="button"
+   318→   318→                              onClick={() => {
+   319→   319→                                setOpenGroup(null);
+   320→   320→                                onOpenExam(group.id);
+   321→   321→                              }}
+   322→   322→                              className="group/exam flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors duration-150 hover:bg-[#3e2c1d]/[.05]"
+   323→   323→                            >
+   324→   324→                              <span
+   325→   325→                                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+   326→   326→                                style={{ background: "linear-gradient(135deg,#10b981,#047857)" }}
+   327→   327→                              >
+   328→   328→                                <PenLine className="h-3.5 w-3.5" />
+   329→   329→                              </span>
+   330→   330→                              <span className="min-w-0">
+   331→   331→                                <span className="block text-[.84rem] font-extrabold leading-tight text-[#047857]">
+   332→   332→                                  Test my knowledge
+   333→   333→                                </span>
+   334→   334→                                <span className="mt-0.5 block text-[.68rem] leading-snug text-[#a08568]">
+   335→   335→                                  {FA_EXAM_BANKS[group.id].questions.length} exam-style questions · pen-paper mode
+   336→   336→                                </span>
+   337→   337→                              </span>
+   338→   338→                              <span className="ml-auto shrink-0 text-[.58rem] font-black uppercase tracking-[.14em] text-[#7d9a8b] transition-colors group-hover/exam:text-[#047857]">
+   339→   339→                                open →
+   340→   340→                              </span>
+   341→   341→                            </button>
+   342→   342→                          </div>
+   343→   343→                        </div>
+   344→   344→                      </motion.div>
+   345→   345→                    ) : null}
+   346→   346→                  </AnimatePresence>
+   347→   347→                </div>
+   348→   348→              );
+   349→   349→            })}
+   350→   350→          </div>
+   351→   351→
+   352→   352→          {/* below lg — quick chips (horizontal scroll) covering every chapter */}
+   353→   353→          <div className="scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+   354→   354→            {GROUPS.flatMap((g) => g.items).map((item) => (
+   355→   355→              <a key={item.id} href={`#${item.id}`} className={`nav-link ${active === item.id ? "active" : ""}`}>
+   356→   356→                {item.label}
+   357→   357→              </a>
+   358→   358→            ))}
+   359→   359→          </div>
+   360→   360→
+   361→   361→          {/* right cluster — chapter index (small screens) */}
+   362→   362→          <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
+   363→   363→            <button
+   364→   364→              type="button"
+   365→   365→              onClick={() => window.print()}
+   366→   366→              title="Print these notes"
+   367→   367→              aria-label="Print these notes"
+   368→   368→              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c]"
+   369→   369→            >
+   370→   370→              <Printer className="h-4 w-4" />
+   371→   371→            </button>
+   372→   372→            <button
+   373→   373→              type="button"
+   374→   374→              onClick={() => setMobileOpen(true)}
+   375→   375→              aria-label="Open the chapter index"
+   376→   376→              aria-expanded={mobileOpen}
+   377→   377→              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#047857] lg:hidden"
+   378→   378→            >
+   379→   379→              <Menu className="h-4.5 w-4.5" />
+   380→   380→            </button>
+   381→   381→          </div>
+   382→   382→        </div>
+   383→   383→      </div>
+   384→   384→
+   385→   385→      {/* reading progress — width written directly via ref (no re-renders) */}
+   386→   386→      <div className="h-[3px] w-full bg-[#3e2c1d]/10">
+   387→   387→        <div
+   388→   388→          ref={progressRef}
+   389→   389→          className="h-full"
+   390→   390→          style={{ width: "0%", background: "linear-gradient(90deg,#34d399,#10b981,#047857)" }}
+   391→   391→        />
+   392→   392→      </div>
+   393→   393→
+   394→   394→      {/* mobile — full-screen structured index */}
+   395→   395→      <AnimatePresence>
+   396→   396→        {mobileOpen ? (
+   397→   397→          <motion.div
+   398→   398→            ref={mobileRef}
+   399→   399→            tabIndex={-1}
+   400→   400→            key="mobile-index"
+   401→   401→            initial={{ opacity: 0 }}
+   402→   402→            animate={{ opacity: 1 }}
+   403→   403→            exit={{ opacity: 0 }}
+   404→   404→            transition={{ duration: 0.18 }}
+   405→   405→            className="fixed inset-0 z-[60] flex flex-col outline-none"
+   406→   406→            style={{ background: "linear-gradient(165deg,#0c1d14 0%,#133024 55%,#1b4433 100%)" }}
+   407→   407→            role="dialog"
+   408→   408→            aria-modal="true"
+   409→   409→            aria-label="Chapter index"
+   410→   410→          >
+   411→   411→            <div className="flex h-14 shrink-0 items-center justify-between px-4">
+   412→   412→              <span className="flex items-center gap-2 text-sm font-black tracking-tight text-[#dff3e8]">
+   413→   413→                <Scale className="h-4 w-4" style={{ color: "#34d399" }} />
+   414→   414→                Chapter index
+   415→   415→              <span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[.55rem] font-bold text-[#e9d7bf]">
+   416→   416→                {seen.size}/{SECTION_IDS.length} read
+   417→   417→              </span>
+   418→   418→              </span>
+   419→   419→              <button
+   420→   420→                type="button"
+   421→   421→                onClick={() => setMobileOpen(false)}
+   422→   422→                aria-label="Close the chapter index"
+   423→   423→                className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#dff3e8]"
+   424→   424→              >
+   425→   425→                <X className="h-4.5 w-4.5" />
+   426→   426→              </button>
+   427→   427→            </div>
+   428→   428→            <div className="flex-1 overflow-y-auto px-4 pb-10 pt-2">
+   429→   429→              {GROUPS.map((group, gi) => (
+   430→   430→                <motion.div
+   431→   431→                  key={group.id}
+   432→   432→                  initial={{ opacity: 0, y: 14 }}
+   433→   433→                  animate={{ opacity: 1, y: 0 }}
+   434→   434→                  transition={{ delay: 0.05 + gi * 0.06, duration: 0.25 }}
+   435→   435→                  className="mb-5"
+   436→   436→                >
+   437→   437→                  <p className="mb-2 flex items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.24em] text-[#8fd4b4]">
+   438→   438→                    <span className="h-px w-5" style={{ background: "linear-gradient(90deg,#10b981,transparent)" }} />
+   439→   439→                    {group.label}
+   440→   440→                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-[.55rem] text-[#cfe9dc]">{group.items.filter((it) => seen.has(it.id)).length}/{group.items.length}</span>
+   441→   441→                  </p>
+   442→   442→                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.04]">
+   443→   443→                    {group.items.map((item, i) => {
+   444→   444→                      const isActiveItem = active === item.id;
+   445→   445→                      return (
+   446→   446→                        <a
+   447→   447→                          key={item.id}
+   448→   448→                          href={`#${item.id}`}
+   449→   449→                          onClick={() => setMobileOpen(false)}
+   450→   450→                          className={`flex items-center gap-3 px-4 py-3 transition-colors active:bg-white/10 ${
+   451→   451→                            i < group.items.length - 1 ? "border-b border-white/[.06]" : ""
+   452→   452→                          } ${isActiveItem ? "bg-white/[.08]" : ""}`}
+   453→   453→                        >
+   454→   454→                          <span
+   455→   455→                            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[.6rem] font-black"
+   456→   456→                            style={
+   457→   457→                              isActiveItem
+   458→   458→                                ? { background: "linear-gradient(135deg,#10b981,#047857)", color: "#f0fdf7" }
+   459→   459→                                : { background: "rgba(190,240,214,.1)", color: "#8fd4b4" }
+   460→   460→                            }
+   461→   461→                          >
+   462→   462→                            {String(i + 1).padStart(2, "0")}
+   463→   463→                          </span>
+   464→   464→                          <span className="min-w-0 flex-1">
+   465→   465→                            <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#a9e8c9]" : "text-[#e2f2e9]"}`}>
+   466→   466→                              {item.label}
+   467→   467→                            </span>
+   468→   468→                            <span className="mt-0.5 block text-[.7rem] leading-snug text-[#9cc4ab]">{item.desc}</span>
+   469→   469→                          </span>
+   470→   470→                          {isActiveItem ? (
+   471→   471→                            <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#34d399" }} />
+   472→   472→                          ) : seen.has(item.id) ? (
+   473→   473→                            <Check className="h-4 w-4 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
+   474→   474→                          ) : null}
+   475→   475→                        </a>
+   476→   476→                      );
+   477→   477→                    })}
+   478→   478→
+   479→   479→                    {/* Test my knowledge — per group */}
+   480→   480→                    <button
+   481→   481→                      type="button"
+   482→   482→                      onClick={() => {
+   483→   483→                        setMobileOpen(false);
+   484→   484→                        onOpenExam(group.id);
+   485→   485→                      }}
+   486→   486→                      className="flex w-full items-center gap-2.5 border-t border-white/[.08] px-4 py-3 text-left transition-colors active:bg-white/10"
+   487→   487→                    >
+   488→   488→                      <span
+   489→   489→                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+   490→   490→                        style={{ background: "linear-gradient(135deg,#10b981,#047857)" }}
+   491→   491→                      >
+   492→   492→                        <PenLine className="h-3.5 w-3.5" />
+   493→   493→                      </span>
+   494→   494→                      <span className="text-[.88rem] font-extrabold text-[#a9e8c9]">Test my knowledge</span>
+   495→   495→                      <span className="ml-auto text-[.6rem] font-black uppercase tracking-[.14em] text-[#8fd4b4]">
+   496→   496→                        {FA_EXAM_BANKS[group.id].questions.length} Qs →
+   497→   497→                      </span>
+   498→   498→                    </button>
+   499→   499→                  </div>
+   500→   500→                </motion.div>
+   501→   501→              ))}
+   502→   502→            </div>
+   503→   503→          </motion.div>
+   504→   504→        ) : null}
+   505→   505→      </AnimatePresence>
+   506→   506→    </nav>
+   507→   507→  );
+   508→   508→}
+   509→   509→
+   510→   510→/* ============================================================
+   511→   511→   PracticeBand — the only place on the main page where
+   512→   512→   "Test my knowledge" is written: one card per chapter group.
+   513→   513→   Clicking opens that group's full pen-paper window.
+   514→   514→   ============================================================ */
+   515→   515→function PracticeBand({ onOpenExam }: { onOpenExam: (g: FaExamGroup) => void }) {
+   516→   516→  return (
+   517→   517→    <section id="practice" aria-label="Test my knowledge — pen-paper practice" className="relative scroll-mt-20 border-y border-[#ecd9bd] bg-[#fffaf1]/70">
+   518→   518→      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+   519→   519→        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+   520→   520→          <div>
+   521→   521→            <span className="eyebrow">Pen-paper practice</span>
+   522→   522→            <h2 className="mt-2 text-2xl font-bold md:text-3xl">Test my knowledge</h2>
+   523→   523→            <p className="mt-2 max-w-xl text-[.9rem] leading-relaxed text-muted-warm">
+   524→   524→              Every chapter group opens its own pen-paper window:{" "}
+   525→   525→              <b>compute the figure, complete the equation, spot the violation</b> — write on
+   526→   526→              real paper first, then check against the model answers with instant feedback.
+   527→   527→            </p>
+   528→   528→          </div>
+   529→   529→          <p className="shrink-0 text-[.68rem] font-black uppercase tracking-[.18em] text-[#047857]">
+   530→   530→            {FA_TOTAL_QUESTIONS} questions · {FA_EXAM_GROUPS.length} windows
+   531→   531→          </p>
+   532→   532→        </div>
+   533→   533→
+   534→   534→        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+   535→   535→          {FA_EXAM_GROUPS.map((g) => {
+   536→   536→            const bank = FA_EXAM_BANKS[g];
+   537→   537→            return (
+   538→   538→              <button
+   539→   539→                key={g}
+   540→   540→                type="button"
+   541→   541→                onClick={() => onOpenExam(g)}
+   542→   542→                className="card-warm lift group flex flex-col items-start p-5 text-left"
+   543→   543→                aria-label={`Test my knowledge — ${bank.title}`}
+   544→   544→              >
+   545→   545→                <span
+   546→   546→                  className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md"
+   547→   547→                  style={{ background: "linear-gradient(135deg,#10b981,#047857)" }}
+   548→   548→                >
+   549→   549→                  <PenLine className="h-4 w-4" />
+   550→   550→                </span>
+   551→   551→                <span className="mt-3 text-[.98rem] font-extrabold leading-tight text-[#3e2c1d]">{bank.title}</span>
+   552→   552→                <span className="mt-1 text-[.74rem] leading-snug text-muted-warm">{bank.topics}</span>
+   553→   553→                <span className="mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#047857]">
+   554→   554→                  Test my knowledge · {bank.questions.length} Qs →
+   555→   555→                </span>
+   556→   556→              </button>
+   557→   557→            );
+   558→   558→          })}
+   559→   559→        </div>
+   560→   560→      </div>
+   561→   561→    </section>
+   562→   562→  );
+   563→   563→}
+   564→   564→
+   565→   565→/* ============================================================
+   566→   566→   FaFooter — adapted from the FoC/ATB signature footer, in
+   567→   567→   shelf 03's emerald.
+   568→   568→   ============================================================ */
+   569→   569→const FA_SIG_CHIPS = [
+   570→   570→  { icon: BookOpen, label: `${FLAT_ITEMS.length} chapters` },
+   571→   571→  { icon: ListChecks, label: `${FA_TOTAL_QUESTIONS} practice questions` },
+   572→   572→  { icon: GraduationCap, label: `${FA_EXAM_GROUPS.length} pen-paper windows` },
+   573→   573→  { icon: MousePointerClick, label: "machines you can poke" },
+   574→   574→];
+   575→   575→
+   576→   576→export function FaFooter() {
+   577→   577→  return (
+   578→   578→    <footer className="footer-stick relative overflow-hidden">
+   579→   579→      {/* hairline that draws itself from the centre */}
+   580→   580→      <motion.div
+   581→   581→        aria-hidden
+   582→   582→        className="absolute inset-x-0 top-0 h-px"
+   583→   583→        style={{ background: "linear-gradient(90deg, transparent, rgba(90,150,120,.35), transparent)" }}
+   584→   584→        initial={{ scaleX: 0, opacity: 0 }}
+   585→   585→        whileInView={{ scaleX: 1, opacity: 1 }}
+   586→   586→        viewport={{ once: true }}
+   587→   587→        transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+   588→   588→      />
+   589→   589→
+   590→   590→      {/* barely-there warm halo behind the signature */}
+   591→   591→      <div aria-hidden className="sig-glow" />
+   592→   592→
+   593→   593→      <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 py-8 text-center sm:py-10">
+   594→   594→        <motion.p
+   595→   595→          className="sig-eyebrow text-[.58rem] font-semibold uppercase text-[#a1876a]"
+   596→   596→          aria-label="created by"
+   597→   597→          initial={{ opacity: 0, letterSpacing: "1.05em" }}
+   598→   598→          whileInView={{ opacity: 1, letterSpacing: "0.55em" }}
+   599→   599→          viewport={{ once: true }}
+   600→   600→          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+   601→   601→        >
+   602→   602→          created by
+   603→   603→        </motion.p>
+   604→   604→
+   605→   605→        <motion.h2
+   606→   606→          className="footer-name-wrap mt-2.5"
+   607→   607→          aria-label="Arpit Nayan"
+   608→   608→          initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
+   609→   609→          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+   610→   610→          viewport={{ once: true }}
+   611→   611→          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
+   612→   612→        >
+   613→   613→          <span className="footer-name">Arpit&nbsp;Nayan</span>
+   614→   614→        </motion.h2>
+   615→   615→
+   616→   616→        {/* one delicate stroke under the name */}
+   617→   617→        <svg viewBox="0 0 300 22" className="mt-2 h-3.5 w-44" aria-hidden fill="none">
+   618→   618→          <defs>
+   619→   619→            <linearGradient id="faSigGrad" x1="0" y1="0" x2="1" y2="0">
+   620→   620→              <stop offset="0" stopColor="#3f9d76" stopOpacity="0" />
+   621→   621→              <stop offset="0.5" stopColor="#3f9d76" />
+   622→   622→              <stop offset="1" stopColor="#3f9d76" stopOpacity="0" />
+   623→   623→            </linearGradient>
+   624→   624→          </defs>
+   625→   625→          <motion.path
+   626→   626→            d="M6 12 C 62 4, 118 19, 152 11 C 186 4, 236 17, 294 10"
+   627→   627→            stroke="url(#faSigGrad)"
+   628→   628→            strokeWidth="1.6"
+   629→   629→            strokeLinecap="round"
+   630→   630→            initial={{ pathLength: 0, opacity: 0 }}
+   631→   631→            whileInView={{ pathLength: 1, opacity: 1 }}
+   632→   632→            viewport={{ once: true }}
+   633→   633→            transition={{ duration: 1.4, ease: "easeInOut", delay: 0.75 }}
+   634→   634→          />
+   635→   635→        </svg>
+   636→   636→
+   637→   637→        {/* the project — a two-line epitaph about what this page is */}
+   638→   638→        <motion.p
+   639→   639→          className="sig-blurb mt-5"
+   640→   640→          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+   641→   641→          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+   642→   642→          viewport={{ once: true }}
+   643→   643→          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 1.0 }}
+   644→   644→        >
+   645→   645→          <b>Financial Accounting</b> — every concept of the course, distilled into one warm,
+   646→   646→          living page you can read, sketch and balance.
+   647→   647→          <span className="mt-1 block">
+   648→   648→            Written for the late-night revision, the last-minute panic, and the quiet joy of an
+   649→   649→            equation that finally closes.
+   650→   650→          </span>
+   651→   651→        </motion.p>
+   652→   652→
+   653→   653→        {/* the course — instructor credit, quiet but explicit */}
+   654→   654→        <motion.p
+   655→   655→          className="mt-3 text-[.78rem] font-semibold text-[#6f5438]"
+   656→   656→          initial={{ opacity: 0 }}
+   657→   657→          whileInView={{ opacity: 1 }}
+   658→   658→          viewport={{ once: true }}
+   659→   659→          transition={{ duration: 1.0, ease: "easeOut", delay: 1.25 }}
+   660→   660→        >
+   661→   661→          Course: Financial Accounting — Dr. Manisha Yadav · IIT Jodhpur
+   662→   662→        </motion.p>
+   663→   663→
+   664→   664→        {/* what's inside — a row of calm stat pills */}
+   665→   665→        <div
+   666→   666→          role="list"
+   667→   667→          aria-label="What this project contains"
+   668→   668→          className="mt-4 flex flex-wrap items-center justify-center gap-2"
+   669→   669→        >
+   670→   670→          {FA_SIG_CHIPS.map((chip, i) => (
+   671→   671→            <motion.span
+   672→   672→              key={chip.label}
+   673→   673→              role="listitem"
+   674→   674→              className="sig-chip"
+   675→   675→              initial={{ opacity: 0, y: 10, scale: 0.92 }}
+   676→   676→              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+   677→   677→              viewport={{ once: true }}
+   678→   678→              transition={{
+   679→   679→                duration: 0.6,
+   680→   680→                ease: [0.22, 1, 0.36, 1],
+   681→   681→                delay: 1.2 + i * 0.1,
+   682→   682→              }}
+   683→   683→            >
+   684→   684→              <chip.icon className="h-3 w-3" strokeWidth={2.2} />
+   685→   685→              {chip.label}
+   686→   686→            </motion.span>
+   687→   687→          ))}
+   688→   688→        </div>
+   689→   689→
+   690→   690→        {/* colophon — what it's built with, in tiny type */}
+   691→   691→        <motion.p
+   692→   692→          className="sig-colo mt-5"
+   693→   693→          initial={{ opacity: 0 }}
+   694→   694→          whileInView={{ opacity: 1 }}
+   695→   695→          viewport={{ once: true }}
+   696→   696→          transition={{ duration: 1.1, ease: "easeOut", delay: 1.7 }}
+   697→   697→        >
+   698→   698→          shelf 03 · the atlas — crafted with next.js · react · tailwind — mmxxvi
+   699→   699→        </motion.p>
+   700→   700→      </div>
+   701→   701→    </footer>
+   702→   702→  );
+   703→   703→}
+   704→   704→
+   705→   705→/* ============================================================
+   706→   706→   FaApp — the composed subject page.
+   707→   707→   ============================================================ */
+   708→   708→export function FaApp({ onExitAtlas }: { onExitAtlas: () => void }) {
+   709→   709→  useOpenSection("fa");
+   710→   710→
+   711→   711→  const [examGroup, setExamGroup] = useState<FaExamGroup | null>(null);
+   712→   712→  const openExam = (g: FaExamGroup) => setExamGroup(g);
+   713→   713→
+   714→   714→  return (
+   715→   715→    // id="top" — the brand chip links to #top; without a real element here the
+   716→   716→    // client-side router swallows the fragment and the page never scrolls back
+   717→   717→    <div id="top" className="page-wrap warm-canvas fa-app">
+   718→   718→      <TopNav onOpenExam={openExam} onExitAtlas={onExitAtlas} />
+   719→   719→      <main className="pt-14">
+   720→   720→        <PartBoundary label="Hero">
+   721→   721→          <FaHero  />
+   722→   722→        </PartBoundary>
+   723→   723→        <PartBoundary label="PracticeBand">
+   724→   724→          <PracticeBand onOpenExam={openExam}  />
+   725→   725→        </PartBoundary>
+   726→   726→        <PartBoundary label="Why">
+   727→   727→          <FaWhySection  />
+   728→   728→        </PartBoundary>
+   729→   729→        <PartBoundary label="Assumptions">
+   730→   730→          <FaAssumptionsSection  />
+   731→   731→        </PartBoundary>
+   732→   732→        <PartBoundary label="EntityConcern">
+   733→   733→          <FaEntityConcernSection  />
+   734→   734→        </PartBoundary>
+   735→   735→        <PartBoundary label="Periodicity">
+   736→   736→          <FaPeriodicitySection  />
+   737→   737→        </PartBoundary>
+   738→   738→        <PartBoundary label="DualAspect">
+   739→   739→          <FaDualAspectSection  />
+   740→   740→        </PartBoundary>
+   741→   741→        <PartBoundary label="Elements">
+   742→   742→          <FaElementsSection  />
+   743→   743→        </PartBoundary>
+   744→   744→        <PartBoundary label="EquationLab">
+   745→   745→          <FaEquationLabSection  />
+   746→   746→        </PartBoundary>
+   747→   747→        <PartBoundary label="Effects">
+   748→   748→          <FaEffectsSection  />
+   749→   749→        </PartBoundary>
+   750→   750→        <PartBoundary label="Journal">
+   751→   751→          <FaJournalSection  />
+   752→   752→        </PartBoundary>
+   753→   753→        <PartBoundary label="Ledger">
+   754→   754→          <FaLedgerSection  />
+   755→   755→        </PartBoundary>
+   756→   756→        <PartBoundary label="Statements">
+   757→   757→          <FaStatementsSection  />
+   758→   758→        </PartBoundary>
+   759→   759→        <PartBoundary label="TrialBalance">
+   760→   760→          <FaTrialBalanceSection  />
+   761→   761→        </PartBoundary>
+   762→   762→        <PartBoundary label="Adjusting">
+   763→   763→          <FaAdjustingSection  />
+   764→   764→        </PartBoundary>
+   765→   765→        <PartBoundary label="FinalAccounts">
+   766→   766→          <FaFinalAccountsSection  />
+   767→   767→        </PartBoundary>
+   768→   768→        <PartBoundary label="Trading">
+   769→   769→          <FaTradingSection  />
+   770→   770→        </PartBoundary>
+   771→   771→        <PartBoundary label="GrossProfitLab">
+   772→   772→          <FaGrossProfitLabSection  />
+   773→   773→        </PartBoundary>
+   774→   774→      </main>
+   775→   775→      <FaFooter />
+   776→   776→      {examGroup ? <FaExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
+   777→   777→    </div>
+   778→   778→  );
+   779→   779→}
+   780→   780→

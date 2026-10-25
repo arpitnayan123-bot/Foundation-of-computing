@@ -1,4 +1,4 @@
-import { Compass, Landmark, Lock, Megaphone, Route, Scale, Sigma, type LucideIcon } from "lucide-react";
+import { Compass, Landmark, Megaphone, Route, Scale, Sigma, type LucideIcon } from "lucide-react";
 import { QUESTION_COUNTS } from "@/lib/question-counts";
 
 /* ============================================================
@@ -153,23 +153,6 @@ export const SUBJECTS: Subject[] = [
     icon: Megaphone,
     status: "live",
     ambience: "beacon",
-  },
-  {
-    id: "shelf-07",
-    shelf: "07",
-    title: "Reserved shelf",
-    short: "Shelf 07",
-    tagline: "The next PDF drops here.",
-    description: "This shelf fills in as each subject is rebuilt Atlas-style — same living diagrams, same exam simulators, same pen-paper soul.",
-    topics: ["awaiting syllabus"],
-    chapters: null,
-    questions: null,
-    examWindows: null,
-    accent: "#fb923c",
-    accent2: "#c2410c",
-    icon: Lock,
-    status: "soon",
-    ambience: "drift",
   },
 ];
 

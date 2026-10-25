@@ -1,0 +1,570 @@
+     1→/* ============================================================
+     2→   TEST MY KNOWLEDGE — Statistics for Managers question banks,
+     3→   one per chapter group (shelf 05 of The Atlas).
+     4→   Statistics is computed, not memorised — so the bank leans on
+     5→   mcq | output | short: pick the scale, compute the statistic,
+     6→   name the distribution, and check the number against the
+     7→   deck. Every figure below is taken straight from the lecture
+     8→   slides (Dr. Deepak Srivastav, IIT Jodhpur) and hand-checked:
+     9→   Hudson's $79 mean, Marada Inn's 20 guests, the apartment
+    10→   rents (x̄ = 590.80, s = 54.74), Bradley's 8 outcomes, Evans'
+    11→   0.243, Mercy Hospital's 0.1680, Pep Zone's 0.2033.
+    12→   ============================================================ */
+    13→
+    14→export type StmExamGroup = "displays" | "measures" | "probability" | "discrete" | "continuous";
+    15→export type StmQuestionType = "mcq" | "output" | "short";
+    16→
+    17→export interface StmExamQuestion {
+    18→  id: string;
+    19→  type: StmQuestionType;
+    20→  q: string;
+    21→  code?: string; // optional data panel shown with the question
+    22→  options?: string[]; // mcq only
+    23→  answer?: number; // mcq only — index of the correct option
+    24→  answerText?: string; // output → exact value/term; short → model answer
+    25→  explain?: string;
+    26→}
+    27→
+    28→export interface StmExamBank {
+    29→  group: StmExamGroup;
+    30→  title: string;
+    31→  subtitle: string;
+    32→  topics: string;
+    33→  questions: StmExamQuestion[];
+    34→}
+    35→
+    36→/* ------------------------------------------------------------
+    37→   GROUP 1 — DATA & DISPLAYS  (Ch 1 + Ch 2: data, scales,
+    38→             sources, inference, big data, and the tabular &
+    39→             graphical displays that summarise it all)
+    40→   ------------------------------------------------------------ */
+    41→const DISPLAYS: StmExamQuestion[] = [
+    42→  {
+    43→    id: "d1",
+    44→    type: "mcq",
+    45→    q: "In a questionnaire, respondents are asked to mark their gender as male or female. The scale of measurement for gender is the ______ scale.",
+    46→    options: ["ordinal", "nominal", "ratio", "interval"],
+    47→    answer: 1,
+    48→    explain:
+    49→      "Gender is a label or name used to identify an attribute of the element — that is the nominal scale. A nonnumeric label (Male/Female) or a numeric code (1/2) may be used; either way there is no order, no fixed interval and no true zero.",
+    50→  },
+    51→  {
+    52→    id: "d2",
+    53→    type: "mcq",
+    54→    q: "Data are…",
+    55→    options: [
+    56→      "always numeric",
+    57→      "always non-numeric",
+    58→      "the raw material of statistics",
+    59→      "always categorical",
+    60→    ],
+    61→    answer: 2,
+    62→    explain:
+    63→      "Data are the facts and figures collected, analyzed, and summarized for presentation and interpretation — the raw material of statistics. Data can be numeric (quantitative) or non-numeric (categorical), so \u201Calways numeric\u201D and \u201Calways categorical\u201D both fail.",
+    64→  },
+    65→  {
+    66→    id: "d3",
+    67→    type: "mcq",
+    68→    q: "The summaries of data, which may be tabular, graphical, or numerical, are referred to as ______ statistics.",
+    69→    options: ["inferential", "descriptive", "observational", "experimental"],
+    70→    answer: 1,
+    71→    explain:
+    72→      "Descriptive statistics are tabular, graphical, and numerical summaries of data — like Hudson Auto's frequency table, histogram, and the $79 mean cost of parts. Inferential statistics is the different, later step: using sample data to make estimates and test hypotheses about a population.",
+    73→  },
+    74→  {
+    75→    id: "d4",
+    76→    type: "mcq",
+    77→    q: "Statistical inference is…",
+    78→    options: [
+    79→      "the process of drawing inferences about the sample based on the characteristics of the population",
+    80→      "the same as descriptive statistics",
+    81→      "the process of drawing inferences about the population based on the information taken from the sample",
+    82→      "the same as a census",
+    83→    ],
+    84→    answer: 2,
+    85→    explain:
+    86→      "The arrow runs sample → population. Hudson examines a sample of 50 tune-up invoices (sample average $79) and uses it to estimate the average for ALL tune-ups — the population. Collecting data for the entire population would be a census; a census is the alternative to inference, not another name for it.",
+    87→  },
+    88→  {
+    89→    id: "d5",
+    90→    type: "mcq",
+    91→    q: "Data collected at the same, or approximately the same, point in time are ______ data.",
+    92→    options: ["time series", "approximate time series", "cross-sectional", "approximate"],
+    93→    answer: 2,
+    94→    explain:
+    95→      "Cross-sectional data are collected at the same or approximately the same point in time — e.g., building permits issued in November 2013 in each county of Ohio. Time series data are collected over several time periods — e.g., permits in Lucas County for each of the last 36 months.",
+    96→  },
+    97→  {
+    98→    id: "d6",
+    99→    type: "mcq",
+   100→    q: "The three V's of big data are…",
+   101→    options: [
+   102→      "Volume, Velocity, Variety",
+   103→      "Volume, Value, Verification",
+   104→      "Velocity, Vision, Variety",
+   105→      "Volume, Variance, Version",
+   106→    ],
+   107→    answer: 0,
+   108→    explain:
+   109→      "Volume — the amount of available data; Velocity — the speed at which data is collected and processed (Visa processes 6,800 payment transactions per second); Variety — different data types. Walmart captures data on 20–30 million transactions per day.",
+   110→  },
+   111→  {
+   112→    id: "d7",
+   113→    type: "output",
+   114→    q: "Hudson Auto's parts costs run from $50 to $109. If we choose six classes, compute the approximate class width.",
+   115→    code: "Largest value  = 109\nSmallest value =  50\nClasses        =   6\n\nWidth = (109 − 50) / 6 = ?",
+   116→    answerText: "(109 − 50)/6 = 9.83 ≈ 10",
+   117→    explain:
+   118→      "Width = (largest − smallest)/number of classes = 59/6 = 9.83, rounded up to a convenient 10 — giving classes 50–59, 60–69, 70–79, 80–89, 90–99, 100–109 with frequencies 2, 13, 16, 7, 7, 5 (n = 50).",
+   119→  },
+   120→  {
+   121→    id: "d8",
+   122→    type: "short",
+   123→    q: "In one line each: what separates a histogram from a bar graph, and what does a trendline add to a scatter diagram?",
+   124→    answerText:
+   125→      "Histogram: rectangles drawn over class intervals of a QUANTITATIVE variable, with NO natural separation between adjacent rectangles (a bar graph's bars ARE separated, because each bar is a separate category of a qualitative variable).\nTrendline: an approximation of the relationship between the two variables shown in a scatter diagram.",
+   126→    explain:
+   127→      "The separation rule is the classic exam trap: bars separated = categories (bar chart); rectangles touching = intervals of a numeric variable (histogram). The trendline is the scatter diagram's approximation of the relationship.",
+   128→  },
+   129→];
+   130→
+   131→/* ------------------------------------------------------------
+   132→   GROUP 2 — NUMERICAL MEASURES  (Ch 3: location, variability,
+   133→             shape, outliers, five-number summaries, covariance
+   134→             and correlation — the apartment-rents laboratory)
+   135→   ------------------------------------------------------------ */
+   136→const MEASURES: StmExamQuestion[] = [
+   137→  {
+   138→    id: "m1",
+   139→    type: "mcq",
+   140→    q: "A data set of annual incomes contains a few extremely large values. Which measure of central location should be preferred, and why?",
+   141→    options: [
+   142→      "The mean — it uses every observation",
+   143→      "The median — extreme values inflate the mean but not the middle value",
+   144→      "The mode — it ignores numbers entirely",
+   145→      "The geometric mean — it removes negatives",
+   146→    ],
+   147→    answer: 1,
+   148→    explain:
+   149→      "Whenever a data set has extreme values, the median is the preferred measure of central location — which is why the median is the location measure most often reported for annual income and property value data. A few extremely large incomes can inflate the mean.",
+   150→  },
+   151→  {
+   152→    id: "m2",
+   153→    type: "output",
+   154→    q: "Seventy apartment rents were sampled in a college town; the sum of the 70 values is 41,356. Compute the sample mean.",
+   155→    code: "x̄ = Σxᵢ / n\n  = 41,356 / 70\n  = ?",
+   156→    answerText: "x̄ = 590.80",
+   157→    explain:
+   158→      "x̄ = Σxᵢ/n = 41,356/70 = 590.80 dollars per month. The sample mean x̄ is the point estimator of the population mean μ.",
+   159→  },
+   160→  {
+   161→    id: "m3",
+   162→    type: "mcq",
+   163→    q: "In the 70-rent data set, the value 550 appears more often than any other value. 550 is the…",
+   164→    options: ["mean", "median", "mode", "third quartile"],
+   165→    answer: 2,
+   166→    explain:
+   167→      "The mode is the value that occurs with greatest frequency — 550 in the rents data. (If exactly two modes occur the data are bimodal; more than two, multimodal.) The median is 575, the mean 590.80.",
+   168→  },
+   169→  {
+   170→    id: "m4",
+   171→    type: "output",
+   172→    q: "Builder Ron Butler paid: Carpenter $21.60/hr for 520 h, Electrician $28.72/hr for 230 h, Laborer $11.80/hr for 410 h, Painter $19.75/hr for 270 h, Plumber $24.16/hr for 160 h. Compute the weighted mean wage.",
+   173→    code: "x̄ = Σwᵢxᵢ / Σwᵢ\n\nΣwᵢxᵢ = 11,232.0 + 6,605.6 + 4,838.0\n      + 5,332.5 + 3,865.6 = 31,873.7\nΣwᵢ   = 520 + 230 + 410 + 270 + 160 = 1,590",
+   174→    answerText: "x̄ = 31,873.7 / 1,590 = $20.05 (20.0464)",
+   175→    explain:
+   176→      "Weights = hours worked. The weighted mean $20.05 differs from the equally-weighted simple mean of $21.21 — the laborer's 410 hours pull the average toward $11.80. The weights depend on the application (credit hours in GPA, pounds, dollars, volume).",
+   177→  },
+   178→  {
+   179→    id: "m5",
+   180→    type: "mcq",
+   181→    q: "An investment returned −6%, −8%, −4%, +2% and +5.4% over five periods. Why is the geometric mean — not the arithmetic mean — the right average here?",
+   182→    options: [
+   183→      "The geometric mean ignores negative returns",
+   184→      "It gives the mean rate of change over successive periods; the arithmetic mean is misleading for growth rates",
+   185→      "It always produces a smaller number, which is safer",
+   186→      "The arithmetic mean cannot be computed with negative values",
+   187→    ],
+   188→    answer: 1,
+   189→    explain:
+   190→      "The geometric mean is the nth root of the product of n values: x̄g = [(0.94)(0.92)(0.96)(1.02)(1.054)]^(1/5) = 0.97752 → average growth of −2.248% per period. It should be applied anytime you want the mean rate of change over several successive periods (also populations, crop yields, pollution levels, birth/death rates).",
+   191→  },
+   192→  {
+   193→    id: "m6",
+   194→    type: "output",
+   195→    q: "For the 70 rents, compute the location of the 80th percentile (Lₚ), then the percentile itself, given the 56th value = 635 and the 57th value = 649.",
+   196→    code: "Lₚ = (p/100)(n + 1)\n  = (80/100)(70 + 1) = 56.8\n\n80th percentile = 635 + 0.8(649 − 635) = ?",
+   197→    answerText: "L₈₀ = 56.8;  80th percentile = 646.2",
+   198→    explain:
+   199→      "The 80th percentile is the 56th value plus 0.8 times the difference between the 57th and 56th values: 635 + 0.8(14) = 646.2. At least 80% of the rents are ≤ 646.2 and at least 20% are ≥ 646.2 (56/70 = 80%, 14/70 = 20%). Quartiles are specific percentiles: Q1 = 25th = 545, Q2 = median = 575, Q3 = 75th = 625.",
+   200→  },
+   201→  {
+   202→    id: "m7",
+   203→    type: "mcq",
+   204→    q: "For the apartment rents, Q₁ = 545 and Q₃ = 625. The interquartile range (IQR) — and what it protects against — are…",
+   205→    options: [
+   206→      "IQR = 80; it is the range of the middle 50% and overcomes sensitivity to extreme values",
+   207→      "IQR = 190; it is the full range of the data",
+   208→      "IQR = 80; it counts the outliers on each side",
+   209→      "IQR = 1,170; it is Q₁ × Q₃",
+   210→    ],
+   211→    answer: 0,
+   212→    explain:
+   213→      "IQR = Q₃ − Q₁ = 625 − 545 = 80 — the range for the middle 50% of the data. The plain range (715 − 525 = 190) is the simplest measure but is very sensitive to the smallest and largest values; the IQR overcomes that sensitivity. It also sets the box plot's limits: 545 − 1.5(80) = 425 and 625 + 1.5(80) = 745 — no rents fall outside, so no outliers.",
+   214→  },
+   215→  {
+   216→    id: "m8",
+   217→    type: "mcq",
+   218→    q: "For a bell-shaped distribution, the Empirical Rule says…",
+   219→    options: [
+   220→      "Exactly 50% of values fall within one standard deviation of the mean",
+   221→      "Approximately 68% within ±1σ, 95% within ±2σ, and almost all (99.7%) within ±3σ",
+   222→      "At least 75% within ±1σ for any distribution",
+   223→      "All values must lie within ±3σ of the mean",
+   224→    ],
+   225→    answer: 1,
+   226→    explain:
+   227→      "For bell-shaped data: ≈68% (68.26%) within ±1σ, ≈95% (95.44%) within ±2σ, almost all (99.72%) within ±3σ. Contrast Chebyshev's theorem, which works for ANY distribution but only guarantees at least 1 − 1/z² within z standard deviations (z > 1): 75% at z = 2, 89% at z = 3, 94% at z = 4.",
+   228→  },
+   229→];
+   230→
+   231→/* ------------------------------------------------------------
+   232→   GROUP 3 — PROBABILITY  (Ch 4: experiments, counting rules,
+   233→             assigning probabilities, events, the addition &
+   234→             multiplication laws, conditional probability,
+   235→             independence, and Bayes' theorem)
+   236→   ------------------------------------------------------------ */
+   237→const PROBABILITY: StmExamQuestion[] = [
+   238→  {
+   239→    id: "p1",
+   240→    type: "mcq",
+   241→    q: "A random experiment is a process that generates well-defined experimental outcomes. The set of ALL experimental outcomes is called…",
+   242→    options: ["an event", "the sample space", "a sample point", "the population"],
+   243→    answer: 1,
+   244→    explain:
+   245→      "The sample space is the set of all experimental outcomes; a single outcome is a sample point. Toss a coin → {Head, tail}; roll a die → {1,2,3,4,5,6}; play a football game → {win, lost, tie}. An EVENT is a collection of sample points — e.g., \u201CMarkley Oil is profitable\u201D.",
+   246→  },
+   247→  {
+   248→    id: "p2",
+   249→    type: "output",
+   250→    q: "Bradley Investments holds two stocks. Markley Oil can finish a quarter in 4 ways (gain 10, gain 5, 0, lose 20) and Collins Mining in 2 ways (gain 8, lose 2). How many experimental outcomes does the two-step experiment have?",
+   251→    code: "Counting rule for multiple-step experiments:\n(n₁)(n₂)…(nₖ)\n\n= (4)(2) = ?",
+   252→    answerText: "(4)(2) = 8 outcomes",
+   253→    explain:
+   254→      "If an experiment consists of a sequence of k steps with n₁, n₂, … nₖ possible results, the total number of outcomes is (n₁)(n₂)…(nₖ) = 8 — the eight branches of the Bradley tree diagram, from (10, 8) = $18,000 gain down to (−20, −2) = $22,000 loss.",
+   255→  },
+   256→  {
+   257→    id: "p3",
+   258→    type: "mcq",
+   259→    q: "Lucas Tool Rental's records for 40 days: 0 polishers on 4 days, 1 on 6 days, 2 on 18 days, 3 on 10 days, 4 on 2 days. Using the relative frequency method, P(2 polishers rented) = …",
+   260→    options: ["0.10", "0.25", "0.45", "0.18"],
+   261→    answer: 2,
+   262→    explain:
+   263→      "Relative frequency assigns probability = frequency/total days: 18/40 = 0.45. The full distribution: 0.10, 0.15, 0.45, 0.25, 0.05 — which sums to exactly 1.00, as every valid probability assignment must.",
+   264→  },
+   265→  {
+   266→    id: "p4",
+   267→    type: "mcq",
+   268→    q: "The two basic requirements for assigning probabilities to experimental outcomes are…",
+   269→    options: [
+   270→      "each probability between 0 and 1 inclusive, and the probabilities must sum to 1",
+   271→      "each probability a whole number, and the probabilities must sum to 100",
+   272→      "each probability at least 0.5, and the largest equals 1",
+   273→      "each probability equal, and the number of outcomes even",
+   274→    ],
+   275→    answer: 0,
+   276→    explain:
+   277→      "1. 0 ≤ P(Eᵢ) ≤ 1 for all i. 2. P(E₁) + P(E₂) + … + P(Eₙ) = 1. The classical method (equally likely outcomes — a die: 1/6 each), the relative frequency method (historical data — Lucas Tool Rental) and the subjective method (degree of belief — Bradley's analyst) all must satisfy these two requirements.",
+   278→  },
+   279→  {
+   280→    id: "p5",
+   281→    type: "output",
+   282→    q: "An analyst's subjective probabilities for Bradley's outcomes: P(10,8)=0.20, P(10,−2)=0.08, P(5,8)=0.16, P(5,−2)=0.26. Event M = \u201CMarkley Oil is profitable\u201D. Compute P(M).",
+   283→    code: "M = {(10,8), (10,−2), (5,8), (5,−2)}\n\nP(M) = 0.20 + 0.08 + 0.16 + 0.26 = ?",
+   284→    answerText: "P(M) = 0.70",
+   285→    explain:
+   286→      "The probability of any event equals the sum of the probabilities of the sample points in the event. Similarly C (Collins profitable) = {(10,8),(5,8),(0,8),(−20,8)} → P(C) = 0.20+0.16+0.10+0.02 = 0.48.",
+   287→  },
+   288→  {
+   289→    id: "p6",
+   290→    type: "mcq",
+   291→    q: "With P(M) = 0.70, P(C) = 0.48 and P(M ∩ C) = 0.36, the addition law gives P(M ∪ C) = …",
+   292→    options: ["1.18", "0.82", "0.34", "0.58"],
+   293→    answer: 1,
+   294→    explain:
+   295→      "P(A ∪ B) = P(A) + P(B) − P(A ∩ B) = 0.70 + 0.48 − 0.36 = 0.82. The subtraction removes the double-counted intersection {(10,8),(5,8)}. Only when A and B are mutually exclusive (P(A ∩ B) = 0) does the law collapse to P(A) + P(B).",
+   296→  },
+   297→  {
+   298→    id: "p7",
+   299→    type: "output",
+   300→    q: "Using the joint probability table: P(M ∩ C) = 0.36 and P(M) = 0.70. Compute the conditional probability P(C | M).",
+   301→    code: "P(C | M) = P(M ∩ C) / P(M)\n         = 0.36 / 0.70\n         = ?",
+   302→    answerText: "P(C | M) = 0.5143",
+   303→    explain:
+   304→      "Given Markley Oil is profitable, Collins Mining is profitable 51.43% of the time. The multiplication law runs the same wire backwards: P(M ∩ C) = P(M)·P(C|M) = (0.70)(0.5143) = 0.36 — the same intersection, computed the other way.",
+   305→  },
+   306→  {
+   307→    id: "p8",
+   308→    type: "output",
+   309→    q: "L. S. Clothiers: prior P(A₁) = 0.7 that the town council approves a zoning change; the planning board recommends against it (event B) with P(B|A₁) = 0.2 and P(B|A₂) = 0.9. Compute the posterior P(A₁ | B).",
+   310→    code: "P(A₁|B) = P(A₁)P(B|A₁) / [P(A₁)P(B|A₁) + P(A₂)P(B|A₂)]\n        = (0.7)(0.2) / [(0.7)(0.2) + (0.3)(0.9)]\n        = 0.14 / 0.41 = ?",
+   311→    answerText: "P(A₁ | B) = 0.34 (0.3415)",
+   312→    explain:
+   313→      "Bayes' theorem revises the prior 0.70 down to the posterior 0.34 once the negative recommendation arrives — good news for L. S. Clothiers. The tabular approach: joint probabilities .14 and .27, sum P(B) = .41, posteriors .3415 and .6585 (sum 1.0000).",
+   314→  },
+   315→];
+   316→
+   317→/* ------------------------------------------------------------
+   318→   GROUP 4 — DISCRETE DISTRIBUTIONS  (Ch 5: random variables,
+   319→             probability functions, expected value & variance,
+   320→             bivariate distributions, binomial, Poisson,
+   321→             hypergeometric)
+   322→   ------------------------------------------------------------ */
+   323→const DISCRETE: StmExamQuestion[] = [
+   324→  {
+   325→    id: "k1",
+   326→    type: "mcq",
+   327→    q: "Which of the following random variables is CONTINUOUS?",
+   328→    options: [
+   329→      "Number of customers entering a store per day",
+   330→      "Weight of a randomly selected student",
+   331→      "Number of defective items in a batch of 50",
+   332→      "Number of TVs sold at JSL Appliances in one day",
+   333→    ],
+   334→    answer: 1,
+   335→    explain:
+   336→      "A continuous random variable may assume any numerical value in an interval or collection of intervals — like weight, or distance from home to a store. Counts (customers, defectives, TVs sold, family size, dependents on a tax return) are discrete: finite values or an infinite sequence like 0, 1, 2, …",
+   337→  },
+   338→  {
+   339→    id: "k2",
+   340→    type: "mcq",
+   341→    q: "The required conditions for a valid discrete probability function f(x) are…",
+   342→    options: [
+   343→      "f(x) ≥ 0 and Σf(x) = 1",
+   344→      "f(x) > 1 for at least one x, and Σf(x) = 100",
+   345→      "f(x) ≤ 0 and Σf(x) = 0",
+   346→      "f(x) = 1/n for every x, always",
+   347→    ],
+   348→    answer: 0,
+   349→    explain:
+   350→      "f(x) ≥ 0 for every value, and the sum of f(x) over all values equals 1. JSL Appliances' TV-sales distribution (.40, .25, .20, .05, .10) passes both checks. f(x) = 1/n is a special case — the discrete uniform distribution, where every value is equally likely.",
+   351→  },
+   352→  {
+   353→    id: "k3",
+   354→    type: "output",
+   355→    q: "JSL Appliances' daily TV sales: f(0)=.40, f(1)=.25, f(2)=.20, f(3)=.05, f(4)=.10. Compute the expected number of TVs sold in a day.",
+   356→    code: "E(x) = Σ x·f(x)\n     = 0(.40) + 1(.25) + 2(.20) + 3(.05) + 4(.10)\n     = 0 + .25 + .40 + .15 + .40 = ?",
+   357→    answerText: "E(x) = μ = 1.20 TVs per day",
+   358→    explain:
+   359→      "The expected value is a weighted average of the values the random variable may assume, weighted by the probabilities — and it does NOT have to be a value the variable can actually take (1.20 is not a possible sales count). Variance: σ² = Σ(x−μ)²f(x) = 1.660, so σ = 1.2884 TVs.",
+   360→  },
+   361→  {
+   362→    id: "k4",
+   363→    type: "mcq",
+   364→    q: "Four properties define a binomial experiment. Which of the following is NOT one of them?",
+   365→    options: [
+   366→      "The experiment consists of a sequence of n identical trials",
+   367→      "Two outcomes, success and failure, are possible on each trial",
+   368→      "The probability of success changes from trial to trial",
+   369→      "The trials are independent",
+   370→    ],
+   371→    answer: 2,
+   372→    explain:
+   373→      "Property 3 is the OPPOSITE: the probability of success p does NOT change from trial to trial (the stationarity assumption). The four: n identical trials; success/failure on each; constant p; independent trials. Hypergeometric settings are the ones where p changes and trials are not independent.",
+   374→  },
+   375→  {
+   376→    id: "k5",
+   377→    type: "output",
+   378→    q: "Evans Electronics sees 10% annual turnover: any hourly employee has p = 0.1 of leaving. Three employees are chosen at random. Compute P(exactly 1 leaves).",
+   379→    code: "f(x) = n! / [x!(n−x)!] · pˣ(1−p)⁽ⁿ⁻ˣ⁾\n\nf(1) = 3!/(1!·2!) · (0.1)¹(0.9)²\n     = 3 · (0.1)(0.81) = ?",
+   380→    answerText: "f(1) = 0.243",
+   381→    explain:
+   382→      "Three sequences give one success — (S,F,F), (F,S,F), (F,F,S) — each with probability (0.1)(0.9)(0.9) = 0.081, totalling 0.243. The tree diagram: f(3)=.0010, f(2)=.0270, f(1)=.2430, f(0)=.7290. Binomial summaries: E(x) = np = 0.3, Var(x) = np(1−p) = 0.27, σ = 0.52.",
+   383→  },
+   384→  {
+   385→    id: "k6",
+   386→    type: "mcq",
+   387→    q: "A salesperson contacts 8 potential customers per day with a 10% chance of a sale on each. The expected number of sales, the variance and the standard deviation are…",
+   388→    options: [
+   389→      "E(x) = 0.8, Var(x) = 0.72, σ ≈ 0.85",
+   390→      "E(x) = 8, Var(x) = 0.1, σ ≈ 0.32",
+   391→      "E(x) = 0.8, Var(x) = 0.08, σ ≈ 0.28",
+   392→      "E(x) = 0.1, Var(x) = 0.8, σ ≈ 0.89",
+   393→    ],
+   394→    answer: 0,
+   395→    explain:
+   396→      "Binomial with n = 8, p = 0.1: E(x) = np = 0.8 sales per day; Var(x) = np(1−p) = 8(.1)(.9) = 0.72; σ = √0.72 ≈ 0.85. The same three formulas gave Evans Electronics 0.3, 0.27 and 0.52 for n = 3.",
+   397→  },
+   398→  {
+   399→    id: "k7",
+   400→    type: "output",
+   401→    q: "Patients arrive at Mercy Hospital's emergency room at an average rate of 6 per hour on weekend evenings. Compute the probability of exactly 4 arrivals in 30 minutes.",
+   402→    code: "μ = 6/hour = 3 per half-hour;  x = 4\n\nf(x) = μˣe^(−μ) / x!\n     = 3⁴(2.71828)⁻³ / 4! = ?",
+   403→    answerText: "f(4) = 0.1680",
+   404→    explain:
+   405→      "Poisson: occurrences over a specified interval of time or space, with equal-length intervals equally likely and independent. Two properties, and one signature identity: the mean equals the variance — μ = σ² = 3 for the 30-minute periods.",
+   406→  },
+   407→  {
+   408→    id: "k8",
+   409→    type: "output",
+   410→    q: "Bob Neveready mingled 2 dead batteries with 2 good ones and selects 2 of the 4 at random. Compute the probability both selected are good.",
+   411→    code: "f(x) = [C(r,x)·C(N−r, n−x)] / C(N,n)\n\nx = 2 good selected, n = 2 selected,\nN = 4 total, r = 2 good in total\n\nf(2) = [C(2,2)·C(2,0)] / C(4,2) = 1/6 = ?",
+   412→    answerText: "f(2) = 0.167 (1/6)",
+   413→    explain:
+   414→      "Hypergeometric: trials are NOT independent and p changes from trial to trial (each draw alters the population). Mean E(x) = n(r/N) = 2(2/4) = 1; variance uses the finite-population correction (N−n)/(N−1) = 2/3 → 0.333. When N is large, (N−n)/(N−1) → 1 and the hypergeometric collapses into the binomial with p = r/N.",
+   415→  },
+   416→];
+   417→
+   418→/* ------------------------------------------------------------
+   419→   GROUP 5 — CONTINUOUS & SAMPLING  (Ch 6: uniform, normal,
+   420→             standard normal, exponential — plus the sampling
+   421→             practice set and the NICE Paper case)
+   422→   ------------------------------------------------------------ */
+   423→const CONTINUOUS: StmExamQuestion[] = [
+   424→  {
+   425→    id: "c1",
+   426→    type: "mcq",
+   427→    q: "At Slater's Buffet, salad taken is uniformly distributed between 5 and 15 ounces, so f(x) = 1/10 on [5, 15]. P(12 ≤ x ≤ 15) = …",
+   428→    options: ["0.10", "0.30", "0.50", "0.70"],
+   429→    answer: 1,
+   430→    explain:
+   431→      "Probability = area = height × base = (1/10)(15 − 12) = 0.3. For a uniform distribution E(x) = (a+b)/2 = 10 ounces and Var(x) = (b−a)²/12 = 100/12 = 8.33. Probability is the area under the density curve between x₁ and x₂ — for every continuous random variable.",
+   432→  },
+   433→  {
+   434→    id: "c2",
+   435→    type: "output",
+   436→    q: "Pep Zone's lead-time demand for motor oil is normal with μ = 15 gallons, σ = 6. The reorder point is 20 gallons. Convert x = 20 to a z-value.",
+   437→    code: "z = (x − μ) / σ\n  = (20 − 15) / 6\n  = ?",
+   438→    answerText: "z = 0.83",
+   439→    explain:
+   440→      "z measures the number of standard deviations x is from μ. Step 1 of the stockout problem: z = 5/6 = 0.83. Next the standard normal table gives P(z ≤ 0.83) = 0.7967, so the stockout probability P(z > 0.83) = 1 − 0.7967 = 0.2033.",
+   441→  },
+   442→  {
+   443→    id: "c3",
+   444→    type: "mcq",
+   445→    q: "Continuing Pep Zone: the manager wants the stockout probability during lead time to be no more than 0.05. The reorder point should be…",
+   446→    options: [
+   447→      "20 gallons — no change needed",
+   448→      "x = μ + z₀.₀₅σ = 15 + 1.645(6) ≈ 24.87, rounded to 25 gallons",
+   449→      "x = μ − z₀.₀₅σ = 15 − 1.645(6) ≈ 5.13, rounded to 5 gallons",
+   450→      "Impossible to control the stockout probability",
+   451→    ],
+   452→    answer: 1,
+   453→    explain:
+   454→      "Work the standard normal table in reverse: cut off 0.05 in the right tail → cumulative area 0.95 → z₀.₀₅ = 1.645, then x = μ + z₀.₀₅σ = 15 + 1.645(6) = 24.87 → 25 gallons. Raising the reorder point from 20 to 25 drops the stockout chance from about .20 to .05. Excel: NORM.INV for x given a probability, NORM.DIST for probability given x.",
+   455→  },
+   456→  {
+   457→    id: "c4",
+   458→    type: "mcq",
+   459→    q: "The normal curve's highest point sits at the mean — which is also the median and the mode — and the standard deviation controls…",
+   460→    options: [
+   461→      "the location of the curve along the x-axis",
+   462→      "the width: larger σ produces wider, flatter curves",
+   463→      "the total area under the curve",
+   464→      "the skewness of the curve",
+   465→    ],
+   466→    answer: 1,
+   467→    explain:
+   468→      "The family of normal distributions is defined by μ (location — it can be any numerical value, negative, zero or positive) and σ (width). The total area is always exactly 1 — 0.5 each side of the mean. Abraham de Moivre derived the normal distribution, published in The Doctrine of Chances, 1733.",
+   469→  },
+   470→  {
+   471→    id: "c5",
+   472→    type: "output",
+   473→    q: "Time between car arrivals at Al's full-service pump is exponential with a mean of 3 minutes. Compute the probability that the time between two successive arrivals is 2 minutes or less.",
+   474→    code: "P(x ≤ x₀) = 1 − e^(−x₀/μ)\n\nP(x ≤ 2) = 1 − 2.71828^(−2/3)\n         = 1 − 0.5134 = ?",
+   475→    answerText: "P(x ≤ 2) = 0.4866",
+   476→    explain:
+   477→      "Exponential density f(x) = (1/μ)e^(−x/μ) for x ≥ 0; cumulative P(x ≤ x₀) = 1 − e^(−x₀/μ). Its signature properties: mean = standard deviation, skewness = 2 (skewed right). Pair it with Poisson: Poisson counts occurrences per interval; exponential describes the length of the interval between occurrences.",
+   478→  },
+   479→  {
+   480→    id: "c6",
+   481→    type: "mcq",
+   482→    q: "The Poisson and exponential distributions are a matched pair. Which sentence states the pairing correctly?",
+   483→    options: [
+   484→      "Poisson describes the length of intervals; exponential counts occurrences per interval",
+   485→      "Poisson describes the number of occurrences per interval; exponential describes the length of the interval between occurrences",
+   486→      "Both describe counts; they just use different formulas",
+   487→      "Both describe times; one is for hours, one for minutes",
+   488→    ],
+   489→    answer: 1,
+   490→    explain:
+   491→      "Poisson → how many arrivals in an interval (vehicles at a toll booth per hour, knotholes in 14 linear feet of pine board, Bell Labs' phone calls). Exponential → how long until the next one (service time in waiting-line applications, time to complete a questionnaire, distance between major defects in a highway).",
+   492→  },
+   493→  {
+   494→    id: "c7",
+   495→    type: "mcq",
+   496→    q: "A production process makes 3% defective parts; a sample of 5 is selected. Why is this a binomial setting, and what is P(x = 2)?",
+   497→    options: [
+   498→      "Because trials are dependent; f(2) = 0.001",
+   499→      "Because n = 5 identical trials, success = defective with constant p = .03, independent trials; f(2) = C(5,2)(.03)²(.97)³ ≈ 0.008",
+   500→      "Because p changes each draw; f(2) = 0.053",
+   501→      "Because the interval is fixed; f(2) = 0.168",
+   502→    ],
+   503→    answer: 1,
+   504→    explain:
+   505→      "All four binomial properties hold: 5 identical trials, success/failure, p = .03 constant (stationarity), independence. f(2) = [5!/(2!3!)](.03)²(.97)³ = 10 × .0009 × .9127 ≈ .0082. Excel check: =BINOM.DIST(2, 5, 0.03, FALSE).",
+   506→  },
+   507→  {
+   508→    id: "c8",
+   509→    type: "mcq",
+   510→    q: "NICE Paper's plantation holds 1,000,000 trees; foresters measure 500 sampled trees and find an average timber volume of 0.4 cubic metres. The 0.4 is…",
+   511→    options: [
+   512→      "the population mean — the true average of every tree",
+   513→      "the sample mean — used to estimate the population mean",
+   514→      "the sampling distribution of the mean",
+   515→      "a parameter, because it comes from a random sample",
+   516→    ],
+   517→    answer: 1,
+   518→    explain:
+   519→      "0.4 m³ is a statistic — the sample mean of the 500 selected trees — and it estimates the population mean, which would be too costly to measure across a million trees. Compute it from a population and it's a parameter; from a sample it's a sample statistic and serves as the point estimator. That is the whole logic of the sampling chapter.",
+   520→  },
+   521→];
+   522→
+   523→/* ------------------------------------------------------------
+   524→   Registry
+   525→   ------------------------------------------------------------ */
+   526→export const STM_EXAM_BANKS: Record<StmExamGroup, StmExamBank> = {
+   527→  displays: {
+   528→    group: "displays",
+   529→    title: "Data & Displays",
+   530→    subtitle: "Chapters 1–2 — what data is, where it comes from, and how to show it",
+   531→    topics: "Scales · sources · inference · big data · frequency tables · charts",
+   532→    questions: DISPLAYS,
+   533→  },
+   534→  measures: {
+   535→    group: "measures",
+   536→    title: "Numerical Measures",
+   537→    subtitle: "Chapter 3 — the apartment-rents laboratory of location and spread",
+   538→    topics: "Mean · median · mode · percentiles · variance · z · box plots",
+   539→    questions: MEASURES,
+   540→  },
+   541→  probability: {
+   542→    group: "probability",
+   543→    title: "Probability",
+   544→    subtitle: "Chapter 4 — counting, events, the laws, and Bayes' revision",
+   545→    topics: "Sample space · counting rules · addition & multiplication · Bayes",
+   546→    questions: PROBABILITY,
+   547→  },
+   548→  discrete: {
+   549→    group: "discrete",
+   550→    title: "Discrete Distributions",
+   551→    subtitle: "Chapter 5 — random variables and the three workhorse distributions",
+   552→    topics: "E(x) & variance · binomial · Poisson · hypergeometric",
+   553→    questions: DISCRETE,
+   554→  },
+   555→  continuous: {
+   556→    group: "continuous",
+   557→    title: "Continuous & Sampling",
+   558→    subtitle: "Chapter 6 (+7) — uniform, normal, exponential, and the sampling logic",
+   559→    topics: "Uniform · z-tables · reorder points · exponential · sampling",
+   560→    questions: CONTINUOUS,
+   561→  },
+   562→};
+   563→
+   564→export const STM_EXAM_GROUPS = Object.keys(STM_EXAM_BANKS) as StmExamGroup[];
+   565→
+   566→export const STM_TOTAL_QUESTIONS = STM_EXAM_GROUPS.reduce(
+   567→  (n, g) => n + STM_EXAM_BANKS[g].questions.length,
+   568→  0
+   569→);
+   570→

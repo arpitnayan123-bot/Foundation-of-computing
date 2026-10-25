@@ -23,12 +23,9 @@ import {
   BookOpenText,
   Check,
   ChevronDown,
-  GraduationCap,
-  ListChecks,
   Map,
   Megaphone,
   Menu,
-  MousePointerClick,
   PenLine,
   Printer,
   X,
@@ -813,14 +810,8 @@ function LecturePager({ current, onJump }: { current: MktgLecture; onJump: (id: 
 
 /* ============================================================
    MktgFooter — the atlas signature, retold for shelf 06.
+   The user asked for the name and nothing else.
    ============================================================ */
-const MKTG_SIG_CHIPS = [
-  { icon: BookOpen, label: `${FLAT_ITEMS.length} chapters` },
-  { icon: ListChecks, label: `${MKTG_TOTAL_QUESTIONS} practice questions` },
-  { icon: GraduationCap, label: `${MKTG_EXAM_GROUPS.length} exam windows` },
-  { icon: MousePointerClick, label: "machines you can poke" },
-];
-
 export function MktgFooter() {
   return (
     <footer className="footer-stick relative overflow-hidden">
@@ -879,66 +870,6 @@ export function MktgFooter() {
             transition={{ duration: 1.4, ease: "easeInOut", delay: 0.75 }}
           />
         </svg>
-
-        <motion.p
-          className="sig-blurb mt-5"
-          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 1.0 }}
-        >
-          <b>Principles of Marketing</b> — every concept of the course, distilled into one warm,
-          living page you can read, poke and revise.
-          <span className="mt-1 block">
-            Written for the late-night revision, the last-minute panic, and the quiet joy of
-            finally seeing why people buy.
-          </span>
-        </motion.p>
-
-        <motion.p
-          className="mt-3 text-[.78rem] font-semibold text-[#5f7472]"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.0, ease: "easeOut", delay: 1.25 }}
-        >
-          Course: Principles of Marketing — SME · IIT Jodhpur
-        </motion.p>
-
-        <div
-          role="list"
-          aria-label="What this project contains"
-          className="mt-4 flex flex-wrap items-center justify-center gap-2"
-        >
-          {MKTG_SIG_CHIPS.map((chip, i) => (
-            <motion.span
-              key={chip.label}
-              role="listitem"
-              className="sig-chip"
-              initial={{ opacity: 0, y: 10, scale: 0.92 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.6,
-                ease: [0.22, 1, 0.36, 1],
-                delay: 1.2 + i * 0.1,
-              }}
-            >
-              <chip.icon className="h-3 w-3" strokeWidth={2.2} />
-              {chip.label}
-            </motion.span>
-          ))}
-        </div>
-
-        <motion.p
-          className="sig-colo mt-5"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.1, ease: "easeOut", delay: 1.7 }}
-        >
-          shelf 06 · the atlas — crafted with next.js · react · tailwind — mmxxvi
-        </motion.p>
       </div>
     </footer>
   );

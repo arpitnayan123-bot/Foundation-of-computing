@@ -7,27 +7,38 @@ __turbopack_context__.s([
     ()=>FocApp
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/PartBoundary.tsx [app-client] (ecmascript)");
+/* ============================================================
+   FocApp — "Foundations of Computing", shelf 01 of THE ATLAS.
+
+   Mounted by the Atlas router (src/app/page.tsx); `onExitAtlas`
+   returns the reader to the Atlas landing page. A LECTURE
+   READER: the hero holds the 17-lecture sequence, each lecture
+   opens with a "Foundations of Computing Lecture N" band, and
+   all pen-paper practice lives behind the "Test my knowledge"
+   hub so the reading surface stays clean. The subject's unique
+   Python Lab (live CPython 3.12) stays wired end to end.
+   ============================================================ */ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/PartBoundary.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/exam-runtime.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$compass$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Compass$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/compass.js [app-client] (ecmascript) <export default as Compass>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-client] (ecmascript) <export default as Menu>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-down.js [app-client] (ecmascript) <export default as ChevronDown>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-left.js [app-client] (ecmascript) <export default as ArrowLeft>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-right.js [app-client] (ecmascript) <export default as ArrowRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpenText$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/book-open-text.js [app-client] (ecmascript) <export default as BookOpenText>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$flask$2d$conical$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FlaskConical$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/flask-conical.js [app-client] (ecmascript) <export default as FlaskConical>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/pen-line.js [app-client] (ecmascript) <export default as PenLine>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Map$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/map.js [app-client] (ecmascript) <export default as Map>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-client] (ecmascript) <export default as Check>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-down.js [app-client] (ecmascript) <export default as ChevronDown>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$compass$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Compass$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/compass.js [app-client] (ecmascript) <export default as Compass>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$flask$2d$conical$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FlaskConical$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/flask-conical.js [app-client] (ecmascript) <export default as FlaskConical>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Map$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/map.js [app-client] (ecmascript) <export default as Map>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-client] (ecmascript) <export default as Menu>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/pen-line.js [app-client] (ecmascript) <export default as PenLine>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/printer.js [app-client] (ecmascript) <export default as Printer>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$section$2d$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/use-section-progress.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/use-open-section.ts [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/ui.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Playground$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/Playground.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ExamWindow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/src/components/notes/ExamWindow.tsx [app-client] (ecmascript) <locals>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/questions.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/progress.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$foc$2f$FocHero$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/foc/FocHero.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$foc$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/foc/lectures.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/Part1.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/Part2.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/Part3.tsx [app-client] (ecmascript)");
@@ -38,8 +49,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part8$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/Part8.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part9$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/Part9.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part10$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/Part10.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/ui.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Playground$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/Playground.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ExamWindow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/src/components/notes/ExamWindow.tsx [app-client] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/questions.ts [app-client] (ecmascript)");
 ;
-var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature();
+var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature(), _s2 = __turbopack_context__.k.signature(), _s3 = __turbopack_context__.k.signature();
 "use client";
 ;
 ;
@@ -62,14 +77,15 @@ var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.sign
 ;
 ;
 ;
+;
+;
+;
+/* shelf 01 palette — deep ember & gold on ivory paper */ const EMBER = "#c2410c";
+const EMBER_BRIGHT = "#ea580c";
+const GOLD = "#b45309";
+const GOLD_LITE = "#f5c889";
+const EMBER_DARK = "linear-gradient(165deg,#241608 0%,#33200e 55%,#3e2c1d 100%)";
 /* ============================================================
-   FocApp — the complete "Foundations of Computing" revision
-   companion, registered as shelf 01 of THE ATLAS.
-
-   Formerly src/app/page.tsx; now mounted by the Atlas router
-   (src/app/page.tsx) when the reader enters this subject.
-   `onExitAtlas` returns the reader to the Atlas landing page.
-   ============================================================ */ /* ============================================================
    Structured chapter map — the top bar is organised into
    four groups instead of a flat 17-chip strip. Each group owns
    a "Test my knowledge" exam window (see questions.ts).
@@ -186,28 +202,154 @@ var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.sign
 ];
 const FLAT_ITEMS = GROUPS.flatMap(_c = (g)=>g.items);
 _c1 = FLAT_ITEMS;
-const SECTION_IDS = FLAT_ITEMS.map(_c2 = (i)=>i.id);
-_c3 = SECTION_IDS;
 function groupOf(id) {
     for (const g of GROUPS)if (g.items.some((i)=>i.id === id)) return g.id;
     return null;
 }
 /* ============================================================
+   The chapter component, keyed by section id — the lecture
+   reader renders exactly the slice the chosen lecture owns.
+   ============================================================ */ const SECTION_COMPONENTS = {
+    why: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["WhySection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 129,
+        columnNumber: 8
+    }, ("TURBOPACK compile-time value", void 0)),
+    computing: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ComputingSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 130,
+        columnNumber: 14
+    }, ("TURBOPACK compile-time value", void 0)),
+    pillars: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PillarsSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 131,
+        columnNumber: 12
+    }, ("TURBOPACK compile-time value", void 0)),
+    data: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DataSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 132,
+        columnNumber: 9
+    }, ("TURBOPACK compile-time value", void 0)),
+    algorithm: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlgorithmSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 133,
+        columnNumber: 14
+    }, ("TURBOPACK compile-time value", void 0)),
+    hardware: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["HardwareSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 134,
+        columnNumber: 13
+    }, ("TURBOPACK compile-time value", void 0)),
+    software: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SoftwareSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 135,
+        columnNumber: 13
+    }, ("TURBOPACK compile-time value", void 0)),
+    python: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ProgrammingSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 136,
+        columnNumber: 11
+    }, ("TURBOPACK compile-time value", void 0)),
+    basics: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part5$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BasicsSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 137,
+        columnNumber: 11
+    }, ("TURBOPACK compile-time value", void 0)),
+    lists: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part5$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ListsSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 138,
+        columnNumber: 10
+    }, ("TURBOPACK compile-time value", void 0)),
+    if: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part6$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["IfSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 139,
+        columnNumber: 7
+    }, ("TURBOPACK compile-time value", void 0)),
+    dicts: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part6$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DictsSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 140,
+        columnNumber: 10
+    }, ("TURBOPACK compile-time value", void 0)),
+    while: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part7$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["WhileSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 141,
+        columnNumber: 10
+    }, ("TURBOPACK compile-time value", void 0)),
+    functions: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part7$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FunctionsSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 142,
+        columnNumber: 14
+    }, ("TURBOPACK compile-time value", void 0)),
+    args: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part8$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ArgsSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 143,
+        columnNumber: 9
+    }, ("TURBOPACK compile-time value", void 0)),
+    funcs2: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part9$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FuncsScaleSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 144,
+        columnNumber: 11
+    }, ("TURBOPACK compile-time value", void 0)),
+    classes: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part10$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ClassesSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 145,
+        columnNumber: 12
+    }, ("TURBOPACK compile-time value", void 0))
+};
+/* ============================================================
+   useSeenDisplay — the read-checkmark data for every menu.
+   Marking is per-lecture; display spans the whole shelf.
+   ============================================================ */ function useSeenDisplay(lecture) {
+    _s();
+    const ids = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "useSeenDisplay.useMemo[ids]": ()=>lecture.chapters.map({
+                "useSeenDisplay.useMemo[ids]": (c)=>c.id
+            }["useSeenDisplay.useMemo[ids]"])
+    }["useSeenDisplay.useMemo[ids]"], [
+        lecture
+    ]);
+    const live = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$section$2d$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSectionProgress"])("foc", ids);
+    const persisted = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "useSeenDisplay.useMemo[persisted]": ()=>{
+            try {
+                return new Set(Object.keys((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["loadProgress"])().foc ?? {}));
+            } catch  {
+                return new Set();
+            }
+        }
+    }["useSeenDisplay.useMemo[persisted]"], []);
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "useSeenDisplay.useMemo": ()=>new Set([
+                ...persisted,
+                ...live
+            ])
+    }["useSeenDisplay.useMemo"], [
+        persisted,
+        live
+    ]);
+}
+_s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$section$2d$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSectionProgress"]
+    ];
+});
+/* ============================================================
    TopNav — structured chapter menu + Python Lab button +
    a "Test my knowledge" launcher inside every chapter group.
 
-   PERF: the old version called setProgress()/setActive() on
-   EVERY scroll event, re-rendering the nav dozens of times per
-   second. Now the progress bar is written straight to the DOM
+   PERF: the progress bar is written straight to the DOM
    through a ref inside a requestAnimationFrame, and React state
-   updates only when the value actually CHANGES.
-   ============================================================ */ function TopNav({ onOpenLab, onOpenExam, onExitAtlas }) {
-    _s();
+   updates only when the active section actually CHANGES.
+
+   Chapter links never jump as plain anchors — they call
+   onJumpChapter so a cross-lecture jump switches the lecture
+   first, then scrolls to the freshly-rendered section.
+   ============================================================ */ function TopNav({ onOpenLab, onOpenExam, onExitAtlas, onJumpChapter, seen }) {
+    _s1();
     const [active, setActive] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [openGroup, setOpenGroup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [mobileOpen, setMobileOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const mobileRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDialogA11y"])(mobileOpen);
-    const seen = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$section$2d$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSectionProgress"])("foc", SECTION_IDS);
     const [pyReady, setPyReady] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const navRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const progressRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
@@ -329,7 +471,7 @@ function groupOf(id) {
                                     className: "h-3.5 w-3.5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 209,
+                                    lineNumber: 283,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -337,13 +479,13 @@ function groupOf(id) {
                                     children: "Atlas"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 210,
+                                    lineNumber: 284,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 202,
+                            lineNumber: 276,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -353,19 +495,19 @@ function groupOf(id) {
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     className: "flex h-6 w-6 items-center justify-center rounded-full text-white",
                                     style: {
-                                        background: "linear-gradient(135deg,#ea580c,#c2410c)",
+                                        background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})`,
                                         boxShadow: "0 4px 10px -3px rgba(194,65,12,.55)"
                                     },
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$compass$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Compass$3e$__["Compass"], {
                                         className: "h-3.5 w-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                        lineNumber: 222,
+                                        lineNumber: 296,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 218,
+                                    lineNumber: 292,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -373,13 +515,13 @@ function groupOf(id) {
                                     children: "FoC Notes"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 224,
+                                    lineNumber: 298,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 214,
+                            lineNumber: 288,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -406,20 +548,20 @@ function groupOf(id) {
                                                     children: String(group.items.length).padStart(2, "0")
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                    lineNumber: 255,
+                                                    lineNumber: 329,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                     className: `h-3 w-3 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                    lineNumber: 256,
+                                                    lineNumber: 330,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                            lineNumber: 242,
+                                            lineNumber: 316,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -459,7 +601,7 @@ function groupOf(id) {
                                                                     className: "h-3 w-3"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                    lineNumber: 278,
+                                                                    lineNumber: 352,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 group.label,
@@ -473,31 +615,35 @@ function groupOf(id) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                    lineNumber: 280,
+                                                                    lineNumber: 354,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                            lineNumber: 277,
+                                                            lineNumber: 351,
                                                             columnNumber: 27
                                                         }, this),
                                                         group.items.map((item, i)=>{
                                                             const isActiveItem = active === item.id;
                                                             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                                                 href: `#${item.id}`,
-                                                                onClick: ()=>setOpenGroup(null),
+                                                                onClick: (e)=>{
+                                                                    e.preventDefault();
+                                                                    setOpenGroup(null);
+                                                                    onJumpChapter(item.id);
+                                                                },
                                                                 className: `group flex items-start gap-3 rounded-xl px-3 py-2 transition-colors duration-150 ${isActiveItem ? "bg-[#ea580c]/[.08]" : "hover:bg-[#3e2c1d]/[.05]"}`,
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         className: `mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[.58rem] font-black ${isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#b08b5c]"}`,
                                                                         style: isActiveItem ? {
-                                                                            background: "linear-gradient(135deg,#ea580c,#c2410c)"
+                                                                            background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})`
                                                                         } : undefined,
                                                                         children: String(i + 1).padStart(2, "0")
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                        lineNumber: 295,
+                                                                        lineNumber: 373,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -508,7 +654,7 @@ function groupOf(id) {
                                                                                 children: item.label
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                                lineNumber: 304,
+                                                                                lineNumber: 382,
                                                                                 columnNumber: 35
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -516,23 +662,23 @@ function groupOf(id) {
                                                                                 children: item.desc
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                                lineNumber: 307,
+                                                                                lineNumber: 385,
                                                                                 columnNumber: 35
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                        lineNumber: 303,
+                                                                        lineNumber: 381,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     isActiveItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         className: "ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full",
                                                                         style: {
-                                                                            background: "#c2410c"
+                                                                            background: EMBER
                                                                         }
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                        lineNumber: 310,
+                                                                        lineNumber: 388,
                                                                         columnNumber: 33
                                                                     }, this) : seen.has(item.id) ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                                         className: "ml-auto mt-1 h-3.5 w-3.5 shrink-0",
@@ -542,13 +688,13 @@ function groupOf(id) {
                                                                         "aria-label": "Chapter read"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                        lineNumber: 312,
+                                                                        lineNumber: 390,
                                                                         columnNumber: 33
                                                                     }, this) : null
                                                                 ]
                                                             }, item.id, true, {
                                                                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                lineNumber: 287,
+                                                                lineNumber: 361,
                                                                 columnNumber: 31
                                                             }, this);
                                                         }),
@@ -565,18 +711,18 @@ function groupOf(id) {
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         className: "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white",
                                                                         style: {
-                                                                            background: "linear-gradient(135deg,#ea580c,#c2410c)"
+                                                                            background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})`
                                                                         },
                                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__["PenLine"], {
                                                                             className: "h-3.5 w-3.5"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                            lineNumber: 332,
+                                                                            lineNumber: 410,
                                                                             columnNumber: 33
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                        lineNumber: 328,
+                                                                        lineNumber: 406,
                                                                         columnNumber: 31
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -587,7 +733,7 @@ function groupOf(id) {
                                                                                 children: "Test my knowledge"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                                lineNumber: 335,
+                                                                                lineNumber: 413,
                                                                                 columnNumber: 33
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -598,13 +744,13 @@ function groupOf(id) {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                                lineNumber: 338,
+                                                                                lineNumber: 416,
                                                                                 columnNumber: 33
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                        lineNumber: 334,
+                                                                        lineNumber: 412,
                                                                         columnNumber: 31
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -612,62 +758,66 @@ function groupOf(id) {
                                                                         children: "open →"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                        lineNumber: 342,
+                                                                        lineNumber: 420,
                                                                         columnNumber: 31
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                lineNumber: 320,
+                                                                lineNumber: 398,
                                                                 columnNumber: 29
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                            lineNumber: 319,
+                                                            lineNumber: 397,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                    lineNumber: 269,
+                                                    lineNumber: 343,
                                                     columnNumber: 25
                                                 }, this)
                                             }, `${group.id}-panel`, false, {
                                                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                lineNumber: 261,
+                                                lineNumber: 335,
                                                 columnNumber: 23
                                             }, this) : null
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                            lineNumber: 259,
+                                            lineNumber: 333,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, group.id, true, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 236,
+                                    lineNumber: 310,
                                     columnNumber: 17
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 231,
+                            lineNumber: 305,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-                            children: GROUPS.flatMap((g)=>g.items).map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                            children: FLAT_ITEMS.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                     href: `#${item.id}`,
+                                    onClick: (e)=>{
+                                        e.preventDefault();
+                                        onJumpChapter(item.id);
+                                    },
                                     className: `nav-link ${active === item.id ? "active" : ""}`,
                                     children: item.label
                                 }, item.id, false, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 360,
+                                    lineNumber: 438,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 358,
+                            lineNumber: 436,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -683,12 +833,12 @@ function groupOf(id) {
                                         className: "h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                        lineNumber: 375,
+                                        lineNumber: 461,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 368,
+                                    lineNumber: 454,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -701,7 +851,7 @@ function groupOf(id) {
                                             className: "h-3.5 w-3.5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                            lineNumber: 383,
+                                            lineNumber: 469,
                                             columnNumber: 15
                                         }, this),
                                         "Python Lab",
@@ -713,13 +863,13 @@ function groupOf(id) {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                            lineNumber: 385,
+                                            lineNumber: 471,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 377,
+                                    lineNumber: 463,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -731,12 +881,12 @@ function groupOf(id) {
                                         className: "h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                        lineNumber: 399,
+                                        lineNumber: 485,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 393,
+                                    lineNumber: 479,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -749,29 +899,29 @@ function groupOf(id) {
                                         className: "h-4.5 w-4.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                        lineNumber: 408,
+                                        lineNumber: 494,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 401,
+                                    lineNumber: 487,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 367,
+                            lineNumber: 453,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                    lineNumber: 200,
+                    lineNumber: 274,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 199,
+                lineNumber: 273,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -781,16 +931,16 @@ function groupOf(id) {
                     className: "h-full",
                     style: {
                         width: "0%",
-                        background: "linear-gradient(90deg,#f59e0b,#ea580c,#c2410c)"
+                        background: `linear-gradient(90deg,#f59e0b,${EMBER_BRIGHT},${EMBER})`
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                    lineNumber: 416,
+                    lineNumber: 502,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 415,
+                lineNumber: 501,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -811,7 +961,7 @@ function groupOf(id) {
                     },
                     className: "fixed inset-0 z-[60] flex flex-col outline-none",
                     style: {
-                        background: "linear-gradient(165deg,#241608 0%,#33200e 55%,#3e2c1d 100%)"
+                        background: EMBER_DARK
                     },
                     role: "dialog",
                     "aria-modal": "true",
@@ -830,7 +980,7 @@ function groupOf(id) {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                            lineNumber: 442,
+                                            lineNumber: 528,
                                             columnNumber: 17
                                         }, this),
                                         "Chapter index",
@@ -839,18 +989,18 @@ function groupOf(id) {
                                             children: [
                                                 seen.size,
                                                 "/",
-                                                SECTION_IDS.length,
+                                                __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$foc$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FOC_ALL_CHAPTER_IDS"].length,
                                                 " read"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                            lineNumber: 444,
+                                            lineNumber: 530,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 441,
+                                    lineNumber: 527,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -862,18 +1012,18 @@ function groupOf(id) {
                                         className: "h-4.5 w-4.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                        lineNumber: 454,
+                                        lineNumber: 540,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 448,
+                                    lineNumber: 534,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 440,
+                            lineNumber: 526,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -899,11 +1049,11 @@ function groupOf(id) {
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     className: "h-px w-5",
                                                     style: {
-                                                        background: "linear-gradient(90deg,#ea580c,transparent)"
+                                                        background: `linear-gradient(90deg,${EMBER_BRIGHT},transparent)`
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                    lineNumber: 467,
+                                                    lineNumber: 553,
                                                     columnNumber: 21
                                                 }, this),
                                                 group.label,
@@ -916,13 +1066,13 @@ function groupOf(id) {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                    lineNumber: 469,
+                                                    lineNumber: 555,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                            lineNumber: 466,
+                                            lineNumber: 552,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -932,13 +1082,17 @@ function groupOf(id) {
                                                     const isActiveItem = active === item.id;
                                                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                                         href: `#${item.id}`,
-                                                        onClick: ()=>setMobileOpen(false),
+                                                        onClick: (e)=>{
+                                                            e.preventDefault();
+                                                            setMobileOpen(false);
+                                                            onJumpChapter(item.id);
+                                                        },
                                                         className: `flex items-center gap-3 px-4 py-3 transition-colors active:bg-white/10 ${i < group.items.length - 1 ? "border-b border-white/[.06]" : ""} ${isActiveItem ? "bg-white/[.08]" : ""}`,
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 className: "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[.6rem] font-black",
                                                                 style: isActiveItem ? {
-                                                                    background: "linear-gradient(135deg,#ea580c,#c2410c)",
+                                                                    background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})`,
                                                                     color: "#fff7ec"
                                                                 } : {
                                                                     background: "rgba(255,220,170,.1)",
@@ -947,7 +1101,7 @@ function groupOf(id) {
                                                                 children: String(i + 1).padStart(2, "0")
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                lineNumber: 483,
+                                                                lineNumber: 573,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -958,7 +1112,7 @@ function groupOf(id) {
                                                                         children: item.label
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                        lineNumber: 494,
+                                                                        lineNumber: 584,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -966,13 +1120,13 @@ function groupOf(id) {
                                                                         children: item.desc
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                        lineNumber: 497,
+                                                                        lineNumber: 587,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                lineNumber: 493,
+                                                                lineNumber: 583,
                                                                 columnNumber: 27
                                                             }, this),
                                                             isActiveItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -982,7 +1136,7 @@ function groupOf(id) {
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                lineNumber: 500,
+                                                                lineNumber: 590,
                                                                 columnNumber: 29
                                                             }, this) : seen.has(item.id) ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                                 className: "h-4 w-4 shrink-0",
@@ -992,13 +1146,13 @@ function groupOf(id) {
                                                                 "aria-label": "Chapter read"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                lineNumber: 502,
+                                                                lineNumber: 592,
                                                                 columnNumber: 29
                                                             }, this) : null
                                                         ]
                                                     }, item.id, true, {
                                                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                        lineNumber: 475,
+                                                        lineNumber: 561,
                                                         columnNumber: 25
                                                     }, this);
                                                 }),
@@ -1013,18 +1167,18 @@ function groupOf(id) {
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             className: "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white",
                                                             style: {
-                                                                background: "linear-gradient(135deg,#ea580c,#c2410c)"
+                                                                background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})`
                                                             },
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__["PenLine"], {
                                                                 className: "h-3.5 w-3.5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                                lineNumber: 521,
+                                                                lineNumber: 611,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                            lineNumber: 517,
+                                                            lineNumber: 607,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1032,7 +1186,7 @@ function groupOf(id) {
                                                             children: "Test my knowledge"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                            lineNumber: 523,
+                                                            lineNumber: 613,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1043,203 +1197,661 @@ function groupOf(id) {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                            lineNumber: 524,
+                                                            lineNumber: 614,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                                    lineNumber: 509,
+                                                    lineNumber: 599,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                                            lineNumber: 471,
+                                            lineNumber: 557,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, group.id, true, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 459,
+                                    lineNumber: 545,
                                     columnNumber: 17
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 457,
+                            lineNumber: 543,
                             columnNumber: 13
                         }, this)
                     ]
                 }, "mobile-index", true, {
                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                    lineNumber: 426,
+                    lineNumber: 512,
                     columnNumber: 11
                 }, this) : null
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 424,
+                lineNumber: 510,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/notes/FocApp.tsx",
-        lineNumber: 198,
+        lineNumber: 272,
         columnNumber: 5
     }, this);
 }
-_s(TopNav, "oDBLUnbdIgzp5FRs8D9bcS0G42I=", false, function() {
+_s1(TopNav, "W7HR+7SV+R8M64TZZf7mFq89Wo8=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDialogA11y"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$section$2d$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSectionProgress"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDialogA11y"]
     ];
 });
-_c4 = TopNav;
+_c2 = TopNav;
 /* ============================================================
-   PracticeBand — the only place on the main page where
-   "Test my knowledge" is written: one card per chapter group.
-   Clicking opens that group's full exam window.
-   ============================================================ */ function PracticeBand({ onOpenExam }) {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        "aria-label": "Test my knowledge — pen-paper practice",
-        className: "relative border-y border-[#ecd9bd] bg-[#fffaf1]/70",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "mx-auto max-w-6xl px-4 py-12 sm:px-6",
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "eyebrow",
-                                    children: "Pen-paper practice"
+   PracticeHub — the ONE home of pen-paper practice.
+   ============================================================ */ function PracticeHub({ open, onClose, onOpenExam }) {
+    _s2();
+    const hubRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDialogA11y"])(open);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "PracticeHub.useEffect": ()=>{
+            if (!open) return;
+            document.body.style.overflow = "hidden";
+            const onKey = {
+                "PracticeHub.useEffect.onKey": (e)=>{
+                    if (e.key === "Escape") onClose();
+                }
+            }["PracticeHub.useEffect.onKey"];
+            document.addEventListener("keydown", onKey);
+            return ({
+                "PracticeHub.useEffect": ()=>{
+                    document.body.style.overflow = "";
+                    document.removeEventListener("keydown", onKey);
+                }
+            })["PracticeHub.useEffect"];
+        }
+    }["PracticeHub.useEffect"], [
+        open,
+        onClose
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
+        children: open ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+            ref: hubRef,
+            tabIndex: -1,
+            initial: {
+                opacity: 0
+            },
+            animate: {
+                opacity: 1
+            },
+            exit: {
+                opacity: 0
+            },
+            transition: {
+                duration: 0.18
+            },
+            className: "fixed inset-0 z-[65] overflow-y-auto outline-none",
+            style: {
+                background: "rgba(26,15,6,.82)",
+                WebkitBackdropFilter: "blur(12px) saturate(140%)",
+                backdropFilter: "blur(12px) saturate(140%)"
+            },
+            role: "dialog",
+            "aria-modal": "true",
+            "aria-label": "Test my knowledge — pen-paper practice",
+            onClick: (e)=>{
+                if (e.target === e.currentTarget) onClose();
+            },
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mx-auto my-6 w-[min(66rem,calc(100vw-1.5rem))] overflow-hidden rounded-3xl border border-white/10 sm:my-10",
+                style: {
+                    background: EMBER_DARK,
+                    boxShadow: "0 48px 140px -32px rgba(0,0,0,.65)"
+                },
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-start justify-between gap-4 px-6 pt-6 sm:px-8",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "flex items-center gap-2 text-[.6rem] font-extrabold uppercase tracking-[.24em] text-[#c99a63]",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "h-px w-5",
+                                                style: {
+                                                    background: `linear-gradient(90deg,${EMBER_BRIGHT},transparent)`
+                                                }
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/components/notes/FocApp.tsx",
+                                                lineNumber: 691,
+                                                columnNumber: 19
+                                            }, this),
+                                            "Pen-paper practice"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/components/notes/FocApp.tsx",
+                                        lineNumber: 690,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "mt-1.5 text-2xl font-black tracking-tight text-[#ffe9c9] sm:text-3xl",
+                                        children: "Test my knowledge"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/notes/FocApp.tsx",
+                                        lineNumber: 694,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "mt-2 max-w-2xl text-[.88rem] leading-relaxed text-[#e0cbaa]",
+                                        children: "Every chapter group opens its own exam window: write-the-output, trace-the-code, definitions and small programs — write on real paper first, then mark yourself against the model answers with instant checking."
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/notes/FocApp.tsx",
+                                        lineNumber: 695,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "mt-2 text-[.64rem] font-black uppercase tracking-[.18em] text-[#a5876a]",
+                                        children: [
+                                            __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TOTAL_QUESTIONS"],
+                                            " questions · ",
+                                            __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["EXAM_GROUPS"].length,
+                                            " windows"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/components/notes/FocApp.tsx",
+                                        lineNumber: 701,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/components/notes/FocApp.tsx",
+                                lineNumber: 689,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                type: "button",
+                                onClick: onClose,
+                                "aria-label": "Close the practice hub",
+                                className: "mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#ffe9c9] transition-colors hover:bg-white/20",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                    className: "h-4.5 w-4.5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 550,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                    className: "mt-2 text-2xl font-bold md:text-3xl",
-                                    children: "Test my knowledge"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 551,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "mt-2 max-w-xl text-[.9rem] leading-relaxed text-muted-warm",
-                                    children: "The end term is written by hand — so every chapter group opens its own exam window: write-the-output, trace-the-code, definitions and small programs, with model answers and instant checking."
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 552,
-                                    columnNumber: 13
+                                    lineNumber: 711,
+                                    columnNumber: 17
                                 }, this)
-                            ]
-                        }, void 0, true, {
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/notes/FocApp.tsx",
+                                lineNumber: 705,
+                                columnNumber: 15
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/components/notes/FocApp.tsx",
+                        lineNumber: 688,
+                        columnNumber: 13
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "grid gap-3 px-6 pb-7 pt-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3",
+                        children: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["EXAM_GROUPS"].map((g)=>{
+                            const bank = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["EXAM_BANKS"][g];
+                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                type: "button",
+                                onClick: ()=>onOpenExam(g),
+                                className: "group flex flex-col items-start rounded-2xl border border-white/10 bg-white/[.05] p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[.09]",
+                                "aria-label": `Open the exam window — ${bank.title}`,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md",
+                                        style: {
+                                            background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})`
+                                        },
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__["PenLine"], {
+                                            className: "h-4 w-4"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/notes/FocApp.tsx",
+                                            lineNumber: 731,
+                                            columnNumber: 23
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/notes/FocApp.tsx",
+                                        lineNumber: 727,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "mt-3 text-[.98rem] font-extrabold leading-tight text-[#f5c889]",
+                                        children: bank.title
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/notes/FocApp.tsx",
+                                        lineNumber: 733,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "mt-1 text-[.76rem] leading-snug text-[#e0cbaa]",
+                                        children: bank.topics
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/notes/FocApp.tsx",
+                                        lineNumber: 734,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#c99a63] transition-colors group-hover:text-[#f5c889]",
+                                        children: [
+                                            "Test my knowledge · ",
+                                            bank.questions.length,
+                                            " Qs →"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/components/notes/FocApp.tsx",
+                                        lineNumber: 735,
+                                        columnNumber: 21
+                                    }, this)
+                                ]
+                            }, g, true, {
+                                fileName: "[project]/src/components/notes/FocApp.tsx",
+                                lineNumber: 720,
+                                columnNumber: 19
+                            }, this);
+                        })
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/notes/FocApp.tsx",
+                        lineNumber: 716,
+                        columnNumber: 13
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/notes/FocApp.tsx",
+                lineNumber: 680,
+                columnNumber: 11
+            }, this)
+        }, "practice-hub", false, {
+            fileName: "[project]/src/components/notes/FocApp.tsx",
+            lineNumber: 659,
+            columnNumber: 9
+        }, this) : null
+    }, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 657,
+        columnNumber: 5
+    }, this);
+}
+_s2(PracticeHub, "7GDftFTFWuBM2om00WmxHE6n++Y=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDialogA11y"]
+    ];
+});
+_c3 = PracticeHub;
+/* ============================================================
+   FocLectureHead — the "Foundations of Computing Lecture N"
+   hero band. Every lecture opens with its number spoken aloud,
+   exactly as the reader asked.
+   ============================================================ */ function FocLectureHead({ lecture }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "mx-auto max-w-6xl px-4 pt-12 sm:px-6",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "relative overflow-hidden rounded-3xl p-7 sm:p-10",
+            style: {
+                background: EMBER_DARK,
+                boxShadow: "0 30px 80px -30px rgba(36,22,8,.55)"
+            },
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                    "aria-hidden": true,
+                    viewBox: "0 0 600 200",
+                    preserveAspectRatio: "none",
+                    className: "pointer-events-none absolute inset-0 h-full w-full opacity-40",
+                    children: [
+                        70,
+                        120,
+                        170
+                    ].map((r, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].circle, {
+                            cx: 540,
+                            cy: 100,
+                            r: r,
+                            fill: "none",
+                            stroke: i === 2 ? GOLD_LITE : EMBER_BRIGHT,
+                            strokeWidth: 1.4,
+                            style: {
+                                transformBox: "fill-box",
+                                transformOrigin: "center"
+                            },
+                            animate: {
+                                opacity: [
+                                    0.12,
+                                    0.4,
+                                    0.12
+                                ],
+                                scale: [
+                                    1,
+                                    1.05,
+                                    1
+                                ]
+                            },
+                            transition: {
+                                duration: 4.5,
+                                repeat: Infinity,
+                                delay: i * 0.8
+                            }
+                        }, r, false, {
                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 549,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "shrink-0 text-[.68rem] font-black uppercase tracking-[.18em] text-[#a16207]",
-                            children: [
-                                __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TOTAL_QUESTIONS"],
-                                " questions · 4 windows"
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 558,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
+                            lineNumber: 764,
+                            columnNumber: 13
+                        }, this))
+                }, void 0, false, {
                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                    lineNumber: 548,
+                    lineNumber: 762,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4",
-                    children: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["EXAM_GROUPS"].map((g)=>{
-                        const bank = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["EXAM_BANKS"][g];
-                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            type: "button",
-                            onClick: ()=>onOpenExam(g),
-                            className: "card-warm lift group flex flex-col items-start p-5 text-left",
-                            "aria-label": `Test my knowledge — ${bank.title}`,
+                    className: "relative",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "flex flex-wrap items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.26em] text-[#c99a63]",
                             children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md",
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$compass$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Compass$3e$__["Compass"], {
+                                    className: "h-3.5 w-3.5",
                                     style: {
-                                        background: "linear-gradient(135deg,#ea580c,#c2410c)"
+                                        color: "#f59e0b"
+                                    }
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/notes/FocApp.tsx",
+                                    lineNumber: 775,
+                                    columnNumber: 13
+                                }, this),
+                                "Foundations of Computing · Shelf 01"
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/notes/FocApp.tsx",
+                            lineNumber: 774,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                            className: "mt-3 text-3xl font-black leading-tight text-[#ffe9c9] sm:text-5xl",
+                            children: [
+                                "Foundations of Computing",
+                                " ",
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "bg-clip-text text-transparent",
+                                    style: {
+                                        backgroundImage: `linear-gradient(120deg,${GOLD_LITE},${GOLD})`
                                     },
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__["PenLine"], {
-                                        className: "h-4 w-4"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                                        lineNumber: 578,
-                                        columnNumber: 19
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 574,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "mt-3 text-[.98rem] font-extrabold leading-tight text-[#3e2c1d]",
-                                    children: bank.title
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 580,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "mt-1 text-[.74rem] leading-snug text-muted-warm",
-                                    children: bank.topics
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 581,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#c2410c]",
                                     children: [
-                                        "Test my knowledge · ",
-                                        bank.questions.length,
-                                        " Qs →"
+                                        "Lecture ",
+                                        lecture.n
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                                    lineNumber: 582,
-                                    columnNumber: 17
+                                    lineNumber: 780,
+                                    columnNumber: 13
                                 }, this)
                             ]
-                        }, g, true, {
+                        }, void 0, true, {
                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 567,
-                            columnNumber: 15
-                        }, this);
-                    })
-                }, void 0, false, {
+                            lineNumber: 778,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "mt-3 max-w-3xl text-lg font-bold leading-snug text-[#f5c889]",
+                            children: lecture.title
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/notes/FocApp.tsx",
+                            lineNumber: 787,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#e0cbaa]",
+                            children: lecture.blurb
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/notes/FocApp.tsx",
+                            lineNumber: 788,
+                            columnNumber: 11
+                        }, this),
+                        lecture.chapters.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "mt-5 flex flex-wrap gap-2",
+                            children: lecture.chapters.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                    href: `#${c.id}`,
+                                    onClick: (e)=>{
+                                        e.preventDefault();
+                                        const el = document.getElementById(c.id);
+                                        if (el) (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jumpTo"])(el);
+                                    },
+                                    className: "rounded-full border border-white/15 bg-white/[.07] px-3 py-1.5 text-[.68rem] font-extrabold text-[#f0e2c8] transition-colors hover:border-[#ea580c]/40 hover:bg-white/[.12] hover:text-[#f5c889]",
+                                    children: [
+                                        c.label,
+                                        " ↓"
+                                    ]
+                                }, c.id, true, {
+                                    fileName: "[project]/src/components/notes/FocApp.tsx",
+                                    lineNumber: 792,
+                                    columnNumber: 17
+                                }, this))
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/notes/FocApp.tsx",
+                            lineNumber: 790,
+                            columnNumber: 13
+                        }, this) : null
+                    ]
+                }, void 0, true, {
                     fileName: "[project]/src/components/notes/FocApp.tsx",
-                    lineNumber: 563,
+                    lineNumber: 773,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/notes/FocApp.tsx",
-            lineNumber: 547,
+            lineNumber: 757,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/notes/FocApp.tsx",
-        lineNumber: 546,
+        lineNumber: 756,
         columnNumber: 5
     }, this);
 }
-_c5 = PracticeBand;
+_c4 = FocLectureHead;
+/* ============================================================
+   LecturePager — prev/next lecture cards closing every lecture.
+   ============================================================ */ function LecturePager({ current, onJump }) {
+    const idx = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$foc$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FOC_LECTURES"].findIndex((l)=>l.id === current.id);
+    const prev = idx > 0 ? __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$foc$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FOC_LECTURES"][idx - 1] : null;
+    const next = idx < __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$foc$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FOC_LECTURES"].length - 1 ? __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$foc$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FOC_LECTURES"][idx + 1] : null;
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+        "aria-label": "Lecture sequence",
+        className: "mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "grid gap-3 sm:grid-cols-2",
+            children: [
+                prev ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    type: "button",
+                    onClick: ()=>onJump(prev.id),
+                    className: "card-warm lift group flex min-w-0 items-center gap-3 p-4 text-left",
+                    "aria-label": `Previous: ${prev.code} — ${prev.title}`,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__["ArrowLeft"], {
+                            className: "h-4 w-4 shrink-0 text-[#c2410c] transition-transform duration-200 group-hover:-translate-x-1"
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/notes/FocApp.tsx",
+                            lineNumber: 831,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "min-w-0",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#b45309]",
+                                    children: [
+                                        "Previous · ",
+                                        prev.code
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/components/notes/FocApp.tsx",
+                                    lineNumber: 833,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "mt-0.5 block truncate text-[.92rem] font-extrabold text-[#3e2c1d]",
+                                    children: prev.title
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/notes/FocApp.tsx",
+                                    lineNumber: 836,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/notes/FocApp.tsx",
+                            lineNumber: 832,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/components/notes/FocApp.tsx",
+                    lineNumber: 825,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    "aria-hidden": true,
+                    className: "hidden sm:block"
+                }, void 0, false, {
+                    fileName: "[project]/src/components/notes/FocApp.tsx",
+                    lineNumber: 840,
+                    columnNumber: 11
+                }, this),
+                next ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    type: "button",
+                    onClick: ()=>onJump(next.id),
+                    className: "card-warm lift group flex min-w-0 items-center justify-end gap-3 p-4 text-right",
+                    "aria-label": `Next: ${next.code} — ${next.title}`,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "min-w-0",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#b45309]",
+                                    children: [
+                                        "Next · ",
+                                        next.code
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/components/notes/FocApp.tsx",
+                                    lineNumber: 850,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "mt-0.5 block truncate text-[.92rem] font-extrabold text-[#3e2c1d]",
+                                    children: next.title
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/notes/FocApp.tsx",
+                                    lineNumber: 853,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/notes/FocApp.tsx",
+                            lineNumber: 849,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
+                            className: "h-4 w-4 shrink-0 text-[#c2410c] transition-transform duration-200 group-hover:translate-x-1"
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/notes/FocApp.tsx",
+                            lineNumber: 855,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/components/notes/FocApp.tsx",
+                    lineNumber: 843,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: "rounded-2xl border border-dashed border-[#e8dcc0] p-4 text-center text-[.78rem] font-bold leading-snug text-[#a08568]",
+                    children: "End of the sequence — Lecture 17 closes the course. Revise the classes, then retake the windows."
+                }, void 0, false, {
+                    fileName: "[project]/src/components/notes/FocApp.tsx",
+                    lineNumber: 858,
+                    columnNumber: 11
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/src/components/notes/FocApp.tsx",
+            lineNumber: 823,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/src/components/notes/FocApp.tsx",
+        lineNumber: 822,
+        columnNumber: 5
+    }, this);
+}
+_c5 = LecturePager;
 function FocApp({ onExitAtlas }) {
-    _s1();
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useOpenSection"])("foc");
+    _s3();
+    const [lectureId, setLectureId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$foc$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FOC_DEFAULT_LECTURE"]);
+    const [examGroup, setExamGroup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [hubOpen, setHubOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const lectureIdRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(lectureId);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "FocApp.useEffect": ()=>{
+            lectureIdRef.current = lectureId;
+        }
+    }["FocApp.useEffect"], [
+        lectureId
+    ]);
+    const lecture = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$foc$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["lectureById"])(lectureId) ?? __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$foc$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FOC_LECTURES"][0];
+    const seen = useSeenDisplay(lecture);
+    const selectLecture = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "FocApp.useCallback[selectLecture]": (id)=>{
+            setLectureId(id);
+            requestAnimationFrame({
+                "FocApp.useCallback[selectLecture]": ()=>requestAnimationFrame({
+                        "FocApp.useCallback[selectLecture]": ()=>{
+                            const el = document.getElementById("notes-top");
+                            if (!el) return;
+                            const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                            el.scrollIntoView({
+                                behavior: reduce ? "auto" : "smooth",
+                                block: "start"
+                            });
+                        }
+                    }["FocApp.useCallback[selectLecture]"])
+            }["FocApp.useCallback[selectLecture]"]);
+        }
+    }["FocApp.useCallback[selectLecture]"], []);
+    const goToChapter = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "FocApp.useCallback[goToChapter]": (chapterId)=>{
+            const target = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$foc$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["lectureOfChapter"])(chapterId);
+            if (!target) return;
+            const scrollWhenReady = {
+                "FocApp.useCallback[goToChapter].scrollWhenReady": ()=>{
+                    let frames = 0;
+                    const tick = {
+                        "FocApp.useCallback[goToChapter].scrollWhenReady.tick": ()=>{
+                            const el = document.getElementById(chapterId);
+                            if (el) {
+                                (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jumpTo"])(el);
+                                return;
+                            }
+                            if (++frames < 240) requestAnimationFrame(tick);
+                        }
+                    }["FocApp.useCallback[goToChapter].scrollWhenReady.tick"];
+                    requestAnimationFrame(tick);
+                }
+            }["FocApp.useCallback[goToChapter].scrollWhenReady"];
+            if (lectureIdRef.current === target.id) {
+                scrollWhenReady();
+                return;
+            }
+            setLectureId(target.id);
+            requestAnimationFrame({
+                "FocApp.useCallback[goToChapter]": ()=>requestAnimationFrame(scrollWhenReady)
+            }["FocApp.useCallback[goToChapter]"]);
+        }
+    }["FocApp.useCallback[goToChapter]"], []);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useOpenSection"])("foc", goToChapter);
+    const openExam = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "FocApp.useCallback[openExam]": (g)=>setExamGroup(g)
+    }["FocApp.useCallback[openExam]"], []);
+    const openHub = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "FocApp.useCallback[openHub]": ()=>setHubOpen(true)
+    }["FocApp.useCallback[openHub]"], []);
     /* the ⌘K palette may have left a lab handoff flag before this
      app mounted — read it once at init (client-only component) */ const [labOpen, setLabOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         "FocApp.useState": ()=>{
@@ -1253,8 +1865,9 @@ function FocApp({ onExitAtlas }) {
             return false;
         }
     }["FocApp.useState"]);
-    const [examGroup, setExamGroup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const openExam = (g)=>setExamGroup(g);
+    const openLab = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "FocApp.useCallback[openLab]": ()=>setLabOpen(true)
+    }["FocApp.useCallback[openLab]"], []);
     /* once FoC is on stage the palette just broadcasts this event */ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "FocApp.useEffect": ()=>{
             const onOpenLab = {
@@ -1273,12 +1886,14 @@ function FocApp({ onExitAtlas }) {
         className: "page-wrap warm-canvas",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(TopNav, {
-                onOpenLab: ()=>setLabOpen(true),
+                onOpenLab: openLab,
                 onOpenExam: openExam,
-                onExitAtlas: onExitAtlas
+                onExitAtlas: onExitAtlas,
+                onJumpChapter: goToChapter,
+                seen: seen
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 624,
+                lineNumber: 948,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1286,250 +1901,101 @@ function FocApp({ onExitAtlas }) {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
                         label: "Hero",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Hero"], {
-                            onOpenLab: ()=>setLabOpen(true)
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$foc$2f$FocHero$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FocHero"], {
+                            activeId: lectureId,
+                            onSelect: selectLecture,
+                            onPractice: openHub,
+                            onOpenLab: openLab,
+                            seen: seen,
+                            totalQuestions: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TOTAL_QUESTIONS"]
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 627,
+                            lineNumber: 951,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 626,
+                        lineNumber: 950,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        id: "notes-top",
+                        "aria-hidden": true,
+                        className: "relative scroll-mt-16"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/notes/FocApp.tsx",
+                        lineNumber: 962,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "PracticeBand",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PracticeBand, {
-                            onOpenExam: openExam
-                        }, void 0, false, {
+                        label: `Lecture ${lecture.code} — ${lecture.title}`,
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+                            initial: {
+                                opacity: 0,
+                                y: 18
+                            },
+                            animate: {
+                                opacity: 1,
+                                y: 0
+                            },
+                            transition: {
+                                duration: 0.4,
+                                ease: [
+                                    0.22,
+                                    1,
+                                    0.36,
+                                    1
+                                ]
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(FocLectureHead, {
+                                    lecture: lecture
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/notes/FocApp.tsx",
+                                    lineNumber: 970,
+                                    columnNumber: 13
+                                }, this),
+                                lecture.chapters.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
+                                        label: c.label,
+                                        children: SECTION_COMPONENTS[c.id]
+                                    }, c.id, false, {
+                                        fileName: "[project]/src/components/notes/FocApp.tsx",
+                                        lineNumber: 972,
+                                        columnNumber: 15
+                                    }, this)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LecturePager, {
+                                    current: lecture,
+                                    onJump: selectLecture
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/notes/FocApp.tsx",
+                                    lineNumber: 976,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
                             fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 630,
+                            lineNumber: 965,
                             columnNumber: 11
                         }, this)
-                    }, void 0, false, {
+                    }, lecture.id, false, {
                         fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 629,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Why",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["WhySection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 633,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 632,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Computing",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ComputingSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 636,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 635,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Pillars",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PillarsSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 639,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 638,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Data",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DataSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 642,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 641,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Algorithm",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlgorithmSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 645,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 644,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Hardware",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["HardwareSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 648,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 647,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Software",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SoftwareSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 651,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 650,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Programming",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ProgrammingSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 654,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 653,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Basics",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part5$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BasicsSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 657,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 656,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Lists",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part5$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ListsSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 660,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 659,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "If",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part6$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["IfSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 663,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 662,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Dicts",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part6$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DictsSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 666,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 665,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "While",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part7$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["WhileSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 669,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 668,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Functions",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part7$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FunctionsSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 672,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 671,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Args",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part8$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ArgsSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 675,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 674,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "FuncsScale",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part9$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FuncsScaleSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 678,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 677,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Classes",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part10$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ClassesSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/notes/FocApp.tsx",
-                            lineNumber: 681,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/FocApp.tsx",
-                        lineNumber: 680,
+                        lineNumber: 964,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 625,
+                lineNumber: 949,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part7$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Footer"], {}, void 0, false, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 684,
+                lineNumber: 980,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PyReadyToast"], {}, void 0, false, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 685,
+                lineNumber: 981,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Playground$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PythonLab"], {
@@ -1537,7 +2003,16 @@ function FocApp({ onExitAtlas }) {
                 onClose: ()=>setLabOpen(false)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 686,
+                lineNumber: 982,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PracticeHub, {
+                open: hubOpen,
+                onClose: ()=>setHubOpen(false),
+                onOpenExam: openExam
+            }, void 0, false, {
+                fileName: "[project]/src/components/notes/FocApp.tsx",
+                lineNumber: 983,
                 columnNumber: 7
             }, this),
             examGroup ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ExamWindow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["ExamWindow"], {
@@ -1545,18 +2020,19 @@ function FocApp({ onExitAtlas }) {
                 onClose: ()=>setExamGroup(null)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 687,
+                lineNumber: 984,
                 columnNumber: 20
             }, this) : null
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/notes/FocApp.tsx",
-        lineNumber: 623,
+        lineNumber: 947,
         columnNumber: 5
     }, this));
 }
-_s1(FocApp, "cxz43XutUmDcEnuNN3KyoTSnVbg=", false, function() {
+_s3(FocApp, "FTuxmlxAhxlDvDcVg+IJ7b58Hxo=", false, function() {
     return [
+        useSeenDisplay,
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useOpenSection"]
     ];
 });
@@ -1564,10 +2040,10 @@ _c6 = FocApp;
 var _c, _c1, _c2, _c3, _c4, _c5, _c6;
 __turbopack_context__.k.register(_c, "FLAT_ITEMS$GROUPS.flatMap");
 __turbopack_context__.k.register(_c1, "FLAT_ITEMS");
-__turbopack_context__.k.register(_c2, "SECTION_IDS$FLAT_ITEMS.map");
-__turbopack_context__.k.register(_c3, "SECTION_IDS");
-__turbopack_context__.k.register(_c4, "TopNav");
-__turbopack_context__.k.register(_c5, "PracticeBand");
+__turbopack_context__.k.register(_c2, "TopNav");
+__turbopack_context__.k.register(_c3, "PracticeHub");
+__turbopack_context__.k.register(_c4, "FocLectureHead");
+__turbopack_context__.k.register(_c5, "LecturePager");
 __turbopack_context__.k.register(_c6, "FocApp");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);

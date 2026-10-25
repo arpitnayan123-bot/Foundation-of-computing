@@ -9,45 +9,44 @@ __turbopack_context__.s([
     ()=>FaFooter
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/PartBoundary.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/exam-runtime.ts [app-client] (ecmascript)");
 /* ============================================================
-   FaApp — the complete "Financial Accounting" revision
-   companion, registered as shelf 03 of THE ATLAS.
+   FaApp — "Financial Accounting", shelf 03 of THE ATLAS.
 
-   Every number is pen-paper work: equations, journals,
-   ledgers, trial balances, trading accounts — and every
-   chapter carries its own living machines (the equation
-   machine, the trial-balance sorter, the prepaid splitter,
-   the gross-profit lab). Mounted by the Atlas router
-   (src/app/page.tsx) when the reader enters the subject;
-   `onExitAtlas` returns the reader to the Atlas landing page.
-   ============================================================ */ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+   Mounted by the Atlas router (src/app/page.tsx); `onExitAtlas`
+   returns the reader to the Atlas landing page. A LECTURE
+   READER: the hero holds the 16-lecture sequence, each lecture
+   opens with a "Financial Accounting Lecture N" band, and all
+   pen-paper practice lives behind the "Test my knowledge"
+   hub so the reading surface stays clean.
+   ============================================================ */ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/PartBoundary.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/exam-runtime.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpen$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/book-open.js [app-client] (ecmascript) <export default as BookOpen>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-left.js [app-client] (ecmascript) <export default as ArrowLeft>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-right.js [app-client] (ecmascript) <export default as ArrowRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpenText$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/book-open-text.js [app-client] (ecmascript) <export default as BookOpenText>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2d$checks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ListChecks$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/list-checks.js [app-client] (ecmascript) <export default as ListChecks>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-client] (ecmascript) <export default as Check>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-down.js [app-client] (ecmascript) <export default as ChevronDown>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Map$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/map.js [app-client] (ecmascript) <export default as Map>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-client] (ecmascript) <export default as Menu>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mouse$2d$pointer$2d$click$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MousePointerClick$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/mouse-pointer-click.js [app-client] (ecmascript) <export default as MousePointerClick>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/pen-line.js [app-client] (ecmascript) <export default as PenLine>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/printer.js [app-client] (ecmascript) <export default as Printer>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$scale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Scale$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/scale.js [app-client] (ecmascript) <export default as Scale>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-down.js [app-client] (ecmascript) <export default as ChevronDown>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$graduation$2d$cap$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__GraduationCap$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/graduation-cap.js [app-client] (ecmascript) <export default as GraduationCap>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-client] (ecmascript) <export default as Check>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/printer.js [app-client] (ecmascript) <export default as Printer>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$section$2d$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/use-section-progress.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/use-open-section.ts [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/fa/FaParts4.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/fa/FaParts2.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/progress.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaHero$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/fa/FaHero.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/fa/FaParts1.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/fa/FaParts2.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/fa/FaParts3.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/fa/FaParts4.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaExamWindow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/src/components/fa/FaExamWindow.tsx [app-client] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/fa/questions.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/fa/lectures.ts [app-client] (ecmascript)");
 ;
-var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature();
+var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature(), _s2 = __turbopack_context__.k.signature(), _s3 = __turbopack_context__.k.signature();
 "use client";
 ;
 ;
@@ -62,6 +61,14 @@ var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.sign
 ;
 ;
 ;
+;
+;
+;
+/* shelf 03 palette — emerald & sage on warm paper */ const EMERALD = "#047857";
+const EMERALD_BRIGHT = "#10b981";
+const SAGE = "#6d9970";
+const SAGE_LITE = "#a7d7b8";
+const EMERALD_DARK = "linear-gradient(165deg,#06281e,#0a3527 60%,#0d3a2c)";
 /* ============================================================
    Structured chapter map — the top bar is organised into four
    groups instead of a flat 16-chip strip. Each group owns a
@@ -174,24 +181,145 @@ var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.sign
 ];
 const FLAT_ITEMS = GROUPS.flatMap(_c = (g)=>g.items);
 _c1 = FLAT_ITEMS;
-const SECTION_IDS = FLAT_ITEMS.map(_c2 = (i)=>i.id);
-_c3 = SECTION_IDS;
 function groupOf(id) {
     for (const g of GROUPS)if (g.items.some((i)=>i.id === id)) return g.id;
     return null;
 }
 /* ============================================================
+   The chapter components, keyed by section id — the lecture
+   reader renders exactly the slice the chosen lecture owns.
+   ============================================================ */ const SECTION_COMPONENTS = {
+    why: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaWhySection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 138,
+        columnNumber: 8
+    }, ("TURBOPACK compile-time value", void 0)),
+    assumptions: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaAssumptionsSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 139,
+        columnNumber: 16
+    }, ("TURBOPACK compile-time value", void 0)),
+    "entity-concern": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaEntityConcernSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 140,
+        columnNumber: 21
+    }, ("TURBOPACK compile-time value", void 0)),
+    periodicity: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaPeriodicitySection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 141,
+        columnNumber: 16
+    }, ("TURBOPACK compile-time value", void 0)),
+    "dual-aspect": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaDualAspectSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 142,
+        columnNumber: 18
+    }, ("TURBOPACK compile-time value", void 0)),
+    elements: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaElementsSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 143,
+        columnNumber: 13
+    }, ("TURBOPACK compile-time value", void 0)),
+    "equation-lab": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaEquationLabSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 144,
+        columnNumber: 19
+    }, ("TURBOPACK compile-time value", void 0)),
+    effects: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaEffectsSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 145,
+        columnNumber: 12
+    }, ("TURBOPACK compile-time value", void 0)),
+    journal: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaJournalSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 146,
+        columnNumber: 12
+    }, ("TURBOPACK compile-time value", void 0)),
+    ledger: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaLedgerSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 147,
+        columnNumber: 11
+    }, ("TURBOPACK compile-time value", void 0)),
+    statements: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaStatementsSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 148,
+        columnNumber: 15
+    }, ("TURBOPACK compile-time value", void 0)),
+    "trial-balance": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaTrialBalanceSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 149,
+        columnNumber: 20
+    }, ("TURBOPACK compile-time value", void 0)),
+    adjusting: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaAdjustingSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 150,
+        columnNumber: 14
+    }, ("TURBOPACK compile-time value", void 0)),
+    "final-accounts": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaFinalAccountsSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 151,
+        columnNumber: 21
+    }, ("TURBOPACK compile-time value", void 0)),
+    trading: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaTradingSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 152,
+        columnNumber: 12
+    }, ("TURBOPACK compile-time value", void 0)),
+    "gp-lab": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaGrossProfitLabSection"], {}, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 153,
+        columnNumber: 13
+    }, ("TURBOPACK compile-time value", void 0))
+};
+/* ============================================================
+   useSeenDisplay — the read-checkmark data for every menu.
+   Marking is per-lecture; display spans the whole shelf.
+   ============================================================ */ function useSeenDisplay(lecture) {
+    _s();
+    const ids = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "useSeenDisplay.useMemo[ids]": ()=>lecture.chapters.map({
+                "useSeenDisplay.useMemo[ids]": (c)=>c.id
+            }["useSeenDisplay.useMemo[ids]"])
+    }["useSeenDisplay.useMemo[ids]"], [
+        lecture
+    ]);
+    const live = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$section$2d$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSectionProgress"])("fa", ids);
+    const persisted = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "useSeenDisplay.useMemo[persisted]": ()=>{
+            try {
+                return new Set(Object.keys((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["loadProgress"])().fa ?? {}));
+            } catch  {
+                return new Set();
+            }
+        }
+    }["useSeenDisplay.useMemo[persisted]"], []);
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "useSeenDisplay.useMemo": ()=>new Set([
+                ...persisted,
+                ...live
+            ])
+    }["useSeenDisplay.useMemo"], [
+        persisted,
+        live
+    ]);
+}
+_s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$section$2d$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSectionProgress"]
+    ];
+});
+/* ============================================================
    TopNav — structured chapter menu + a "Test my knowledge"
    launcher inside every chapter group. Same engine as the
    FoC/ATB shelves: progress bar written via ref inside rAF,
-   React state only when the active section changes.
-   ============================================================ */ function TopNav({ onOpenExam, onExitAtlas }) {
-    _s();
+   React state only when the active section changes. Every
+   chapter link routes through onJumpChapter, so a jump can
+   switch the active lecture before it scrolls.
+   ============================================================ */ function TopNav({ onOpenExam, onExitAtlas, onJumpChapter, seen }) {
+    _s1();
     const [active, setActive] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [openGroup, setOpenGroup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [mobileOpen, setMobileOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const mobileRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDialogA11y"])(mobileOpen);
-    const seen = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$section$2d$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSectionProgress"])("fa", SECTION_IDS);
     const navRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const progressRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const activeRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])("");
@@ -297,7 +425,7 @@ function groupOf(id) {
                                     className: "h-3.5 w-3.5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 208,
+                                    lineNumber: 274,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -305,13 +433,13 @@ function groupOf(id) {
                                     children: "Atlas"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 209,
+                                    lineNumber: 275,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 201,
+                            lineNumber: 267,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -321,19 +449,19 @@ function groupOf(id) {
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     className: "flex h-6 w-6 items-center justify-center rounded-full text-white",
                                     style: {
-                                        background: "linear-gradient(135deg,#10b981,#047857)",
+                                        background: `linear-gradient(135deg,${EMERALD_BRIGHT},${EMERALD})`,
                                         boxShadow: "0 4px 10px -3px rgba(4,120,87,.55)"
                                     },
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$scale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Scale$3e$__["Scale"], {
                                         className: "h-3.5 w-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                        lineNumber: 221,
+                                        lineNumber: 287,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 217,
+                                    lineNumber: 283,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -341,13 +469,13 @@ function groupOf(id) {
                                     children: "FA Notes"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 223,
+                                    lineNumber: 289,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 213,
+                            lineNumber: 279,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -374,20 +502,20 @@ function groupOf(id) {
                                                     children: String(group.items.length).padStart(2, "0")
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                    lineNumber: 251,
+                                                    lineNumber: 317,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                     className: `h-3 w-3 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                    lineNumber: 252,
+                                                    lineNumber: 318,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                            lineNumber: 238,
+                                            lineNumber: 304,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -427,7 +555,7 @@ function groupOf(id) {
                                                                     className: "h-3 w-3"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                    lineNumber: 274,
+                                                                    lineNumber: 340,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 group.label,
@@ -441,31 +569,35 @@ function groupOf(id) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                    lineNumber: 276,
-                                                                    columnNumber: 27
+                                                                    lineNumber: 342,
+                                                                    columnNumber: 29
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                            lineNumber: 273,
+                                                            lineNumber: 339,
                                                             columnNumber: 27
                                                         }, this),
                                                         group.items.map((item, i)=>{
                                                             const isActiveItem = active === item.id;
                                                             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                                                 href: `#${item.id}`,
-                                                                onClick: ()=>setOpenGroup(null),
+                                                                onClick: (e)=>{
+                                                                    e.preventDefault();
+                                                                    setOpenGroup(null);
+                                                                    onJumpChapter(item.id);
+                                                                },
                                                                 className: `group flex items-start gap-3 rounded-xl px-3 py-2 transition-colors duration-150 ${isActiveItem ? "bg-[#10b981]/[.09]" : "hover:bg-[#3e2c1d]/[.05]"}`,
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         className: `mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[.58rem] font-black ${isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#7d9a8b]"}`,
                                                                         style: isActiveItem ? {
-                                                                            background: "linear-gradient(135deg,#10b981,#047857)"
+                                                                            background: `linear-gradient(135deg,${EMERALD_BRIGHT},${EMERALD})`
                                                                         } : undefined,
                                                                         children: String(i + 1).padStart(2, "0")
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                        lineNumber: 291,
+                                                                        lineNumber: 361,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -476,7 +608,7 @@ function groupOf(id) {
                                                                                 children: item.label
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                                lineNumber: 300,
+                                                                                lineNumber: 370,
                                                                                 columnNumber: 35
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -484,24 +616,24 @@ function groupOf(id) {
                                                                                 children: item.desc
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                                lineNumber: 303,
+                                                                                lineNumber: 373,
                                                                                 columnNumber: 35
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                        lineNumber: 299,
+                                                                        lineNumber: 369,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     isActiveItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         className: "ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full",
                                                                         style: {
-                                                                            background: "#047857"
+                                                                            background: EMERALD
                                                                         }
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                        lineNumber: 306,
-                                                                        columnNumber: 33
+                                                                        lineNumber: 376,
+                                                                        columnNumber: 35
                                                                     }, this) : seen.has(item.id) ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                                         className: "ml-auto mt-1 h-3.5 w-3.5 shrink-0",
                                                                         style: {
@@ -510,13 +642,13 @@ function groupOf(id) {
                                                                         "aria-label": "Chapter read"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                        lineNumber: 308,
-                                                                        columnNumber: 33
+                                                                        lineNumber: 378,
+                                                                        columnNumber: 35
                                                                     }, this) : null
                                                                 ]
                                                             }, item.id, true, {
                                                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                lineNumber: 283,
+                                                                lineNumber: 349,
                                                                 columnNumber: 31
                                                             }, this);
                                                         }),
@@ -533,18 +665,18 @@ function groupOf(id) {
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         className: "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white",
                                                                         style: {
-                                                                            background: "linear-gradient(135deg,#10b981,#047857)"
+                                                                            background: `linear-gradient(135deg,${EMERALD_BRIGHT},${EMERALD})`
                                                                         },
                                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__["PenLine"], {
                                                                             className: "h-3.5 w-3.5"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                            lineNumber: 328,
+                                                                            lineNumber: 398,
                                                                             columnNumber: 33
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                        lineNumber: 324,
+                                                                        lineNumber: 394,
                                                                         columnNumber: 31
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -555,7 +687,7 @@ function groupOf(id) {
                                                                                 children: "Test my knowledge"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                                lineNumber: 331,
+                                                                                lineNumber: 401,
                                                                                 columnNumber: 33
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -566,13 +698,13 @@ function groupOf(id) {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                                lineNumber: 334,
+                                                                                lineNumber: 404,
                                                                                 columnNumber: 33
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                        lineNumber: 330,
+                                                                        lineNumber: 400,
                                                                         columnNumber: 31
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -580,62 +712,66 @@ function groupOf(id) {
                                                                         children: "open →"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                        lineNumber: 338,
+                                                                        lineNumber: 408,
                                                                         columnNumber: 31
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                lineNumber: 316,
+                                                                lineNumber: 386,
                                                                 columnNumber: 29
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                            lineNumber: 315,
+                                                            lineNumber: 385,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                    lineNumber: 265,
+                                                    lineNumber: 331,
                                                     columnNumber: 25
                                                 }, this)
                                             }, `${group.id}-panel`, false, {
                                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                lineNumber: 257,
+                                                lineNumber: 323,
                                                 columnNumber: 23
                                             }, this) : null
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                            lineNumber: 255,
+                                            lineNumber: 321,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, group.id, true, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 232,
+                                    lineNumber: 298,
                                     columnNumber: 17
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 227,
+                            lineNumber: 293,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-                            children: GROUPS.flatMap((g)=>g.items).map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                            children: FLAT_ITEMS.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                     href: `#${item.id}`,
+                                    onClick: (e)=>{
+                                        e.preventDefault();
+                                        onJumpChapter(item.id);
+                                    },
                                     className: `nav-link ${active === item.id ? "active" : ""}`,
                                     children: item.label
                                 }, item.id, false, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 355,
+                                    lineNumber: 425,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 353,
+                            lineNumber: 423,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -646,17 +782,17 @@ function groupOf(id) {
                                     onClick: ()=>window.print(),
                                     title: "Print these notes",
                                     "aria-label": "Print these notes",
-                                    className: "flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c]",
+                                    className: "flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#047857]",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__["Printer"], {
                                         className: "h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                        lineNumber: 370,
+                                        lineNumber: 448,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 363,
+                                    lineNumber: 441,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -669,29 +805,29 @@ function groupOf(id) {
                                         className: "h-4.5 w-4.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                        lineNumber: 379,
+                                        lineNumber: 457,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 372,
+                                    lineNumber: 450,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 362,
+                            lineNumber: 440,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                    lineNumber: 199,
+                    lineNumber: 265,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                lineNumber: 198,
+                lineNumber: 264,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -701,16 +837,16 @@ function groupOf(id) {
                     className: "h-full",
                     style: {
                         width: "0%",
-                        background: "linear-gradient(90deg,#34d399,#10b981,#047857)"
+                        background: `linear-gradient(90deg,#34d399,${EMERALD_BRIGHT},${EMERALD})`
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                    lineNumber: 387,
+                    lineNumber: 465,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                lineNumber: 386,
+                lineNumber: 464,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -731,7 +867,7 @@ function groupOf(id) {
                     },
                     className: "fixed inset-0 z-[60] flex flex-col outline-none",
                     style: {
-                        background: "linear-gradient(165deg,#0c1d14 0%,#133024 55%,#1b4433 100%)"
+                        background: EMERALD_DARK
                     },
                     role: "dialog",
                     "aria-modal": "true",
@@ -750,27 +886,27 @@ function groupOf(id) {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                            lineNumber: 413,
+                                            lineNumber: 491,
                                             columnNumber: 17
                                         }, this),
                                         "Chapter index",
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "rounded-full bg-white/10 px-2 py-0.5 font-mono text-[.55rem] font-bold text-[#e9d7bf]",
+                                            className: "rounded-full bg-white/10 px-2 py-0.5 font-mono text-[.55rem] font-bold text-[#cfe9dc]",
                                             children: [
                                                 seen.size,
                                                 "/",
-                                                SECTION_IDS.length,
+                                                __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_ALL_CHAPTER_IDS"].length,
                                                 " read"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                            lineNumber: 415,
-                                            columnNumber: 15
+                                            lineNumber: 493,
+                                            columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 412,
+                                    lineNumber: 490,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -782,18 +918,18 @@ function groupOf(id) {
                                         className: "h-4.5 w-4.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                        lineNumber: 425,
+                                        lineNumber: 503,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 419,
+                                    lineNumber: 497,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 411,
+                            lineNumber: 489,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -819,11 +955,11 @@ function groupOf(id) {
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     className: "h-px w-5",
                                                     style: {
-                                                        background: "linear-gradient(90deg,#10b981,transparent)"
+                                                        background: `linear-gradient(90deg,${EMERALD_BRIGHT},transparent)`
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                    lineNumber: 438,
+                                                    lineNumber: 516,
                                                     columnNumber: 21
                                                 }, this),
                                                 group.label,
@@ -836,13 +972,13 @@ function groupOf(id) {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                    lineNumber: 440,
+                                                    lineNumber: 518,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                            lineNumber: 437,
+                                            lineNumber: 515,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -852,13 +988,17 @@ function groupOf(id) {
                                                     const isActiveItem = active === item.id;
                                                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                                         href: `#${item.id}`,
-                                                        onClick: ()=>setMobileOpen(false),
+                                                        onClick: (e)=>{
+                                                            e.preventDefault();
+                                                            setMobileOpen(false);
+                                                            onJumpChapter(item.id);
+                                                        },
                                                         className: `flex items-center gap-3 px-4 py-3 transition-colors active:bg-white/10 ${i < group.items.length - 1 ? "border-b border-white/[.06]" : ""} ${isActiveItem ? "bg-white/[.08]" : ""}`,
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 className: "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[.6rem] font-black",
                                                                 style: isActiveItem ? {
-                                                                    background: "linear-gradient(135deg,#10b981,#047857)",
+                                                                    background: `linear-gradient(135deg,${EMERALD_BRIGHT},${EMERALD})`,
                                                                     color: "#f0fdf7"
                                                                 } : {
                                                                     background: "rgba(190,240,214,.1)",
@@ -867,7 +1007,7 @@ function groupOf(id) {
                                                                 children: String(i + 1).padStart(2, "0")
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                lineNumber: 454,
+                                                                lineNumber: 536,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -878,7 +1018,7 @@ function groupOf(id) {
                                                                         children: item.label
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                        lineNumber: 465,
+                                                                        lineNumber: 547,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -886,13 +1026,13 @@ function groupOf(id) {
                                                                         children: item.desc
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                        lineNumber: 468,
+                                                                        lineNumber: 550,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                lineNumber: 464,
+                                                                lineNumber: 546,
                                                                 columnNumber: 27
                                                             }, this),
                                                             isActiveItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -902,7 +1042,7 @@ function groupOf(id) {
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                lineNumber: 471,
+                                                                lineNumber: 553,
                                                                 columnNumber: 29
                                                             }, this) : seen.has(item.id) ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                                 className: "h-4 w-4 shrink-0",
@@ -912,13 +1052,13 @@ function groupOf(id) {
                                                                 "aria-label": "Chapter read"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                lineNumber: 473,
+                                                                lineNumber: 555,
                                                                 columnNumber: 29
                                                             }, this) : null
                                                         ]
                                                     }, item.id, true, {
                                                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                        lineNumber: 446,
+                                                        lineNumber: 524,
                                                         columnNumber: 25
                                                     }, this);
                                                 }),
@@ -933,18 +1073,18 @@ function groupOf(id) {
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             className: "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white",
                                                             style: {
-                                                                background: "linear-gradient(135deg,#10b981,#047857)"
+                                                                background: `linear-gradient(135deg,${EMERALD_BRIGHT},${EMERALD})`
                                                             },
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__["PenLine"], {
                                                                 className: "h-3.5 w-3.5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                                lineNumber: 492,
+                                                                lineNumber: 574,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                            lineNumber: 488,
+                                                            lineNumber: 570,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -952,7 +1092,7 @@ function groupOf(id) {
                                                             children: "Test my knowledge"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                            lineNumber: 494,
+                                                            lineNumber: 576,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -963,235 +1103,591 @@ function groupOf(id) {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                            lineNumber: 495,
+                                                            lineNumber: 577,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                                    lineNumber: 480,
+                                                    lineNumber: 562,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                            lineNumber: 442,
+                                            lineNumber: 520,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, group.id, true, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 430,
+                                    lineNumber: 508,
                                     columnNumber: 17
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 428,
+                            lineNumber: 506,
                             columnNumber: 13
                         }, this)
                     ]
                 }, "mobile-index", true, {
                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                    lineNumber: 397,
+                    lineNumber: 475,
                     columnNumber: 11
                 }, this) : null
             }, void 0, false, {
                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                lineNumber: 395,
+                lineNumber: 473,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/fa/FaApp.tsx",
-        lineNumber: 197,
+        lineNumber: 263,
         columnNumber: 5
     }, this);
 }
-_s(TopNav, "hymb5t2C80vanBWbivxGnmxqa+U=", false, function() {
+_s1(TopNav, "IOmw7Wpfy/PHXrFgV9pTbdnLDL8=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDialogA11y"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$section$2d$progress$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSectionProgress"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDialogA11y"]
     ];
 });
-_c4 = TopNav;
+_c2 = TopNav;
 /* ============================================================
-   PracticeBand — the only place on the main page where
-   "Test my knowledge" is written: one card per chapter group.
-   Clicking opens that group's full pen-paper window.
-   ============================================================ */ function PracticeBand({ onOpenExam }) {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        id: "practice",
-        "aria-label": "Test my knowledge — pen-paper practice",
-        className: "relative scroll-mt-20 border-y border-[#ecd9bd] bg-[#fffaf1]/70",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "mx-auto max-w-6xl px-4 py-12 sm:px-6",
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "eyebrow",
-                                    children: "Pen-paper practice"
+   PracticeHub — the ONE home of pen-paper practice.
+   ============================================================ */ function PracticeHub({ open, onClose, onOpenExam }) {
+    _s2();
+    const hubRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDialogA11y"])(open);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "PracticeHub.useEffect": ()=>{
+            if (!open) return;
+            document.body.style.overflow = "hidden";
+            const onKey = {
+                "PracticeHub.useEffect.onKey": (e)=>{
+                    if (e.key === "Escape") onClose();
+                }
+            }["PracticeHub.useEffect.onKey"];
+            document.addEventListener("keydown", onKey);
+            return ({
+                "PracticeHub.useEffect": ()=>{
+                    document.body.style.overflow = "";
+                    document.removeEventListener("keydown", onKey);
+                }
+            })["PracticeHub.useEffect"];
+        }
+    }["PracticeHub.useEffect"], [
+        open,
+        onClose
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
+        children: open ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+            ref: hubRef,
+            tabIndex: -1,
+            initial: {
+                opacity: 0
+            },
+            animate: {
+                opacity: 1
+            },
+            exit: {
+                opacity: 0
+            },
+            transition: {
+                duration: 0.18
+            },
+            className: "fixed inset-0 z-[65] overflow-y-auto outline-none",
+            style: {
+                background: "rgba(6,40,30,.78)",
+                WebkitBackdropFilter: "blur(12px) saturate(140%)",
+                backdropFilter: "blur(12px) saturate(140%)"
+            },
+            role: "dialog",
+            "aria-modal": "true",
+            "aria-label": "Test my knowledge — pen-paper practice",
+            onClick: (e)=>{
+                if (e.target === e.currentTarget) onClose();
+            },
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mx-auto my-6 w-[min(66rem,calc(100vw-1.5rem))] overflow-hidden rounded-3xl border border-white/10 sm:my-10",
+                style: {
+                    background: EMERALD_DARK,
+                    boxShadow: "0 48px 140px -32px rgba(0,0,0,.65)"
+                },
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-start justify-between gap-4 px-6 pt-6 sm:px-8",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "flex items-center gap-2 text-[.6rem] font-extrabold uppercase tracking-[.24em] text-[#8fd4b4]",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "h-px w-5",
+                                                style: {
+                                                    background: `linear-gradient(90deg,${EMERALD_BRIGHT},transparent)`
+                                                }
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/components/fa/FaApp.tsx",
+                                                lineNumber: 654,
+                                                columnNumber: 19
+                                            }, this),
+                                            "Pen-paper practice"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/components/fa/FaApp.tsx",
+                                        lineNumber: 653,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "mt-1.5 text-2xl font-black tracking-tight text-[#dff3e8] sm:text-3xl",
+                                        children: "Test my knowledge"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/fa/FaApp.tsx",
+                                        lineNumber: 657,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "mt-2 max-w-2xl text-[.88rem] leading-relaxed text-[#c6e0d3]",
+                                        children: "Every chapter group opens its own exam window: compute the figure, complete the equation, spot the violation — write on real paper first, then mark yourself against the model answers with instant checking."
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/fa/FaApp.tsx",
+                                        lineNumber: 658,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "mt-2 text-[.64rem] font-black uppercase tracking-[.18em] text-[#8fb9a6]",
+                                        children: [
+                                            __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_TOTAL_QUESTIONS"],
+                                            " questions · ",
+                                            __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_EXAM_GROUPS"].length,
+                                            " windows"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/components/fa/FaApp.tsx",
+                                        lineNumber: 663,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/components/fa/FaApp.tsx",
+                                lineNumber: 652,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                type: "button",
+                                onClick: onClose,
+                                "aria-label": "Close the practice hub",
+                                className: "mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#dff3e8] transition-colors hover:bg-white/20",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                    className: "h-4.5 w-4.5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 521,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                    className: "mt-2 text-2xl font-bold md:text-3xl",
-                                    children: "Test my knowledge"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 522,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "mt-2 max-w-xl text-[.9rem] leading-relaxed text-muted-warm",
-                                    children: [
-                                        "Every chapter group opens its own pen-paper window:",
-                                        " ",
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("b", {
-                                            children: "compute the figure, complete the equation, spot the violation"
+                                    lineNumber: 673,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/fa/FaApp.tsx",
+                                lineNumber: 667,
+                                columnNumber: 15
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/components/fa/FaApp.tsx",
+                        lineNumber: 651,
+                        columnNumber: 13
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "grid gap-3 px-6 pb-7 pt-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-4",
+                        children: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_EXAM_GROUPS"].map((g)=>{
+                            const bank = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_EXAM_BANKS"][g];
+                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                type: "button",
+                                onClick: ()=>onOpenExam(g),
+                                className: "group flex flex-col items-start rounded-2xl border border-white/10 bg-white/[.05] p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[.09]",
+                                "aria-label": `Open the exam window — ${bank.title}`,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md",
+                                        style: {
+                                            background: `linear-gradient(135deg,${EMERALD_BRIGHT},${EMERALD})`
+                                        },
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__["PenLine"], {
+                                            className: "h-4 w-4"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                            lineNumber: 525,
-                                            columnNumber: 15
-                                        }, this),
-                                        " — write on real paper first, then check against the model answers with instant feedback."
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 523,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
+                                            lineNumber: 693,
+                                            columnNumber: 23
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/fa/FaApp.tsx",
+                                        lineNumber: 689,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "mt-3 text-[.98rem] font-extrabold leading-tight text-[#a9e8c9]",
+                                        children: bank.title
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/fa/FaApp.tsx",
+                                        lineNumber: 695,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "mt-1 text-[.76rem] leading-snug text-[#c6e0d3]",
+                                        children: bank.topics
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/fa/FaApp.tsx",
+                                        lineNumber: 696,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#8fb9a6] transition-colors group-hover:text-[#a9e8c9]",
+                                        children: [
+                                            "Test my knowledge · ",
+                                            bank.questions.length,
+                                            " Qs →"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/components/fa/FaApp.tsx",
+                                        lineNumber: 697,
+                                        columnNumber: 21
+                                    }, this)
+                                ]
+                            }, g, true, {
+                                fileName: "[project]/src/components/fa/FaApp.tsx",
+                                lineNumber: 682,
+                                columnNumber: 19
+                            }, this);
+                        })
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/fa/FaApp.tsx",
+                        lineNumber: 678,
+                        columnNumber: 13
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/fa/FaApp.tsx",
+                lineNumber: 643,
+                columnNumber: 11
+            }, this)
+        }, "practice-hub", false, {
+            fileName: "[project]/src/components/fa/FaApp.tsx",
+            lineNumber: 622,
+            columnNumber: 9
+        }, this) : null
+    }, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 620,
+        columnNumber: 5
+    }, this);
+}
+_s2(PracticeHub, "7GDftFTFWuBM2om00WmxHE6n++Y=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$exam$2d$runtime$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDialogA11y"]
+    ];
+});
+_c3 = PracticeHub;
+/* ============================================================
+   FaLectureHead — the "Financial Accounting Lecture N"
+   hero band. Every lecture opens with its number spoken aloud,
+   exactly as the reader asked.
+   ============================================================ */ function FaLectureHead({ lecture }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "mx-auto max-w-6xl px-4 pt-12 sm:px-6",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "relative overflow-hidden rounded-3xl p-7 sm:p-10",
+            style: {
+                background: EMERALD_DARK,
+                boxShadow: "0 30px 80px -30px rgba(6,40,30,.55)"
+            },
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                    "aria-hidden": true,
+                    viewBox: "0 0 600 200",
+                    preserveAspectRatio: "none",
+                    className: "pointer-events-none absolute inset-0 h-full w-full opacity-40",
+                    children: [
+                        70,
+                        120,
+                        170
+                    ].map((r, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].circle, {
+                            cx: 540,
+                            cy: 100,
+                            r: r,
+                            fill: "none",
+                            stroke: i === 2 ? SAGE_LITE : EMERALD_BRIGHT,
+                            strokeWidth: 1.4,
+                            style: {
+                                transformBox: "fill-box",
+                                transformOrigin: "center"
+                            },
+                            animate: {
+                                opacity: [
+                                    0.12,
+                                    0.4,
+                                    0.12
+                                ],
+                                scale: [
+                                    1,
+                                    1.05,
+                                    1
+                                ]
+                            },
+                            transition: {
+                                duration: 4.5,
+                                repeat: Infinity,
+                                delay: i * 0.8
+                            }
+                        }, r, false, {
                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 520,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "shrink-0 text-[.68rem] font-black uppercase tracking-[.18em] text-[#047857]",
-                            children: [
-                                __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_TOTAL_QUESTIONS"],
-                                " questions · ",
-                                __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_EXAM_GROUPS"].length,
-                                " windows"
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 529,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
+                            lineNumber: 726,
+                            columnNumber: 13
+                        }, this))
+                }, void 0, false, {
                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                    lineNumber: 519,
+                    lineNumber: 724,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4",
-                    children: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_EXAM_GROUPS"].map((g)=>{
-                        const bank = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_EXAM_BANKS"][g];
-                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            type: "button",
-                            onClick: ()=>onOpenExam(g),
-                            className: "card-warm lift group flex flex-col items-start p-5 text-left",
-                            "aria-label": `Test my knowledge — ${bank.title}`,
+                    className: "relative",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "flex flex-wrap items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.26em] text-[#8fd4b4]",
                             children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md",
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$scale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Scale$3e$__["Scale"], {
+                                    className: "h-3.5 w-3.5",
                                     style: {
-                                        background: "linear-gradient(135deg,#10b981,#047857)"
+                                        color: EMERALD_BRIGHT
+                                    }
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/fa/FaApp.tsx",
+                                    lineNumber: 737,
+                                    columnNumber: 13
+                                }, this),
+                                "Financial Accounting · Shelf 03"
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/fa/FaApp.tsx",
+                            lineNumber: 736,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                            className: "mt-3 text-3xl font-black leading-tight text-[#dff3e8] sm:text-5xl",
+                            children: [
+                                "Financial Accounting",
+                                " ",
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "bg-clip-text text-transparent",
+                                    style: {
+                                        backgroundImage: `linear-gradient(120deg,${SAGE_LITE},${SAGE})`
                                     },
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__["PenLine"], {
-                                        className: "h-4 w-4"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                                        lineNumber: 549,
-                                        columnNumber: 19
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 545,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "mt-3 text-[.98rem] font-extrabold leading-tight text-[#3e2c1d]",
-                                    children: bank.title
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 551,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "mt-1 text-[.74rem] leading-snug text-muted-warm",
-                                    children: bank.topics
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 552,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#047857]",
                                     children: [
-                                        "Test my knowledge · ",
-                                        bank.questions.length,
-                                        " Qs →"
+                                        "Lecture ",
+                                        lecture.n
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 553,
-                                    columnNumber: 17
+                                    lineNumber: 742,
+                                    columnNumber: 13
                                 }, this)
                             ]
-                        }, g, true, {
+                        }, void 0, true, {
                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 538,
-                            columnNumber: 15
-                        }, this);
-                    })
-                }, void 0, false, {
+                            lineNumber: 740,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "mt-3 max-w-3xl text-lg font-bold leading-snug text-[#a9e8c9]",
+                            children: lecture.title
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/fa/FaApp.tsx",
+                            lineNumber: 749,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#c6e0d3]",
+                            children: lecture.blurb
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/fa/FaApp.tsx",
+                            lineNumber: 750,
+                            columnNumber: 11
+                        }, this),
+                        lecture.chapters.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "mt-5 flex flex-wrap gap-2",
+                            children: lecture.chapters.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                    href: `#${c.id}`,
+                                    onClick: (e)=>{
+                                        e.preventDefault();
+                                        const el = document.getElementById(c.id);
+                                        if (el) (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jumpTo"])(el);
+                                    },
+                                    className: "rounded-full border border-white/15 bg-white/[.07] px-3 py-1.5 text-[.68rem] font-extrabold text-[#cfe9dc] transition-colors hover:border-[#10b981]/40 hover:bg-white/[.12] hover:text-[#a9e8c9]",
+                                    children: [
+                                        c.label,
+                                        " ↓"
+                                    ]
+                                }, c.id, true, {
+                                    fileName: "[project]/src/components/fa/FaApp.tsx",
+                                    lineNumber: 754,
+                                    columnNumber: 17
+                                }, this))
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/fa/FaApp.tsx",
+                            lineNumber: 752,
+                            columnNumber: 13
+                        }, this) : null
+                    ]
+                }, void 0, true, {
                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                    lineNumber: 534,
+                    lineNumber: 735,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/fa/FaApp.tsx",
-            lineNumber: 518,
+            lineNumber: 719,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/fa/FaApp.tsx",
-        lineNumber: 517,
+        lineNumber: 718,
         columnNumber: 5
     }, this);
 }
-_c5 = PracticeBand;
+_c4 = FaLectureHead;
 /* ============================================================
-   FaFooter — adapted from the FoC/ATB signature footer, in
-   shelf 03's emerald.
-   ============================================================ */ const FA_SIG_CHIPS = [
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpen$3e$__["BookOpen"],
-        label: `${FLAT_ITEMS.length} chapters`
-    },
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2d$checks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ListChecks$3e$__["ListChecks"],
-        label: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_TOTAL_QUESTIONS"]} practice questions`
-    },
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$graduation$2d$cap$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__GraduationCap$3e$__["GraduationCap"],
-        label: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_EXAM_GROUPS"].length} pen-paper windows`
-    },
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mouse$2d$pointer$2d$click$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MousePointerClick$3e$__["MousePointerClick"],
-        label: "machines you can poke"
-    }
-];
+   LecturePager — prev/next lecture cards closing every lecture.
+   ============================================================ */ function LecturePager({ current, onJump }) {
+    const idx = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_LECTURES"].findIndex((l)=>l.id === current.id);
+    const prev = idx > 0 ? __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_LECTURES"][idx - 1] : null;
+    const next = idx < __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_LECTURES"].length - 1 ? __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_LECTURES"][idx + 1] : null;
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+        "aria-label": "Lecture sequence",
+        className: "mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "grid gap-3 sm:grid-cols-2",
+            children: [
+                prev ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    type: "button",
+                    onClick: ()=>onJump(prev.id),
+                    className: "card-warm lift group flex min-w-0 items-center gap-3 p-4 text-left",
+                    "aria-label": `Previous: ${prev.code} — ${prev.title}`,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__["ArrowLeft"], {
+                            className: "h-4 w-4 shrink-0 text-[#047857] transition-transform duration-200 group-hover:-translate-x-1"
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/fa/FaApp.tsx",
+                            lineNumber: 793,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "min-w-0",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#6d9970]",
+                                    children: [
+                                        "Previous · ",
+                                        prev.code
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/components/fa/FaApp.tsx",
+                                    lineNumber: 795,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "mt-0.5 block truncate text-[.92rem] font-extrabold text-[#3e2c1d]",
+                                    children: prev.title
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/fa/FaApp.tsx",
+                                    lineNumber: 798,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/fa/FaApp.tsx",
+                            lineNumber: 794,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/components/fa/FaApp.tsx",
+                    lineNumber: 787,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    "aria-hidden": true,
+                    className: "hidden sm:block"
+                }, void 0, false, {
+                    fileName: "[project]/src/components/fa/FaApp.tsx",
+                    lineNumber: 802,
+                    columnNumber: 11
+                }, this),
+                next ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    type: "button",
+                    onClick: ()=>onJump(next.id),
+                    className: "card-warm lift group flex min-w-0 items-center justify-end gap-3 p-4 text-right",
+                    "aria-label": `Next: ${next.code} — ${next.title}`,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "min-w-0",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#6d9970]",
+                                    children: [
+                                        "Next · ",
+                                        next.code
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/components/fa/FaApp.tsx",
+                                    lineNumber: 812,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "mt-0.5 block truncate text-[.92rem] font-extrabold text-[#3e2c1d]",
+                                    children: next.title
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/fa/FaApp.tsx",
+                                    lineNumber: 815,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/fa/FaApp.tsx",
+                            lineNumber: 811,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
+                            className: "h-4 w-4 shrink-0 text-[#047857] transition-transform duration-200 group-hover:translate-x-1"
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/fa/FaApp.tsx",
+                            lineNumber: 817,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/components/fa/FaApp.tsx",
+                    lineNumber: 805,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: "rounded-2xl border border-dashed border-[#dbeae2] p-4 text-center text-[.78rem] font-bold leading-snug text-[#7d9a8b]",
+                    children: "End of the sequence — Lecture 16 closes the course. Drive the gross-profit ladder once more, then retake the windows."
+                }, void 0, false, {
+                    fileName: "[project]/src/components/fa/FaApp.tsx",
+                    lineNumber: 820,
+                    columnNumber: 11
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/src/components/fa/FaApp.tsx",
+            lineNumber: 785,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/src/components/fa/FaApp.tsx",
+        lineNumber: 784,
+        columnNumber: 5
+    }, this);
+}
+_c5 = LecturePager;
 function FaFooter() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
         className: "footer-stick relative overflow-hidden",
@@ -1200,7 +1696,7 @@ function FaFooter() {
                 "aria-hidden": true,
                 className: "absolute inset-x-0 top-0 h-px",
                 style: {
-                    background: "linear-gradient(90deg, transparent, rgba(90,150,120,.35), transparent)"
+                    background: `linear-gradient(90deg, transparent, rgba(90,150,120,.35), transparent)`
                 },
                 initial: {
                     scaleX: 0,
@@ -1224,7 +1720,7 @@ function FaFooter() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                lineNumber: 580,
+                lineNumber: 837,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1232,14 +1728,14 @@ function FaFooter() {
                 className: "sig-glow"
             }, void 0, false, {
                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                lineNumber: 591,
+                lineNumber: 847,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "relative mx-auto flex max-w-3xl flex-col items-center px-4 py-8 text-center sm:py-10",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-eyebrow text-[.58rem] font-semibold uppercase text-[#a1876a]",
+                        className: "sig-eyebrow text-[.58rem] font-semibold uppercase text-[#8aa09b]",
                         "aria-label": "created by",
                         initial: {
                             opacity: 0,
@@ -1265,7 +1761,7 @@ function FaFooter() {
                         children: "created by"
                     }, void 0, false, {
                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 594,
+                        lineNumber: 850,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].h2, {
@@ -1299,12 +1795,12 @@ function FaFooter() {
                             children: "Arpit Nayan"
                         }, void 0, false, {
                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 613,
+                            lineNumber: 869,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 605,
+                        lineNumber: 861,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -1327,7 +1823,7 @@ function FaFooter() {
                                             stopOpacity: "0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                            lineNumber: 620,
+                                            lineNumber: 876,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
@@ -1335,7 +1831,7 @@ function FaFooter() {
                                             stopColor: "#3f9d76"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                            lineNumber: 621,
+                                            lineNumber: 877,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
@@ -1344,18 +1840,18 @@ function FaFooter() {
                                             stopOpacity: "0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                                            lineNumber: 622,
+                                            lineNumber: 878,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/fa/FaApp.tsx",
-                                    lineNumber: 619,
+                                    lineNumber: 875,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                lineNumber: 618,
+                                lineNumber: 874,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].path, {
@@ -1381,177 +1877,99 @@ function FaFooter() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                                lineNumber: 625,
+                                lineNumber: 881,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 617,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-blurb mt-5",
-                        initial: {
-                            opacity: 0,
-                            y: 12,
-                            filter: "blur(6px)"
-                        },
-                        whileInView: {
-                            opacity: 1,
-                            y: 0,
-                            filter: "blur(0px)"
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 0.9,
-                            ease: [
-                                0.22,
-                                1,
-                                0.36,
-                                1
-                            ],
-                            delay: 1.0
-                        },
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("b", {
-                                children: "Financial Accounting"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/fa/FaApp.tsx",
-                                lineNumber: 645,
-                                columnNumber: 11
-                            }, this),
-                            " — every concept of the course, distilled into one warm, living page you can read, sketch and balance.",
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "mt-1 block",
-                                children: "Written for the late-night revision, the last-minute panic, and the quiet joy of an equation that finally closes."
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/fa/FaApp.tsx",
-                                lineNumber: 647,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 638,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "mt-3 text-[.78rem] font-semibold text-[#6f5438]",
-                        initial: {
-                            opacity: 0
-                        },
-                        whileInView: {
-                            opacity: 1
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 1.0,
-                            ease: "easeOut",
-                            delay: 1.25
-                        },
-                        children: "Course: Financial Accounting — Dr. Manisha Yadav · IIT Jodhpur"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 654,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        role: "list",
-                        "aria-label": "What this project contains",
-                        className: "mt-4 flex flex-wrap items-center justify-center gap-2",
-                        children: FA_SIG_CHIPS.map((chip, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].span, {
-                                role: "listitem",
-                                className: "sig-chip",
-                                initial: {
-                                    opacity: 0,
-                                    y: 10,
-                                    scale: 0.92
-                                },
-                                whileInView: {
-                                    opacity: 1,
-                                    y: 0,
-                                    scale: 1
-                                },
-                                viewport: {
-                                    once: true
-                                },
-                                transition: {
-                                    duration: 0.6,
-                                    ease: [
-                                        0.22,
-                                        1,
-                                        0.36,
-                                        1
-                                    ],
-                                    delay: 1.2 + i * 0.1
-                                },
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(chip.icon, {
-                                        className: "h-3 w-3",
-                                        strokeWidth: 2.2
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                                        lineNumber: 684,
-                                        columnNumber: 15
-                                    }, this),
-                                    chip.label
-                                ]
-                            }, chip.label, true, {
-                                fileName: "[project]/src/components/fa/FaApp.tsx",
-                                lineNumber: 671,
-                                columnNumber: 13
-                            }, this))
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 665,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-colo mt-5",
-                        initial: {
-                            opacity: 0
-                        },
-                        whileInView: {
-                            opacity: 1
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 1.1,
-                            ease: "easeOut",
-                            delay: 1.7
-                        },
-                        children: "shelf 03 · the atlas — crafted with next.js · react · tailwind — mmxxvi"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 691,
+                        lineNumber: 873,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                lineNumber: 593,
+                lineNumber: 849,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/fa/FaApp.tsx",
-        lineNumber: 578,
+        lineNumber: 836,
         columnNumber: 5
     }, this);
 }
 _c6 = FaFooter;
 function FaApp({ onExitAtlas }) {
-    _s1();
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useOpenSection"])("fa");
+    _s3();
+    const [lectureId, setLectureId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_DEFAULT_LECTURE"]);
     const [examGroup, setExamGroup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const openExam = (g)=>setExamGroup(g);
+    const [hubOpen, setHubOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const lectureIdRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(lectureId);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "FaApp.useEffect": ()=>{
+            lectureIdRef.current = lectureId;
+        }
+    }["FaApp.useEffect"], [
+        lectureId
+    ]);
+    const lecture = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["lectureById"])(lectureId) ?? __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_LECTURES"][0];
+    const seen = useSeenDisplay(lecture);
+    const selectLecture = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "FaApp.useCallback[selectLecture]": (id)=>{
+            setLectureId(id);
+            requestAnimationFrame({
+                "FaApp.useCallback[selectLecture]": ()=>requestAnimationFrame({
+                        "FaApp.useCallback[selectLecture]": ()=>{
+                            const el = document.getElementById("notes-top");
+                            if (!el) return;
+                            const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                            el.scrollIntoView({
+                                behavior: reduce ? "auto" : "smooth",
+                                block: "start"
+                            });
+                        }
+                    }["FaApp.useCallback[selectLecture]"])
+            }["FaApp.useCallback[selectLecture]"]);
+        }
+    }["FaApp.useCallback[selectLecture]"], []);
+    const goToChapter = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "FaApp.useCallback[goToChapter]": (chapterId)=>{
+            const target = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["lectureOfChapter"])(chapterId);
+            if (!target) return;
+            const scrollWhenReady = {
+                "FaApp.useCallback[goToChapter].scrollWhenReady": ()=>{
+                    let frames = 0;
+                    const tick = {
+                        "FaApp.useCallback[goToChapter].scrollWhenReady.tick": ()=>{
+                            const el = document.getElementById(chapterId);
+                            if (el) {
+                                (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jumpTo"])(el);
+                                return;
+                            }
+                            if (++frames < 240) requestAnimationFrame(tick);
+                        }
+                    }["FaApp.useCallback[goToChapter].scrollWhenReady.tick"];
+                    requestAnimationFrame(tick);
+                }
+            }["FaApp.useCallback[goToChapter].scrollWhenReady"];
+            if (lectureIdRef.current === target.id) {
+                scrollWhenReady();
+                return;
+            }
+            setLectureId(target.id);
+            requestAnimationFrame({
+                "FaApp.useCallback[goToChapter]": ()=>requestAnimationFrame(scrollWhenReady)
+            }["FaApp.useCallback[goToChapter]"]);
+        }
+    }["FaApp.useCallback[goToChapter]"], []);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useOpenSection"])("fa", goToChapter);
+    const openExam = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "FaApp.useCallback[openExam]": (g)=>setExamGroup(g)
+    }["FaApp.useCallback[openExam]"], []);
+    const openHub = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "FaApp.useCallback[openHub]": ()=>setHubOpen(true)
+    }["FaApp.useCallback[openHub]"], []);
     return(// id="top" — the brand chip links to #top; without a real element here the
     // client-side router swallows the fragment and the page never scrolls back
     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1560,10 +1978,12 @@ function FaApp({ onExitAtlas }) {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(TopNav, {
                 onOpenExam: openExam,
-                onExitAtlas: onExitAtlas
+                onExitAtlas: onExitAtlas,
+                onJumpChapter: goToChapter,
+                seen: seen
             }, void 0, false, {
                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                lineNumber: 718,
+                lineNumber: 956,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1571,231 +1991,104 @@ function FaApp({ onExitAtlas }) {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
                         label: "Hero",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaHero"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 721,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 720,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "PracticeBand",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PracticeBand, {
-                            onOpenExam: openExam
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaHero$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaHero"], {
+                            activeId: lectureId,
+                            onSelect: selectLecture,
+                            onPractice: openHub,
+                            seen: seen,
+                            totalQuestions: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FA_TOTAL_QUESTIONS"]
                         }, void 0, false, {
                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 724,
+                            lineNumber: 959,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 723,
+                        lineNumber: 958,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        id: "notes-top",
+                        "aria-hidden": true,
+                        className: "relative scroll-mt-16"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/fa/FaApp.tsx",
+                        lineNumber: 969,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Why",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaWhySection"], {}, void 0, false, {
+                        label: `Lecture ${lecture.code} — ${lecture.title}`,
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+                            initial: {
+                                opacity: 0,
+                                y: 18
+                            },
+                            animate: {
+                                opacity: 1,
+                                y: 0
+                            },
+                            transition: {
+                                duration: 0.4,
+                                ease: [
+                                    0.22,
+                                    1,
+                                    0.36,
+                                    1
+                                ]
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(FaLectureHead, {
+                                    lecture: lecture
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/fa/FaApp.tsx",
+                                    lineNumber: 977,
+                                    columnNumber: 13
+                                }, this),
+                                lecture.chapters.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
+                                        label: c.label,
+                                        children: SECTION_COMPONENTS[c.id]
+                                    }, c.id, false, {
+                                        fileName: "[project]/src/components/fa/FaApp.tsx",
+                                        lineNumber: 979,
+                                        columnNumber: 15
+                                    }, this)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LecturePager, {
+                                    current: lecture,
+                                    onJump: selectLecture
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/fa/FaApp.tsx",
+                                    lineNumber: 983,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
                             fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 727,
+                            lineNumber: 972,
                             columnNumber: 11
                         }, this)
-                    }, void 0, false, {
+                    }, lecture.id, false, {
                         fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 726,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Assumptions",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaAssumptionsSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 730,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 729,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "EntityConcern",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaEntityConcernSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 733,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 732,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Periodicity",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaPeriodicitySection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 736,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 735,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "DualAspect",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaDualAspectSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 739,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 738,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Elements",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaElementsSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 742,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 741,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "EquationLab",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaEquationLabSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 745,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 744,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Effects",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaEffectsSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 748,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 747,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Journal",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaJournalSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 751,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 750,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Ledger",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaLedgerSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 754,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 753,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Statements",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaStatementsSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 757,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 756,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "TrialBalance",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaTrialBalanceSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 760,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 759,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Adjusting",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaAdjustingSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 763,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 762,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "FinalAccounts",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaFinalAccountsSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 766,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 765,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "Trading",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaTradingSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 769,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 768,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
-                        label: "GrossProfitLab",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaGrossProfitLabSection"], {}, void 0, false, {
-                            fileName: "[project]/src/components/fa/FaApp.tsx",
-                            lineNumber: 772,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/fa/FaApp.tsx",
-                        lineNumber: 771,
+                        lineNumber: 971,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                lineNumber: 719,
+                lineNumber: 957,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(FaFooter, {}, void 0, false, {
                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                lineNumber: 775,
+                lineNumber: 987,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PracticeHub, {
+                open: hubOpen,
+                onClose: ()=>setHubOpen(false),
+                onOpenExam: openExam
+            }, void 0, false, {
+                fileName: "[project]/src/components/fa/FaApp.tsx",
+                lineNumber: 988,
                 columnNumber: 7
             }, this),
             examGroup ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$fa$2f$FaExamWindow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["FaExamWindow"], {
@@ -1803,18 +2096,19 @@ function FaApp({ onExitAtlas }) {
                 onClose: ()=>setExamGroup(null)
             }, void 0, false, {
                 fileName: "[project]/src/components/fa/FaApp.tsx",
-                lineNumber: 776,
+                lineNumber: 989,
                 columnNumber: 20
             }, this) : null
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/fa/FaApp.tsx",
-        lineNumber: 717,
+        lineNumber: 955,
         columnNumber: 5
     }, this));
 }
-_s1(FaApp, "ySVo9072jifJwgIXFiwhP4SG7VE=", false, function() {
+_s3(FaApp, "vc0PAcS2wTnkdewC1Kh7C5/xvpM=", false, function() {
     return [
+        useSeenDisplay,
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useOpenSection"]
     ];
 });
@@ -1822,10 +2116,10 @@ _c7 = FaApp;
 var _c, _c1, _c2, _c3, _c4, _c5, _c6, _c7;
 __turbopack_context__.k.register(_c, "FLAT_ITEMS$GROUPS.flatMap");
 __turbopack_context__.k.register(_c1, "FLAT_ITEMS");
-__turbopack_context__.k.register(_c2, "SECTION_IDS$FLAT_ITEMS.map");
-__turbopack_context__.k.register(_c3, "SECTION_IDS");
-__turbopack_context__.k.register(_c4, "TopNav");
-__turbopack_context__.k.register(_c5, "PracticeBand");
+__turbopack_context__.k.register(_c2, "TopNav");
+__turbopack_context__.k.register(_c3, "PracticeHub");
+__turbopack_context__.k.register(_c4, "FaLectureHead");
+__turbopack_context__.k.register(_c5, "LecturePager");
 __turbopack_context__.k.register(_c6, "FaFooter");
 __turbopack_context__.k.register(_c7, "FaApp");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {

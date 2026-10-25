@@ -412,57 +412,6 @@ function SubjectCard({ subject, index, onEnter }: CardProps) {
   );
 }
 
-/* ---------------------------------------------- next-shelf tile */
-
-function NextShelfTile({ index, shelf }: { index: number; shelf: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
-      transition={{ duration: 0.8, delay: 0.06 * index, ease: EASE }}
-      className="min-w-0 md:col-span-2"
-    >
-      <div className="group relative flex h-full min-h-[11rem] flex-col justify-between overflow-hidden rounded-[1.7rem] border border-dashed border-white/12 bg-black/40 p-6 md:p-7">
-        {/* ghost numeral */}
-        <span
-          aria-hidden
-          className="text-ghost pointer-events-none absolute -right-4 -top-8 select-none font-display text-[9rem] font-black leading-none"
-        >
-          {shelf}
-        </span>
-
-        <div className="relative">
-          <ShelfTag color="#b49a78">next drop</ShelfTag>
-          <h3 className="mt-2 flex items-center gap-2 font-display text-2xl font-black text-[#f7ecdd] md:text-[1.55rem]">
-            Shelf {shelf} is loading
-            <span className="flex items-end gap-1 pb-1.5" aria-hidden>
-              {[0, 1, 2].map((i) => (
-                <span
-                  key={i}
-                  className="dot-pulse h-1.5 w-1.5 rounded-full bg-[#f5c889]"
-                  style={{ animationDelay: `${i * 0.22}s` }}
-                />
-              ))}
-            </span>
-          </h3>
-          <p className="mt-2.5 max-w-md text-[.88rem] leading-relaxed text-[#a89a86]">
-            The atlas grows one PDF at a time. Drop the next syllabus and this tile comes
-            alive — distilled, animated, made runnable. Same mould, every single time.
-          </p>
-        </div>
-
-        <div className="relative mt-6">
-          <div className="load-bar h-1 w-full max-w-xs rounded-full bg-white/[.07]" aria-hidden />
-          <p className="mt-3 font-mono text-[.6rem] uppercase tracking-[.22em] text-[#6d5f4f]">
-            awaiting syllabus · shelf {shelf} of 06
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 /* today's daily-goal progress — a tiny hydration-safe ring that rides
    the pill nav; one click lands on the ledger where the ring lives */
 function GoalChip() {
@@ -542,7 +491,6 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
   const liveCount = liveSubjects.length;
   const totalChapters = liveSubjects.reduce((n, s) => n + (s.chapters ?? 0), 0);
   const totalQuestions = liveSubjects.reduce((n, s) => n + (s.questions ?? 0), 0);
-  const nextShelf = SUBJECTS.find((s) => s.status === "soon")?.shelf;
 
   const scrollToShelf = () => {
     document.getElementById("shelf")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -798,7 +746,6 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             {SUBJECTS.map((s, i) => (
               <SubjectCard key={s.id} subject={s} index={i} onEnter={onEnter} />
             ))}
-            {nextShelf ? <NextShelfTile index={SUBJECTS.length} shelf={nextShelf} /> : null}
           </div>
         </section>
 

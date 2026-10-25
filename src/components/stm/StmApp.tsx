@@ -1,41 +1,44 @@
 "use client";
 
+/* ============================================================
+   StmApp — "Statistics for Managers", shelf 05 of THE ATLAS.
+
+   Mounted by the Atlas router (src/app/page.tsx); `onExitAtlas`
+   returns the reader to the Atlas landing page. A LECTURE
+   READER: the hero holds the 16-lecture sequence, each lecture
+   opens with a "Statistics for Managers Lecture N" band, and
+   all pen-paper practice lives behind the "Test my knowledge"
+   hub so the reading surface stays clean. Every number is
+   computed, not memorised — the measurement-scale ladder, the
+   Marada pie, Hudson's histogram, the mean-vs-median outlier
+   machine, the Venn laboratory, Bayes' prior→posterior bar,
+   the Evans tree, the empirical-rule bell.
+   ============================================================ */
+
 import { PartBoundary } from "@/components/notes/PartBoundary";
 import { useDialogA11y } from "@/components/notes/exam-runtime";
 
-/* ============================================================
-   StmApp — the complete "Statistics for Managers" revision
-   companion, registered as shelf 05 of THE ATLAS.
-
-   Every number is computed, not memorised: the measurement-
-   scale ladder, the data-anatomy table, the Marada pie, Hudson's
-   histogram, the crosstab flip, the mean-vs-median outlier
-   machine, the Venn laboratory, Bayes' prior→posterior bar, the
-   Evans tree, the empirical-rule bell. Mounted by the Atlas
-   router (src/app/page.tsx) when the reader enters the subject;
-   `onExitAtlas` returns the reader to the Atlas landing page.
-   ============================================================ */
-
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
+  ArrowLeft,
+  ArrowRight,
   BookOpen,
   BookOpenText,
-  ListChecks,
+  Check,
+  ChevronDown,
   Map,
   Menu,
-  MousePointerClick,
   PenLine,
+  Printer,
   Sigma,
   X,
-  ChevronDown,
-  GraduationCap,
-  Check,
-  Printer,
 } from "lucide-react";
 import { useSectionProgress } from "@/lib/use-section-progress";
-import { useOpenSection } from "@/lib/use-open-section";
-import { StmHero, StmLensSection, StmScalesSection } from "@/components/stm/StmParts1";
+import { jumpTo, useOpenSection } from "@/lib/use-open-section";
+import { loadProgress } from "@/lib/progress";
+import { StmHero } from "@/components/stm/StmHero";
+import { StmLensSection, StmScalesSection } from "@/components/stm/StmParts1";
 import { StmSourcesSection, StmCategoricalSection } from "@/components/stm/StmParts2";
 import { StmQuantitativeSection, StmTwoVarsSection } from "@/components/stm/StmParts3";
 import { StmLocationSection, StmVariabilitySection } from "@/components/stm/StmParts4";
@@ -45,6 +48,17 @@ import { StmBinomialSection } from "@/components/stm/StmParts7";
 import { StmContinuousSection, StmSamplingSection } from "@/components/stm/StmParts8";
 import { StmExamWindow } from "@/components/stm/StmExamWindow";
 import { STM_EXAM_BANKS, STM_EXAM_GROUPS, STM_TOTAL_QUESTIONS, type StmExamGroup } from "@/components/stm/questions";
+import {
+  STM_LECTURES, STM_ALL_CHAPTER_IDS, STM_DEFAULT_LECTURE,
+  lectureById, lectureOfChapter, type StmLecture,
+} from "@/components/stm/lectures";
+
+/* shelf 05 palette — deep violet with a soft gold counterpoint */
+const VIOLET = "#6d28d9";
+const VIOLET_BRIGHT = "#8b5cf6";
+const GOLD = "#ca8a04";
+const GOLD_LITE = "#e6cd7f";
+const PLUM = "linear-gradient(165deg,#1e1033 0%,#2a1547 60%,#301a52 100%)";
 
 /* ============================================================
    Structured chapter map — the top bar is organised into five
@@ -105,7 +119,6 @@ const GROUPS: {
 ];
 
 const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
-const SECTION_IDS = FLAT_ITEMS.map((i) => i.id);
 
 function groupOf(id: string): string | null {
   for (const g of GROUPS) if (g.items.some((i) => i.id === id)) return g.id;
@@ -113,23 +126,68 @@ function groupOf(id: string): string | null {
 }
 
 /* ============================================================
+   The chapter components, keyed by section id — the lecture
+   reader renders exactly the slice the chosen lecture owns.
+   ============================================================ */
+const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
+  lens: <StmLensSection />,
+  scales: <StmScalesSection />,
+  sources: <StmSourcesSection />,
+  categorical: <StmCategoricalSection />,
+  quantitative: <StmQuantitativeSection />,
+  twovars: <StmTwoVarsSection />,
+  location: <StmLocationSection />,
+  variability: <StmVariabilitySection />,
+  association: <StmAssociationSection />,
+  "prob-basics": <StmProbBasicsSection />,
+  "prob-laws": <StmProbLawsSection />,
+  bayes: <StmBayesSection />,
+  discrete: <StmDiscreteSection />,
+  binomial: <StmBinomialSection />,
+  continuous: <StmContinuousSection />,
+  sampling: <StmSamplingSection />,
+};
+
+/* ============================================================
+   useSeenDisplay — the read-checkmark data for every menu.
+   Marking is per-lecture; display spans the whole shelf.
+   ============================================================ */
+function useSeenDisplay(lecture: StmLecture): ReadonlySet<string> {
+  const ids = useMemo(() => lecture.chapters.map((c) => c.id), [lecture]);
+  const live = useSectionProgress("stm", ids);
+  const persisted = useMemo(() => {
+    try {
+      return new Set(Object.keys(loadProgress().stm ?? {}));
+    } catch {
+      return new Set<string>();
+    }
+  }, []);
+  return useMemo(() => new Set<string>([...persisted, ...live]), [persisted, live]);
+}
+
+/* ============================================================
    TopNav — structured chapter menu + a "Test my knowledge"
    launcher inside every chapter group. Same engine as the
-   FoC/ATB/FA/EBH shelves: progress bar written via ref inside
-   rAF, React state only when the active section changes.
+   MKTG lecture reader: progress bar written via ref inside
+   rAF, React state only when the active section changes, and
+   every chapter link routes through onJumpChapter so a
+   cross-lecture jump switches the lecture first.
    ============================================================ */
 function TopNav({
   onOpenExam,
   onExitAtlas,
+  onJumpChapter,
+  seen,
 }: {
   onOpenExam: (g: StmExamGroup) => void;
   onExitAtlas: () => void;
+  onJumpChapter: (chapterId: string) => void;
+  seen: ReadonlySet<string>;
 }) {
   const [active, setActive] = useState<string>("");
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
-  const seen = useSectionProgress("stm", SECTION_IDS);
   const navRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef("");
@@ -219,7 +277,7 @@ function TopNav({
           >
             <span
               className="flex h-6 w-6 items-center justify-center rounded-full text-white"
-              style={{ background: "linear-gradient(135deg,#8b5cf6,#6d28d9)", boxShadow: "0 4px 10px -3px rgba(109,40,217,.55)" }}
+              style={{ background: `linear-gradient(135deg,${VIOLET_BRIGHT},${VIOLET})`, boxShadow: "0 4px 10px -3px rgba(109,40,217,.55)" }}
             >
               <Sigma className="h-3.5 w-3.5" />
             </span>
@@ -276,9 +334,9 @@ function TopNav({
                           <p className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 text-[.58rem] font-extrabold uppercase tracking-[.22em] text-[#8b7fb8]">
                             <BookOpenText className="h-3 w-3" />
                             {group.label}
-                          <span className="ml-auto font-mono tracking-[.08em] opacity-90">
-                            {group.items.filter((it) => seen.has(it.id)).length}/{group.items.length} read
-                          </span>
+                            <span className="ml-auto font-mono tracking-[.08em] opacity-90">
+                              {group.items.filter((it) => seen.has(it.id)).length}/{group.items.length} read
+                            </span>
                           </p>
                           {group.items.map((item, i) => {
                             const isActiveItem = active === item.id;
@@ -286,7 +344,11 @@ function TopNav({
                               <a
                                 key={item.id}
                                 href={`#${item.id}`}
-                                onClick={() => setOpenGroup(null)}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setOpenGroup(null);
+                                  onJumpChapter(item.id);
+                                }}
                                 className={`group flex items-start gap-3 rounded-xl px-3 py-2 transition-colors duration-150 ${
                                   isActiveItem ? "bg-[#8b5cf6]/[.12]" : "hover:bg-[#3e2c1d]/[.05]"
                                 }`}
@@ -295,7 +357,7 @@ function TopNav({
                                   className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[.58rem] font-black ${
                                     isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#8b7fb8]"
                                   }`}
-                                  style={isActiveItem ? { background: "linear-gradient(135deg,#8b5cf6,#6d28d9)" } : undefined}
+                                  style={isActiveItem ? { background: `linear-gradient(135deg,${VIOLET_BRIGHT},${VIOLET})` } : undefined}
                                 >
                                   {String(i + 1).padStart(2, "0")}
                                 </span>
@@ -306,10 +368,10 @@ function TopNav({
                                   <span className="mt-0.5 block text-[.7rem] leading-snug text-[#9b8ab0]">{item.desc}</span>
                                 </span>
                                 {isActiveItem ? (
-                                <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#6d28d9" }} />
-                              ) : seen.has(item.id) ? (
-                                <Check className="ml-auto mt-1 h-3.5 w-3.5 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
-                              ) : null}
+                                  <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: VIOLET }} />
+                                ) : seen.has(item.id) ? (
+                                  <Check className="ml-auto mt-1 h-3.5 w-3.5 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
+                                ) : null}
                               </a>
                             );
                           })}
@@ -326,7 +388,7 @@ function TopNav({
                             >
                               <span
                                 className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
-                                style={{ background: "linear-gradient(135deg,#8b5cf6,#6d28d9)" }}
+                                style={{ background: `linear-gradient(135deg,${VIOLET_BRIGHT},${VIOLET})` }}
                               >
                                 <PenLine className="h-3.5 w-3.5" />
                               </span>
@@ -354,21 +416,29 @@ function TopNav({
 
           {/* below lg — quick chips (horizontal scroll) covering every chapter */}
           <div className="scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {GROUPS.flatMap((g) => g.items).map((item) => (
-              <a key={item.id} href={`#${item.id}`} className={`nav-link ${active === item.id ? "active" : ""}`}>
+            {FLAT_ITEMS.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onJumpChapter(item.id);
+                }}
+                className={`nav-link ${active === item.id ? "active" : ""}`}
+              >
                 {item.label}
               </a>
             ))}
           </div>
 
-          {/* right cluster — chapter index (small screens) */}
+          {/* right cluster — print + chapter index (small screens) */}
           <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
             <button
               type="button"
               onClick={() => window.print()}
               title="Print these notes"
               aria-label="Print these notes"
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c]"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#5d4e7e] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#6d28d9]"
             >
               <Printer className="h-4 w-4" />
             </button>
@@ -390,7 +460,7 @@ function TopNav({
         <div
           ref={progressRef}
           className="h-full"
-          style={{ width: "0%", background: "linear-gradient(90deg,#c4b5fd,#8b5cf6,#6d28d9)" }}
+          style={{ width: "0%", background: `linear-gradient(90deg,#c4b5fd,${VIOLET_BRIGHT},${VIOLET})` }}
         />
       </div>
 
@@ -406,18 +476,18 @@ function TopNav({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
             className="fixed inset-0 z-[60] flex flex-col outline-none"
-            style={{ background: "linear-gradient(165deg,#160b28 0%,#241238 55%,#311a4d 100%)" }}
+            style={{ background: PLUM }}
             role="dialog"
             aria-modal="true"
             aria-label="Chapter index"
           >
             <div className="flex h-14 shrink-0 items-center justify-between px-4">
               <span className="flex items-center gap-2 text-sm font-black tracking-tight text-[#f1eafd]">
-                <Sigma className="h-4 w-4" style={{ color: "#a78bfa" }} />
+                <Sigma className="h-4 w-4" style={{ color: VIOLET_BRIGHT }} />
                 Chapter index
-              <span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[.55rem] font-bold text-[#e9d7bf]">
-                {seen.size}/{SECTION_IDS.length} read
-              </span>
+                <span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[.55rem] font-bold text-[#e9d7bf]">
+                  {seen.size}/{STM_ALL_CHAPTER_IDS.length} read
+                </span>
               </span>
               <button
                 type="button"
@@ -438,7 +508,7 @@ function TopNav({
                   className="mb-5"
                 >
                   <p className="mb-2 flex items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.24em] text-[#c0aef0]">
-                    <span className="h-px w-5" style={{ background: "linear-gradient(90deg,#8b5cf6,transparent)" }} />
+                    <span className="h-px w-5" style={{ background: `linear-gradient(90deg,${VIOLET_BRIGHT},transparent)` }} />
                     {group.label}
                     <span className="rounded-full bg-white/10 px-2 py-0.5 text-[.55rem] text-[#e4dbf7]">{group.items.filter((it) => seen.has(it.id)).length}/{group.items.length}</span>
                   </p>
@@ -449,7 +519,11 @@ function TopNav({
                         <a
                           key={item.id}
                           href={`#${item.id}`}
-                          onClick={() => setMobileOpen(false)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setMobileOpen(false);
+                            onJumpChapter(item.id);
+                          }}
                           className={`flex items-center gap-3 px-4 py-3 transition-colors active:bg-white/10 ${
                             i < group.items.length - 1 ? "border-b border-white/[.06]" : ""
                           } ${isActiveItem ? "bg-white/[.08]" : ""}`}
@@ -458,7 +532,7 @@ function TopNav({
                             className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[.6rem] font-black"
                             style={
                               isActiveItem
-                                ? { background: "linear-gradient(135deg,#8b5cf6,#6d28d9)", color: "#fdfcff" }
+                                ? { background: `linear-gradient(135deg,${VIOLET_BRIGHT},${VIOLET})`, color: "#fdfcff" }
                                 : { background: "rgba(200,180,250,.1)", color: "#c0aef0" }
                             }
                           >
@@ -471,7 +545,7 @@ function TopNav({
                             <span className="mt-0.5 block text-[.7rem] leading-snug text-[#a894cf]">{item.desc}</span>
                           </span>
                           {isActiveItem ? (
-                            <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#a78bfa" }} />
+                            <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: VIOLET_BRIGHT }} />
                           ) : seen.has(item.id) ? (
                             <Check className="h-4 w-4 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
                           ) : null}
@@ -490,7 +564,7 @@ function TopNav({
                     >
                       <span
                         className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
-                        style={{ background: "linear-gradient(135deg,#8b5cf6,#6d28d9)" }}
+                        style={{ background: `linear-gradient(135deg,${VIOLET_BRIGHT},${VIOLET})` }}
                       >
                         <PenLine className="h-3.5 w-3.5" />
                       </span>
@@ -511,71 +585,246 @@ function TopNav({
 }
 
 /* ============================================================
-   PracticeBand — the only place on the main page where
-   "Test my knowledge" is written: one card per chapter group.
-   Clicking opens that group's full pen-paper window.
+   PracticeHub — the ONE home of pen-paper practice.
    ============================================================ */
-function PracticeBand({ onOpenExam }: { onOpenExam: (g: StmExamGroup) => void }) {
-  return (
-    <section id="practice" aria-label="Test my knowledge — pen-paper practice" className="relative scroll-mt-20 border-y border-[#e8e0f6] bg-[#fffaf1]/70">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <span className="eyebrow">Pen-paper practice</span>
-            <h2 className="mt-2 text-2xl font-bold md:text-3xl">Test my knowledge</h2>
-            <p className="mt-2 max-w-xl text-[.9rem] leading-relaxed text-muted-warm">
-              Every chapter group opens its own pen-paper window:{" "}
-              <b>pick the scale, compute the statistic, name the distribution</b> — work on real
-              paper first, then check against the model answers with instant feedback.
-            </p>
-          </div>
-          <p className="shrink-0 text-[.68rem] font-black uppercase tracking-[.18em] text-[#6d28d9]">
-            {STM_TOTAL_QUESTIONS} questions · {STM_EXAM_GROUPS.length} windows
-          </p>
-        </div>
+function PracticeHub({
+  open,
+  onClose,
+  onOpenExam,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onOpenExam: (g: StmExamGroup) => void;
+}) {
+  const hubRef = useDialogA11y<HTMLDivElement>(open);
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-          {STM_EXAM_GROUPS.map((g) => {
-            const bank = STM_EXAM_BANKS[g];
-            return (
+  useEffect(() => {
+    if (!open) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose]);
+
+  return (
+    <AnimatePresence>
+      {open ? (
+        <motion.div
+          ref={hubRef}
+          tabIndex={-1}
+          key="practice-hub"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18 }}
+          className="fixed inset-0 z-[65] overflow-y-auto outline-none"
+          style={{
+            background: "rgba(18,10,30,.78)",
+            WebkitBackdropFilter: "blur(12px) saturate(140%)",
+            backdropFilter: "blur(12px) saturate(140%)",
+          }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Test my knowledge — pen-paper practice"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) onClose();
+          }}
+        >
+          <div
+            className="mx-auto my-6 w-[min(66rem,calc(100vw-1.5rem))] overflow-hidden rounded-3xl border border-white/10 sm:my-10"
+            style={{
+              background: PLUM,
+              boxShadow: "0 48px 140px -32px rgba(0,0,0,.65)",
+            }}
+          >
+            {/* header */}
+            <div className="flex items-start justify-between gap-4 px-6 pt-6 sm:px-8">
+              <div>
+                <p className="flex items-center gap-2 text-[.6rem] font-extrabold uppercase tracking-[.24em] text-[#c0aef0]">
+                  <span className="h-px w-5" style={{ background: `linear-gradient(90deg,${VIOLET_BRIGHT},transparent)` }} />
+                  Pen-paper practice
+                </p>
+                <h2 className="mt-1.5 text-2xl font-black tracking-tight text-[#f1eafd] sm:text-3xl">Test my knowledge</h2>
+                <p className="mt-2 max-w-2xl text-[.88rem] leading-relaxed text-[#d4c6ee]">
+                  Every chapter group opens its own exam window: pick the scale, compute the statistic,
+                  name the distribution — write on real paper first, then mark yourself against the model
+                  answers with instant checking.
+                </p>
+                <p className="mt-2 text-[.64rem] font-black uppercase tracking-[.18em] text-[#a294c8]">
+                  {STM_TOTAL_QUESTIONS} questions · {STM_EXAM_GROUPS.length} windows
+                </p>
+              </div>
               <button
-                key={g}
                 type="button"
-                onClick={() => onOpenExam(g)}
-                className="card-warm lift group flex flex-col items-start p-5 text-left"
-                aria-label={`Test my knowledge — ${bank.title}`}
+                onClick={onClose}
+                aria-label="Close the practice hub"
+                className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#f1eafd] transition-colors hover:bg-white/20"
               >
-                <span
-                  className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md"
-                  style={{ background: "linear-gradient(135deg,#8b5cf6,#6d28d9)" }}
-                >
-                  <PenLine className="h-4 w-4" />
-                </span>
-                <span className="mt-3 text-[.95rem] font-extrabold leading-tight text-[#3e2c1d]">{bank.title}</span>
-                <span className="mt-1 text-[.74rem] leading-snug text-muted-warm">{bank.topics}</span>
-                <span className="mt-3 text-[.64rem] font-black uppercase tracking-[.16em] text-[#6d28d9]">
-                  Test my knowledge · {bank.questions.length} Qs →
-                </span>
+                <X className="h-4.5 w-4.5" />
               </button>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+            </div>
+
+            {/* the five exam windows */}
+            <div className="grid gap-3 px-6 pb-7 pt-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
+              {STM_EXAM_GROUPS.map((g) => {
+                const bank = STM_EXAM_BANKS[g];
+                return (
+                  <button
+                    key={g}
+                    type="button"
+                    onClick={() => onOpenExam(g)}
+                    className="group flex flex-col items-start rounded-2xl border border-white/10 bg-white/[.05] p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[.09]"
+                    aria-label={`Open the exam window — ${bank.title}`}
+                  >
+                    <span
+                      className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md"
+                      style={{ background: `linear-gradient(135deg,${VIOLET_BRIGHT},${VIOLET})` }}
+                    >
+                      <PenLine className="h-4 w-4" />
+                    </span>
+                    <span className="mt-3 text-[.98rem] font-extrabold leading-tight text-[#d6c6fa]">{bank.title}</span>
+                    <span className="mt-1 text-[.76rem] leading-snug text-[#d4c6ee]">{bank.topics}</span>
+                    <span className="mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#a294c8] transition-colors group-hover:text-[#d6c6fa]">
+                      Test my knowledge · {bank.questions.length} Qs →
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
   );
 }
 
 /* ============================================================
-   StmFooter — adapted from the FoC/ATB/FA/EBH signature footer,
-   in shelf 05's violet.
+   StmLectureHead — the "Statistics for Managers Lecture N"
+   hero band. Every lecture opens with its number spoken aloud,
+   exactly as the reader asked.
    ============================================================ */
-const STM_SIG_CHIPS = [
-  { icon: BookOpen, label: `${FLAT_ITEMS.length} chapters` },
-  { icon: ListChecks, label: `${STM_TOTAL_QUESTIONS} practice questions` },
-  { icon: GraduationCap, label: `${STM_EXAM_GROUPS.length} pen-paper windows` },
-  { icon: MousePointerClick, label: "machines you can poke" },
-];
+function StmLectureHead({ lecture }: { lecture: StmLecture }) {
+  return (
+    <div className="mx-auto max-w-6xl px-4 pt-12 sm:px-6">
+      <div
+        className="relative overflow-hidden rounded-3xl p-7 sm:p-10"
+        style={{ background: PLUM, boxShadow: "0 30px 80px -30px rgba(30,16,51,.55)" }}
+      >
+        {/* ambient rings */}
+        <svg aria-hidden viewBox="0 0 600 200" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full opacity-40">
+          {[70, 120, 170].map((r, i) => (
+            <motion.circle
+              key={r} cx={540} cy={100} r={r} fill="none" stroke={i === 2 ? GOLD_LITE : VIOLET_BRIGHT} strokeWidth={1.4}
+              style={{ transformBox: "fill-box", transformOrigin: "center" }}
+              animate={{ opacity: [0.12, 0.4, 0.12], scale: [1, 1.05, 1] }}
+              transition={{ duration: 4.5, repeat: Infinity, delay: i * 0.8 }}
+            />
+          ))}
+        </svg>
 
+        <div className="relative">
+          <p className="flex flex-wrap items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.26em] text-[#c0aef0]">
+            <Sigma className="h-3.5 w-3.5" style={{ color: VIOLET_BRIGHT }} />
+            Statistics for Managers · Lecture {lecture.n} of 16
+          </p>
+          <h2 className="mt-3 text-3xl font-black leading-tight text-[#f1eafd] sm:text-5xl">
+            Statistics for Managers{" "}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{ backgroundImage: `linear-gradient(120deg,${GOLD_LITE},${GOLD})` }}
+            >
+              Lecture {lecture.n}
+            </span>
+          </h2>
+          <p className="mt-3 max-w-3xl text-lg font-bold leading-snug text-[#d6c6fa]">{lecture.title}</p>
+          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#cfc2ea]">{lecture.blurb}</p>
+          {lecture.chapters.length > 0 ? (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {lecture.chapters.map((c) => (
+                <a
+                  key={c.id}
+                  href={`#${c.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById(c.id);
+                    if (el) jumpTo(el);
+                  }}
+                  className="rounded-full border border-white/15 bg-white/[.07] px-3 py-1.5 text-[.68rem] font-extrabold text-[#e4dbf7] transition-colors hover:border-[#8b5cf6]/40 hover:bg-white/[.12] hover:text-[#d6c6fa]"
+                >
+                  {c.label} ↓
+                </a>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   LecturePager — prev/next lecture cards closing every lecture.
+   ============================================================ */
+function LecturePager({ current, onJump }: { current: StmLecture; onJump: (id: string) => void }) {
+  const idx = STM_LECTURES.findIndex((l) => l.id === current.id);
+  const prev = idx > 0 ? STM_LECTURES[idx - 1] : null;
+  const next = idx < STM_LECTURES.length - 1 ? STM_LECTURES[idx + 1] : null;
+
+  return (
+    <nav aria-label="Lecture sequence" className="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6">
+      <div className="grid gap-3 sm:grid-cols-2">
+        {prev ? (
+          <button
+            type="button"
+            onClick={() => onJump(prev.id)}
+            className="card-warm lift group flex min-w-0 items-center gap-3 p-4 text-left"
+            aria-label={`Previous: ${prev.code} — ${prev.title}`}
+          >
+            <ArrowLeft className="h-4 w-4 shrink-0 text-[#6d28d9] transition-transform duration-200 group-hover:-translate-x-1" />
+            <span className="min-w-0">
+              <span className="block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#ca8a04]">
+                Previous · {prev.code}
+              </span>
+              <span className="mt-0.5 block truncate text-[.92rem] font-extrabold text-[#2b1d42]">{prev.title}</span>
+            </span>
+          </button>
+        ) : (
+          <span aria-hidden className="hidden sm:block" />
+        )}
+        {next ? (
+          <button
+            type="button"
+            onClick={() => onJump(next.id)}
+            className="card-warm lift group flex min-w-0 items-center justify-end gap-3 p-4 text-right"
+            aria-label={`Next: ${next.code} — ${next.title}`}
+          >
+            <span className="min-w-0">
+              <span className="block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#ca8a04]">
+                Next · {next.code}
+              </span>
+              <span className="mt-0.5 block truncate text-[.92rem] font-extrabold text-[#2b1d42]">{next.title}</span>
+            </span>
+            <ArrowRight className="h-4 w-4 shrink-0 text-[#6d28d9] transition-transform duration-200 group-hover:translate-x-1" />
+          </button>
+        ) : (
+          <span className="rounded-2xl border border-dashed border-[#e6e0f2] p-4 text-center text-[.78rem] font-bold leading-snug text-[#8f7fa5]">
+            End of the sequence — Lecture 16 closes the course. Revise the workhorses, then retake the windows.
+          </span>
+        )}
+      </div>
+    </nav>
+  );
+}
+
+/* ============================================================
+   StmFooter — the atlas signature, retold for shelf 05.
+   The name and nothing else.
+   ============================================================ */
 export function StmFooter() {
   return (
     <footer className="footer-stick relative overflow-hidden">
@@ -595,7 +844,7 @@ export function StmFooter() {
 
       <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 py-8 text-center sm:py-10">
         <motion.p
-          className="sig-eyebrow text-[.58rem] font-semibold uppercase text-[#a1876a]"
+          className="sig-eyebrow text-[.58rem] font-semibold uppercase text-[#8f7fa5]"
           aria-label="created by"
           initial={{ opacity: 0, letterSpacing: "1.05em" }}
           whileInView={{ opacity: 1, letterSpacing: "0.55em" }}
@@ -636,146 +885,120 @@ export function StmFooter() {
             transition={{ duration: 1.4, ease: "easeInOut", delay: 0.75 }}
           />
         </svg>
-
-        {/* the project — a two-line epitaph about what this page is */}
-        <motion.p
-          className="sig-blurb mt-5"
-          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 1.0 }}
-        >
-          <b>Statistics for Managers</b> — every chapter of the course, distilled into one warm,
-          living page you can read, scrub and compute with.
-          <span className="mt-1 block">
-            Written for the late-night revision, the last-minute panic, and the quiet joy of a
-            number that finally makes sense.
-          </span>
-        </motion.p>
-
-        {/* the course — instructor credit, quiet but explicit */}
-        <motion.p
-          className="mt-3 text-[.78rem] font-semibold text-[#6f5438]"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.0, ease: "easeOut", delay: 1.25 }}
-        >
-          Course: Statistics for Managers (MSL1070) — Dr. Deepak Srivastav · IIT Jodhpur
-        </motion.p>
-
-        {/* what's inside — a row of calm stat pills */}
-        <div
-          role="list"
-          aria-label="What this project contains"
-          className="mt-4 flex flex-wrap items-center justify-center gap-2"
-        >
-          {STM_SIG_CHIPS.map((chip, i) => (
-            <motion.span
-              key={chip.label}
-              role="listitem"
-              className="sig-chip"
-              initial={{ opacity: 0, y: 10, scale: 0.92 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.6,
-                ease: [0.22, 1, 0.36, 1],
-                delay: 1.2 + i * 0.1,
-              }}
-            >
-              <chip.icon className="h-3 w-3" strokeWidth={2.2} />
-              {chip.label}
-            </motion.span>
-          ))}
-        </div>
-
-        {/* colophon — what it's built with, in tiny type */}
-        <motion.p
-          className="sig-colo mt-5"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.1, ease: "easeOut", delay: 1.7 }}
-        >
-          shelf 05 · the atlas — crafted with next.js · react · tailwind — mmxxvi
-        </motion.p>
       </div>
     </footer>
   );
 }
 
 /* ============================================================
-   StmApp — the composed subject page.
+   StmApp — the composed subject page: a lecture reader.
    ============================================================ */
 export function StmApp({ onExitAtlas }: { onExitAtlas: () => void }) {
-  useOpenSection("stm");
-
+  const [lectureId, setLectureId] = useState<string>(STM_DEFAULT_LECTURE);
   const [examGroup, setExamGroup] = useState<StmExamGroup | null>(null);
-  const openExam = (g: StmExamGroup) => setExamGroup(g);
+  const [hubOpen, setHubOpen] = useState(false);
+  const lectureIdRef = useRef(lectureId);
+  useEffect(() => {
+    lectureIdRef.current = lectureId;
+  }, [lectureId]);
+
+  const lecture = lectureById(lectureId) ?? STM_LECTURES[0];
+  const seen = useSeenDisplay(lecture);
+
+  const selectLecture = useCallback((id: string) => {
+    setLectureId(id);
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        const el = document.getElementById("notes-top");
+        if (!el) return;
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      })
+    );
+  }, []);
+
+  const goToChapter = useCallback((chapterId: string) => {
+    const target = lectureOfChapter(chapterId);
+    if (!target) return;
+    const scrollWhenReady = () => {
+      let frames = 0;
+      const tick = () => {
+        const el = document.getElementById(chapterId);
+        if (el) {
+          jumpTo(el);
+          return;
+        }
+        if (++frames < 240) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    if (lectureIdRef.current === target.id) {
+      scrollWhenReady();
+      return;
+    }
+    setLectureId(target.id);
+    requestAnimationFrame(() => requestAnimationFrame(scrollWhenReady));
+  }, []);
+
+  useOpenSection("stm", goToChapter);
+
+  const openExam = useCallback((g: StmExamGroup) => setExamGroup(g), []);
+  const openHub = useCallback(() => setHubOpen(true), []);
 
   return (
     // id="top" — the brand chip links to #top; without a real element here the
     // client-side router swallows the fragment and the page never scrolls back
     <div id="top" className="page-wrap warm-canvas stm-app">
-      <TopNav onOpenExam={openExam} onExitAtlas={onExitAtlas} />
+      <TopNav onOpenExam={openExam} onExitAtlas={onExitAtlas} onJumpChapter={goToChapter} seen={seen} />
       <main className="pt-14">
         <PartBoundary label="Hero">
-          <StmHero  />
+          <StmHero
+            activeId={lectureId}
+            onSelect={selectLecture}
+            onPractice={openHub}
+            seen={seen}
+            totalQuestions={STM_TOTAL_QUESTIONS}
+          />
         </PartBoundary>
-        <PartBoundary label="PracticeBand">
-          <PracticeBand onOpenExam={openExam}  />
-        </PartBoundary>
-        <PartBoundary label="Lens">
-          <StmLensSection  />
-        </PartBoundary>
-        <PartBoundary label="Scales">
-          <StmScalesSection  />
-        </PartBoundary>
-        <PartBoundary label="Sources">
-          <StmSourcesSection  />
-        </PartBoundary>
-        <PartBoundary label="Categorical">
-          <StmCategoricalSection  />
-        </PartBoundary>
-        <PartBoundary label="Quantitative">
-          <StmQuantitativeSection  />
-        </PartBoundary>
-        <PartBoundary label="TwoVars">
-          <StmTwoVarsSection  />
-        </PartBoundary>
-        <PartBoundary label="Location">
-          <StmLocationSection  />
-        </PartBoundary>
-        <PartBoundary label="Variability">
-          <StmVariabilitySection  />
-        </PartBoundary>
-        <PartBoundary label="Association">
-          <StmAssociationSection  />
-        </PartBoundary>
-        <PartBoundary label="ProbBasics">
-          <StmProbBasicsSection  />
-        </PartBoundary>
-        <PartBoundary label="ProbLaws">
-          <StmProbLawsSection  />
-        </PartBoundary>
-        <PartBoundary label="Bayes">
-          <StmBayesSection  />
-        </PartBoundary>
-        <PartBoundary label="Discrete">
-          <StmDiscreteSection  />
-        </PartBoundary>
-        <PartBoundary label="Binomial">
-          <StmBinomialSection  />
-        </PartBoundary>
-        <PartBoundary label="Continuous">
-          <StmContinuousSection  />
-        </PartBoundary>
-        <PartBoundary label="Sampling">
-          <StmSamplingSection  />
+
+        {/* the notes start here */}
+        <div id="notes-top" aria-hidden className="relative scroll-mt-16" />
+
+        <PartBoundary key={lecture.id} label={`Lecture ${lecture.code} — ${lecture.title}`}>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <StmLectureHead lecture={lecture} />
+            {lecture.chapters.length > 0 ? (
+              lecture.chapters.map((c) => (
+                <PartBoundary key={c.id} label={c.label}>
+                  {SECTION_COMPONENTS[c.id]}
+                </PartBoundary>
+              ))
+            ) : (
+              <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+                <div className="card-warm p-8 text-center">
+                  <span className="chip mx-auto">
+                    <BookOpen className="h-3.5 w-3.5" /> Slot reserved
+                  </span>
+                  <h2 className="mt-4 text-2xl font-extrabold text-[#2b1d42]">
+                    Lecture {lecture.n} hasn&rsquo;t been summarised yet
+                  </h2>
+                  <p className="mx-auto mt-3 max-w-md text-[.92rem] leading-relaxed text-[#6b5b7e]">
+                    This lecture&rsquo;s notes haven&rsquo;t been uploaded, so the shelf keeps the
+                    slot open. The moment its summary arrives, the chapters fill in right here.
+                  </p>
+                </div>
+              </div>
+            )}
+            <LecturePager current={lecture} onJump={selectLecture} />
+          </motion.div>
         </PartBoundary>
       </main>
       <StmFooter />
+      <PracticeHub open={hubOpen} onClose={() => setHubOpen(false)} onOpenExam={openExam} />
       {examGroup ? <StmExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
     </div>
   );

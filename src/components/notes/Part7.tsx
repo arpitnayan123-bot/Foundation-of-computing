@@ -11,13 +11,8 @@ import {
   CornerDownRight,
   Cog,
   RotateCcw,
-  BookOpen,
-  ListChecks,
-  GraduationCap,
-  FlaskConical,
 } from "lucide-react";
 import { Reveal, Section, SectionHead, Callout, Quiz, CodeBlock, Practice, Takeaways, StepsFlow, ReadStep } from "./ui";
-import { TOTAL_QUESTIONS, EXAM_GROUPS } from "./questions";
 
 /* The journey of input() — five stages from prompt to usable number. */
 function InputJourney() {
@@ -655,18 +650,9 @@ greet_user('arpit')`}
 
 /* ============================================================
    SIGNATURE FOOTER — premium minimal, sits directly on the page
-   cream (no panel, no fill): a quiet "created by Arpit Nayan"
-   with a soft Pinterest/Figma-grade entrance.
+   cream (no panel, no fill): a quiet "created by Arpit Nayan".
+   Nothing else — the user asked for the name and nothing more.
    ============================================================ */
-
-/* What this project is — shown as a quiet epitaph under the signature.
-   Question / window counts stay live from the question bank. */
-const SIG_CHIPS = [
-  { icon: BookOpen, label: "17 chapters" },
-  { icon: ListChecks, label: `${TOTAL_QUESTIONS} practice questions` },
-  { icon: GraduationCap, label: `${EXAM_GROUPS.length} exam windows` },
-  { icon: FlaskConical, label: "Live Python Lab" },
-];
 
 export function Footer() {
   return (
@@ -728,59 +714,6 @@ export function Footer() {
             transition={{ duration: 1.4, ease: "easeInOut", delay: 0.75 }}
           />
         </svg>
-
-        {/* the project — a two-line epitaph about what this page is */}
-        <motion.p
-          className="sig-blurb mt-5"
-          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 1.0 }}
-        >
-          <b>Foundations of Computing</b> — every concept of the course,
-          distilled into one warm, living page you can read, run and revise.
-          <span className="mt-1 block">
-            Written for the late-night revision, the last-minute panic, and the
-            quiet joy of code that finally runs.
-          </span>
-        </motion.p>
-
-        {/* what's inside — a row of calm stat pills */}
-        <div
-          role="list"
-          aria-label="What this project contains"
-          className="mt-4 flex flex-wrap items-center justify-center gap-2"
-        >
-          {SIG_CHIPS.map((chip, i) => (
-            <motion.span
-              key={chip.label}
-              role="listitem"
-              className="sig-chip"
-              initial={{ opacity: 0, y: 10, scale: 0.92 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.6,
-                ease: [0.22, 1, 0.36, 1],
-                delay: 1.2 + i * 0.1,
-              }}
-            >
-              <chip.icon className="h-3 w-3" strokeWidth={2.2} />
-              {chip.label}
-            </motion.span>
-          ))}
-        </div>
-
-        {/* colophon — what it's built with, in tiny type */}
-        <motion.p
-          className="sig-colo mt-5"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.1, ease: "easeOut", delay: 1.7 }}
-        >
-          crafted with next.js · react · tailwind · pyodide — mmxxvi
-        </motion.p>
       </div>
     </footer>
   );

@@ -17,14 +17,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$corner$2d$down$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CornerDownRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/corner-down-right.js [app-client] (ecmascript) <export default as CornerDownRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$cog$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Cog$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/cog.js [app-client] (ecmascript) <export default as Cog>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$rotate$2d$ccw$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__RotateCcw$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/rotate-ccw.js [app-client] (ecmascript) <export default as RotateCcw>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpen$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/book-open.js [app-client] (ecmascript) <export default as BookOpen>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2d$checks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ListChecks$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/list-checks.js [app-client] (ecmascript) <export default as ListChecks>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$graduation$2d$cap$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__GraduationCap$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/graduation-cap.js [app-client] (ecmascript) <export default as GraduationCap>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$flask$2d$conical$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FlaskConical$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/flask-conical.js [app-client] (ecmascript) <export default as FlaskConical>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/ui.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/questions.ts [app-client] (ecmascript)");
 "use client";
-;
 ;
 ;
 ;
@@ -78,17 +72,17 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2
                         fill: "#8a5a22"
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 36,
+                        lineNumber: 31,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 35,
+                    lineNumber: 30,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 34,
+                lineNumber: 29,
                 columnNumber: 7
             }, this),
             stages.map((s, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
@@ -105,7 +99,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2
                             strokeWidth: s.warn ? 2.5 : 1.5
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 41,
+                            lineNumber: 36,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -118,7 +112,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2
                             children: s.label
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 42,
+                            lineNumber: 37,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -132,7 +126,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2
                             children: s.code
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 43,
+                            lineNumber: 38,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -144,7 +138,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2
                             children: s.sub
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 44,
+                            lineNumber: 39,
                             columnNumber: 11
                         }, this),
                         i < stages.length - 1 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -155,13 +149,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2
                             markerEnd: "url(#ij-arr)"
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 46,
+                            lineNumber: 41,
                             columnNumber: 13
                         }, this) : null
                     ]
                 }, s.label, true, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 40,
+                    lineNumber: 35,
                     columnNumber: 9
                 }, this)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -174,7 +168,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2
                 stroke: "#f0c1b4"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 51,
+                lineNumber: 46,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -186,7 +180,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2
                 children: "THE classic trap"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 52,
+                lineNumber: 47,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -198,7 +192,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2
                 children: 'age = input("How old are you? ")   →   age >= 18   →   TypeError!'
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 53,
+                lineNumber: 48,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -209,13 +203,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2
                 children: "you can’t compare text with a number — wrap with int() the moment the value arrives: age = int(input(...))"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 54,
+                lineNumber: 49,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/notes/Part7.tsx",
-        lineNumber: 33,
+        lineNumber: 28,
         columnNumber: 5
     }, this);
 }
@@ -267,7 +261,7 @@ function ExitToolkit() {
                                 children: e.name
                             }, void 0, false, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 97,
+                                lineNumber: 92,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -275,13 +269,13 @@ function ExitToolkit() {
                                 children: e.tagline
                             }, void 0, false, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 98,
+                                lineNumber: 93,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 96,
+                        lineNumber: 91,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -295,7 +289,7 @@ function ExitToolkit() {
                                 children: e.code
                             }, void 0, false, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 101,
+                                lineNumber: 96,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -303,24 +297,24 @@ function ExitToolkit() {
                                 children: e.note
                             }, void 0, false, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 104,
+                                lineNumber: 99,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 100,
+                        lineNumber: 95,
                         columnNumber: 11
                     }, this)
                 ]
             }, e.name, true, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 95,
+                lineNumber: 90,
                 columnNumber: 9
             }, this))
     }, void 0, false, {
         fileName: "[project]/src/components/notes/Part7.tsx",
-        lineNumber: 93,
+        lineNumber: 88,
         columnNumber: 5
     }, this);
 }
@@ -345,17 +339,17 @@ _c1 = ExitToolkit;
                         fill: "#8a5a22"
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 118,
+                        lineNumber: 113,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 117,
+                    lineNumber: 112,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 116,
+                lineNumber: 111,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
@@ -370,12 +364,12 @@ _c1 = ExitToolkit;
                     strokeDasharray: "10 8"
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 123,
+                    lineNumber: 118,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 122,
+                lineNumber: 117,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -383,7 +377,7 @@ _c1 = ExitToolkit;
                 fill: "#c2410c"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 126,
+                lineNumber: 121,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -396,7 +390,7 @@ _c1 = ExitToolkit;
                 children: "condition"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 127,
+                lineNumber: 122,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -408,7 +402,7 @@ _c1 = ExitToolkit;
                 children: "True?"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 128,
+                lineNumber: 123,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -420,7 +414,7 @@ _c1 = ExitToolkit;
                 fill: "#d97706"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 130,
+                lineNumber: 125,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -433,7 +427,7 @@ _c1 = ExitToolkit;
                 children: "loop body"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 131,
+                lineNumber: 126,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -445,7 +439,7 @@ _c1 = ExitToolkit;
                 fill: "#be4a4a"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 133,
+                lineNumber: 128,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -458,7 +452,7 @@ _c1 = ExitToolkit;
                 children: "break → EXIT"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 134,
+                lineNumber: 129,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -469,7 +463,7 @@ _c1 = ExitToolkit;
                 markerEnd: "url(#ah3)"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 135,
+                lineNumber: 130,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -480,7 +474,7 @@ _c1 = ExitToolkit;
                 children: "False / break"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 136,
+                lineNumber: 131,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -492,7 +486,7 @@ _c1 = ExitToolkit;
                 fill: "#7c9a3e"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 138,
+                lineNumber: 133,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -505,7 +499,7 @@ _c1 = ExitToolkit;
                 children: "continue → skip"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 139,
+                lineNumber: 134,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -516,7 +510,7 @@ _c1 = ExitToolkit;
                 markerEnd: "url(#ah3)"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 140,
+                lineNumber: 135,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ellipse", {
@@ -527,7 +521,7 @@ _c1 = ExitToolkit;
                 fill: "#3e2c1d"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 142,
+                lineNumber: 137,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -540,7 +534,7 @@ _c1 = ExitToolkit;
                 children: "rest of code"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 143,
+                lineNumber: 138,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -551,13 +545,13 @@ _c1 = ExitToolkit;
                 markerEnd: "url(#ah3)"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 144,
+                lineNumber: 139,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/notes/Part7.tsx",
-        lineNumber: 115,
+        lineNumber: 110,
         columnNumber: 5
     }, this);
 }
@@ -576,7 +570,7 @@ function WhileSection() {
                             children: "while"
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 156,
+                            lineNumber: 151,
                             columnNumber: 26
                         }, void 0),
                         " loops — interactive programs"
@@ -585,7 +579,7 @@ function WhileSection() {
                 lead: "Until now your programs ran top to bottom and finished. input() makes them listen; while makes them persist. This chapter is one conversation: ask the user something, keep responding until they say stop. Four steps — follow the numbers."
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 152,
+                lineNumber: 147,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
@@ -599,7 +593,7 @@ function WhileSection() {
                                     children: "input()"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 166,
+                                    lineNumber: 161,
                                     columnNumber: 13
                                 }, this),
                                 " takes one argument — the ",
@@ -607,7 +601,7 @@ function WhileSection() {
                                     children: "prompt"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 166,
+                                    lineNumber: 161,
                                     columnNumber: 63
                                 }, this),
                                 " — prints it, then",
@@ -615,7 +609,7 @@ function WhileSection() {
                                     children: " freezes the whole program"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 167,
+                                    lineNumber: 162,
                                     columnNumber: 13
                                 }, this),
                                 " until the user presses Enter. Whatever they typed comes back ",
@@ -623,14 +617,14 @@ function WhileSection() {
                                     children: "as a string"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 168,
+                                    lineNumber: 163,
                                     columnNumber: 18
                                 }, this),
                                 ", and you store it in a variable. Follow the value on its journey — and watch the trap at the bottom of the diagram:"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 165,
+                            lineNumber: 160,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -641,12 +635,12 @@ function WhileSection() {
                             },
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(InputJourney, {}, void 0, false, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 172,
+                                lineNumber: 167,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 171,
+                            lineNumber: 166,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -664,7 +658,7 @@ name = input(prompt)`,
                                     output: "Please enter your name: Eric\n\nHello, Eric!"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 175,
+                                    lineNumber: 170,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CodeBlock"], {
@@ -688,24 +682,24 @@ print(4 % 3)   # 1  (odd/even check uses % 2)`,
                                     output: "How old are you? 21\nYou are old enough to vote!\nEnter a number: 40\n40 is a multiple of 10.\n1"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 186,
+                                    lineNumber: 181,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 174,
+                            lineNumber: 169,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 164,
+                    lineNumber: 159,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 163,
+                lineNumber: 158,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ReadStep"], {
@@ -714,7 +708,7 @@ print(4 % 3)   # 1  (odd/even check uses % 2)`,
                 sub: "A for loop counts items; a while loop keeps going as long as its condition stays True"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 211,
+                lineNumber: 206,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
@@ -729,7 +723,7 @@ print(4 % 3)   # 1  (odd/even check uses % 2)`,
                                     children: "while loop"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 215,
+                                    lineNumber: 210,
                                     columnNumber: 19
                                 }, this),
                                 " when you ",
@@ -737,14 +731,14 @@ print(4 % 3)   # 1  (odd/even check uses % 2)`,
                                     children: "don’t know in advance"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 215,
+                                    lineNumber: 210,
                                     columnNumber: 56
                                 }, this),
                                 " how many times to repeat — how many users will log in? how many toppings will they ask for? Python tests the condition, runs the body, tests again… The diagram is the whole story:"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 214,
+                            lineNumber: 209,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -755,12 +749,12 @@ print(4 % 3)   # 1  (odd/even check uses % 2)`,
                             },
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(WhileCycle, {}, void 0, false, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 220,
+                                lineNumber: 215,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 219,
+                            lineNumber: 214,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -776,7 +770,7 @@ while current_number <= 5:
                                     note: "Forget current_number += 1 and the condition stays True forever — an infinite loop. (In a terminal: Ctrl-C to stop; in Colab: interrupt the cell.)"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 223,
+                                    lineNumber: 218,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CodeBlock"], {
@@ -796,13 +790,13 @@ print("done — the condition finally failed")`,
                                     note: "Every correct while loop answers three questions: where does the variable start, what must stay True, and what changes it each pass? Miss the third and you loop forever."
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 232,
+                                    lineNumber: 227,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 222,
+                            lineNumber: 217,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Callout"], {
@@ -811,18 +805,18 @@ print("done — the condition finally failed")`,
                             children: "Every while loop needs something that can make its condition False: a counter that increments, a flag that flips, a break. If the loop never ends, trace the variable the condition depends on — is anything changing it?"
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 249,
+                            lineNumber: 244,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 213,
+                    lineNumber: 208,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 212,
+                lineNumber: 207,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ReadStep"], {
@@ -831,18 +825,18 @@ print("done — the condition finally failed")`,
                 sub: "Every while loop needs a guaranteed path to False. Pick one of these four and the infinite-loop gremlin stays away"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 258,
+                lineNumber: 253,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ExitToolkit, {}, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 260,
+                    lineNumber: 255,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 259,
+                lineNumber: 254,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
@@ -855,7 +849,7 @@ print("done — the condition finally failed")`,
                             children: "All four exits, side by side in runnable code — read them in order and the escalation makes sense: sentinel → flag → break, with continue as the “skip one” companion:"
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 265,
+                            lineNumber: 260,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -890,7 +884,7 @@ while True:
                                     note: "All three produce the same conversation — the difference is WHO decides to stop: the while test itself, a variable you flip, or an emergency exit. Pick whichever reads clearest."
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 271,
+                                    lineNumber: 266,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CodeBlock"], {
@@ -905,24 +899,24 @@ while current < 10:
                                     note: "continue never exits — it only abandons the rest of THIS pass and jumps back to the test. break exits; continue skips. That pair is all you need to remember."
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 299,
+                                    lineNumber: 294,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 270,
+                            lineNumber: 265,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 264,
+                    lineNumber: 259,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 263,
+                lineNumber: 258,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ReadStep"], {
@@ -931,7 +925,7 @@ while current < 10:
                 sub: "Drain a list, purge an item, collect responses — the patterns behind every to-do and survey app"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 315,
+                lineNumber: 310,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
@@ -962,7 +956,7 @@ for s in finished_sandwiches:
                                 note: "Two idioms to memorize: while x in list: list.remove(x) purges every occurrence; while list: pop() drains it."
                             }, void 0, false, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 319,
+                                lineNumber: 314,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CodeBlock"], {
@@ -986,23 +980,23 @@ for name, mountain in responses.items():
                                 note: "A while loop + a dictionary = a program that collects data until you tell it to stop. This tiny pattern is the seed of every survey app."
                             }, void 0, false, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 340,
+                                lineNumber: 335,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 318,
+                        lineNumber: 313,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 317,
+                    lineNumber: 312,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 316,
+                lineNumber: 311,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1022,12 +1016,12 @@ for name, mountain in responses.items():
                             explain: "break abandons the loop and moves to the code after it; continue abandons only the current iteration and returns to the while test."
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 366,
+                            lineNumber: 361,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 365,
+                        lineNumber: 360,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
@@ -1045,18 +1039,18 @@ for name, mountain in responses.items():
                             explain: "input() always returns a string ('21', not 21). Wrap with int() to convert before numerical comparison — and remember the modulo % for remainder tests like multiples of 10."
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 380,
+                            lineNumber: 375,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 379,
+                        lineNumber: 374,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 364,
+                lineNumber: 359,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
@@ -1118,12 +1112,12 @@ for name, mountain in responses.items():
                     ]
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 396,
+                    lineNumber: 391,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 395,
+                lineNumber: 390,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
@@ -1136,7 +1130,7 @@ for name, mountain in responses.items():
                                     children: "input() shows a prompt and returns a string"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 416,
+                                    lineNumber: 411,
                                     columnNumber: 15
                                 }, void 0),
                                 "; convert with ",
@@ -1144,7 +1138,7 @@ for name, mountain in responses.items():
                                     children: "int()"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 416,
+                                    lineNumber: 411,
                                     columnNumber: 90
                                 }, void 0),
                                 " for math; ",
@@ -1152,7 +1146,7 @@ for name, mountain in responses.items():
                                     children: "% modulo"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 416,
+                                    lineNumber: 411,
                                     columnNumber: 123
                                 }, void 0),
                                 " gives remainders."
@@ -1164,7 +1158,7 @@ for name, mountain in responses.items():
                                     children: "while condition:"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 417,
+                                    lineNumber: 412,
                                     columnNumber: 15
                                 }, void 0),
                                 " repeats while True — the counter, flag or break must guarantee eventual False, or you have an infinite loop."
@@ -1177,7 +1171,7 @@ for name, mountain in responses.items():
                                     children: "sentinel value"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 418,
+                                    lineNumber: 413,
                                     columnNumber: 29
                                 }, void 0),
                                 " (‘quit’) · ",
@@ -1185,7 +1179,7 @@ for name, mountain in responses.items():
                                     children: "active flag"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 418,
+                                    lineNumber: 413,
                                     columnNumber: 72
                                 }, void 0),
                                 " · ",
@@ -1193,7 +1187,7 @@ for name, mountain in responses.items():
                                     children: "break"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 418,
+                                    lineNumber: 413,
                                     columnNumber: 103
                                 }, void 0),
                                 "; skip with ",
@@ -1201,7 +1195,7 @@ for name, mountain in responses.items():
                                     children: "continue"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 418,
+                                    lineNumber: 413,
                                     columnNumber: 137
                                 }, void 0),
                                 "."
@@ -1214,7 +1208,7 @@ for name, mountain in responses.items():
                                     children: "while x in list: remove(x)"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 419,
+                                    lineNumber: 414,
                                     columnNumber: 22
                                 }, void 0),
                                 " purges all copies; ",
@@ -1222,7 +1216,7 @@ for name, mountain in responses.items():
                                     children: "while list: pop()"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 419,
+                                    lineNumber: 414,
                                     columnNumber: 85
                                 }, void 0),
                                 " transfers items. Dictionaries: collect responses while a flag is active, then report with .items()."
@@ -1231,18 +1225,18 @@ for name, mountain in responses.items():
                     ]
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 414,
+                    lineNumber: 409,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 413,
+                lineNumber: 408,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/notes/Part7.tsx",
-        lineNumber: 151,
+        lineNumber: 146,
         columnNumber: 5
     }, this);
 }
@@ -1270,17 +1264,17 @@ _c3 = WhileSection;
                         fill: "#8a5a22"
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 438,
+                        lineNumber: 433,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 437,
+                    lineNumber: 432,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 436,
+                lineNumber: 431,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1293,7 +1287,7 @@ _c3 = WhileSection;
                 children: "ARGUMENTS GO IN"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 443,
+                lineNumber: 438,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -1307,7 +1301,7 @@ _c3 = WhileSection;
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 444,
+                lineNumber: 439,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1321,7 +1315,7 @@ _c3 = WhileSection;
                 children: "greet_user('jesse')"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 445,
+                lineNumber: 440,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -1335,7 +1329,7 @@ _c3 = WhileSection;
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 446,
+                lineNumber: 441,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1349,7 +1343,7 @@ _c3 = WhileSection;
                 children: "greet_user('arpit')"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 447,
+                lineNumber: 442,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1360,7 +1354,7 @@ _c3 = WhileSection;
                 markerEnd: "url(#fm-arr)"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 448,
+                lineNumber: 443,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1371,7 +1365,7 @@ _c3 = WhileSection;
                 markerEnd: "url(#fm-arr)"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 449,
+                lineNumber: 444,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1384,7 +1378,7 @@ _c3 = WhileSection;
                 children: "DEFINED ONCE — WITH def"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 452,
+                lineNumber: 447,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -1396,7 +1390,7 @@ _c3 = WhileSection;
                 fill: "#c2410c"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 453,
+                lineNumber: 448,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1409,7 +1403,7 @@ _c3 = WhileSection;
                 children: "greet_user"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 454,
+                lineNumber: 449,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -1421,7 +1415,7 @@ _c3 = WhileSection;
                 fill: "#2b1b10"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 455,
+                lineNumber: 450,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1433,7 +1427,7 @@ _c3 = WhileSection;
                 children: '"""say hello"""'
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 456,
+                lineNumber: 451,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1445,7 +1439,7 @@ _c3 = WhileSection;
                 children: 'print(f"Hello,'
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 457,
+                lineNumber: 452,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1461,7 +1455,7 @@ _c3 = WhileSection;
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 458,
+                lineNumber: 453,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1471,7 +1465,7 @@ _c3 = WhileSection;
                 fill: "none"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 459,
+                lineNumber: 454,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1483,7 +1477,7 @@ _c3 = WhileSection;
                 children: "called whenever you need it — a body that only runs on demand"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 460,
+                lineNumber: 455,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1494,7 +1488,7 @@ _c3 = WhileSection;
                 markerEnd: "url(#fm-arr)"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 463,
+                lineNumber: 458,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1507,7 +1501,7 @@ _c3 = WhileSection;
                 children: "THE JOB GETS DONE"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 464,
+                lineNumber: 459,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -1519,7 +1513,7 @@ _c3 = WhileSection;
                 fill: "#3e2c1d"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 465,
+                lineNumber: 460,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1533,7 +1527,7 @@ _c3 = WhileSection;
                 children: "Hello, Jesse!"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 466,
+                lineNumber: 461,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -1545,7 +1539,7 @@ _c3 = WhileSection;
                 fill: "#3e2c1d"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 467,
+                lineNumber: 462,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1559,7 +1553,7 @@ _c3 = WhileSection;
                 children: "Hello, Arpit!"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 468,
+                lineNumber: 463,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -1569,7 +1563,7 @@ _c3 = WhileSection;
                 height: "0"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 471,
+                lineNumber: 466,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1581,7 +1575,7 @@ _c3 = WhileSection;
                 children: "same machine"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 472,
+                lineNumber: 467,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1593,7 +1587,7 @@ _c3 = WhileSection;
                 children: "different input → different result"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 473,
+                lineNumber: 468,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1605,7 +1599,7 @@ _c3 = WhileSection;
                 children: "write the steps once,"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 474,
+                lineNumber: 469,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1617,13 +1611,13 @@ _c3 = WhileSection;
                 children: "summon them by name forever"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 475,
+                lineNumber: 470,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/notes/Part7.tsx",
-        lineNumber: 435,
+        lineNumber: 430,
         columnNumber: 5
     }, this);
 }
@@ -1645,7 +1639,7 @@ _c4 = FunctionMachine;
                 fill: "#2b1b10"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 486,
+                lineNumber: 481,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -1655,7 +1649,7 @@ _c4 = FunctionMachine;
                 fill: "#be4a4a"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 487,
+                lineNumber: 482,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -1665,7 +1659,7 @@ _c4 = FunctionMachine;
                 fill: "#d97706"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 488,
+                lineNumber: 483,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -1675,7 +1669,7 @@ _c4 = FunctionMachine;
                 fill: "#7c9a3e"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 489,
+                lineNumber: 484,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1690,7 +1684,7 @@ _c4 = FunctionMachine;
                         children: "def"
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 492,
+                        lineNumber: 487,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tspan", {
@@ -1698,7 +1692,7 @@ _c4 = FunctionMachine;
                         children: " greet_user"
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 493,
+                        lineNumber: 488,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tspan", {
@@ -1706,7 +1700,7 @@ _c4 = FunctionMachine;
                         children: "("
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 494,
+                        lineNumber: 489,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tspan", {
@@ -1715,7 +1709,7 @@ _c4 = FunctionMachine;
                         children: "username"
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 495,
+                        lineNumber: 490,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tspan", {
@@ -1724,7 +1718,7 @@ _c4 = FunctionMachine;
                         children: ")"
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 496,
+                        lineNumber: 491,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tspan", {
@@ -1733,13 +1727,13 @@ _c4 = FunctionMachine;
                         children: ":"
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 497,
+                        lineNumber: 492,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 491,
+                lineNumber: 486,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1751,7 +1745,7 @@ _c4 = FunctionMachine;
                 children: '"""Display a simple greeting."""'
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 499,
+                lineNumber: 494,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1767,7 +1761,7 @@ _c4 = FunctionMachine;
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 500,
+                lineNumber: 495,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1782,7 +1776,7 @@ _c4 = FunctionMachine;
                         children: "greet_user"
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 502,
+                        lineNumber: 497,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tspan", {
@@ -1790,7 +1784,7 @@ _c4 = FunctionMachine;
                         children: "("
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 503,
+                        lineNumber: 498,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tspan", {
@@ -1799,7 +1793,7 @@ _c4 = FunctionMachine;
                         children: "'jesse'"
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 504,
+                        lineNumber: 499,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tspan", {
@@ -1807,13 +1801,13 @@ _c4 = FunctionMachine;
                         children: ")"
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 505,
+                        lineNumber: 500,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 501,
+                lineNumber: 496,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1825,7 +1819,7 @@ _c4 = FunctionMachine;
                 children: "# ← the call: Python finally runs the body"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 507,
+                lineNumber: 502,
                 columnNumber: 7
             }, this),
             [
@@ -1858,7 +1852,7 @@ _c4 = FunctionMachine;
                             fill: r.c
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 518,
+                            lineNumber: 513,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1869,13 +1863,13 @@ _c4 = FunctionMachine;
                             children: r.t
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 519,
+                            lineNumber: 514,
                             columnNumber: 11
                         }, this)
                     ]
                 }, r.t, true, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 517,
+                    lineNumber: 512,
                     columnNumber: 9
                 }, this)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -1885,7 +1879,7 @@ _c4 = FunctionMachine;
                 fill: "#e9d7bf"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 522,
+                lineNumber: 517,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -1895,7 +1889,7 @@ _c4 = FunctionMachine;
                 fill: "#f5c889"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 523,
+                lineNumber: 518,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1906,7 +1900,7 @@ _c4 = FunctionMachine;
                 children: "⑥ the call — name + (); 'jesse' lands in username"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 524,
+                lineNumber: 519,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -1919,7 +1913,7 @@ _c4 = FunctionMachine;
                 stroke: "#b9cc8f"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 527,
+                lineNumber: 522,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1931,7 +1925,7 @@ _c4 = FunctionMachine;
                 children: "the def line"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 528,
+                lineNumber: 523,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1942,7 +1936,7 @@ _c4 = FunctionMachine;
                 children: "Python REMEMBERS the recipe — nothing runs"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 529,
+                lineNumber: 524,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -1955,7 +1949,7 @@ _c4 = FunctionMachine;
                 stroke: "#f0c1b4"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 530,
+                lineNumber: 525,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1967,7 +1961,7 @@ _c4 = FunctionMachine;
                 children: "the call line"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 531,
+                lineNumber: 526,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("text", {
@@ -1978,13 +1972,13 @@ _c4 = FunctionMachine;
                 children: "Python finally RUNS the body — with 'jesse' inside"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 532,
+                lineNumber: 527,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/notes/Part7.tsx",
-        lineNumber: 484,
+        lineNumber: 479,
         columnNumber: 5
     }, this);
 }
@@ -2005,7 +1999,7 @@ function FunctionsSection() {
                                 children: "Functions"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 546,
+                                lineNumber: 541,
                                 columnNumber: 15
                             }, void 0),
                             " — named blocks that do one job"
@@ -2014,7 +2008,7 @@ function FunctionsSection() {
                     lead: "You have already felt the pain of repetition: the same greeting logic, the same printing pattern, again and again. A function lets you write a job ONCE, give it a name, and summon it by that name forever after. Three steps — the machine, the shape, the call — and it clicks."
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 541,
+                    lineNumber: 536,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
@@ -2029,7 +2023,7 @@ function FunctionsSection() {
                                         children: "a function is a machine with a name"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/notes/Part7.tsx",
-                                        lineNumber: 556,
+                                        lineNumber: 551,
                                         columnNumber: 39
                                     }, this),
                                     ". You feed it inputs (",
@@ -2037,7 +2031,7 @@ function FunctionsSection() {
                                         children: "arguments"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/notes/Part7.tsx",
-                                        lineNumber: 557,
+                                        lineNumber: 552,
                                         columnNumber: 26
                                     }, this),
                                     "), it does its job (the ",
@@ -2045,14 +2039,14 @@ function FunctionsSection() {
                                         children: "body"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/notes/Part7.tsx",
-                                        lineNumber: 557,
+                                        lineNumber: 552,
                                         columnNumber: 68
                                     }, this),
                                     "), and it hands a result back. Define the machine once — then call it a hundred times with different inputs:"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 555,
+                                lineNumber: 550,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2063,23 +2057,23 @@ function FunctionsSection() {
                                 },
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(FunctionMachine, {}, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 561,
+                                    lineNumber: 556,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 560,
+                                lineNumber: 555,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 554,
+                        lineNumber: 549,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 553,
+                    lineNumber: 548,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ReadStep"], {
@@ -2089,7 +2083,7 @@ function FunctionsSection() {
                     sub: "Two lines of vocabulary — def, parameter, docstring, call — carry the entire chapter"
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 567,
+                    lineNumber: 562,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
@@ -2101,17 +2095,17 @@ function FunctionsSection() {
                         },
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DefAnatomy, {}, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 570,
+                            lineNumber: 565,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 569,
+                        lineNumber: 564,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 568,
+                    lineNumber: 563,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
@@ -2129,12 +2123,12 @@ greet_user('arpit')`,
                         note: "def names the function · the string is a docstring describing what it does · parentheses pass information in."
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 575,
+                        lineNumber: 570,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 574,
+                    lineNumber: 569,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ReadStep"], {
@@ -2144,7 +2138,7 @@ greet_user('arpit')`,
                     sub: "Follow the jump: call → bind → run → return. This rhythm never changes, no matter how big the function"
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 590,
+                    lineNumber: 585,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
@@ -2160,7 +2154,7 @@ greet_user('arpit')`,
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 597,
+                                    lineNumber: 592,
                                     columnNumber: 23
                                 }, void 0)
                             },
@@ -2174,7 +2168,7 @@ greet_user('arpit')`,
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 602,
+                                    lineNumber: 597,
                                     columnNumber: 23
                                 }, void 0)
                             },
@@ -2188,7 +2182,7 @@ greet_user('arpit')`,
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 607,
+                                    lineNumber: 602,
                                     columnNumber: 23
                                 }, void 0)
                             },
@@ -2202,19 +2196,19 @@ greet_user('arpit')`,
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 612,
+                                    lineNumber: 607,
                                     columnNumber: 23
                                 }, void 0)
                             }
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 592,
+                        lineNumber: 587,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 591,
+                    lineNumber: 586,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2235,7 +2229,7 @@ greet_user('arpit')`,
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                                lineNumber: 622,
+                                                lineNumber: 617,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2243,13 +2237,13 @@ greet_user('arpit')`,
                                                 children: "Why functions matter"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                                lineNumber: 623,
+                                                lineNumber: 618,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/notes/Part7.tsx",
-                                        lineNumber: 621,
+                                        lineNumber: 616,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -2262,7 +2256,7 @@ greet_user('arpit')`,
                                                         children: "small parts"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/notes/Part7.tsx",
-                                                        lineNumber: 626,
+                                                        lineNumber: 621,
                                                         columnNumber: 48
                                                     }, this),
                                                     ", each doing ",
@@ -2270,13 +2264,13 @@ greet_user('arpit')`,
                                                         children: "one specific job"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/notes/Part7.tsx",
-                                                        lineNumber: 626,
+                                                        lineNumber: 621,
                                                         columnNumber: 89
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                                lineNumber: 626,
+                                                lineNumber: 621,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -2286,14 +2280,14 @@ greet_user('arpit')`,
                                                         children: "call a function as many times as you want"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/notes/Part7.tsx",
-                                                        lineNumber: 627,
+                                                        lineNumber: 622,
                                                         columnNumber: 31
                                                     }, this),
                                                     ", and store functions in separate files"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                                lineNumber: 627,
+                                                lineNumber: 622,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -2303,31 +2297,31 @@ greet_user('arpit')`,
                                                         children: "more efficient code"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/notes/Part7.tsx",
-                                                        lineNumber: 628,
+                                                        lineNumber: 623,
                                                         columnNumber: 35
                                                     }, this),
                                                     " that is easier to troubleshoot and maintain — and reusable across many different programs"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                                lineNumber: 628,
+                                                lineNumber: 623,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/notes/Part7.tsx",
-                                        lineNumber: 625,
+                                        lineNumber: 620,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 620,
+                                lineNumber: 615,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 619,
+                            lineNumber: 614,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2345,19 +2339,19 @@ greet_user('arpit')`,
                                                 children: "algorithm with a name"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                                lineNumber: 635,
+                                                lineNumber: 630,
                                                 columnNumber: 34
                                             }, this),
                                             " — it has input (parameters), defined steps (the body) and output (return values). All five properties still apply. You’ve been training for this since the flowchart."
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/notes/Part7.tsx",
-                                        lineNumber: 634,
+                                        lineNumber: 629,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 633,
+                                    lineNumber: 628,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Reveal"], {
@@ -2372,7 +2366,7 @@ greet_user('arpit')`,
                                                 children: " arguments & return values"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                                lineNumber: 644,
+                                                lineNumber: 639,
                                                 columnNumber: 17
                                             }, this),
                                             " (positional vs keyword, defaults, what return really does), then ",
@@ -2380,65 +2374,42 @@ greet_user('arpit')`,
                                                 children: "functions at scale"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                                lineNumber: 645,
+                                                lineNumber: 640,
                                                 columnNumber: 48
                                             }, this),
                                             " (passing lists, *args/**kwargs, modules). Master the machine here and they’ll feel easy."
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/notes/Part7.tsx",
-                                        lineNumber: 642,
+                                        lineNumber: 637,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 641,
+                                    lineNumber: 636,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 632,
+                            lineNumber: 627,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/notes/Part7.tsx",
-                    lineNumber: 618,
+                    lineNumber: 613,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/notes/Part7.tsx",
-            lineNumber: 540,
+            lineNumber: 535,
             columnNumber: 7
         }, this)
     }, void 0, false);
 }
 _c6 = FunctionsSection;
-/* ============================================================
-   SIGNATURE FOOTER — premium minimal, sits directly on the page
-   cream (no panel, no fill): a quiet "created by Arpit Nayan"
-   with a soft Pinterest/Figma-grade entrance.
-   ============================================================ */ /* What this project is — shown as a quiet epitaph under the signature.
-   Question / window counts stay live from the question bank. */ const SIG_CHIPS = [
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpen$3e$__["BookOpen"],
-        label: "17 chapters"
-    },
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2d$checks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ListChecks$3e$__["ListChecks"],
-        label: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TOTAL_QUESTIONS"]} practice questions`
-    },
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$graduation$2d$cap$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__GraduationCap$3e$__["GraduationCap"],
-        label: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["EXAM_GROUPS"].length} exam windows`
-    },
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$flask$2d$conical$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FlaskConical$3e$__["FlaskConical"],
-        label: "Live Python Lab"
-    }
-];
 function Footer() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
         className: "footer-stick relative overflow-hidden",
@@ -2471,7 +2442,7 @@ function Footer() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 675,
+                lineNumber: 661,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2479,7 +2450,7 @@ function Footer() {
                 className: "sig-glow"
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 686,
+                lineNumber: 672,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2512,7 +2483,7 @@ function Footer() {
                         children: "created by"
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 689,
+                        lineNumber: 675,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].h2, {
@@ -2546,12 +2517,12 @@ function Footer() {
                             children: "Arpit Nayan"
                         }, void 0, false, {
                             fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 708,
+                            lineNumber: 694,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 700,
+                        lineNumber: 686,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -2574,7 +2545,7 @@ function Footer() {
                                             stopOpacity: "0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/notes/Part7.tsx",
-                                            lineNumber: 715,
+                                            lineNumber: 701,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
@@ -2582,7 +2553,7 @@ function Footer() {
                                             stopColor: "#c98a3e"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/notes/Part7.tsx",
-                                            lineNumber: 716,
+                                            lineNumber: 702,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
@@ -2591,18 +2562,18 @@ function Footer() {
                                             stopOpacity: "0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/notes/Part7.tsx",
-                                            lineNumber: 717,
+                                            lineNumber: 703,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 714,
+                                    lineNumber: 700,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 713,
+                                lineNumber: 699,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].path, {
@@ -2628,146 +2599,25 @@ function Footer() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 720,
+                                lineNumber: 706,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 712,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-blurb mt-5",
-                        initial: {
-                            opacity: 0,
-                            y: 12,
-                            filter: "blur(6px)"
-                        },
-                        whileInView: {
-                            opacity: 1,
-                            y: 0,
-                            filter: "blur(0px)"
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 0.9,
-                            ease: [
-                                0.22,
-                                1,
-                                0.36,
-                                1
-                            ],
-                            delay: 1.0
-                        },
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("b", {
-                                children: "Foundations of Computing"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 740,
-                                columnNumber: 11
-                            }, this),
-                            " — every concept of the course, distilled into one warm, living page you can read, run and revise.",
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "mt-1 block",
-                                children: "Written for the late-night revision, the last-minute panic, and the quiet joy of code that finally runs."
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 742,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 733,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        role: "list",
-                        "aria-label": "What this project contains",
-                        className: "mt-4 flex flex-wrap items-center justify-center gap-2",
-                        children: SIG_CHIPS.map((chip, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].span, {
-                                role: "listitem",
-                                className: "sig-chip",
-                                initial: {
-                                    opacity: 0,
-                                    y: 10,
-                                    scale: 0.92
-                                },
-                                whileInView: {
-                                    opacity: 1,
-                                    y: 0,
-                                    scale: 1
-                                },
-                                viewport: {
-                                    once: true
-                                },
-                                transition: {
-                                    duration: 0.6,
-                                    ease: [
-                                        0.22,
-                                        1,
-                                        0.36,
-                                        1
-                                    ],
-                                    delay: 1.2 + i * 0.1
-                                },
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(chip.icon, {
-                                        className: "h-3 w-3",
-                                        strokeWidth: 2.2
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/notes/Part7.tsx",
-                                        lineNumber: 768,
-                                        columnNumber: 15
-                                    }, this),
-                                    chip.label
-                                ]
-                            }, chip.label, true, {
-                                fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 755,
-                                columnNumber: 13
-                            }, this))
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 749,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-colo mt-5",
-                        initial: {
-                            opacity: 0
-                        },
-                        whileInView: {
-                            opacity: 1
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 1.1,
-                            ease: "easeOut",
-                            delay: 1.7
-                        },
-                        children: "crafted with next.js · react · tailwind · pyodide — mmxxvi"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 775,
+                        lineNumber: 698,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 688,
+                lineNumber: 674,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/notes/Part7.tsx",
-        lineNumber: 673,
+        lineNumber: 659,
         columnNumber: 5
     }, this);
 }

@@ -1,0 +1,781 @@
+     1→"use client";
+     2→
+     3→import { PartBoundary } from "@/components/notes/PartBoundary";
+     4→import { useDialogA11y } from "@/components/notes/exam-runtime";
+     5→
+     6→/* ============================================================
+     7→   EbhApp — the complete "Economic & Business History" revision
+     8→   companion, registered as shelf 04 of THE ATLAS.
+     9→
+    10→   Every date is argued, not memorised: rules and players,
+    11→   licence files and guild charters, mobs and mills — and every
+    12→   chapter carries its own living pieces (the rules grid, the
+    13→   guild ladder, the Silk Road speedway, the thread race, the
+    14→   Cottonopolis counter). Mounted by the Atlas router
+    15→   (src/app/page.tsx) when the reader enters the subject;
+    16→   `onExitAtlas` returns the reader to the Atlas landing page.
+    17→   ============================================================ */
+    18→
+    19→import React, { useEffect, useRef, useState } from "react";
+    20→import { AnimatePresence, motion } from "framer-motion";
+    21→import {
+    22→  BookOpen,
+    23→  BookOpenText,
+    24→  Landmark,
+    25→  ListChecks,
+    26→  Map,
+    27→  Menu,
+    28→  MousePointerClick,
+    29→  PenLine,
+    30→  X,
+    31→  ChevronDown,
+    32→  GraduationCap,
+    33→  Check,
+    34→  Printer,
+    35→} from "lucide-react";
+    36→import { useSectionProgress } from "@/lib/use-section-progress";
+    37→import { useOpenSection } from "@/lib/use-open-section";
+    38→import { EbhHero, EbhEconomicsSection, EbhBusinessSection, EbhHistorySection, EbhRulesPlayersSection } from "@/components/ebh/EbhParts1";
+    39→import { EbhLicenseRajSection, EbhBajajSection, EbhSocietySection, EbhWeekendSection, EbhBizEconTechSection } from "@/components/ebh/EbhParts2";
+    40→import { EbhAgrarianSection, EbhGuildsSection, EbhTradeSection, EbhLifeBeforeSection } from "@/components/ebh/EbhParts3";
+    41→import { EbhWhyMachinesSection, EbhTextileSection, EbhSteamSection, EbhLaborSection, EbhEmpireSection } from "@/components/ebh/EbhParts4";
+    42→import { EbhExamWindow } from "@/components/ebh/EbhExamWindow";
+    43→import { EBH_EXAM_BANKS, EBH_EXAM_GROUPS, EBH_TOTAL_QUESTIONS, type EbhExamGroup } from "@/components/ebh/questions";
+    44→
+    45→/* ============================================================
+    46→   Structured chapter map — the top bar is organised into four
+    47→   groups instead of a flat 18-chip strip. Each group owns a
+    48→   "Test my knowledge" pen-paper window (see questions.ts).
+    49→   ============================================================ */
+    50→const GROUPS: {
+    51→  id: EbhExamGroup;
+    52→  label: string;
+    53→  items: { id: string; label: string; desc: string }[];
+    54→}[] = [
+    55→  {
+    56→    id: "lens",
+    57→    label: "The Lens",
+    58→    items: [
+    59→      { id: "economics", label: "What is economics?", desc: "Scarcity, choices, and the two branches" },
+    60→      { id: "business", label: "What is business?", desc: "Economic activity, profit, and why firms exist" },
+    61→      { id: "history", label: "What is history?", desc: "Change over time — through evidence" },
+    62→      { id: "rules-players", label: "Rules & players", desc: "The two-by-two that names this course" },
+    63→    ],
+    64→  },
+    65→  {
+    66→    id: "currents",
+    67→    label: "Three Currents",
+    68→    items: [
+    69→      { id: "license-raj", label: "Economy → business", desc: "The License Raj and IPR 1956" },
+    70→      { id: "bajaj", label: "Case: Bajaj Auto", desc: "Two tracks — the economy and the scooter" },
+    71→      { id: "society-business", label: "Society → business", desc: "McAloo Tikki and the Cadbury ads" },
+    72→      { id: "weekend", label: "Business → society", desc: "The story of the weekend, 1886–1938" },
+    73→      { id: "business-econ-tech", label: "Economies & technology", desc: "Ford, 2008, Netflix, PESTLE" },
+    74→    ],
+    75→  },
+    76→  {
+    77→    id: "before",
+    78→    label: "Before the Machines",
+    79→    items: [
+    80→      { id: "agrarian", label: "Agrarian economies", desc: "Seasons, land, lords and zamindars" },
+    81→      { id: "guilds", label: "Guild systems", desc: "Apprentice, journeyman, master" },
+    82→      { id: "trade-routes", label: "Trade routes", desc: "Silk Road speeds, the Commercial Revolution" },
+    83→      { id: "life-before", label: "Life before machines", desc: "Enclosures, seed drills, putting-out" },
+    84→    ],
+    85→  },
+    86→  {
+    87→    id: "machines",
+    88→    label: "The Machine Age",
+    89→    items: [
+    90→      { id: "why-machines", label: "Why machines?", desc: "Population, trade, and the thread bottleneck" },
+    91→      { id: "textile-machines", label: "Textile machines", desc: "Shuttle, jenny, water frame — and the mobs" },
+    92→      { id: "steam-cottonopolis", label: "Steam & Cottonopolis", desc: "Watt's liberation, Manchester's mills" },
+    93→      { id: "labor-movement", label: "The labor movement", desc: "Luddites, Peterloo, and the 1825 Act" },
+    94→      { id: "empire", label: "Empire & mercantilism", desc: "Companies, colonies, British ships" },
+    95→    ],
+    96→  },
+    97→];
+    98→
+    99→const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
+   100→const SECTION_IDS = FLAT_ITEMS.map((i) => i.id);
+   101→
+   102→function groupOf(id: string): string | null {
+   103→  for (const g of GROUPS) if (g.items.some((i) => i.id === id)) return g.id;
+   104→  return null;
+   105→}
+   106→
+   107→/* ============================================================
+   108→   TopNav — structured chapter menu + a "Test my knowledge"
+   109→   launcher inside every chapter group. Same engine as the
+   110→   FoC/ATB/FA shelves: progress bar written via ref inside rAF,
+   111→   React state only when the active section changes.
+   112→   ============================================================ */
+   113→function TopNav({
+   114→  onOpenExam,
+   115→  onExitAtlas,
+   116→}: {
+   117→  onOpenExam: (g: EbhExamGroup) => void;
+   118→  onExitAtlas: () => void;
+   119→}) {
+   120→  const [active, setActive] = useState<string>("");
+   121→  const [openGroup, setOpenGroup] = useState<string | null>(null);
+   122→  const [mobileOpen, setMobileOpen] = useState(false);
+   123→  const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
+   124→  const seen = useSectionProgress("ebh", SECTION_IDS);
+   125→  const navRef = useRef<HTMLElement>(null);
+   126→  const progressRef = useRef<HTMLDivElement>(null);
+   127→  const activeRef = useRef("");
+   128→
+   129→  useEffect(() => {
+   130→    let ticking = false;
+   131→    const update = () => {
+   132→      ticking = false;
+   133→      const doc = document.documentElement;
+   134→      const total = doc.scrollHeight - doc.clientHeight;
+   135→      const pct = total > 0 ? (doc.scrollTop / total) * 100 : 0;
+   136→      if (progressRef.current) progressRef.current.style.width = `${pct}%`;
+   137→
+   138→      const probe = window.innerHeight * 0.32;
+   139→      let current = "";
+   140→      for (const item of FLAT_ITEMS) {
+   141→        const el = document.getElementById(item.id);
+   142→        if (el && el.getBoundingClientRect().top <= probe) current = item.id;
+   143→      }
+   144→      if (current !== activeRef.current) {
+   145→        activeRef.current = current;
+   146→        setActive(current);
+   147→      }
+   148→    };
+   149→    const onScroll = () => {
+   150→      if (!ticking) {
+   151→        ticking = true;
+   152→        requestAnimationFrame(update);
+   153→      }
+   154→    };
+   155→    update();
+   156→    window.addEventListener("scroll", onScroll, { passive: true });
+   157→    window.addEventListener("resize", onScroll);
+   158→    return () => {
+   159→      window.removeEventListener("scroll", onScroll);
+   160→      window.removeEventListener("resize", onScroll);
+   161→    };
+   162→  }, []);
+   163→
+   164→  useEffect(() => {
+   165→    const onDown = (e: MouseEvent) => {
+   166→      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenGroup(null);
+   167→    };
+   168→    const onKey = (e: KeyboardEvent) => {
+   169→      if (e.key === "Escape") {
+   170→        setOpenGroup(null);
+   171→        setMobileOpen(false);
+   172→      }
+   173→    };
+   174→    document.addEventListener("mousedown", onDown);
+   175→    document.addEventListener("keydown", onKey);
+   176→    return () => {
+   177→      document.removeEventListener("mousedown", onDown);
+   178→      document.removeEventListener("keydown", onKey);
+   179→    };
+   180→  }, []);
+   181→
+   182→  useEffect(() => {
+   183→    document.body.style.overflow = mobileOpen ? "hidden" : "";
+   184→    return () => {
+   185→      document.body.style.overflow = "";
+   186→    };
+   187→  }, [mobileOpen]);
+   188→
+   189→  const activeGroup = active ? groupOf(active) : null;
+   190→
+   191→  return (
+   192→    <nav ref={navRef} aria-label="Chapters" className="fixed inset-x-0 top-0 z-50">
+   193→      <div className="nav-shell">
+   194→        <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-3 sm:px-5">
+   195→          {/* back to The Atlas */}
+   196→          <button
+   197→            type="button"
+   198→            onClick={onExitAtlas}
+   199→            title="Back to The Atlas — the subject shelf"
+   200→            aria-label="Back to The Atlas"
+   201→            className="flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3 text-[.64rem] font-extrabold uppercase tracking-[.14em] text-[#8a7440] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/85 hover:text-[#a16207]"
+   202→          >
+   203→            <Map className="h-3.5 w-3.5" />
+   204→            <span className="hidden sm:inline">Atlas</span>
+   205→          </button>
+   206→
+   207→          {/* brand — EBH's gold sigil on the quiet glass chip */}
+   208→          <a
+   209→            href="#top"
+   210→            className="flex shrink-0 items-center gap-2 rounded-full border border-white/70 bg-white/60 py-1.5 pl-2 pr-3.5 shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/80"
+   211→          >
+   212→            <span
+   213→              className="flex h-6 w-6 items-center justify-center rounded-full text-white"
+   214→              style={{ background: "linear-gradient(135deg,#eab308,#a16207)", boxShadow: "0 4px 10px -3px rgba(161,98,7,.55)" }}
+   215→            >
+   216→              <Landmark className="h-3.5 w-3.5" />
+   217→            </span>
+   218→            <span className="text-sm font-black tracking-tight text-[#3e2c1d]">EBH Notes</span>
+   219→          </a>
+   220→
+   221→          {/* desktop — grouped chapter menu */}
+   222→          <div className="ml-2 hidden flex-1 items-center gap-1 lg:flex">
+   223→            {GROUPS.map((group) => {
+   224→              const isActive = activeGroup === group.id;
+   225→              const open = openGroup === group.id;
+   226→              return (
+   227→                <div
+   228→                  key={group.id}
+   229→                  className="relative"
+   230→                  onMouseEnter={() => setOpenGroup(group.id)}
+   231→                  onMouseLeave={() => setOpenGroup((g) => (g === group.id ? null : g))}
+   232→                >
+   233→                  <button
+   234→                    type="button"
+   235→                    aria-expanded={open}
+   236→                    aria-haspopup="true"
+   237→                    onClick={() => setOpenGroup(group.id)}
+   238→                    onFocus={() => setOpenGroup(group.id)}
+   239→                    className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[.78rem] font-semibold tracking-wide transition-all duration-200 ${
+   240→                      isActive || open
+   241→                        ? "bg-white/80 text-[#a16207] shadow-[0_4px_16px_-8px_rgba(70,42,15,.4),inset_0_1px_0_rgba(255,255,255,.9)]"
+   242→                        : "text-[#6b563d] hover:bg-white/55 hover:text-[#3e2c1d] hover:shadow-[inset_0_1px_0_rgba(255,255,255,.9)]"
+   243→                    }`}
+   244→                  >
+   245→                    {group.label}
+   246→                    <span className="text-[.58rem] font-extrabold opacity-45">{String(group.items.length).padStart(2, "0")}</span>
+   247→                    <ChevronDown className={`h-3 w-3 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+   248→                  </button>
+   249→
+   250→                  <AnimatePresence>
+   251→                    {open ? (
+   252→                      <motion.div
+   253→                        key={`${group.id}-panel`}
+   254→                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+   255→                        animate={{ opacity: 1, y: 0, scale: 1 }}
+   256→                        exit={{ opacity: 0, y: 6, scale: 0.98 }}
+   257→                        transition={{ duration: 0.16, ease: "easeOut" }}
+   258→                        className="absolute left-1/2 top-full z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 pt-2"
+   259→                      >
+   260→                        <div
+   261→                          className="overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-1.5 backdrop-blur-2xl"
+   262→                          style={{
+   263→                            WebkitBackdropFilter: "blur(28px) saturate(170%)",
+   264→                            backdropFilter: "blur(28px) saturate(170%)",
+   265→                            boxShadow: "0 24px 70px -18px rgba(50,30,10,.4), inset 0 1px 0 rgba(255,255,255,.85)",
+   266→                          }}
+   267→                        >
+   268→                          <p className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 text-[.58rem] font-extrabold uppercase tracking-[.22em] text-[#a99758]">
+   269→                            <BookOpenText className="h-3 w-3" />
+   270→                            {group.label}
+   271→                          <span className="ml-auto font-mono tracking-[.08em] opacity-90">
+   272→                            {group.items.filter((it) => seen.has(it.id)).length}/{group.items.length} read
+   273→                          </span>
+   274→                          </p>
+   275→                          {group.items.map((item, i) => {
+   276→                            const isActiveItem = active === item.id;
+   277→                            return (
+   278→                              <a
+   279→                                key={item.id}
+   280→                                href={`#${item.id}`}
+   281→                                onClick={() => setOpenGroup(null)}
+   282→                                className={`group flex items-start gap-3 rounded-xl px-3 py-2 transition-colors duration-150 ${
+   283→                                  isActiveItem ? "bg-[#eab308]/[.12]" : "hover:bg-[#3e2c1d]/[.05]"
+   284→                                }`}
+   285→                              >
+   286→                                <span
+   287→                                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[.58rem] font-black ${
+   288→                                    isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#a99758]"
+   289→                                  }`}
+   290→                                  style={isActiveItem ? { background: "linear-gradient(135deg,#eab308,#a16207)" } : undefined}
+   291→                                >
+   292→                                  {String(i + 1).padStart(2, "0")}
+   293→                                </span>
+   294→                                <span className="min-w-0">
+   295→                                  <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#a16207]" : "text-[#3e2c1d]"}`}>
+   296→                                    {item.label}
+   297→                                  </span>
+   298→                                  <span className="mt-0.5 block text-[.7rem] leading-snug text-[#a08568]">{item.desc}</span>
+   299→                                </span>
+   300→                                {isActiveItem ? (
+   301→                                <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#a16207" }} />
+   302→                              ) : seen.has(item.id) ? (
+   303→                                <Check className="ml-auto mt-1 h-3.5 w-3.5 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
+   304→                              ) : null}
+   305→                              </a>
+   306→                            );
+   307→                          })}
+   308→
+   309→                          {/* Test my knowledge — opens the pen-paper window for this group */}
+   310→                          <div className="mt-1 border-t border-[#f0e2c8] p-1.5">
+   311→                            <button
+   312→                              type="button"
+   313→                              onClick={() => {
+   314→                                setOpenGroup(null);
+   315→                                onOpenExam(group.id);
+   316→                              }}
+   317→                              className="group/exam flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors duration-150 hover:bg-[#3e2c1d]/[.05]"
+   318→                            >
+   319→                              <span
+   320→                                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+   321→                                style={{ background: "linear-gradient(135deg,#eab308,#a16207)" }}
+   322→                              >
+   323→                                <PenLine className="h-3.5 w-3.5" />
+   324→                              </span>
+   325→                              <span className="min-w-0">
+   326→                                <span className="block text-[.84rem] font-extrabold leading-tight text-[#a16207]">
+   327→                                  Test my knowledge
+   328→                                </span>
+   329→                                <span className="mt-0.5 block text-[.68rem] leading-snug text-[#a08568]">
+   330→                                  {EBH_EXAM_BANKS[group.id].questions.length} exam-style questions · pen-paper mode
+   331→                                </span>
+   332→                              </span>
+   333→                              <span className="ml-auto shrink-0 text-[.58rem] font-black uppercase tracking-[.14em] text-[#a99758] transition-colors group-hover/exam:text-[#a16207]">
+   334→                                open →
+   335→                              </span>
+   336→                            </button>
+   337→                          </div>
+   338→                        </div>
+   339→                      </motion.div>
+   340→                    ) : null}
+   341→                  </AnimatePresence>
+   342→                </div>
+   343→              );
+   344→            })}
+   345→          </div>
+   346→
+   347→          {/* below lg — quick chips (horizontal scroll) covering every chapter */}
+   348→          <div className="scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+   349→            {GROUPS.flatMap((g) => g.items).map((item) => (
+   350→              <a key={item.id} href={`#${item.id}`} className={`nav-link ${active === item.id ? "active" : ""}`}>
+   351→                {item.label}
+   352→              </a>
+   353→            ))}
+   354→          </div>
+   355→
+   356→          {/* right cluster — chapter index (small screens) */}
+   357→          <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
+   358→            <button
+   359→              type="button"
+   360→              onClick={() => window.print()}
+   361→              title="Print these notes"
+   362→              aria-label="Print these notes"
+   363→              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c]"
+   364→            >
+   365→              <Printer className="h-4 w-4" />
+   366→            </button>
+   367→            <button
+   368→              type="button"
+   369→              onClick={() => setMobileOpen(true)}
+   370→              aria-label="Open the chapter index"
+   371→              aria-expanded={mobileOpen}
+   372→              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#a16207] lg:hidden"
+   373→            >
+   374→              <Menu className="h-4.5 w-4.5" />
+   375→            </button>
+   376→          </div>
+   377→        </div>
+   378→      </div>
+   379→
+   380→      {/* reading progress — width written directly via ref (no re-renders) */}
+   381→      <div className="h-[3px] w-full bg-[#3e2c1d]/10">
+   382→        <div
+   383→          ref={progressRef}
+   384→          className="h-full"
+   385→          style={{ width: "0%", background: "linear-gradient(90deg,#facc15,#eab308,#a16207)" }}
+   386→        />
+   387→      </div>
+   388→
+   389→      {/* mobile — full-screen structured index */}
+   390→      <AnimatePresence>
+   391→        {mobileOpen ? (
+   392→          <motion.div
+   393→            ref={mobileRef}
+   394→            tabIndex={-1}
+   395→            key="mobile-index"
+   396→            initial={{ opacity: 0 }}
+   397→            animate={{ opacity: 1 }}
+   398→            exit={{ opacity: 0 }}
+   399→            transition={{ duration: 0.18 }}
+   400→            className="fixed inset-0 z-[60] flex flex-col outline-none"
+   401→            style={{ background: "linear-gradient(165deg,#1c1403 0%,#2a1e06 55%,#3a2a0a 100%)" }}
+   402→            role="dialog"
+   403→            aria-modal="true"
+   404→            aria-label="Chapter index"
+   405→          >
+   406→            <div className="flex h-14 shrink-0 items-center justify-between px-4">
+   407→              <span className="flex items-center gap-2 text-sm font-black tracking-tight text-[#f5ecd2]">
+   408→                <Landmark className="h-4 w-4" style={{ color: "#facc15" }} />
+   409→                Chapter index
+   410→              <span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[.55rem] font-bold text-[#e9d7bf]">
+   411→                {seen.size}/{SECTION_IDS.length} read
+   412→              </span>
+   413→              </span>
+   414→              <button
+   415→                type="button"
+   416→                onClick={() => setMobileOpen(false)}
+   417→                aria-label="Close the chapter index"
+   418→                className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#f5ecd2]"
+   419→              >
+   420→                <X className="h-4.5 w-4.5" />
+   421→              </button>
+   422→            </div>
+   423→            <div className="flex-1 overflow-y-auto px-4 pb-10 pt-2">
+   424→              {GROUPS.map((group, gi) => (
+   425→                <motion.div
+   426→                  key={group.id}
+   427→                  initial={{ opacity: 0, y: 14 }}
+   428→                  animate={{ opacity: 1, y: 0 }}
+   429→                  transition={{ delay: 0.05 + gi * 0.06, duration: 0.25 }}
+   430→                  className="mb-5"
+   431→                >
+   432→                  <p className="mb-2 flex items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.24em] text-[#d9bd6e]">
+   433→                    <span className="h-px w-5" style={{ background: "linear-gradient(90deg,#eab308,transparent)" }} />
+   434→                    {group.label}
+   435→                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-[.55rem] text-[#e8d9ac]">{group.items.filter((it) => seen.has(it.id)).length}/{group.items.length}</span>
+   436→                  </p>
+   437→                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.04]">
+   438→                    {group.items.map((item, i) => {
+   439→                      const isActiveItem = active === item.id;
+   440→                      return (
+   441→                        <a
+   442→                          key={item.id}
+   443→                          href={`#${item.id}`}
+   444→                          onClick={() => setMobileOpen(false)}
+   445→                          className={`flex items-center gap-3 px-4 py-3 transition-colors active:bg-white/10 ${
+   446→                            i < group.items.length - 1 ? "border-b border-white/[.06]" : ""
+   447→                          } ${isActiveItem ? "bg-white/[.08]" : ""}`}
+   448→                        >
+   449→                          <span
+   450→                            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[.6rem] font-black"
+   451→                            style={
+   452→                              isActiveItem
+   453→                                ? { background: "linear-gradient(135deg,#eab308,#a16207)", color: "#fffbf0" }
+   454→                                : { background: "rgba(240,220,150,.1)", color: "#d9bd6e" }
+   455→                            }
+   456→                          >
+   457→                            {String(i + 1).padStart(2, "0")}
+   458→                          </span>
+   459→                          <span className="min-w-0 flex-1">
+   460→                            <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#efd98a]" : "text-[#f0e4c2]"}`}>
+   461→                              {item.label}
+   462→                            </span>
+   463→                            <span className="mt-0.5 block text-[.7rem] leading-snug text-[#c2a86e]">{item.desc}</span>
+   464→                          </span>
+   465→                          {isActiveItem ? (
+   466→                            <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#facc15" }} />
+   467→                          ) : seen.has(item.id) ? (
+   468→                            <Check className="h-4 w-4 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
+   469→                          ) : null}
+   470→                        </a>
+   471→                      );
+   472→                    })}
+   473→
+   474→                    {/* Test my knowledge — per group */}
+   475→                    <button
+   476→                      type="button"
+   477→                      onClick={() => {
+   478→                        setMobileOpen(false);
+   479→                        onOpenExam(group.id);
+   480→                      }}
+   481→                      className="flex w-full items-center gap-2.5 border-t border-white/[.08] px-4 py-3 text-left transition-colors active:bg-white/10"
+   482→                    >
+   483→                      <span
+   484→                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+   485→                        style={{ background: "linear-gradient(135deg,#eab308,#a16207)" }}
+   486→                      >
+   487→                        <PenLine className="h-3.5 w-3.5" />
+   488→                      </span>
+   489→                      <span className="text-[.88rem] font-extrabold text-[#efd98a]">Test my knowledge</span>
+   490→                      <span className="ml-auto text-[.6rem] font-black uppercase tracking-[.14em] text-[#d9bd6e]">
+   491→                        {EBH_EXAM_BANKS[group.id].questions.length} Qs →
+   492→                      </span>
+   493→                    </button>
+   494→                  </div>
+   495→                </motion.div>
+   496→              ))}
+   497→            </div>
+   498→          </motion.div>
+   499→        ) : null}
+   500→      </AnimatePresence>
+   501→    </nav>
+   502→  );
+   503→}
+   504→
+   505→/* ============================================================
+   506→   PracticeBand — the only place on the main page where
+   507→   "Test my knowledge" is written: one card per chapter group.
+   508→   Clicking opens that group's full pen-paper window.
+   509→   ============================================================ */
+   510→function PracticeBand({ onOpenExam }: { onOpenExam: (g: EbhExamGroup) => void }) {
+   511→  return (
+   512→    <section id="practice" aria-label="Test my knowledge — pen-paper practice" className="relative scroll-mt-20 border-y border-[#ecd9bd] bg-[#fffaf1]/70">
+   513→      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+   514→        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+   515→          <div>
+   516→            <span className="eyebrow">Pen-paper practice</span>
+   517→            <h2 className="mt-2 text-2xl font-bold md:text-3xl">Test my knowledge</h2>
+   518→            <p className="mt-2 max-w-xl text-[.9rem] leading-relaxed text-muted-warm">
+   519→              Every chapter group opens its own pen-paper window:{" "}
+   520→              <b>name the actor, recall the year, argue the cause</b> — write on
+   521→              real paper first, then check against the model answers with instant feedback.
+   522→            </p>
+   523→          </div>
+   524→          <p className="shrink-0 text-[.68rem] font-black uppercase tracking-[.18em] text-[#a16207]">
+   525→            {EBH_TOTAL_QUESTIONS} questions · {EBH_EXAM_GROUPS.length} windows
+   526→          </p>
+   527→        </div>
+   528→
+   529→        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+   530→          {EBH_EXAM_GROUPS.map((g) => {
+   531→            const bank = EBH_EXAM_BANKS[g];
+   532→            return (
+   533→              <button
+   534→                key={g}
+   535→                type="button"
+   536→                onClick={() => onOpenExam(g)}
+   537→                className="card-warm lift group flex flex-col items-start p-5 text-left"
+   538→                aria-label={`Test my knowledge — ${bank.title}`}
+   539→              >
+   540→                <span
+   541→                  className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md"
+   542→                  style={{ background: "linear-gradient(135deg,#eab308,#a16207)" }}
+   543→                >
+   544→                  <PenLine className="h-4 w-4" />
+   545→                </span>
+   546→                <span className="mt-3 text-[.98rem] font-extrabold leading-tight text-[#3e2c1d]">{bank.title}</span>
+   547→                <span className="mt-1 text-[.74rem] leading-snug text-muted-warm">{bank.topics}</span>
+   548→                <span className="mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#a16207]">
+   549→                  Test my knowledge · {bank.questions.length} Qs →
+   550→                </span>
+   551→              </button>
+   552→            );
+   553→          })}
+   554→        </div>
+   555→      </div>
+   556→    </section>
+   557→  );
+   558→}
+   559→
+   560→/* ============================================================
+   561→   EbhFooter — adapted from the FoC/ATB/FA signature footer, in
+   562→   shelf 04's gold.
+   563→   ============================================================ */
+   564→const EBH_SIG_CHIPS = [
+   565→  { icon: BookOpen, label: `${FLAT_ITEMS.length} chapters` },
+   566→  { icon: ListChecks, label: `${EBH_TOTAL_QUESTIONS} practice questions` },
+   567→  { icon: GraduationCap, label: `${EBH_EXAM_GROUPS.length} pen-paper windows` },
+   568→  { icon: MousePointerClick, label: "machines you can poke" },
+   569→];
+   570→
+   571→export function EbhFooter() {
+   572→  return (
+   573→    <footer className="footer-stick relative overflow-hidden">
+   574→      {/* hairline that draws itself from the centre */}
+   575→      <motion.div
+   576→        aria-hidden
+   577→        className="absolute inset-x-0 top-0 h-px"
+   578→        style={{ background: "linear-gradient(90deg, transparent, rgba(170,135,60,.4), transparent)" }}
+   579→        initial={{ scaleX: 0, opacity: 0 }}
+   580→        whileInView={{ scaleX: 1, opacity: 1 }}
+   581→        viewport={{ once: true }}
+   582→        transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+   583→      />
+   584→
+   585→      {/* barely-there warm halo behind the signature */}
+   586→      <div aria-hidden className="sig-glow" />
+   587→
+   588→      <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 py-8 text-center sm:py-10">
+   589→        <motion.p
+   590→          className="sig-eyebrow text-[.58rem] font-semibold uppercase text-[#a1876a]"
+   591→          aria-label="created by"
+   592→          initial={{ opacity: 0, letterSpacing: "1.05em" }}
+   593→          whileInView={{ opacity: 1, letterSpacing: "0.55em" }}
+   594→          viewport={{ once: true }}
+   595→          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+   596→        >
+   597→          created by
+   598→        </motion.p>
+   599→
+   600→        <motion.h2
+   601→          className="footer-name-wrap mt-2.5"
+   602→          aria-label="Arpit Nayan"
+   603→          initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
+   604→          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+   605→          viewport={{ once: true }}
+   606→          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
+   607→        >
+   608→          <span className="footer-name">Arpit&nbsp;Nayan</span>
+   609→        </motion.h2>
+   610→
+   611→        {/* one delicate stroke under the name */}
+   612→        <svg viewBox="0 0 300 22" className="mt-2 h-3.5 w-44" aria-hidden fill="none">
+   613→          <defs>
+   614→            <linearGradient id="ebhSigGrad" x1="0" y1="0" x2="1" y2="0">
+   615→              <stop offset="0" stopColor="#ca8a04" stopOpacity="0" />
+   616→              <stop offset="0.5" stopColor="#ca8a04" />
+   617→              <stop offset="1" stopColor="#ca8a04" stopOpacity="0" />
+   618→            </linearGradient>
+   619→          </defs>
+   620→          <motion.path
+   621→            d="M6 12 C 62 4, 118 19, 152 11 C 186 4, 236 17, 294 10"
+   622→            stroke="url(#ebhSigGrad)"
+   623→            strokeWidth="1.6"
+   624→            strokeLinecap="round"
+   625→            initial={{ pathLength: 0, opacity: 0 }}
+   626→            whileInView={{ pathLength: 1, opacity: 1 }}
+   627→            viewport={{ once: true }}
+   628→            transition={{ duration: 1.4, ease: "easeInOut", delay: 0.75 }}
+   629→          />
+   630→        </svg>
+   631→
+   632→        {/* the project — a two-line epitaph about what this page is */}
+   633→        <motion.p
+   634→          className="sig-blurb mt-5"
+   635→          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+   636→          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+   637→          viewport={{ once: true }}
+   638→          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 1.0 }}
+   639→        >
+   640→          <b>Economic &amp; Business History</b> — every lecture of the course, distilled into one
+   641→          warm, living page you can read, scrub and argue with.
+   642→          <span className="mt-1 block">
+   643→            Written for the late-night revision, the last-minute panic, and the quiet joy of a
+   644→            cause that finally makes sense.
+   645→          </span>
+   646→        </motion.p>
+   647→
+   648→        {/* the course — instructor credit, quiet but explicit */}
+   649→        <motion.p
+   650→          className="mt-3 text-[.78rem] font-semibold text-[#6f5438]"
+   651→          initial={{ opacity: 0 }}
+   652→          whileInView={{ opacity: 1 }}
+   653→          viewport={{ once: true }}
+   654→          transition={{ duration: 1.0, ease: "easeOut", delay: 1.25 }}
+   655→        >
+   656→          Course: Economic &amp; Business History — Dr. Manu Kanchan · IIT Jodhpur
+   657→        </motion.p>
+   658→
+   659→        {/* what's inside — a row of calm stat pills */}
+   660→        <div
+   661→          role="list"
+   662→          aria-label="What this project contains"
+   663→          className="mt-4 flex flex-wrap items-center justify-center gap-2"
+   664→        >
+   665→          {EBH_SIG_CHIPS.map((chip, i) => (
+   666→            <motion.span
+   667→              key={chip.label}
+   668→              role="listitem"
+   669→              className="sig-chip"
+   670→              initial={{ opacity: 0, y: 10, scale: 0.92 }}
+   671→              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+   672→              viewport={{ once: true }}
+   673→              transition={{
+   674→                duration: 0.6,
+   675→                ease: [0.22, 1, 0.36, 1],
+   676→                delay: 1.2 + i * 0.1,
+   677→              }}
+   678→            >
+   679→              <chip.icon className="h-3 w-3" strokeWidth={2.2} />
+   680→              {chip.label}
+   681→            </motion.span>
+   682→          ))}
+   683→        </div>
+   684→
+   685→        {/* colophon — what it's built with, in tiny type */}
+   686→        <motion.p
+   687→          className="sig-colo mt-5"
+   688→          initial={{ opacity: 0 }}
+   689→          whileInView={{ opacity: 1 }}
+   690→          viewport={{ once: true }}
+   691→          transition={{ duration: 1.1, ease: "easeOut", delay: 1.7 }}
+   692→        >
+   693→          shelf 04 · the atlas — crafted with next.js · react · tailwind — mmxxvi
+   694→        </motion.p>
+   695→      </div>
+   696→    </footer>
+   697→  );
+   698→}
+   699→
+   700→/* ============================================================
+   701→   EbhApp — the composed subject page.
+   702→   ============================================================ */
+   703→export function EbhApp({ onExitAtlas }: { onExitAtlas: () => void }) {
+   704→  useOpenSection("ebh");
+   705→
+   706→  const [examGroup, setExamGroup] = useState<EbhExamGroup | null>(null);
+   707→  const openExam = (g: EbhExamGroup) => setExamGroup(g);
+   708→
+   709→  return (
+   710→    // id="top" — the brand chip links to #top; without a real element here the
+   711→    // client-side router swallows the fragment and the page never scrolls back
+   712→    <div id="top" className="page-wrap warm-canvas ebh-app">
+   713→      <TopNav onOpenExam={openExam} onExitAtlas={onExitAtlas} />
+   714→      <main className="pt-14">
+   715→        <PartBoundary label="Hero">
+   716→          <EbhHero  />
+   717→        </PartBoundary>
+   718→        <PartBoundary label="PracticeBand">
+   719→          <PracticeBand onOpenExam={openExam}  />
+   720→        </PartBoundary>
+   721→        <PartBoundary label="Economics">
+   722→          <EbhEconomicsSection  />
+   723→        </PartBoundary>
+   724→        <PartBoundary label="Business">
+   725→          <EbhBusinessSection  />
+   726→        </PartBoundary>
+   727→        <PartBoundary label="History">
+   728→          <EbhHistorySection  />
+   729→        </PartBoundary>
+   730→        <PartBoundary label="RulesPlayers">
+   731→          <EbhRulesPlayersSection  />
+   732→        </PartBoundary>
+   733→        <PartBoundary label="LicenseRaj">
+   734→          <EbhLicenseRajSection  />
+   735→        </PartBoundary>
+   736→        <PartBoundary label="Bajaj">
+   737→          <EbhBajajSection  />
+   738→        </PartBoundary>
+   739→        <PartBoundary label="Society">
+   740→          <EbhSocietySection  />
+   741→        </PartBoundary>
+   742→        <PartBoundary label="Weekend">
+   743→          <EbhWeekendSection  />
+   744→        </PartBoundary>
+   745→        <PartBoundary label="BizEconTech">
+   746→          <EbhBizEconTechSection  />
+   747→        </PartBoundary>
+   748→        <PartBoundary label="Agrarian">
+   749→          <EbhAgrarianSection  />
+   750→        </PartBoundary>
+   751→        <PartBoundary label="Guilds">
+   752→          <EbhGuildsSection  />
+   753→        </PartBoundary>
+   754→        <PartBoundary label="Trade">
+   755→          <EbhTradeSection  />
+   756→        </PartBoundary>
+   757→        <PartBoundary label="LifeBefore">
+   758→          <EbhLifeBeforeSection  />
+   759→        </PartBoundary>
+   760→        <PartBoundary label="WhyMachines">
+   761→          <EbhWhyMachinesSection  />
+   762→        </PartBoundary>
+   763→        <PartBoundary label="Textile">
+   764→          <EbhTextileSection  />
+   765→        </PartBoundary>
+   766→        <PartBoundary label="Steam">
+   767→          <EbhSteamSection  />
+   768→        </PartBoundary>
+   769→        <PartBoundary label="Labor">
+   770→          <EbhLaborSection  />
+   771→        </PartBoundary>
+   772→        <PartBoundary label="Empire">
+   773→          <EbhEmpireSection  />
+   774→        </PartBoundary>
+   775→      </main>
+   776→      <EbhFooter />
+   777→      {examGroup ? <EbhExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
+   778→    </div>
+   779→  );
+   780→}
+   781→

@@ -1,0 +1,1058 @@
+     1→"use client";
+     2→
+     3→/* ============================================================
+     4→   MktgApp — "Principles of Marketing", shelf 06 of THE ATLAS.
+     5→
+     6→   Mounted by the Atlas router (src/app/page.tsx); `onExitAtlas`
+     7→   returns the reader to the Atlas landing page. A LECTURE
+     8→   READER: the hero holds the 28-lecture sequence, each lecture
+     9→   opens with a "Principles of Marketing Lecture N" band, and
+    10→   all pen-paper practice lives behind the "Test my knowledge"
+    11→   hub so the reading surface stays clean.
+    12→   ============================================================ */
+    13→
+    14→import { PartBoundary } from "@/components/notes/PartBoundary";
+    15→import { useDialogA11y } from "@/components/notes/exam-runtime";
+    16→
+    17→import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+    18→import { AnimatePresence, motion } from "framer-motion";
+    19→import {
+    20→  ArrowLeft,
+    21→  ArrowRight,
+    22→  BookOpen,
+    23→  BookOpenText,
+    24→  Check,
+    25→  ChevronDown,
+    26→  GraduationCap,
+    27→  ListChecks,
+    28→  Map,
+    29→  Megaphone,
+    30→  Menu,
+    31→  MousePointerClick,
+    32→  PenLine,
+    33→  Printer,
+    34→  X,
+    35→} from "lucide-react";
+    36→import { useSectionProgress } from "@/lib/use-section-progress";
+    37→import { jumpTo, useOpenSection } from "@/lib/use-open-section";
+    38→import { loadProgress } from "@/lib/progress";
+    39→import { MktgHero } from "@/components/mktg/MktgHero";
+    40→import {
+    41→  MktgWhySection, MktgAnticipationSection, MktgToplineSection, MktgVsSellingSection,
+    42→  MktgDefinitionsSection, MktgSystemSection, MktgMarketableSection, MktgNwdSection,
+    43→  MktgDemandStatesSection, MktgClosedSystemSection, MktgBizValueSection, MktgChaiSection,
+    44→  MktgCpvSection,
+    45→} from "@/components/mktg/MktgParts1";
+    46→import {
+    47→  MktgEnvironmentSection, MktgExchangeSection, MktgValuePriceSection, MktgLuxurySection,
+    48→  MktgEsDsSection, MktgChainSection, MktgContextSection, MktgLoyaltyEconSection,
+    49→  MktgCampaignsSection, MktgBeyondSection, MktgHeteroSection, MktgBasesSection,
+    50→  MktgBehavioralSection,
+    51→} from "@/components/mktg/MktgParts2";
+    52→import {
+    53→  MktgTupoSection, MktgSafeSection, MktgPos3qSection, MktgAccorSection, MktgFrameSection,
+    54→  MktgLevelsSection, MktgEvolutionSection, MktgCirclesSection, MktgPopPodCasesSection,
+    55→  MktgWhyBuySection, MktgErasSection, MktgStagesSection, MktgMessySection,
+    56→} from "@/components/mktg/MktgParts3";
+    57→import {
+    58→  MktgVariationsSection, MktgAutopsySection, MktgTouchpointsSection, MktgRecap22Section,
+    59→  MktgMotivationSection, MktgTheoryMatchSection, MktgBrandPerceptionSection, MktgAlmondsSection,
+    60→  MktgSensorySection, MktgGestaltSection, MktgBucketsSection, MktgRetentionSection,
+    61→  MktgAbcSection, MktgBiasSection,
+    62→} from "@/components/mktg/MktgParts4";
+    63→import { MktgExamWindow } from "@/components/mktg/MktgExamWindow";
+    64→import { MKTG_EXAM_BANKS, MKTG_EXAM_GROUPS, MKTG_TOTAL_QUESTIONS, type MktgExamGroup } from "@/components/mktg/questions";
+    65→import {
+    66→  MKTG_LECTURES, MKTG_ALL_CHAPTER_IDS, MKTG_DEFAULT_LECTURE, MKTG_GROUPS,
+    67→  lectureById, lectureOfChapter, type MktgLecture,
+    68→} from "@/components/mktg/lectures";
+    69→
+    70→/* shelf 06 palette — boutique teal & champagne */
+    71→const TEAL = "#0f766e";
+    72→const TEAL_BRIGHT = "#14b8a6";
+    73→const GOLD = "#a97d2c";
+    74→const GOLD_LITE = "#e3c26b";
+    75→const INK = "#1f2b2b";
+    76→const LAGOON = "linear-gradient(165deg,#0c2124 0%,#12302f 60%,#143236 100%)";
+    77→
+    78→const FLAT_ITEMS = MKTG_GROUPS.flatMap((g) => g.items);
+    79→
+    80→function groupOf(id: string): string | null {
+    81→  for (const g of MKTG_GROUPS) if (g.items.some((i) => i.id === id)) return g.id;
+    82→  return null;
+    83→}
+    84→
+    85→/* ============================================================
+    86→   The chapter components, keyed by section id — the lecture
+    87→   reader renders exactly the slice the chosen lecture owns.
+    88→   ============================================================ */
+    89→const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
+    90→  "why-mktg": <MktgWhySection />,
+    91→  anticipation: <MktgAnticipationSection />,
+    92→  topline: <MktgToplineSection />,
+    93→  "mktg-vs-selling": <MktgVsSellingSection />,
+    94→  definitions: <MktgDefinitionsSection />,
+    95→  "mktg-system": <MktgSystemSection />,
+    96→  marketable: <MktgMarketableSection />,
+    97→  "need-want-demand": <MktgNwdSection />,
+    98→  "demand-states": <MktgDemandStatesSection />,
+    99→  "closed-system": <MktgClosedSystemSection />,
+   100→  "biz-value": <MktgBizValueSection />,
+   101→  "chai-value": <MktgChaiSection />,
+   102→  "cpv-formula": <MktgCpvSection />,
+   103→  environment: <MktgEnvironmentSection />,
+   104→  "exchange-system": <MktgExchangeSection />,
+   105→  "value-price-features": <MktgValuePriceSection />,
+   106→  "luxury-lever": <MktgLuxurySection />,
+   107→  "es-ds": <MktgEsDsSection />,
+   108→  "purchase-chain": <MktgChainSection />,
+   109→  "context-matters": <MktgContextSection />,
+   110→  "loyalty-econ": <MktgLoyaltyEconSection />,
+   111→  "campaigns-esds": <MktgCampaignsSection />,
+   112→  "beyond-purchase": <MktgBeyondSection />,
+   113→  heterogeneity: <MktgHeteroSection />,
+   114→  bases: <MktgBasesSection />,
+   115→  "behavioral-benefit": <MktgBehavioralSection />,
+   116→  "tupo-case": <MktgTupoSection />,
+   117→  "safe-targeting": <MktgSafeSection />,
+   118→  "pos-3q": <MktgPos3qSection />,
+   119→  "accor-map": <MktgAccorSection />,
+   120→  "frame-podspops": <MktgFrameSection />,
+   121→  "four-levels": <MktgLevelsSection />,
+   122→  "pop-pod-evolution": <MktgEvolutionSection />,
+   123→  "three-circles": <MktgCirclesSection />,
+   124→  "pod-pop-cases": <MktgPopPodCasesSection />,
+   125→  "why-buy": <MktgWhyBuySection />,
+   126→  "eras-nudges": <MktgErasSection />,
+   127→  "five-stages": <MktgStagesSection />,
+   128→  "messy-middle": <MktgMessySection />,
+   129→  "journey-variations": <MktgVariationsSection />,
+   130→  "autopsy-purchase": <MktgAutopsySection />,
+   131→  "touchpoints-framework": <MktgTouchpointsSection />,
+   132→  recap22: <MktgRecap22Section />,
+   133→  "motivation-theories": <MktgMotivationSection />,
+   134→  "theory-match": <MktgTheoryMatchSection />,
+   135→  "brand-perception": <MktgBrandPerceptionSection />,
+   136→  "almonds-price": <MktgAlmondsSection />,
+   137→  "sensory-stages": <MktgSensorySection />,
+   138→  "gestalt-lab": <MktgGestaltSection />,
+   139→  "attitude-buckets": <MktgBucketsSection />,
+   140→  "retention-acquisition": <MktgRetentionSection />,
+   141→  "abc-humanization": <MktgAbcSection />,
+   142→  "bias-lab": <MktgBiasSection />,
+   143→};
+   144→
+   145→/* ============================================================
+   146→   useSeenDisplay — the read-checkmark data for every menu.
+   147→   Marking is per-lecture; display spans the whole shelf.
+   148→   ============================================================ */
+   149→function useSeenDisplay(lecture: MktgLecture): ReadonlySet<string> {
+   150→  const ids = useMemo(() => lecture.chapters.map((c) => c.id), [lecture]);
+   151→  const live = useSectionProgress("mktg", ids);
+   152→  const persisted = useMemo(() => {
+   153→    try {
+   154→      return new Set(Object.keys(loadProgress().mktg ?? {}));
+   155→    } catch {
+   156→      return new Set<string>();
+   157→    }
+   158→  }, []);
+   159→  return useMemo(() => new Set<string>([...persisted, ...live]), [persisted, live]);
+   160→}
+   161→
+   162→/* ============================================================
+   163→   TopNav — structured chapter menu + a "Test my knowledge"
+   164→   launcher inside every chapter group.
+   165→   ============================================================ */
+   166→function TopNav({
+   167→  onOpenExam,
+   168→  onExitAtlas,
+   169→  onJumpChapter,
+   170→  seen,
+   171→}: {
+   172→  onOpenExam: (g: MktgExamGroup) => void;
+   173→  onExitAtlas: () => void;
+   174→  onJumpChapter: (chapterId: string) => void;
+   175→  seen: ReadonlySet<string>;
+   176→}) {
+   177→  const [active, setActive] = useState<string>("");
+   178→  const [openGroup, setOpenGroup] = useState<string | null>(null);
+   179→  const [mobileOpen, setMobileOpen] = useState(false);
+   180→  const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
+   181→  const navRef = useRef<HTMLElement>(null);
+   182→  const progressRef = useRef<HTMLDivElement>(null);
+   183→  const activeRef = useRef("");
+   184→
+   185→  useEffect(() => {
+   186→    let ticking = false;
+   187→    const update = () => {
+   188→      ticking = false;
+   189→      const doc = document.documentElement;
+   190→      const total = doc.scrollHeight - doc.clientHeight;
+   191→      const pct = total > 0 ? (doc.scrollTop / total) * 100 : 0;
+   192→      if (progressRef.current) progressRef.current.style.width = `${pct}%`;
+   193→
+   194→      const probe = window.innerHeight * 0.32;
+   195→      let current = "";
+   196→      for (const item of FLAT_ITEMS) {
+   197→        const el = document.getElementById(item.id);
+   198→        if (el && el.getBoundingClientRect().top <= probe) current = item.id;
+   199→      }
+   200→      if (current !== activeRef.current) {
+   201→        activeRef.current = current;
+   202→        setActive(current);
+   203→      }
+   204→    };
+   205→    const onScroll = () => {
+   206→      if (!ticking) {
+   207→        ticking = true;
+   208→        requestAnimationFrame(update);
+   209→      }
+   210→    };
+   211→    update();
+   212→    window.addEventListener("scroll", onScroll, { passive: true });
+   213→    window.addEventListener("resize", onScroll);
+   214→    return () => {
+   215→      window.removeEventListener("scroll", onScroll);
+   216→      window.removeEventListener("resize", onScroll);
+   217→    };
+   218→  }, []);
+   219→
+   220→  useEffect(() => {
+   221→    const onDown = (e: MouseEvent) => {
+   222→      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenGroup(null);
+   223→    };
+   224→    const onKey = (e: KeyboardEvent) => {
+   225→      if (e.key === "Escape") {
+   226→        setOpenGroup(null);
+   227→        setMobileOpen(false);
+   228→      }
+   229→    };
+   230→    document.addEventListener("mousedown", onDown);
+   231→    document.addEventListener("keydown", onKey);
+   232→    return () => {
+   233→      document.removeEventListener("mousedown", onDown);
+   234→      document.removeEventListener("keydown", onKey);
+   235→    };
+   236→  }, []);
+   237→
+   238→  useEffect(() => {
+   239→    document.body.style.overflow = mobileOpen ? "hidden" : "";
+   240→    return () => {
+   241→      document.body.style.overflow = "";
+   242→    };
+   243→  }, [mobileOpen]);
+   244→
+   245→  const activeGroup = active ? groupOf(active) : null;
+   246→
+   247→  return (
+   248→    <nav ref={navRef} aria-label="Chapters" className="fixed inset-x-0 top-0 z-50">
+   249→      <div className="nav-shell">
+   250→        <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-3 sm:px-5">
+   251→          {/* back to The Atlas */}
+   252→          <button
+   253→            type="button"
+   254→            onClick={onExitAtlas}
+   255→            title="Back to The Atlas — the subject shelf"
+   256→            aria-label="Back to The Atlas"
+   257→            className="flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3 text-[.64rem] font-extrabold uppercase tracking-[.14em] text-[#4d6b66] shadow-[0_4px_16px_-8px_rgba(15,50,48,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/85 hover:text-[#0f766e]"
+   258→          >
+   259→            <Map className="h-3.5 w-3.5" />
+   260→            <span className="hidden sm:inline">Atlas</span>
+   261→          </button>
+   262→
+   263→          {/* brand */}
+   264→          <a
+   265→            href="#top"
+   266→            className="flex shrink-0 items-center gap-2 rounded-full border border-white/70 bg-white/60 py-1.5 pl-2 pr-3.5 shadow-[0_4px_16px_-8px_rgba(15,50,48,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/80"
+   267→          >
+   268→            <span
+   269→              className="flex h-6 w-6 items-center justify-center rounded-full text-white"
+   270→              style={{ background: `linear-gradient(135deg,${TEAL_BRIGHT},${TEAL})`, boxShadow: "0 4px 10px -3px rgba(15,118,110,.55)" }}
+   271→            >
+   272→              <Megaphone className="h-3.5 w-3.5" />
+   273→            </span>
+   274→            <span className="text-sm font-black tracking-tight text-[#1f2b2b]">MKTG Notes</span>
+   275→          </a>
+   276→
+   277→          {/* desktop — grouped chapter menu */}
+   278→          <div className="ml-2 hidden flex-1 items-center gap-1 lg:flex">
+   279→            {MKTG_GROUPS.map((group) => {
+   280→              const isActive = activeGroup === group.id;
+   281→              const open = openGroup === group.id;
+   282→              return (
+   283→                <div
+   284→                  key={group.id}
+   285→                  className="relative"
+   286→                  onMouseEnter={() => setOpenGroup(group.id)}
+   287→                  onMouseLeave={() => setOpenGroup((g) => (g === group.id ? null : g))}
+   288→                >
+   289→                  <button
+   290→                    type="button"
+   291→                    aria-expanded={open}
+   292→                    aria-haspopup="true"
+   293→                    onClick={() => setOpenGroup(group.id)}
+   294→                    onFocus={() => setOpenGroup(group.id)}
+   295→                    className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[.76rem] font-semibold tracking-wide transition-all duration-200 xl:px-3.5 ${
+   296→                      isActive || open
+   297→                        ? "bg-white/80 text-[#0f766e] shadow-[0_4px_16px_-8px_rgba(15,50,48,.4),inset_0_1px_0_rgba(255,255,255,.9)]"
+   298→                        : "text-[#5f7472] hover:bg-white/55 hover:text-[#1f2b2b] hover:shadow-[inset_0_1px_0_rgba(255,255,255,.9)]"
+   299→                    }`}
+   300→                  >
+   301→                    {group.label}
+   302→                    <span className="text-[.58rem] font-extrabold opacity-45">{String(group.items.length).padStart(2, "0")}</span>
+   303→                    <ChevronDown className={`h-3 w-3 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+   304→                  </button>
+   305→
+   306→                  <AnimatePresence>
+   307→                    {open ? (
+   308→                      <motion.div
+   309→                        key={`${group.id}-panel`}
+   310→                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+   311→                        animate={{ opacity: 1, y: 0, scale: 1 }}
+   312→                        exit={{ opacity: 0, y: 6, scale: 0.98 }}
+   313→                        transition={{ duration: 0.16, ease: "easeOut" }}
+   314→                        className="absolute left-1/2 top-full z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 pt-2"
+   315→                      >
+   316→                        <div
+   317→                          className="overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-1.5 backdrop-blur-2xl"
+   318→                          style={{
+   319→                            WebkitBackdropFilter: "blur(28px) saturate(170%)",
+   320→                            backdropFilter: "blur(28px) saturate(170%)",
+   321→                            boxShadow: "0 24px 70px -18px rgba(15,50,48,.4), inset 0 1px 0 rgba(255,255,255,.85)",
+   322→                          }}
+   323→                        >
+   324→                          <p className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 text-[.58rem] font-extrabold uppercase tracking-[.22em] text-[#a97d2c]">
+   325→                            <BookOpenText className="h-3 w-3" />
+   326→                            {group.label}
+   327→                            <span className="ml-auto font-mono tracking-[.08em] opacity-90">
+   328→                              {group.items.filter((it) => seen.has(it.id)).length}/{group.items.length} read
+   329→                            </span>
+   330→                          </p>
+   331→                          {group.items.map((item, i) => {
+   332→                            const isActiveItem = active === item.id;
+   333→                            return (
+   334→                              <a
+   335→                                key={item.id}
+   336→                                href={`#${item.id}`}
+   337→                                onClick={(e) => {
+   338→                                  e.preventDefault();
+   339→                                  setOpenGroup(null);
+   340→                                  onJumpChapter(item.id);
+   341→                                }}
+   342→                                className={`group flex items-start gap-3 rounded-xl px-3 py-2 transition-colors duration-150 ${
+   343→                                  isActiveItem ? "bg-[#14b8a6]/[.10]" : "hover:bg-[#1f2b2b]/[.05]"
+   344→                                }`}
+   345→                              >
+   346→                                <span
+   347→                                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[.58rem] font-black ${
+   348→                                    isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#a97d2c]"
+   349→                                  }`}
+   350→                                  style={isActiveItem ? { background: `linear-gradient(135deg,${TEAL_BRIGHT},${TEAL})` } : undefined}
+   351→                                >
+   352→                                  {String(i + 1).padStart(2, "0")}
+   353→                                </span>
+   354→                                <span className="min-w-0">
+   355→                                  <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#0f766e]" : "text-[#1f2b2b]"}`}>
+   356→                                    {item.label}
+   357→                                  </span>
+   358→                                  <span className="mt-0.5 block text-[.7rem] leading-snug text-[#8aa09b]">{item.desc}</span>
+   359→                                </span>
+   360→                                {isActiveItem ? (
+   361→                                  <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: TEAL }} />
+   362→                                ) : seen.has(item.id) ? (
+   363→                                  <Check className="ml-auto mt-1 h-3.5 w-3.5 shrink-0" style={{ color: "#5f9e58" }} aria-label="Chapter read" />
+   364→                                ) : null}
+   365→                              </a>
+   366→                            );
+   367→                          })}
+   368→
+   369→                          {/* Test my knowledge — opens the exam window for this group */}
+   370→                          <div className="mt-1 border-t border-[#e3eadb] p-1.5">
+   371→                            <button
+   372→                              type="button"
+   373→                              onClick={() => {
+   374→                                setOpenGroup(null);
+   375→                                onOpenExam(group.id);
+   376→                              }}
+   377→                              className="group/exam flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors duration-150 hover:bg-[#1f2b2b]/[.05]"
+   378→                            >
+   379→                              <span
+   380→                                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+   381→                                style={{ background: `linear-gradient(135deg,${TEAL_BRIGHT},${TEAL})` }}
+   382→                              >
+   383→                                <PenLine className="h-3.5 w-3.5" />
+   384→                              </span>
+   385→                              <span className="min-w-0">
+   386→                                <span className="block text-[.84rem] font-extrabold leading-tight text-[#0f766e]">
+   387→                                  Test my knowledge
+   388→                                </span>
+   389→                                <span className="mt-0.5 block text-[.68rem] leading-snug text-[#8aa09b]">
+   390→                                  {MKTG_EXAM_BANKS[group.id].questions.length} exam-style questions · pen-paper mode
+   391→                                </span>
+   392→                              </span>
+   393→                              <span className="ml-auto shrink-0 text-[.58rem] font-black uppercase tracking-[.14em] text-[#a97d2c] transition-colors group-hover/exam:text-[#0f766e]">
+   394→                                open →
+   395→                              </span>
+   396→                            </button>
+   397→                          </div>
+   398→                        </div>
+   399→                      </motion.div>
+   400→                    ) : null}
+   401→                  </AnimatePresence>
+   402→                </div>
+   403→              );
+   404→            })}
+   405→          </div>
+   406→
+   407→          {/* below lg — quick chips (horizontal scroll) */}
+   408→          <div className="scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+   409→            {FLAT_ITEMS.map((item) => (
+   410→              <a
+   411→                key={item.id}
+   412→                href={`#${item.id}`}
+   413→                onClick={(e) => {
+   414→                  e.preventDefault();
+   415→                  onJumpChapter(item.id);
+   416→                }}
+   417→                className={`nav-link ${active === item.id ? "active" : ""}`}
+   418→              >
+   419→                {item.label}
+   420→              </a>
+   421→            ))}
+   422→          </div>
+   423→
+   424→          {/* right cluster */}
+   425→          <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
+   426→            <button
+   427→              type="button"
+   428→              onClick={() => window.print()}
+   429→              title="Print these notes"
+   430→              aria-label="Print these notes"
+   431→              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#5f7472] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#0f766e]"
+   432→            >
+   433→              <Printer className="h-4 w-4" />
+   434→            </button>
+   435→            <button
+   436→              type="button"
+   437→              onClick={() => setMobileOpen(true)}
+   438→              aria-label="Open the chapter index"
+   439→              aria-expanded={mobileOpen}
+   440→              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#5f7472] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#0f766e] lg:hidden"
+   441→            >
+   442→              <Menu className="h-4.5 w-4.5" />
+   443→            </button>
+   444→          </div>
+   445→        </div>
+   446→      </div>
+   447→
+   448→      {/* reading progress */}
+   449→      <div className="h-[3px] w-full bg-[#1f2b2b]/10">
+   450→        <div
+   451→          ref={progressRef}
+   452→          className="h-full"
+   453→          style={{ width: "0%", background: `linear-gradient(90deg,${TEAL_BRIGHT},${TEAL},${GOLD_LITE})` }}
+   454→        />
+   455→      </div>
+   456→
+   457→      {/* mobile — full-screen structured index */}
+   458→      <AnimatePresence>
+   459→        {mobileOpen ? (
+   460→          <motion.div
+   461→            ref={mobileRef}
+   462→            tabIndex={-1}
+   463→            key="mobile-index"
+   464→            initial={{ opacity: 0 }}
+   465→            animate={{ opacity: 1 }}
+   466→            exit={{ opacity: 0 }}
+   467→            transition={{ duration: 0.18 }}
+   468→            className="fixed inset-0 z-[60] flex flex-col outline-none"
+   469→            style={{ background: LAGOON }}
+   470→            role="dialog"
+   471→            aria-modal="true"
+   472→            aria-label="Chapter index"
+   473→          >
+   474→            <div className="flex h-14 shrink-0 items-center justify-between px-4">
+   475→              <span className="flex items-center gap-2 text-sm font-black tracking-tight text-[#e9f2ee]">
+   476→                <Megaphone className="h-4 w-4" style={{ color: TEAL_BRIGHT }} />
+   477→                Chapter index
+   478→                <span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[.55rem] font-bold text-[#cfe6df]">
+   479→                  {seen.size}/{MKTG_ALL_CHAPTER_IDS.length} read
+   480→                </span>
+   481→              </span>
+   482→              <button
+   483→                type="button"
+   484→                onClick={() => setMobileOpen(false)}
+   485→                aria-label="Close the chapter index"
+   486→                className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#e9f2ee]"
+   487→              >
+   488→                <X className="h-4.5 w-4.5" />
+   489→              </button>
+   490→            </div>
+   491→            <div className="flex-1 overflow-y-auto px-4 pb-10 pt-2">
+   492→              {MKTG_GROUPS.map((group, gi) => (
+   493→                <motion.div
+   494→                  key={group.id}
+   495→                  initial={{ opacity: 0, y: 14 }}
+   496→                  animate={{ opacity: 1, y: 0 }}
+   497→                  transition={{ delay: 0.05 + gi * 0.06, duration: 0.25 }}
+   498→                  className="mb-5"
+   499→                >
+   500→                  <p className="mb-2 flex items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.24em] text-[#9fc4ba]">
+   501→                    <span className="h-px w-5" style={{ background: `linear-gradient(90deg,${TEAL_BRIGHT},transparent)` }} />
+   502→                    {group.label}
+   503→                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-[.55rem] text-[#cfe6df]">{group.items.filter((it) => seen.has(it.id)).length}/{group.items.length}</span>
+   504→                  </p>
+   505→                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.04]">
+   506→                    {group.items.map((item, i) => {
+   507→                      const isActiveItem = active === item.id;
+   508→                      return (
+   509→                        <a
+   510→                          key={item.id}
+   511→                          href={`#${item.id}`}
+   512→                          onClick={(e) => {
+   513→                            e.preventDefault();
+   514→                            setMobileOpen(false);
+   515→                            onJumpChapter(item.id);
+   516→                          }}
+   517→                          className={`flex items-center gap-3 px-4 py-3 transition-colors active:bg-white/10 ${
+   518→                            i < group.items.length - 1 ? "border-b border-white/[.06]" : ""
+   519→                          } ${isActiveItem ? "bg-white/[.08]" : ""}`}
+   520→                        >
+   521→                          <span
+   522→                            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[.6rem] font-black"
+   523→                            style={
+   524→                              isActiveItem
+   525→                                ? { background: `linear-gradient(135deg,${TEAL_BRIGHT},${TEAL})`, color: "#f2fbf8" }
+   526→                                : { background: "rgba(227,194,107,.12)", color: GOLD_LITE }
+   527→                            }
+   528→                          >
+   529→                            {String(i + 1).padStart(2, "0")}
+   530→                          </span>
+   531→                          <span className="min-w-0 flex-1">
+   532→                            <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#a7e8dc]" : "text-[#e9f2ee]"}`}>
+   533→                              {item.label}
+   534→                            </span>
+   535→                            <span className="mt-0.5 block text-[.7rem] leading-snug text-[#9fbcb4]">{item.desc}</span>
+   536→                          </span>
+   537→                          {isActiveItem ? (
+   538→                            <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: TEAL_BRIGHT }} />
+   539→                          ) : seen.has(item.id) ? (
+   540→                            <Check className="h-4 w-4 shrink-0" style={{ color: "#5f9e58" }} aria-label="Chapter read" />
+   541→                          ) : null}
+   542→                        </a>
+   543→                      );
+   544→                    })}
+   545→
+   546→                    {/* Test my knowledge — per group */}
+   547→                    <button
+   548→                      type="button"
+   549→                      onClick={() => {
+   550→                        setMobileOpen(false);
+   551→                        onOpenExam(group.id);
+   552→                      }}
+   553→                      className="flex w-full items-center gap-2.5 border-t border-white/[.08] px-4 py-3 text-left transition-colors active:bg-white/10"
+   554→                    >
+   555→                      <span
+   556→                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+   557→                        style={{ background: `linear-gradient(135deg,${TEAL_BRIGHT},${TEAL})` }}
+   558→                      >
+   559→                        <PenLine className="h-3.5 w-3.5" />
+   560→                      </span>
+   561→                      <span className="text-[.88rem] font-extrabold text-[#a7e8dc]">Test my knowledge</span>
+   562→                      <span className="ml-auto text-[.6rem] font-black uppercase tracking-[.14em] text-[#9fc4ba]">
+   563→                        {MKTG_EXAM_BANKS[group.id].questions.length} Qs →
+   564→                      </span>
+   565→                    </button>
+   566→                  </div>
+   567→                </motion.div>
+   568→              ))}
+   569→            </div>
+   570→          </motion.div>
+   571→        ) : null}
+   572→      </AnimatePresence>
+   573→    </nav>
+   574→  );
+   575→}
+   576→
+   577→/* ============================================================
+   578→   PracticeHub — the ONE home of pen-paper practice.
+   579→   ============================================================ */
+   580→function PracticeHub({
+   581→  open,
+   582→  onClose,
+   583→  onOpenExam,
+   584→}: {
+   585→  open: boolean;
+   586→  onClose: () => void;
+   587→  onOpenExam: (g: MktgExamGroup) => void;
+   588→}) {
+   589→  const hubRef = useDialogA11y<HTMLDivElement>(open);
+   590→
+   591→  useEffect(() => {
+   592→    if (!open) return;
+   593→    document.body.style.overflow = "hidden";
+   594→    const onKey = (e: KeyboardEvent) => {
+   595→      if (e.key === "Escape") onClose();
+   596→    };
+   597→    document.addEventListener("keydown", onKey);
+   598→    return () => {
+   599→      document.body.style.overflow = "";
+   600→      document.removeEventListener("keydown", onKey);
+   601→    };
+   602→  }, [open, onClose]);
+   603→
+   604→  return (
+   605→    <AnimatePresence>
+   606→      {open ? (
+   607→        <motion.div
+   608→          ref={hubRef}
+   609→          tabIndex={-1}
+   610→          key="practice-hub"
+   611→          initial={{ opacity: 0 }}
+   612→          animate={{ opacity: 1 }}
+   613→          exit={{ opacity: 0 }}
+   614→          transition={{ duration: 0.18 }}
+   615→          className="fixed inset-0 z-[65] overflow-y-auto outline-none"
+   616→          style={{
+   617→            background: "rgba(9,28,30,.78)",
+   618→            WebkitBackdropFilter: "blur(12px) saturate(140%)",
+   619→            backdropFilter: "blur(12px) saturate(140%)",
+   620→          }}
+   621→          role="dialog"
+   622→          aria-modal="true"
+   623→          aria-label="Test my knowledge — pen-paper practice"
+   624→          onClick={(e) => {
+   625→            if (e.target === e.currentTarget) onClose();
+   626→          }}
+   627→        >
+   628→          <div
+   629→            className="mx-auto my-6 w-[min(66rem,calc(100vw-1.5rem))] overflow-hidden rounded-3xl border border-white/10 sm:my-10"
+   630→            style={{
+   631→              background: LAGOON,
+   632→              boxShadow: "0 48px 140px -32px rgba(0,0,0,.65)",
+   633→            }}
+   634→          >
+   635→            {/* header */}
+   636→            <div className="flex items-start justify-between gap-4 px-6 pt-6 sm:px-8">
+   637→              <div>
+   638→                <p className="flex items-center gap-2 text-[.6rem] font-extrabold uppercase tracking-[.24em] text-[#9fc4ba]">
+   639→                  <span className="h-px w-5" style={{ background: `linear-gradient(90deg,${TEAL_BRIGHT},transparent)` }} />
+   640→                  Pen-paper practice
+   641→                </p>
+   642→                <h2 className="mt-1.5 text-2xl font-black tracking-tight text-[#e9f2ee] sm:text-3xl">Test my knowledge</h2>
+   643→                <p className="mt-2 max-w-2xl text-[.88rem] leading-relaxed text-[#c3d8d0]">
+   644→                  Every chapter group opens its own exam window: definitions, concept checks and
+   645→                  case-numbers — write on real paper first, then mark yourself against the model
+   646→                  answers with instant checking.
+   647→                </p>
+   648→                <p className="mt-2 text-[.64rem] font-black uppercase tracking-[.18em] text-[#8aa89e]">
+   649→                  {MKTG_TOTAL_QUESTIONS} questions · {MKTG_EXAM_GROUPS.length} windows
+   650→                </p>
+   651→              </div>
+   652→              <button
+   653→                type="button"
+   654→                onClick={onClose}
+   655→                aria-label="Close the practice hub"
+   656→                className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#e9f2ee] transition-colors hover:bg-white/20"
+   657→              >
+   658→                <X className="h-4.5 w-4.5" />
+   659→              </button>
+   660→            </div>
+   661→
+   662→            {/* the eight exam windows */}
+   663→            <div className="grid gap-3 px-6 pb-7 pt-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
+   664→              {MKTG_EXAM_GROUPS.map((g) => {
+   665→                const bank = MKTG_EXAM_BANKS[g];
+   666→                return (
+   667→                  <button
+   668→                    key={g}
+   669→                    type="button"
+   670→                    onClick={() => onOpenExam(g)}
+   671→                    className="group flex flex-col items-start rounded-2xl border border-white/10 bg-white/[.05] p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[.09]"
+   672→                    aria-label={`Open the exam window — ${bank.title}`}
+   673→                  >
+   674→                    <span
+   675→                      className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md"
+   676→                      style={{ background: `linear-gradient(135deg,${TEAL_BRIGHT},${TEAL})` }}
+   677→                    >
+   678→                      <PenLine className="h-4 w-4" />
+   679→                    </span>
+   680→                    <span className="mt-3 text-[.98rem] font-extrabold leading-tight text-[#a7e8dc]">{bank.title}</span>
+   681→                    <span className="mt-1 text-[.76rem] leading-snug text-[#c3d8d0]">{bank.topics}</span>
+   682→                    <span className="mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#9fc4ba] transition-colors group-hover:text-[#a7e8dc]">
+   683→                      Test my knowledge · {bank.questions.length} Qs →
+   684→                    </span>
+   685→                  </button>
+   686→                );
+   687→              })}
+   688→            </div>
+   689→          </div>
+   690→        </motion.div>
+   691→      ) : null}
+   692→    </AnimatePresence>
+   693→  );
+   694→}
+   695→
+   696→/* ============================================================
+   697→   MktgLectureHead — the "Principles of Marketing Lecture N"
+   698→   hero band. Every lecture opens with its number spoken aloud,
+   699→   exactly as the reader asked.
+   700→   ============================================================ */
+   701→function MktgLectureHead({ lecture }: { lecture: MktgLecture }) {
+   702→  return (
+   703→    <div className="mx-auto max-w-6xl px-4 pt-12 sm:px-6">
+   704→      <div
+   705→        className="relative overflow-hidden rounded-3xl p-7 sm:p-10"
+   706→        style={{ background: LAGOON, boxShadow: "0 30px 80px -30px rgba(12,33,36,.55)" }}
+   707→      >
+   708→        {/* ambient rings */}
+   709→        <svg aria-hidden viewBox="0 0 600 200" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full opacity-40">
+   710→          {[70, 120, 170].map((r, i) => (
+   711→            <motion.circle
+   712→              key={r} cx={540} cy={100} r={r} fill="none" stroke={i === 2 ? GOLD_LITE : TEAL_BRIGHT} strokeWidth={1.4}
+   713→              style={{ transformBox: "fill-box", transformOrigin: "center" }}
+   714→              animate={{ opacity: [0.12, 0.4, 0.12], scale: [1, 1.05, 1] }}
+   715→              transition={{ duration: 4.5, repeat: Infinity, delay: i * 0.8 }}
+   716→            />
+   717→          ))}
+   718→        </svg>
+   719→
+   720→        <div className="relative">
+   721→          <p className="flex flex-wrap items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.26em] text-[#9fc4ba]">
+   722→            <Megaphone className="h-3.5 w-3.5" style={{ color: TEAL_BRIGHT }} />
+   723→            Principles of Marketing · Shelf 06
+   724→          </p>
+   725→          <h2 className="mt-3 text-3xl font-black leading-tight text-[#e9f2ee] sm:text-5xl">
+   726→            Principles of Marketing{" "}
+   727→            <span
+   728→              className="bg-clip-text text-transparent"
+   729→              style={{ backgroundImage: `linear-gradient(120deg,${GOLD_LITE},${GOLD})` }}
+   730→            >
+   731→              Lecture {lecture.n}
+   732→            </span>
+   733→          </h2>
+   734→          <p className="mt-3 max-w-3xl text-lg font-bold leading-snug text-[#a7e8dc]">{lecture.title}</p>
+   735→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#c3d8d0]">{lecture.blurb}</p>
+   736→          {lecture.chapters.length > 0 ? (
+   737→            <div className="mt-5 flex flex-wrap gap-2">
+   738→              {lecture.chapters.map((c) => (
+   739→                <a
+   740→                  key={c.id}
+   741→                  href={`#${c.id}`}
+   742→                  onClick={(e) => {
+   743→                    e.preventDefault();
+   744→                    const el = document.getElementById(c.id);
+   745→                    if (el) jumpTo(el);
+   746→                  }}
+   747→                  className="rounded-full border border-white/15 bg-white/[.07] px-3 py-1.5 text-[.68rem] font-extrabold text-[#cfe6df] transition-colors hover:border-[#14b8a6]/40 hover:bg-white/[.12] hover:text-[#a7e8dc]"
+   748→                >
+   749→                  {c.label} ↓
+   750→                </a>
+   751→              ))}
+   752→            </div>
+   753→          ) : null}
+   754→        </div>
+   755→      </div>
+   756→    </div>
+   757→  );
+   758→}
+   759→
+   760→/* ============================================================
+   761→   LecturePager — prev/next lecture cards closing every lecture.
+   762→   ============================================================ */
+   763→function LecturePager({ current, onJump }: { current: MktgLecture; onJump: (id: string) => void }) {
+   764→  const idx = MKTG_LECTURES.findIndex((l) => l.id === current.id);
+   765→  const prev = idx > 0 ? MKTG_LECTURES[idx - 1] : null;
+   766→  const next = idx < MKTG_LECTURES.length - 1 ? MKTG_LECTURES[idx + 1] : null;
+   767→
+   768→  return (
+   769→    <nav aria-label="Lecture sequence" className="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6">
+   770→      <div className="grid gap-3 sm:grid-cols-2">
+   771→        {prev ? (
+   772→          <button
+   773→            type="button"
+   774→            onClick={() => onJump(prev.id)}
+   775→            className="card-warm lift group flex min-w-0 items-center gap-3 p-4 text-left"
+   776→            aria-label={`Previous: ${prev.code} — ${prev.title}`}
+   777→          >
+   778→            <ArrowLeft className="h-4 w-4 shrink-0 text-[#0f766e] transition-transform duration-200 group-hover:-translate-x-1" />
+   779→            <span className="min-w-0">
+   780→              <span className="block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#a97d2c]">
+   781→                Previous · {prev.code}
+   782→              </span>
+   783→              <span className="mt-0.5 block truncate text-[.92rem] font-extrabold text-[#1f2b2b]">{prev.title}</span>
+   784→            </span>
+   785→          </button>
+   786→        ) : (
+   787→          <span aria-hidden className="hidden sm:block" />
+   788→        )}
+   789→        {next ? (
+   790→          <button
+   791→            type="button"
+   792→            onClick={() => onJump(next.id)}
+   793→            className="card-warm lift group flex min-w-0 items-center justify-end gap-3 p-4 text-right"
+   794→            aria-label={`Next: ${next.code} — ${next.title}`}
+   795→          >
+   796→            <span className="min-w-0">
+   797→              <span className="block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#a97d2c]">
+   798→                Next · {next.code}
+   799→              </span>
+   800→              <span className="mt-0.5 block truncate text-[.92rem] font-extrabold text-[#1f2b2b]">{next.title}</span>
+   801→            </span>
+   802→            <ArrowRight className="h-4 w-4 shrink-0 text-[#0f766e] transition-transform duration-200 group-hover:translate-x-1" />
+   803→          </button>
+   804→        ) : (
+   805→          <span className="rounded-2xl border border-dashed border-[#dbeae5] p-4 text-center text-[.78rem] font-bold leading-snug text-[#8aa09b]">
+   806→            End of the sequence — Lecture 28 closes the course. Revise the biases, then retake the windows.
+   807→          </span>
+   808→        )}
+   809→      </div>
+   810→    </nav>
+   811→  );
+   812→}
+   813→
+   814→/* ============================================================
+   815→   MktgFooter — the atlas signature, retold for shelf 06.
+   816→   ============================================================ */
+   817→const MKTG_SIG_CHIPS = [
+   818→  { icon: BookOpen, label: `${FLAT_ITEMS.length} chapters` },
+   819→  { icon: ListChecks, label: `${MKTG_TOTAL_QUESTIONS} practice questions` },
+   820→  { icon: GraduationCap, label: `${MKTG_EXAM_GROUPS.length} exam windows` },
+   821→  { icon: MousePointerClick, label: "machines you can poke" },
+   822→];
+   823→
+   824→export function MktgFooter() {
+   825→  return (
+   826→    <footer className="footer-stick relative overflow-hidden">
+   827→      <motion.div
+   828→        aria-hidden
+   829→        className="absolute inset-x-0 top-0 h-px"
+   830→        style={{ background: `linear-gradient(90deg, transparent, rgba(15,118,110,.35), transparent)` }}
+   831→        initial={{ scaleX: 0, opacity: 0 }}
+   832→        whileInView={{ scaleX: 1, opacity: 1 }}
+   833→        viewport={{ once: true }}
+   834→        transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+   835→      />
+   836→
+   837→      <div aria-hidden className="sig-glow" />
+   838→
+   839→      <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 py-8 text-center sm:py-10">
+   840→        <motion.p
+   841→          className="sig-eyebrow text-[.58rem] font-semibold uppercase text-[#8aa09b]"
+   842→          aria-label="created by"
+   843→          initial={{ opacity: 0, letterSpacing: "1.05em" }}
+   844→          whileInView={{ opacity: 1, letterSpacing: "0.55em" }}
+   845→          viewport={{ once: true }}
+   846→          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+   847→        >
+   848→          created by
+   849→        </motion.p>
+   850→
+   851→        <motion.h2
+   852→          className="footer-name-wrap mt-2.5"
+   853→          aria-label="Arpit Nayan"
+   854→          initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
+   855→          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+   856→          viewport={{ once: true }}
+   857→          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
+   858→        >
+   859→          <span className="footer-name">Arpit&nbsp;Nayan</span>
+   860→        </motion.h2>
+   861→
+   862→        {/* one delicate stroke under the name */}
+   863→        <svg viewBox="0 0 300 22" className="mt-2 h-3.5 w-44" aria-hidden fill="none">
+   864→          <defs>
+   865→            <linearGradient id="mktgSigGrad" x1="0" y1="0" x2="1" y2="0">
+   866→              <stop offset="0" stopColor="#0f9488" stopOpacity="0" />
+   867→              <stop offset="0.5" stopColor="#0f9488" />
+   868→              <stop offset="1" stopColor="#a97d2c" stopOpacity="0" />
+   869→            </linearGradient>
+   870→          </defs>
+   871→          <motion.path
+   872→            d="M6 12 C 62 4, 118 19, 152 11 C 186 4, 236 17, 294 10"
+   873→            stroke="url(#mktgSigGrad)"
+   874→            strokeWidth="1.6"
+   875→            strokeLinecap="round"
+   876→            initial={{ pathLength: 0, opacity: 0 }}
+   877→            whileInView={{ pathLength: 1, opacity: 1 }}
+   878→            viewport={{ once: true }}
+   879→            transition={{ duration: 1.4, ease: "easeInOut", delay: 0.75 }}
+   880→          />
+   881→        </svg>
+   882→
+   883→        <motion.p
+   884→          className="sig-blurb mt-5"
+   885→          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+   886→          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+   887→          viewport={{ once: true }}
+   888→          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 1.0 }}
+   889→        >
+   890→          <b>Principles of Marketing</b> — every concept of the course, distilled into one warm,
+   891→          living page you can read, poke and revise.
+   892→          <span className="mt-1 block">
+   893→            Written for the late-night revision, the last-minute panic, and the quiet joy of
+   894→            finally seeing why people buy.
+   895→          </span>
+   896→        </motion.p>
+   897→
+   898→        <motion.p
+   899→          className="mt-3 text-[.78rem] font-semibold text-[#5f7472]"
+   900→          initial={{ opacity: 0 }}
+   901→          whileInView={{ opacity: 1 }}
+   902→          viewport={{ once: true }}
+   903→          transition={{ duration: 1.0, ease: "easeOut", delay: 1.25 }}
+   904→        >
+   905→          Course: Principles of Marketing — SME · IIT Jodhpur
+   906→        </motion.p>
+   907→
+   908→        <div
+   909→          role="list"
+   910→          aria-label="What this project contains"
+   911→          className="mt-4 flex flex-wrap items-center justify-center gap-2"
+   912→        >
+   913→          {MKTG_SIG_CHIPS.map((chip, i) => (
+   914→            <motion.span
+   915→              key={chip.label}
+   916→              role="listitem"
+   917→              className="sig-chip"
+   918→              initial={{ opacity: 0, y: 10, scale: 0.92 }}
+   919→              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+   920→              viewport={{ once: true }}
+   921→              transition={{
+   922→                duration: 0.6,
+   923→                ease: [0.22, 1, 0.36, 1],
+   924→                delay: 1.2 + i * 0.1,
+   925→              }}
+   926→            >
+   927→              <chip.icon className="h-3 w-3" strokeWidth={2.2} />
+   928→              {chip.label}
+   929→            </motion.span>
+   930→          ))}
+   931→        </div>
+   932→
+   933→        <motion.p
+   934→          className="sig-colo mt-5"
+   935→          initial={{ opacity: 0 }}
+   936→          whileInView={{ opacity: 1 }}
+   937→          viewport={{ once: true }}
+   938→          transition={{ duration: 1.1, ease: "easeOut", delay: 1.7 }}
+   939→        >
+   940→          shelf 06 · the atlas — crafted with next.js · react · tailwind — mmxxvi
+   941→        </motion.p>
+   942→      </div>
+   943→    </footer>
+   944→  );
+   945→}
+   946→
+   947→/* ============================================================
+   948→   MktgApp — the composed subject page: a lecture reader.
+   949→   ============================================================ */
+   950→export function MktgApp({ onExitAtlas }: { onExitAtlas: () => void }) {
+   951→  const [lectureId, setLectureId] = useState<string>(MKTG_DEFAULT_LECTURE);
+   952→  const [examGroup, setExamGroup] = useState<MktgExamGroup | null>(null);
+   953→  const [hubOpen, setHubOpen] = useState(false);
+   954→  const lectureIdRef = useRef(lectureId);
+   955→  useEffect(() => {
+   956→    lectureIdRef.current = lectureId;
+   957→  }, [lectureId]);
+   958→
+   959→  const lecture = lectureById(lectureId) ?? MKTG_LECTURES[0];
+   960→  const seen = useSeenDisplay(lecture);
+   961→
+   962→  const selectLecture = useCallback((id: string) => {
+   963→    setLectureId(id);
+   964→    requestAnimationFrame(() =>
+   965→      requestAnimationFrame(() => {
+   966→        const el = document.getElementById("notes-top");
+   967→        if (!el) return;
+   968→        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+   969→        el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+   970→      })
+   971→    );
+   972→  }, []);
+   973→
+   974→  const goToChapter = useCallback((chapterId: string) => {
+   975→    const target = lectureOfChapter(chapterId);
+   976→    if (!target) return;
+   977→    const scrollWhenReady = () => {
+   978→      let frames = 0;
+   979→      const tick = () => {
+   980→        const el = document.getElementById(chapterId);
+   981→        if (el) {
+   982→          jumpTo(el);
+   983→          return;
+   984→        }
+   985→        if (++frames < 240) requestAnimationFrame(tick);
+   986→      };
+   987→      requestAnimationFrame(tick);
+   988→    };
+   989→    if (lectureIdRef.current === target.id) {
+   990→      scrollWhenReady();
+   991→      return;
+   992→    }
+   993→    setLectureId(target.id);
+   994→    requestAnimationFrame(() => requestAnimationFrame(scrollWhenReady));
+   995→  }, []);
+   996→
+   997→  useOpenSection("mktg", goToChapter);
+   998→
+   999→  const openExam = useCallback((g: MktgExamGroup) => setExamGroup(g), []);
+  1000→  const openHub = useCallback(() => setHubOpen(true), []);
+  1001→
+  1002→  return (
+  1003→    <div id="top" className="page-wrap mktg-canvas">
+  1004→      <TopNav onOpenExam={openExam} onExitAtlas={onExitAtlas} onJumpChapter={goToChapter} seen={seen} />
+  1005→      <main className="pt-14">
+  1006→        <PartBoundary label="Hero">
+  1007→          <MktgHero
+  1008→            activeId={lectureId}
+  1009→            onSelect={selectLecture}
+  1010→            onPractice={openHub}
+  1011→            seen={seen}
+  1012→            totalQuestions={MKTG_TOTAL_QUESTIONS}
+  1013→          />
+  1014→        </PartBoundary>
+  1015→
+  1016→        {/* the notes start here */}
+  1017→        <div id="notes-top" aria-hidden className="relative scroll-mt-16" />
+  1018→
+  1019→        <PartBoundary key={lecture.id} label={`Lecture ${lecture.code} — ${lecture.title}`}>
+  1020→          <motion.div
+  1021→            initial={{ opacity: 0, y: 18 }}
+  1022→            animate={{ opacity: 1, y: 0 }}
+  1023→            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+  1024→          >
+  1025→            <MktgLectureHead lecture={lecture} />
+  1026→            {lecture.chapters.length > 0 ? (
+  1027→              lecture.chapters.map((c) => (
+  1028→                <PartBoundary key={c.id} label={c.label}>
+  1029→                  {SECTION_COMPONENTS[c.id]}
+  1030→                </PartBoundary>
+  1031→              ))
+  1032→            ) : (
+  1033→              <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+  1034→                <div className="card-warm p-8 text-center">
+  1035→                  <span className="chip mx-auto">
+  1036→                    <BookOpen className="h-3.5 w-3.5" /> Slot reserved
+  1037→                  </span>
+  1038→                  <h2 className="mt-4 text-2xl font-extrabold text-[#1f2b2b]">
+  1039→                    Lecture {lecture.n} hasn&rsquo;t been summarised yet
+  1040→                  </h2>
+  1041→                  <p className="mx-auto mt-3 max-w-md text-[.92rem] leading-relaxed text-[#5f7472]">
+  1042→                    This lecture&rsquo;s notes haven&rsquo;t been uploaded, so the shelf keeps the
+  1043→                    slot open. The moment its summary arrives, the chapters fill in right here.
+  1044→                  </p>
+  1045→                </div>
+  1046→              </div>
+  1047→            )}
+  1048→            <LecturePager current={lecture} onJump={selectLecture} />
+  1049→          </motion.div>
+  1050→        </PartBoundary>
+  1051→      </main>
+  1052→      <MktgFooter />
+  1053→      <PracticeHub open={hubOpen} onClose={() => setHubOpen(false)} onOpenExam={openExam} />
+  1054→      {examGroup ? <MktgExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
+  1055→    </div>
+  1056→  );
+  1057→}
+  1058→

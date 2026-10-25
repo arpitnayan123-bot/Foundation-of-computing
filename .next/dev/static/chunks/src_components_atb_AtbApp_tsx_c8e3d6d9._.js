@@ -18,14 +18,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-right.js [app-client] (ecmascript) <export default as ArrowRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-client] (ecmascript) <export default as Check>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-down.js [app-client] (ecmascript) <export default as ChevronDown>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpen$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/book-open.js [app-client] (ecmascript) <export default as BookOpen>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpenText$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/book-open-text.js [app-client] (ecmascript) <export default as BookOpenText>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$graduation$2d$cap$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__GraduationCap$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/graduation-cap.js [app-client] (ecmascript) <export default as GraduationCap>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$hourglass$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Hourglass$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/hourglass.js [app-client] (ecmascript) <export default as Hourglass>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2d$checks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ListChecks$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/list-checks.js [app-client] (ecmascript) <export default as ListChecks>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Map$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/map.js [app-client] (ecmascript) <export default as Map>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-client] (ecmascript) <export default as Menu>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mouse$2d$pointer$2d$click$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MousePointerClick$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/mouse-pointer-click.js [app-client] (ecmascript) <export default as MousePointerClick>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/pen-line.js [app-client] (ecmascript) <export default as PenLine>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/printer.js [app-client] (ecmascript) <export default as Printer>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$route$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Route$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/route.js [app-client] (ecmascript) <export default as Route>");
@@ -290,142 +286,142 @@ function groupOf(id) {
    ============================================================ */ const SECTION_COMPONENTS = {
     intro: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbIntroSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 160,
+        lineNumber: 156,
         columnNumber: 10
     }, ("TURBOPACK compile-time value", void 0)),
     flowcharts: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbFlowchartsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 161,
+        lineNumber: 157,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0)),
     atm: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbAtmSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 162,
+        lineNumber: 158,
         columnNumber: 8
     }, ("TURBOPACK compile-time value", void 0)),
     pseudocode: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbCodeSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 163,
+        lineNumber: 159,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0)),
     average: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbAverageSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 164,
+        lineNumber: 160,
         columnNumber: 12
     }, ("TURBOPACK compile-time value", void 0)),
     properties: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbPropsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 165,
+        lineNumber: 161,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0)),
     algotypes: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbAlgoTypesSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 166,
+        lineNumber: 162,
         columnNumber: 14
     }, ("TURBOPACK compile-time value", void 0)),
     arrays: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbArraysSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 167,
+        lineNumber: 163,
         columnNumber: 11
     }, ("TURBOPACK compile-time value", void 0)),
     linkedlists: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbListSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 168,
+        lineNumber: 164,
         columnNumber: 16
     }, ("TURBOPACK compile-time value", void 0)),
     stacks: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbStacksSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 169,
+        lineNumber: 165,
         columnNumber: 11
     }, ("TURBOPACK compile-time value", void 0)),
     queues: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbQueuesSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 170,
+        lineNumber: 166,
         columnNumber: 11
     }, ("TURBOPACK compile-time value", void 0)),
     qtypes: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbQTypesSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 171,
+        lineNumber: 167,
         columnNumber: 11
     }, ("TURBOPACK compile-time value", void 0)),
     trees: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts5$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbTreesSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 172,
+        lineNumber: 168,
         columnNumber: 10
     }, ("TURBOPACK compile-time value", void 0)),
     traversals: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts5$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbTraversalsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 173,
+        lineNumber: 169,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0)),
     graphs: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts5$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbGraphsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 174,
+        lineNumber: 170,
         columnNumber: 11
     }, ("TURBOPACK compile-time value", void 0)),
     dfsbfs: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts5$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbDfsBfsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 175,
+        lineNumber: 171,
         columnNumber: 11
     }, ("TURBOPACK compile-time value", void 0)),
     treetypes: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts6$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbTreeTypesSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 176,
+        lineNumber: 172,
         columnNumber: 14
     }, ("TURBOPACK compile-time value", void 0)),
     hashing: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts6$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbHashingSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 177,
+        lineNumber: 173,
         columnNumber: 12
     }, ("TURBOPACK compile-time value", void 0)),
     blockchain: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts6$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbBlockchainSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 178,
+        lineNumber: 174,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0)),
     recap8: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts7$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbRecap8Section"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 179,
+        lineNumber: 175,
         columnNumber: 11
     }, ("TURBOPACK compile-time value", void 0)),
     recap13: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts7$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbRecap13Section"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 180,
+        lineNumber: 176,
         columnNumber: 12
     }, ("TURBOPACK compile-time value", void 0)),
     recap18: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts7$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbRecap18Section"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 181,
+        lineNumber: 177,
         columnNumber: 12
     }, ("TURBOPACK compile-time value", void 0)),
     recap23: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts7$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbRecap23Section"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 182,
+        lineNumber: 178,
         columnNumber: 12
     }, ("TURBOPACK compile-time value", void 0)),
     graphprops: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts5$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbGraphPropsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 183,
+        lineNumber: 179,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0)),
     complexity: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts8$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbComplexitySection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 184,
+        lineNumber: 180,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0)),
     search: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts8$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbSearchSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 185,
+        lineNumber: 181,
         columnNumber: 11
     }, ("TURBOPACK compile-time value", void 0)),
     dijkstra: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts9$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbDijkstraSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 186,
+        lineNumber: 182,
         columnNumber: 13
     }, ("TURBOPACK compile-time value", void 0)),
     sorting: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbParts9$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AtbSortingSection"], {}, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 187,
+        lineNumber: 183,
         columnNumber: 12
     }, ("TURBOPACK compile-time value", void 0))
 };
@@ -600,7 +596,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                     className: "h-3.5 w-3.5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 324,
+                                    lineNumber: 320,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -608,13 +604,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                     children: "Atlas"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 325,
+                                    lineNumber: 321,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 317,
+                            lineNumber: 313,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -631,12 +627,12 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                         className: "h-3.5 w-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 337,
+                                        lineNumber: 333,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 333,
+                                    lineNumber: 329,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -644,13 +640,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                     children: "ATB Notes"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 339,
+                                    lineNumber: 335,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 329,
+                            lineNumber: 325,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -677,20 +673,20 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                     children: String(group.items.length).padStart(2, "0")
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                    lineNumber: 370,
+                                                    lineNumber: 366,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                     className: `h-3 w-3 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                    lineNumber: 371,
+                                                    lineNumber: 367,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 357,
+                                            lineNumber: 353,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -730,7 +726,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                     className: "h-3 w-3"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                    lineNumber: 393,
+                                                                    lineNumber: 389,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 group.label,
@@ -744,13 +740,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                    lineNumber: 395,
+                                                                    lineNumber: 391,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                            lineNumber: 392,
+                                                            lineNumber: 388,
                                                             columnNumber: 27
                                                         }, this),
                                                         group.items.map((item, i)=>{
@@ -772,7 +768,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                         children: String(i + 1).padStart(2, "0")
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                        lineNumber: 414,
+                                                                        lineNumber: 410,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -783,7 +779,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                                 children: item.label
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                                lineNumber: 423,
+                                                                                lineNumber: 419,
                                                                                 columnNumber: 35
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -791,13 +787,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                                 children: item.desc
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                                lineNumber: 426,
+                                                                                lineNumber: 422,
                                                                                 columnNumber: 35
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                        lineNumber: 422,
+                                                                        lineNumber: 418,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     isActiveItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -807,7 +803,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                         }
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                        lineNumber: 429,
+                                                                        lineNumber: 425,
                                                                         columnNumber: 33
                                                                     }, this) : seen.has(item.id) ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                                         className: "ml-auto mt-1 h-3.5 w-3.5 shrink-0",
@@ -817,13 +813,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                         "aria-label": "Chapter read"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                        lineNumber: 431,
+                                                                        lineNumber: 427,
                                                                         columnNumber: 33
                                                                     }, this) : null
                                                                 ]
                                                             }, item.id, true, {
                                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                lineNumber: 402,
+                                                                lineNumber: 398,
                                                                 columnNumber: 31
                                                             }, this);
                                                         }),
@@ -846,12 +842,12 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                             className: "h-3.5 w-3.5"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                            lineNumber: 451,
+                                                                            lineNumber: 447,
                                                                             columnNumber: 33
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                        lineNumber: 447,
+                                                                        lineNumber: 443,
                                                                         columnNumber: 31
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -862,7 +858,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                                 children: "Test my knowledge"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                                lineNumber: 454,
+                                                                                lineNumber: 450,
                                                                                 columnNumber: 33
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -873,13 +869,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                                lineNumber: 457,
+                                                                                lineNumber: 453,
                                                                                 columnNumber: 33
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                        lineNumber: 453,
+                                                                        lineNumber: 449,
                                                                         columnNumber: 31
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -887,46 +883,46 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                         children: "open →"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                        lineNumber: 461,
+                                                                        lineNumber: 457,
                                                                         columnNumber: 31
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                lineNumber: 439,
+                                                                lineNumber: 435,
                                                                 columnNumber: 29
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                            lineNumber: 438,
+                                                            lineNumber: 434,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                    lineNumber: 384,
+                                                    lineNumber: 380,
                                                     columnNumber: 25
                                                 }, this)
                                             }, `${group.id}-panel`, false, {
                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                lineNumber: 376,
+                                                lineNumber: 372,
                                                 columnNumber: 23
                                             }, this) : null
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 374,
+                                            lineNumber: 370,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, group.id, true, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 351,
+                                    lineNumber: 347,
                                     columnNumber: 17
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 346,
+                            lineNumber: 342,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -941,12 +937,12 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                     children: item.label
                                 }, item.id, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 478,
+                                    lineNumber: 474,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 476,
+                            lineNumber: 472,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -962,12 +958,12 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                         className: "h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 501,
+                                        lineNumber: 497,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 494,
+                                    lineNumber: 490,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -980,29 +976,29 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                         className: "h-4.5 w-4.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 510,
+                                        lineNumber: 506,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 503,
+                                    lineNumber: 499,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 493,
+                            lineNumber: 489,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                    lineNumber: 315,
+                    lineNumber: 311,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 314,
+                lineNumber: 310,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1016,12 +1012,12 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                    lineNumber: 518,
+                    lineNumber: 514,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 517,
+                lineNumber: 513,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -1061,7 +1057,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 544,
+                                            lineNumber: 540,
                                             columnNumber: 17
                                         }, this),
                                         "Chapter index",
@@ -1075,13 +1071,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 546,
+                                            lineNumber: 542,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 543,
+                                    lineNumber: 539,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1093,18 +1089,18 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                         className: "h-4.5 w-4.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 556,
+                                        lineNumber: 552,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 550,
+                                    lineNumber: 546,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 542,
+                            lineNumber: 538,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1134,7 +1130,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                    lineNumber: 569,
+                                                    lineNumber: 565,
                                                     columnNumber: 21
                                                 }, this),
                                                 group.label,
@@ -1147,13 +1143,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                    lineNumber: 571,
+                                                    lineNumber: 567,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 568,
+                                            lineNumber: 564,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1182,7 +1178,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                 children: String(i + 1).padStart(2, "0")
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                lineNumber: 589,
+                                                                lineNumber: 585,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1193,7 +1189,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                         children: item.label
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                        lineNumber: 600,
+                                                                        lineNumber: 596,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1201,13 +1197,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                         children: item.desc
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                        lineNumber: 603,
+                                                                        lineNumber: 599,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                lineNumber: 599,
+                                                                lineNumber: 595,
                                                                 columnNumber: 27
                                                             }, this),
                                                             isActiveItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1217,7 +1213,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                lineNumber: 606,
+                                                                lineNumber: 602,
                                                                 columnNumber: 29
                                                             }, this) : seen.has(item.id) ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                                 className: "h-4 w-4 shrink-0",
@@ -1227,13 +1223,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                 "aria-label": "Chapter read"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                lineNumber: 608,
+                                                                lineNumber: 604,
                                                                 columnNumber: 29
                                                             }, this) : null
                                                         ]
                                                     }, item.id, true, {
                                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                        lineNumber: 577,
+                                                        lineNumber: 573,
                                                         columnNumber: 25
                                                     }, this);
                                                 }),
@@ -1254,12 +1250,12 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                 className: "h-3.5 w-3.5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                                lineNumber: 627,
+                                                                lineNumber: 623,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                            lineNumber: 623,
+                                                            lineNumber: 619,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1267,7 +1263,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                             children: "Test my knowledge"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                            lineNumber: 629,
+                                                            lineNumber: 625,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1278,47 +1274,47 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                            lineNumber: 630,
+                                                            lineNumber: 626,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                    lineNumber: 615,
+                                                    lineNumber: 611,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 573,
+                                            lineNumber: 569,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, group.id, true, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 561,
+                                    lineNumber: 557,
                                     columnNumber: 17
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 559,
+                            lineNumber: 555,
                             columnNumber: 13
                         }, this)
                     ]
                 }, "mobile-index", true, {
                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                    lineNumber: 528,
+                    lineNumber: 524,
                     columnNumber: 11
                 }, this) : null
             }, void 0, false, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 526,
+                lineNumber: 522,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 313,
+        lineNumber: 309,
         columnNumber: 5
     }, this);
 }
@@ -1409,14 +1405,14 @@ _c2 = TopNav;
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                lineNumber: 712,
+                                                lineNumber: 708,
                                                 columnNumber: 19
                                             }, this),
                                             "Pen-paper practice"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 711,
+                                        lineNumber: 707,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1424,7 +1420,7 @@ _c2 = TopNav;
                                         children: "Test my knowledge"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 715,
+                                        lineNumber: 711,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1432,7 +1428,7 @@ _c2 = TopNav;
                                         children: "Every chapter group opens its own exam window: write-the-output, trace-the-pseudocode, definitions and concept checks — write on real paper first, then mark yourself against the model answers with instant checking."
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 716,
+                                        lineNumber: 712,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1445,13 +1441,13 @@ _c2 = TopNav;
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 721,
+                                        lineNumber: 717,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                lineNumber: 710,
+                                lineNumber: 706,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1463,18 +1459,18 @@ _c2 = TopNav;
                                     className: "h-4.5 w-4.5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 731,
+                                    lineNumber: 727,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                lineNumber: 725,
+                                lineNumber: 721,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 709,
+                        lineNumber: 705,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1496,12 +1492,12 @@ _c2 = TopNav;
                                             className: "h-4 w-4"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 751,
+                                            lineNumber: 747,
                                             columnNumber: 23
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 747,
+                                        lineNumber: 743,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1509,7 +1505,7 @@ _c2 = TopNav;
                                         children: bank.title
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 753,
+                                        lineNumber: 749,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1517,7 +1513,7 @@ _c2 = TopNav;
                                         children: bank.topics
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 754,
+                                        lineNumber: 750,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1529,35 +1525,35 @@ _c2 = TopNav;
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 755,
+                                        lineNumber: 751,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, g, true, {
                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                lineNumber: 740,
+                                lineNumber: 736,
                                 columnNumber: 19
                             }, this);
                         })
                     }, void 0, false, {
                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 736,
+                        lineNumber: 732,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 701,
+                lineNumber: 697,
                 columnNumber: 11
             }, this)
         }, "practice-hub", false, {
             fileName: "[project]/src/components/atb/AtbApp.tsx",
-            lineNumber: 680,
+            lineNumber: 676,
             columnNumber: 9
         }, this) : null
     }, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 678,
+        lineNumber: 674,
         columnNumber: 5
     }, this);
 }
@@ -1590,7 +1586,7 @@ _c3 = PracticeHub;
                             className: "h-4 w-4 shrink-0 text-[#c2410c] transition-transform duration-200 group-hover:-translate-x-1"
                         }, void 0, false, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 788,
+                            lineNumber: 784,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1604,7 +1600,7 @@ _c3 = PracticeHub;
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 790,
+                                    lineNumber: 786,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1612,26 +1608,26 @@ _c3 = PracticeHub;
                                     children: prev.title
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 793,
+                                    lineNumber: 789,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 789,
+                            lineNumber: 785,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                    lineNumber: 782,
+                    lineNumber: 778,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                     "aria-hidden": true,
                     className: "hidden sm:block"
                 }, void 0, false, {
                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                    lineNumber: 797,
+                    lineNumber: 793,
                     columnNumber: 11
                 }, this),
                 next ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1651,7 +1647,7 @@ _c3 = PracticeHub;
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 807,
+                                    lineNumber: 803,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1659,70 +1655,48 @@ _c3 = PracticeHub;
                                     children: next.title
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 810,
+                                    lineNumber: 806,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 806,
+                            lineNumber: 802,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
                             className: "h-4 w-4 shrink-0 text-[#c2410c] transition-transform duration-200 group-hover:translate-x-1"
                         }, void 0, false, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 812,
+                            lineNumber: 808,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                    lineNumber: 800,
+                    lineNumber: 796,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                     className: "rounded-2xl border border-dashed border-[#e5c79d] p-4 text-center text-[.78rem] font-bold leading-snug text-[#a08568]",
                     children: "End of the sequence — the next lecture lands here the moment the course sends it."
                 }, void 0, false, {
                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                    lineNumber: 815,
+                    lineNumber: 811,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/atb/AtbApp.tsx",
-            lineNumber: 780,
+            lineNumber: 776,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 779,
+        lineNumber: 775,
         columnNumber: 5
     }, this);
 }
 _c4 = LecturePager;
-/* ============================================================
-   AtbFooter — adapted from the FoC signature footer: same
-   hairline, glow, name-stroke and colophon vibe, retold for
-   shelf 02 of The Atlas.
-   ============================================================ */ const ATB_SIG_CHIPS = [
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpen$3e$__["BookOpen"],
-        label: `${FLAT_ITEMS.length} chapters`
-    },
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2d$checks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ListChecks$3e$__["ListChecks"],
-        label: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ATB_TOTAL_QUESTIONS"]} practice questions`
-    },
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$graduation$2d$cap$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__GraduationCap$3e$__["GraduationCap"],
-        label: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ATB_EXAM_GROUPS"].length} exam windows`
-    },
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mouse$2d$pointer$2d$click$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MousePointerClick$3e$__["MousePointerClick"],
-        label: "machines you can poke"
-    }
-];
 function AtbFooter() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
         className: "footer-stick relative overflow-hidden",
@@ -1755,7 +1729,7 @@ function AtbFooter() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 840,
+                lineNumber: 829,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1763,7 +1737,7 @@ function AtbFooter() {
                 className: "sig-glow"
             }, void 0, false, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 851,
+                lineNumber: 840,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1796,7 +1770,7 @@ function AtbFooter() {
                         children: "created by"
                     }, void 0, false, {
                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 854,
+                        lineNumber: 843,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].h2, {
@@ -1830,12 +1804,12 @@ function AtbFooter() {
                             children: "Arpit Nayan"
                         }, void 0, false, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 873,
+                            lineNumber: 862,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 865,
+                        lineNumber: 854,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -1858,7 +1832,7 @@ function AtbFooter() {
                                             stopOpacity: "0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 880,
+                                            lineNumber: 869,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
@@ -1866,7 +1840,7 @@ function AtbFooter() {
                                             stopColor: "#c98a3e"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 881,
+                                            lineNumber: 870,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
@@ -1875,18 +1849,18 @@ function AtbFooter() {
                                             stopOpacity: "0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 882,
+                                            lineNumber: 871,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 879,
+                                    lineNumber: 868,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                lineNumber: 878,
+                                lineNumber: 867,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].path, {
@@ -1912,168 +1886,25 @@ function AtbFooter() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                lineNumber: 885,
+                                lineNumber: 874,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 877,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-blurb mt-5",
-                        initial: {
-                            opacity: 0,
-                            y: 12,
-                            filter: "blur(6px)"
-                        },
-                        whileInView: {
-                            opacity: 1,
-                            y: 0,
-                            filter: "blur(0px)"
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 0.9,
-                            ease: [
-                                0.22,
-                                1,
-                                0.36,
-                                1
-                            ],
-                            delay: 1.0
-                        },
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("b", {
-                                children: "Algorithmic Thinking in Business"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                lineNumber: 905,
-                                columnNumber: 11
-                            }, this),
-                            " — every concept of the course, distilled into one warm, living page you can read, sketch and revise.",
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "mt-1 block",
-                                children: "Written for the late-night revision, the last-minute panic, and the quiet joy of an algorithm that finally makes sense."
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                lineNumber: 907,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 898,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "mt-3 text-[.78rem] font-semibold text-[#6f5438]",
-                        initial: {
-                            opacity: 0
-                        },
-                        whileInView: {
-                            opacity: 1
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 1.0,
-                            ease: "easeOut",
-                            delay: 1.25
-                        },
-                        children: "Course: Algorithmic Thinking in Business — Dr. Deepak Kumar Saxena · IIT Jodhpur"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 914,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        role: "list",
-                        "aria-label": "What this project contains",
-                        className: "mt-4 flex flex-wrap items-center justify-center gap-2",
-                        children: ATB_SIG_CHIPS.map((chip, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].span, {
-                                role: "listitem",
-                                className: "sig-chip",
-                                initial: {
-                                    opacity: 0,
-                                    y: 10,
-                                    scale: 0.92
-                                },
-                                whileInView: {
-                                    opacity: 1,
-                                    y: 0,
-                                    scale: 1
-                                },
-                                viewport: {
-                                    once: true
-                                },
-                                transition: {
-                                    duration: 0.6,
-                                    ease: [
-                                        0.22,
-                                        1,
-                                        0.36,
-                                        1
-                                    ],
-                                    delay: 1.2 + i * 0.1
-                                },
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(chip.icon, {
-                                        className: "h-3 w-3",
-                                        strokeWidth: 2.2
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 944,
-                                        columnNumber: 15
-                                    }, this),
-                                    chip.label
-                                ]
-                            }, chip.label, true, {
-                                fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                lineNumber: 931,
-                                columnNumber: 13
-                            }, this))
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 925,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-colo mt-5",
-                        initial: {
-                            opacity: 0
-                        },
-                        whileInView: {
-                            opacity: 1
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 1.1,
-                            ease: "easeOut",
-                            delay: 1.7
-                        },
-                        children: "shelf 02 · the atlas — crafted with next.js · react · tailwind — mmxxvi"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 951,
+                        lineNumber: 866,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 853,
+                lineNumber: 842,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 838,
+        lineNumber: 827,
         columnNumber: 5
     }, this);
 }
@@ -2165,7 +1996,7 @@ function AtbApp({ onExitAtlas }) {
                 seen: seen
             }, void 0, false, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 1031,
+                lineNumber: 956,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -2181,12 +2012,12 @@ function AtbApp({ onExitAtlas }) {
                             totalQuestions: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ATB_TOTAL_QUESTIONS"]
                         }, void 0, false, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 1034,
+                            lineNumber: 959,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 1033,
+                        lineNumber: 958,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2195,7 +2026,7 @@ function AtbApp({ onExitAtlas }) {
                         className: "relative scroll-mt-16"
                     }, void 0, false, {
                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 1044,
+                        lineNumber: 969,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
@@ -2224,7 +2055,7 @@ function AtbApp({ onExitAtlas }) {
                                         children: SECTION_COMPONENTS[c.id]
                                     }, c.id, false, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 1054,
+                                        lineNumber: 979,
                                         columnNumber: 17
                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "mx-auto max-w-3xl px-4 py-16 sm:px-6",
@@ -2238,14 +2069,14 @@ function AtbApp({ onExitAtlas }) {
                                                         className: "h-3.5 w-3.5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                        lineNumber: 1062,
+                                                        lineNumber: 987,
                                                         columnNumber: 21
                                                     }, this),
                                                     " Slot reserved"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                lineNumber: 1061,
+                                                lineNumber: 986,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2257,7 +2088,7 @@ function AtbApp({ onExitAtlas }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                lineNumber: 1064,
+                                                lineNumber: 989,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2265,18 +2096,18 @@ function AtbApp({ onExitAtlas }) {
                                                 children: "This lecture’s notes haven’t been uploaded, so the shelf keeps the slot open. The moment its summary arrives, the chapters fill in right here — diagrams, machines and all."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                lineNumber: 1067,
+                                                lineNumber: 992,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 1060,
+                                        lineNumber: 985,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 1059,
+                                    lineNumber: 984,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LecturePager, {
@@ -2284,29 +2115,29 @@ function AtbApp({ onExitAtlas }) {
                                     onJump: selectLecture
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 1075,
+                                    lineNumber: 1000,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 1047,
+                            lineNumber: 972,
                             columnNumber: 11
                         }, this)
                     }, lecture.id, false, {
                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 1046,
+                        lineNumber: 971,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 1032,
+                lineNumber: 957,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AtbFooter, {}, void 0, false, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 1079,
+                lineNumber: 1004,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PracticeHub, {
@@ -2315,7 +2146,7 @@ function AtbApp({ onExitAtlas }) {
                 onOpenExam: openExam
             }, void 0, false, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 1080,
+                lineNumber: 1005,
                 columnNumber: 7
             }, this),
             examGroup ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbExamWindow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["AtbExamWindow"], {
@@ -2323,13 +2154,13 @@ function AtbApp({ onExitAtlas }) {
                 onClose: ()=>setExamGroup(null)
             }, void 0, false, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 1081,
+                lineNumber: 1006,
                 columnNumber: 20
             }, this) : null
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 1030,
+        lineNumber: 955,
         columnNumber: 5
     }, this));
 }

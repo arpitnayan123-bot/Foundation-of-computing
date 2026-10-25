@@ -29,12 +29,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpenText$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/book-open-text.js [app-client] (ecmascript) <export default as BookOpenText>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-client] (ecmascript) <export default as Check>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-down.js [app-client] (ecmascript) <export default as ChevronDown>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$graduation$2d$cap$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__GraduationCap$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/graduation-cap.js [app-client] (ecmascript) <export default as GraduationCap>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2d$checks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ListChecks$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/list-checks.js [app-client] (ecmascript) <export default as ListChecks>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Map$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/map.js [app-client] (ecmascript) <export default as Map>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$megaphone$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Megaphone$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/megaphone.js [app-client] (ecmascript) <export default as Megaphone>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-client] (ecmascript) <export default as Menu>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mouse$2d$pointer$2d$click$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MousePointerClick$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/mouse-pointer-click.js [app-client] (ecmascript) <export default as MousePointerClick>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PenLine$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/pen-line.js [app-client] (ecmascript) <export default as PenLine>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/printer.js [app-client] (ecmascript) <export default as Printer>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
@@ -86,267 +83,267 @@ function groupOf(id) {
    ============================================================ */ const SECTION_COMPONENTS = {
     "why-mktg": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgWhySection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 90,
+        lineNumber: 87,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0)),
     anticipation: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgAnticipationSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 91,
+        lineNumber: 88,
         columnNumber: 17
     }, ("TURBOPACK compile-time value", void 0)),
     topline: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgToplineSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 92,
+        lineNumber: 89,
         columnNumber: 12
     }, ("TURBOPACK compile-time value", void 0)),
     "mktg-vs-selling": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgVsSellingSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 93,
+        lineNumber: 90,
         columnNumber: 22
     }, ("TURBOPACK compile-time value", void 0)),
     definitions: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgDefinitionsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 94,
+        lineNumber: 91,
         columnNumber: 16
     }, ("TURBOPACK compile-time value", void 0)),
     "mktg-system": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgSystemSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 95,
+        lineNumber: 92,
         columnNumber: 18
     }, ("TURBOPACK compile-time value", void 0)),
     marketable: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgMarketableSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 96,
+        lineNumber: 93,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0)),
     "need-want-demand": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgNwdSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 97,
+        lineNumber: 94,
         columnNumber: 23
     }, ("TURBOPACK compile-time value", void 0)),
     "demand-states": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgDemandStatesSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 98,
+        lineNumber: 95,
         columnNumber: 20
     }, ("TURBOPACK compile-time value", void 0)),
     "closed-system": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgClosedSystemSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 99,
+        lineNumber: 96,
         columnNumber: 20
     }, ("TURBOPACK compile-time value", void 0)),
     "biz-value": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgBizValueSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 100,
+        lineNumber: 97,
         columnNumber: 16
     }, ("TURBOPACK compile-time value", void 0)),
     "chai-value": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgChaiSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 101,
+        lineNumber: 98,
         columnNumber: 17
     }, ("TURBOPACK compile-time value", void 0)),
     "cpv-formula": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts1$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgCpvSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 102,
+        lineNumber: 99,
         columnNumber: 18
     }, ("TURBOPACK compile-time value", void 0)),
     environment: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgEnvironmentSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 103,
+        lineNumber: 100,
         columnNumber: 16
     }, ("TURBOPACK compile-time value", void 0)),
     "exchange-system": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgExchangeSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 104,
+        lineNumber: 101,
         columnNumber: 22
     }, ("TURBOPACK compile-time value", void 0)),
     "value-price-features": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgValuePriceSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 105,
+        lineNumber: 102,
         columnNumber: 27
     }, ("TURBOPACK compile-time value", void 0)),
     "luxury-lever": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgLuxurySection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 106,
+        lineNumber: 103,
         columnNumber: 19
     }, ("TURBOPACK compile-time value", void 0)),
     "es-ds": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgEsDsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 107,
+        lineNumber: 104,
         columnNumber: 12
     }, ("TURBOPACK compile-time value", void 0)),
     "purchase-chain": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgChainSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 108,
+        lineNumber: 105,
         columnNumber: 21
     }, ("TURBOPACK compile-time value", void 0)),
     "context-matters": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgContextSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 109,
+        lineNumber: 106,
         columnNumber: 22
     }, ("TURBOPACK compile-time value", void 0)),
     "loyalty-econ": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgLoyaltyEconSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 110,
+        lineNumber: 107,
         columnNumber: 19
     }, ("TURBOPACK compile-time value", void 0)),
     "campaigns-esds": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgCampaignsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 111,
+        lineNumber: 108,
         columnNumber: 21
     }, ("TURBOPACK compile-time value", void 0)),
     "beyond-purchase": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgBeyondSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 112,
+        lineNumber: 109,
         columnNumber: 22
     }, ("TURBOPACK compile-time value", void 0)),
     heterogeneity: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgHeteroSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 113,
+        lineNumber: 110,
         columnNumber: 18
     }, ("TURBOPACK compile-time value", void 0)),
     bases: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgBasesSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 114,
+        lineNumber: 111,
         columnNumber: 10
     }, ("TURBOPACK compile-time value", void 0)),
     "behavioral-benefit": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts2$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgBehavioralSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 115,
+        lineNumber: 112,
         columnNumber: 25
     }, ("TURBOPACK compile-time value", void 0)),
     "tupo-case": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgTupoSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 116,
+        lineNumber: 113,
         columnNumber: 16
     }, ("TURBOPACK compile-time value", void 0)),
     "safe-targeting": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgSafeSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 117,
+        lineNumber: 114,
         columnNumber: 21
     }, ("TURBOPACK compile-time value", void 0)),
     "pos-3q": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgPos3qSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 118,
+        lineNumber: 115,
         columnNumber: 13
     }, ("TURBOPACK compile-time value", void 0)),
     "accor-map": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgAccorSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 119,
+        lineNumber: 116,
         columnNumber: 16
     }, ("TURBOPACK compile-time value", void 0)),
     "frame-podspops": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgFrameSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 120,
+        lineNumber: 117,
         columnNumber: 21
     }, ("TURBOPACK compile-time value", void 0)),
     "four-levels": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgLevelsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 121,
+        lineNumber: 118,
         columnNumber: 18
     }, ("TURBOPACK compile-time value", void 0)),
     "pop-pod-evolution": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgEvolutionSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 122,
+        lineNumber: 119,
         columnNumber: 24
     }, ("TURBOPACK compile-time value", void 0)),
     "three-circles": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgCirclesSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 123,
+        lineNumber: 120,
         columnNumber: 20
     }, ("TURBOPACK compile-time value", void 0)),
     "pod-pop-cases": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgPopPodCasesSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 124,
+        lineNumber: 121,
         columnNumber: 20
     }, ("TURBOPACK compile-time value", void 0)),
     "why-buy": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgWhyBuySection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 125,
+        lineNumber: 122,
         columnNumber: 14
     }, ("TURBOPACK compile-time value", void 0)),
     "eras-nudges": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgErasSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 126,
+        lineNumber: 123,
         columnNumber: 18
     }, ("TURBOPACK compile-time value", void 0)),
     "five-stages": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgStagesSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 127,
+        lineNumber: 124,
         columnNumber: 18
     }, ("TURBOPACK compile-time value", void 0)),
     "messy-middle": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts3$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgMessySection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 128,
+        lineNumber: 125,
         columnNumber: 19
     }, ("TURBOPACK compile-time value", void 0)),
     "journey-variations": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgVariationsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 129,
+        lineNumber: 126,
         columnNumber: 25
     }, ("TURBOPACK compile-time value", void 0)),
     "autopsy-purchase": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgAutopsySection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 130,
+        lineNumber: 127,
         columnNumber: 23
     }, ("TURBOPACK compile-time value", void 0)),
     "touchpoints-framework": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgTouchpointsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 131,
+        lineNumber: 128,
         columnNumber: 28
     }, ("TURBOPACK compile-time value", void 0)),
     recap22: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgRecap22Section"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 132,
+        lineNumber: 129,
         columnNumber: 12
     }, ("TURBOPACK compile-time value", void 0)),
     "motivation-theories": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgMotivationSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 133,
+        lineNumber: 130,
         columnNumber: 26
     }, ("TURBOPACK compile-time value", void 0)),
     "theory-match": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgTheoryMatchSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 134,
+        lineNumber: 131,
         columnNumber: 19
     }, ("TURBOPACK compile-time value", void 0)),
     "brand-perception": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgBrandPerceptionSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 135,
+        lineNumber: 132,
         columnNumber: 23
     }, ("TURBOPACK compile-time value", void 0)),
     "almonds-price": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgAlmondsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 136,
+        lineNumber: 133,
         columnNumber: 20
     }, ("TURBOPACK compile-time value", void 0)),
     "sensory-stages": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgSensorySection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 137,
+        lineNumber: 134,
         columnNumber: 21
     }, ("TURBOPACK compile-time value", void 0)),
     "gestalt-lab": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgGestaltSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 138,
+        lineNumber: 135,
         columnNumber: 18
     }, ("TURBOPACK compile-time value", void 0)),
     "attitude-buckets": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgBucketsSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 139,
+        lineNumber: 136,
         columnNumber: 23
     }, ("TURBOPACK compile-time value", void 0)),
     "retention-acquisition": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgRetentionSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 140,
+        lineNumber: 137,
         columnNumber: 28
     }, ("TURBOPACK compile-time value", void 0)),
     "abc-humanization": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgAbcSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 141,
+        lineNumber: 138,
         columnNumber: 23
     }, ("TURBOPACK compile-time value", void 0)),
     "bias-lab": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgParts4$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MktgBiasSection"], {}, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 142,
+        lineNumber: 139,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0))
 };
@@ -501,7 +498,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                     className: "h-3.5 w-3.5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 259,
+                                    lineNumber: 256,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -509,13 +506,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                     children: "Atlas"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 260,
+                                    lineNumber: 257,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 252,
+                            lineNumber: 249,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -532,12 +529,12 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                         className: "h-3.5 w-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 272,
+                                        lineNumber: 269,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 268,
+                                    lineNumber: 265,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -545,13 +542,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                     children: "MKTG Notes"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 274,
+                                    lineNumber: 271,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 264,
+                            lineNumber: 261,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -578,20 +575,20 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                     children: String(group.items.length).padStart(2, "0")
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                    lineNumber: 302,
+                                                    lineNumber: 299,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                     className: `h-3 w-3 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                    lineNumber: 303,
+                                                    lineNumber: 300,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                            lineNumber: 289,
+                                            lineNumber: 286,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -631,7 +628,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                     className: "h-3 w-3"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                    lineNumber: 325,
+                                                                    lineNumber: 322,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 group.label,
@@ -645,13 +642,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                    lineNumber: 327,
+                                                                    lineNumber: 324,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                            lineNumber: 324,
+                                                            lineNumber: 321,
                                                             columnNumber: 27
                                                         }, this),
                                                         group.items.map((item, i)=>{
@@ -673,7 +670,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                         children: String(i + 1).padStart(2, "0")
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                        lineNumber: 346,
+                                                                        lineNumber: 343,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -684,7 +681,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                                 children: item.label
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                                lineNumber: 355,
+                                                                                lineNumber: 352,
                                                                                 columnNumber: 35
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -692,13 +689,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                                 children: item.desc
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                                lineNumber: 358,
+                                                                                lineNumber: 355,
                                                                                 columnNumber: 35
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                        lineNumber: 354,
+                                                                        lineNumber: 351,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     isActiveItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -708,7 +705,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                         }
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                        lineNumber: 361,
+                                                                        lineNumber: 358,
                                                                         columnNumber: 35
                                                                     }, this) : seen.has(item.id) ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                                         className: "ml-auto mt-1 h-3.5 w-3.5 shrink-0",
@@ -718,13 +715,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                         "aria-label": "Chapter read"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                        lineNumber: 363,
+                                                                        lineNumber: 360,
                                                                         columnNumber: 35
                                                                     }, this) : null
                                                                 ]
                                                             }, item.id, true, {
                                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                lineNumber: 334,
+                                                                lineNumber: 331,
                                                                 columnNumber: 31
                                                             }, this);
                                                         }),
@@ -747,12 +744,12 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                             className: "h-3.5 w-3.5"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                            lineNumber: 383,
+                                                                            lineNumber: 380,
                                                                             columnNumber: 33
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                        lineNumber: 379,
+                                                                        lineNumber: 376,
                                                                         columnNumber: 31
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -763,7 +760,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                                 children: "Test my knowledge"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                                lineNumber: 386,
+                                                                                lineNumber: 383,
                                                                                 columnNumber: 33
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -774,13 +771,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                                lineNumber: 389,
+                                                                                lineNumber: 386,
                                                                                 columnNumber: 33
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                        lineNumber: 385,
+                                                                        lineNumber: 382,
                                                                         columnNumber: 31
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -788,46 +785,46 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                         children: "open →"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                        lineNumber: 393,
+                                                                        lineNumber: 390,
                                                                         columnNumber: 31
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                lineNumber: 371,
+                                                                lineNumber: 368,
                                                                 columnNumber: 29
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                            lineNumber: 370,
+                                                            lineNumber: 367,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                    lineNumber: 316,
+                                                    lineNumber: 313,
                                                     columnNumber: 25
                                                 }, this)
                                             }, `${group.id}-panel`, false, {
                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                lineNumber: 308,
+                                                lineNumber: 305,
                                                 columnNumber: 23
                                             }, this) : null
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                            lineNumber: 306,
+                                            lineNumber: 303,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, group.id, true, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 283,
+                                    lineNumber: 280,
                                     columnNumber: 17
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 278,
+                            lineNumber: 275,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -842,12 +839,12 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                     children: item.label
                                 }, item.id, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 410,
+                                    lineNumber: 407,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 408,
+                            lineNumber: 405,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -863,12 +860,12 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                         className: "h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 433,
+                                        lineNumber: 430,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 426,
+                                    lineNumber: 423,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -881,29 +878,29 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                         className: "h-4.5 w-4.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 442,
+                                        lineNumber: 439,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 435,
+                                    lineNumber: 432,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 425,
+                            lineNumber: 422,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                    lineNumber: 250,
+                    lineNumber: 247,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                lineNumber: 249,
+                lineNumber: 246,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -917,12 +914,12 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                    lineNumber: 450,
+                    lineNumber: 447,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                lineNumber: 449,
+                lineNumber: 446,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -962,7 +959,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                            lineNumber: 476,
+                                            lineNumber: 473,
                                             columnNumber: 17
                                         }, this),
                                         "Chapter index",
@@ -976,13 +973,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                            lineNumber: 478,
+                                            lineNumber: 475,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 475,
+                                    lineNumber: 472,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -994,18 +991,18 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                         className: "h-4.5 w-4.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 488,
+                                        lineNumber: 485,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 482,
+                                    lineNumber: 479,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 474,
+                            lineNumber: 471,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1035,7 +1032,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                    lineNumber: 501,
+                                                    lineNumber: 498,
                                                     columnNumber: 21
                                                 }, this),
                                                 group.label,
@@ -1048,13 +1045,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                    lineNumber: 503,
+                                                    lineNumber: 500,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                            lineNumber: 500,
+                                            lineNumber: 497,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1083,7 +1080,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                 children: String(i + 1).padStart(2, "0")
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                lineNumber: 521,
+                                                                lineNumber: 518,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1094,7 +1091,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                         children: item.label
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                        lineNumber: 532,
+                                                                        lineNumber: 529,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1102,13 +1099,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                         children: item.desc
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                        lineNumber: 535,
+                                                                        lineNumber: 532,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                lineNumber: 531,
+                                                                lineNumber: 528,
                                                                 columnNumber: 27
                                                             }, this),
                                                             isActiveItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1118,7 +1115,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                lineNumber: 538,
+                                                                lineNumber: 535,
                                                                 columnNumber: 29
                                                             }, this) : seen.has(item.id) ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                                 className: "h-4 w-4 shrink-0",
@@ -1128,13 +1125,13 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                 "aria-label": "Chapter read"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                lineNumber: 540,
+                                                                lineNumber: 537,
                                                                 columnNumber: 29
                                                             }, this) : null
                                                         ]
                                                     }, item.id, true, {
                                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                        lineNumber: 509,
+                                                        lineNumber: 506,
                                                         columnNumber: 25
                                                     }, this);
                                                 }),
@@ -1155,12 +1152,12 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                                 className: "h-3.5 w-3.5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                                lineNumber: 559,
+                                                                lineNumber: 556,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                            lineNumber: 555,
+                                                            lineNumber: 552,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1168,7 +1165,7 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                             children: "Test my knowledge"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                            lineNumber: 561,
+                                                            lineNumber: 558,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1179,47 +1176,47 @@ _s(useSeenDisplay, "DELvzeEi17LckFW8qCPew5wnROQ=", false, function() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                            lineNumber: 562,
+                                                            lineNumber: 559,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                    lineNumber: 547,
+                                                    lineNumber: 544,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                            lineNumber: 505,
+                                            lineNumber: 502,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, group.id, true, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 493,
+                                    lineNumber: 490,
                                     columnNumber: 17
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 491,
+                            lineNumber: 488,
                             columnNumber: 13
                         }, this)
                     ]
                 }, "mobile-index", true, {
                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                    lineNumber: 460,
+                    lineNumber: 457,
                     columnNumber: 11
                 }, this) : null
             }, void 0, false, {
                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                lineNumber: 458,
+                lineNumber: 455,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 248,
+        lineNumber: 245,
         columnNumber: 5
     }, this);
 }
@@ -1305,14 +1302,14 @@ _c2 = TopNav;
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                lineNumber: 639,
+                                                lineNumber: 636,
                                                 columnNumber: 19
                                             }, this),
                                             "Pen-paper practice"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 638,
+                                        lineNumber: 635,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1320,7 +1317,7 @@ _c2 = TopNav;
                                         children: "Test my knowledge"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 642,
+                                        lineNumber: 639,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1328,7 +1325,7 @@ _c2 = TopNav;
                                         children: "Every chapter group opens its own exam window: definitions, concept checks and case-numbers — write on real paper first, then mark yourself against the model answers with instant checking."
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 643,
+                                        lineNumber: 640,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1341,13 +1338,13 @@ _c2 = TopNav;
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 648,
+                                        lineNumber: 645,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                lineNumber: 637,
+                                lineNumber: 634,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1359,18 +1356,18 @@ _c2 = TopNav;
                                     className: "h-4.5 w-4.5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 658,
+                                    lineNumber: 655,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                lineNumber: 652,
+                                lineNumber: 649,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                        lineNumber: 636,
+                        lineNumber: 633,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1392,12 +1389,12 @@ _c2 = TopNav;
                                             className: "h-4 w-4"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                            lineNumber: 678,
+                                            lineNumber: 675,
                                             columnNumber: 23
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 674,
+                                        lineNumber: 671,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1405,7 +1402,7 @@ _c2 = TopNav;
                                         children: bank.title
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 680,
+                                        lineNumber: 677,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1413,7 +1410,7 @@ _c2 = TopNav;
                                         children: bank.topics
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 681,
+                                        lineNumber: 678,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1425,35 +1422,35 @@ _c2 = TopNav;
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 682,
+                                        lineNumber: 679,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, g, true, {
                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                lineNumber: 667,
+                                lineNumber: 664,
                                 columnNumber: 19
                             }, this);
                         })
                     }, void 0, false, {
                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                        lineNumber: 663,
+                        lineNumber: 660,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                lineNumber: 628,
+                lineNumber: 625,
                 columnNumber: 11
             }, this)
         }, "practice-hub", false, {
             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-            lineNumber: 607,
+            lineNumber: 604,
             columnNumber: 9
         }, this) : null
     }, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 605,
+        lineNumber: 602,
         columnNumber: 5
     }, this);
 }
@@ -1516,12 +1513,12 @@ _c3 = PracticeHub;
                             }
                         }, r, false, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 711,
+                            lineNumber: 708,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                    lineNumber: 709,
+                    lineNumber: 706,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1537,14 +1534,14 @@ _c3 = PracticeHub;
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 722,
+                                    lineNumber: 719,
                                     columnNumber: 13
                                 }, this),
                                 "Principles of Marketing · Shelf 06"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 721,
+                            lineNumber: 718,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1563,13 +1560,13 @@ _c3 = PracticeHub;
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 727,
+                                    lineNumber: 724,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 725,
+                            lineNumber: 722,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1577,7 +1574,7 @@ _c3 = PracticeHub;
                             children: lecture.title
                         }, void 0, false, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 734,
+                            lineNumber: 731,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1585,7 +1582,7 @@ _c3 = PracticeHub;
                             children: lecture.blurb
                         }, void 0, false, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 735,
+                            lineNumber: 732,
                             columnNumber: 11
                         }, this),
                         lecture.chapters.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1604,29 +1601,29 @@ _c3 = PracticeHub;
                                     ]
                                 }, c.id, true, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 739,
+                                    lineNumber: 736,
                                     columnNumber: 17
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 737,
+                            lineNumber: 734,
                             columnNumber: 13
                         }, this) : null
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                    lineNumber: 720,
+                    lineNumber: 717,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-            lineNumber: 704,
+            lineNumber: 701,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 703,
+        lineNumber: 700,
         columnNumber: 5
     }, this);
 }
@@ -1653,7 +1650,7 @@ _c4 = MktgLectureHead;
                             className: "h-4 w-4 shrink-0 text-[#0f766e] transition-transform duration-200 group-hover:-translate-x-1"
                         }, void 0, false, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 778,
+                            lineNumber: 775,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1667,7 +1664,7 @@ _c4 = MktgLectureHead;
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 780,
+                                    lineNumber: 777,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1675,26 +1672,26 @@ _c4 = MktgLectureHead;
                                     children: prev.title
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 783,
+                                    lineNumber: 780,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 779,
+                            lineNumber: 776,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                    lineNumber: 772,
+                    lineNumber: 769,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                     "aria-hidden": true,
                     className: "hidden sm:block"
                 }, void 0, false, {
                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                    lineNumber: 787,
+                    lineNumber: 784,
                     columnNumber: 11
                 }, this),
                 next ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1714,7 +1711,7 @@ _c4 = MktgLectureHead;
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 797,
+                                    lineNumber: 794,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1722,68 +1719,48 @@ _c4 = MktgLectureHead;
                                     children: next.title
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 800,
+                                    lineNumber: 797,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 796,
+                            lineNumber: 793,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
                             className: "h-4 w-4 shrink-0 text-[#0f766e] transition-transform duration-200 group-hover:translate-x-1"
                         }, void 0, false, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 802,
+                            lineNumber: 799,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                    lineNumber: 790,
+                    lineNumber: 787,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                     className: "rounded-2xl border border-dashed border-[#dbeae5] p-4 text-center text-[.78rem] font-bold leading-snug text-[#8aa09b]",
                     children: "End of the sequence — Lecture 28 closes the course. Revise the biases, then retake the windows."
                 }, void 0, false, {
                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                    lineNumber: 805,
+                    lineNumber: 802,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-            lineNumber: 770,
+            lineNumber: 767,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 769,
+        lineNumber: 766,
         columnNumber: 5
     }, this);
 }
 _c5 = LecturePager;
-/* ============================================================
-   MktgFooter — the atlas signature, retold for shelf 06.
-   ============================================================ */ const MKTG_SIG_CHIPS = [
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpen$3e$__["BookOpen"],
-        label: `${FLAT_ITEMS.length} chapters`
-    },
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2d$checks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ListChecks$3e$__["ListChecks"],
-        label: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MKTG_TOTAL_QUESTIONS"]} practice questions`
-    },
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$graduation$2d$cap$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__GraduationCap$3e$__["GraduationCap"],
-        label: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MKTG_EXAM_GROUPS"].length} exam windows`
-    },
-    {
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mouse$2d$pointer$2d$click$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MousePointerClick$3e$__["MousePointerClick"],
-        label: "machines you can poke"
-    }
-];
 function MktgFooter() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
         className: "footer-stick relative overflow-hidden",
@@ -1816,7 +1793,7 @@ function MktgFooter() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                lineNumber: 827,
+                lineNumber: 818,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1824,7 +1801,7 @@ function MktgFooter() {
                 className: "sig-glow"
             }, void 0, false, {
                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                lineNumber: 837,
+                lineNumber: 828,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1857,7 +1834,7 @@ function MktgFooter() {
                         children: "created by"
                     }, void 0, false, {
                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                        lineNumber: 840,
+                        lineNumber: 831,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].h2, {
@@ -1891,12 +1868,12 @@ function MktgFooter() {
                             children: "Arpit Nayan"
                         }, void 0, false, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 859,
+                            lineNumber: 850,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                        lineNumber: 851,
+                        lineNumber: 842,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -1919,7 +1896,7 @@ function MktgFooter() {
                                             stopOpacity: "0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                            lineNumber: 866,
+                                            lineNumber: 857,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
@@ -1927,7 +1904,7 @@ function MktgFooter() {
                                             stopColor: "#0f9488"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                            lineNumber: 867,
+                                            lineNumber: 858,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
@@ -1936,18 +1913,18 @@ function MktgFooter() {
                                             stopOpacity: "0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                            lineNumber: 868,
+                                            lineNumber: 859,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 865,
+                                    lineNumber: 856,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                lineNumber: 864,
+                                lineNumber: 855,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].path, {
@@ -1973,168 +1950,25 @@ function MktgFooter() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                lineNumber: 871,
+                                lineNumber: 862,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                        lineNumber: 863,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-blurb mt-5",
-                        initial: {
-                            opacity: 0,
-                            y: 12,
-                            filter: "blur(6px)"
-                        },
-                        whileInView: {
-                            opacity: 1,
-                            y: 0,
-                            filter: "blur(0px)"
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 0.9,
-                            ease: [
-                                0.22,
-                                1,
-                                0.36,
-                                1
-                            ],
-                            delay: 1.0
-                        },
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("b", {
-                                children: "Principles of Marketing"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                lineNumber: 890,
-                                columnNumber: 11
-                            }, this),
-                            " — every concept of the course, distilled into one warm, living page you can read, poke and revise.",
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "mt-1 block",
-                                children: "Written for the late-night revision, the last-minute panic, and the quiet joy of finally seeing why people buy."
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                lineNumber: 892,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                        lineNumber: 883,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "mt-3 text-[.78rem] font-semibold text-[#5f7472]",
-                        initial: {
-                            opacity: 0
-                        },
-                        whileInView: {
-                            opacity: 1
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 1.0,
-                            ease: "easeOut",
-                            delay: 1.25
-                        },
-                        children: "Course: Principles of Marketing — SME · IIT Jodhpur"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                        lineNumber: 898,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        role: "list",
-                        "aria-label": "What this project contains",
-                        className: "mt-4 flex flex-wrap items-center justify-center gap-2",
-                        children: MKTG_SIG_CHIPS.map((chip, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].span, {
-                                role: "listitem",
-                                className: "sig-chip",
-                                initial: {
-                                    opacity: 0,
-                                    y: 10,
-                                    scale: 0.92
-                                },
-                                whileInView: {
-                                    opacity: 1,
-                                    y: 0,
-                                    scale: 1
-                                },
-                                viewport: {
-                                    once: true
-                                },
-                                transition: {
-                                    duration: 0.6,
-                                    ease: [
-                                        0.22,
-                                        1,
-                                        0.36,
-                                        1
-                                    ],
-                                    delay: 1.2 + i * 0.1
-                                },
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(chip.icon, {
-                                        className: "h-3 w-3",
-                                        strokeWidth: 2.2
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 927,
-                                        columnNumber: 15
-                                    }, this),
-                                    chip.label
-                                ]
-                            }, chip.label, true, {
-                                fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                lineNumber: 914,
-                                columnNumber: 13
-                            }, this))
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                        lineNumber: 908,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-colo mt-5",
-                        initial: {
-                            opacity: 0
-                        },
-                        whileInView: {
-                            opacity: 1
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 1.1,
-                            ease: "easeOut",
-                            delay: 1.7
-                        },
-                        children: "shelf 06 · the atlas — crafted with next.js · react · tailwind — mmxxvi"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                        lineNumber: 933,
+                        lineNumber: 854,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                lineNumber: 839,
+                lineNumber: 830,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 826,
+        lineNumber: 817,
         columnNumber: 5
     }, this);
 }
@@ -2220,7 +2054,7 @@ function MktgApp({ onExitAtlas }) {
                 seen: seen
             }, void 0, false, {
                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                lineNumber: 1004,
+                lineNumber: 935,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -2236,12 +2070,12 @@ function MktgApp({ onExitAtlas }) {
                             totalQuestions: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MKTG_TOTAL_QUESTIONS"]
                         }, void 0, false, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 1007,
+                            lineNumber: 938,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                        lineNumber: 1006,
+                        lineNumber: 937,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2250,7 +2084,7 @@ function MktgApp({ onExitAtlas }) {
                         className: "relative scroll-mt-16"
                     }, void 0, false, {
                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                        lineNumber: 1017,
+                        lineNumber: 948,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
@@ -2278,7 +2112,7 @@ function MktgApp({ onExitAtlas }) {
                                     lecture: lecture
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 1025,
+                                    lineNumber: 956,
                                     columnNumber: 13
                                 }, this),
                                 lecture.chapters.length > 0 ? lecture.chapters.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
@@ -2286,7 +2120,7 @@ function MktgApp({ onExitAtlas }) {
                                         children: SECTION_COMPONENTS[c.id]
                                     }, c.id, false, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 1028,
+                                        lineNumber: 959,
                                         columnNumber: 17
                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "mx-auto max-w-3xl px-4 py-16 sm:px-6",
@@ -2300,14 +2134,14 @@ function MktgApp({ onExitAtlas }) {
                                                         className: "h-3.5 w-3.5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                        lineNumber: 1036,
+                                                        lineNumber: 967,
                                                         columnNumber: 21
                                                     }, this),
                                                     " Slot reserved"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                lineNumber: 1035,
+                                                lineNumber: 966,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2319,7 +2153,7 @@ function MktgApp({ onExitAtlas }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                lineNumber: 1038,
+                                                lineNumber: 969,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2327,18 +2161,18 @@ function MktgApp({ onExitAtlas }) {
                                                 children: "This lecture’s notes haven’t been uploaded, so the shelf keeps the slot open. The moment its summary arrives, the chapters fill in right here."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                                lineNumber: 1041,
+                                                lineNumber: 972,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                        lineNumber: 1034,
+                                        lineNumber: 965,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 1033,
+                                    lineNumber: 964,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LecturePager, {
@@ -2346,29 +2180,29 @@ function MktgApp({ onExitAtlas }) {
                                     onJump: selectLecture
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                                    lineNumber: 1048,
+                                    lineNumber: 979,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                            lineNumber: 1020,
+                            lineNumber: 951,
                             columnNumber: 11
                         }, this)
                     }, lecture.id, false, {
                         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                        lineNumber: 1019,
+                        lineNumber: 950,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                lineNumber: 1005,
+                lineNumber: 936,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(MktgFooter, {}, void 0, false, {
                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                lineNumber: 1052,
+                lineNumber: 983,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PracticeHub, {
@@ -2377,7 +2211,7 @@ function MktgApp({ onExitAtlas }) {
                 onOpenExam: openExam
             }, void 0, false, {
                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                lineNumber: 1053,
+                lineNumber: 984,
                 columnNumber: 7
             }, this),
             examGroup ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$mktg$2f$MktgExamWindow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["MktgExamWindow"], {
@@ -2385,13 +2219,13 @@ function MktgApp({ onExitAtlas }) {
                 onClose: ()=>setExamGroup(null)
             }, void 0, false, {
                 fileName: "[project]/src/components/mktg/MktgApp.tsx",
-                lineNumber: 1054,
+                lineNumber: 985,
                 columnNumber: 20
             }, this) : null
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/mktg/MktgApp.tsx",
-        lineNumber: 1003,
+        lineNumber: 934,
         columnNumber: 5
     }, this);
 }

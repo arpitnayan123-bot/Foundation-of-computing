@@ -10,14 +10,10 @@ import {
   ArrowRight,
   Check,
   ChevronDown,
-  BookOpen,
   BookOpenText,
-  GraduationCap,
   Hourglass,
-  ListChecks,
   Map,
   Menu,
-  MousePointerClick,
   PenLine,
   Printer,
   Route,
@@ -823,16 +819,9 @@ function LecturePager({ current, onJump }: { current: AtbLecture; onJump: (id: s
 
 /* ============================================================
    AtbFooter — adapted from the FoC signature footer: same
-   hairline, glow, name-stroke and colophon vibe, retold for
-   shelf 02 of The Atlas.
+   hairline, glow and name-stroke, retold for shelf 02.
+   The user asked for the name and nothing else.
    ============================================================ */
-const ATB_SIG_CHIPS = [
-  { icon: BookOpen, label: `${FLAT_ITEMS.length} chapters` },
-  { icon: ListChecks, label: `${ATB_TOTAL_QUESTIONS} practice questions` },
-  { icon: GraduationCap, label: `${ATB_EXAM_GROUPS.length} exam windows` },
-  { icon: MousePointerClick, label: "machines you can poke" },
-];
-
 export function AtbFooter() {
   return (
     <footer className="footer-stick relative overflow-hidden">
@@ -893,70 +882,6 @@ export function AtbFooter() {
             transition={{ duration: 1.4, ease: "easeInOut", delay: 0.75 }}
           />
         </svg>
-
-        {/* the project — a two-line epitaph about what this page is */}
-        <motion.p
-          className="sig-blurb mt-5"
-          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 1.0 }}
-        >
-          <b>Algorithmic Thinking in Business</b> — every concept of the course,
-          distilled into one warm, living page you can read, sketch and revise.
-          <span className="mt-1 block">
-            Written for the late-night revision, the last-minute panic, and the
-            quiet joy of an algorithm that finally makes sense.
-          </span>
-        </motion.p>
-
-        {/* the course — instructor credit, quiet but explicit */}
-        <motion.p
-          className="mt-3 text-[.78rem] font-semibold text-[#6f5438]"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.0, ease: "easeOut", delay: 1.25 }}
-        >
-          Course: Algorithmic Thinking in Business — Dr. Deepak Kumar Saxena · IIT Jodhpur
-        </motion.p>
-
-        {/* what's inside — a row of calm stat pills */}
-        <div
-          role="list"
-          aria-label="What this project contains"
-          className="mt-4 flex flex-wrap items-center justify-center gap-2"
-        >
-          {ATB_SIG_CHIPS.map((chip, i) => (
-            <motion.span
-              key={chip.label}
-              role="listitem"
-              className="sig-chip"
-              initial={{ opacity: 0, y: 10, scale: 0.92 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.6,
-                ease: [0.22, 1, 0.36, 1],
-                delay: 1.2 + i * 0.1,
-              }}
-            >
-              <chip.icon className="h-3 w-3" strokeWidth={2.2} />
-              {chip.label}
-            </motion.span>
-          ))}
-        </div>
-
-        {/* colophon — what it's built with, in tiny type */}
-        <motion.p
-          className="sig-colo mt-5"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.1, ease: "easeOut", delay: 1.7 }}
-        >
-          shelf 02 · the atlas — crafted with next.js · react · tailwind — mmxxvi
-        </motion.p>
       </div>
     </footer>
   );

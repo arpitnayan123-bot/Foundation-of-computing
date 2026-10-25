@@ -9,7 +9,7 @@
   "static/chunks/src_components_mktg_MktgApp_tsx_1af5e858._.js",
   "static/chunks/src_components_mktg_3c12ab0c._.js",
   "static/chunks/src_lib_dbeb30eb._.js",
-  "static/chunks/node_modules_lucide-react_dist_esm_icons_aba53654._.js"
+  "static/chunks/node_modules_lucide-react_dist_esm_icons_a5d2cf15._.js"
 ],
     source: "dynamic"
 });
