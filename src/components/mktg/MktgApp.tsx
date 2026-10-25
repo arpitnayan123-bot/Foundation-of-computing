@@ -352,7 +352,6 @@ function TopNav({
                                   <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#0f766e]" : "text-[#1f2b2b]"}`}>
                                     {item.label}
                                   </span>
-                                  <span className="mt-0.5 block text-[.7rem] leading-snug text-[#8aa09b]">{item.desc}</span>
                                 </span>
                                 {isActiveItem ? (
                                   <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: TEAL }} />
@@ -529,7 +528,6 @@ function TopNav({
                             <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#a7e8dc]" : "text-[#e9f2ee]"}`}>
                               {item.label}
                             </span>
-                            <span className="mt-0.5 block text-[.7rem] leading-snug text-[#9fbcb4]">{item.desc}</span>
                           </span>
                           {isActiveItem ? (
                             <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: TEAL_BRIGHT }} />
@@ -692,15 +690,14 @@ function PracticeHub({
 
 /* ============================================================
    MktgLectureHead — the "Principles of Marketing Lecture N"
-   hero band. Every lecture opens with its number spoken aloud,
-   exactly as the reader asked.
+   hero band. Compact: the number, the name, the chapter jumps.
    ============================================================ */
 function MktgLectureHead({ lecture }: { lecture: MktgLecture }) {
   return (
-    <div className="mx-auto max-w-6xl px-4 pt-12 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
       <div
-        className="relative overflow-hidden rounded-3xl p-7 sm:p-10"
-        style={{ background: LAGOON, boxShadow: "0 30px 80px -30px rgba(12,33,36,.55)" }}
+        className="relative overflow-hidden rounded-2xl p-4 sm:p-5"
+        style={{ background: LAGOON, boxShadow: "0 20px 50px -26px rgba(12,33,36,.5)" }}
       >
         {/* ambient rings */}
         <svg aria-hidden viewBox="0 0 600 200" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full opacity-40">
@@ -715,23 +712,21 @@ function MktgLectureHead({ lecture }: { lecture: MktgLecture }) {
         </svg>
 
         <div className="relative">
-          <p className="flex flex-wrap items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.26em] text-[#9fc4ba]">
-            <Megaphone className="h-3.5 w-3.5" style={{ color: TEAL_BRIGHT }} />
-            Principles of Marketing · Shelf 06
+          <p className="flex flex-wrap items-center gap-1.5 text-[.56rem] font-extrabold uppercase tracking-[.22em] text-[#9fc4ba]">
+            <Megaphone className="h-3 w-3" style={{ color: TEAL_BRIGHT }} />
+            Principles of Marketing
           </p>
-          <h2 className="mt-3 text-3xl font-black leading-tight text-[#e9f2ee] sm:text-5xl">
-            Principles of Marketing{" "}
+          <h2 className="mt-1 text-xl font-black leading-tight text-[#e9f2ee] sm:text-2xl">
+            Lecture {lecture.n}
             <span
               className="bg-clip-text text-transparent"
               style={{ backgroundImage: `linear-gradient(120deg,${GOLD_LITE},${GOLD})` }}
             >
-              Lecture {lecture.n}
+              {" "}· {lecture.title}
             </span>
           </h2>
-          <p className="mt-3 max-w-3xl text-lg font-bold leading-snug text-[#a7e8dc]">{lecture.title}</p>
-          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#c3d8d0]">{lecture.blurb}</p>
           {lecture.chapters.length > 0 ? (
-            <div className="mt-5 flex flex-wrap gap-2">
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
               {lecture.chapters.map((c) => (
                 <a
                   key={c.id}
@@ -741,7 +736,7 @@ function MktgLectureHead({ lecture }: { lecture: MktgLecture }) {
                     const el = document.getElementById(c.id);
                     if (el) jumpTo(el);
                   }}
-                  className="rounded-full border border-white/15 bg-white/[.07] px-3 py-1.5 text-[.68rem] font-extrabold text-[#cfe6df] transition-colors hover:border-[#14b8a6]/40 hover:bg-white/[.12] hover:text-[#a7e8dc]"
+                  className="rounded-full border border-white/15 bg-white/[.07] px-2.5 py-1 text-[.62rem] font-extrabold text-[#cfe6df] transition-colors hover:border-[#14b8a6]/40 hover:bg-white/[.12] hover:text-[#a7e8dc]"
                 >
                   {c.label} ↓
                 </a>
@@ -874,7 +869,6 @@ export function MktgApp({ onExitAtlas }: { onExitAtlas: () => void }) {
             onSelect={selectLecture}
             onPractice={openHub}
             seen={seen}
-            totalQuestions={MKTG_TOTAL_QUESTIONS}
           />
         </PartBoundary>
 

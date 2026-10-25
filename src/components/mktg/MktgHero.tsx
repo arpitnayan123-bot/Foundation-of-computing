@@ -12,9 +12,8 @@
 
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, BookOpen, BookOpenCheck, Check, Megaphone, PenLine, Search, Users } from "lucide-react";
-import { MKTG_LECTURES, MKTG_ALL_CHAPTER_IDS } from "@/components/mktg/lectures";
-import { MKTG_EXAM_GROUPS } from "@/components/mktg/questions";
+import { ArrowDown, Check, Megaphone, PenLine, Search } from "lucide-react";
+import { MKTG_LECTURES } from "@/components/mktg/lectures";
 import { Reveal } from "@/components/notes/ui";
 
 const TEAL = "#0f766e";
@@ -70,13 +69,11 @@ export function MktgHero({
   onSelect,
   onPractice,
   seen,
-  totalQuestions,
 }: {
   activeId: string;
   onSelect: (id: string) => void;
   onPractice: () => void;
   seen: ReadonlySet<string>;
-  totalQuestions: number;
 }) {
   const [query, setQuery] = useState("");
   const q = query.trim().toLowerCase();
@@ -88,15 +85,14 @@ export function MktgHero({
         l.n ? `lecture ${l.n}` : "recap",
         l.code.toLowerCase(),
         l.title.toLowerCase(),
-        l.blurb.toLowerCase(),
-        ...l.chapters.map((c) => `${c.label} ${c.desc}`.toLowerCase()),
+        ...l.chapters.map((c) => c.label.toLowerCase()),
       ].join(" ");
       return words.every((w) => hay.includes(w));
     });
   }, [q]);
 
   return (
-    <header id="top" className="relative flex min-h-[94vh] flex-col items-center justify-center overflow-hidden px-4 pb-24 pt-16 sm:pb-16">
+    <header id="top" className="relative flex min-h-[86vh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-16 sm:pb-16">
       {/* ambient washes — teal & champagne on ivory */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute -left-24 top-16 h-80 w-80 rounded-full blur-3xl" style={{ background: "rgba(20,184,166,.16)" }} />
@@ -150,18 +146,13 @@ export function MktgHero({
             </span>
           </h1>
         </Reveal>
-        <Reveal delay={240}>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5f7472]">
-            Why do people buy — and why do they keep buying? From the chai counter to the messy
-            middle of a purchase decision, from anticipation to the four cognitive biases: this
-            course, drawn as living machines — value equations you can balance, gaps you can
-            widen, biases you can watch fire.
-          </p>
+        <Reveal delay={200}>
+          <div className="mx-auto mt-4 h-px w-24" style={{ background: `linear-gradient(90deg,transparent,${GOLD},transparent)` }} />
         </Reveal>
 
         {/* THE LECTURE SEQUENCE — search it, pick a lecture, its notes appear below */}
         <Reveal delay={300}>
-          <div className="mx-auto mt-8 w-full max-w-3xl text-left">
+          <div className="mx-auto mt-6 w-full max-w-3xl text-left">
             <label htmlFor="mktg-lecture-search" className="sr-only">
               Search the lecture sequence
             </label>
@@ -180,7 +171,7 @@ export function MktgHero({
 
             {filtered.length > 0 ? (
               <ol
-                className="scrollbar-thin mt-3 grid max-h-[23rem] gap-2.5 overflow-y-auto pr-1 sm:grid-cols-2"
+                className="scrollbar-thin mt-3 grid max-h-[19rem] gap-1.5 overflow-y-auto pr-1 sm:grid-cols-2"
                 aria-label="Lecture sequence — pick a lecture to open its notes below"
               >
                 {filtered.map((l) => {
@@ -193,50 +184,28 @@ export function MktgHero({
                         type="button"
                         onClick={() => onSelect(l.id)}
                         aria-pressed={isActive}
-                        className={`group flex h-full w-full items-start gap-3 rounded-2xl border p-4 text-left transition-all duration-200 ${
+                        title={l.title}
+                        className={`group flex w-full items-center gap-2.5 rounded-xl border px-2.5 py-2 text-left transition-all duration-200 ${
                           isActive
-                            ? "border-[#0f766e] bg-white shadow-[0_16px_40px_-18px_rgba(15,118,110,.45)] ring-2 ring-[#14b8a6]/25"
-                            : "border-[#e3ddcf] bg-[#fdfcfa]/80 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_34px_-18px_rgba(31,43,43,.4)]"
+                            ? "border-[#0f766e] bg-white shadow-[0_12px_30px_-16px_rgba(15,118,110,.5)] ring-2 ring-[#14b8a6]/25"
+                            : "border-[#e3ddcf]/80 bg-[#fdfcfa]/70 hover:-translate-y-0.5 hover:border-[#c9d8d3] hover:bg-white hover:shadow-[0_10px_26px_-18px_rgba(31,43,43,.45)]"
                         }`}
                       >
                         <span
-                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[.72rem] font-black ${isActive ? "text-white" : ""}`}
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[.78rem] font-black tabular-nums ${isActive ? "text-white" : ""}`}
                           style={
                             isActive
-                              ? { background: `linear-gradient(135deg,${TEAL_BRIGHT},${TEAL})`, boxShadow: "0 6px 14px -6px rgba(15,118,110,.6)" }
+                              ? { background: `linear-gradient(135deg,${TEAL_BRIGHT},${TEAL})`, boxShadow: "0 5px 12px -5px rgba(15,118,110,.6)" }
                               : { background: "#e7f2ef", color: TEAL }
                           }
                         >
-                          {l.code}
+                          {l.n ?? "·"}
                         </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="flex items-center gap-2">
-                            <span className="text-[.58rem] font-extrabold uppercase tracking-[.18em]" style={{ color: GOLD }}>
-                              {l.n ? `Lecture ${l.n}` : "Recap"}
-                            </span>
-                            {allRead ? (
-                              <Check className="h-3.5 w-3.5" style={{ color: "#5f9e58" }} aria-label="Every chapter read" />
-                            ) : null}
-                            <span className="ml-auto font-mono text-[.6rem] font-bold text-[#a97d2c]">
-                              {readCount}/{l.chapters.length} read
-                            </span>
-                          </span>
-                          <span className={`mt-0.5 block text-[.94rem] font-extrabold leading-tight ${isActive ? "text-[#0f766e]" : "text-[#1f2b2b]"}`}>
-                            {l.title}
-                          </span>
-                          <span className="mt-1 block text-[.76rem] leading-snug text-[#5f7472]">{l.blurb}</span>
-                          <span className="mt-2 flex flex-wrap gap-1.5">
-                            {l.chapters.map((c) => (
-                              <span key={c.id} className="rounded-full border border-[#dbeae5] bg-[#f4faf8] px-2 py-0.5 text-[.62rem] font-bold text-[#0f5f58]">
-                                {c.label}
-                              </span>
-                            ))}
-                          </span>
+                        <span className={`min-w-0 flex-1 truncate text-[.86rem] font-bold leading-tight ${isActive ? "text-[#0f766e]" : "text-[#1f2b2b]"}`}>
+                          {l.title}
                         </span>
-                        {isActive ? (
-                          <span className="ml-0.5 shrink-0 self-center rounded-full bg-[#0f766e]/10 px-2 py-1 text-[.55rem] font-black uppercase tracking-[.14em] text-[#0f766e]">
-                            reading
-                          </span>
+                        {allRead ? (
+                          <Check className="h-3.5 w-3.5 shrink-0" style={{ color: "#5f9e58" }} aria-label="Every chapter read" />
                         ) : null}
                       </button>
                     </li>
@@ -262,63 +231,7 @@ export function MktgHero({
                 <PenLine className="h-4 w-4 text-[#0f766e] transition-transform duration-300 group-hover:-rotate-12" />
                 Test my knowledge
               </button>
-              <span className="text-[.64rem] font-bold uppercase tracking-[.16em] text-[#8aa09b]">
-                pen-paper practice · {totalQuestions} questions · {MKTG_EXAM_GROUPS.length} exam windows
-              </span>
             </div>
-          </div>
-        </Reveal>
-
-        {/* course meta — instructors / reference text */}
-        <div className="mx-auto mt-12 grid max-w-3xl gap-4 md:grid-cols-2">
-          <Reveal delay={360}>
-            <div className="card-warm lift h-full p-5 text-left">
-              <span className="chip"><Users className="h-3.5 w-3.5" /> Instructors</span>
-              <p className="mt-3 text-lg font-extrabold text-[#1f2b2b]">Dr. Anuj Kapoor · Dr. Anush Pal Kapoor</p>
-              <p className="mt-1 text-[.82rem] leading-relaxed text-[#5f7472]">
-                School of Management &amp; Entrepreneurship — IIT Jodhpur
-              </p>
-              <p className="mt-2 text-[.78rem] leading-relaxed text-[#8a7a5c]">
-                Consumer insights, market research &amp; innovation · PhD in neuro-marketing and
-                multi-sensory experience (FMS, University of Delhi)
-              </p>
-              <p className="mt-1 text-[.78rem] font-semibold text-[#0f766e]">
-                six years of industry across HDFC, Michael Page &amp; Nokia
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={430}>
-            <div className="card-warm lift h-full p-5 text-left">
-              <span className="chip"><BookOpen className="h-3.5 w-3.5" /> Reference</span>
-              <p className="mt-3 text-lg font-extrabold leading-snug text-[#1f2b2b]">
-                Kotler · Keller · Sheth — 2025 edition
-              </p>
-              <p className="mt-2 text-[.82rem] text-[#5f7472]">Marketing Management, Indian context</p>
-              <p className="mt-3 text-[.78rem] leading-relaxed text-[#8a7a5c]">
-                Every idea in this course is taught through brands you already know — from chai
-                counters to Camellias.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-
-        <Reveal delay={560}>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-            {[
-              [String(MKTG_LECTURES.length), "lectures"],
-              [String(MKTG_ALL_CHAPTER_IDS.length), "chapters"],
-              [String(totalQuestions), "exam questions"],
-            ].map(([n, l]) => (
-              <div key={l} className="text-center">
-                <p
-                  className="bg-clip-text text-3xl font-black text-transparent"
-                  style={{ backgroundImage: `linear-gradient(120deg,${TEAL_BRIGHT},${TEAL} 55%,${GOLD})` }}
-                >
-                  {n}
-                </p>
-                <p className="text-[.72rem] font-bold uppercase tracking-[.18em] text-[#8a7a5c]">{l}</p>
-              </div>
-            ))}
           </div>
         </Reveal>
       </div>
