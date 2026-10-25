@@ -4,9 +4,7 @@
 
 __turbopack_context__.s([
     "EbhApp",
-    ()=>EbhApp,
-    "EbhFooter",
-    ()=>EbhFooter
+    ()=>EbhApp
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 /* ============================================================
@@ -1712,218 +1710,6 @@ _c4 = EbhLectureHead;
     }, this);
 }
 _c5 = LecturePager;
-function EbhFooter() {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
-        className: "footer-stick relative overflow-hidden",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
-                "aria-hidden": true,
-                className: "absolute inset-x-0 top-0 h-px",
-                style: {
-                    background: "linear-gradient(90deg, transparent, rgba(170,135,60,.4), transparent)"
-                },
-                initial: {
-                    scaleX: 0,
-                    opacity: 0
-                },
-                whileInView: {
-                    scaleX: 1,
-                    opacity: 1
-                },
-                viewport: {
-                    once: true
-                },
-                transition: {
-                    duration: 1.3,
-                    ease: [
-                        0.22,
-                        1,
-                        0.36,
-                        1
-                    ]
-                }
-            }, void 0, false, {
-                fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                lineNumber: 822,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                "aria-hidden": true,
-                className: "sig-glow"
-            }, void 0, false, {
-                fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                lineNumber: 833,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "relative mx-auto flex max-w-3xl flex-col items-center px-4 py-8 text-center sm:py-10",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-eyebrow text-[.58rem] font-semibold uppercase text-[#a1876a]",
-                        "aria-label": "created by",
-                        initial: {
-                            opacity: 0,
-                            letterSpacing: "1.05em"
-                        },
-                        whileInView: {
-                            opacity: 1,
-                            letterSpacing: "0.55em"
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 1.1,
-                            ease: [
-                                0.22,
-                                1,
-                                0.36,
-                                1
-                            ],
-                            delay: 0.1
-                        },
-                        children: "created by"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                        lineNumber: 836,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].h2, {
-                        className: "footer-name-wrap mt-2.5",
-                        "aria-label": "Arpit Nayan",
-                        initial: {
-                            opacity: 0,
-                            y: 16,
-                            filter: "blur(8px)"
-                        },
-                        whileInView: {
-                            opacity: 1,
-                            y: 0,
-                            filter: "blur(0px)"
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 0.9,
-                            ease: [
-                                0.22,
-                                1,
-                                0.36,
-                                1
-                            ],
-                            delay: 0.28
-                        },
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            className: "footer-name",
-                            children: "Arpit Nayan"
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                            lineNumber: 855,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                        lineNumber: 847,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                        viewBox: "0 0 300 22",
-                        className: "mt-2 h-3.5 w-44",
-                        "aria-hidden": true,
-                        fill: "none",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("defs", {
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("linearGradient", {
-                                    id: "ebhSigGrad",
-                                    x1: "0",
-                                    y1: "0",
-                                    x2: "1",
-                                    y2: "0",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                            offset: "0",
-                                            stopColor: "#ca8a04",
-                                            stopOpacity: "0"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                                            lineNumber: 862,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                            offset: "0.5",
-                                            stopColor: "#ca8a04"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                                            lineNumber: 863,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                            offset: "1",
-                                            stopColor: "#ca8a04",
-                                            stopOpacity: "0"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                                            lineNumber: 864,
-                                            columnNumber: 15
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                                    lineNumber: 861,
-                                    columnNumber: 13
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                                lineNumber: 860,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].path, {
-                                d: "M6 12 C 62 4, 118 19, 152 11 C 186 4, 236 17, 294 10",
-                                stroke: "url(#ebhSigGrad)",
-                                strokeWidth: "1.6",
-                                strokeLinecap: "round",
-                                initial: {
-                                    pathLength: 0,
-                                    opacity: 0
-                                },
-                                whileInView: {
-                                    pathLength: 1,
-                                    opacity: 1
-                                },
-                                viewport: {
-                                    once: true
-                                },
-                                transition: {
-                                    duration: 1.4,
-                                    ease: "easeInOut",
-                                    delay: 0.75
-                                }
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                                lineNumber: 867,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                        lineNumber: 859,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                lineNumber: 835,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "[project]/src/components/ebh/EbhApp.tsx",
-        lineNumber: 820,
-        columnNumber: 5
-    }, this);
-}
-_c6 = EbhFooter;
 function EbhApp({ onExitAtlas }) {
     _s3();
     const [lectureId, setLectureId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ebh$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["EBH_DEFAULT_LECTURE"]);
@@ -2007,7 +1793,7 @@ function EbhApp({ onExitAtlas }) {
                 seen: seen
             }, void 0, false, {
                 fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                lineNumber: 942,
+                lineNumber: 874,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -2023,12 +1809,12 @@ function EbhApp({ onExitAtlas }) {
                             totalQuestions: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ebh$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["EBH_TOTAL_QUESTIONS"]
                         }, void 0, false, {
                             fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                            lineNumber: 945,
+                            lineNumber: 877,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                        lineNumber: 944,
+                        lineNumber: 876,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2037,7 +1823,7 @@ function EbhApp({ onExitAtlas }) {
                         className: "relative scroll-mt-16"
                     }, void 0, false, {
                         fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                        lineNumber: 955,
+                        lineNumber: 887,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
@@ -2065,7 +1851,7 @@ function EbhApp({ onExitAtlas }) {
                                     lecture: lecture
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                                    lineNumber: 963,
+                                    lineNumber: 895,
                                     columnNumber: 13
                                 }, this),
                                 lecture.chapters.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
@@ -2073,7 +1859,7 @@ function EbhApp({ onExitAtlas }) {
                                         children: SECTION_COMPONENTS[c.id]
                                     }, c.id, false, {
                                         fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                                        lineNumber: 965,
+                                        lineNumber: 897,
                                         columnNumber: 15
                                     }, this)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LecturePager, {
@@ -2081,29 +1867,24 @@ function EbhApp({ onExitAtlas }) {
                                     onJump: selectLecture
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                                    lineNumber: 969,
+                                    lineNumber: 901,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                            lineNumber: 958,
+                            lineNumber: 890,
                             columnNumber: 11
                         }, this)
                     }, lecture.id, false, {
                         fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                        lineNumber: 957,
+                        lineNumber: 889,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                lineNumber: 943,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(EbhFooter, {}, void 0, false, {
-                fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                lineNumber: 973,
+                lineNumber: 875,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PracticeHub, {
@@ -2112,7 +1893,7 @@ function EbhApp({ onExitAtlas }) {
                 onOpenExam: openExam
             }, void 0, false, {
                 fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                lineNumber: 974,
+                lineNumber: 905,
                 columnNumber: 7
             }, this),
             examGroup ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ebh$2f$EbhExamWindow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["EbhExamWindow"], {
@@ -2120,13 +1901,13 @@ function EbhApp({ onExitAtlas }) {
                 onClose: ()=>setExamGroup(null)
             }, void 0, false, {
                 fileName: "[project]/src/components/ebh/EbhApp.tsx",
-                lineNumber: 975,
+                lineNumber: 906,
                 columnNumber: 20
             }, this) : null
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/ebh/EbhApp.tsx",
-        lineNumber: 941,
+        lineNumber: 873,
         columnNumber: 5
     }, this));
 }
@@ -2136,16 +1917,15 @@ _s3(EbhApp, "Jv9+86sBtqRA/+kXtCwbhQw3bhQ=", false, function() {
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useOpenSection"]
     ];
 });
-_c7 = EbhApp;
-var _c, _c1, _c2, _c3, _c4, _c5, _c6, _c7;
+_c6 = EbhApp;
+var _c, _c1, _c2, _c3, _c4, _c5, _c6;
 __turbopack_context__.k.register(_c, "FLAT_ITEMS$GROUPS.flatMap");
 __turbopack_context__.k.register(_c1, "FLAT_ITEMS");
 __turbopack_context__.k.register(_c2, "TopNav");
 __turbopack_context__.k.register(_c3, "PracticeHub");
 __turbopack_context__.k.register(_c4, "EbhLectureHead");
 __turbopack_context__.k.register(_c5, "LecturePager");
-__turbopack_context__.k.register(_c6, "EbhFooter");
-__turbopack_context__.k.register(_c7, "EbhApp");
+__turbopack_context__.k.register(_c6, "EbhApp");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

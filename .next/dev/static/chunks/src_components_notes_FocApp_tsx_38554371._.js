@@ -1988,14 +1988,9 @@ function FocApp({ onExitAtlas }) {
                 lineNumber: 949,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Part7$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Footer"], {}, void 0, false, {
-                fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 980,
-                columnNumber: 7
-            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PyReadyToast"], {}, void 0, false, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 981,
+                lineNumber: 980,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$Playground$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PythonLab"], {
@@ -2003,7 +1998,7 @@ function FocApp({ onExitAtlas }) {
                 onClose: ()=>setLabOpen(false)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 982,
+                lineNumber: 981,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PracticeHub, {
@@ -2012,7 +2007,7 @@ function FocApp({ onExitAtlas }) {
                 onOpenExam: openExam
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 983,
+                lineNumber: 982,
                 columnNumber: 7
             }, this),
             examGroup ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ExamWindow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["ExamWindow"], {
@@ -2020,7 +2015,7 @@ function FocApp({ onExitAtlas }) {
                 onClose: ()=>setExamGroup(null)
             }, void 0, false, {
                 fileName: "[project]/src/components/notes/FocApp.tsx",
-                lineNumber: 984,
+                lineNumber: 983,
                 columnNumber: 20
             }, this) : null
         ]

@@ -4,9 +4,7 @@
 
 __turbopack_context__.s([
     "AtbApp",
-    ()=>AtbApp,
-    "AtbFooter",
-    ()=>AtbFooter
+    ()=>AtbApp
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/PartBoundary.tsx [app-client] (ecmascript)");
@@ -1697,218 +1695,6 @@ _c3 = PracticeHub;
     }, this);
 }
 _c4 = LecturePager;
-function AtbFooter() {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
-        className: "footer-stick relative overflow-hidden",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
-                "aria-hidden": true,
-                className: "absolute inset-x-0 top-0 h-px",
-                style: {
-                    background: "linear-gradient(90deg, transparent, rgba(150,105,55,.32), transparent)"
-                },
-                initial: {
-                    scaleX: 0,
-                    opacity: 0
-                },
-                whileInView: {
-                    scaleX: 1,
-                    opacity: 1
-                },
-                viewport: {
-                    once: true
-                },
-                transition: {
-                    duration: 1.3,
-                    ease: [
-                        0.22,
-                        1,
-                        0.36,
-                        1
-                    ]
-                }
-            }, void 0, false, {
-                fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 829,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                "aria-hidden": true,
-                className: "sig-glow"
-            }, void 0, false, {
-                fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 840,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "relative mx-auto flex max-w-3xl flex-col items-center px-4 py-8 text-center sm:py-10",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-eyebrow text-[.58rem] font-semibold uppercase text-[#a1876a]",
-                        "aria-label": "created by",
-                        initial: {
-                            opacity: 0,
-                            letterSpacing: "1.05em"
-                        },
-                        whileInView: {
-                            opacity: 1,
-                            letterSpacing: "0.55em"
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 1.1,
-                            ease: [
-                                0.22,
-                                1,
-                                0.36,
-                                1
-                            ],
-                            delay: 0.1
-                        },
-                        children: "created by"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 843,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].h2, {
-                        className: "footer-name-wrap mt-2.5",
-                        "aria-label": "Arpit Nayan",
-                        initial: {
-                            opacity: 0,
-                            y: 16,
-                            filter: "blur(8px)"
-                        },
-                        whileInView: {
-                            opacity: 1,
-                            y: 0,
-                            filter: "blur(0px)"
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 0.9,
-                            ease: [
-                                0.22,
-                                1,
-                                0.36,
-                                1
-                            ],
-                            delay: 0.28
-                        },
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            className: "footer-name",
-                            children: "Arpit Nayan"
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 862,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 854,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                        viewBox: "0 0 300 22",
-                        className: "mt-2 h-3.5 w-44",
-                        "aria-hidden": true,
-                        fill: "none",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("defs", {
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("linearGradient", {
-                                    id: "atbSigGrad",
-                                    x1: "0",
-                                    y1: "0",
-                                    x2: "1",
-                                    y2: "0",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                            offset: "0",
-                                            stopColor: "#c98a3e",
-                                            stopOpacity: "0"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 869,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                            offset: "0.5",
-                                            stopColor: "#c98a3e"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 870,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                            offset: "1",
-                                            stopColor: "#c98a3e",
-                                            stopOpacity: "0"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                            lineNumber: 871,
-                                            columnNumber: 15
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 868,
-                                    columnNumber: 13
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                lineNumber: 867,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].path, {
-                                d: "M6 12 C 62 4, 118 19, 152 11 C 186 4, 236 17, 294 10",
-                                stroke: "url(#atbSigGrad)",
-                                strokeWidth: "1.6",
-                                strokeLinecap: "round",
-                                initial: {
-                                    pathLength: 0,
-                                    opacity: 0
-                                },
-                                whileInView: {
-                                    pathLength: 1,
-                                    opacity: 1
-                                },
-                                viewport: {
-                                    once: true
-                                },
-                                transition: {
-                                    duration: 1.4,
-                                    ease: "easeInOut",
-                                    delay: 0.75
-                                }
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                lineNumber: 874,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 866,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 842,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 827,
-        columnNumber: 5
-    }, this);
-}
-_c5 = AtbFooter;
 function AtbApp({ onExitAtlas }) {
     _s3();
     const [lectureId, setLectureId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ATB_DEFAULT_LECTURE"]);
@@ -1996,7 +1782,7 @@ function AtbApp({ onExitAtlas }) {
                 seen: seen
             }, void 0, false, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 956,
+                lineNumber: 887,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -2012,12 +1798,12 @@ function AtbApp({ onExitAtlas }) {
                             totalQuestions: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ATB_TOTAL_QUESTIONS"]
                         }, void 0, false, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 959,
+                            lineNumber: 890,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 958,
+                        lineNumber: 889,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2026,7 +1812,7 @@ function AtbApp({ onExitAtlas }) {
                         className: "relative scroll-mt-16"
                     }, void 0, false, {
                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 969,
+                        lineNumber: 900,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
@@ -2055,7 +1841,7 @@ function AtbApp({ onExitAtlas }) {
                                         children: SECTION_COMPONENTS[c.id]
                                     }, c.id, false, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 979,
+                                        lineNumber: 910,
                                         columnNumber: 17
                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "mx-auto max-w-3xl px-4 py-16 sm:px-6",
@@ -2069,14 +1855,14 @@ function AtbApp({ onExitAtlas }) {
                                                         className: "h-3.5 w-3.5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                        lineNumber: 987,
+                                                        lineNumber: 918,
                                                         columnNumber: 21
                                                     }, this),
                                                     " Slot reserved"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                lineNumber: 986,
+                                                lineNumber: 917,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2088,7 +1874,7 @@ function AtbApp({ onExitAtlas }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                lineNumber: 989,
+                                                lineNumber: 920,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2096,18 +1882,18 @@ function AtbApp({ onExitAtlas }) {
                                                 children: "This lecture’s notes haven’t been uploaded, so the shelf keeps the slot open. The moment its summary arrives, the chapters fill in right here — diagrams, machines and all."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                                lineNumber: 992,
+                                                lineNumber: 923,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                        lineNumber: 985,
+                                        lineNumber: 916,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 984,
+                                    lineNumber: 915,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LecturePager, {
@@ -2115,29 +1901,24 @@ function AtbApp({ onExitAtlas }) {
                                     onJump: selectLecture
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/atb/AtbApp.tsx",
-                                    lineNumber: 1000,
+                                    lineNumber: 931,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/atb/AtbApp.tsx",
-                            lineNumber: 972,
+                            lineNumber: 903,
                             columnNumber: 11
                         }, this)
                     }, lecture.id, false, {
                         fileName: "[project]/src/components/atb/AtbApp.tsx",
-                        lineNumber: 971,
+                        lineNumber: 902,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 957,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AtbFooter, {}, void 0, false, {
-                fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 1004,
+                lineNumber: 888,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PracticeHub, {
@@ -2146,7 +1927,7 @@ function AtbApp({ onExitAtlas }) {
                 onOpenExam: openExam
             }, void 0, false, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 1005,
+                lineNumber: 935,
                 columnNumber: 7
             }, this),
             examGroup ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$atb$2f$AtbExamWindow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["AtbExamWindow"], {
@@ -2154,13 +1935,13 @@ function AtbApp({ onExitAtlas }) {
                 onClose: ()=>setExamGroup(null)
             }, void 0, false, {
                 fileName: "[project]/src/components/atb/AtbApp.tsx",
-                lineNumber: 1006,
+                lineNumber: 936,
                 columnNumber: 20
             }, this) : null
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/atb/AtbApp.tsx",
-        lineNumber: 955,
+        lineNumber: 886,
         columnNumber: 5
     }, this));
 }
@@ -2170,15 +1951,14 @@ _s3(AtbApp, "jSvRS41OG5dry5ojbfG9vpPI1SI=", false, function() {
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useOpenSection"]
     ];
 });
-_c6 = AtbApp;
-var _c, _c1, _c2, _c3, _c4, _c5, _c6;
+_c5 = AtbApp;
+var _c, _c1, _c2, _c3, _c4, _c5;
 __turbopack_context__.k.register(_c, "FLAT_ITEMS$GROUPS.flatMap");
 __turbopack_context__.k.register(_c1, "FLAT_ITEMS");
 __turbopack_context__.k.register(_c2, "TopNav");
 __turbopack_context__.k.register(_c3, "PracticeHub");
 __turbopack_context__.k.register(_c4, "LecturePager");
-__turbopack_context__.k.register(_c5, "AtbFooter");
-__turbopack_context__.k.register(_c6, "AtbApp");
+__turbopack_context__.k.register(_c5, "AtbApp");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

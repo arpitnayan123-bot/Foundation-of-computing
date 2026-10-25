@@ -172,20 +172,6 @@ function OpengraphImage() {
                 fileName: "[project]/src/app/opengraph-image.tsx",
                 lineNumber: 94,
                 columnNumber: 9
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                style: {
-                    display: "flex",
-                    color: "rgba(233, 215, 191, 0.6)",
-                    fontFamily: SERIF,
-                    fontStyle: "italic",
-                    fontSize: 26
-                },
-                children: "mapped & built by Arpit Nayan"
-            }, void 0, false, {
-                fileName: "[project]/src/app/opengraph-image.tsx",
-                lineNumber: 136,
-                columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
@@ -218,7 +204,7 @@ async function __TURBOPACK__default__export__(props) {
         const data = {
             alt: imageMetadata.alt,
             type: imageMetadata.contentType || 'image/png',
-            url: imageUrl + (idParam ? '/' + idParam : '') + "?fd67b4750e6d5c85"
+            url: imageUrl + (idParam ? '/' + idParam : '') + "?eaf41b0b88de96e4"
         };
         const { size } = imageMetadata;
         if (size) {

@@ -10796,10 +10796,6 @@ details.drill .drill-body {
   flex: 1 0 auto;
 }
 
-.footer-stick {
-  margin-top: auto;
-}
-
 .lab-shell {
   background: linear-gradient(#1b1006 0%, #221408 45%, #180d04 100%);
 }
@@ -11473,96 +11469,6 @@ details.drill .drill-body {
   align-items: center;
   padding: .3rem .7rem;
   display: inline-flex;
-}
-
-.sig-eyebrow {
-  letter-spacing: .55em;
-  margin-right: -.55em;
-}
-
-.footer-name-wrap {
-  line-height: 1.15;
-}
-
-.footer-name {
-  font-family: var(--font-fraunces), Georgia, serif;
-  letter-spacing: -.015em;
-  background: linear-gradient(#3a2814 0%, #241708 58%, #8a5f30 128%);
-  color: #0000;
-  -webkit-background-clip: text;
-  background-clip: text;
-  font-size: clamp(1.85rem, 4.5vw, 2.6rem);
-  font-style: italic;
-  font-weight: 600;
-  line-height: 1.15;
-  transition: filter .6s cubic-bezier(.22, 1, .36, 1);
-  display: inline-block;
-}
-
-.footer-name:hover {
-  filter: drop-shadow(0 5px 18px #be8a4261);
-}
-
-.sig-glow {
-  pointer-events: none;
-  background: radial-gradient(closest-side, #d6943e1f, #0000 72%);
-  width: min(32rem, 90vw);
-  height: 10.5rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.sig-blurb {
-  font-family: var(--font-fraunces), Georgia, serif;
-  color: #6b5236;
-  text-wrap: balance;
-  max-width: 32rem;
-  font-size: clamp(.96rem, 2.1vw, 1.06rem);
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.62;
-}
-
-.sig-blurb b {
-  color: #3a2814;
-  font-weight: 650;
-}
-
-.sig-chip {
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: #6b5236;
-  white-space: nowrap;
-  cursor: default;
-  background: #fffdf9b8;
-  border: 1px solid #e5c79dbf;
-  border-radius: 999px;
-  align-items: center;
-  gap: .38rem;
-  padding: .32rem .68rem;
-  font-size: .6rem;
-  font-weight: 800;
-  transition: transform .45s cubic-bezier(.22, 1, .36, 1), box-shadow .45s cubic-bezier(.22, 1, .36, 1), border-color .45s, color .45s;
-  display: inline-flex;
-  box-shadow: inset 0 1px #ffffffd9, 0 8px 22px -18px #8a5f3080;
-}
-
-.sig-chip:hover {
-  color: #3a2814;
-  border-color: #c98a3ed9;
-  transform: translateY(-3px);
-  box-shadow: inset 0 1px #ffffffe6, 0 14px 30px -16px #be8a428c;
-}
-
-.sig-chip svg {
-  color: #c98a3e;
-  transition: transform .45s cubic-bezier(.22, 1, .36, 1);
-}
-
-.sig-chip:hover svg {
-  transform: scale(1.18)rotate(-8deg);
 }
 
 .sig-colo {

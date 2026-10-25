@@ -3,15 +3,12 @@
 "use strict";
 
 __turbopack_context__.s([
-    "Footer",
-    ()=>Footer,
     "FunctionsSection",
     ()=>FunctionsSection,
     "WhileSection",
     ()=>WhileSection
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$puzzle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Puzzle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/puzzle.js [app-client] (ecmascript) <export default as Puzzle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$play$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Play$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/play.js [app-client] (ecmascript) <export default as Play>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$corner$2d$down$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CornerDownRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/corner-down-right.js [app-client] (ecmascript) <export default as CornerDownRight>");
@@ -19,7 +16,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$rotate$2d$ccw$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__RotateCcw$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/rotate-ccw.js [app-client] (ecmascript) <export default as RotateCcw>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$ui$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/notes/ui.tsx [app-client] (ecmascript)");
 "use client";
-;
 ;
 ;
 ;
@@ -2410,219 +2406,7 @@ greet_user('arpit')`,
     }, void 0, false);
 }
 _c6 = FunctionsSection;
-function Footer() {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
-        className: "footer-stick relative overflow-hidden",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
-                "aria-hidden": true,
-                className: "absolute inset-x-0 top-0 h-px",
-                style: {
-                    background: "linear-gradient(90deg, transparent, rgba(150,105,55,.32), transparent)"
-                },
-                initial: {
-                    scaleX: 0,
-                    opacity: 0
-                },
-                whileInView: {
-                    scaleX: 1,
-                    opacity: 1
-                },
-                viewport: {
-                    once: true
-                },
-                transition: {
-                    duration: 1.3,
-                    ease: [
-                        0.22,
-                        1,
-                        0.36,
-                        1
-                    ]
-                }
-            }, void 0, false, {
-                fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 661,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                "aria-hidden": true,
-                className: "sig-glow"
-            }, void 0, false, {
-                fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 672,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "relative mx-auto flex max-w-3xl flex-col items-center px-4 py-8 text-center sm:py-10",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-eyebrow text-[.58rem] font-semibold uppercase text-[#a1876a]",
-                        "aria-label": "created by",
-                        initial: {
-                            opacity: 0,
-                            letterSpacing: "1.05em"
-                        },
-                        whileInView: {
-                            opacity: 1,
-                            letterSpacing: "0.55em"
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 1.1,
-                            ease: [
-                                0.22,
-                                1,
-                                0.36,
-                                1
-                            ],
-                            delay: 0.1
-                        },
-                        children: "created by"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 675,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].h2, {
-                        className: "footer-name-wrap mt-2.5",
-                        "aria-label": "Arpit Nayan",
-                        initial: {
-                            opacity: 0,
-                            y: 16,
-                            filter: "blur(8px)"
-                        },
-                        whileInView: {
-                            opacity: 1,
-                            y: 0,
-                            filter: "blur(0px)"
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 0.9,
-                            ease: [
-                                0.22,
-                                1,
-                                0.36,
-                                1
-                            ],
-                            delay: 0.28
-                        },
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            className: "footer-name",
-                            children: "Arpit Nayan"
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/notes/Part7.tsx",
-                            lineNumber: 694,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 686,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                        viewBox: "0 0 300 22",
-                        className: "mt-2 h-3.5 w-44",
-                        "aria-hidden": true,
-                        fill: "none",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("defs", {
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("linearGradient", {
-                                    id: "sigGrad",
-                                    x1: "0",
-                                    y1: "0",
-                                    x2: "1",
-                                    y2: "0",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                            offset: "0",
-                                            stopColor: "#c98a3e",
-                                            stopOpacity: "0"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/notes/Part7.tsx",
-                                            lineNumber: 701,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                            offset: "0.5",
-                                            stopColor: "#c98a3e"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/notes/Part7.tsx",
-                                            lineNumber: 702,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                            offset: "1",
-                                            stopColor: "#c98a3e",
-                                            stopOpacity: "0"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/notes/Part7.tsx",
-                                            lineNumber: 703,
-                                            columnNumber: 15
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/notes/Part7.tsx",
-                                    lineNumber: 700,
-                                    columnNumber: 13
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 699,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].path, {
-                                d: "M6 12 C 62 4, 118 19, 152 11 C 186 4, 236 17, 294 10",
-                                stroke: "url(#sigGrad)",
-                                strokeWidth: "1.6",
-                                strokeLinecap: "round",
-                                initial: {
-                                    pathLength: 0,
-                                    opacity: 0
-                                },
-                                whileInView: {
-                                    pathLength: 1,
-                                    opacity: 1
-                                },
-                                viewport: {
-                                    once: true
-                                },
-                                transition: {
-                                    duration: 1.4,
-                                    ease: "easeInOut",
-                                    delay: 0.75
-                                }
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/notes/Part7.tsx",
-                                lineNumber: 706,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/notes/Part7.tsx",
-                        lineNumber: 698,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/notes/Part7.tsx",
-                lineNumber: 674,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "[project]/src/components/notes/Part7.tsx",
-        lineNumber: 659,
-        columnNumber: 5
-    }, this);
-}
-_c7 = Footer;
-var _c, _c1, _c2, _c3, _c4, _c5, _c6, _c7;
+var _c, _c1, _c2, _c3, _c4, _c5, _c6;
 __turbopack_context__.k.register(_c, "InputJourney");
 __turbopack_context__.k.register(_c1, "ExitToolkit");
 __turbopack_context__.k.register(_c2, "WhileCycle");
@@ -2630,7 +2414,6 @@ __turbopack_context__.k.register(_c3, "WhileSection");
 __turbopack_context__.k.register(_c4, "FunctionMachine");
 __turbopack_context__.k.register(_c5, "DefAnatomy");
 __turbopack_context__.k.register(_c6, "FunctionsSection");
-__turbopack_context__.k.register(_c7, "Footer");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

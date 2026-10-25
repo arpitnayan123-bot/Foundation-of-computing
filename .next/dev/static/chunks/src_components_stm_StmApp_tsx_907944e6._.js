@@ -4,9 +4,7 @@
 
 __turbopack_context__.s([
     "StmApp",
-    ()=>StmApp,
-    "StmFooter",
-    ()=>StmFooter
+    ()=>StmApp
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 /* ============================================================
@@ -1709,218 +1707,6 @@ _c4 = StmLectureHead;
     }, this);
 }
 _c5 = LecturePager;
-function StmFooter() {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
-        className: "footer-stick relative overflow-hidden",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
-                "aria-hidden": true,
-                className: "absolute inset-x-0 top-0 h-px",
-                style: {
-                    background: "linear-gradient(90deg, transparent, rgba(139,110,220,.45), transparent)"
-                },
-                initial: {
-                    scaleX: 0,
-                    opacity: 0
-                },
-                whileInView: {
-                    scaleX: 1,
-                    opacity: 1
-                },
-                viewport: {
-                    once: true
-                },
-                transition: {
-                    duration: 1.3,
-                    ease: [
-                        0.22,
-                        1,
-                        0.36,
-                        1
-                    ]
-                }
-            }, void 0, false, {
-                fileName: "[project]/src/components/stm/StmApp.tsx",
-                lineNumber: 832,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                "aria-hidden": true,
-                className: "sig-glow"
-            }, void 0, false, {
-                fileName: "[project]/src/components/stm/StmApp.tsx",
-                lineNumber: 843,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "relative mx-auto flex max-w-3xl flex-col items-center px-4 py-8 text-center sm:py-10",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
-                        className: "sig-eyebrow text-[.58rem] font-semibold uppercase text-[#8f7fa5]",
-                        "aria-label": "created by",
-                        initial: {
-                            opacity: 0,
-                            letterSpacing: "1.05em"
-                        },
-                        whileInView: {
-                            opacity: 1,
-                            letterSpacing: "0.55em"
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 1.1,
-                            ease: [
-                                0.22,
-                                1,
-                                0.36,
-                                1
-                            ],
-                            delay: 0.1
-                        },
-                        children: "created by"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/stm/StmApp.tsx",
-                        lineNumber: 846,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].h2, {
-                        className: "footer-name-wrap mt-2.5",
-                        "aria-label": "Arpit Nayan",
-                        initial: {
-                            opacity: 0,
-                            y: 16,
-                            filter: "blur(8px)"
-                        },
-                        whileInView: {
-                            opacity: 1,
-                            y: 0,
-                            filter: "blur(0px)"
-                        },
-                        viewport: {
-                            once: true
-                        },
-                        transition: {
-                            duration: 0.9,
-                            ease: [
-                                0.22,
-                                1,
-                                0.36,
-                                1
-                            ],
-                            delay: 0.28
-                        },
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            className: "footer-name",
-                            children: "Arpit Nayan"
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/stm/StmApp.tsx",
-                            lineNumber: 865,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/stm/StmApp.tsx",
-                        lineNumber: 857,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                        viewBox: "0 0 300 22",
-                        className: "mt-2 h-3.5 w-44",
-                        "aria-hidden": true,
-                        fill: "none",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("defs", {
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("linearGradient", {
-                                    id: "stmSigGrad",
-                                    x1: "0",
-                                    y1: "0",
-                                    x2: "1",
-                                    y2: "0",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                            offset: "0",
-                                            stopColor: "#7c3aed",
-                                            stopOpacity: "0"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/stm/StmApp.tsx",
-                                            lineNumber: 872,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                            offset: "0.5",
-                                            stopColor: "#7c3aed"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/stm/StmApp.tsx",
-                                            lineNumber: 873,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                            offset: "1",
-                                            stopColor: "#7c3aed",
-                                            stopOpacity: "0"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/stm/StmApp.tsx",
-                                            lineNumber: 874,
-                                            columnNumber: 15
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/stm/StmApp.tsx",
-                                    lineNumber: 871,
-                                    columnNumber: 13
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/stm/StmApp.tsx",
-                                lineNumber: 870,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].path, {
-                                d: "M6 12 C 62 4, 118 19, 152 11 C 186 4, 236 17, 294 10",
-                                stroke: "url(#stmSigGrad)",
-                                strokeWidth: "1.6",
-                                strokeLinecap: "round",
-                                initial: {
-                                    pathLength: 0,
-                                    opacity: 0
-                                },
-                                whileInView: {
-                                    pathLength: 1,
-                                    opacity: 1
-                                },
-                                viewport: {
-                                    once: true
-                                },
-                                transition: {
-                                    duration: 1.4,
-                                    ease: "easeInOut",
-                                    delay: 0.75
-                                }
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/stm/StmApp.tsx",
-                                lineNumber: 877,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/stm/StmApp.tsx",
-                        lineNumber: 869,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/stm/StmApp.tsx",
-                lineNumber: 845,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "[project]/src/components/stm/StmApp.tsx",
-        lineNumber: 830,
-        columnNumber: 5
-    }, this);
-}
-_c6 = StmFooter;
 function StmApp({ onExitAtlas }) {
     _s3();
     const [lectureId, setLectureId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$stm$2f$lectures$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["STM_DEFAULT_LECTURE"]);
@@ -2004,7 +1790,7 @@ function StmApp({ onExitAtlas }) {
                 seen: seen
             }, void 0, false, {
                 fileName: "[project]/src/components/stm/StmApp.tsx",
-                lineNumber: 952,
+                lineNumber: 884,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -2020,12 +1806,12 @@ function StmApp({ onExitAtlas }) {
                             totalQuestions: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$stm$2f$questions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["STM_TOTAL_QUESTIONS"]
                         }, void 0, false, {
                             fileName: "[project]/src/components/stm/StmApp.tsx",
-                            lineNumber: 955,
+                            lineNumber: 887,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/stm/StmApp.tsx",
-                        lineNumber: 954,
+                        lineNumber: 886,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2034,7 +1820,7 @@ function StmApp({ onExitAtlas }) {
                         className: "relative scroll-mt-16"
                     }, void 0, false, {
                         fileName: "[project]/src/components/stm/StmApp.tsx",
-                        lineNumber: 965,
+                        lineNumber: 897,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
@@ -2062,7 +1848,7 @@ function StmApp({ onExitAtlas }) {
                                     lecture: lecture
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/stm/StmApp.tsx",
-                                    lineNumber: 973,
+                                    lineNumber: 905,
                                     columnNumber: 13
                                 }, this),
                                 lecture.chapters.length > 0 ? lecture.chapters.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$notes$2f$PartBoundary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PartBoundary"], {
@@ -2070,7 +1856,7 @@ function StmApp({ onExitAtlas }) {
                                         children: SECTION_COMPONENTS[c.id]
                                     }, c.id, false, {
                                         fileName: "[project]/src/components/stm/StmApp.tsx",
-                                        lineNumber: 976,
+                                        lineNumber: 908,
                                         columnNumber: 17
                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "mx-auto max-w-3xl px-4 py-16 sm:px-6",
@@ -2084,14 +1870,14 @@ function StmApp({ onExitAtlas }) {
                                                         className: "h-3.5 w-3.5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/stm/StmApp.tsx",
-                                                        lineNumber: 984,
+                                                        lineNumber: 916,
                                                         columnNumber: 21
                                                     }, this),
                                                     " Slot reserved"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/stm/StmApp.tsx",
-                                                lineNumber: 983,
+                                                lineNumber: 915,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2103,7 +1889,7 @@ function StmApp({ onExitAtlas }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/stm/StmApp.tsx",
-                                                lineNumber: 986,
+                                                lineNumber: 918,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2111,18 +1897,18 @@ function StmApp({ onExitAtlas }) {
                                                 children: "This lecture’s notes haven’t been uploaded, so the shelf keeps the slot open. The moment its summary arrives, the chapters fill in right here."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/stm/StmApp.tsx",
-                                                lineNumber: 989,
+                                                lineNumber: 921,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/stm/StmApp.tsx",
-                                        lineNumber: 982,
+                                        lineNumber: 914,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/stm/StmApp.tsx",
-                                    lineNumber: 981,
+                                    lineNumber: 913,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LecturePager, {
@@ -2130,29 +1916,24 @@ function StmApp({ onExitAtlas }) {
                                     onJump: selectLecture
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/stm/StmApp.tsx",
-                                    lineNumber: 996,
+                                    lineNumber: 928,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/stm/StmApp.tsx",
-                            lineNumber: 968,
+                            lineNumber: 900,
                             columnNumber: 11
                         }, this)
                     }, lecture.id, false, {
                         fileName: "[project]/src/components/stm/StmApp.tsx",
-                        lineNumber: 967,
+                        lineNumber: 899,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/stm/StmApp.tsx",
-                lineNumber: 953,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StmFooter, {}, void 0, false, {
-                fileName: "[project]/src/components/stm/StmApp.tsx",
-                lineNumber: 1000,
+                lineNumber: 885,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PracticeHub, {
@@ -2161,7 +1942,7 @@ function StmApp({ onExitAtlas }) {
                 onOpenExam: openExam
             }, void 0, false, {
                 fileName: "[project]/src/components/stm/StmApp.tsx",
-                lineNumber: 1001,
+                lineNumber: 932,
                 columnNumber: 7
             }, this),
             examGroup ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$stm$2f$StmExamWindow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["StmExamWindow"], {
@@ -2169,13 +1950,13 @@ function StmApp({ onExitAtlas }) {
                 onClose: ()=>setExamGroup(null)
             }, void 0, false, {
                 fileName: "[project]/src/components/stm/StmApp.tsx",
-                lineNumber: 1002,
+                lineNumber: 933,
                 columnNumber: 20
             }, this) : null
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/stm/StmApp.tsx",
-        lineNumber: 951,
+        lineNumber: 883,
         columnNumber: 5
     }, this));
 }
@@ -2185,16 +1966,15 @@ _s3(StmApp, "L2NQhKfevxxRAh1OQlmKGtuDCL8=", false, function() {
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$use$2d$open$2d$section$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useOpenSection"]
     ];
 });
-_c7 = StmApp;
-var _c, _c1, _c2, _c3, _c4, _c5, _c6, _c7;
+_c6 = StmApp;
+var _c, _c1, _c2, _c3, _c4, _c5, _c6;
 __turbopack_context__.k.register(_c, "FLAT_ITEMS$GROUPS.flatMap");
 __turbopack_context__.k.register(_c1, "FLAT_ITEMS");
 __turbopack_context__.k.register(_c2, "TopNav");
 __turbopack_context__.k.register(_c3, "PracticeHub");
 __turbopack_context__.k.register(_c4, "StmLectureHead");
 __turbopack_context__.k.register(_c5, "LecturePager");
-__turbopack_context__.k.register(_c6, "StmFooter");
-__turbopack_context__.k.register(_c7, "StmApp");
+__turbopack_context__.k.register(_c6, "StmApp");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
