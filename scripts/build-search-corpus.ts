@@ -41,6 +41,9 @@ import * as AtbParts3 from "../src/components/atb/AtbParts3";
 import * as AtbParts4 from "../src/components/atb/AtbParts4";
 import * as AtbParts5 from "../src/components/atb/AtbParts5";
 import * as AtbParts6 from "../src/components/atb/AtbParts6";
+import * as AtbParts7 from "../src/components/atb/AtbParts7";
+import * as AtbParts8 from "../src/components/atb/AtbParts8";
+import * as AtbParts9 from "../src/components/atb/AtbParts9";
 
 /* ---- FA — mirror FaApp's imports ---- */
 import * as FaParts1 from "../src/components/fa/FaParts1";
@@ -108,7 +111,7 @@ const MAX_QUESTION_CHARS = 1_600;
  *  grouped exactly the way each subject App composes them */
 const SHELF_PART_MODULES: Record<string, Record<string, unknown>[]> = {
   foc: [FocPart1, FocPart2, FocPart3, FocPart4, FocPart5, FocPart6, FocPart7, FocPart8, FocPart9, FocPart10],
-  atb: [AtbParts1, AtbParts2, AtbParts3, AtbParts4, AtbParts5, AtbParts6],
+  atb: [AtbParts1, AtbParts2, AtbParts3, AtbParts4, AtbParts5, AtbParts6, AtbParts7, AtbParts8, AtbParts9],
   fa: [FaParts1, FaParts2, FaParts3, FaParts4],
   ebh: [EbhParts1, EbhParts2, EbhParts3, EbhParts4],
   stm: [StmParts1, StmParts2, StmParts3, StmParts4, StmParts5, StmParts6, StmParts7, StmParts8],
