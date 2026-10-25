@@ -1,0 +1,307 @@
+[00:00:00.983] Server  LOG     ✓ Ready in 712ms
+[00:00:03.995] Server  LOG     ○ Compiling / ...
+[00:00:12.775] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:12.775] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:12.775] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:00:20.908] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:20.908] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:20.908] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:01:25.789] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:01:25.789] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:01:25.789] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:12:31.218] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:12:31.218] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:12:31.218] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:12:39.295] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:12:39.295] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:12:39.295] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:16:27.479] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:16:27.479] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:16:27.479] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:20:33.924] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:20:33.924] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:20:33.924] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:20:52.920] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:20:52.920] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:20:52.920] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:21:29.289] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:21:29.289] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:21:29.289] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:26:40.526] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:26:40.526] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:26:40.526] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:26:54.394] Server  LOG     ✓ Compiled in 546ms
+[00:28:20.563] Server  LOG     ✓ Compiled in 281ms
+[00:28:20.750] Server  LOG     ✓ Compiled in 222ms
+[00:28:27.719] Server  LOG     ✓ Compiled in 145ms
+[00:29:15.018] Server  LOG     ✓ Compiled in 163ms
+[00:29:15.400] Server  LOG     ✓ Compiled in 257ms
+[00:29:41.751] Server  LOG     ✓ Compiled in 164ms
+[00:29:42.018] Server  LOG     ✓ Compiled in 84ms
+[00:31:18.416] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:31:18.416] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:31:18.416] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:31:41.081] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:42.579] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:31:42.579] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:31:42.579] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/#/subject/atb color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/#/subject/atb","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:33:37.605] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:33:39.100] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:33:39.100] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:33:39.100] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/#/subject/atb color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/#/subject/atb","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:33:49.623] Server  LOG     ✓ Compiled in 235ms
+[00:39:37.481] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:39:37.481] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:39:37.481] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:43:28.354] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:43:28.354] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:43:28.354] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:44:01.741] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:44:01.742] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:44:01.742] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[00:57:09.476] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:57:09.476] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:57:09.476] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[01:03:33.672] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:03:33.672] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:03:33.672] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[01:15:26.585] Server  LOG     ✓ Compiled in 449ms
+[01:17:32.923] Server  LOG     ✓ Compiled in 332ms
+[01:19:01.396] Server  LOG     ✓ Compiled in 435ms
+[01:28:57.638] Server  LOG     ✓ Compiled in 354ms
+[01:30:46.485] Server  LOG     ✓ Compiled in 834ms
+[01:30:55.097] Server  LOG     ✓ Compiled in 191ms
+[01:31:57.671] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:31:59.293] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:31:59.293] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:31:59.293] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/#/subject/atb color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/#/subject/atb","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[01:32:38.728] Browser WARN    You are trying to animate opacity from "undefined" to "1". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[01:32:38.728] Browser WARN    You are trying to animate opacity from "undefined" to "1". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[01:32:38.728] Browser WARN    You are trying to animate opacity from "undefined" to "1". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[01:32:38.728] Browser WARN    You are trying to animate opacity from "undefined" to "1". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[01:39:24.890] Browser WARN    You are trying to animate opacity from "undefined" to "1". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[01:39:24.890] Browser WARN    You are trying to animate opacity from "undefined" to "1". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[01:39:24.890] Browser WARN    You are trying to animate opacity from "undefined" to "1". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[01:39:24.890] Browser WARN    You are trying to animate opacity from "undefined" to "1". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[01:41:30.301] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:41:30.301] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:41:30.301] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[01:46:43.985] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:46:43.985] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:46:43.985] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[01:46:53.217] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:46:53.857] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:46:53.857] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:46:53.857] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[01:50:10.016] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:50:10.016] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:50:10.016] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[01:51:26.287] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:51:26.287] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:51:26.287] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[01:54:19.656] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:54:19.656] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:54:19.656] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[01:57:01.910] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:57:01.910] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:57:01.910] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[01:59:31.907] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:59:31.907] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:59:31.907] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[02:00:21.352] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:00:21.352] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[02:00:21.352] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[02:14:01.936] Server  LOG     ✓ Compiled in 2.1s
+[02:16:57.874] Server  LOG     ✓ Compiled in 389ms
+[02:16:57.996] Server  LOG     ✓ Compiled in 155ms
+[02:17:00.343] Server  LOG     ✓ Compiled in 2.4s
+[02:18:24.965] Server  LOG     ✓ Compiled in 244ms
+[02:18:56.543] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:18:56.543] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[02:18:56.543] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[02:19:05.218] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:19:05.218] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[02:19:05.218] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[02:19:07.907] Server  LOG     ✓ Compiled in 507ms
+[02:19:47.855] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:19:47.855] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[02:19:47.855] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[02:20:03.444] Server  LOG     ✓ Compiled in 493ms
+[02:20:04.913] Server  LOG     ✓ Compiled in 1412ms
+[02:20:52.312] Server  LOG     ✓ Compiled in 289ms
+[02:20:58.906] Server  LOG     ✓ Compiled in 990ms
+[02:23:34.903] Server  LOG     ✓ Compiled in 163ms
+[02:26:38.709] Server  LOG     ✓ Compiled in 364ms
+[02:27:21.056] Server  LOG     ✓ Compiled in 1299ms
+[02:38:06.245] Server  LOG     ✓ Compiled in 986ms
+[02:38:18.449] Server  LOG     ✓ Compiled in 208ms
+[02:38:55.800] Server  LOG     ✓ Compiled in 656ms
+[02:40:16.801] Server  LOG     ✓ Compiled in 116ms
+[02:42:16.903] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:42:18.386] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:42:18.386] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[02:42:18.386] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/#/subject/atb color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/#/subject/atb","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[02:42:41.599] Browser WARN    You are trying to animate strokeWidth from "undefined" to "3.6". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate opacity from "undefined" to "1". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeWidth from "undefined" to "3.6". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate opacity from "undefined" to "1". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate opacity from "undefined" to "0.75". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate opacity from "undefined" to "0.75". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate opacity from "undefined" to "0.75". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:42:41.599] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[02:46:05.072] Browser ERROR   %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values. Updating background backgroundColor
+[02:46:05.072] Browser ERROR   %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values. Updating border borderColor
+[02:46:05.072] Browser ERROR   %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values. Updating border borderBottom
+[02:46:05.072] Browser ERROR   %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values. Updating background backgroundColor
+[02:46:05.072] Browser ERROR   %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values. Updating border borderColor
+[02:46:05.072] Browser ERROR   %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values. Updating border borderBottom
+[02:48:47.555] Server  LOG     ✓ Compiled in 270ms
+[02:49:26.358] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:49:27.807] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:49:27.807] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[02:49:27.807] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/#/subject/atb color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/#/subject/atb","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[03:06:06.189] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:06:07.684] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:06:07.684] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[03:06:07.684] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[03:08:04.413] Browser WARN    You are trying to animate strokeWidth from "undefined" to "3.6". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate opacity from "undefined" to "1". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeWidth from "undefined" to "3.6". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate opacity from "undefined" to "1". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate opacity from "undefined" to "0.75". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate opacity from "undefined" to "0.75". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate opacity from "undefined" to "0.75". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:08:04.413] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:09:40.992] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:09:41.580] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:09:41.580] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[03:09:41.580] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/#graphprops color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/#graphprops","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[03:10:33.951] Server  LOG     ✓ Compiled in 303ms
+[03:10:45.695] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:10:45.984] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:10:45.984] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[03:10:45.984] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[03:10:47.219] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:10:47.219] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[03:10:47.219] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[03:12:49.810] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate strokeWidth from "undefined" to "2". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:12:49.810] Browser WARN    You are trying to animate opacity from "undefined" to "0.85". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:13:25.595] Server  LOG     ✓ Compiled in 243ms
+[03:13:39.548] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:13:40.696] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:13:40.696] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[03:13:40.696] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/#top color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/#top","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[03:13:44.766] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:13:44.766] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:13:44.766] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:13:44.766] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:13:44.766] Browser WARN    You are trying to animate strokeDasharray from "undefined" to "0". "undefined" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[03:13:58.277] Server  LOG     ✓ Compiled in 325ms
+[03:13:58.475] Browser ERROR   ./src/components/atb/AtbParts9.tsx:407:37
+Parsing ecmascript source code failed
+  405 |                   stroke="#dcc9a8" strokeWidth={2} opacity={0.85} strokeDasharray="0"
+  406 |                     stroke: st === "dim" ? "#c9b291" : hot ? "#c2410c" : "#dcc9a8",
+> 407 |                     strokeWidth: st === "dim" ? 1.6 : hot ? 3.4 : 2,
+      |                                     ^^^
+  408 |                     strokeDasharray: st === "dim" ? "7 5" : "0",
+  409 |                     opacity: st === "idle" ? 0.85 : 1,
+  410 |                   }}
+
+Expression expected
+
+Import trace:
+  Client Component Browser:
+    ./src/components/atb/AtbParts9.tsx [Client Component Browser]
+    ./src/components/atb/AtbApp.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+[03:13:58.723] Browser ERROR   ./src/components/atb/AtbParts9.tsx:407:37
+Parsing ecmascript source code failed
+  405 |                   stroke="#dcc9a8" strokeWidth={2} opacity={0.85} strokeDasharray="0"
+  406 |                     stroke: st === "dim" ? "#c9b291" : hot ? "#c2410c" : "#dcc9a8",
+> 407 |                     strokeWidth: st === "dim" ? 1.6 : hot ? 3.4 : 2,
+      |                                     ^^^
+  408 |                     strokeDasharray: st === "dim" ? "7 5" : "0",
+  409 |                     opacity: st === "idle" ? 0.85 : 1,
+  410 |                   }}
+
+Expression expected
+
+Import trace:
+  Client Component Browser:
+    ./src/components/atb/AtbParts9.tsx [Client Component Browser]
+    ./src/components/atb/AtbApp.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+[03:13:59.895] Server  WARN    ⚠ Cross origin request detected from preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[03:14:02.730] Server  LOG     ✓ Compiled in 311ms
+[03:14:16.661] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:14:17.758] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:14:17.758] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[03:14:17.758] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/#top color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/#top","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[03:15:04.787] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:15:04.787] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[03:15:04.787] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[03:53:27.432] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:53:27.432] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[03:53:27.432] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[03:56:08.183] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:56:08.184] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[03:56:08.184] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[03:57:46.644] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:57:46.644] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[03:57:46.644] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[03:59:10.576] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:59:10.576] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[03:59:10.576] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view
+[04:00:16.095] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[04:00:16.095] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[04:00:16.095] Browser LOG     %c[Vercel Web Analytics]%c [view] https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"https://preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai/","r":"","sdkn":"@vercel/analytics/next","sdkv":"2.0.1","sv":"0.1.3"} /_vercel/insights/view

@@ -1,0 +1,142 @@
+/* [project]/src/components/originkit/hero-57.css [app-client] (css) */
+.hero-57 {
+  color: #f7ecdd;
+  isolation: isolate;
+  position: relative;
+}
+
+.hero-57, .hero-57 * {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.hero-57 .hero {
+  background: #070509;
+  min-height: max(620px, 82svh);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-57 .hero-scene {
+  position: absolute;
+  inset: clamp(3.5rem, 8.5svh, 5.5rem) 0 0;
+}
+
+.hero-57 .hero-still {
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+  width: 100%;
+  height: 100%;
+  transition: opacity .45s;
+  position: absolute;
+  inset: 0;
+}
+
+.hero-57 .hero-still.is-done {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .45s, visibility 0s linear .45s;
+}
+
+.hero-57 .hero-fade {
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(#070509c7 0%, #0705094d 12%, #07050900 30% 56%, #07050957 76%, #070509e0 90%, #070509 100%);
+  position: absolute;
+  inset: 0;
+}
+
+.hero-57 .hero-sunlight {
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: screen;
+  background: radial-gradient(30% 26% at 74% 58%, #ffc47c57 0%, #ff96461a 55%, #ff964600 78%), radial-gradient(74% 48% at 74% 63%, #ea580c2b 0%, #ea580c00 72%);
+  position: absolute;
+  inset: 0;
+}
+
+.hero-57 .hero-scrim {
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(56% 30% at 50% 27%, #07050970 0%, #07050933 55%, #07050900 78%);
+  position: absolute;
+  inset: 0;
+}
+
+.hero-57 .hero-overlay {
+  z-index: 2;
+  pointer-events: none;
+  display: grid;
+  position: absolute;
+  inset: 0;
+}
+
+.hero-57 .hero-overlay-inner {
+  pointer-events: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding-top: clamp(5rem, 10svh, 6rem);
+  display: flex;
+}
+
+.hero-57 .atlas-bloom {
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(14px);
+  mix-blend-mode: screen;
+  background: radial-gradient(50% 50%, #f5c48952 0%, #ea580c21 48%, #ea580c00 74%);
+  width: min(44rem, 92vw);
+  height: 16rem;
+  animation: 7s ease-in-out infinite atlas-bloom;
+  position: absolute;
+  top: 27%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes atlas-bloom {
+  0%, 100% {
+    opacity: .55;
+    transform: translate(-50%, -50%)scale(1);
+  }
+
+  50% {
+    opacity: .9;
+    transform: translate(-50%, -50%)scale(1.08);
+  }
+}
+
+.hero-57 .atlas-lit {
+  filter: drop-shadow(0 2px 10px #0705098c) drop-shadow(0 14px 44px #ea580c66);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-57 .atlas-bloom {
+    animation: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-57 .hero {
+    min-height: max(520px, 68svh);
+  }
+
+  .hero-57 .hero-scene {
+    width: 185%;
+    top: clamp(2.5rem, 5.5svh, 3.75rem);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .hero-57 .hero-overlay-inner {
+    padding-top: clamp(4.25rem, 9svh, 5.5rem);
+  }
+}
+
+/*# sourceMappingURL=src_components_originkit_hero-57_8734a06e.css.map*/

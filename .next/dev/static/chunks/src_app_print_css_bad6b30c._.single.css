@@ -1,0 +1,112 @@
+/* [project]/src/app/print.css [app-client] (css) */
+@media print {
+  @page {
+    margin: 14mm 12mm;
+  }
+
+  nav, [role="dialog"], .cmdk-overlay, .cmdk-dialog, .fixed[role="status"], canvas, .atlas-bg, .hero-still, .amb-breathe, .amb-scan, .glass-sweep, .glass-gloss, .ember-line, .text-ghost, .load-bar, .marquee-track, .binary-bit, .lab-aurora, .lab-aurora-a, .lab-aurora-b, .warm-canvas:before {
+    display: none !important;
+  }
+
+  html, body {
+    color: #1c1917 !important;
+    background: #fff !important;
+  }
+
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  img, svg {
+    max-width: 100% !important;
+  }
+
+  a {
+    text-shadow: none !important;
+  }
+
+  .warm-canvas, .page-wrap, .section-dark {
+    background: #fff !important;
+  }
+
+  .section-dark :is(h1, h2, h3, h4, h5, h6, p, li, td, th, figcaption, blockquote, dt, dd, strong, em) {
+    color: #1c1917 !important;
+  }
+
+  .section-dark .text-muted-warm, .section-dark .quiz-q, .section-dark .sf-label {
+    color: #44403c !important;
+  }
+
+  .section-dark .card-warm {
+    background: #faf7f2 !important;
+    border-color: #e7e0d2 !important;
+  }
+
+  .code-shell, .code-body, .code-out, .live-term {
+    color: #292524 !important;
+    background: #faf7f2 !important;
+    border-color: #e7e0d2 !important;
+  }
+
+  .code-title, .code-out .out-label, .live-term-foot, .live-term-bar {
+    color: #57534e !important;
+  }
+
+  .live-term-body, .live-term-body .tb-err {
+    color: #292524 !important;
+  }
+
+  .tk-k {
+    color: #9a3412 !important;
+  }
+
+  .tk-s {
+    color: #3f6212 !important;
+  }
+
+  .tk-n {
+    color: #92400e !important;
+  }
+
+  .tk-c {
+    color: #78716c !important;
+  }
+
+  .tk-b {
+    color: #a16207 !important;
+  }
+
+  .tk-d {
+    color: #166534 !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  details > :not(summary) {
+    display: block !important;
+  }
+
+  details summary {
+    list-style: none;
+  }
+
+  section[id], .card-warm, .code-shell, details.drill, .warm-table, .quiz-opt, .ipo-node, .dikw-layer {
+    break-inside: avoid;
+  }
+
+  h2, h3 {
+    break-after: avoid;
+  }
+
+  tr, figcaption {
+    break-inside: avoid;
+  }
+}
+
+/*# sourceMappingURL=src_app_print_css_bad6b30c._.single.css.map*/
