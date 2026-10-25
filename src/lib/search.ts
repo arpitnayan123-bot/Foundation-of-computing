@@ -75,6 +75,7 @@ const BANK_LOADERS: Record<
   fa: () => import("@/components/fa/questions").then((m) => m.FA_EXAM_BANKS),
   ebh: () => import("@/components/ebh/questions").then((m) => m.EBH_EXAM_BANKS),
   stm: () => import("@/components/stm/questions").then((m) => m.STM_EXAM_BANKS),
+  mktg: () => import("@/components/mktg/questions").then((m) => m.MKTG_EXAM_BANKS),
 };
 
 /* ============================================================

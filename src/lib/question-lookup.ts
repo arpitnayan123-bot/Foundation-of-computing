@@ -19,7 +19,7 @@ import { listCustomCards } from "@/lib/custom-cards";
 type LookupBank = Record<string, { questions: { id: string; q: string }[] }>;
 
 /** bank loaders in the same order as the Promise.all below */
-const SUBJECT_ORDER = ["foc", "atb", "fa", "ebh", "stm"] as const;
+const SUBJECT_ORDER = ["foc", "atb", "fa", "ebh", "stm", "mktg"] as const;
 
 let indexPromise: Promise<Map<string, string>> | null = null;
 
@@ -31,6 +31,7 @@ export function loadQuestionIndex(): Promise<Map<string, string>> {
     import("@/components/fa/questions").then((m) => m.FA_EXAM_BANKS),
     import("@/components/ebh/questions").then((m) => m.EBH_EXAM_BANKS),
     import("@/components/stm/questions").then((m) => m.STM_EXAM_BANKS),
+    import("@/components/mktg/questions").then((m) => m.MKTG_EXAM_BANKS),
   ]).then((maps) => {
     const idx = new Map<string, string>();
     (maps as unknown as LookupBank[]).forEach((map, i) => {

@@ -15,6 +15,7 @@ export const SECTION_COUNTS: Record<string, number> = {
   fa: 16,
   ebh: 18,
   stm: 16,
+  mktg: 53,
 };
 
 export const TOTAL_SECTIONS = Object.values(SECTION_COUNTS).reduce((n, x) => n + x, 0);
