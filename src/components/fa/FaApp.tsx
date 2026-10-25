@@ -827,72 +827,6 @@ function LecturePager({ current, onJump }: { current: FaLecture; onJump: (id: st
   );
 }
 
-/* ============================================================
-   FaFooter — the atlas signature, retold for shelf 03.
-   The user asked for the name and nothing else.
-   ============================================================ */
-export function FaFooter() {
-  return (
-    <footer className="footer-stick relative overflow-hidden">
-      <motion.div
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-px"
-        style={{ background: `linear-gradient(90deg, transparent, rgba(90,150,120,.35), transparent)` }}
-        initial={{ scaleX: 0, opacity: 0 }}
-        whileInView={{ scaleX: 1, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
-      />
-
-      <div aria-hidden className="sig-glow" />
-
-      <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 py-8 text-center sm:py-10">
-        <motion.p
-          className="sig-eyebrow text-[.58rem] font-semibold uppercase text-[#8aa09b]"
-          aria-label="created by"
-          initial={{ opacity: 0, letterSpacing: "1.05em" }}
-          whileInView={{ opacity: 1, letterSpacing: "0.55em" }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-        >
-          created by
-        </motion.p>
-
-        <motion.h2
-          className="footer-name-wrap mt-2.5"
-          aria-label="Arpit Nayan"
-          initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
-        >
-          <span className="footer-name">Arpit&nbsp;Nayan</span>
-        </motion.h2>
-
-        {/* one delicate stroke under the name */}
-        <svg viewBox="0 0 300 22" className="mt-2 h-3.5 w-44" aria-hidden fill="none">
-          <defs>
-            <linearGradient id="faSigGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stopColor="#3f9d76" stopOpacity="0" />
-              <stop offset="0.5" stopColor="#3f9d76" />
-              <stop offset="1" stopColor="#3f9d76" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <motion.path
-            d="M6 12 C 62 4, 118 19, 152 11 C 186 4, 236 17, 294 10"
-            stroke="url(#faSigGrad)"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.4, ease: "easeInOut", delay: 0.75 }}
-          />
-        </svg>
-      </div>
-    </footer>
-  );
-}
 
 /* ============================================================
    FaApp — the composed subject page: a lecture reader.
@@ -984,7 +918,6 @@ export function FaApp({ onExitAtlas }: { onExitAtlas: () => void }) {
           </motion.div>
         </PartBoundary>
       </main>
-      <FaFooter />
       <PracticeHub open={hubOpen} onClose={() => setHubOpen(false)} onOpenExam={openExam} />
       {examGroup ? <FaExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
     </div>
