@@ -44,7 +44,7 @@ export const CHAPTER_INDEX: ChapterEntry[] = [
   { subject: "foc", section: "funcs2", label: "Funcs × Lists", desc: "Passing lists, *args, **kwargs, modules", group: "pro", groupLabel: "Functions & OOP" },
   { subject: "foc", section: "classes", label: "Classes", desc: "Objects, __init__, inheritance", group: "pro", groupLabel: "Functions & OOP" },
   { subject: "atb", section: "intro", label: "Why algorithms?", desc: "From making tea to running an ATM", group: "intro", groupLabel: "Intro" },
-  { subject: "atb", section: "flowcharts", label: "Flowcharts", desc: "The four symbols every algorithm is drawn with", group: "intro", groupLabel: "Intro" },
+  { subject: "atb", section: "flowcharts", label: "Flowcharts", desc: "The five symbols every algorithm is drawn with", group: "intro", groupLabel: "Intro" },
   { subject: "atb", section: "atm", label: "Decisions", desc: "The ATM machine — branching in action", group: "intro", groupLabel: "Intro" },
   { subject: "atb", section: "pseudocode", label: "Pseudocode", desc: "Functions, pseudocode and real code", group: "intro", groupLabel: "Intro" },
   { subject: "atb", section: "average", label: "Average, step-by-step", desc: "Memory boxes, data types & FIRST CLASS", group: "intro", groupLabel: "Intro" },

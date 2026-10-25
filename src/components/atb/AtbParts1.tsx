@@ -8,8 +8,10 @@ import {
   Banknote,
   BookOpen,
   BookOpenCheck,
+  Bot,
   Braces,
   Coffee,
+  Cog,
   Database,
   Flame,
   FunctionSquare,
@@ -19,6 +21,7 @@ import {
   Percent,
   PenLine,
   Play,
+  RefreshCw,
   RotateCcw,
   Sigma,
   ToggleLeft,
@@ -317,7 +320,7 @@ export function AtbIntroSection() {
             An algorithm is just a <span className="grad-text">recipe</span> a machine can follow
           </>
         }
-        lead="Every business task — brewing tea, running payroll, approving a loan — can be rewritten as a small set of organised steps. This module builds the four working definitions you will use for the rest of the course."
+        lead="Every business task — brewing tea, running payroll, approving a loan — can be rewritten as a small set of organised steps. This module builds the four working definitions you will use for the rest of the course — then watches how algorithms grow, evolve and never quite finish."
       />
 
       <ReadStep n="1" title="Start with chai" sub="One cup of tea contains the entire vocabulary of the module." />
@@ -382,14 +385,24 @@ export function AtbIntroSection() {
         </div>
       </Reveal>
 
+      <Reveal>
+        <p className="max-w-3xl text-[.95rem] leading-relaxed text-[#2b2014]">
+          Try the recipe with the milk poured first, or the sugar skipped entirely — the{" "}
+          <strong>sequence flexes with preference</strong>, but the outcome stays the same: a cup
+          of tea. That is the quiet surprise of Lecture 1 — an algorithm is not a sacred order, it
+          is <strong>organised steps that work toward an output</strong>. Which is exactly why they
+          turn up everywhere: in the kitchen, at the ATM, inside every app you opened today.
+        </p>
+      </Reveal>
+
       <ReadStep n="2" title="The working definitions" sub="Four words you will meet in every lecture, every exam question." />
 
       <Reveal>
         <div className="grid gap-2 md:grid-cols-2">
-          <KV k="Data" v="The actual values you work with — water, milk, tea, sugar… or marks, salaries, stock counts." />
-          <KV k="Variables" v="Where you store data during computation — the saucepan holds the tea while it cooks; S1 holds a mark." />
-          <KV k="Algorithm" v="Organised steps that convert the data into the desired output." />
-          <KV k="Function" v="A subgroup of organised steps that forms part of the algorithm — reusable, like “boil” or “strain”." />
+          <KV k="Data" v="The actual values the algorithm works with while it runs — and they change with every situation: more guests at the table means more water and milk. Or marks, salaries, stock counts." />
+          <KV k="Variables" v="Constructs that hold data during computation — think physical vessels: the saucepan holds the tea while it cooks, the teacup holds the serve, S1 holds a mark." />
+          <KV k="Algorithm" v="Organised steps that complete a task — the sequence may flex with preference, but every ordering works toward the same output." />
+          <KV k="Function" v="A subgroup of organised steps inside a larger algorithm — common tasks whose steps are identical wherever they appear: adding numbers, averaging marks, providing heat in cooking." />
         </div>
       </Reveal>
 
@@ -402,14 +415,72 @@ export function AtbIntroSection() {
         </Callout>
       </Reveal>
 
-      <ReadStep n="3" title="From recipe to flowchart" sub="Words describe an algorithm; pictures make it impossible to misread." />
+      <ReadStep n="3" title="Every algorithm is a simplification" sub="Start simple, add detail, repeat forever — why nothing ships finished." />
+
+      <Reveal>
+        <div className="card-warm p-5 md:p-7">
+          <span className="chip"><Workflow className="h-3.5 w-3.5" /> Lecture 1 · complexity &amp; evolution</span>
+          <p className="mt-3 text-[.95rem] leading-relaxed text-[#2b2014]">
+            Here is the sentence that explains half the software industry:{" "}
+            <strong>every algorithm is a simplification of a real process</strong>. Look closely at
+            step 1 of the chai recipe — “add water”. Inside those two words hide a dozen intuitive
+            moves: find the water, find a container, carry both to the stove, fill to the right
+            level. Real life runs on steps that feel too obvious to write down — and an algorithm
+            is exactly the act of writing them down anyway.
+          </p>
+          <p className="mt-3 text-[.95rem] leading-relaxed text-[#2b2014]">
+            So algorithms <strong>start simple and gain complexity as details are added</strong>:
+            one more check, one more condition, one more branch. The tea recipe became a smarter
+            algorithm the moment we asked “is the tea sufficiently brewed?” — and the ATM becomes a
+            smarter machine with every rule the bank adds. Complexity is not a defect. It is the
+            record of every situation the algorithm has learned to handle.
+          </p>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            <div className="rounded-xl border border-[#f3e2c8] bg-[#fffaf1] p-4">
+              <div className="flex items-center gap-2">
+                <Cog className="h-5 w-5" style={{ color: "#c2410c" }} />
+                <h4 className="font-bold text-[#3e2c1d]">Deterministic business systems</h4>
+              </div>
+              <p className="mt-2 text-[.86rem] leading-relaxed text-[#2b2014]">
+                Payroll, billing, loan approval, the ATM — modern business runs on{" "}
+                <strong>calculation-based, deterministic rules</strong>. Same input, same output,
+                no mood swings. That makes them <em>easy to algorithmize</em>: the logic is
+                already arithmetic waiting to be organised.
+              </p>
+            </div>
+            <div className="rounded-xl border border-[#f3e2c8] bg-[#fffaf1] p-4">
+              <div className="flex items-center gap-2">
+                <Bot className="h-5 w-5" style={{ color: "#b45309" }} />
+                <h4 className="font-bold text-[#3e2c1d]">Physical, real-time systems</h4>
+              </div>
+              <p className="mt-2 text-[.86rem] leading-relaxed text-[#2b2014]">
+                A warehouse robot, an autonomous car — they decide <em>while the world moves</em>,
+                with sensors and traffic and weather in the loop. Real-time judgement is far
+                harder to codify than arithmetic, which is why these systems remain the hard
+                frontier of algorithm design.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal className="mt-4">
+        <Callout kind="why" title="…and that is why quality apps update forever">
+          Every update you have ever installed adds <strong>functions, checks and refined
+          conditions</strong> to algorithms that already worked. An app is never “finished” — it is
+          an algorithm still collecting the details life keeps throwing at it. Frequent updates are
+          not churn; they are the simplification catching up with reality.
+        </Callout>
+      </Reveal>
+
+      <ReadStep n="4" title="From recipe to flowchart" sub="Words describe an algorithm; pictures make it impossible to misread." />
 
       <Reveal>
         <div className="card-warm p-6">
           <p className="text-[.95rem] leading-relaxed text-[#2b2014]">
             The six chai steps work as text — but real algorithms branch, loop and join, and words
             start to lie. The next section draws this exact recipe as a{" "}
-            <strong>flowchart</strong> using only four symbols. First, check yourself:
+            <strong>flowchart</strong> using all five symbols. First, check yourself:
           </p>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             <Quiz
@@ -440,6 +511,22 @@ export function AtbIntroSection() {
           ]}
         />
       </Reveal>
+
+      <Reveal className="mt-6">
+        <div className="grid justify-items-start gap-3">
+          <span className="chip"><GraduationCap className="h-3.5 w-3.5" /> Lecture 1 · takeaways</span>
+          <Takeaways
+            items={[
+              <>An <strong>algorithm</strong> is a series of organised steps for a specific task — it converts input data into the desired output.</>,
+              <><strong>Plain English and a flowchart</strong> both communicate the same logic — pick whichever your reader follows faster.</>,
+              <>Algorithms <strong>start simple and gain complexity</strong> as details, conditions and checks are added.</>,
+              <>A single execution follows <strong>only one path</strong> through the decisions — the other branches wait for another run.</>,
+              <>Every algorithm is a <strong>simplification</strong> of a real process — “add water” hides a dozen intuitive steps you chose not to codify.</>,
+              <>Algorithms power <strong>everyday situations and business software</strong> alike — chai and ATMs obey the same discipline.</>,
+            ]}
+          />
+        </div>
+      </Reveal>
     </Section>
   );
 }
@@ -463,7 +550,7 @@ const TEA_SEQ: { kind: "oval" | "para" | "rect" | "diamond"; label: string }[] =
 function TeaFlow({ withDecision }: { withDecision: boolean }) {
   const CX = 210;
   const seq = [...TEA_SEQ];
-  if (withDecision) seq.splice(7, 0, { kind: "diamond", label: "Looks OK?" });
+  if (withDecision) seq.splice(7, 0, { kind: "diamond", label: "Sufficiently brewed?" });
   const H = { oval: 36, para: 38, rect: 38, diamond: 64 } as const;
   const W = { oval: 116, para: 216, rect: 202, diamond: 160 } as const;
   let cursor = 16;
@@ -485,7 +572,7 @@ function TeaFlow({ withDecision }: { withDecision: boolean }) {
     r.kind === "oval" ? pOval(CX, r.cy, W.oval / 2, r.h / 2) : r.kind === "para" ? pPara(CX, r.top, W.para, r.h) : r.kind === "diamond" ? pDiamond(CX, r.cy, W.diamond, r.h) : pRect(CX, r.top, W.rect, r.h);
 
   return (
-    <svg viewBox={`0 0 420 ${vbH}`} className="mx-auto h-auto w-full max-w-sm" role="img" aria-label={withDecision ? "Tea algorithm flowchart with a decision loop" : "Tea algorithm flowchart"}>
+    <svg viewBox={`0 0 420 ${vbH}`} className="mx-auto h-auto w-full max-w-sm" role="img" aria-label={withDecision ? "Tea flowchart with the “is the tea sufficiently brewed?” decision loop" : "Tea algorithm flowchart"}>
       <defs>
         <marker id="atbTeaA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c99a5b" /></marker>
         <marker id="atbTeaR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#be4a4a" /></marker>
@@ -516,17 +603,17 @@ export function AtbFlowchartsSection() {
         eyebrow="Module 1 · Flowcharts"
         title={
           <>
-            Drawing algorithms — the <span className="grad-text">four symbols</span>
+            Drawing algorithms — the <span className="grad-text">five symbols</span>
           </>
         }
         lead="A flowchart is the diagram version of an algorithm. Entire company processes are documented with just these shapes — master them once, read any process map forever."
       />
 
-      <ReadStep n="1" title="The symbol kit" sub="Four shapes plus arrows cover almost every flowchart you will ever draw." />
+      <ReadStep n="1" title="The symbol kit" sub="Five symbols cover almost every flowchart you will ever draw — four shapes plus the arrows that connect them." />
 
       <Reveal>
         <div className="card-warm p-5 md:p-7">
-          <svg viewBox="0 0 800 236" className="h-auto w-full" role="img" aria-label="The four flowchart symbols: rounded rectangle, rectangle, parallelogram, diamond, plus flow arrows">
+          <svg viewBox="0 0 800 236" className="h-auto w-full" role="img" aria-label="The five flowchart symbols: rounded rectangle for start/end, rectangle for processing, trapezoid for input/output, diamond for decision, plus flow arrows">
             <defs>
               <marker id="atbSymA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker>
             </defs>
@@ -552,11 +639,42 @@ export function AtbFlowchartsSection() {
         </div>
       </Reveal>
 
+      <Reveal className="mt-4">
+        <div className="card-warm p-5 md:p-6">
+          <span className="chip"><Workflow className="h-3.5 w-3.5" /> Lecture 1 · symbol kit</span>
+          <div className="mt-3 grid gap-2 md:grid-cols-2">
+            <KV k="Rounded rectangle" v="START and END — every flowchart opens and closes in one." />
+            <KV k="Rectangle" v="A processing step — something happens: boil, add, compute." />
+            <KV k="Trapezoid" v="Input or output — the lecture’s “slanted rectangle”. Data enters or leaves here." />
+            <KV k="Arrow" v="The flow of logic and data — which step runs next, and in which direction." />
+            <KV k="Diamond" v="A decision requiring branching — a yes/no question with two ways out." />
+          </div>
+          <p className="mt-3 text-[.85rem] leading-relaxed text-muted-warm">
+            One naming note: this course draws the trapezoid as a parallelogram — same slanted
+            shape, same input/output job. Different textbooks pick different names; the meanings
+            above are the lecture’s. And one law the kit hides in plain sight: arrows never branch
+            by themselves — only a diamond may split the flow. A drawing that forks without a
+            diamond is not a flowchart; it is a wish.
+          </p>
+        </div>
+      </Reveal>
+
       <ReadStep n="2" title="The tea flowchart" sub="The six chai steps, one symbol at a time — watch the flow draw itself." />
 
       <Reveal>
         <div className="card-warm p-5 md:p-7">
           <TeaFlow withDecision={false} />
+          <p className="mt-4 border-t border-[#f3e2c8] pt-4 text-[.92rem] leading-relaxed text-[#2b2014]">
+            Read it back symbol by symbol and the grammar explains itself. <strong>START</strong>{" "}
+            and <strong>END</strong> sit in rounded rectangles — the only two of their kind. Every
+            <em> add</em> step (water, leaves, milk &amp; sugar) and the final <em>serve</em> move
+            data into or out of the pot, so they get the <strong>trapezoid</strong>. Every{" "}
+            <em>boil</em>, <em>simmer</em> and <em>strain</em> transforms what is already inside,
+            so they stay <strong>rectangles</strong>. Ten nodes, nine arrows, zero branches — the
+            arrows simply carry the flow downward, one direction, no arguments. Input, processing
+            and output each live in their own symbol: that is what makes this a <em>refined</em>{" "}
+            flowchart.
+          </p>
         </div>
       </Reveal>
 
@@ -565,9 +683,13 @@ export function AtbFlowchartsSection() {
       <div className="grid gap-5 lg:grid-cols-5">
         <Reveal className="lg:col-span-3">
           <div className="card-warm h-full p-5 md:p-7">
-            <TeaFlow withDecision />
+            <span className="chip"><RotateCcw className="h-3.5 w-3.5" /> Lecture 1 · decision loop</span>
+            <div className="mt-3">
+              <TeaFlow withDecision />
+            </div>
             <p className="mt-2 text-center text-[.78rem] text-muted-warm">
-              The rose edge loops back — “No, keep simmering” — until the tea is ready.
+              The rose edge loops back — “No, keep simmering” — until the tea is sufficiently
+              brewed. The flow revisits its own steps: the mark of a complex flowchart.
             </p>
           </div>
         </Reveal>
@@ -582,31 +704,68 @@ export function AtbFlowchartsSection() {
             <div className="card-warm p-5">
               <p className="eyebrow">Trace it</p>
               <p className="mt-2 text-[.88rem] leading-relaxed text-[#2b2014]">
-                Under-brewed pot: the flow passes the diamond 3 times before Strain — the loop edge
-                (rose) fired twice. The algorithm never “guesses”: it checks, branches, repeats.
+                Under-brewed pot: the flow passes the diamond — <em>is the tea sufficiently
+                brewed?</em> — three times before Strain; the loop edge (rose) fired twice. The
+                algorithm never “guesses”: it checks, branches, repeats.
               </p>
             </div>
           </div>
         </Reveal>
       </div>
 
+      <ReadStep n="4" title="Simple, refined, complex" sub="Flowcharts mature in three stages — and every process map you will ever read sits on this ladder." />
+
+      <Reveal>
+        <div className="card-warm p-5 md:p-7">
+          <span className="chip"><ListOrdered className="h-3.5 w-3.5" /> Lecture 1 · maturity stages</span>
+          <div className="mt-4">
+            <StepsFlow
+              steps={[
+                { label: "Simple", sub: "processing only — a straight line of rectangles", icon: <ListOrdered className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+                { label: "Refined", sub: "input, processing and output in their own symbols", icon: <Database className="h-5 w-5" style={{ color: "#d97706" }} /> },
+                { label: "Complex", sub: "decisions loop the flow back until a condition holds", icon: <Workflow className="h-5 w-5" style={{ color: "#7c9a3e" }} /> },
+              ]}
+            />
+          </div>
+          <p className="mt-5 text-[.95rem] leading-relaxed text-[#2b2014]">
+            You have already climbed this ladder once today. The first tea chart was{" "}
+            <strong>refined</strong> — ingredients and serving got their own slanted boxes while
+            boiling kept its rectangles. The moment we asked <em>“is the tea sufficiently
+            brewed?”</em> it became <strong>complex</strong>: a decision diamond sends the flow
+            back to the simmer, and the algorithm revisits its own steps until the answer flips.
+            Simple charts do a task; complex charts handle reality.
+          </p>
+        </div>
+      </Reveal>
+
       <Reveal className="mt-6">
         <div className="grid gap-4 md:grid-cols-2">
+          <Quiz
+            q="Which symbol marks where a flowchart begins and ends?"
+            options={["Rounded rectangle", "Diamond", "Trapezoid", "Arrow"]}
+            answer={0}
+            explain="The rounded rectangle is the START / END terminal — the lecture’s fifth symbol. Diamonds decide, trapezoids move data in and out, arrows carry the flow."
+            source="Lecture 1 · symbol kit"
+          />
           <Quiz
             q="Which symbol would you use for 'INPUT the length and width'?"
             options={["Rectangle", "Diamond", "Parallelogram", "Oval"]}
             answer={2}
-            explain="Input and output steps use the parallelogram; the rectangle is for processing statements, the diamond for decisions, the oval for start/end."
+            explain="Input and output steps use the parallelogram — the lecture’s trapezoid, the slanted rectangle. The rectangle is for processing, the diamond for decisions, the rounded rectangle for start/end."
             source="Lecture 1 · symbol kit"
           />
-          <Practice
-            title="Flowchart drills"
-            items={[
-              { q: "Draw the tea flowchart from memory — all 10 nodes, correct symbols.", hint: "Parallelograms: add water, add leaves, add milk & sugar, serve. Rectangles: boil, boil 1 min, simmer, strain." },
-              { q: "Mark each step as I/O or processing. Which single step becomes a decision if the taster is picky?", hint: "Simmer — split it into “Looks OK?” with a loop back." },
-            ]}
-          />
         </div>
+      </Reveal>
+
+      <Reveal className="mt-4">
+        <Practice
+          title="Flowchart drills"
+          items={[
+            { q: "Draw the tea flowchart from memory — all 10 nodes, correct symbols.", hint: "Parallelograms: add water, add leaves, add milk & sugar, serve. Rectangles: boil, boil 1 min, simmer, strain." },
+            { q: "Mark each step as I/O or processing. Which single step becomes a decision if the taster is picky?", hint: "Simmer — split it into “Sufficiently brewed?” with a loop back." },
+            { q: "A colleague documents a refund process using only rectangles. Which maturity stage is that, and what would you add first?", hint: "Simple — processing only. Add trapezoids to separate the input (refund request) from the output (money returned), then a diamond for the approval check." },
+          ]}
+        />
       </Reveal>
     </Section>
   );
@@ -617,10 +776,10 @@ export function AtbFlowchartsSection() {
    ============================================================ */
 const ATM_STEPS: { n: string; t: string; d?: string; branches?: { tag: string; text: string; tone: "olive" | "rose" }[] }[] = [
   { n: "1", t: "START", d: "A customer walks up and the session begins." },
-  { n: "2", t: "Check card", d: "The machine checks whether a card was inserted and reads it." },
+  { n: "2", t: "Check card", d: "The machine reads the card details — the session’s first input." },
   { n: "3", t: "Request PIN", d: "Screen displays: “Please enter your 4-digit PIN”." },
   { n: "4", t: "Input PIN", d: "The customer types it — data enters a variable." },
-  { n: "5", t: "Check if PIN correct", d: "Compare the entered PIN with the stored PIN." },
+  { n: "5", t: "Check if PIN correct", d: "Verify the PIN against the stored one — a decision. One wrong digit and the session ends right here." },
   {
     n: "6", t: "Branch on PIN",
     branches: [
@@ -632,7 +791,7 @@ const ATM_STEPS: { n: string; t: string; d?: string; branches?: { tag: string; t
     n: "7", t: "Branch on balance",
     branches: [
       { tag: "7a", text: "Balance available → release cash", tone: "olive" },
-      { tag: "7b", text: "Not available → end", tone: "rose" },
+      { tag: "7b", text: "Insufficient balance → end", tone: "rose" },
     ],
   },
   { n: "8", t: "END", d: "Card returns, session closes — every path ends here." },
@@ -696,10 +855,21 @@ export function AtbAtmSection() {
             The ATM machine — <span className="grad-text">branching</span> in action
           </>
         }
-        lead="One real machine, two decisions, four outcomes. Trace it once and every approval workflow you will ever meet — loans, refunds, KYC — becomes obvious."
+        lead="One real machine, two decisions, three possible endings — a successful withdrawal and two polite refusals. Trace it once and every approval workflow you will ever meet — loans, refunds, KYC — becomes obvious."
       />
 
       <ReadStep dark n="1" title="The numbered algorithm" sub="Eight steps; steps 6 and 7 each hide a two-way branch." />
+
+      <Reveal>
+        <p className="max-w-3xl text-[.95rem] leading-relaxed text-[#cbb392]">
+          The ATM is Lecture 1’s business application: cash dispensing, stripped to its skeleton.
+          Notice the rhythm before you read a single step — <strong>input, input, decision,
+          input, decision, function, end</strong>. Machines that handle money are mostly polite
+          questions with hard stops: fail any check and the session ends immediately, no
+          exceptions, no negotiation. Keep this skeleton — you will redraw it for loan approvals,
+          KYC gates and refund flows for the rest of the course.
+        </p>
+      </Reveal>
 
       <div className="grid gap-4 sm:grid-cols-2">
         {ATM_STEPS.map((s, i) => (
@@ -730,6 +900,10 @@ export function AtbAtmSection() {
       <Reveal>
         <div className="card-warm p-5 md:p-7">
           <AtmFlow />
+          <p className="mt-3 text-center text-[.78rem] text-[#cbb392]">
+            Both rose lanes join at END — a failure anywhere still reaches a clean ending. That
+            shared exit is what makes the machine safe to automate.
+          </p>
         </div>
       </Reveal>
 
@@ -742,6 +916,46 @@ export function AtbAtmSection() {
         </Callout>
       </Reveal>
 
+      <ReadStep dark n="3" title="Two observations the lecture insists on" sub="They read like footnotes; they are the whole point of the example." />
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <Reveal>
+          <div className="card-warm h-full p-5">
+            <span className="chip"><ToggleLeft className="h-3.5 w-3.5" /> Lecture 1 · one run, one path</span>
+            <h4 className="mt-3 font-extrabold leading-snug text-[#f5e6cd]">Not all paths execute in a single run</h4>
+            <p className="mt-2 text-[.86rem] leading-relaxed text-[#cbb392]">
+              The flowchart shows every route the machine <em>could</em> take — but a decision is a
+              fork, and each run picks exactly one branch. The lucky customer never visits either
+              rose No-lane; the unlucky one never sees “release cash”. Every branch is always{" "}
+              <em>possible</em>; on any given run, most are never <em>executed</em>.
+            </p>
+          </div>
+        </Reveal>
+        <Reveal delay={120}>
+          <div className="card-warm h-full p-5">
+            <span className="chip"><FunctionSquare className="h-3.5 w-3.5" /> Lecture 1 · a function inside</span>
+            <h4 className="mt-3 font-extrabold leading-snug text-[#f5e6cd]">“Release cash” is a function of its own</h4>
+            <p className="mt-2 text-[.86rem] leading-relaxed text-[#cbb392]">
+              One plain box hides a private algorithm: count the notes, verify denominations,
+              update the ledger, confirm pickup. Complex operations get boxed away as{" "}
+              <strong>functions</strong> — subgroups of organised steps, identical wherever they
+              appear — so the main flow stays readable. You will meet the same idea as{" "}
+              <code className="font-mono text-[.78rem]">AVERAGE</code> two chapters from now.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+
+      <Reveal className="mt-5">
+        <Callout dark kind="insight" title="The vocabulary, all on duty">
+          Run the labels back through the machine: reading the card, requesting the PIN and the
+          amount are <strong>inputs</strong> — trapezoids. Verifying the PIN and checking the
+          balance are <strong>decisions</strong> — diamonds. Dispensing the notes is a{" "}
+          <strong>function</strong> — a pre-defined process with an algorithm of its own. One
+          everyday machine; every Lecture 1 term working at once.
+        </Callout>
+      </Reveal>
+
       <Reveal className="mt-6">
         <div className="grid gap-4 md:grid-cols-2">
           <Quiz
@@ -751,14 +965,25 @@ export function AtbAtmSection() {
             explain="Both failure checks route to the same END oval — the rose lane is a join. Real ATMs add retries around this skeleton, but the lecture version ends on any failure."
             source="Lecture 1 · ATM example"
           />
-          <Practice
-            title="Branch drills"
-            items={[
-              { q: "Trace what happens when the PIN is wrong: list every node the flow visits, in order.", hint: "Start → Check card → Request PIN → Input PIN → Pin OK? → NO lane → End. Five nodes, never reaching amount." },
-              { q: "Write the 6a/6b branch pattern for a UPI payment (balance check + limit check).", hint: "6a: within limit → check balance; 6b: over limit → decline. Mirror the ATM diamonds." },
-            ]}
+          <Quiz
+            q="During one customer’s run, how many branches of each decision actually execute?"
+            options={["Both — every branch runs once", "Exactly one — the outcome picks the path", "None — decisions are skipped", "It alternates between customers"]}
+            answer={1}
+            explain="A decision resolves to one outcome per run: the flow takes that branch and never visits the other. The chart shows possibilities; an execution shows one path."
+            source="Lecture 1 · ATM example"
           />
         </div>
+      </Reveal>
+
+      <Reveal className="mt-4">
+        <Practice
+          title="Branch drills"
+          items={[
+            { q: "Trace what happens when the PIN is wrong: list every node the flow visits, in order.", hint: "Start → Check card → Request PIN → Input PIN → Pin OK? → NO lane → End. Five nodes, never reaching amount." },
+            { q: "Write the 6a/6b branch pattern for a UPI payment (balance check + limit check).", hint: "6a: within limit → check balance; 6b: over limit → decline. Mirror the ATM diamonds." },
+            { q: "“Release cash” is a function. Write 4 steps its own algorithm must contain.", hint: "Count the notes → verify denominations → update the ledger → confirm pickup and close the session." },
+          ]}
+        />
       </Reveal>
     </Section>
   );
@@ -1176,7 +1401,7 @@ export function AtbAverageSection() {
         <Takeaways
           items={[
             <>An <strong>algorithm</strong> is a series of steps to complete a task — chai, payroll or an ATM withdrawal.</>,
-            <>It can be represented as a <strong>flowchart</strong> (four symbols + arrows) or as <strong>pseudocode</strong>.</>,
+            <>It can be represented as a <strong>flowchart</strong> (five symbols — four shapes plus the arrows that join them) or as <strong>pseudocode</strong>.</>,
             <>Algorithms get <strong>more complex as details are added</strong> — each decision adds a branch.</>,
             <>They are finally implemented in languages like <strong>C/C++, Java and Python</strong> — but the thinking comes first.</>,
             <>Variables can have <strong>pre-determined datatypes</strong> (integer, float, boolean, character); modern languages can infer them.</>,
