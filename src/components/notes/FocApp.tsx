@@ -382,7 +382,6 @@ function TopNav({
                                   <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#c2410c]" : "text-[#3e2c1d]"}`}>
                                     {item.label}
                                   </span>
-                                  <span className="mt-0.5 block text-[.7rem] leading-snug text-[#a08568]">{item.desc}</span>
                                 </span>
                                 {isActiveItem ? (
                                 <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: EMBER }} />
@@ -584,7 +583,6 @@ function TopNav({
                             <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#f5c889]" : "text-[#f0e2c8]"}`}>
                               {item.label}
                             </span>
-                            <span className="mt-0.5 block text-[.7rem] leading-snug text-[#b99a75]">{item.desc}</span>
                           </span>
                           {isActiveItem ? (
                             <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#f59e0b" }} />
@@ -748,15 +746,14 @@ function PracticeHub({
 
 /* ============================================================
    FocLectureHead — the "Foundations of Computing Lecture N"
-   hero band. Every lecture opens with its number spoken aloud,
-   exactly as the reader asked.
+   hero band. Compact: the number, the name, the chapter jumps.
    ============================================================ */
 function FocLectureHead({ lecture }: { lecture: FocLecture }) {
   return (
-    <div className="mx-auto max-w-6xl px-4 pt-12 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
       <div
-        className="relative overflow-hidden rounded-3xl p-7 sm:p-10"
-        style={{ background: EMBER_DARK, boxShadow: "0 30px 80px -30px rgba(36,22,8,.55)" }}
+        className="relative overflow-hidden rounded-2xl p-4 sm:p-5"
+        style={{ background: EMBER_DARK, boxShadow: "0 20px 50px -26px rgba(36,22,8,.5)" }}
       >
         {/* ambient rings */}
         <svg aria-hidden viewBox="0 0 600 200" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full opacity-40">
@@ -771,23 +768,21 @@ function FocLectureHead({ lecture }: { lecture: FocLecture }) {
         </svg>
 
         <div className="relative">
-          <p className="flex flex-wrap items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.26em] text-[#c99a63]">
-            <Compass className="h-3.5 w-3.5" style={{ color: "#f59e0b" }} />
-            Foundations of Computing · Shelf 01
+          <p className="flex flex-wrap items-center gap-1.5 text-[.56rem] font-extrabold uppercase tracking-[.22em] text-[#c99a63]">
+            <Compass className="h-3 w-3" style={{ color: "#f59e0b" }} />
+            Foundations of Computing
           </p>
-          <h2 className="mt-3 text-3xl font-black leading-tight text-[#ffe9c9] sm:text-5xl">
-            Foundations of Computing{" "}
+          <h2 className="mt-1 text-xl font-black leading-tight text-[#ffe9c9] sm:text-2xl">
+            Lecture {lecture.n}
             <span
               className="bg-clip-text text-transparent"
               style={{ backgroundImage: `linear-gradient(120deg,${GOLD_LITE},${GOLD})` }}
             >
-              Lecture {lecture.n}
+              {" "}· {lecture.title}
             </span>
           </h2>
-          <p className="mt-3 max-w-3xl text-lg font-bold leading-snug text-[#f5c889]">{lecture.title}</p>
-          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#e0cbaa]">{lecture.blurb}</p>
           {lecture.chapters.length > 0 ? (
-            <div className="mt-5 flex flex-wrap gap-2">
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
               {lecture.chapters.map((c) => (
                 <a
                   key={c.id}
@@ -797,7 +792,7 @@ function FocLectureHead({ lecture }: { lecture: FocLecture }) {
                     const el = document.getElementById(c.id);
                     if (el) jumpTo(el);
                   }}
-                  className="rounded-full border border-white/15 bg-white/[.07] px-3 py-1.5 text-[.68rem] font-extrabold text-[#f0e2c8] transition-colors hover:border-[#ea580c]/40 hover:bg-white/[.12] hover:text-[#f5c889]"
+                  className="rounded-full border border-white/15 bg-white/[.07] px-2.5 py-1 text-[.62rem] font-extrabold text-[#f0e2c8] transition-colors hover:border-[#ea580c]/40 hover:bg-white/[.12] hover:text-[#f5c889]"
                 >
                   {c.label} ↓
                 </a>
@@ -954,7 +949,6 @@ export function FocApp({ onExitAtlas }: { onExitAtlas: () => void }) {
             onPractice={openHub}
             onOpenLab={openLab}
             seen={seen}
-            totalQuestions={TOTAL_QUESTIONS}
           />
         </PartBoundary>
 

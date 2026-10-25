@@ -3,25 +3,24 @@
 /* ============================================================
    FocHero — shelf 01 of THE ATLAS.
 
-   "Foundations of Computing" — the lecture sequence hero. Every
-   lecture card carries its "Lecture N" eyebrow, and the notes
-   below open with a matching "Foundations of Computing Lecture
-   N" band (see FocLectureHead in FocApp). Palette: deep ember &
-   gold on ivory paper. Thematic backdrop: the IPO pipeline —
-   input → process → output — drawing itself across the hero.
+   "Foundations of Computing" — the lecture sequence hero. Each
+   lecture is one compact row — number badge + title + a read
+   check — and the notes below open with a matching "Foundations
+   of Computing Lecture N" band (see FocLectureHead in FocApp).
+   Palette: deep ember & gold on ivory paper. Thematic backdrop:
+   the IPO pipeline — input → process → output — drawing itself
+   across the hero.
    ============================================================ */
 
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Check, Compass, FlaskConical, PenLine, Search } from "lucide-react";
-import { FOC_LECTURES, FOC_ALL_CHAPTER_IDS } from "@/components/foc/lectures";
-import { EXAM_GROUPS } from "@/components/notes/questions";
+import { FOC_LECTURES } from "@/components/foc/lectures";
 import { Reveal } from "@/components/notes/ui";
 
 const EMBER = "#c2410c";
 const EMBER_BRIGHT = "#ea580c";
 const GOLD = "#b45309";
-const GOLD_LITE = "#f5c889";
 
 export function FocHero({
   activeId,
@@ -29,14 +28,12 @@ export function FocHero({
   onPractice,
   onOpenLab,
   seen,
-  totalQuestions,
 }: {
   activeId: string;
   onSelect: (id: string) => void;
   onPractice: () => void;
   onOpenLab: () => void;
   seen: ReadonlySet<string>;
-  totalQuestions: number;
 }) {
   const [query, setQuery] = useState("");
   const q = query.trim().toLowerCase();
@@ -48,15 +45,14 @@ export function FocHero({
         `lecture ${l.n}`,
         l.code.toLowerCase(),
         l.title.toLowerCase(),
-        l.blurb.toLowerCase(),
-        ...l.chapters.map((c) => `${c.label} ${c.desc}`.toLowerCase()),
+        ...l.chapters.map((c) => c.label.toLowerCase()),
       ].join(" ");
       return words.every((w) => hay.includes(w));
     });
   }, [q]);
 
   return (
-    <header id="top" className="relative flex min-h-[94vh] flex-col items-center justify-center overflow-hidden px-4 pb-24 pt-16 sm:pb-16">
+    <header id="top" className="relative flex min-h-[86vh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-16 sm:pb-16">
       {/* ambient washes — ember & gold on ivory paper */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute -left-24 top-16 h-80 w-80 rounded-full blur-3xl" style={{ background: "rgba(234,88,12,.14)" }} />
@@ -114,18 +110,13 @@ export function FocHero({
             </span>
           </h1>
         </Reveal>
-        <Reveal delay={240}>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#6b563d]">
-            From the IPO model to object-oriented Python — input → process → output
-            everywhere, four pillars under every solution, data climbed to wisdom, and
-            CPython 3.12 running live in the page. Seventeen lectures, each drawn as
-            machines you can run — not notes you memorise.
-          </p>
+        <Reveal delay={200}>
+          <div className="mx-auto mt-4 h-px w-24" style={{ background: `linear-gradient(90deg,transparent,#c98a3e,transparent)` }} />
         </Reveal>
 
         {/* THE LECTURE SEQUENCE — search it, pick a lecture, its notes appear below */}
         <Reveal delay={300}>
-          <div className="mx-auto mt-8 w-full max-w-3xl text-left">
+          <div className="mx-auto mt-6 w-full max-w-3xl text-left">
             <label htmlFor="foc-lecture-search" className="sr-only">
               Search the lecture sequence
             </label>
@@ -144,7 +135,7 @@ export function FocHero({
 
             {filtered.length > 0 ? (
               <ol
-                className="scrollbar-thin mt-3 grid max-h-[23rem] gap-2.5 overflow-y-auto pr-1 sm:grid-cols-2"
+                className="scrollbar-thin mt-3 grid max-h-[19rem] gap-1.5 overflow-y-auto pr-1 sm:grid-cols-2"
                 aria-label="Lecture sequence — pick a lecture to open its notes below"
               >
                 {filtered.map((l) => {
@@ -157,50 +148,28 @@ export function FocHero({
                         type="button"
                         onClick={() => onSelect(l.id)}
                         aria-pressed={isActive}
-                        className={`group flex h-full w-full items-start gap-3 rounded-2xl border p-4 text-left transition-all duration-200 ${
+                        title={l.title}
+                        className={`group flex w-full items-center gap-2.5 rounded-xl border px-2.5 py-2 text-left transition-all duration-200 ${
                           isActive
                             ? "border-[#c2410c] bg-white shadow-[0_16px_40px_-18px_rgba(194,65,12,.45)] ring-2 ring-[#ea580c]/25"
                             : "border-[#ecd9bd] bg-[#fdf9f3]/80 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_34px_-18px_rgba(62,44,29,.4)]"
                         }`}
                       >
                         <span
-                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[.72rem] font-black ${isActive ? "text-white" : ""}`}
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[.78rem] font-black tabular-nums ${isActive ? "text-white" : ""}`}
                           style={
                             isActive
-                              ? { background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})`, boxShadow: "0 6px 14px -6px rgba(194,65,12,.6)" }
+                              ? { background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})`, boxShadow: "0 5px 12px -5px rgba(194,65,12,.6)" }
                               : { background: "#f7ecdc", color: EMBER }
                           }
                         >
-                          {l.code}
+                          {l.n ?? "·"}
                         </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="flex items-center gap-2">
-                            <span className="text-[.58rem] font-extrabold uppercase tracking-[.18em]" style={{ color: GOLD }}>
-                              Lecture {l.n}
-                            </span>
-                            {allRead ? (
-                              <Check className="h-3.5 w-3.5" style={{ color: "#8fae5d" }} aria-label="Every chapter read" />
-                            ) : null}
-                            <span className="ml-auto font-mono text-[.6rem] font-bold text-[#b45309]">
-                              {readCount}/{l.chapters.length} read
-                            </span>
-                          </span>
-                          <span className={`mt-0.5 block text-[.94rem] font-extrabold leading-tight ${isActive ? "text-[#c2410c]" : "text-[#3e2c1d]"}`}>
-                            {l.title}
-                          </span>
-                          <span className="mt-1 block text-[.76rem] leading-snug text-[#6b563d]">{l.blurb}</span>
-                          <span className="mt-2 flex flex-wrap gap-1.5">
-                            {l.chapters.map((c) => (
-                              <span key={c.id} className="rounded-full border border-[#ecd9bd] bg-[#fbf0dd] px-2 py-0.5 text-[.62rem] font-bold text-[#8a4508]">
-                                {c.label}
-                              </span>
-                            ))}
-                          </span>
+                        <span className={`min-w-0 flex-1 truncate text-[.86rem] font-bold leading-tight ${isActive ? "text-[#c2410c]" : "text-[#3e2c1d]"}`}>
+                          {l.title}
                         </span>
-                        {isActive ? (
-                          <span className="ml-0.5 shrink-0 self-center rounded-full bg-[#c2410c]/10 px-2 py-1 text-[.55rem] font-black uppercase tracking-[.14em] text-[#c2410c]">
-                            reading
-                          </span>
+                        {allRead ? (
+                          <Check className="h-3.5 w-3.5 shrink-0" style={{ color: "#8fae5d" }} aria-label="Every chapter read" />
                         ) : null}
                       </button>
                     </li>
@@ -237,30 +206,7 @@ export function FocHero({
                   Python Lab
                 </button>
               </div>
-              <span className="text-[.64rem] font-bold uppercase tracking-[.16em] text-[#a08568]">
-                pen-paper practice · {totalQuestions} questions · {EXAM_GROUPS.length} exam windows
-              </span>
             </div>
-          </div>
-        </Reveal>
-
-        <Reveal delay={560}>
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-            {[
-              [String(FOC_LECTURES.length), "lectures"],
-              [String(FOC_ALL_CHAPTER_IDS.length), "chapters"],
-              [String(totalQuestions), "exam questions"],
-            ].map(([n, l]) => (
-              <div key={l} className="text-center">
-                <p
-                  className="bg-clip-text text-3xl font-black text-transparent"
-                  style={{ backgroundImage: `linear-gradient(120deg,${EMBER_BRIGHT},${EMBER} 55%,${GOLD})` }}
-                >
-                  {n}
-                </p>
-                <p className="text-[.72rem] font-bold uppercase tracking-[.18em] text-[#a08568]">{l}</p>
-              </div>
-            ))}
           </div>
         </Reveal>
       </div>
