@@ -19,7 +19,7 @@
    chapter sits under the fixed nav. Honors prefers-reduced-motion.
    ============================================================ */
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const FLAG = "atlas:open-section";
 const EVENT = "atlas:open-section";
@@ -34,7 +34,7 @@ const WATCHDOG_MS = 420;
 
 let watchdogId: number | null = null;
 
-function jumpTo(el: HTMLElement): void {
+export function jumpTo(el: HTMLElement): void {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
 
@@ -71,9 +71,31 @@ function jumpTo(el: HTMLElement): void {
   }, WATCHDOG_MS);
 }
 
-/** Mount inside a subject app; call once per app with its own id. */
-export function useOpenSection(subject: string): void {
+/** Mount inside a subject app; call once per app with its own id.
+ *
+ * `onSection` — optional router hook for subject apps whose chapters are
+ * conditionally rendered (e.g. ATB's lecture-filtered reader): instead of
+ * jumping straight to the DOM node, the app receives the section id and is
+ * responsible for making it exist (switching the active lecture) and then
+ * calling jumpTo itself.
+ */
+export function useOpenSection(subject: string, onSection?: (section: string) => void): void {
+  /* keep the latest callback without re-subscribing the listeners */
+  const onSectionRef = useRef(onSection);
   useEffect(() => {
+    onSectionRef.current = onSection;
+  }, [onSection]);
+
+  useEffect(() => {
+    const route = (section: string) => {
+      if (onSectionRef.current) {
+        onSectionRef.current(section);
+        return;
+      }
+      const el = document.getElementById(section);
+      if (el) jumpTo(el);
+    };
+
     /* queued handoff from another view (landing, ledger, another shelf) */
     let queued: string | null = null;
     try {
@@ -92,22 +114,25 @@ export function useOpenSection(subject: string): void {
     const onLive = (e: Event) => {
       const section = (e as CustomEvent<string>).detail;
       if (typeof section !== "string" || !section) return;
-      const el = document.getElementById(section);
-      if (el) jumpTo(el);
+      route(section);
     };
     window.addEventListener(EVENT, onLive);
 
     if (queued) {
-      let frames = 0;
-      const tick = () => {
-        const el = document.getElementById(queued as string);
-        if (el) {
-          jumpTo(el);
-          return;
-        }
-        if (++frames < MAX_FRAMES) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
+      if (onSectionRef.current) {
+        onSectionRef.current(queued);
+      } else {
+        let frames = 0;
+        const tick = () => {
+          const el = document.getElementById(queued as string);
+          if (el) {
+            jumpTo(el);
+            return;
+          }
+          if (++frames < MAX_FRAMES) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
     }
 
     return () => window.removeEventListener(EVENT, onLive);

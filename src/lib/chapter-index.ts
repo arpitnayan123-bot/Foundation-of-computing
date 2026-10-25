@@ -51,7 +51,7 @@ export const CHAPTER_INDEX: ChapterEntry[] = [
   { subject: "atb", section: "properties", label: "9 properties", desc: "What makes an algorithm a *good* algorithm", group: "props", groupLabel: "Properties" },
   { subject: "atb", section: "algotypes", label: "Algorithm types", desc: "Divide & conquer · greedy · dynamic programming", group: "props", groupLabel: "Properties" },
   { subject: "atb", section: "arrays", label: "Arrays", desc: "Indexed, contiguous, direct access", group: "linear", groupLabel: "Linear DS" },
-  { subject: "atb", section: "linkedlists", label: "Linked lists", desc: "Flexible chains of songs", group: "linear", groupLabel: "Linear DS" },
+  { subject: "atb", section: "linkedlists", label: "Linked lists", desc: "Lecture 7 · flexible chains of songs — memory maps, surgery, shuffles", group: "linear", groupLabel: "Linear DS" },
   { subject: "atb", section: "stacks", label: "Stacks", desc: "LIFO — the undo machine", group: "stackq", groupLabel: "Stacks & Queues" },
   { subject: "atb", section: "queues", label: "Queues", desc: "FIFO — first come, first served", group: "stackq", groupLabel: "Stacks & Queues" },
   { subject: "atb", section: "qtypes", label: "Queue types", desc: "Linear · circular · priority · deque", group: "stackq", groupLabel: "Stacks & Queues" },

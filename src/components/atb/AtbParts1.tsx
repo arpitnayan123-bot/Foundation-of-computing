@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowDown,
@@ -10,6 +10,7 @@ import {
   BookOpenCheck,
   Bot,
   Braces,
+  Check,
   Coffee,
   Cog,
   Database,
@@ -23,12 +24,15 @@ import {
   Play,
   RefreshCw,
   RotateCcw,
+  Search,
   Sigma,
   ToggleLeft,
   Type,
   User,
   Workflow,
 } from "lucide-react";
+import { ATB_LECTURES } from "@/components/atb/lectures";
+import { ATB_EXAM_GROUPS } from "@/components/atb/questions";
 import {
   Callout,
   CodeBlock,
@@ -158,7 +162,36 @@ function HeroShape({ b }: { b: (typeof HERO_SHAPES)[number] }) {
   );
 }
 
-export function AtbHero() {
+export function AtbHero({
+  activeId,
+  onSelect,
+  onPractice,
+  seen,
+  totalQuestions,
+}: {
+  activeId: string;
+  onSelect: (id: string) => void;
+  onPractice: () => void;
+  seen: ReadonlySet<string>;
+  totalQuestions: number;
+}) {
+  const [query, setQuery] = useState("");
+  const q = query.trim().toLowerCase();
+  const filtered = useMemo(() => {
+    const words = q.split(/\s+/).filter(Boolean);
+    if (words.length === 0) return ATB_LECTURES;
+    return ATB_LECTURES.filter((l) => {
+      const hay = [
+        l.n ? `lecture ${l.n}` : "appendix module",
+        l.code.toLowerCase(),
+        l.title.toLowerCase(),
+        l.blurb.toLowerCase(),
+        ...l.chapters.map((c) => `${c.label} ${c.desc}`.toLowerCase()),
+      ].join(" ");
+      return words.every((w) => hay.includes(w));
+    });
+  }, [q]);
+
   return (
     <header id="top" className="relative flex min-h-[94vh] flex-col items-center justify-center overflow-hidden px-4 pb-24 pt-16 sm:pb-16">
       {/* ambient washes — static (cheap), like every shelf hero */}
@@ -216,23 +249,113 @@ export function AtbHero() {
           </p>
         </Reveal>
 
+        {/* THE LECTURE SEQUENCE — search it, pick a lecture, its notes appear below */}
         <Reveal delay={300}>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#intro"
-              className="rounded-full px-7 py-3.5 text-sm font-bold text-white shadow-lg transition hover:scale-[1.03]"
-              style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)", boxShadow: "0 14px 30px -12px rgba(194,65,12,.55)" }}
-            >
-              Start Module 1 <ArrowRight className="ml-1 inline h-4 w-4" />
-            </a>
-            <a
-              href="#practice"
-              title="Straight to the exam windows — write-the-output, trace-the-pseudocode, concept checks"
-              className="group inline-flex items-center gap-2 rounded-full border border-[#e5c79d] bg-[#fffdf9] px-7 py-3.5 text-sm font-bold text-[#7c4a12] transition hover:bg-[#fdf1e0]"
-            >
-              <PenLine className="h-4 w-4 text-[#c2410c] transition-transform duration-300 group-hover:-rotate-12" />
-              Test my knowledge
-            </a>
+          <div className="mx-auto mt-8 w-full max-w-3xl text-left">
+            <label htmlFor="atb-lecture-search" className="sr-only">
+              Search the lecture sequence
+            </label>
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4.5 w-4.5 -translate-y-1/2 text-[#b08b5c]" aria-hidden />
+              <input
+                id="atb-lecture-search"
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search the sequence — try “7”, “linked”, or “hashing”…"
+                autoComplete="off"
+                className="w-full rounded-2xl border border-[#e5c79d] bg-[#fffdf9]/90 py-3.5 pl-11 pr-4 text-[.95rem] font-semibold text-[#3e2c1d] shadow-[0_10px_30px_-14px_rgba(70,42,15,.35)] backdrop-blur-md placeholder:font-normal placeholder:text-[#b08b5c] focus:outline-none focus:ring-2 focus:ring-[#ea580c]/40"
+              />
+            </div>
+
+            {filtered.length > 0 ? (
+              <ol
+        className="scrollbar-thin mt-3 grid max-h-[23rem] gap-2.5 overflow-y-auto pr-1 sm:grid-cols-2"
+                aria-label="Lecture sequence — pick a lecture to open its notes below"
+              >
+                {filtered.map((l) => {
+                  const isActive = l.id === activeId;
+                  const readCount = l.chapters.filter((c) => seen.has(c.id)).length;
+                  const allRead = readCount === l.chapters.length;
+                  return (
+                    <li key={l.id}>
+                      <button
+                        type="button"
+                        onClick={() => onSelect(l.id)}
+                        aria-pressed={isActive}
+                        className={`group flex h-full w-full items-start gap-3 rounded-2xl border p-4 text-left transition-all duration-200 ${
+                          isActive
+                            ? "border-[#c2410c] bg-white shadow-[0_16px_40px_-18px_rgba(194,65,12,.45)] ring-2 ring-[#ea580c]/25"
+                            : "border-[#e5c79d] bg-[#fffdf9]/80 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_34px_-18px_rgba(70,42,15,.4)]"
+                        }`}
+                      >
+                        <span
+                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[.72rem] font-black ${isActive ? "text-white" : ""}`}
+                          style={
+                            isActive
+                              ? { background: "linear-gradient(135deg,#ea580c,#c2410c)", boxShadow: "0 6px 14px -6px rgba(194,65,12,.6)" }
+                              : { background: "#fde8cf", color: "#9a6b2f" }
+                          }
+                        >
+                          {l.code}
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="flex items-center gap-2">
+                            <span className="text-[.58rem] font-extrabold uppercase tracking-[.18em] text-[#a16207]">
+                              {l.n ? `Lecture ${l.n}` : "Appendix"}
+                            </span>
+                            {allRead ? (
+                              <Check className="h-3.5 w-3.5" style={{ color: "#8fae5d" }} aria-label="Every chapter read" />
+                            ) : null}
+                            <span className="ml-auto font-mono text-[.6rem] font-bold text-[#b08b5c]">
+                              {readCount}/{l.chapters.length} read
+                            </span>
+                          </span>
+                          <span className={`mt-0.5 block text-[.94rem] font-extrabold leading-tight ${isActive ? "text-[#c2410c]" : "text-[#3e2c1d]"}`}>
+                            {l.title}
+                          </span>
+                          <span className="mt-1 block text-[.76rem] leading-snug text-muted-warm">{l.blurb}</span>
+                          <span className="mt-2 flex flex-wrap gap-1.5">
+                            {l.chapters.map((c) => (
+                              <span key={c.id} className="rounded-full border border-[#ecd9bd] bg-[#fffaf1] px-2 py-0.5 text-[.62rem] font-bold text-[#8a5f30]">
+                                {c.label}
+                              </span>
+                            ))}
+                          </span>
+                        </span>
+                        {isActive ? (
+                          <span className="ml-0.5 shrink-0 self-center rounded-full bg-[#c2410c]/10 px-2 py-1 text-[.55rem] font-black uppercase tracking-[.14em] text-[#c2410c]">
+                            reading
+                          </span>
+                        ) : null}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ol>
+            ) : (
+              <p
+        className="mt-4 rounded-2xl border border-dashed border-[#e5c79d] bg-[#fffdf9]/70 p-4 text-center text-[.82rem] font-semibold text-[#a08568]"
+                role="status"
+              >
+                No lecture matches “{query}” — try a number, a topic (“hashing”), or clear the search.
+              </p>
+            )}
+
+            <div className="mt-4 flex flex-col items-center gap-1.5">
+              <button
+                type="button"
+                onClick={onPractice}
+                title="The practice hub — pen-paper exam windows with instant checking"
+                className="group inline-flex items-center gap-2 rounded-full border border-[#e5c79d] bg-[#fffdf9] px-7 py-3 text-sm font-bold text-[#7c4a12] shadow-sm transition hover:bg-[#fdf1e0]"
+              >
+                <PenLine className="h-4 w-4 text-[#c2410c] transition-transform duration-300 group-hover:-rotate-12" />
+                Test my knowledge
+              </button>
+              <span className="text-[.64rem] font-bold uppercase tracking-[.16em] text-[#a08568]">
+                pen-paper practice · {totalQuestions} questions · {ATB_EXAM_GROUPS.length} exam windows
+              </span>
+            </div>
           </div>
         </Reveal>
 
@@ -268,9 +391,9 @@ export function AtbHero() {
         <Reveal delay={560}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
             {[
-              ["3", "modules"],
+              [String(ATB_LECTURES.length - 1), "lectures"],
               ["19", "chapters"],
-              ["30", "exam questions"],
+              [String(totalQuestions), "exam questions"],
             ].map(([n, l]) => (
               <div key={l} className="text-center">
                 <p className="grad-text text-3xl font-black">{n}</p>
@@ -282,7 +405,7 @@ export function AtbHero() {
       </div>
 
       <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
-        <a href="#intro" aria-label="Scroll to Module 1" className="anim-bob rounded-full border border-[#ecd9bd] bg-[#fffdf9]/80 p-3 text-[#c2410c]">
+        <a href="#notes-top" aria-label="Scroll to the lecture notes" className="anim-bob rounded-full border border-[#ecd9bd] bg-[#fffdf9]/80 p-3 text-[#c2410c]">
           <ArrowDown className="h-5 w-5" />
         </a>
       </div>
