@@ -7,12 +7,19 @@
      → 400 { error }  bad input (unknown chapter, bad count…)
      → 502 { error }  the model call failed or replied unusably
 
-   The chapter text comes from the committed search corpus
-   (lib/search-corpus.json — the exact bodies the ⌘K full-text
-   search indexes), so drafts always come from the same notes
-   the reader studied. z-ai-web-dev-sdk runs HERE ONLY — it is
-   never imported from client code, and the reader's accepted
-   cards never leave their browser afterwards.
+   Two sources, one forge:
+   - chapter path  { shelfId, chapterKey, count } — the text
+     comes from the committed search corpus (lib/search-corpus
+     .json — the exact bodies the ⌘K full-text search indexes),
+     so drafts always come from the same notes the reader studied.
+   - cockpit path  { shelfId, count, text, label? } — the text is
+     supplied directly (an "Ask the Atlas" answer), so an
+     explanation the reader just received can become cards on
+     the spot. chapterKey falls back to "cockpit" metadata.
+
+   z-ai-web-dev-sdk runs HERE ONLY — it is never imported from
+   client code, and the reader's accepted cards never leave
+   their browser afterwards.
    ============================================================ */
 
 import { NextResponse } from "next/server";
@@ -78,24 +85,51 @@ export async function POST(req: Request) {
   if (typeof body !== "object" || body === null) {
     return bad("Request body must be a JSON object.");
   }
-  const { shelfId, chapterKey, count } = body as Record<string, unknown>;
-  if (typeof shelfId !== "string" || typeof chapterKey !== "string" || !shelfId || !chapterKey) {
-    return bad("Pick a shelf and a chapter before forging.");
+  const { shelfId, chapterKey, count, text, label } = body as Record<string, unknown>;
+  if (typeof shelfId !== "string" || !shelfId) {
+    return bad("Pick a shelf before forging.");
   }
   const n = count === undefined ? DEFAULT_COUNT : count;
   if (typeof n !== "number" || !(COUNTS as readonly number[]).includes(n)) {
     return bad("count must be 4, 8 or 12.");
   }
-  const chapter = CHAPTER_INDEX.find((c) => c.subject === shelfId && c.section === chapterKey);
-  if (!chapter) {
-    return bad("Unknown chapter — pick one from the chapter catalog.");
-  }
-  const entry = corpus.chapters.find((c) => c.shelfId === shelfId && c.chapterKey === chapterKey);
-  if (!entry || !entry.text.trim()) {
-    return bad("That chapter's notes are not in the corpus yet — regenerate the corpus first.");
+
+  let chapterText: string;
+  let sourceLabel: string;
+  let sourceGroup: string;
+  let sourceKey: string;
+
+  if (typeof text === "string" && text.trim()) {
+    /* cockpit path — forge straight from supplied text (an "Ask the
+       Atlas" answer). The shelf still grades the cards; the chapter
+       key is metadata the forge list can show. */
+    const t = text.trim();
+    if (t.length < 20 || t.length > MAX_CHAPTER_CHARS) {
+      return bad("The source text is out of range (20–12,000 characters).");
+    }
+    chapterText = t;
+    sourceLabel = typeof label === "string" && label.trim() ? truncateAtWord(label.trim(), 120) : "Cockpit answer";
+    sourceGroup = "Ask the Atlas";
+    sourceKey = typeof chapterKey === "string" && /^[a-z0-9][a-z0-9:-]{0,63}$/i.test(chapterKey) ? chapterKey : "cockpit";
+  } else {
+    /* chapter path — the corpus stays the source of truth */
+    if (typeof chapterKey !== "string" || !chapterKey) {
+      return bad("Pick a shelf and a chapter before forging.");
+    }
+    const chapter = CHAPTER_INDEX.find((c) => c.subject === shelfId && c.section === chapterKey);
+    if (!chapter) {
+      return bad("Unknown chapter — pick one from the chapter catalog.");
+    }
+    const entry = corpus.chapters.find((c) => c.shelfId === shelfId && c.chapterKey === chapterKey);
+    if (!entry || !entry.text.trim()) {
+      return bad("That chapter's notes are not in the corpus yet — regenerate the corpus first.");
+    }
+    chapterText = truncateAtWord(entry.text.trim(), MAX_CHAPTER_CHARS);
+    sourceLabel = chapter.label;
+    sourceGroup = chapter.groupLabel;
+    sourceKey = chapterKey;
   }
 
-  const chapterText = truncateAtWord(entry.text.trim(), MAX_CHAPTER_CHARS);
   const messages = [
     {
       role: "system" as const,
@@ -110,7 +144,7 @@ export async function POST(req: Request) {
     },
     {
       role: "user" as const,
-      content: `Chapter: "${chapter.label}" (${chapter.groupLabel})\n\nChapter notes:\n\n${chapterText}`,
+      content: `Chapter: "${sourceLabel}" (${sourceGroup})\n\nChapter notes:\n\n${chapterText}`,
     },
   ];
 
@@ -127,7 +161,7 @@ export async function POST(req: Request) {
     if (cards.length === 0) {
       return bad("The model's reply held no usable cards — try again later.", 502);
     }
-    return NextResponse.json({ cards });
+    return NextResponse.json({ cards, chapterKey: sourceKey, label: sourceLabel });
   } catch {
     return bad("The forge is unreachable — the model call failed. Try again later.", 502);
   }
