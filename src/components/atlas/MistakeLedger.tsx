@@ -99,7 +99,11 @@ export function MistakeLedger() {
   }, [refresh]);
 
   const patchResolve = (key: string, p: Partial<ResolveState>) =>
-    setResolving((prev) => ({ ...prev, [key]: { revealed: false, done: null, ...prev[key], ...p } }));
+    setResolving((prev) => {
+      /* fresh window opens with defaults; an in-flight window keeps its state */
+      const base: ResolveState = prev[key] ?? { revealed: false, done: null };
+      return { ...prev, [key]: { ...base, ...p } };
+    });
 
   const resolveEntry = (entry: MistakeEntry, ok: boolean) => {
     const key = `${entry.subject}:${entry.id}`;
