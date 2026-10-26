@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, Check, PenLine, Search, Sigma } from "lucide-react";
 import { STM_LECTURES } from "@/components/stm/lectures";
 import { Reveal } from "@/components/notes/ui";
+import type { ClarityStatus } from "@/lib/clarity";
 
 const VIOLET = "#6d28d9";
 const VIOLET_BRIGHT = "#8b5cf6";
@@ -66,16 +67,39 @@ function HeroShape({ b }: { b: (typeof HERO_SHAPES)[number] }) {
   );
 }
 
+/* the hero's passive clarity dot — mirrors the band's pill
+   (violet = clear, gold = not-clear-yet) without stealing focus */
+function ClarityDot({ status }: { status: ClarityStatus }) {
+  const clear = status === "clear";
+  return (
+    <motion.span
+      role="img"
+      aria-label={clear ? "Lecture marked clear" : "Lecture marked not-clear-yet"}
+      title={clear ? "Marked clear — flip it on the lecture band" : "Marked not-clear-yet — flip it on the lecture band"}
+      initial={{ scale: 0.4, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ type: "spring", stiffness: 340, damping: 18 }}
+      className="h-2.5 w-2.5 shrink-0 rounded-full"
+      style={{
+        background: clear ? "#8b5cf6" : "#e0b64a",
+        boxShadow: clear ? "0 0 0 3px rgba(139,92,246,.18)" : "0 0 0 3px rgba(224,182,74,.2)",
+      }}
+    />
+  );
+}
+
 export function StmHero({
   activeId,
   onSelect,
   onPractice,
   seen,
+  clarity,
 }: {
   activeId: string;
   onSelect: (id: string) => void;
   onPractice: () => void;
   seen: ReadonlySet<string>;
+  clarity: Record<string, ClarityStatus>;
 }) {
   const [query, setQuery] = useState("");
   const q = query.trim().toLowerCase();
@@ -180,6 +204,7 @@ export function StmHero({
                   const isActive = l.id === activeId;
                   const readCount = l.chapters.filter((c) => seen.has(c.id)).length;
                   const allRead = l.chapters.length > 0 && readCount === l.chapters.length;
+                  const mark = clarity[l.id];
                   return (
                     <li key={l.id} className="min-w-0">
                       <button
@@ -206,6 +231,7 @@ export function StmHero({
                         <span className={`min-w-0 flex-1 truncate text-[.86rem] font-bold leading-tight ${isActive ? "text-[#6d28d9]" : "text-[#2b1d42]"}`}>
                           {l.title}
                         </span>
+                        {mark ? <ClarityDot status={mark} /> : null}
                         {allRead ? (
                           <Check className="h-3.5 w-3.5 shrink-0" style={{ color: "#5f9e58" }} aria-label="Every chapter read" />
                         ) : null}

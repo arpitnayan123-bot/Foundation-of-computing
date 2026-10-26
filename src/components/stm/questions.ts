@@ -11,7 +11,15 @@
    0.243, Mercy Hospital's 0.1680, Pep Zone's 0.2033.
    ============================================================ */
 
-export type StmExamGroup = "displays" | "measures" | "probability" | "discrete" | "continuous";
+export type StmExamGroup =
+  | "lens"
+  | "displays"
+  | "measures"
+  | "probability"
+  | "discrete"
+  | "continuous"
+  | "inference"
+  | "decisions";
 export type StmQuestionType = "mcq" | "output" | "short";
 
 export interface StmExamQuestion {
@@ -523,12 +531,212 @@ const CONTINUOUS: StmExamQuestion[] = [
 /* ------------------------------------------------------------
    Registry
    ------------------------------------------------------------ */
+const LENS: StmExamQuestion[] = [
+  {
+    id: "lens-1",
+    type: "mcq",
+    q: "Statistics functions as both an art and a science. Which pairing matches the lecture?",
+    options: [
+      "Science: data collection is objective and reproducible — Art: deciding WHAT data to collect involves judgment",
+      "Science: the numbers themselves — Art: drawing bar charts",
+      "Science: only experiments qualify — Art: surveys and observation",
+      "Science: the calculations — Art: the presentation slides",
+    ],
+    answer: 0,
+    explain:
+      "Data collection is objective and reproducible (heights in inches read the same whoever measures) — that is the science. Choosing which measurements and controls to study (a supplement's effect on child growth) requires expertise and judgment — that is the art. Overall: the art and science of collecting, analyzing, presenting, and interpreting data.",
+  },
+  {
+    id: "lens-2",
+    type: "mcq",
+    q: "Student A logs 10th % = 81, 12th % = 78, Physics 82, Chemistry 80, Math 78. In dataset language, that complete row is…",
+    options: ["an element", "a variable", "one observation", "the dataset"],
+    answer: 2,
+    explain:
+      "Each student is an element; the five marks are variables; ALL measurements for one student constitute one observation; the data for all students forms the dataset. Total data values = elements × variables.",
+  },
+  {
+    id: "lens-3",
+    type: "mcq",
+    q: "Railway travel classes (Class 1, Class 2, Class 3) sit on which scale of measurement?",
+    options: ["Nominal — the numbers are just labels", "Ordinal — ordered, but the gaps between ranks are not equal", "Interval — differences are meaningful", "Ratio — there is a true zero"],
+    answer: 1,
+    explain:
+      "Ordinal adds ranking to nominal: Class 1 is better than Class 2, so order is meaningful — but the difference between ranks is not necessarily equal, which is exactly what disqualifies interval.",
+  },
+  {
+    id: "lens-4",
+    type: "mcq",
+    q: "Average gasoline price per gallon tracked from January 2009 to April 2014 is which kind of data?",
+    options: ["Cross-sectional — many elements at one time", "Time series — one subject over many periods", "Categorical — the months are labels", "Experimental — a treatment was applied"],
+    answer: 1,
+    explain:
+      "Time series data is collected over multiple time periods and shows how values change — trends and projections live here. Cross-sectional data gathers many elements at approximately the same point in time.",
+  },
+  {
+    id: "lens-5",
+    type: "mcq",
+    q: "The 1954 polio vaccine trial involving 2 million U.S. children is the lecture's example of…",
+    options: ["observational data", "experimental data — treatment administered, pre vs post compared", "a census", "secondary data from government agencies"],
+    answer: 1,
+    explain:
+      "Experimental data involves administering a treatment and measuring its effects — pre-treatment vs post-treatment compared. Observational studies (smokers vs non-smokers) watch without interference, like a hidden camera.",
+  },
+  {
+    id: "lens-6",
+    type: "mcq",
+    q: "Under the course's AI policy, which use is PROHIBITED?",
+    options: [
+      "Asking AI to clarify a concept or debug your own code",
+      "Using AI for sanity checks on calculations you did yourself",
+      "Submitting AI-written assignments as entirely your own work",
+      "Exploring alternative perspectives on a solved problem",
+    ],
+    answer: 2,
+    explain:
+      "Concept clarification, debugging, quality checks and sanity verification are the recommended uses. Submitting AI-written work as your own is academic dishonesty — and violation may lead to candidature cancellation. AI is a supplementary tool, never the primary learning method.",
+  },
+];
+
+const INFERENCE: StmExamQuestion[] = [
+  {
+    id: "inf-1",
+    type: "mcq",
+    q: "The Central Limit Theorem says that for random samples of size n from ANY population…",
+    options: [
+      "the population itself becomes normal",
+      "the sampling distribution of the sample mean is approximated by a normal distribution as n becomes large",
+      "every individual observation becomes normal",
+      "the sample mean always equals the population mean",
+    ],
+    answer: 1,
+    explain:
+      "The CLT operates on the distribution of sample MEANS — rule of thumb n ≥ 30 (50+ for highly skewed populations). It says nothing about individual elements, and the mean still wobbles around μ; it just wobbles normally.",
+  },
+  {
+    id: "inf-2",
+    type: "mcq",
+    q: "BlueGurt: μ = 80, σ = 25, n = 50. The standard error of the mean is…",
+    options: ["25/√50 = 3.5355", "25/50 = 0.5", "√25 = 5", "80/√50 ≈ 11.31"],
+    answer: 0,
+    explain:
+      "σ_x̄ = σ/√n = 25/√50 = 3.5355. That drives Z = (75 − 80)/3.5355 = −1.414 and P(X̄ ≤ 75) = 7.86% — Marrian Dairies' cautious-launch verdict.",
+  },
+  {
+    id: "inf-3",
+    type: "mcq",
+    q: "95% confidence, n = 36, x̄ = $41,100, σ = $4,500. The margin of error is…",
+    options: ["1.960 × (4,500/√36) = $1,470", "1.645 × 750 = $1,234", "2.576 × 750 = $1,932", "4,500/√36 = $750"],
+    answer: 0,
+    explain:
+      "SE = 4,500/√36 = 750; MoE = z(α/2) × SE = 1.960 × 750 = 1,470 → CI [39,630, 42,570]. The 1.645 and 2.576 answers are the 90% and 99% margins.",
+  },
+  {
+    id: "inf-4",
+    type: "mcq",
+    q: "n = 16 apartments, x̄ = $750, S = $55, 95% confidence. Why t(0.025, 15) = 2.131 instead of z = 1.96?",
+    options: [
+      "σ is unknown — s estimates it, so Student's t with df = n − 1 carries heavier tails",
+      "16 is above 30 so the normal cannot be used at all",
+      "The t-distribution only applies to proportions",
+      "Because the rents are symmetric",
+    ],
+    answer: 0,
+    explain:
+      "When σ is unknown the t-distribution (born at the Guinness brewery) replaces z; df = n − 1 = 15, and the extra tail weight widens the interval: 750 ± 2.131 × 13.75 = [720.7, 779.3]. Beyond ~100 df, t ≈ z.",
+  },
+  {
+    id: "inf-5",
+    type: "mcq",
+    q: "PSI exit poll: p̂ = 0.44, n = 500, 95% confidence. The margin of error is…",
+    options: ["1.96 × √(0.44 × 0.56 / 500) = 0.0435", "1.96 × 0.44 = 0.862", "√(0.44 × 0.56) = 0.496", "0.44 / 500 = 0.00088"],
+    answer: 0,
+    explain:
+      "σ(p̂) = √[p̂(1−p̂)/n]; MoE = 1.96 × 0.0222 ≈ 0.0435 → CI [0.3965, 0.4835]. Planning a survey with E = ±0.03 at 99% needs n = 1,817 with p* = 0.44.",
+  },
+  {
+    id: "inf-6",
+    type: "mcq",
+    q: "When no prior information about a population proportion exists, the lecture's default planning value is p* = 0.5 because…",
+    options: [
+      "0.5 is the easiest number to remember",
+      "p(1−p) is maximized at 0.5, giving the largest — never undershooting — sample size",
+      "proportions are always near 0.5 in practice",
+      "it makes the margin of error exactly zero",
+    ],
+    answer: 1,
+    explain:
+      "p(1−p) peaks at 0.25 when p = 0.5, so the required n is maximal — the conservative default that protects against undersampling whatever the true proportion turns out to be.",
+  },
+];
+
+const DECISIONS: StmExamQuestion[] = [
+  {
+    id: "dec-1",
+    type: "mcq",
+    q: "Hypothesis testing can never 'prove' a statement true. The two possible conclusions are…",
+    options: [
+      "accept H₀ or accept Hₐ",
+      "reject H₀ or fail to reject H₀",
+      "confirm or deny the parameter",
+      "significant or impossible",
+    ],
+    answer: 1,
+    explain:
+      "Testing only ever rejects or fails to reject. Failing to reject means insufficient evidence — not proof. 'Accepting' a hypothesis would risk Type II errors.",
+  },
+  {
+    id: "dec-2",
+    type: "mcq",
+    q: "Emergency services target a 12-minute response. The research objective is to check whether the goal is met. The pair is…",
+    options: [
+      "H₀: μ ≥ 12, Hₐ: μ < 12 — left-tailed",
+      "H₀: μ ≤ 12, Hₐ: μ > 12 — right-tailed",
+      "H₀: μ = 12, Hₐ: μ ≠ 12 — two-tailed",
+      "H₀: μ < 12, Hₐ: μ ≥ 12",
+    ],
+    answer: 0,
+    explain:
+      "The status quo ('service is meeting the goal') holds the equality: H₀ μ ≥ 12; what you'd flag as a problem goes in Hₐ μ < 12 — a left-tailed test.",
+  },
+  {
+    id: "dec-3",
+    type: "mcq",
+    q: "Concluding an innocent person is guilty is the lecture's example of…",
+    options: [
+      "Type I error — a false positive, probability α",
+      "Type II error — a false negative",
+      "a correct decision under H₀",
+      "the power of the test",
+    ],
+    answer: 0,
+    explain:
+      "Type I = rejecting a true H₀ (the 'innocent until proven guilty' null). Its probability is the significance level α. Type II — letting the guilty go free — is harder to control statistically.",
+  },
+  {
+    id: "dec-4",
+    type: "mcq",
+    q: "A 'greater than' test of μ takes which form?",
+    options: ["H₀ μ ≤ μ₀ vs Hₐ μ > μ₀, right-tailed", "H₀ μ ≥ μ₀ vs Hₐ μ < μ₀, left-tailed", "H₀ μ = μ₀ vs Hₐ μ ≠ μ₀, two-tailed", "H₀ μ > μ₀ vs Hₐ μ ≤ μ₀"],
+    answer: 0,
+    explain:
+      "The null always keeps the equality (≤, ≥, or =); the alternate carries the strict inequality. Greater-than ⇒ H₀ μ ≤ μ₀ against Hₐ μ > μ₀ — right-tailed.",
+  },
+];
+
 export const STM_EXAM_BANKS: Record<StmExamGroup, StmExamBank> = {
+  lens: {
+    group: "lens",
+    title: "The Lens",
+    subtitle: "Lectures 1–3 — what statistics is, how data is measured, and the course's tools & rules",
+    topics: "Art & science · elements & variables · the four scales · data sources · the AI policy",
+    questions: LENS,
+  },
   displays: {
     group: "displays",
-    title: "Data & Displays",
-    subtitle: "Chapters 1–2 — what data is, where it comes from, and how to show it",
-    topics: "Scales · sources · inference · big data · frequency tables · charts",
+    title: "Summaries & Displays",
+    subtitle: "Lectures 4–8 — from the Marada Inn to the Pelican Stores ledger",
+    topics: "Frequency tables · charts · histograms · crosstabs · Simpson's paradox · COUNTIF · weighted means",
     questions: DISPLAYS,
   },
   measures: {
@@ -554,10 +762,24 @@ export const STM_EXAM_BANKS: Record<StmExamGroup, StmExamBank> = {
   },
   continuous: {
     group: "continuous",
-    title: "Continuous & Sampling",
-    subtitle: "Chapter 6 (+7) — uniform, normal, exponential, and the sampling logic",
-    topics: "Uniform · z-tables · reorder points · exponential · sampling",
+    title: "Continuous at Work",
+    subtitle: "Lectures 12–18 — uniform, normal, exponential, and the two applied cases",
+    topics: "Uniform · z-tables · reorder points · exponential · Specialty Toys · Go Bananas",
     questions: CONTINUOUS,
+  },
+  inference: {
+    group: "inference",
+    title: "Sampling & Estimation",
+    subtitle: "Lectures 17–25 — sampling distributions, the CLT, and the confidence ledger",
+    topics: "σ/√n · the CLT · margin of error · t-distribution · proportions",
+    questions: INFERENCE,
+  },
+  decisions: {
+    group: "decisions",
+    title: "Cases & Decisions",
+    subtitle: "Lectures 26–27 — what the descriptives confess, and the court of evidence",
+    topics: "Transmission failures · H₀ vs Hₐ · tails · Type I & II errors",
+    questions: DECISIONS,
   },
 };
 
