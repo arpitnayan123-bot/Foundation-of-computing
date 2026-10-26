@@ -8,9 +8,9 @@
 at **IIT Jodhpur**, rebuilt as living, animated notes you can watch, poke and revise from.
 
 [![shelves](https://img.shields.io/badge/shelves-5%2F6%20live-eab308?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
-[![chapters](https://img.shields.io/badge/chapters-86-f5c889?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
-[![questions](https://img.shields.io/badge/exam_questions-270-f59e0b?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
-[![windows](https://img.shields.io/badge/pen--paper_windows-23-d97706?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
+[![chapters](https://img.shields.io/badge/chapters-171-f5c889?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
+[![questions](https://img.shields.io/badge/exam_questions-372-f59e0b?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
+[![windows](https://img.shields.io/badge/pen--paper_windows-35-d97706?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
 
 [![next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
 [![typescript](https://img.shields.io/badge/TypeScript_5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://typescriptlang.org)
@@ -41,18 +41,18 @@ you click, bell curves that breathe. Every shelf keeps the same soul —
 
 ## 🗺 The Shelf Map
 
-Five shelves live, one reserved — every shelf is one subject, one accent, one ambience.
+Six shelves live — every shelf is one subject, one accent, one ambience.
 
 | Shelf | Subject | Sigil | Accent | Chapters | Questions | Windows | Status |
 |:-----:|:--------|:-----:|:------:|:--------:|:---------:|:-------:|:------:|
 | 01 | [Foundations of Computing](#shelf-01--foundations-of-computing-foc) | 🧭 | `#f59e0b` amber | 17 | 120 | 4 | 🟢 live |
 | 02 | [Algorithmic Thinking in Business](#shelf-02--algorithmic-thinking-in-business-atb) | 🛣️ | `#f43f5e` rose | 19 | 30 | 6 | 🟢 live |
-| 03 | [Financial Accounting](#shelf-03--financial-accounting-fa) | ⚖️ | `#10b981` emerald | 16 | 40 | 4 | 🟢 live |
+| 03 | [Financial Accounting](#shelf-03--financial-accounting-fa) | ⚖️ | `#10b981` emerald | 33 | 72 | 7 | 🟢 live |
 | 04 | [Economic & Business History](#shelf-04--economic--business-history-ebh) | 🏛️ | `#eab308` gold | 18 | 40 | 4 | 🟢 live |
-| 05 | [Statistics for Managers](#shelf-05--statistics-for-managers-stm) | Σ | `#8b5cf6` violet | 16 | 40 | 5 | 🟢 live |
-| 06 | *Reserved shelf* | 🔒 | `#fb923c` ember | — | — | — | ⏳ awaiting PDF |
+| 05 | [Statistics for Managers](#shelf-05--statistics-for-managers-stm) | Σ | `#8b5cf6` violet | 31 | 62 | 6 | 🟢 live |
+| 06 | [Principles of Marketing](#shelf-05--statistics-for-managers-stm) | 📣 | `#fb923c` ember | 53 | 48 | 8 | 🟢 live |
 
-**Totals — 86 chapters · 270 exam questions · 23 pen-paper windows · 5/6 shelves live.**
+**Totals — 171 chapters · 372 exam questions · 35 pen-paper windows · 6/6 shelves live.**
 
 ---
 
@@ -85,7 +85,7 @@ push and pop in front of you, and a **hash table you can poke** until a collisio
 
 > Every rupee tells two stories — the whole course, in balance.
 
-Sixteen chapters where the accounting equation **balances itself as you watch**, T-accounts
+Twenty-nine lectures and thirty-three chapters mirroring the IIT Jodhpur deck lecture-for-lecture, where the accounting equation **balances itself as you watch**, T-accounts
 post their debits and credits, the trial balance can be sorted, and prepaid expenses split
 themselves across periods. Journal to final statements, without a single dead figure.
 
@@ -110,17 +110,24 @@ and **Manchester's mills counting themselves up** as the Industrial Revolution i
 
 > Data → describe → decide — every figure computed, not memorised.
 
-The biggest deck of the course — a **312-page slide volume, integrated to the last slide** —
-rebuilt into sixteen chapters: the measurement-scale ladder you climb rung by rung, the
-mean-vs-median outlier machine with live recompute, a Venn laboratory for the probability
-laws, Bayes' prior-to-posterior bar (0.70 → 0.34), the empirical-rule bell, and the full
-case file — Hudson, Marada, Bradley, JSL, Evans, Mercy, Neveready, Slater, Pep Zone,
-**Netflix, ISRO's 2023 Himachal response, HUL's coconut-oil differential, Go Bananas!,
-McNeil's Auto Mall and NICE Paper**.
+The biggest deck of the course — a **312-page slide volume, integrated to the last slide**,
+now fused with the live lecture notes — rebuilt into **thirty-one chapters, one per deck
+lecture, numbered L1–L27 exactly as the course numbers them**: the
+measurement-scale ladder you climb rung by rung, the mean-vs-median outlier machine with
+live recompute, a Venn laboratory for the probability laws, Bayes' prior-to-posterior bar
+(0.70 → 0.34), the empirical-rule bell, the full case file — Hudson, Marada, Bradley, JSL,
+Evans, Mercy, Neveready, Slater, Pep Zone, **Netflix, ISRO's 2023 Himachal response, HUL's
+coconut-oil differential, Go Bananas!, McNeil's Auto Mall and NICE Paper** — plus the
+inference wing: the standard-error explorer, the five
+sampling designs, the confidence dial, Student's df-morph, the exit-poll planner, the
+Type I/II courtroom, Marrian Dairies' n-switcher, the sampling laboratory, Metropolitan
+Research — and the new L13/L14/L15/L17/L18/L21/L23 machines: the E(x) shift (1.20 → 5.20),
+the Z laboratory, the Weather Teddy service-level dial, Pelican's Excel lab, the RANDBETWEEN
+recipe and the SE shrink machine.
 
-- **Topics** — Scales & data anatomy · Displays · Location & spread · Probability & Bayes · Distributions · Sampling & the case file
-- **Exam bank** — 40 questions · 5 pen-paper windows
-- **Signature machines** — the scale ladder, the outlier slider, the Venn lab, the Bayes bar, the empirical bell
+- **Topics** — Scales & data anatomy · Displays · Location & spread · Probability & Bayes · Distributions · Sampling & the CLT · Interval estimation · Hypothesis testing
+- **Exam bank** — 62 questions · 6 pen-paper windows
+- **Signature machines** — the scale ladder, the outlier slider, the Venn lab, the Bayes bar, the confidence dial, the df-morph, the error courtroom, the E(x) shift machine, the Z lab, the Teddy service-level dial, the Marrian n-switcher, the SE shrink machine
 
 ### Shelf 06 · Reserved
 
@@ -141,7 +148,7 @@ Every shelf ships timed **pen-paper windows** — the exam, rehearsed honestly:
   **model explanation** written the way you'd want to write it on paper
 - 🧮 **A running score** and a results summary when the window closes
 
-**23 windows · 270 questions** across the five live shelves — sized to the real course
+**35 windows · 372 questions** across the six live shelves — sized to the real course
 weight (FoC carries 120; every other shelf 30–40).
 
 ## 🎨 The Design System
@@ -197,7 +204,7 @@ Adding a subject = **one entry in `subjects.ts` + one mount in `page.tsx`**. Not
 - [x] Shelf 02 — Algorithmic Thinking in Business (rose)
 - [x] Shelf 03 — Financial Accounting (emerald)
 - [x] Shelf 04 — Economic & Business History (gold)
-- [x] Shelf 05 — Statistics for Managers (violet) · the 312-slide giant
+- [x] Shelf 05 — Statistics for Managers (violet) · the 312-slide giant + L1–L27 lecture notes
 - [ ] Shelf 06 — reserved · awaiting the next PDF
 
 ---
