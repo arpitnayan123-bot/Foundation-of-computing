@@ -3,10 +3,15 @@
 /* ============================================================
    FoC — the lecture sequence (shelf 01).
 
+   Mirrors the official deck "Notes_261027_010112.pdf" — 28
+   recorded lectures, L1→L28, in exact deck order — plus one
+   row for Classes, the on-the-horizon finale whose code is
+   already live (the deck's recorded track ends at Functions).
+
    "Foundations of Computing" is read lecture-wise: the hero
-   holds the 17-lecture sequence, picking a lecture renders
-   exactly that lecture's chapter, and every lecture opens with
-   a "Foundations of Computing Lecture N" band. Editing this one
+   holds the 29-row sequence, picking a lecture renders exactly
+   that lecture's chapter(s), and every lecture opens with a
+   "Foundations of Computing Lecture N" band. Editing this one
    table re-maps the whole reader.
 
    The chapter ids/labels/descs are the canonical section keys —
@@ -21,9 +26,9 @@ export interface FocLectureChapter {
 }
 
 export interface FocLecture {
-  id: string; // "l1".."l17"
+  id: string; // "l1".."l29"
   n: number; // lecture number
-  code: string; // badge text: "L1".."L17"
+  code: string; // badge text: "L1".."L29"
   title: string;
   blurb: string;
   chapters: FocLectureChapter[];
@@ -34,10 +39,10 @@ export const FOC_LECTURES: FocLecture[] = [
     id: "l1",
     n: 1,
     code: "L1",
-    title: "Why Code? The Honest Question",
-    blurb: "Karpathy's vibe coding, Codex and Claude Code — Day 1 feels amazing, Day 30 the tower crumbles. What programming actually unlocks that prompting never will.",
+    title: "Welcome to Foundations of Computing",
+    blurb: "From passive user to active developer — the four learning objectives, why Python wins, and the.sentiment-analysis finale you will build by the end.",
     chapters: [
-      { id: "why", label: "Why code?", desc: "What programming actually unlocks" },
+      { id: "course-map", label: "Course map", desc: "Four objectives · why Python · the finale" },
     ],
   },
   {
@@ -45,29 +50,31 @@ export const FOC_LECTURES: FocLecture[] = [
     n: 2,
     code: "L2",
     title: "What Is Computing? The IPO Model",
-    blurb: "Every device — calculator, ATM, washing machine — is the same Input → Process → Output pipeline. One Uber ride request runs the full IPO cycle in under half a second.",
+    blurb: "Computing predates computers by millennia — abacus, navigation tables, WWII human computers. Every app you touch is one Input → Process → Output pipeline.",
     chapters: [
       { id: "computing", label: "Computing", desc: "Input → process → output, everywhere" },
+      { id: "pillars", label: "4 Pillars", desc: "Decompose · patterns · abstraction · algorithms" },
+      { id: "data", label: "Data & DIKW", desc: "Data → information → knowledge → wisdom" },
     ],
   },
   {
     id: "l3",
     n: 3,
     code: "L3",
-    title: "The Four Pillars of Computational Thinking",
-    blurb: "Decompose, patterns, abstraction, algorithms — the thinking toolkit every solution stands on, before a single line of code is written.",
+    title: "Data, Classified",
+    blurb: "Structured rows vs the 80% unstructured flood, snapshots vs panels vs time series, quantitative vs qualitative — the taxonomy that decides how data gets processed.",
     chapters: [
-      { id: "pillars", label: "4 Pillars", desc: "Decompose · patterns · abstraction · algorithms" },
+      { id: "data-types", label: "Data types", desc: "Structured · temporal · quant vs qual" },
     ],
   },
   {
     id: "l4",
     n: 4,
     code: "L4",
-    title: "Data — the Raw Material of Computing",
-    blurb: "A raw 72 is data; context makes it information. Climb the DIKW ladder — data → information → knowledge → wisdom — with Netflix and the banks as guides.",
+    title: "Programming in the Age of AI",
+    blurb: "The evaluation scheme (10·30·60), the vibe-coding trap, why Google and Meta rehired after the AI layoffs, and the enterprise IPO model at zettabyte scale.",
     chapters: [
-      { id: "data", label: "Data", desc: "Data → information → knowledge → wisdom" },
+      { id: "why", label: "Why code?", desc: "What programming actually unlocks" },
     ],
   },
   {
@@ -75,7 +82,7 @@ export const FOC_LECTURES: FocLecture[] = [
     n: 5,
     code: "L5",
     title: "Algorithms — Recipes a Machine Can Follow",
-    blurb: "The property wall: finiteness, definiteness, input, output, effectiveness — and finiteness_trap.py, the infinite loop you will never forget.",
+    blurb: "Al-Qarizmi's 9th-century legacy, the odd/even recipe, and the property wall: finiteness, definiteness, input, output, effectiveness — with the infinite loop you'll never forget.",
     chapters: [
       { id: "algorithm", label: "Algorithms", desc: "Recipes a machine can follow" },
     ],
@@ -85,7 +92,7 @@ export const FOC_LECTURES: FocLecture[] = [
     n: 6,
     code: "L6",
     title: "Hardware — Silicon That Makes Ideas Run",
-    blurb: "CPU anatomy, a few powerful cores vs thousands of small ones, memory that forgets when the power cuts — the physical foundation every pillar stands on.",
+    blurb: "Sensors translate the world to signals, the CPU's ALU+CU brain, thousands of GPU cores, RAM that forgets, ROM that can't — and AlexNet's 2012 proof that GPUs change everything.",
     chapters: [
       { id: "hardware", label: "Hardware", desc: "CPU, memory, sensors & I/O" },
     ],
@@ -95,7 +102,7 @@ export const FOC_LECTURES: FocLecture[] = [
     n: 7,
     code: "L7",
     title: "Software — Telling the Hardware What to Do",
-    blurb: "Operating systems, apps, and the translator problem: interpreter vs compiler — why Python runs line by line while C compiles ahead of time.",
+    blurb: "Communication, browsers, entertainment, professional tools — then the translator problem: interpreter vs compiler, and why Python's line-by-line style wins for learning.",
     chapters: [
       { id: "software", label: "Software", desc: "OS, apps, compilers & interpreters" },
     ],
@@ -104,8 +111,8 @@ export const FOC_LECTURES: FocLecture[] = [
     id: "l8",
     n: 8,
     code: "L8",
-    title: "From Computing to Programming",
-    blurb: "Problem → algorithm → Python code → solution. Meet the language: Guido van Rossum, 1991, readable by design — and why Python is this course's first tongue.",
+    title: "Python, First Contact",
+    blurb: "Google Colab in the browser, .ipynb notebooks, variables and their naming law, the NameError traceback — and the string methods you'll use every single day.",
     chapters: [
       { id: "python", label: "Python", desc: "Meet the language" },
     ],
@@ -114,90 +121,212 @@ export const FOC_LECTURES: FocLecture[] = [
     id: "l9",
     n: 9,
     code: "L9",
-    title: "Variables, Strings, Numbers & Comments",
-    blurb: "Four small ideas every program is made of — labelled boxes for values, quoted text, integers and floats, and the comments that explain you to future-you.",
+    title: "When Computing Meets the World",
+    blurb: "Knight Capital loses $440M in 45 minutes, Netflix finds 3.2M people pausing at 42:15, Zara plans six months ahead, and a bank learns why redlining is illegal.",
     chapters: [
-      { id: "basics", label: "Basics", desc: "Variables, strings, numbers, input" },
+      { id: "case-files", label: "Case files", desc: "Knight Capital · Netflix · Zara · redlining" },
     ],
   },
   {
     id: "l10",
     n: 10,
     code: "L10",
-    title: "Lists — the Workhorse Data Structure",
-    blurb: "Ordered collections in square brackets: append, insert, remove, sort, slice — plus the famous copy trap and the tuple that protects data forever.",
+    title: "Numbers, Strings & Comments",
+    blurb: "Arithmetic and BODMAS, the 0.30000000000000004 surprise, why \"happy\" + 23 explodes and str() fixes it — and the # comments professionals live by.",
     chapters: [
-      { id: "lists", label: "Lists", desc: "Ordered collections, slices, tuples" },
+      { id: "basics", label: "Basics", desc: "Variables, strings, numbers, comments" },
     ],
   },
   {
     id: "l11",
     n: 11,
     code: "L11",
-    title: "If Statements — Teaching Code to Decide",
-    blurb: "A fork in the road: one yes/no question, one path taken. Comparisons, and/or/not, the elif ladder from baby to teenager — and the classic traps.",
+    title: "Lists — the Workhorse Data Structure",
+    blurb: "Square brackets, zero-based indexing, negative indexing from the end — then modify, append, insert, and the three ways to delete: del, pop, remove.",
     chapters: [
-      { id: "if", label: "If / Else", desc: "Decisions, comparisons, logic" },
+      { id: "lists", label: "Lists", desc: "Ordered collections, indexing, add & remove" },
     ],
   },
   {
     id: "l12",
     n: 12,
     code: "L12",
-    title: "Dictionaries — Connecting Pieces of Information",
-    blurb: "Key–value pairs that connect what belongs together — favourite languages, pizza toppings — then nesting that models the real world: dicts inside lists inside dicts.",
+    title: "Putting Lists in Order",
+    blurb: "sort() rearranges forever, sorted() only pretends to, reverse() flips, len() counts — and the off-by-one index error every beginner donates to the gods.",
     chapters: [
-      { id: "dicts", label: "Dictionaries", desc: "Key–value pairs & nesting" },
+      { id: "list-organize", label: "Organize", desc: "sort · sorted · reverse · len · index errors" },
     ],
   },
   {
     id: "l13",
     n: 13,
     code: "L13",
-    title: "User Input & While Loops — Interactive Programs",
-    blurb: "input() makes programs listen; while makes them persist. Follow the input() journey from prompt to usable number, then loop until the user says stop.",
+    title: "Loops & the Indentation Law",
+    blurb: "The for loop walks a list so you don't print 250 lines by hand — and indentation stops being style and becomes syntax, with the four classic errors to dodge.",
     chapters: [
-      { id: "while", label: "While Loops", desc: "Repeat until the job is done" },
+      { id: "for-loops", label: "For loops", desc: "Loop a list · the indentation law" },
     ],
   },
   {
     id: "l14",
     n: 14,
     code: "L14",
-    title: "Functions — Named Blocks That Do One Job",
-    blurb: "Define once, call anywhere: the anatomy of def, parameters vs arguments, and why naming a block of code is the first act of scale.",
+    title: "Checkpoint — Quiz One",
+    blurb: "60 MCQs in 20 minutes, best two of three recorded. A guided lap around everything so far: data, algorithms, hardware, software, and your first Python.",
     chapters: [
-      { id: "functions", label: "Functions", desc: "Define, call, reuse — first steps" },
+      { id: "checkpoint-1", label: "Checkpoint 1", desc: "Recap · quiz format · predict the output" },
     ],
   },
   {
     id: "l15",
     n: 15,
     code: "L15",
-    title: "Arguments In, Answers Out",
-    blurb: "Positional vs keyword arguments, defaults that make parameters optional, and the return statement that hands a result back to the caller.",
+    title: "Numeric Lists, Ranges & Slices",
+    blurb: "range() never includes its end, list comprehensions fold four lines into one, min/max/sum do the maths, and slices cut lists without wounding them.",
     chapters: [
-      { id: "args", label: "Args & Return", desc: "Positional, keyword, defaults, return" },
+      { id: "numeric-lists", label: "Numeric lists", desc: "range · comprehensions · statistics · slices" },
     ],
   },
   {
     id: "l16",
     n: 16,
     code: "L16",
-    title: "Functions at Scale",
-    blurb: "The power moves: hand whole lists to functions, let *args and **kwargs accept anything, and split programs into modules you can import.",
+    title: "Copies & Tuples",
+    blurb: "friend_foods = my_foods[:] copies; friend_foods = my_foods merely aliases. And the tuple: the immutable list whose TypeError is a feature, not a bug.",
     chapters: [
-      { id: "funcs2", label: "Funcs × Lists", desc: "Passing lists, *args, **kwargs, modules" },
+      { id: "copies-tuples", label: "Copies & tuples", desc: "Copy vs reference · immutable tuples" },
     ],
   },
   {
     id: "l17",
     n: 17,
     code: "L17",
-    title: "Classes — Blueprints for Objects",
-    blurb: "From dictionaries to objects: __init__ builds, self remembers, methods act, inheritance extends — object-oriented programming closes the course.",
+    title: "Conditional Tests",
+    blurb: "== asks, = assigns. Case-insensitive checks with .lower(), the and/or truth table, in and not in — the True/False heart of every if statement.",
     chapters: [
-      { id: "classes", label: "Classes", desc: "Objects, __init__, inheritance" },
+      { id: "if", label: "If / Else", desc: "Decisions, comparisons, logic" },
+    ],
+  },
+  {
+    id: "l18",
+    n: 18,
+    code: "L18",
+    title: "If, Elif, Else",
+    blurb: "One road or many: simple if, if-else, the elif ladder that stops at the first true test — and independent ifs that check every topping, not just the first.",
+    chapters: [
+      { id: "branches", label: "Branches", desc: "if-else · elif ladders · independent ifs" },
+    ],
+  },
+  {
+    id: "l19",
+    n: 19,
+    code: "L19",
+    title: "The Skills Lab",
+    blurb: "Everything so far, compressed — then the shipment-inventory challenge: remove, insert, replace, pop, append, delete. Six moves, one list, no mercy.",
+    chapters: [
+      { id: "skills-lab", label: "Skills lab", desc: "Recap · the shipment inventory challenge" },
+    ],
+  },
+  {
+    id: "l20",
+    n: 20,
+    code: "L20",
+    title: "If × Lists",
+    blurb: "Special toppings that need apologies, the empty list that is secretly False, and two lists checked against each other before the kitchen fires up.",
+    chapters: [
+      { id: "if-lists", label: "If × lists", desc: "Special items · empty checks · multiple lists" },
+    ],
+  },
+  {
+    id: "l21",
+    n: 21,
+    code: "L21",
+    title: "Dictionaries — Connecting Pieces of Information",
+    blurb: "Curly braces and key–value pairs: alien_0 gets a colour and 5 points, values change, pairs delete — and favourite_languages connects people to code.",
+    chapters: [
+      { id: "dicts", label: "Dictionaries", desc: "Key–value pairs & the safe lookup" },
+    ],
+  },
+  {
+    id: "l22",
+    n: 22,
+    code: "L22",
+    title: "Looping Through Dictionaries",
+    blurb: ".items() walks pairs, .keys() is optional, sorted() imposes order, and set() quietly deletes the duplicates from your values.",
+    chapters: [
+      { id: "dict-loops", label: "Dict loops", desc: "items · keys · sorted · values · sets" },
+    ],
+  },
+  {
+    id: "l23",
+    n: 23,
+    code: "L23",
+    title: "Nesting — Structures Inside Structures",
+    blurb: "Thirty aliens generated by one loop, a pizza that carries a list of toppings, users who are dictionaries inside a dictionary — the real world is nested.",
+    chapters: [
+      { id: "nesting", label: "Nesting", desc: "List of dicts · dict of lists · dict of dicts" },
+    ],
+  },
+  {
+    id: "l24",
+    n: 24,
+    code: "L24",
+    title: "The Records Lab",
+    blurb: "Five students, three scores each: filter the under-60 average, reward the 90+ distinction, insert at the front, sort by name — a complete data pipeline in one sitting.",
+    chapters: [
+      { id: "records-lab", label: "Records lab", desc: "Filter · reward · insert · sort" },
+    ],
+  },
+  {
+    id: "l25",
+    n: 25,
+    code: "L25",
+    title: "Input & While Loops",
+    blurb: "input() pauses and listens, int() turns text into numbers, % reveals even and odd — and the while loop runs as long as its condition holds true.",
+    chapters: [
+      { id: "while", label: "While loops", desc: "Repeat until the job is done" },
+    ],
+  },
+  {
+    id: "l26",
+    n: 26,
+    code: "L26",
+    title: "Flags, Break & Continue",
+    blurb: "One Boolean to rule the loop, break to leave it mid-stride, continue to skip a beat — then while loops that safely move users between lists and scrub every cat.",
+    chapters: [
+      { id: "loop-control", label: "Loop control", desc: "Flags · break · continue · while with data" },
+    ],
+  },
+  {
+    id: "l27",
+    n: 27,
+    code: "L27",
+    title: "Functions I — Define & Call",
+    blurb: "def names a block of code; a docstring explains it; parameters take input, positional and keyword arguments deliver it, and defaults make some of it optional.",
+    chapters: [
+      { id: "functions", label: "Functions", desc: "Define, call, reuse — first steps" },
+      { id: "args", label: "Arguments", desc: "Positional, keyword, defaults & errors" },
+    ],
+  },
+  {
+    id: "l28",
+    n: 28,
+    code: "L28",
+    title: "Functions II — Return & Deliver",
+    blurb: "return hands a result back to the caller, optional arguments bend to missing middle names, lists travel into functions — and the slice trick keeps the original safe.",
+    chapters: [
+      { id: "returns", label: "Return values", desc: "return · optional args · dict builders" },
+      { id: "funcs2", label: "Funcs × Lists", desc: "Passing lists, *args, **kwargs, modules" },
+    ],
+  },
+  {
+    id: "l29",
+    n: 29,
+    code: "L29",
+    title: "Classes — Ahead of the Deck",
+    blurb: "The recorded track ends at Functions — but the code for the next lectures is already alive: objects, __init__, inheritance, and a car that becomes electric.",
+    chapters: [
+      { id: "classes", label: "Classes", desc: "Objects, __init__, inheritance — the finale" },
     ],
   },
 ];
@@ -212,5 +341,4 @@ export function lectureById(id: string): FocLecture | null {
   return FOC_LECTURES.find((l) => l.id === id) ?? null;
 }
 
-/** Every chapter id in reading order — the full chapter shelf. */
 export const FOC_ALL_CHAPTER_IDS = FOC_LECTURES.flatMap((l) => l.chapters.map((c) => c.id));
