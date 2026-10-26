@@ -1,0 +1,3629 @@
+Financial Accounting
+    Lecture Summaries 1 to 29
+
+           IIT Jodhpur
+Contents
+Lecture 1: Introduction to Financial Accounting Course . . . . . . . . . . . . . . . . . 4
+
+Lecture 2: Introduction to Accounting: Overview and Foundational Concepts . . . . . . 5
+
+Lecture 3: Overview of Accounting Objectives, Users, and Regulatory Environment         . .7
+
+Lecture 4: Introduction to Financial Accounting: Overview and Foundational Concepts 10
+
+Lecture 5: Overview of Accounting Concepts and Conventions . . . . . . . . . . . . . 13
+
+Lecture 6: Part Two of Accounting Concepts and Conventions . . . . . . . . . . . . . 15
+
+Lecture 7: Accounting Conventions: Principles for Financial Statement Preparation . . 17
+
+Lecture 8: Financial Accounting: Accounting Records and Systems - Module Two . . . 19
+
+Lecture 9: Overview of Accounting Concepts and Financial Statement Fundamentals . 21
+
+Lecture 10: Classification of Accounts and Journal Entries in Double Entry System     . . 24
+
+Lecture 11: Continuation of Journal Entries and Introduction to Ledger Accounts     . . . 27
+
+Lecture 12: Ledger Posting and Account Balancing . . . . . . . . . . . . . . . . . . . 30
+
+Lecture 13: Trial Balance: Concept, Objectives, and Preparation Methods . . . . . . . 32
+
+Lecture 14: Overview of Accounting Principles and Journal Entries . . . . . . . . . . . 34
+
+Lecture 15: Continuing Discussion on Trial Balance    . . . . . . . . . . . . . . . . . . 37
+
+Lecture 16: Basis of Accounting and the Matching Principle . . . . . . . . . . . . . . 39
+
+Lecture 17: Adjusting Entries in the Accounting Cycle . . . . . . . . . . . . . . . . . 42
+
+Lecture 18: Introduction to Financial Accounts and the Trading Account . . . . . . . . 44
+
+Lecture 19: Understanding the Accounting Cycle: Ledger Accounts, Trial Balance, and
+Adjusting Entries . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 46
+
+Lecture 20: Overview of Final Accounts: Trading Account and Profit and Loss Account 49
+
+Lecture 21: Profit and Loss Account, Closing Entries, and Financial Statement
+Relationships . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 51
+
+Lecture 22: Introduction to Balance Sheet . . . . . . . . . . . . . . . . . . . . . . . 54
+
+Lecture 23: Introduction to Cash Flow Statement . . . . . . . . . . . . . . . . . . . . 56
+
+Lecture 24: Financial Accounting: Final Accounts and Financial Statement Preparation 59
+
+Lecture 25: Understanding the Structure and Calculation of Cash Flow Statements . . 62
+
+Lecture 26: Cash Flow Statement Analysis: Comprehensive Overview of Direct and
+Indirect Methods   . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 64
+
+Lecture 27: Analyzing the Cash Flow Statement to Understand Company Financial Health        68
+
+
+
+
+                                             2
+Lecture 28: Financial Statement Analysis: Understanding and Interpreting Financial Data   72
+
+
+
+
+Lecture 29: Understanding Cash Flow Statements and Their Importance     . . . . . . . 75
+
+
+
+
+                                           3
+Lecture 1
+Introduction to Financial Accounting Course
+This is an introductory course on financial accounting offered by Dr. Manisha from the School of
+Management and Entrepreneurship at IIT Jodhpur, designed to provide students with a
+comprehensive foundation in accounting principles and practices.
+
+Course Overview
+
+The course begins with basic accounting concepts and conventions that guide how businesses
+record and report transactions
+Progresses through the complete accounting cycle, from journal entries to the preparation and
+interpretation of financial statements
+Accounting is referred to as the "language of business" as all organizations depend on accounting
+information for recording transactions, communicating performance, and supporting
+decision-making
+Main Topics Covered
+
+Accounting Cycle: Journey from journal entries and ledgers through trial balances and how raw
+data transforms into financial statements
+Financial Statements: Understanding the preparation and interpretation of balance sheets, income
+statements, and cash flow statements
+Specific Accounting Areas: In-depth coverage of receivables, inventories, long-lived assets,
+depreciation, and amortization
+Financial Analysis: Building skills to read, analyze, and interpret annual reports and extract
+managerial insights from financial data
+Course Learning Outcomes
+
+Understand the nature of accounting and its critical role in business decision-making
+Prepare and comprehend financial statements of firms
+Analyze financial statements to draw useful managerial information for stakeholders including
+managers, investors, and other decision-makers
+Course Details
+
+This is a core course for students in the BS in Management and Technology program at IIT Jodhpur
+No prior background in accounting is required to enroll
+
+
+
+
+                                                  4
+Lecture 2
+Introduction to Accounting: Overview and Foundational
+Concepts
+This module provides an introduction to financial accounting, establishing fundamental concepts
+that form the foundation for all subsequent accounting topics. The session explores accounting as
+the language of business and introduces key principles that guide accounting practices.
+
+What is Accounting?
+Accounting exists to capture, organize, and communicate the financial health and reality of a
+business to stakeholders who need this information. Rather than relying solely on human memory,
+accounting provides systematic records of business activities to help determine profitability and
+financial position.
+
+Textbook Definition: Accounting is the process of identifying, recording, measuring, and
+communicating financial information about an economic entity to permit judgments and decisions
+by its users.
+
+Key Steps in the Accounting Process:
+Identifying: Recognizing events and activities that have a financial impact on the business
+(filtering out non-financial events)
+Recording: Systematically documenting these events in writing
+Measuring: Expressing all activities and events in monetary terms
+Communicating: Reporting and publishing financial information to stakeholders who need to make
+decisions
+Types of Accounting
+Accounting is an umbrella term encompassing three distinct branches:
+
+Financial Accounting
+
+Focuses on reporting the overall performance and financial position of the business to external
+users (investors, creditors, lenders, regulators)
+Requires standardized formats and follows regulatory rules (such as INDAS in India or IFRS
+internationally)
+Information is made publicly available
+Management Accounting
+
+Serves internal users (managers and decision-makers within the organization)
+Provides detailed and forward-looking information to support planning, budgeting, and internal
+decision-making
+Has no standardized format since it remains internal to the organization
+Cost Accounting
+
+A specialized branch of management accounting with a narrower focus
+Tracks and analyzes the costs of producing goods or services
+Helps with pricing decisions, cost control, and operational efficiency
+The Entity Concept
+A business is treated as a separate and distinct unit independent from its owner. This fundamental
+principle means:
+Personal assets, liabilities, and expenditures of the owner are not part of business accounting
+records
+Owner investments in the business are recorded as equity (a liability of the business to the owner)
+
+
+
+                                                  5
+Personal expenses, such as those for entertainment, should not affect the business's financial
+records
+The business's financial performance can be meaningfully measured separately from the owner's
+personal finances
+The Accounting Equation
+The foundation of all accounting is the fundamental equation:
+
+Assets = Liabilities + Equity
+
+Definitions:
+
+Assets: Whatever the business owns (cash, furniture, machinery, vehicles, etc.)
+Liabilities: What the business owes to others; obligations the business must meet
+Equity: Capital that the business owner invests in the firm; represents the owner's residual claim
+on the business (also called shareholders' equity)
+This equation must always balance. Every business transaction affects this equation while
+maintaining its equilibrium. For example, when a friend lends money to the business:
+
+Assets increase (cash received)
+Liabilities increase (debt owed to the friend)
+The equation remains balanced
+Key Takeaways
+Accounting serves as the language of business by systematically identifying, recording,
+measuring, and communicating financial information
+Different types of accounting (financial, management, and cost accounting) serve different
+purposes and audiences
+The entity concept establishes that a business is legally and financially separate from its owner
+The accounting equation (Assets = Liabilities + Equity) is the fundamental principle underlying all
+accounting practices and must always remain balanced
+Understanding these foundational concepts is essential for all subsequent accounting topics
+
+
+
+
+                                                 6
+Lecture 3
+Overview of Accounting Objectives, Users, and Regulatory
+Environment
+This lecture covers Chapter 2 of financial accounting, focusing on three main themes: the
+objectives of accounting, the users of accounting information, and the regulatory environment
+governing accounting practices in India and globally.
+
+Objectives of Accounting
+Accounting serves five primary objectives:
+
+Systematic Recording of Transactions: The fundamental objective is to record all financial aspects
+of business transactions methodically. This process is called bookkeeping and forms the
+foundation for all other accounting objectives.
+
+Classification and Summarization: Recorded transactions are classified and logically organized to
+prepare financial statements that provide meaningful insights into business operations.
+
+Ascertainment of Results: Accounting determines business profitability through profit and loss
+accounts. If revenues exceed expenses, the business is profitable; if expenses exceed revenues,
+the business operates at a loss.
+Financial Position Assessment: Balance sheets present assets (what the business owns) and
+liabilities (what the business owes to outsiders) at a specific date, revealing the overall financial
+health of the organization.
+
+Decision Making and Solvency Analysis: Financial statements provide information for rational
+decision-making by management and stakeholders. They reveal both liquidity position (ability to
+pay short-term liabilities) and solvency position (ability to meet long-term obligations), which are
+essential for financial planning and strategy.
+
+Users of Accounting Information
+Accounting information serves two distinct categories of users:
+
+Internal Users
+Internal users are individuals within the organization:
+
+Managers and Directors: Use financial data for budgeting, setting targets, allocating resources,
+evaluating performance, and making strategic decisions such as opening new factories or shutting
+down existing operations.
+
+Employees: Reference financial statements to assess company stability, determine job security,
+and evaluate prospects for salary increases.
+Internal Auditors: Function as the company's financial watchdogs by verifying proper transaction
+recording, checking for errors, and ensuring internal controls are functioning effectively.
+
+External Users
+External users are stakeholders outside the organization with specific information needs:
+
+Investors and Shareholders: Seek information about company profitability and future growth
+prospects to make investment decisions.
+
+Banks and Lenders: Evaluate the company's ability to repay loans and assess solvency before
+extending credit.
+Government and Tax Authorities: Verify correct tax payments and investigate potential tax
+avoidance schemes.
+
+
+
+
+                                                   7
+Suppliers and Creditors: Assess whether the company will pay invoices on time based on historical
+payment trends and current financial position.
+
+Customers: Evaluate company stability to ensure long-term warranty obligations and contract
+fulfillment.
+
+General Public: Have interest in company performance and stability.
+
+Need for Regulatory Standards
+Without uniform accounting standards, comparisons between companies become impossible
+because:
+
+Each company could develop its own accounting system, making it difficult for stakeholders to
+evaluate and compare financial performance.
+
+Different accounting methods could produce vastly different profit figures for companies with
+identical revenues, creating misleading comparisons.
+
+Lenders, investors, and other stakeholders would lack a reliable basis for comparing loan
+applications or investment opportunities.
+
+Regulatory Environment in India
+India's accounting regulation is governed by three institutional pillars:
+Institute of Chartered Accountants of India (ICAI)
+Apex professional body for accountants in India
+Drafts accounting standards through its Accounting Standards Board
+Issues guidance notes and certifies chartered accountants
+Functions as the "author" that writes the rules
+Ministry of Corporate Affairs (MCA)
+Prescribes accounting standards under the Companies Act 2013
+Enforces compliance through registrars of companies
+Functions as the "legislator" that gives rules the force of law
+Monitors whether firms comply with accounting standards
+Securities and Exchange Board of India (SEBI)
+Regulates listed companies
+Mandates disclosure norms and quarterly reporting requirements
+Ensures transparent financial reporting
+Protects investors' interests through stringent disclosure requirements
+Global Accounting Standards
+International Financial Reporting Standards (IFRS)
+Issued by the International Accounting Standards Board, headquartered in London
+Adopted by more than 140 countries worldwide
+Objective: create a single set of high-quality global standards enabling comparable financial
+statements across borders
+Indian Accounting Standards (Ind AS)
+India's converged version of IFRS customized to Indian requirements
+Notified by MCA under the Companies Act 2013
+Mandatory for all listed companies and large unlisted companies with net worth exceeding 250
+crores
+Ensures Indian financial statements are comparable with internationally prepared statements
+while accommodating country-specific deviations
+Key Takeaways
+
+
+
+                                                     8
+Financial statements must follow uniform standards to enable meaningful comparison between
+companies, which is particularly important for external users.
+
+Internal users (managers, employees, auditors) and external users (investors, lenders, suppliers,
+government) rely on standardized, published financial statements.
+
+India's regulatory framework involves three bodies: ICAI drafts standards, MCA notifies and
+enforces them, and SEBI ensures compliance for listed companies.
+
+Indian Accounting Standards (Ind AS) ensure that Indian financial reporting aligns with global
+standards while accommodating local requirements.
+
+
+
+
+                                                 9
+Lecture 4
+Introduction to Financial Accounting: Overview and
+Foundational Concepts
+This lecture introduces the course on financial accounting from IIT Jodhpur, taught by Manisha, a
+finance and accounting instructor specializing in financial markets, market microstructure, and
+asset pricing.
+
+Course Structure and Expectations
+The course is divided into five modules:
+
+Module 1 - Introduction: Covers basic accounting concepts, conventions, accounting terminology,
+and an overview of financial statements (balance sheet and income statement)
+Module 2 - Accounting Records and Systems: Focuses on mechanics of accounting including
+journal entries, T-accounts, ledger accounts, and trial balances
+Module 3 - Financial Statements Preparation and Analysis: Details the structure of balance sheets
+and profit & loss accounts, including concepts like accrual accounting and revenue recognition
+Module 4 - Cash Flow Statement: Comprehensive coverage of cash flow statements, their
+importance, preparation methods, inventory valuation, and depreciation
+Module 5 - Long-lived Assets and Financial Statement Analysis: Addresses fixed assets,
+depreciation methods, and financial statement analysis
+Learning Approach
+Students must watch video recordings before attending live sessions, as sessions build upon
+pre-recorded content
+Live sessions are divided into three parts: concept recap, solved examples, and real-world case
+studies
+Interactive participation through hand-raising and case discussions is encouraged
+Accounting is treated as a practical skill requiring repetition and problem-solving practice to
+develop fluency
+Core Concepts and Key Takeaways
+Profit Does Not Equal Cash
+One critical lesson is that a company reporting profit does not automatically have cash in the
+bank. Profit measures earned value, while cash represents actual funds received. A company can
+be highly profitable yet face bankruptcy due to cash flow problems, as demonstrated by the
+Soleris case where 40% sales growth coincided with inability to pay suppliers.
+
+Need for Standardized Accounting Conventions
+Without agreed-upon accounting rules and conventions, identical business facts can produce
+different conclusions about company performance. The Priya and Rohan case illustrates how two
+honest stakeholders analyzing the same business arrive at opposite conclusions because they use
+different methods for recording depreciation and asset purchases. Standardized conventions
+prevent ambiguity and enable meaningful comparisons between companies.
+
+Different Stakeholders, Different Perspectives
+Various stakeholders interpret financial statements through different lenses:
+
+Banks/Lenders: Focus on solvency and repayment ability
+Equity Investors: Interested in growth potential and future cash flows
+Employees: Concerned with performance-based compensation and company stability
+Suppliers: Evaluating creditworthiness and payment reliability
+The same financial statement serves different purposes for different users.
+
+
+
+                                                 10
+Importance of Understanding the Source of Numbers
+Beyond final profit figures, it is critical to understand where numbers originate. Company X with
+higher reported profit from one-time asset sales is financially weaker than Company Y with lower
+profit from sustainable operations. Understanding the composition and sources of financial
+statement items is essential for accurate assessment.
+
+Cash Flow Statement is Most Reliable
+Among all financial statements, the cash flow statement is most important and honest because it
+directly shows actual cash inflows and outflows. Unlike income statements that follow accrual
+accounting conventions, cash flow statements reveal true liquidity and sustainability of
+operations.
+
+Formal Financial Records Requirements
+Informal record-keeping (like Ramesh's notebook) cannot substitute for standardized, verifiable
+financial statements. Investors, banks, and stakeholders require formal records prepared
+according to standard principles for comparison, verification, and credibility purposes.
+
+Real-World Implications
+Satyam Computers Case Study (2009)
+A prominent example from Indian markets where the founder admitted to manipulating financial
+statements for years:
+Fabricated cash balance of ₹5,300 crore (₹5,000 crore non-existent)
+Booked false interest income
+Understated liabilities and overstated receivables
+Auditors failed to detect or signed off on fraudulent statements
+Within one day of exposure, stock value declined 80%
+This case demonstrates that even with honest intent of all parties, frameworks can be exploited.
+When dishonesty is involved, consequences are severe.
+
+Enron Case Study
+Students are assigned to research Enron Corporation, a U.S. case of financial statement
+fabrication with similar underlying problems but different mechanisms.
+
+Foundational Accounting Principles
+Accounting as Language of Business: Enables communication of financial health to diverse
+stakeholders
+Accounting Conventions: Agreed-upon rules for consistent financial statement preparation across
+organizations
+Accrual Basis Accounting: Records transactions when earned or incurred, not just when cash
+changes hands
+Financial Statement Users: Beyond accountants and auditors, includes investors, employees,
+banks, suppliers, and management
+Course Philosophy
+Accounting combines two skill sets: mechanical (bookkeeping, journal entries, ledgers) and
+judgment-based (identifying red flags, analyzing financial health, interrogating numbers)
+Developing accounting fluency requires consistent practice with diverse problems and
+transactions
+Critical thinking and healthy skepticism toward financial statements are essential
+Students should actively examine multiple annual reports to build intuition about financial health
+indicators
+Assessment and Participation
+
+
+
+
+                                                11
+Doubt sessions will be held the following week to address student questions
+Chat-based questions should be compiled for team follow-up
+Regular practice problems are mandatory for skill development
+Case study participation requires voluntary hand-raising for responses
+
+
+
+
+                                               12
+Lecture 5
+Overview of Accounting Concepts and Conventions
+This lecture introduces fundamental accounting principles, which are universally adopted rules
+that guide accountants in recording transactions and selecting appropriate procedures.
+Accounting principles are divided into two broad categories: accounting concepts (basic
+assumptions underlying accounting) and accounting conventions (customs and traditions guiding
+financial statement preparation).
+
+Accounting Concepts
+Accounting concepts, also called accounting postulates, are the basic assumptions and conditions
+upon which accounting is founded. Eight key concepts are discussed:
+
+1. Separate Entity Concept
+ The business is treated as a distinct entity separate from its owners or proprietors
+ When an owner invests capital into the business, it is recorded as a liability owed by the business
+ to the owner
+ Conversely, owner withdrawals reduce the business's obligation to the owner
+ Personal and business accounts must be kept separate
+2. Going Concern Concept
+ Assumes the business will continue operating for the foreseeable future without plans for
+ liquidation
+ Assets are valued at their cost-based value, not forced sale or liquidation value
+ Depreciation is charged over the expected useful life of assets
+ Liabilities are assumed to be paid when due
+ Closing one business branch does not signify the end of the entire enterprise
+ Key implication: A company charging depreciation based on expected useful life rather than
+ current market value reflects this concept
+3. Money Measurement Concept
+ Only transactions and events that can be expressed in monetary terms are recorded in
+ accounting books
+ Items lacking monetary measurement (such as employee dedication or company reputation) are
+ excluded from financial statements, regardless of their business importance
+ Monetary expression allows diverse assets (cash, raw materials, equipment, property) to be
+ meaningfully combined and compared
+ Enables precise calculation of total business assets
+4. Cost Concept
+ Assets are recorded at their acquisition price (the amount actually paid to acquire them)
+ This cost serves as the basis for all subsequent accounting of that asset, regardless of market
+ value fluctuations
+ Example: Land purchased for 50,000 rupees remains recorded at 50,000, whether market value
+ later rises to 60,000 or falls to 40,000
+ Advantages: Removes subjectivity and brings objectivity to financial statements through a
+ standardized measurement approach
+ Limitations: Cannot account for inflation; in high-inflation periods, historical cost may not reflect
+ the true financial position of the firm
+5. Dual Aspect Concept
+ Every business transaction has two simultaneous and equal impacts
+
+
+
+
+                                                  13
+ Foundation of the fundamental accounting equation: Assets = Liabilities + Equity
+ Each transaction affects at least two accounts with equal and opposite amounts
+ Example transaction impacts:
+ Owner invests 10,000 rupees capital → Cash asset increases 10,000; Owner's equity increases
+ 10,000
+ Purchase furniture for 5,000 cash → Cash decreases 5,000; Furniture asset increases 5,000 (both
+ assets)
+ Borrow 30,000 from bank → Cash increases 30,000; Bank loan liability increases 30,000
+ Earn 1 lakh revenue → Cash increases 1 lakh; Equity increases 1 lakh (through retained earnings)
+ Forms the foundation of double-entry bookkeeping system
+ Ensures the balance sheet always balances
+6. Accounting Period Concept
+ Accounting records are divided into specific time periods for measurement and reporting
+ purposes
+ Allows regular financial statements to be prepared and analyzed
+7. Periodic Matching Concept
+ Revenues earned during a period are matched with expenses incurred to generate those
+ revenues
+ Ensures accurate profit calculation for each accounting period
+8. Realization Concept
+ Revenue is recognized when it is realized, typically upon completion of the sale or service
+ delivery
+ Does not necessarily coincide with cash receipt
+
+
+
+
+                                                14
+Lecture 6
+Part Two of Accounting Concepts and Conventions
+This lecture covers the remaining accounting concepts following a previous discussion on the
+entity, going concern, money measurement, cost, and dual aspect concepts.
+
+Accounting Period Concept
+Definition: The business life is divided into appropriate time segments (usually one year) to study
+results after each segment
+Purpose: Allows businesses to stop at regular intervals and assess performance, enabling
+management to identify necessary changes or corrective strategies
+Financial Statements: At the end of each accounting period, an income statement (showing
+profit/loss) and balance sheet (showing financial position) are prepared
+Key Benefit: Periodic reporting enables timely decision-making rather than waiting for indefinite
+business closure
+Periodic Matching of Costs and Revenues
+Core Principle: Revenues of a period must be matched with costs and expenses incurred to earn
+those revenues in the same period
+Timing: Payment timing is irrelevant; what matters is the period to which the income or cost
+belongs
+Example: Commission paid in January for sales made in December should be recorded as an
+expense in December (the sales period), not January (the payment period)
+Adjustments Made: This concept necessitates year-end adjustments for:
+Outstanding expenses
+Accrued income
+Prepaid expenses
+Unpaid expenses
+Unearned income
+Realization Concept
+Definition: Revenue is recognized when a sale is made, specifically when property in goods passes
+to the buyer and the buyer becomes legally liable to pay
+Recognition Point: Revenue is recorded at the moment of delivery, not at order receipt or payment
+Example: An order placed in March but goods delivered in April means revenue is recognized in
+April
+Exception One: Hire Purchase Agreements
+Definition: Purchase of items paid for in monthly installments; legal ownership transfers only after
+the final payment
+Accounting Treatment: Sellers record revenue progressively as installments are received or
+become due, not all at the end
+Reason: Waiting until final payment would not reflect the true financial position during interim
+periods
+Exception Two: Long-Term Construction Contracts
+Situation: Projects spanning multiple years with payment received only upon completion
+Accounting Treatment: Profit is calculated and recorded yearly based on work certified as
+completed, not just upon final project completion
+Reason: Waiting for full project completion would show an incomplete business picture during the
+construction period
+
+
+
+
+                                                 15
+Rationale for Exceptions: Both exceptions exist because waiting for full legal completion gives a
+misleading picture of actual business performance during the period
+Key Takeaways
+Eight Accounting Concepts Covered:
+
+Separate Entity Concept: Business affairs separated from personal affairs
+Going Concern Concept: Justifies valuing assets at cost rather than liquidation value
+Money Measurement Concept: Records transactions in monetary terms
+Cost Concept: Assets recorded at acquisition cost, not market value
+Dual Aspect Concept: Every transaction has two simultaneous effects; foundation of double-entry
+bookkeeping (Assets = Liabilities + Capital)
+Accounting Period Concept: Divides business life into segments for periodic reporting
+Periodic Matching Concept: Matches revenues and expenses of the same period
+Realization Concept: Revenue recognized when property in goods passes to buyer
+Fundamental Principle: The timing of payment is irrelevant in accounting; what matters is the
+period to which income or costs belong.
+
+
+
+
+                                                16
+Lecture 7
+Accounting Conventions: Principles for Financial Statement
+Preparation
+This lecture covers the third part of a series on accounting concepts and conventions, focusing
+specifically on four major accounting conventions that guide accountants in preparing financial
+statements.
+
+Overview of Accounting Conventions vs. Concepts
+Accounting Concepts (Postulates):
+
+Basic assumptions and conditions upon which accounting is founded
+Include major concepts previously discussed in the course
+Accounting Conventions:
+
+Customs and traditions that guide accountants during financial statement preparation
+Not formal rules, but evolved practices developed over time
+Help ensure consistency and fairness in accounting practices
+Convention of Conservatism
+Definition:
+
+Accountants do not anticipate any profit but provide for all possible losses
+Follows a "playing safe" approach when uncertainty exists
+Leans toward cautious outcomes rather than optimistic ones
+Key Applications:
+
+Inventory Valuation: Inventory must be valued at cost or market price, whichever is lower
+
+Example: If goods cost ₹100,000 with market price of ₹140,000, value at ₹100,000 (unrealized
+gains are not recognized)
+If market price drops to ₹80,000, value at ₹80,000 (losses are immediately recognized)
+Provision for Doubtful Debts: Accountants make provisions for potential bad debts from current
+year's profits without waiting to confirm actual default
+
+Criticisms:
+
+Violates the convention of full disclosure by potentially creating "secret reserves"
+May result in understated assets and overstated liabilities
+Income statements may show artificially lower net income than actually earned
+Financial statements may not reflect the true and fair value of the business
+Convention of Full Disclosure
+Definition:
+
+Accounting reports must fully and fairly disclose information they purport to represent
+All material information of interest to proprietors, creditors, and investors must be honestly
+presented
+Reasons for Development:
+
+Large businesses are often run by joint stock companies where ownership is separated from
+management
+Owners rely on financial statements to understand firm performance
+The Companies Act legally requires financial statements to present a true and fair view
+Notes to accounts (contingent liabilities, investment values, etc.) are appended as part of this
+convention
+
+
+
+                                                 17
+Convention of Consistency
+Definition:
+
+Accounting practices must remain consistent from one period to another
+Standards must be maintained to enable meaningful comparison of firm performance over time
+Key Points:
+
+Does not mean rigid inflexibility—improved accounting techniques may be adopted
+When changes are made that impact profit figures, they must be explicitly disclosed with
+explanatory notes
+Stakeholders must have clear information about changes and their financial impact
+Example: Switching depreciation methods requires disclosure of the change and its profit impact
+Convention of Materiality
+Definition:
+
+Accountants must attach importance to material (significant) details and ignore insignificant ones
+Involves subjective judgment about what information is important enough to record
+Important Characteristics:
+
+Reduces unnecessary burden on financial statements by not recording every minor transaction
+Highly context-dependent: information material for one purpose may be immaterial for another
+Example: Individual debtors need exact figures (every rupee is material), while top management
+reports may round figures to nearest hundreds
+Permitted under the Companies Act
+Practical Applications Summary
+Scenario      Convention Applied   Key Point
+Reporting pending lawsuits in notes to accounts        Full Disclosure   Contingent liabilities must be
+disclosed
+Rounding figures for management while giving exact amounts to
+debtors Materiality Information importance depends on context
+Switching inventory valuation method to inflate profits Consistency & Conservatism            Arbitrary
+changes violate both conventions; if changes occur, they must be disclosed
+Creating excess provisions for bad debts as secret reserves Full Disclosure Deliberately
+understating assets and overstating liabilities violates fair presentation requirement
+
+
+
+
+                                                  18
+Lecture 8
+Financial Accounting: Accounting Records and Systems -
+Module Two
+Overview
+This lecture introduces the fundamentals of the double entry system and the accounting equation
+approach for recording business transactions. The session focuses on understanding how every
+financial transaction has a dual impact on business accounts and how this system maintains the
+balance of the accounting equation.
+
+Source Documents and Transaction Recording
+Source Documents: These are authentic evidence of financial transactions that provide clear
+information about the nature of the transaction, date, amount, and parties involved (e.g., cash
+receipts, invoices, debit notes, credit notes, pay-in slips, salary bills, wage bills, check record slips)
+Importance: Relying on source documents ensures accuracy and prevents dependence on verbal
+communication or memory
+Transaction Definition: A transaction involves the transfer of money or money's worth (goods,
+services, or ideas) from one person to another
+Double Entry System: Principles and Meaning
+Core Concept: Every business transaction has a twofold effect and impacts two accounts in
+opposite directions.
+
+Key Principles:
+
+Every business transaction affects two or more accounts
+There is always a receiving side and a giving side
+For every debit entry, there must be an equivalent and corresponding credit entry
+Debit and credit amounts must always match and balance
+Advantages of Double Entry System:
+
+Accuracy: The dual recording of each transaction helps check the accuracy of accounting records
+Ascertainment of Business Results: Details regarding expenses, incomes, gains, assets, and
+liabilities are readily available, enabling calculation of net profit or loss
+Comparative Study: Allows comparison of business results across different periods or with other
+firms, facilitating future planning
+Common Acceptance: Business records maintained under this system are accepted by financial
+institutions, governments, and stakeholders due to their systematic and scientific nature
+Types of Transactions
+Cash Transactions: Involve immediate use of cash (e.g., selling goods for cash of 5,000 rupees)
+Bank Transactions: Any transaction involving a bank (e.g., depositing cash, withdrawing cash,
+receiving income directly into the bank, paying bank charges)
+Credit Transactions: Settlement is not made immediately through cash or bank; payment is
+expected in the future (e.g., purchasing goods on credit where liability is created for future
+settlement)
+The Accounting Equation
+Basic Formula: Assets = Liabilities + Capital (or Equity)
+
+Expanded Formula: Assets = Liabilities + Capital + Revenue - Expenses - Drawings
+Rearranged Form: Assets + Expenses + Drawings = Liabilities + Capital + Revenue
+
+Key Principle: This equation must balance after every single transaction.
+
+
+
+
+                                                   19
+Five Types of Accounts
+Assets Accounts: Physical things or rights owned by the business with monetary value (e.g., land
+and building, plant and machinery, cash, stock)
+Liabilities Accounts: Financial obligations of the business towards outsiders (e.g., creditors
+account, expenses outstanding account, bank loan)
+Capital Accounts: Financial obligation of the firm towards its owner (e.g., capital contributed by
+the owner)
+Revenue Accounts: Accounts related to business income (e.g., sales of goods, rent received)
+Expense Accounts: Accounts related to business costs (e.g., purchase of goods, salaries paid)
+Impact of Transactions on the Accounting Equation
+Transactions can impact the equation in two ways:
+
+Both sides affected equally: An increase on one side balances with an increase on the other side
+by the same amount
+One side affected: Both increasing and decreasing elements on the same side balance each other
+out, maintaining equation equilibrium
+Practical Examples of Transaction Recording
+Example 1 - Increase in Capital and Assets:
+Transaction: Commenced business with 1 lakh cash
+Effect: Cash (asset) increases by 1 lakh; Capital increases by 1 lakh
+Equation: 1,00,000 (Assets) = 1,00,000 (Capital) ✓ Balanced
+Example 2 - Assets Exchange:
+
+Transaction: Bought furniture for 5,000 rupees by paying cash
+Effect: Furniture increases by 5,000; Cash decreases by 5,000
+Equation: Total assets remain the same; equation balances ✓
+Example 3 - Liability Reduction:
+
+Transaction: Paid creditors 10,000 rupees
+Effect: Cash (asset) decreases by 10,000; Liabilities decrease by 10,000
+Equation: Assets decrease by 10,000; Liabilities decrease by 10,000; equation balances ✓
+Example 4 - Multiple Transactions:
+
+Started business with cash 80,000 rupees
+Purchased goods on credit from Ramesh for 10,000 rupees
+Purchased furniture for cash 6,000 rupees
+Paid creditor 8,000 rupees
+Final equation: Cash 66,000 + Stock 10,000 + Furniture 6,000 = Capital 80,000 + Creditors 2,000
+(Total: 82,000 on both sides) ✓
+Conclusion
+The double entry system ensures that the accounting equation remains balanced after every
+transaction. By following this systematic approach using source documents and recording dual
+impacts of each transaction, accurate and reliable financial records are maintained that are
+accepted by all stakeholders. The next session will cover the traditional approach to recording
+transactions.
+
+
+
+
+                                                  20
+Lecture 9
+Overview of Accounting Concepts and Financial Statement
+Fundamentals
+This lecture focuses on key accounting concepts and the fundamental accounting equation that
+forms the foundation for understanding financial statements and business transactions.
+
+Main Topics Covered
+Introduction to Accounting as a Language of Business
+Accounting functions as a language with specific vocabulary, terms, and rules that must be
+memorized and practiced
+Learning accounting requires consistent practice through textbook study, problem-solving, and
+case analysis
+Mastery improves over time with repetition, similar to learning any other language
+Four Core Accounting Concepts
+
+1. Business Entity (Reporting Entity) Concept
+ The business and its owner are treated as separate and distinct entities
+ Personal expenses and assets of the owner cannot be mixed with business transactions
+ Financial statements should only include business-related items, not the owner's personal affairs
+ Violations include recording owner's personal electricity bills or personal purchases as business
+ expenses
+2. Going Concern Concept
+ Assumes that a business will continue operating indefinitely into the future unless substantial
+ evidence suggests otherwise
+ Justifies recording assets at historical cost rather than liquidation value
+ When doubt exists about continuity, fair value assessment becomes necessary
+ Auditors must evaluate whether a company can realistically continue operating
+ Real-world example: Kingfisher Airlines failed to address going concern warnings, leading to
+ business collapse in 2012
+3. Periodicity Concept
+ Business life is divided into artificial time periods (typically one year) for financial reporting
+ Enables stakeholders to receive regular financial information rather than waiting until business
+ closure
+ Introduces estimation and judgment (e.g., useful life of equipment)
+ Brings subjectivity into accounting despite its numerical nature
+4. Periodic Matching of Costs and Revenue (Matching Principle)
+ Expenses must be matched with the revenues they generate in the same accounting period
+ Payment timing is irrelevant; recognition is based on when the transaction occurs
+ Example: Commission earned in December should be expensed in December, even if paid in
+ January
+ Profit = Revenue - Related Expenses, regardless of when cash payments occur
+ Clarifies that profit is distinct from cash flow
+5. Money Measurement Concept
+ All business transactions are expressed and recorded in monetary terms
+ Items that cannot be measured monetarily (employee skills, loyal customers, brand loyalty)
+ cannot be recorded as accounting assets
+
+
+
+
+                                                    21
+ This is a significant limitation of accounting—economically important items may not appear on
+ financial statements
+ Dual Aspect Concept (Fundamental Accounting Equation)
+ Core Principle: Every business transaction has a dual effect and impacts at least two accounts.
+
+Basic Equation:
+
+Assets = Liabilities + Equity
+Expanded Equation:
+
+Assets = Liabilities + Capital + Retained Earnings
+Where Retained Earnings = Net Profit - Dividends/Drawings
+Net Profit = Revenue - Expenses
+Rearranged Form:
+
+Assets + Expenses + Drawings = Liabilities + Capital + Revenue
+This equation must always balance after recording any transaction.
+
+Debit and Credit Rules
+For Assets (and Expenses/Drawings):
+
+Increase in assets = Debit entry
+Decrease in assets = Credit entry
+Same rules apply to expenses and drawings
+For Liabilities, Capital, and Revenue:
+
+Increase in liabilities/capital/revenue = Credit entry
+Decrease in liabilities/capital/revenue = Debit entry
+Simple Memory Trick: "Debit what comes in, Credit what goes out"
+
+Transaction Recording Approaches
+Accounting Equation Approach (recommended): Uses the basic equation Assets = Liabilities +
+Equity; more intuitive and simpler
+Traditional Approach: Requires memorizing debit/credit rules for each account type; more
+complex
+Step-by-Step Process for Recording Transactions:
+
+Identify what is coming in and what is going out
+Determine if new obligations (liabilities) have arisen
+Assess any changes in owner's claim (equity)
+Analyze the economic effect before recording debits and credits
+Understanding Assets and Liabilities
+Assets Definition:
+Resources controlled by the business that generate future economic benefits
+Must satisfy two conditions:
+The entity has control over the resource
+The resource provides future economic value
+Example: Public park is not your asset (no control); broken laptop is not an asset (no future value)
+Types of Assets:
+
+Tangible Assets: Physical form (cash, machinery, buildings, inventory)
+Intangible Assets: No physical form but provide exclusive rights (patents, copyrights, trademarks,
+brand value)
+Financial Assets: Claims on others (accounts receivable, investments, cash equivalents)
+
+
+
+                                                   22
+Liabilities Definition:
+Present obligations arising from past events, requiring future settlement
+Settlement results in outflow of economic resources
+Simply stated: What the company owes to others
+Examples: Bank loans, salaries payable, electricity payable, taxes payable
+Equity Definition:
+Residual value left for owners after all liabilities are settled
+Calculated as: Equity = Assets - Liabilities
+Components:
+Share Capital/Owner's Capital: Amount contributed by owners
+Retained Earnings: Net profit remaining after dividend payments
+Practical Illustration Through Transactions
+Transaction examples demonstrating the accounting equation:
+
+Owner invests10,000→Cashincreases(asset+10,000→Cashincreases(asset+10,000), Capital
+increases (equity +$10,000)
+Purchase furniture for5,000→Cashdecreases,Furnitureincreases(assetcompositionchanges,totalre
+mains5,000→Cashdecreases,Furnitureincreases(assetcompositionchanges,totalremains10,000)
+Obtain bank loan of30,000→Cashincreases(+30,000→Cashincreases(+30,000), Bank loan liability
+increases (+$30,000)
+All transactions maintain equation balance.
+
+Key Limitations and Judgments in Accounting
+Accounting requires estimates and assumptions, introducing subjectivity
+Useful life estimates for assets involve judgment
+Not all economically valuable items can be recorded (intangible factors like employee skill,
+customer loyalty)
+Understanding these limitations is essential for proper financial statement analysis
+Practical Assignment
+Students are instructed to analyze real company balance sheets (Biocon, Dell, ICICI Bank,
+Microsoft, Wipro, Google, Jet Airways, etc.) to:
+
+Identify the nature and composition of assets
+Analyze liability structures
+Evaluate profitability through revenue and expense analysis
+Understand how different business types have different asset and liability compositions
+Recognize warning signs (negative equity, liabilities exceeding assets)
+This exercise demonstrates that financial statement analysis is crucial for managers and
+stakeholders to understand business health and ask informed questions about company
+performance.
+
+
+
+
+                                                    23
+Lecture 10
+Classification of Accounts and Journal Entries in Double Entry
+System
+Overview
+This lecture continues the discussion on the double entry system by focusing on the traditional
+approach of recording transactions. The session covers the classification of accounts, their debit
+and credit rules, and the practical application through journal entries.
+
+Classification of Accounts
+Accounts are broadly divided into two main categories:
+
+Personal Accounts
+Personal accounts relate to persons involved in business transactions. They are subdivided into
+three types:
+
+Natural Persons: Individual human beings (e.g., Ravi's account when recording transactions with
+Ravi)
+Artificial Persons: Firms, companies, or banks legally recognized as separate entities (e.g., Tata,
+Reliance, banks)
+Representative Persons: Accounts representing a group of people (e.g., outstanding wages
+account representing workers owed money)
+Debit and Credit Rule: Debit the receiver, credit the giver
+
+Example: When you sell goods to Ravi on credit, debit Ravi's account (receiver) and credit the
+sales account (giver)
+Impersonal Accounts
+Real Accounts
+Real accounts relate to assets, both tangible and intangible:
+
+Tangible Assets: Physical items that can be seen or touched (e.g., cash, raw materials, machinery,
+buildings, furniture)
+Intangible Assets: Non-physical assets (e.g., goodwill, trademarks, copyrights, patents)
+Debit and Credit Rule: Debit what comes in, credit what goes out
+
+Example: When purchasing machinery for cash, debit the machinery account (coming in) and
+credit the cash account (going out)
+Nominal Accounts (Fictitious Accounts)
+Nominal accounts represent economic transactions and events that do not exist tangibly. They
+include:
+
+Expenses and Losses: Salaries, rent, depreciation, provisions for bad debts
+Income and Gains: Sales revenue, interest received, discounts
+A key characteristic is that these accounts are closed at year-end, and the balance is transferred
+to the profit and loss account.
+
+Debit and Credit Rule: Debit all expenses and losses, credit all income and gains
+
+Example: When paying salary of rupees 30,000 in cash, debit the salary account (expense) and
+credit the cash account (asset going out)
+Summary of Debit and Credit Rules
+Account Type    Rule
+Personal Account    Debit the receiver, credit the giver
+
+
+
+
+                                                 24
+Real Account      Debit what comes in, credit what goes out
+Nominal Account      Debit expenses and losses, credit income and gains
+Journal Entries
+Definition and Purpose
+A journal is the book of original entry (also called prime entry, primary entry, or preliminary entry)
+where business transactions are recorded in chronological order based on source documents. The
+process of recording transactions is called journalizing.
+
+Journal Entry Format
+A journal entry consists of five columns:
+
+Date Column: Records the date when the transaction occurred
+Particulars Column: Records the names of accounts involved
+The account to be debited is written first, followed by "DR"
+The account to be credited is written in the next line, indented, preceded by "To"
+Ledger Folio (LF): Indicates the page number in the ledger
+Debit Column: Records the amount being debited
+Credit Column: Records the amount being credited
+Narration: Brief explanation of the transaction written at the end
+Steps in Journalizing
+Analyze the transaction and identify accounts involved (minimum two accounts)
+Classify the accounts (personal, real, or nominal)
+Apply the appropriate debit and credit rules
+Enter the date in the date column
+Record account names in the particulars column (debit first, then credit)
+Enter amounts in debit and credit columns
+Write narration to provide context
+Practical Applications
+Simple Entries (Two Accounts)
+Example 1 - Personal Account: Paid Anbu rupees 10,000 by check
+
+Anbu's account (personal) - Debit (receiver)
+Bank account (personal) - Credit (giver)
+Entry: Anbu's account Dr. to Bank account
+Example 2 - Real Account: Purchased furniture for cash rupees 5,000
+Furniture account (real) - Debit (coming in)
+Cash account (real) - Credit (going out)
+Entry: Furniture account Dr. to Cash account
+Example 3 - Nominal Account: Paid rent rupees 5,000 in cash
+
+Rent account (nominal) - Debit (expense)
+Cash account (real) - Credit (going out)
+Entry: Rent account Dr. to Cash account
+Example 4 - Mixed Accounts: Somu commenced printing business with cash rupees 50,000
+
+Cash account (real) - Debit (coming in)
+Somu's capital account (personal) - Credit (giver)
+Entry: Cash account Dr. to Somu's capital account
+Example 5 - Mixed Accounts: Bought goods for cash rupees 4,000
+
+
+
+                                                 25
+Purchase account (nominal) - Debit (expense)
+Cash account (real) - Credit (going out)
+Entry: Purchase account Dr. to Cash account
+Compound Entries (More than Two Accounts)
+Example 1: Paid rupees 4,800 in full settlement of rupees 5,000 due to creditor Kyrthana
+(receiving rupees 200 discount)
+
+Kyrthana's account (personal) - Debit rupees 5,000 (receiver/debtor)
+Cash account (real) - Credit rupees 4,800 (going out)
+Discount received account (nominal) - Credit rupees 200 (income)
+Entry: Kyrthana's account Dr. 5,000 to Cash account 4,800 and Discount received 200
+Example 2: Customer Dinesh declared insolvent; 40 paise in rupee received from his estate for
+dues of rupees 10,000
+
+Cash account (real) - Debit rupees 4,000 (received - 40% of 10,000)
+Bad debts account (nominal) - Debit rupees 6,000 (loss - 60% written off)
+Dinesh's account (personal) - Credit rupees 10,000 (giver/debtor settled)
+Entry: Cash account Dr. 4,000, Bad debts account Dr. 6,000 to Dinesh's account 10,000
+Key Takeaways
+Understanding account classification is essential because debit and credit rules differ for each
+type
+Every business transaction involves at least two accounts
+Proper analysis and classification determine correct debit and credit applications
+Journal entries provide a chronological record of all transactions with supporting narration
+Practice with various transaction types reinforces understanding of the double entry system
+
+
+
+
+                                                 26
+Lecture 11
+Continuation of Journal Entries and Introduction to Ledger
+Accounts
+Overview
+This lecture continues the discussion on journal entries with a comprehensive practical example
+involving Anant, a textile trader, followed by an introduction to the ledger concept and its
+relationship to journal entries.
+
+Main Topics
+Journal Entries - Practical Application (Anant's Textile Business)
+First Five Transactions:
+
+Commenced Business with Cash: Cash account is debited and capital account is credited (Real
+account rule: debit what comes in; Personal account rule: credit the giver)
+Purchased Goods on Credit: Purchase account is debited and supplier account (X and Co.) is
+credited (Nominal and Personal accounts)
+Cash Deposited into Bank: Bank account is debited and cash account is credited (Both real
+accounts)
+Purchased Building on Credit: Building account is debited and supplier account (L & Co.) is
+credited (Real and Personal accounts)
+Cash Withdrawn for Office Use: Cash account is debited and bank account is credited (Both real
+accounts)
+Last Five Transactions:
+
+Personal Withdrawal by Owner: Drawing account is debited and bank account is credited
+(represents owner taking money for personal use)
+Goods Given as Charity: Charity account (expense) is debited and purchase account is credited
+(Both nominal accounts)
+Owner Taking Goods for Personal Use: Drawing account is debited and purchase account is
+credited
+Goods Distributed as Free Samples: Sales promotion account is debited and purchase account is
+credited (Both nominal accounts, representing business expense)
+Goods Used for Office Purpose: Office expense account is debited and purchase account is
+credited (Both nominal accounts)
+Key Insight: The distinction between withdrawals for personal use (Drawing account) versus
+office/business use (Expense accounts) is critical in accounting.
+Accounting Equation Concepts
+Correct Accounting Equations:
+
+Assets = Liabilities + Capital
+Assets = Capital + Liabilities
+Capital = Assets - Liabilities
+Liabilities = Assets - Capital (Incorrect)
+Account Types and Their Nature:
+
+Real Accounts: Deal with assets (tangible or intangible)
+Personal Accounts: Deal with individuals, firms, or representative persons (e.g., outstanding salary
+account)
+Nominal Accounts: Deal with expenses, losses, incomes, and gains
+
+
+
+
+                                                  27
+Ledger - Concept and Purpose
+Definition: A ledger is a book containing all accounts summarizing transactions for each account
+(whether related to persons, assets, liabilities, expenses, or income) and showing the net effect of
+all transactions during a given period.
+
+Purpose of Ledger:
+
+Provides account-wise balance for all accounts
+Answers questions about current financial position (e.g., current cash balance, amounts owed to
+creditors)
+Eliminates the need to search through chronological journal entries to find account-specific
+information
+Differences Between Journal and Ledger
+Aspect     Journal    Ledger
+Recording      Entries made as transactions occur      Entries posted periodically (daily, weekly,
+monthly)
+Stage     First stage of accounting process      Second stage (based on journal entries)
+Order     Chronological order (date-wise)      Account-wise order
+Process      Journalizing   Posting
+Trial Balance      Does not serve as basis     Serves as basis for trial balance preparation
+Source     Based on source documents         Based on journal entries
+Net Position     Cannot be determined        Shows net balance of accounts
+Ledger Account Format (T-Account)
+Structure:
+
+Account name at the top
+Eight columns total: Four for debit side (left) and four for credit side (right)
+Each side contains: Date | Particulars | Journal Folio | Amount
+Posting Rules:
+
+An account debited in the journal gets a debit entry in its ledger account
+An account credited in the journal gets a credit entry in its ledger account
+On the debit side, particulars are preceded by "To" (e.g., "To Capital Account")
+On the credit side, particulars are preceded by "By" (e.g., "By Cash Account")
+Particulars column references the other account involved in the transaction
+Worked Example - Basu's Business
+Five Transactions:
+Started business with cash ₹50,000
+Purchased furniture for cash ₹6,000
+Bought machinery on credit from Harish ₹10,000
+Purchased goods for cash ₹4,000
+Paid insurance premium ₹100
+Journal Entries:
+
+Cash Dr. To Capital Account (50,000)
+Furniture Dr. To Cash Account (6,000)
+Machinery Dr. To Harish Account (10,000)
+Purchase Dr. To Cash Account (4,000)
+Insurance Premium Dr. To Cash Account (100)
+
+
+
+
+                                                     28
+Ledger Posting:
+
+Cash Account: Shows multiple debits (opening balance) and credits (withdrawals for various
+purposes)
+Capital Account: Shows single credit entry (owner's investment)
+Furniture Account: Shows debit entry for purchase
+Machinery Account: Shows debit entry for purchase
+Harish Account: Shows credit entry (liability to supplier)
+Purchase Account: Shows debit entry for goods purchased
+Insurance Premium Account: Shows debit entry for expense incurred
+Key Takeaways
+Journal entries follow the double-entry system with clear debit-credit rules based on account types
+Drawing accounts capture owner withdrawals for personal use, distinct from business expenses
+Different accounts are used for goods given as charity, free samples, or office use versus personal
+use
+The ledger transforms chronological journal entries into account-wise summaries, enabling quick
+assessment of account balances
+Posting from journal to ledger requires understanding which accounts are debited/credited and
+properly referencing related accounts
+Practical application and continuous practice are essential for mastery of journal entries and
+ledger posting
+Show more
+
+
+
+
+                                                  29
+Lecture 12
+Ledger Posting and Account Balancing
+Overview
+This session builds upon previous discussions of ledger posting by introducing two key concepts:
+opening entries in ongoing businesses and the balancing of ledger accounts at the end of
+accounting periods.
+
+Opening Entry
+Definition and Purpose
+
+An opening entry is recorded at the beginning of an accounting period to bring forward balances
+of accounts that were not closed in the previous accounting period
+Applies to existing or ongoing businesses that have carried forward permanent accounts
+Nominal accounts (expense and revenue accounts) do not carry forward; their balances transfer
+to profit and loss accounts
+Real accounts (assets, liabilities, and capital) carry forward to the new period
+Accounting Equation Application
+Based on the fundamental equation: Assets = Liabilities + Capital
+Asset accounts are debited (left side of equation)
+Liability and capital accounts are credited (right side of equation)
+Total debits must equal total credits in the opening entry
+Narration typically reads: "Balances of assets and liabilities brought forward"
+Example: Joy's Business Opening Entry
+
+Assets debited: Cash (45,000), Stock (50,000), Sohan Account (35,000), Furniture (50,000)
+Liabilities credited: Ram Account (20,000)
+Capital credited: Joy's Capital (1,60,000)
+Each account entry shows "Balance BD" (Brought Down) from the previous year
+Ledger Balancing
+Concept and Process
+
+Balancing is performed at the end of an accounting period to determine the net balance in each
+account
+The objective is to make debit and credit sides equal
+Process:
+Total all amounts on the debit side
+Total all amounts on the credit side
+Find the difference between the two totals
+Place the difference on the lower side
+Mark this difference as "Balance CD" (Carried Down)
+Balance Carried Down (CD) and Brought Down (BD)
+
+Balance CD: The difference placed to balance an account, carried to the next period
+Balance BD: Opening balance of an account in the new period (the CD from previous period
+becomes the BD for the current period)
+The side with the higher total determines the account's type: debit balance or credit balance
+Practical Example: Cash Account
+
+Debit side: Capital (3,00,000), Sales (5,000) = 3,05,000
+
+
+
+                                                  30
+Credit side: Bank (2,00,000), Purchase (10,000) = 2,10,000
+Difference: 95,000 (placed on credit side as Balance CD)
+This 95,000 becomes Balance BD for the next period
+Cash account has a debit balance of 95,000
+Key Accounts in Examples
+Capital Account
+
+Only one entry in opening period (credit from opening entry)
+Carried forward as opening balance in subsequent periods
+Shows proprietor's investment in the business
+Bank Account
+
+Records both deposits and withdrawals
+Balanced similarly to cash account
+Opening balance brought forward from previous period
+Personal Accounts (Debtors/Creditors)
+
+Record transactions with individuals
+May have multiple entries over a period
+Balanced to show outstanding amounts owed or due
+Purchase and Sales Accounts
+
+Record business transactions
+Posted from respective journal entries
+Carry forward balances to next period if not closed
+Drawings Account
+Represents amounts withdrawn by the proprietor for personal use
+Debited when proprietor withdraws cash or goods
+Credited to cash or asset accounts
+Eventually transferred to capital account at year-end
+Important Conventions
+Debit side notation: Preceded by "to" (e.g., "to Capital Account")
+Credit side notation: Preceded by "by" (e.g., "by Bank Account")
+All opening balances marked as "BD" (Brought Down)
+All closing balances marked as "CD" (Carried Down)
+Accounts are closed with a line after totaling both sides
+Key Takeaways
+Opening entries bring forward permanent account balances from previous periods
+Balancing ensures accurate account position at period end
+Every transaction must be posted to both accounts mentioned in the journal entry
+Debit and credit sides must be equal after balancing
+Balances carried down become opening balances for the next period
+
+
+
+
+                                                 31
+Lecture 13
+Trial Balance: Concept, Objectives, and Preparation Methods
+Overview of Trial Balance
+Trial balance is the third step in the accounting cycle, following journal entries and ledger posting.
+It is a statement that lists either the total or net balances of all debit and credit accounts from the
+ledger at a specific point in time. This concept directly follows from the double-entry bookkeeping
+system, which requires that amounts be recorded on both the debit and credit sides of accounts,
+ensuring that total debits always equal total credits.
+
+Meaning and Features of Trial Balance
+A statement prepared after posting accounts in the ledger
+Shows debit and credit balances separately
+Lists either total balances or net balances of all ledger accounts
+Based on the fundamental principle of double-entry bookkeeping
+Prepared at a specific point in time (usually end of accounting period)
+Serves as a checkpoint for arithmetic accuracy in the accounting process
+Objectives of Preparing Trial Balance
+1. Establishes Arithmetic Accuracy
+
+Confirms whether posting and other accounting processes have been carried out without
+arithmetic errors
+When debit totals equal credit totals, it provides reasonable confidence that no clerical errors exist
+However, it is not foolproof and cannot detect errors of principle or compensating errors
+2. Basis for Financial Statements
+
+Financial statements (balance sheet, profit and loss account, trading account) are prepared based
+on the agreed trial balance
+The accuracy of financial statements depends on the quality of trial balance preparation
+3. Summary of Ledger Accounts
+
+Provides a consolidated view of all ledger accounts
+Eliminates the need to review individual ledger accounts separately for a general overview
+Detailed information can be obtained from specific ledger accounts if needed
+Two Methods of Preparing Trial Balance
+Method 1: Total Method
+Every ledger account is totaled on both debit and credit sides
+The total amounts from both sides are transferred to the trial balance
+Trial balance can be prepared immediately after totaling accounts without waiting for balance
+calculation
+Limitation: Cannot be used directly for preparing financial statements since financial statements
+require only net balances, not totals
+Steps in Total Method:
+
+Calculate total of debit side and credit side of all ledger accounts including cash book
+Prepare a table with three columns: particulars, debit column, and credit column
+Enter account names in the particulars column
+Enter debit totals in debit column and credit totals in credit column
+Include ledger folio (LF) column showing page number of ledger
+
+
+
+
+                                                  32
+Calculate sum of debit and credit columns; both must be equal for accuracy
+Method 2: Balance Method
+
+Focuses on the net balance of each ledger account rather than totals
+Only balance amounts (not totals) are transferred to the trial balance
+This is the standard method used for preparing financial statements
+Directly applicable to financial statement preparation
+Steps in Balance Method:
+
+Calculate the balance (net amount) of all ledger accounts including cash book
+Identify whether balance is on debit or credit side
+Prepare table with three columns: particulars, debit column, and credit column
+Enter account names in particulars column
+Enter balance amounts in appropriate debit or credit column
+Include ledger folio (LF) reference
+Calculate totals; debit and credit totals must be equal
+Account Balances Classification
+Accounts with Debit Balances:
+Assets (cash, machinery, furniture, debtors, building)
+Drawings (contra equity account)
+Expenses (salaries, wages, customs duty)
+Losses
+Purchases
+Sales returns
+Opening stock
+Accounts with Credit Balances:
+
+Liabilities (creditors, bank overdraft, provisions, reserves)
+Capital (owner's equity)
+Income (sales, gains)
+Interest on investments
+Purchases returns
+Trial Balance Accuracy and Limitations
+When debit side equals credit side, it indicates no arithmetic errors have been made
+Not a 100% proof of accuracy — some errors may still exist undetected:
+Errors of principle: Recording transactions in wrong accounts but with correct debit-credit balance
+Compensating errors: Multiple errors that offset each other
+Omitted transactions: Transactions completely left out of records
+Conclusion
+Trial balance serves as an intermediate bridge between individual ledger accounts and the
+preparation of final financial statements. While the balance method is the standard approach used
+in practice, understanding both methods is important. The primary value of trial balance is
+confirming mathematical accuracy and providing a summary view of all ledger accounts.
+However, accountants must remain vigilant for errors of principle and other inaccuracies that a
+balanced trial balance cannot detect.
+
+
+
+
+                                                  33
+Lecture 14
+Overview of Accounting Principles and Journal Entries
+This lecture covered fundamental accounting concepts, focusing on the accounting equation,
+journal entries, ledger accounts, and their practical application through a comprehensive case
+study.
+
+Course Overview and Administrative Details
+Quiz Schedule: First quiz scheduled for October 3rd, covering all material from previous weeks
+except the week of the quiz itself
+Course Structure: Building upon the accounting equation foundation to eventually prepare
+financial statements
+Integrated Learning Approach: Using a single case study (Vogue company) throughout the course
+to demonstrate journal entries, ledger accounts, trial balance, and financial statement preparation
+Textbook Usage: Reference material for additional practice problems and exposure to various
+transaction types across different industries
+The Accounting Equation
+Fundamental Formula: Assets = Liabilities + Capital (Equity)
+Rearranged Form: Equity = Assets - Liabilities
+Expanded Form: Assets = Liabilities + Capital + Retained Earnings
+Extended Form: Assets + Expenses = Liabilities + Capital + Revenue
+Key Characteristics:
+Both sides of the equation must always balance after every transaction
+The equation remains valid regardless of transaction complexity
+Understanding this equation is essential for all subsequent accounting topics
+Debit and Credit Rules
+The debit and credit treatment depends on which side of the accounting equation an account
+appears:
+
+Left-Hand Side (Assets and Expenses):
+
+Debit = Increase
+Credit = Decrease
+Right-Hand Side (Liabilities, Capital, and Revenue):
+
+Debit = Decrease
+Credit = Increase
+Simple Logic: "Debit what comes in, Credit what goes out" applies specifically to cash and asset
+accounts
+
+Journal Entries: Practical Application
+Transaction Analysis Process:
+Identify all accounts involved in the transaction
+Determine how each account is affected (increase or decrease)
+Apply the debit and credit rule for each account
+Prepare the journal entry with proper formatting
+Example Transactions:
+Transaction 1 - Business Commencement:
+
+Owner invests cash of 1,00,000 rupees
+
+
+
+
+                                                    34
+Cash Account (Debit) 1,00,000 to Capital Account (Credit) 1,00,000
+Effect: Both asset and capital increase
+Transaction 2 - Cash Purchase of Furniture:
+
+Purchase furniture for 5,000 rupees using cash
+Furniture Account (Debit) 5,000 to Cash Account (Credit) 5,000
+Effect: Asset composition changes; total assets remain constant
+Transaction 3 - Payment to Creditors:
+
+Pay 10,000 rupees to creditors
+Creditors Account (Debit) 10,000 to Cash Account (Credit) 10,000
+Effect: Both liabilities and assets decrease
+Transaction 4 - Credit Purchase:
+
+Purchase inventory on credit for 10,000 rupees
+Inventory Account (Debit) 10,000 to Payables Account (Credit) 10,000
+Effect: Assets increase; liabilities increase
+Ledger Accounts
+Purpose and Importance:
+Summarize all transactions affecting individual accounts
+Provide quick reference for account balances without reviewing all transactions
+Essential for preparing trial balance and financial statements
+Enable efficient tracking in businesses with thousands of daily transactions
+T-Account Format:
+Account Name
+Debit Side | Credit Side
+Amount | Amount
+Conventions:
+Debit entries are preceded by "To"
+Credit entries are preceded by "By"
+Opening balance (if any) appears first
+All transactions are recorded chronologically
+Closing balance calculated at period end
+Updating Ledger Accounts:
+One account per item (e.g., single Cash Account for all cash transactions)
+New accounts created only when a new item appears in transactions
+All related transactions posted to the same account throughout the period
+Case Study Application (Vogue Company)
+The case study involved multiple types of transactions for a design company in June:
+
+Non-Transactional Items (No Journal Entry Required):
+Signing agreements or hiring employees without immediate economic exchange
+These do not create assets, liabilities, or expenses
+Common Transaction Types Covered:
+Asset Transactions:
+
+Cash purchases of supplies and equipment
+Credit purchases of office supplies
+Prepaid insurance (asset until consumed)
+
+
+
+                                                 35
+Used supplies (converted from asset to expense)
+Revenue Transactions:
+
+Cash sales: Cash (Debit) to Sales Revenue (Credit)
+Credit sales: Trade Receivable (Debit) to Sales Revenue (Credit)
+Partial collections: Cash (Debit) and reduction of receivable
+Liability and Payment Transactions:
+
+Credit purchases: Asset (Debit) to Payables (Credit)
+Partial payments: Payables (Debit) to Cash (Credit)
+Advance customer payments: Cash (Debit) to Unearned Revenue (Credit)
+Expense Transactions:
+
+Rent payment: Rent Expense (Debit) to Cash (Credit)
+Salaries paid: Salary Expense (Debit) to Cash (Credit)
+Complex Transactions:
+
+Compound entries involving three or more accounts (e.g., partial cash sale with remaining balance
+on credit)
+Capital Transactions:
+Dividend payments: Dividend Account (Debit) to Cash (Credit)
+Special Transaction Considerations
+Separate Entity Concept: All transactions are recorded from the business perspective, not the
+owner's personal perspective
+
+Timing of Recognition:
+
+Expenses recognized when incurred, not necessarily when paid
+Revenue recognized when earned, not necessarily when cash received
+Services promised but not yet delivered are not transactions
+Credit vs. Cash Transactions: If payment method is not specified, assume cash payment
+
+Study Recommendations
+Refer to textbooks for additional practice problems
+Review multiple examples across different industries (manufacturing, banking, services)
+Exposure varies by industry type; more practice increases transaction recognition ability
+Complete all case study transactions before next session
+Prepare ledger accounts while solving journal entries for better understanding
+Next Steps
+Complete ledger account preparation for all Vogue company transactions
+Review all transaction types and their journal entry treatments
+Prepare for transition to trial balance discussion in next session
+Use prepared ledger accounts as foundation for subsequent accounting procedures
+
+
+
+
+                                                  36
+Lecture 15
+Continuing Discussion on Trial Balance
+This session continues the exploration of trial balance, building on fundamental concepts from the
+previous introductory lecture. The focus is on practical application, error identification, and the
+use of temporary accounts to manage discrepancies.
+
+Preparing Trial Balance from Ledger Balances
+Account Classification: Understanding which accounts carry debit or credit balances is essential
+Revenue accounts (e.g., sales): Credit balance
+Expense accounts (e.g., interest paid, office rent, audit fees): Debit balance
+Assets (e.g., land): Debit balance
+Liabilities (e.g., bank overdraft, creditors): Credit balance
+Balance Matching: When all balances are correctly classified and totaled, the debit and credit
+sides should match
+Example Application: Trial balance prepared from Murali's books showed total balances of
+1,62,250 on both debit and credit sides
+Suspense Account
+Purpose: A temporary holding account created when trial balance does not match, allowing the
+accounting cycle to continue without interruption
+Function: Bridges the gap between unequal debit and credit totals while errors are being identified
+and corrected
+Rules:
+If debit total is lesser: Suspense account is debited with the difference
+If credit total is lesser: Suspense account is credited with the difference
+Temporary Nature: Once errors are located and rectified, the suspense account is closed and
+removed from the books
+Limitations of Trial Balance
+Trial balance, while useful, does not provide conclusive proof of accuracy. Several types of errors
+can exist without affecting trial balance agreement:
+
+Missing Transactions: Transactions completely absent from the journal (both debit and credit
+omitted) do not affect trial balance totals
+Wrong Amounts on Both Sides: Commission errors entering incorrect amounts in both debit and
+credit columns maintain trial balance agreement
+Wrong Account Selection: Recording transactions in incorrect accounts while maintaining proper
+debit-credit relationship
+Double Posting: Posting the same entry twice in the ledger
+Omitted Posting: Failing to post journal entries to the ledger
+Error Classification
+Error of Principle
+Occurs when recording violates accounting principles
+Example: Treating capital expenditure as revenue expense, or classifying asset purchases as
+expenses
+Impact on Trial Balance: No impact—trial balance still agrees because debit and credit sides are
+equally affected
+Clerical Errors
+Error of Omission
+
+
+
+                                                   37
+Transaction completely or partially absent from books of account
+Example: Failing to record a credit purchase or not posting an entry to the ledger
+Both debit and credit sides are omitted equally
+Error of Commission
+
+Posting amounts to wrong accounts or wrong sides
+Example: Posting to the credit side when debit was required
+Can be detected when only one side of an entry is affected
+Compensating Error
+
+Two errors that cancel each other out
+Example: An understatement in one account offset by an overstatement in another
+Trial balance still agrees despite the presence of errors
+Real-Life Case Study: ABC Startup
+A practical example illustrated common errors and their implications:
+
+Scenario: Trial balance shows debit total of 1,80,00,000 and credit total of 1,90,00,000—a 50,000
+difference. The company parks this in a suspense account to meet reporting deadlines.
+
+Errors Identified:
+Error of Omission: A 25,000 invoice for office cloud server was paid but never recorded in the
+journal
+
+Impact: No effect on trial balance (both debit and credit omitted)
+Error of Principle: An executive desk purchased for 40,000 was debited to office repairs expense
+instead of furniture and fixtures
+
+Impact: No effect on trial balance (debit still recorded, just wrong account)
+Error of Commission: A cash sale of 85,000 was correctly credited to sales but only debited to
+bank as 35,000
+
+Impact: Creates 50,000 discrepancy in trial balance (only one side affected)
+Resolution: Once errors are identified:
+
+Record the omitted transaction
+Correct the misclassified entry by debiting correct account and crediting the wrong account
+Close the suspense account by adjusting the affected accounts
+Key Points Summary
+Trial balance is the third step in the accounting cycle: Journal → Ledger → Trial Balance
+Serves as the foundation for financial statement preparation
+Agreement of trial balance indicates arithmetic accuracy but not complete accuracy
+Suspense account enables timely financial reporting while error investigation continues
+Multiple error types can exist without affecting trial balance agreement
+Understanding account classifications (debit vs. credit) is fundamental to proper trial balance
+preparation)
+
+
+
+
+                                                  38
+Lecture 16
+Basis of Accounting and the Matching Principle
+
+This lecture explores two fundamental approaches to recording financial transactions and the
+critical matching concept that ensures accurate financial reporting.
+
+Overview of the Problem
+The session begins with a case study: a software company receives1,000upfrontonJanuary1stfors
+ervicestobedeliveredoverthenext12months.Thekeyquestioniswhetherthisrepresents1,000upfronto
+nJanuary1stforservicestobedeliveredoverthenext12months.Thekeyquestioniswhetherthisrepresent
+s1,000 in profit today. The answer is no—the revenue must be matched with the expenses
+incurred to deliver those services over the entire year.
+
+Two Bases of Accounting
+Cash Basis of Accounting
+Definition: Transactions are recorded when cash is physically received or paid, regardless of when
+goods or services are delivered.
+
+Key Characteristics:
+Revenue is recognized only when cash is received
+Expenses are recorded only when cash is paid
+Profit/Loss = Cash Revenues - Cash Payments
+Accrued income, prepaid expenses, and outstanding costs are not recorded
+Applications:
+
+Small personal businesses (e.g., local shops)
+Non-trading entities (clubs, charitable trusts)
+Businesses that prepare receipt and payment accounts
+Advantages:
+
+Simple and straightforward
+Requires no adjustment entries
+More objective with minimal subjective judgments
+Suitable for cash-heavy businesses
+Disadvantages:
+
+Does not provide an accurate or fair picture of business performance
+Overlooks the accrual assumption
+Fails to adhere to the matching principle
+No distinction between capital and revenue items
+Enables profit manipulation through delayed or early cash transactions
+Results in inconsistent profit reporting over time
+Accrual Basis of Accounting
+Definition: Revenues and expenses are recorded in the period when they become due,
+irrespective of when cash is exchanged.
+
+Key Characteristics:
+
+Credit sales are included in total sales for the period in which they occur
+Expenses are recorded when services are used, not when paid
+All transactions relevant to a period are recorded in that period
+
+
+
+
+                                                  39
+Outstanding costs, prepaid expenses, accrued earnings, and advance income are all recorded
+Advantages:
+
+Provides accurate profit and loss statements for a given period
+Discloses true financial position of the firm
+Reflects all transactions relevant to the accounting period
+Most widely accepted and used by commercial institutions
+Disadvantages:
+
+Recording procedures are lengthy and complex
+Requires numerous adjustments throughout the accounting year
+Rapid assessment of profit and loss is difficult
+More difficult to follow and implement
+The Matching Principle
+The matching principle requires that expenses incurred to generate revenue be recognized in the
+same accounting period as the revenue.
+
+When to Match
+Two Alternatives:
+End of Business Life - Impractical because information would be obsolete and stakeholders need
+timely data for decision-making. Additionally, tax obligations require year-by-year profit
+determination.
+
+Regular Time Intervals - The standard practice divides the business life into intervals, typically
+12-month periods (fiscal years), making this the ideal timeframe for matching expenses and
+revenues.
+
+What to Match: Revenue Recognition
+Realization Principle: Revenue is considered earned when goods and services are furnished in
+exchange for cash or consideration.
+
+Key Points:
+
+Revenue is recognized when performance obligations are satisfied (goods delivered, services
+provided, ownership transferred)
+Timing of cash receipt is irrelevant
+Income received in advance is not recognized as revenue until earned
+Income earned but not yet received is still recognized as revenue
+Example: A manufacturer builds machinery in December, ships it in March, and receives payment
+in May. Revenue is recognized in March when ownership transfers, not in December
+(manufacturing) or May (cash receipt).
+
+Matching of Expenses
+Expenses are categorized into three broad buckets based on their relationship to revenues:
+
+1. Direct Expenses (Product Costs)
+
+Directly related to particular products
+Examples: raw materials, direct wages, machinery
+Matched directly to specific revenues
+2. Indirect Expenses (Period Costs)
+
+Related to a specific time period, not specific products
+Examples: rent, administrative salaries
+Matched to the period in which they are incurred
+
+
+
+                                                   40
+3. Losses
+
+Not related to any product or period
+No link to future revenues
+Examples: warehouse fire damage, theft
+Recognized immediately as they occur
+Traditional vs. Replacement Cost Approach
+This analytical framework separates operational performance from gains driven purely by market
+price movements.
+
+Scenario Example:
+
+Purchase Cost (Historical Cost): ₹20 per kg
+Selling Price: ₹30 per kg
+Replacement Cost: ₹25 per kg
+Traditional Approach:
+
+Formula: Selling Price - Historical Cost = ₹30 - ₹20 = ₹10 profit per kg
+Simple and auditable
+Treats all profit as operating performance
+Uses historical cost for matching
+Replacement Cost Approach:
+
+Decomposes profit into two components:
+Operating Profit: Selling Price - Replacement Cost = ₹30 - ₹25 = ₹5 per kg (earnings from core
+business activities)
+Holding Gain: Replacement Cost - Historical Cost = ₹25 - ₹20 = ₹5 per kg (gains from price
+inflation while holding inventory)
+Both methods arrive at ₹10 total profit but reveal different sources
+Critical for sound managerial decision-making as it separates operational skill from market luck
+Key Distinctions
+Expenditure vs. Expense:
+
+Expenditure: Any disbursement of an asset or service (broader term)
+Expense: Only the portion of expenditure consumed in the current period to generate revenue
+Revenue vs. Cash:
+
+Under accrual basis, revenue and cash inflows are different
+Credit sales create accounts receivable but not immediate cash
+Revenues recognized based on performance, not cash collection
+Manufacturing vs. Revenue Recognition:
+
+Manufacturing creates inventory, not revenue
+Revenue is recognized when sales occur and ownership transfers to customers
+These events may occur in different periods
+Revenue Recognition Exceptions
+Gold Mining: Revenue is recognized when gold is mined (not when sold), as there is a
+well-established market for the commodity.
+
+Long-Term Contracts: Revenue is recognized as parts of the contract are completed, not only
+upon full completion, to accurately reflect the business performance over the contract period.
+Show more
+
+
+
+
+                                                 41
+Lecture 17
+Adjusting Entries in the Accounting Cycle
+Overview
+This lecture covers adjusting entries, a critical stage in the accounting cycle that occurs after the
+trial balance is prepared. Adjusting entries are necessary to ensure financial statements
+accurately reflect a company's financial position by applying key accounting principles such as
+revenue recognition and the matching principle.
+
+Why Adjusting Entries Are Necessary
+Adjusting entries cannot be skipped because several types of transactions require adjustment:
+
+Efficiency of Daily Operations: Certain recurring events (like office supplies usage) are impractical
+to record daily, so they are adjusted at period end.
+Expiration of Costs Over Time: Costs such as prepaid rent and insurance, as well as depreciation
+of machinery and buildings, need to be adjusted as they expire.
+Unrecorded Items at Period End: Expenses and revenues that have occurred but lack formal
+documentation (such as utility bills) must be recorded through adjusting entries.
+These adjustments ensure compliance with the revenue recognition principle and matching
+principle.
+
+Types of Adjusting Entries
+Adjusting entries fall into two broad categories:
+
+Deferrals
+Deferrals involve expenses or revenues recognized after the date cash was originally exchanged.
+
+Prepaid Expenses
+Definition: Payments made in advance for expenses that will benefit the company over more than
+one accounting period.
+Examples: Prepaid insurance, office supplies, advertisement, and rental payments.
+Initial Entry: Prepaid expense account is debited; cash account is credited.
+Issue Prior to Adjustment: Assets are overstated; expenses are understated.
+Adjusting Entry: Credit the asset account; debit the expense account.
+Effect: Shifts the expired portion from the balance sheet (assets) to the income statement
+(expenses).
+Unearned Revenues (Deferred Revenues)
+Definition: Cash received before services are performed, creating a liability for the company.
+Examples: Netflix subscriptions, airline tickets, magazine subscriptions, and gift cards.
+Initial Entry: Cash account is debited; unearned revenue liability account is credited.
+Issue Prior to Adjustment: Liabilities are overstated; revenues are understated.
+Adjusting Entry: Debit the liability account; credit the revenue account.
+Effect: Recognizes revenue when the performance obligation is satisfied.
+Case Study Example: A gift card purchased on December 24th should not be recognized as
+revenue until the customer actually uses the card to purchase goods (January 3rd), at which point
+the company's performance obligation is fulfilled.
+
+Accruals
+Accruals involve expenses or revenues that have occurred but have not yet been recorded or
+paid.
+
+Accrued Revenues
+
+
+
+                                                    42
+Definition: Revenues earned for services performed but not yet recorded or received as cash.
+Examples: Interest on investments, rent receivable, and professional services (legal advice,
+consulting, architectural design).
+Issue Prior to Adjustment: Assets are understated; revenues are understated.
+Adjusting Entry: Debit the asset account (accounts receivable or interest receivable); credit the
+revenue account (service revenue or interest revenue).
+Effect: Properly recognizes revenue earned in the current period regardless of cash collection.
+Accrued Expenses
+Definition: Expenses incurred but not yet paid or formally recorded.
+Examples: Interest expenses, taxes, and salaries.
+Issue Prior to Adjustment: Liabilities are understated; expenses are understated.
+Adjusting Entry: Debit the expense account; credit the liability account (interest payable, taxes
+payable, salaries payable).
+Effect: Records obligations existing at the financial position date and recognizes expenses
+applicable to the current period.
+Adjusted Trial Balance
+After all adjusting entries are posted to the general ledger, a new trial balance is prepared called
+the adjusted trial balance.
+
+Definition: The adjusted trial balance shows the balances of all accounts, including those that
+have been adjusted, at the end of the accounting period.
+Purpose: Proves the equality of total debit balances and total credit balances after adjustments
+have been made.
+Relationship: Unadjusted trial balance + Adjusting entries = Adjusted trial balance
+Importance: Provides a correct and fair picture of the company's accounts, serving as the primary
+basis for preparing final financial statements (profit and loss account, balance sheet, trading
+account, etc.).
+Summary
+Adjusting entries are essential for connecting the unadjusted trial balance to accurate financial
+statements. By addressing deferrals (prepaid expenses and unearned revenues) and accruals
+(accrued revenues and accrued expenses), adjusting entries apply crucial accounting principles.
+The resulting adjusted trial balance verifies ledger equality and forms the direct foundation for
+preparing a company's final financial statements.
+
+
+
+
+                                                 43
+Lecture 18
+Introduction to Financial Accounts and the Trading Account
+Financial accounts are prepared at the end of an accounting period to answer two critical
+questions for business owners and stakeholders: whether the business earned a profit or suffered
+a loss during the period, and what is the financial standing of the firm at a specific point in time.
+
+Overview of Final Accounts
+Financial statements are divided into two main categories:
+
+Trading and Profit & Loss Account: Determines whether the business earned a profit or suffered a
+loss by comparing sales revenue against the cost of goods sold
+Balance Sheet: Reveals the financial position of the business by showing what it owns and what it
+owes at a specific point in time
+Understanding the Trading Account
+Purpose and Function
+
+The trading account shows the overall result of buying and selling goods. It determines whether
+purchasing and selling goods has been profitable by comparing:
+Sales price against Cost of goods sold
+If sales exceed cost: Gross Profit is earned
+If cost exceeds sales: Gross Loss is incurred
+Basic Calculation
+
+The fundamental formula for calculating gross profit is:
+
+Gross Profit = Net Sales − Cost of Goods Sold
+
+Where:
+
+Net Sales = Sales − Sales Returns
+Cost of Goods Sold = Net Purchases − Closing Stock
+Inventory Valuation Concepts
+Opening Stock
+
+Goods remaining unsold from the previous year
+Shown on the debit side of the trading account
+Represents the inventory at the beginning of the accounting period
+Closing Stock
+Goods that remain unsold at the end of the accounting year
+Valued at cost or market price, whichever is lower (following the conservatism convention)
+Shown on the credit side of the trading account
+Becomes the opening stock for the next accounting year
+Cost of Goods Sold Calculation
+With Closing Stock Only
+
+Cost of Goods Sold = Net Purchases − Closing Stock
+
+With Opening Stock and Closing Stock
+
+Cost of Goods Sold = Opening Stock + Net Purchases − Closing Stock
+With Direct Expenses
+
+Cost of Goods Sold = Opening Stock + Net Purchases + Direct Expenses − Closing Stock
+
+
+
+
+                                                  44
+This can also be expressed as:
+
+Gross Profit = Sales + Closing Stock − Opening Stock − Purchases − Direct Expenses
+
+Direct Expenses on Purchases
+Direct expenses are costs incurred in bringing goods to the store or shop and are added to the
+cost of goods sold. These include:
+
+Brokerage and commission
+Carriage and freight charges
+Customs and insurance
+Wages and labor costs
+Gas, water, and fuel
+Factory expenses
+Royalty paid on production
+These expenses increase the cost of goods sold and reduce the gross profit.
+
+Format of the Trading Account
+Structure
+
+The trading account has two sides:
+Debit Side (Dr.)
+
+Opening Stock
+Purchases
+Less: Purchase Returns
+Direct Expenses (freight, carriage, wages, etc.)
+Gross Loss (if applicable)
+Credit Side (Cr.)
+
+Sales
+Less: Sales Returns
+Closing Stock
+Gross Profit (if applicable)
+Determining Profit or Loss
+
+If credit side balance > debit side balance: Gross Profit appears on the debit side and is carried
+forward to the Profit & Loss Account
+If debit side balance > credit side balance: Gross Loss appears on the credit side and is
+transferred to the debit side of the Profit & Loss Account
+Key Principles to Remember
+Only opening stock (previous year's closing stock) appears on the debit side
+Closing stock appears on the credit side and is an asset in the balance sheet
+All direct expenses related to purchases appear on the debit side
+The gross profit or loss from the trading account is transferred to the Profit & Loss Account for
+further analysis
+The term "merchandise" may be used interchangeably with "goods" in accounting texts
+
+
+
+
+                                                   45
+Lecture 19
+Understanding the Accounting Cycle: Ledger Accounts, Trial
+Balance, and Adjusting Entries
+Overview of the Accounting Process
+The lecture covers the essential steps in the accounting cycle, focusing on how financial
+transactions are recorded, organized, and ultimately presented in financial statements. The
+process involves recording transactions in journal entries, posting them to ledger accounts,
+preparing a trial balance, making adjusting entries, and finally preparing the adjusted trial balance
+before creating financial statements.
+
+Ledger Accounts and Their Organization
+Purpose of Ledger Accounts: Ledger accounts classify and consolidate transaction information by
+account type. Rather than reviewing all individual journal entries, ledgers allow quick retrieval of
+account balances, which is essential for businesses with thousands of daily transactions.
+Arrangement Structure: Accounts are organized according to the accounting equation:
+Assets: Equipment, office supplies, trade receivables, cash, prepaid insurance
+Liabilities: Trade payables, unearned revenue
+Equity: Share capital, dividends
+Revenue and Expenses: Sales revenue, service revenue, rent expense, telephone expense,
+salaries expense
+Balancing Ledger Accounts
+Definition: Balancing involves calculating the total debits and credits for each account and
+determining the net balance.
+Process:
+Add all debit-side transactions
+Add all credit-side transactions
+Calculate the difference between the two sides
+The larger side determines the balance type (debit or credit balance)
+Example: A cash account with debits of58,500andcreditsof58,500andcreditsof11,570 would have
+a debit balance of $46,930
+The Trial Balance
+Definition: The trial balance is a statement listing all ledger account balances, organized into debit
+and credit columns, prepared after posting to the ledger.
+Internal Check Function: The trial balance serves as a verification tool. If all transactions have
+been recorded correctly, the total debits should equal total credits.
+Reason for Balance: Due to the double-entry accounting system, every transaction affects at least
+two accounts—a debit entry is always accompanied by a corresponding credit entry. This
+fundamental principle ensures the trial balance will always balance if no errors have occurred.
+Account Balance Rules (Based on Accounting Equation)
+The accounting equation can be expanded to determine which accounts have debit or credit
+balances:
+
+Assets = Liabilities + Capital + Revenue - Expenses
+
+Rearranged: Assets + Expenses = Liabilities + Capital + Revenue
+Debit Balances: All accounts on the left side—assets and expenses
+Credit Balances: All accounts on the right side—liabilities, capital, and revenue
+
+
+
+
+                                                  46
+Special Case - Dividends/Drawings: These reduce owner's capital and therefore have debit
+balances
+Practical Example: Preparing a Trial Balance
+For a trader's business on March 31, 2017:
+
+Credit Balance Accounts: Capital ($44,000), interest on investment, sales revenue
+Debit Balance Accounts: Bills receivable (5,000),wages,drawings(5,000),wages,drawings(4,000),
+purchases (75,000),customduty(75,000),customduty(3,000), computer, opening stock ($10,200)
+Result: Both debit and credit sides total to the same amount, confirming balance
+Introduction to Adjusting Entries
+Why Adjusting Entries Are Needed
+Adjusting entries are necessary because the accrual basis of accounting requires that revenues
+and expenses be recognized in the period they occur, not necessarily when cash is exchanged.
+This creates two types of timing differences:
+
+Types of Adjustments
+
+1. Deferrals (Cash First, Recognition Later)
+
+Cash transaction occurs before expense or revenue recognition
+Prepaid Expenses: Cash paid in advance for future benefits (e.g., prepaid insurance)
+Example: 1,200paidfor12−monthinsuranceinJanuary;only1,200paidfor12−monthinsuranceinJanua
+ry;only100 is an expense in January, remaining $1,100 is an asset
+Unearned Revenue: Customer pays in advance before services are provided
+Example: Customer
+pays60,000for6monthsofservices;only60,000for6monthsofservices;only10,000 is recognized as
+revenue per month as services are delivered
+2. Accruals (Recognition First, Cash Later)
+
+Expense or revenue is recognized before cash is received or paid
+Revenue Receivable/Trade Receivable: Services delivered but payment not yet received
+Expenses Payable/Salaries Payable: Services received from employees but payment not yet made
+Real-World Example: Tech Mahindra
+A customer paid9,682millionforalong−termcontract,butthecompanyonlyrecognized9,682millionfor
+along−termcontract,butthecompanyonlyrecognized2,005 million as revenue in that year because
+that was the value of services actually provided. The remaining amount was treated as deferred
+revenue.
+
+Adjusting Entries for the Woke Company Case
+Entry 1: Prepaid Insurance Adjustment
+Original Transaction (June 6): Prepaid Insurance Debit | Cash Credit ($720)
+Adjustment Needed: One month of insurance consumed =720÷12months720÷12months=60
+Adjusting Entry: Insurance Expense Debit60∣PrepaidInsuranceCredit60∣PrepaidInsuranceCredit60
+Entry 2: Office Supplies Consumed
+Original Balances: Office supplies account showed $3,700
+Physical Count (June 30): Only $2,900 remaining
+Amount Consumed: $800
+Adjusting Entry: Office Supplies Expense
+Debit800∣OfficeSuppliesCredit800∣OfficeSuppliesCredit800
+Entry 3: Depreciation on Equipment
+Original Transaction (June 4): Equipment purchased for $3,000
+
+
+
+
+                                                47
+Useful Life: 5 years (60 months)
+Monthly Depreciation:3,000÷603,000÷60=50 per month
+Adjusting Entry: Depreciation Expense
+Debit50∣AccumulatedDepreciationCredit50∣AccumulatedDepreciationCredit50
+Note: Uses accumulated depreciation contra-asset account to preserve original equipment cost in
+financial statements
+Entry 4: Unearned Revenue Recognition
+Original Transaction (June 8): Customer provided advance payment, recorded as unearned
+revenue
+Services Provided: Design completed worth $900
+Adjusting Entry: Unearned Revenue
+Debit900∣RevenuefromServicesCredit900∣RevenuefromServicesCredit900
+Entry 5: Accrued Salaries Expense
+Employee Hired: June 21
+Services Provided: 10 days by June 30
+Monthly Salary: $1,500
+Daily Rate:1,500÷30days1,500÷30days=50 per day
+Amount Accrued:50×10days50×10days=500
+Adjusting Entry: Salaries Expense Debit500∣SalariesPayableCredit500∣SalariesPayableCredit500
+Entry 6: Unbilled Revenue
+Services Completed: Design completed and provided but not yet billed
+Fee Amount: $700
+Adjusting Entry: Unbilled Revenue (Asset)
+Debit700∣RevenuefromServicesCredit700∣RevenuefromServicesCredit700
+Impact of Adjusting Entries
+Without adjusting entries, financial statements would be inaccurate:
+
+Expenses would be understated (underrecognizing consumed assets)
+Assets would be overstated (not recognizing usage)
+Liabilities would be overstated (not recognizing services already provided)
+Revenues would be understated (not recognizing earned revenues)
+Next Steps
+After recording all adjusting entries in the ledger accounts, the next step is to prepare an adjusted
+trial balance, which shows the account balances after all adjustments have been made. This
+adjusted trial balance is then used as the foundation for preparing the final financial
+statements—the balance sheet and income statement.
+
+
+
+
+                                                 48
+Lecture 20
+Overview of Final Accounts: Trading Account and Profit and
+Loss Account
+This lecture covers the construction of final accounts, specifically focusing on the trading account
+and introducing the profit and loss account, which together show the financial health of a business
+at the end of a financial period.
+
+Trading Account
+Purpose and Definition
+Trading account is prepared at the end of the year to determine the gross profit or gross loss of a
+business
+Gross profit is calculated as: Net Sales - Cost of Goods Sold
+Cost of Goods Sold (COGS) Formula
+The cost of goods sold is calculated using the following equation:
+
+COGS = Opening Stock + Net Purchases + Direct Expenses - Closing Stock
+
+Calculating Closing Stock
+By rearranging the COGS formula, closing stock can be calculated as:
+
+Closing Stock = Opening Stock + Net Purchases + Direct Expenses - COGS
+
+Structure of Trading Account
+Debit Side (Expenses/Costs):
+
+Opening stock
+Net purchases (total purchases minus purchase returns)
+Direct expenses (carriage inwards, wages, freight charges)
+Gross loss (if credit side is less than debit side)
+Credit Side (Income/Revenues):
+
+Net sales (total sales minus sales returns)
+Closing stock
+Gross profit (if credit side exceeds debit side)
+Key Adjustments in Trading Account
+Purchase Returns: Deducted from total purchases to arrive at net purchases
+Sales Returns: Deducted from total sales to arrive at net sales
+Opening Stock of Current Year: Becomes the closing stock of the previous year
+Direct Expenses: Include costs directly related to procurement such as transportation and wages
+Profit and Loss Account
+Purpose and Definition
+Profit and loss account is prepared to determine the net profit or net loss of a business
+While trading account shows gross profit/loss, the profit and loss account accounts for additional
+operating expenses and income sources to show the true net result
+Operating Expenses and Income
+Operating Expenses (recorded on debit side):
+
+Rent
+Salaries
+Interest on debt
+
+
+
+
+                                                      49
+Commission
+Advertisement
+Bad debts
+General expenses
+Insurance premium
+Operating Income (recorded on credit side):
+
+Interest received
+Dividend received
+Rent received
+Discounts received
+Bad debts recovered
+Structure of Profit and Loss Account
+Debit Side:
+
+Gross loss (if any, from trading account)
+All operating and administrative expenses
+Net profit (if credit side exceeds debit side)
+Credit Side:
+
+Gross profit (from trading account)
+All operating income and gains
+Closing Journal Entries
+For Expenses:
+
+Debit: Respective expense accounts
+Credit: Profit and Loss Account
+For Income/Gains:
+
+Debit: Profit and Loss Account
+Credit: Respective income/gain accounts
+Transfer of Net Profit/Loss:
+
+If net profit: Debit Profit and Loss Account, Credit Capital Account
+If net loss: Debit Capital Account, Credit Profit and Loss Account
+Key Takeaways
+Trading account determines gross profit/loss from buying and selling activities
+Profit and loss account determines net profit/loss after accounting for all operating expenses and
+income
+Direct expenses (wages, freight) are included in trading account
+Indirect expenses (rent, salaries, commission) are included in profit and loss account
+The balancing figure from the profit and loss account is transferred to the capital account
+
+
+
+
+                                                  50
+Lecture 21
+Profit and Loss Account, Closing Entries, and Financial
+Statement Relationships
+Overview
+This lecture continues the discussion on profit and loss accounts, exploring how to prepare these
+statements, make necessary closing entries, and understand how different financial statements
+interconnect. The focus is on calculating net profit or net loss by categorizing revenue and
+expenses correctly, and understanding the relationship between income statements, retained
+earnings statements, and balance sheets.
+
+Profit and Loss Account Preparation
+Structure and Components:
+
+The profit and loss account determines the net profit or net loss of a firm over a specific period
+Gross profit (obtained from the trading account) appears on the credit side
+All revenue items are credited, and all expense items are debited
+The account is balanced when credit side totals are compared to debit side totals
+Key Items in P&L Account:
+
+Credit side: Gross profit, discounts received, and other income sources
+Debit side: Salaries, discounts given to customers, bad debts, depreciation, legal charges,
+consultancy fees, audit fees, electricity charges, telephone charges, stationery, and interest on
+loans
+Balancing the Account:
+
+When the credit side total exceeds the debit side total, the firm has a net profit
+When the debit side total exceeds the credit side total, the firm has a net loss
+The balancing figure (net profit or net loss) is carried forward to the capital account
+Closing Entries for P&L Account
+Four Essential Closing Entries:
+
+Transfer of Expenses:
+
+Debit: Profit and Loss Account
+Credit: All Expense Accounts
+Narration: Transfer of balances of various expenses to profit and loss account
+Transfer of Income (Discount Received):
+Debit: Discount Received Account
+Credit: Profit and Loss Account
+Narration: Transfer of discount received account balance
+Transfer of Gross Profit from Trading Account:
+
+Debit: Gross Profit Account
+Credit: Profit and Loss Account
+Narration: Transfer of gross profit from trading account
+Transfer of Net Profit to Capital Account:
+
+Debit: Net Profit Account
+Credit: Capital Account
+Narration: Transfer of net profit to capital account
+Preparation of Trading and P&L Accounts (Multi-Step Example)
+
+
+
+                                                  51
+Trading Account Components:
+
+Opening stock (debit side)
+Purchases minus returns (debit side)
+Carriage and wages (debit side)
+Sales minus returns (credit side)
+Closing stock (credit side)
+Balancing figure: Gross profit (appears on debit side if credit side is larger)
+P&L Account Components:
+
+Gross profit from trading account (credit side)
+Operating expenses such as depreciation, insurance, printing, salaries, discounts given, and bad
+debts (debit side)
+Income sources like commission and discounts received (credit side)
+Balancing figure: Net profit or net loss
+Statement of Retained Earnings
+Definition and Purpose:
+
+Shows the portion of net income retained by the company after paying dividends to shareholders
+Also called retained surplus or accumulated earnings
+Provides insight into how a company reinvests profits or distributes them to shareholders
+Structure of Retained Earnings Statement:
+
+Beginning retained earnings balance (from previous period)
+Add: Net income for the current period
+Subtract: Dividend payments to shareholders
+Equals: Ending retained earnings balance
+Example Calculation:
+
+Beginning retained earnings: $500,000
+Add: Net income: $100,000
+Subtract: Dividends paid: $50,000
+Ending retained earnings: $550,000
+Interrelationship of Financial Statements
+How Statements Connect:
+
+Income Statement to Retained Earnings Statement:
+
+The net income (bottom line of income statement) is added to the retained earnings statement
+Net income either increases retained earnings (if profit) or decreases them (if loss)
+Retained Earnings Statement to Balance Sheet:
+
+The ending retained earnings balance from the retained earnings statement appears in the equity
+section of the balance sheet
+Retained earnings are part of shareholders' equity alongside shareholders' capital
+Balance Sheet to Cash Flow Statement:
+
+The cash balance shown on the balance sheet becomes part of the cash flow statement
+This completes the connection between all major financial statements
+Key Observation:
+Financial statements are interconnected: income statement → retained earnings statement →
+balance sheet → cash flow statement
+
+
+
+
+                                                  52
+Each statement provides specific information while building on data from previous statements
+This relationship ensures consistency and accuracy across all financial reporting
+
+
+
+
+                                                53
+Lecture 22
+Introduction to Balance Sheet
+The balance sheet is a financial statement that displays the assets and liabilities of a firm at a
+specific point in time. It provides a snapshot of the firm's financial position on a particular date
+and is prepared only after completing the income statement.
+
+Key Characteristics of Balance Sheet
+Point-in-Time Statement: The balance sheet shows the firm's financial position on a specific date.
+Even a single transaction can alter the balance sheet values, making it valid only for that
+particular date.
+Prepared After Income Statement: The balance sheet is prepared only after completing the profit
+and loss account. Together, these two statements are called "final accounts" or "final statements."
+Balanced Equation: Since capital always equals the difference between assets and liabilities, the
+two sides of the balance sheet must always be equal in total. If they do not match, it indicates an
+error in the statement preparation.
+Types of Liabilities
+Liabilities are claims against the firm's assets or what the firm owes. They are classified into two
+main categories:
+
+Current Liabilities: These are obligations payable within one year from the date of the balance
+sheet. Examples include:
+
+Bills payable and trade creditors
+Outstanding expenses (services received but not yet paid for)
+Bank overdrafts and short-term loans
+Advance payments received for future goods or services
+Long-term Fixed Liabilities: These are obligations not due within one year and do not require
+creation of current assets for payment.
+
+Types of Assets
+Assets are items owned by the firm or anything that belongs to the business. They are classified
+into three categories:
+
+Current Assets: Assets meant to be converted into cash or liquidated within one year, such as:
+
+Cash in hand and cash at bank
+Trade receivables
+Inventory or stock
+Fixed Assets (Long-term Assets): Assets meant to be used by the firm for a long period, such as:
+
+Machinery
+Buildings and land
+Long-term investments
+Intangible Assets: Assets without physical existence, including:
+
+Trade rights
+Patents and copyrights
+Formats for Preparing Balance Sheet
+There are two approaches to organizing items in a balance sheet:
+Liquidity Order: Assets and liabilities are arranged based on how quickly they can be converted to
+cash. Liquid assets (cash) appear first, followed by less liquid assets (inventory, machinery). On
+the liability side, current liabilities appear first, followed by long-term liabilities.
+
+
+
+                                                  54
+Permanency Order: Assets and liabilities are arranged based on their long-term nature. Long-term
+or fixed assets (land, machinery) appear first, followed by current assets (cash). On the liability
+side, capital and reserves appear first, followed by current liabilities.
+
+Differences Between Profit and Loss Account and Balance Sheet
+Aspect    Profit and Loss Account   Balance Sheet
+Purpose    Shows profit or loss for a specific period   Shows financial position at a specific date
+Time Period     Covers an interval (usually one accounting year)    Represents a point in time
+Items Included     Revenue and expense nature items       Capital nature items
+Account Treatment All accounts are closed after transfer to profit and loss account        Account
+balances are not closed; they are carried forward to the next year
+Source    Prepared from trial balance    Prepared from trial balance
+Accounting Cycle
+The accounting cycle is the complete process of recording and summarizing financial transactions.
+The steps include:
+
+Recording Transactions in the journal (journalizing)
+Posting journal entries to ledger accounts
+Preparing Trial Balance to check arithmetic accuracy
+Preparing Final Statements:
+Trading and Profit and Loss Account (Income Statement)
+Balance Sheet
+The balance sheet represents the final step in the accounting cycle and provides the financial
+position at the end of the accounting period.
+
+Conclusion
+The balance sheet is an essential financial statement that reveals a firm's financial position at a
+specific point in time. It must always balance, with total assets equaling total liabilities plus
+capital. Items are categorized as current or fixed based on their time horizon, and they can be
+organized using either the liquidity order or permanency order format. The preparation of the
+balance sheet completes the accounting cycle and is only possible after the profit and loss
+statement has been prepared.
+
+
+
+
+                                                  55
+Lecture 23
+Introduction to Cash Flow Statement
+The cash flow statement represents the fourth pillar of financial accounting, complementing the
+income statement, balance sheet, and statement of retained earnings. It answers a critical
+question that other financial statements cannot adequately address: where did the cash actually
+come from and where did it actually go?
+
+Why the Cash Flow Statement is Necessary
+The income statement, balance sheet, and retained earnings statement do not provide a complete
+picture of a company's financial health:
+
+Limitations of the Balance Sheet: While it shows changes in assets like property, plant, and
+equipment, it does not reveal the source of cash used to finance these purchases or whether
+payments were made in cash or on credit.
+
+Limitations of the Income Statement: Although it presents net income, it does not show the actual
+cash generated by operating activities. Net income is calculated on an accrual basis, not a cash
+basis.
+Limitations of the Retained Earnings Statement: It may show declared dividends but does not
+indicate whether those dividends were actually paid in cash during the period.
+
+Real-World Examples: Companies may purchase significant assets while reporting losses (e.g.,
+Cathay Pacific Airways purchased assets worth
+HK9.2billionwhilereportinganHK9.2billionwhilereportinganHK8.6 billion loss), or undertake major
+acquisitions costing trillions. These statements cannot explain how such transactions were
+financed.
+
+Definition and Components of Cash
+Cash includes:
+
+Physical cash in hand
+Demand deposits with banks
+Cash Equivalents are short-term, highly liquid investments that can be readily converted into cash
+with minimal risk of value changes. Examples include:
+
+Securities with maturity periods of three months or less
+Bank deposits with short-term maturity
+Preference shares shortly before redemption dates
+Cash equivalents allow firms to deploy idle cash into profitable ventures while maintaining the
+ability to quickly convert investments back into cash for operational needs.
+
+Classification of Cash Flows
+Cash flow activities are divided into three categories based on the type of transaction:
+
+Operating Activities
+Operating activities relate to the principal revenue-generating activities of a business and indicate
+the company's internal solvency level—whether operations generate sufficient cash to fund
+working capital, investments, and dividend payments without external financing.
+
+Cash Inflows from Operating Activities:
+
+Cash from sale of goods or services
+Cash from interest received
+Cash from dividends received
+Cash Outflows from Operating Activities:
+
+
+
+                                                 56
+Cash paid to suppliers for inventory
+Wages and salaries to employees
+Tax payments to government
+Interest payments to lenders
+Cash payments for insurance premiums and claims
+Investing Activities
+Investing activities encompass the acquisition or disposal of long-term assets and related
+investments.
+
+Cash Outflows from Investing Activities:
+
+Cash payments to acquire fixed assets (property, plant, equipment, intangibles, capitalized
+research and development)
+Cash payments to acquire shares, warrants, or debt instruments of other companies
+Cash advances and loans made to third parties
+Cash Inflows from Investing Activities:
+
+Cash receipts from disposal of fixed assets and intangibles
+Cash receipts from repayment of advances or loans to third parties
+Cash receipts from disposal of shares, warrants, or debt instruments
+Interest received in cash from loans and advances
+Dividends received from investments
+Financing Activities
+Financing activities relate to changes in the size and composition of a company's capital (equity
+and debt).
+
+Cash Inflows from Financing Activities:
+
+Cash proceeds from issuing equity shares or preference shares
+Cash proceeds from issuing debentures, loans, bonds, or short-term borrowings
+Cash Outflows from Financing Activities:
+
+Cash repayment of borrowed amounts
+Interest payments
+Dividend payments on equity and preference shares
+Why Net Income Does Not Equal Net Cash from Operating Activities
+A significant disparity typically exists between reported net income and net cash provided by
+operating activities. This occurs for several reasons:
+Accounting Method Differences:
+
+Net income is calculated using accrual basis accounting, where revenue is recognized when
+earned and expenses when incurred, regardless of actual cash movements.
+Net cash from operating activities reflects only actual cash flowing in and out of the business.
+Non-Cash Expenses:
+
+Items such as depreciation and amortization reduce net income but involve no actual cash
+outflows.
+When calculating cash flow, these non-cash expenses are added back to net income to reflect the
+true cash position.
+Changes in Working Capital:
+Accounts Receivable: An increase in accounts receivable shows sales were made on credit, which
+increases net income but decreases operating cash flow since cash has not yet been collected.
+
+
+
+                                                 57
+Accounts Payable: An increase in accounts payable means expenses were incurred but not yet
+paid, which decreases net income but increases operating cash flow since cash has not yet left the
+firm.
+Non-Operating Items:
+
+Net income may include gains or losses from the sale of long-term assets, which affect the
+operating activity classification on the cash flow statement. The actual cash received from selling
+these assets is classified as an investing activity, not an operating activity.
+Key Stakeholder Benefits
+The cash flow statement provides essential information to various stakeholders:
+
+Investors and Creditors: Can assess the entity's ability to generate future cash flows, predict
+timing and amount of cash flows, and evaluate associated risks.
+
+Employees and Creditors: Can determine whether the company has sufficient cash to pay salaries,
+meet debt obligations, and pay declared dividends on time.
+
+Financial Statement Users: Can evaluate the reliability of reported net income by examining the
+difference between accrual-based earnings and actual cash generation.
+
+Analysis of Changes: By examining investing and financing transactions, readers can understand
+why assets, liabilities, and equity have changed during the period.
+Important Distinction: Non-Cash Transactions
+Not all balance sheet transactions affect cash flow. For example, the conversion of debt to equity
+is a balance sheet transaction that does not involve any cash movement and is therefore not
+shown in the cash flow statement, despite creating changes in the company's capital structure.
+
+Show more
+
+
+
+
+                                                 58
+Lecture 24
+Financial Accounting: Final Accounts and Financial Statement
+Preparation
+Overview of Final Accounts and Financial Statements
+Final Accounts are comprehensive statements prepared at the end of an accounting period to
+reveal two critical aspects of a business: the results of operations (profitability) and the financial
+position (assets, liabilities, and equity). These statements answer two fundamental questions
+about a business:
+
+Video Perspective: Did the business earn profit or incur loss during the period? (Profit and Loss
+Statement)
+Photograph Perspective: What is the financial standing of the business at a specific point in time?
+(Balance Sheet)
+Key Distinction: Cash vs. Profit
+A critical concept emphasized throughout the lecture is that cash is not equal to profit. A business
+may have significant cash in the bank but still operate at a loss, or conversely, show minimal cash
+while being highly profitable due to:
+Outstanding receivables from customers
+Unpaid liabilities to suppliers
+Inventory holdings
+Accrual-based accounting principles
+Components of Final Accounts
+
+1. Trading Account
+ Determines whether the core business activity of buying and selling goods is profitable
+ Compares sales revenue against the cost of goods sold (COGS)
+ Results in either Gross Profit or Gross Loss
+ Scope is narrow, focusing only on inventory-related transactions
+2. Profit and Loss Account
+ Includes revenue and expenses beyond the buying and selling of goods
+ Incorporates operating expenses such as rent, salaries, utilities, and administrative costs
+ Calculates Net Profit or Net Loss
+ Provides a complete picture of business performance
+3. Balance Sheet
+ Presents the financial position at a specific moment in time
+ Organized according to the accounting equation: Assets = Liabilities + Equity
+ Provides a snapshot of what the business owns and owes
+4. Statement of Retained Earnings
+ Shows changes in shareholders' equity during the period
+ Includes net profit/loss and dividends paid
+ Connects profit and loss statement to balance sheet
+ Classification of Accounts
+ All accounts in the adjusted trial balance must be classified into appropriate statements based
+ on their nature:
+Accounts going to Profit and Loss Statement:
+
+Revenue accounts (Sales, Service Revenue, Interest Revenue)
+
+
+
+                                                  59
+Expense accounts (Rent Paid, Salaries, Utilities, Depreciation, Telephone Expense)
+All items representing activities during the accounting period
+Accounts going to Balance Sheet:
+
+Assets (Cash, Accounts Receivable, Equipment, Inventory, Prepaid Expenses)
+Liabilities (Accounts Payable, Salaries Payable, Unearned Revenue)
+Capital/Equity accounts (Share Capital, Retained Earnings)
+Special Case - Closing Stock:
+
+Appears in both the Profit and Loss Statement and Balance Sheet
+In P&L: Reduces cost of goods sold on the credit side
+In Balance Sheet: Recorded as an asset
+Valued at the lower of cost or net realizable value (per Accounting Standard 2)
+Accounts going to Statement of Retained Earnings:
+
+Dividends (Debit balance)
+Beginning retained earnings (Credit balance)
+Net profit/loss from P&L statement
+Calculating Cost of Goods Sold
+Formula: Cost of Goods Sold = Opening Stock + Net Purchases + Direct Expenses - Closing Stock
+
+Components:
+
+Opening Stock: Inventory at the beginning of the period
+Purchases: All goods acquired for resale
+Purchase Returns: Goods returned to suppliers (deducted from purchases)
+Direct Expenses: Costs directly related to bringing goods to the business location (freight,
+carriage, labor, brokerage, custom clearances)
+Closing Stock: Unsold inventory at the end of the period
+Important Adjustments:
+
+Net Sales = Gross Sales - Sales Returns (Goods returned by customers)
+Net Purchases = Gross Purchases - Purchase Returns (Goods returned to suppliers)
+Calculating Gross Profit
+Formula: Gross Profit = Net Sales - Cost of Goods Sold
+
+Where:
+
+Net Sales = Revenue from the sale of goods after deducting returns
+COGS includes all direct costs associated with acquiring and preparing goods for sale
+Significance of Gross Profit:
+
+Indicates whether the core business model (buying and selling) is viable
+Closely monitored by management as it reveals fundamental business health
+If gross profit is low or negative, it signals problems at the business's core
+Normal Balances and Account Classification
+Debit Balance Accounts:
+
+All Assets (Equipment, Cash, Accounts Receivable, Prepaid Expenses)
+All Expenses (Salaries, Rent, Utilities, Depreciation)
+Dividends
+Credit Balance Accounts:
+
+All Liabilities (Accounts Payable, Salaries Payable, Unearned Revenue)
+
+
+
+                                                  60
+All Equity/Capital accounts (Share Capital, Retained Earnings)
+All Revenue/Income accounts (Sales, Service Revenue, Interest Revenue)
+Key Rule: Assets + Expenses = Liabilities + Capital + Revenue
+
+Accounts on the left side have debit balances; accounts on the right side have credit balances.
+
+Special Considerations
+Accumulated Depreciation
+Contra-asset account (opposite of an asset)
+Has a credit balance despite being related to assets
+Appears on the credit side of the balance sheet
+Supplies vs. Supply Expense
+Supplies: Asset account (inventory of office supplies)
+Supply Expense: Expense account (supplies consumed in operations)
+These are entirely different accounts going to different statements
+Unearned Revenue
+Liability account representing advance payments received
+Goes to balance sheet with credit balance
+Indicates obligations to provide services or goods in the future
+Unbilled Revenue
+Asset account representing services provided but not yet invoiced
+Goes to balance sheet with debit balance
+Importance of Proper Classification
+Correct classification of accounts is the foundation for accurate financial statements. Errors in this
+step cascade through all subsequent calculations. Once accounts are properly sorted and the
+adjusted trial balance figures are transferred to the appropriate statements, the preparation of
+final accounts becomes straightforward.
+
+Practical Application
+The accounting process prioritizes sorting and classification:
+
+Start with the adjusted trial balance
+Identify the nature of each account
+Determine the appropriate statement
+Transfer balances to the correct statement and side (debit/credit)
+Calculate totals and verify the balance sheet equation
+This systematic approach ensures accuracy and allows for internal verification of the work through
+balance sheet reconciliation.
+
+
+
+
+                                                  61
+Lecture 25
+Understanding the Structure and Calculation of Cash Flow
+Statements
+Overview
+This lecture covers the structure of cash flow statements and methods for calculating cash flows
+from operating activities. A cash flow statement comprises three main activity categories:
+operating, investing, and financing activities. The ending cash balance must reconcile with the
+cash and cash equivalents shown on the balance sheet.
+
+Cash Flow Statement Structure
+Header Information: Company name, statement title, and period covered
+Operating Activities Section: Lists individual cash inflows and outflows from daily business
+operations, resulting in net cash provided by operating activities
+Investing Activities Section: Details cash flows from purchase and sale of long-term assets
+Financing Activities Section: Includes cash flows from debt and equity transactions
+Net Cash Position Calculation: Sum of all three activity categories shows net increase or decrease
+in cash for the period
+Ending Cash Balance: Beginning cash balance plus net change equals ending cash balance, which
+must match the balance sheet cash and cash equivalents account
+Two Methods for Calculating Operating Cash Flows
+Direct Method
+Definition: Records all transactions involving actual cash receipts and cash payments
+Advantage: Provides useful information for estimating future cash flows
+Components:
+Cash receipts from customers and sales
+Less: Cash payments to suppliers, employees, and for operating expenses
+Less: Tax payments
+Equals: Net cash from operating activities
+Source of Information: Obtained directly from accounting records and cash book analysis
+Indirect Method
+Definition: Starts with net income from the income statement and adjusts for non-cash items
+Popularity: More commonly used in practice and annual reports
+Adjustment Categories:
+Non-cash expenses: Add back depreciation, amortization, goodwill write-offs
+Non-cash income: Deduct gains on asset disposal
+Working capital changes:
+Increase in current assets: Deduct (cash outflow)
+Decrease in current assets: Add (cash inflow)
+Increase in current liabilities: Add (cash inflow)
+Decrease in current liabilities: Deduct (cash outflow)
+Indirect Method Format
+Starting Point: Net Income for the period
+
+Add back:
+Depreciation expense
+Amortization expense
+
+
+
+                                                     62
+Loss on disposal of plant assets
+Provisions for taxation
+Deduct:
+
+Gain on disposal of plant assets
+Non-cash operating income
+Working Capital Adjustments:
+
+Changes in accounts receivable, inventory, and other current assets
+Changes in accounts payable and other current liabilities
+Result: Net cash provided by operating activities
+
+Classification of Business Transactions
+Operating Activities:
+
+Cash payments to employees for salaries and wages
+Cash received from customers for services rendered
+Payments to suppliers
+Interest earned on advances to suppliers
+Tax payments
+Investing Activities:
+
+Purchase of long-term assets (machinery, equipment, trucks)
+Loans and advances given to subsidiary companies
+Investments in subsidiary companies
+Dividend receipts from investments
+Insurance claims received for loss of fixed assets
+Financing Activities:
+
+Issuance of equity shares
+Borrowing from banks and financial institutions
+Payment of dividends
+Any debt-related transactions
+Practical Application Example
+For Jaws Photo Plus with net income of $73,000:
+
+Add: Depreciation expense: $7,000
+Deduct: Gain on disposal of plant assets: $2,500
+Deduct: Increase in accounts receivable: $4,000
+Add: Decrease in accounts payable: $3,800
+Result: Net cash from operating activities = $69,700
+Key Takeaways
+The indirect method requires adjusting net income for non-cash transactions and working capital
+changes
+Distinguishing between operating, investing, and financing activities is crucial for proper
+classification
+Working capital changes significantly impact the conversion of accrual-based net income to actual
+cash flows
+A negative operating cash flow indicates the company is spending more cash than it is generating
+from core operations, which may require further investigation into operational efficiency
+Show more
+
+
+
+
+                                                  63
+Lecture 26
+Cash Flow Statement Analysis: Comprehensive Overview of
+Direct and Indirect Methods
+Overview
+This lecture continues the discussion on cash flow statements by examining a case study of
+Compass Company. The session focuses on calculating net cash flow from operating, investing,
+and financing activities using the indirect method, along with practical problem-solving examples.
+
+Key Topics Covered
+
+1. Cash Flow from Operating Activities - Indirect Method
+ Definition and Approach
+
+The indirect method starts with net profit and makes adjustments to arrive at cash flow from
+operating activities
+Unlike the direct method (which tracks cash inflows and outflows directly), the indirect method
+converts accrual-based profit into cash-based profit
+Three major categories of adjustments are required
+Adjustment Category 1: Non-Cash Items
+
+Non-cash expenses are added back to net profit since they do not represent actual cash outflows
+Common examples include:
+Depreciation: Spreads asset costs across years without actual cash payment
+Bad debt expenses: Provisions for uncollectible amounts that don't involve cash outflow
+These adjustments restore profit to reflect only actual cash movements
+Adjustment Category 2: Non-Operating Items
+
+Gains on sale of equipment or investments are subtracted (these are investing activities, not
+operating)
+Losses on sale of equipment or investments are added back
+Interest income is subtracted (investing activity related to investments made)
+Interest expense is added back (financing activity related to borrowed funds)
+These adjustments ensure only operating activities are reflected
+Adjustment Category 3: Working Capital Changes
+
+Working capital accounts create timing gaps between when expenses/income are recorded versus
+when cash is actually paid/received
+Inventory Changes:
+
+Increase in inventory: Subtracted (cash spent on purchases)
+Decrease in inventory: Added (inventory converted to cash)
+Trade Receivables Changes:
+
+Increase in trade receivables: Subtracted (credit sales not yet collected)
+Decrease in trade receivables: Added (customers paid for previous sales)
+Prepaid Expenses Changes:
+
+Increase in prepaid expenses: Subtracted (advance cash payments)
+Decrease in prepaid expenses: Added (previously paid amounts now expensed)
+Trade Payables Changes:
+
+Increase in trade payables: Added (delaying cash payments to suppliers)
+
+
+
+
+                                                 64
+Decrease in trade payables: Subtracted (cash paid to creditors)
+Formula and Process
+
+Net Profit (or Profit Before Tax)
+
+- Non-cash expenditures (depreciation, bad debts)
+
+- Non-operating gains
+
+- Non-operating losses
+- Non-cash interest expenses
+
+- Non-operating income
+= Operating Profit Before Working Capital Changes
+± Working Capital Adjustments
+= Cash Generated from Operations
+- Income Tax Paid
+= Net Cash Flow from Operating Activities
+Income Tax Adjustment
+
+Tax paid is calculated as: Tax Expense + Opening Tax Payable - Closing Tax Payable
+This accounts for the difference between tax expense recorded and actual cash paid
+2. Cash Flow from Investing Activities
+Definition
+
+Involves purchase or sale of property, plant, equipment, and other investments
+Includes receipts from disposal and insurance settlements
+Cash Inflows
+
+Sale of property, plant, and equipment
+Sale of investments
+Interest received on investments
+Dividend received from investments
+Cash Outflows
+
+Purchase of property, plant, and equipment
+Purchase of investments
+Important Distinction
+
+Interest and dividend received are investing activities (returns on investments)
+Interest and dividend paid are financing activities (cost of financing)
+Calculation Approach
+
+Analyze changes in balance sheet asset accounts
+Identify actual cash transactions (exclude non-cash transactions like credit purchases)
+Calculate gains/losses on asset disposals for reconciliation with operating cash flow
+Note: Non-cash transactions (such as converting debentures to equity shares) are excluded
+3. Cash Flow from Financing Activities
+Definition
+
+Involves raising or repayment of capital and loans
+Reflects changes in equity and financial liabilities
+Cash Inflows
+
+Proceeds from issuance of share capital
+
+
+
+
+                                                  65
+Proceeds from long-term borrowing
+Proceeds from short-term borrowing
+Cash Outflows
+
+Repayment of loans and debentures
+Interest payments
+Dividend payments
+Redemption of shares or debentures
+Key Considerations
+
+Only transactions involving actual cash movements are included
+Non-cash transactions (like debt-to-equity conversions) are excluded
+Interest and dividend payments represent financing costs
+4. Case Study Example: Compass Company
+Practical Application
+
+Balance sheet and profit and loss statements for two years (2004 and 2005) were analyzed
+Applied all three adjustments to calculate operating cash flow
+Calculated investing and financing activities through transaction analysis
+Demonstrated how to present findings in proper cash flow statement format
+Sample Calculation Highlights
+
+Starting profit before tax: Applied depreciation and bad debt additions
+Subtracted gains on asset sales and investment income
+Adjusted for working capital changes in inventory, receivables, and payables
+Deducted actual income tax payments
+Result: Net cash flow from operating activities of $72,000
+5. Problem-Solving Examples
+Ajay Company Exercise
+
+Profit before tax of $432,000 adjusted for:
+Depreciation expense addition
+Investment gain subtraction
+Inventory decrease (added back)
+Trade receivables increase (subtracted)
+Prepaid expenses increase (subtracted)
+Trade payables increase (added back)
+Income tax payment calculation
+Final result: Net cash flow from operating activities of $348,000
+Practical Insights
+
+Not all transactions impact cash flow (e.g., credit purchases of equipment)
+Gains and losses on disposals appear in operating cash flow adjustments but relate to investing
+activities
+Working capital management significantly impacts operating cash flow
+Key Differences Between Methods
+Aspect   Direct Method      Indirect Method
+Starting Point     Cash receipts and payments     Net profit
+Intuitive Appeal     More intuitive for cash tracking   Better reconciliation with net profit
+Adjustments      Minimal    Extensive (3 categories)
+
+
+
+                                                   66
+Complexity    Simpler for investing/financing   Complex for operating activities
+Summary of Main Adjustments
+For Operating Activities:
+
+Add back non-cash expenses (depreciation, bad debts)
+Adjust for non-operating items (gains/losses on sales)
+Reconcile working capital changes
+Deduct actual income tax paid
+For Investing Activities:
+
+Track cash from asset purchases and sales
+Include interest and dividends received
+For Financing Activities:
+
+Track capital raises and repayments
+Include interest and dividends paid
+Conclusion
+The indirect method is the most commonly used approach for calculating operating cash flows
+because it reconciles net profit with actual cash movements. While operating activities require
+detailed adjustments for non-cash items and working capital changes, investing and financing
+activities are more straightforward, involving clear transaction analysis. Understanding the timing
+differences between accrual accounting and cash accounting is essential for properly preparing
+and interpreting cash flow statements.
+
+
+
+
+                                                 67
+Lecture 27
+Analyzing the Cash Flow Statement to Understand Company
+Financial Health
+
+This session continues the analysis of cash flow statements, focusing on extracting meaningful
+insights about a company's financial position beyond the three activity categories (operating,
+investing, and financing).
+
+Overview of Key Questions
+The lecture addresses six critical questions that stakeholders should ask when analyzing a cash
+flow statement:
+
+Why did cash balance decrease despite profitability?
+How did the company finance equipment acquisitions?
+How were equity issue proceeds utilized?
+Is capacity expansion straining company cash?
+Does the company have financial flexibility?
+What can we infer about future cash generation and debt repayment ability?
+Question 1: Why Cash Decreased Despite Profits
+The Quality of Earnings Issue
+
+Compass Company had a net profit of 1,141,000 but operating cash flow of only 72,000, indicating
+poor earnings quality
+Not all profits were converted to cash due to accrual basis accounting
+Root Causes of Cash Decline:
+
+Working Capital Tie-up: Inventory increased by 58,000 and trade receivables by 44,000, locking
+cash into operations
+Cash Conversion Rate: Despite 95% of sales (8,081,000 out of 9,025,000) being converted to
+cash, significant receivables remained uncollected
+Capital Expenditure Financing: Equipment purchases of 1,173,000 were financed using existing
+cash and cash equivalents
+Combined Impact: Cash tied up in working capital plus capital expenditure financing resulted in
+overall cash balance decline
+Question 2: How Equipment Acquisitions Were Financed
+Multi-Source Financing Approach
+The company used several funding sources to finance equipment purchases of 1,173,000:
+
+Internal Sources: Operating cash flow of 72,000
+Equity Financing: Share capital raised of 100,000
+Asset Sales: Equipment disposal proceeds of 22,000 and investment sales of 16,000 (total 45,000)
+Other Income: Interest received of 5,000
+Existing Cash: Remaining 31,000 from cash balances
+Important Note: Equipment purchased on credit (49,000) did not appear in cash flow statement as
+it involved no cash movement
+
+Question 3: Utilization of Equity Proceeds
+Allocation of 100,000 Share Capital Raised:
+Loan Repayment: 28,000 used to repay existing debt
+Remaining Amount: 72,000 available for other uses
+
+
+
+                                                  68
+Further Allocation of Remaining 72,000:
+
+Dividend payments: 25,000
+Interest payments: 22,000
+Net cash retained: 25,000 (which appears as positive financing cash flow)
+Non-Cash Transaction: Conversion of debentures into equity did not involve actual cash
+movement
+
+Question 4: Impact of Capacity Expansion on Cash
+Significant Cash Pressure Identified
+
+Investing activities showed negative cash outflow of 1,128,000
+Only approximately one-third of expansion financing came from long-term sources (share capital)
+Remaining two-thirds financed from operating activities and existing cash balances
+Additional Cash Strain Factors:
+
+Rapid supplier payments depleted cash
+Loose control over inventory levels (58,000 increase)
+Increased trade receivables (44,000 increase)
+Working capital movements added substantial pressure on liquidity
+Conclusion: Capacity expansion created significant cash crunch, requiring the company to rely on
+multiple funding sources and existing cash reserves
+
+Question 5: Financial Flexibility Assessment
+Available Options During Crisis:
+
+Asset Liquidation: Could sell current investments without disrupting operations
+Debt Financing: Current debt-to-equity ratio of 0.54:1 indicates capacity to issue additional debt
+Supplier Credit: Could negotiate more favorable payment terms with suppliers
+Bank Lines: Could access bank credit facilities given strong overall financial position
+Operating Cash Flow Shield: Strong operating cash flow of 72,000 provides buffer against adverse
+conditions
+Overall Assessment: Company enjoys fair financial flexibility with multiple avenues to address
+liquidity challenges and manage crises effectively
+
+Question 6: Future Prospects for Creditors and Shareholders
+Creditors' Perspective - Favorable Position
+
+Interest coverage ratio: 3.3x (Operating cash flow 72,000 ÷ Interest payment 22,000)
+Operating cash flows cover interest obligations more than three times
+Low default risk even under adverse operating conditions
+Strong protective shield for creditor interests
+Shareholders' Perspective - Critical Trade-off
+
+Current Dividend Payout: 25,000 represents 12.5% of share capital
+Post-Interest Cash: Only 50,000 remaining after interest payment (72,000 - 22,000)
+Dividend Payout Ratio: 50% of available cash after interest payments
+Future Challenge: With new 100,000 share capital raised, maintaining 12.5% dividend rate would
+require 43,750 annually, creating significant liquidity pressure
+Critical Dilemma: Company faces difficult trade-off between maintaining consistent dividend
+policy and retaining cash for expansion
+Risk Signal: Increasing dividend requirements may strain ability to fund future growth investments
+
+
+
+
+                                                  69
+Conclusion: While creditors face low risk, shareholders face uncertain dividend sustainability amid
+expansion capital requirements
+
+Practical Example: Pioneer Limited Cash Flow Statement Preparation
+Working Notes Calculations
+
+Net Profit Determination: Calculated from reserves and surplus changes (4,000 - 2,50,000 =
+1,70,000)
+Add: Tax Provision: 50,000
+Add: Proposed Dividend: 50,000
+Net Profit Before Taxation: 2,70,000
+Depreciation Calculations
+
+Furniture depreciation: 30,000 (3,00,000 - 2,00,000)
+Equipment depreciation: 15,000 (given)
+Patent amortization: 5,000 (1,00,000 - 95,000)
+Equipment Sale Analysis
+
+Equipment costing 80,000 was purchased during the year
+Equipment was sold at 5,000 loss
+Book value calculation: Opening 2,00,000 + Purchase 80,000 - Depreciation 15,000 - Closing
+2,30,000 = 35,000
+Sale proceeds: 35,000 - 5,000 loss = 30,000
+Tax Adjustment
+
+Opening tax provision: 30,000 (paid during current year)
+Closing tax provision: 50,000
+Increase in provision: 20,000 (added back to operations)
+Cash Flow Statement Components
+
+Operating Activities:
+
+Net profit: 2,70,000
+Add: Non-cash items (depreciation 45,000, amortization 5,000, loss on sale 5,000)
+Add: Non-operating items (provision increase 20,000)
+Adjust: Working capital changes (decrease in receivables, payables, inventory)
+Operating cash flow: 1,82,000
+Less: Tax paid: 30,000
+Net operating cash flow: 1,52,000
+Investing Activities:
+
+Equipment sale proceeds: 30,000
+Less: Equipment purchase: (80,000)
+Less: Investment purchase: (1,00,000)
+Net investing cash flow: (1,50,000)
+Financing Activities:
+
+Share capital issued: 50,000
+Less: Loan repayment: (50,000)
+Less: Dividend paid: (50,000)
+Less: Interest paid: (10,000)
+Net financing cash flow: (60,000)
+Closing Cash Balance Verification
+
+
+
+                                                 70
+Opening cash: 2,00,000
+Net change from all activities: 1,52,000 - 1,50,000 - 60,000 = (58,000)
+Closing cash: 2,00,000 - 58,000 = 1,42,000 (verified against balance sheet)
+Show more
+
+
+
+
+                                                71
+Lecture 28
+Financial Statement Analysis: Understanding and Interpreting
+Financial Data
+Financial statement analysis is the process of using tools and techniques to convert raw financial
+data into meaningful insights that help stakeholders make informed decisions. The focus shifts
+from merely preparing financial statements (balance sheet, profit and loss statement, and cash
+flow statement) to reading and analyzing them effectively to understand a company's financial
+health and performance.
+
+Overview and Purpose
+Financial statement analysis helps organizations and stakeholders:
+
+Understand how a business performed in the past
+Identify areas of strong and weak performance
+Gain insights into future business prospects
+Answer critical business questions about comparative performance, growth trends, financial
+health, and strategy alignment
+Standards of Comparison
+When analyzing financial statements, four primary standards are used to evaluate a company's
+performance:
+
+1. Rule of Thumb Indicator (Benchmark Ratios)
+ Simple, broad comparison standards applied across firms
+ Example: Current ratio of 2:1 (current assets should be at least twice current liabilities)
+ Advantages: Easy to use and provides quick assessment
+ Limitations: Does not account for quality of assets; requires deeper analysis of asset
+ composition. A company with a 2.2:1 ratio might have slow-moving inventory, while a company
+ with 1.6:1 might have fast-moving inventory and better liquidity management
+
+2. Past Performance Comparison
+ Compares current year results with previous years to track improvement or decline
+ Allows for trend extrapolation into future periods
+ Limitations:
+ Fundamental changes (regulation, competition, technology) render past trends unreliable
+ Accounting policy changes (depreciation methods, inventory valuation) compromise
+ comparability
+ Non-operating items (asset sales, investment gains) are unpredictable and distort analysis
+ Creates "illusion of growth" - a company might grow 10% while the industry grows 30%, masking
+ relative underperformance
+ Case Study - Kodak's Downfall: Despite dominating the camera market with peak sales
+ of16billionin1996andprofitsof16billionin1996andprofitsof2.5 billion in 1999, Kodak filed for
+ bankruptcy in 2012 due to digital technology disruption. Relying solely on past performance
+ would have masked the existential threat posed by technological change.
+
+3. Internal Standards
+ Company-created benchmarks and performance targets set by management
+ Include corporate goals (profit targets, ROI/ROA expectations, sales growth)
+ Include operational targets (budgets, predetermined product costs, cost controls based on
+ material consumption and labor efficiency)
+ Used to monitor and control operational performance
+
+
+
+                                                 72
+4. Industry Standards
+ Compares company performance with peer companies in the same industry
+ Overcomes limitations of historical comparison by providing context
+ Example: A company with 7% gross margin appears weak when industry average is 12%
+ Limitations:
+ Companies often operate across multiple business lines with no perfect peer comparison
+ Example: HUL operates in soaps, detergents, toothpaste, and food; PNG, ITC, and Colgate are
+ only partial overlaps
+ Different accounting policies across companies (depreciation methods, asset useful lives,
+ inventory valuation)
+ Companies are not entirely homogeneous in their product portfolios and practices
+ Techniques of Financial Analysis
+ Four primary techniques convert raw data into actionable insights:
+
+5. Horizontal Analysis
+ Compares figures across minimum two years to show changes
+ Calculates both absolute change and percentage change
+ Formula: (Current Year - Previous Year) / Previous Year × 100
+6. Trend Analysis
+ Extension of horizontal analysis using multiple years (5, 10, or 15 years)
+ Establishes a base year and tracks directional movement
+ Provides longer-term perspective on company trajectory
+
+7. Vertical Analysis
+ Compares company with itself by expressing each line item as percentage of base figure
+ Example: Gross profit expressed as percentage of sales revenue
+ Shows relative composition and proportions
+
+8. Ratio Analysis
+ Most popular and widely used technique
+ Detailed analysis in subsequent sessions
+ Practical Application: Dr. Reddy's Laboratories Analysis (2015-2016)
+ Revenue and Expense Trends
+ Revenue from operations increased 4.49% (absolute: 6,7045 thousand)
+ Total revenue increased 4.38%
+ Expenses grew only 3.49% - lower than revenue growth (positive indicator)
+ Tax expense declined 7.01%
+ Net profit declined 7.92%
+ Key Insight: Distinguishing Operating vs. Non-Operating Performance
+ Exceptional Item: A 4,621 thousand foreign exchange loss (not present in 2015)
+ This one-time extraordinary loss accounted for the reported profit decline
+ Core Operating Performance: Operating profit actually grew 9.23% despite only 4.49% revenue
+ growth
+ Conclusion: The reported 7.9% profit decline does not reflect weak core operations; rather, it
+ reflects a non-recurring extraordinary event specific to operations in Venezuela
+ Critical Takeaways
+ Watch Out for Distortions
+
+
+
+
+                                                73
+Non-recurring and exceptional items can create misleading impressions
+Accounting policy changes (depreciation, inventory valuation methods) compromise year-to-year
+comparability
+Different fiscal year-ends between companies prevent direct comparison
+Different accounting policies across companies in same industry complicate peer analysis
+Quality of Earnings Analysis
+Separate non-operating events from core operational performance
+Look beyond headline profit figures to underlying business health
+Analyze composition of income and expenses for true business trajectory
+Use multiple techniques to gain comprehensive understanding of financial health
+Dr. Reddy's Conclusion for 2015-2016
+Revenue grew faster than expenses
+Other income was not a significant component
+Core operations remain strong and robust
+Reported profit decline entirely attributable to extraordinary foreign exchange loss
+Underlying business fundamentals remain sound
+Show more
+
+
+
+
+                                               74
+Lecture 29
+Understanding Cash Flow Statements and Their Importance
+Overview
+This lecture explores the critical concept that a company can be profitable on paper while
+simultaneously running out of cash. The session covers why cash flow statements are essential
+financial tools, how to categorize business transactions, and why net income and cash flow from
+operations are rarely equal numbers.
+
+Main Topics
+Why Cash Flow Statements Exist
+The Gap Between Profit and Cash
+
+Companies following accrual accounting record revenues when earned and expenses when
+incurred, regardless of actual cash movement
+A company can show significant profits while experiencing cash shortages due to timing
+differences
+Example: Mira's stationery shop made ₹1 lakh in sales to a coaching center on credit in March, but
+won't receive payment until May. Her profit and loss statement shows ₹1 lakh in sales, but her
+cash box remains empty while she still needs to pay rent and salaries
+Key Distinction Between Financial Statements
+
+Balance Sheet: A snapshot showing what a company owns and owes at a specific point in time
+Profit & Loss Statement: Shows performance over a period, recording revenues and expenses
+without tracking actual cash movement
+Cash Flow Statement: Answers the fundamental question: "Where did cash come from and where
+did it go?"
+The saying "profit is an opinion and cash is a fact" reflects that profit depends on accounting
+choices (like depreciation methods), while cash is objective and unaffected by accounting policies
+Definition of Cash and Cash Equivalents
+Cash Components
+
+Cash in hand: Physical notes and coins
+Demand deposits with banks: Money in savings or current accounts that can be withdrawn on
+demand
+Cash Equivalents
+
+Cash equivalents are short-term investments that meet three specific conditions:
+Liquidity: Must be highly liquid short-term assets that can be quickly converted to cash
+Readily Available: Can be converted to cash without delay
+Minimal Risk: The risk of value change must be insignificant
+Standard maturity period: 3 months to less than 12 months
+Examples: Fixed deposits (FDs) with 2-month maturity, preference shares near redemption date
+Non-examples: Equity shares (too volatile), 1-year FDs (maturity exceeds threshold), 1-year FDs
+with only 2 months remaining (maturity counted from acquisition date, not current date)
+Three Categories of Cash Activities
+Operating Activities
+
+Principal revenue-generating activities of the business
+Cash inflows: Sales of goods or services
+
+
+
+
+                                                75
+Cash outflows: Payments to suppliers, employee salaries, wages, taxes, rent, utilities, and
+miscellaneous expenses
+For Mira's stationery shop: Selling stationery is the operating activity
+Investing Activities
+
+Buying and selling long-term assets (tangible and financial)
+Cash outflows: Purchasing property, plant, machinery, or financial investments
+Cash inflows: Proceeds from selling these assets
+Example: Mira purchasing a photocopier for the shop
+Note: For banks and financial institutions, lending is an operating activity; for other businesses,
+lending is an investing activity
+Financing Activities
+
+Raising or repaying money from owners and lenders
+Cash inflows: Issuing shares, obtaining loans, issuing debentures or bonds
+Cash outflows: Repaying loans, paying interest on loans, distributing dividends to shareholders
+Example: Mira taking or repaying a bank loan
+Student Life Analogy
+Operating: Monthly pocket money and mess charges for daily living
+Investing: Buying a laptop or putting savings in fixed deposits (assets with lasting value)
+Financing: Taking an education loan and later repaying it
+Why Net Income and Operating Cash Flow Differ
+Three Main Sources of Difference
+
+Non-Cash Expenses
+
+Depreciation and amortization are recorded as expenses but don't involve actual cash outflow
+Example: A ₹100,000 photocopier depreciated at ₹24,000 annually reduces profit but the cash
+was paid two years ago
+Adjustment: Add depreciation back to net income when calculating cash flow
+Working Capital Timing Differences
+
+Accounts Receivable (Credit Sales): When sales increase accounts receivable, cash hasn't been
+collected yet. The sale increases profit but decreases operating cash flow
+Accounts Payable (Credit Purchases): When expenses increase accounts payable, cash hasn't
+been paid yet. The expense decreases profit but increases operating cash flow
+Example: Mira's ₹1 lakh credit sale increases profit but reduces cash; her ₹30,000 credit purchase
+of paper decreases profit but increases cash
+Non-Operating Items
+
+Gains or losses from asset sales are included in profit but should be categorized under investing
+activities
+Prevents double counting of transactions
+Example: Selling an old computer with a book value of ₹10,000 at ₹15,000 creates a ₹5,000 gain
+that appears in profit but the full ₹15,000 appears under investing activities
+Real-World Example: Multiple Companies Comparison
+
+Four companies from different industries show that net income and net cash from operations are
+never equal
+For Lenovo and BP: Operating cash is lower than profit
+For other companies: Operating cash exceeds profit
+
+
+
+
+                                                  76
+The difference exists because the two metrics are measured on different bases (accrual vs. cash
+basis)
+Cash Flow Statement Format and Structure
+Standard Layout
+
+Company name, financial statement title, and reporting period
+Three sections: Operating Activities, Investing Activities, Financing Activities
+Each section lists individual line items
+Sum of three sections gives net increase or decrease in cash
+Beginning cash balance + net change = Ending cash balance
+Key Check: Ending cash balance should exactly match cash and cash equivalents shown on the
+balance sheet
+Methods for Calculating Operating Cash Flow
+Direct Method
+
+Lists actual cash receipts and cash payments
+More intuitive but less commonly used
+Follows the cash directly
+Indirect Method (Most Common)
+Starts with net income and adjusts it until it becomes cash
+Adjustments include:
+Adding back non-cash expenses (depreciation, amortization, bad debt write-offs)
+Adjusting for working capital changes
+Removing non-operating gains and losses
+Adjustment Process for Indirect Method
+
+Start with net profit/income
+Add back all non-cash charges (depreciation, amortization)
+Deduct non-operating income and add non-operating losses
+Adjust for changes in working capital (inventory, receivables, payables)
+Deduct actual income taxes paid
+Result: Cash from operating activities
+Practical Numerical Examples
+Example 1: Josh and Photo Plus Company
+
+Starting point: Net income of ₹73,000
+Add back: Depreciation ₹7,000 (non-cash expense)
+Deduct: Gain on disposal ₹2,500 (non-operating item)
+Adjust: Accounts receivable increased by ₹4,000 (cash tied up, reduce cash)
+Adjust: Accounts payable decreased by ₹6,000 (cash paid out, reduce cash)
+Result: Operating cash flow of ₹69,700
+Example 2: Ajay's Company
+
+Process involves similar steps with multiple working capital items
+Income tax paid is calculated separately using opening and closing tax payables
+Final result follows the same systematic approach
+Example 3: Compass Company Case Study
+Comprehensive exercise involving heavy financial statements
+Profit before tax: ₹70,000
+
+
+
+                                                  77
+Adjustments for depreciation (₹98,000), finance costs (₹2,200), interest income (₹7,000), gains
+(₹6,000), losses (₹9,000)
+Working capital adjustments for inventory, receivables, and payables
+Tax payment adjustment (₹12,000)
+Final operating cash flow: ₹72,000
+Key Takeaways
+Cash flow and profit are fundamentally different metrics measured on different bases
+Understanding the three categories of activities (operating, investing, financing) is essential for
+cash flow analysis
+The indirect method is most widely used and requires systematic adjustments
+Working capital changes are crucial factors causing differences between profit and cash flow
+Banks and lenders closely scrutinize cash flow statements because "cash is fact" regardless of
+accounting policies
+Show more
+
+
+
+
+                                                 78
+
