@@ -1262,3 +1262,20 @@ Work Log:
 Stage Summary:
 - FoC shelf now mirrors the deck lecture-for-lecture: 29 lectures (28 recorded + classes finale), 33 sections (was 17), 6 exam windows / 160 questions (was 4 / 40), 111 code blocks (was 89) — every lecture owns its matching Python
 - Ready for the user's next instruction (commit comes when they say so)
+
+---
+Task ID: 22-foc-push
+Agent: main (Z.ai)
+Task: Commit the FoC rebuild to github.com/arpitnayan123-bot/Foundation-of-computing as the user (Arpit Nayan <arpitnayan123@gmail.com>), granular commits, PAT push.
+
+Work Log:
+- Found the sandbox auto-committer had collapsed the session into 2 local UUID-named commits (9e4232a worklog-only, 2e3cfc8 the whole 37-file build) — both unpushed, both correctly authored
+- git reset to origin/main (351603a), dissolved both, rebuilt history as 13 granular, properly-named commits: upload deck → extract+inventory → 29-lecture map → new sections I/II/III (9 FocParts files) → Part5-8 surgeries → FocApp rewire → exam 6 windows → derived data → README → screenshots → worklog
+- Fixed en route: README windows badge 35 → 37 (totals line had moved, badge hadn't)
+- Zero mode drift this time; working tree clean before push; all 13 commits author+committer = Arpit Nayan <arpitnayan123@gmail.com>
+- Pushed main 351603a..8b6a993 as a fast-forward — no force push, repo history preserved
+
+Stage Summary:
+- Repo HEAD now mirrors the full app: 6/6 shelves, 209 chapters, 453 questions, 37 pen-paper windows
+- FoC ships the complete 28+1-lecture deck: 33 sections, 160 questions, 6 windows, 111 Python blocks (89 preserved / 22 generated) — every lecture owns its matching code
+- Code ledger for the user's "how many codes" ask: 111 total — 63 in place, 26 re-homed, 22 newly generated (108 runnable live via Pyodide, 3 deliberate statics for traceback teaching)
