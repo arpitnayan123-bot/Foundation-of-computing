@@ -210,6 +210,42 @@ print(message)`}
         </div>
       </Reveal>
 
+      <Reveal className="mt-6">
+        <div className="card-warm p-6 md:p-8">
+          <div className="grid gap-5 lg:grid-cols-2">
+            <CodeBlock
+              title="float_precision.py — the 0.30000000000000004 surprise"
+              code={`print(0.2 + 0.1)          # expect 0.3?
+print(0.2 + 0.1 == 0.3)   # False!
+
+# Every language has this quirk: computers store
+# decimals in BINARY, and 0.1 has no exact binary
+# form. Harmless for most apps — and fixable for
+# display:
+result = 0.2 + 0.1
+print(f"{result:.2f}")    # two decimal places`}
+              output={"0.30000000000000004\nFalse\n0.30"}
+              note="A float is any number with a decimal point. The precision anomaly appears in ALL programming languages — generally of little concern, but now you can recognize it instead of fearing it."
+            />
+            <CodeBlock
+              title="type_conversion.py — str() rescues the TypeError"
+              code={`age = 23
+# message = "happy " + age + "rd birthday"   # TypeError!
+# Python refuses: + joins strings OR adds numbers,
+# never both.
+
+message = "happy " + str(age) + "rd birthday"
+print(message)
+
+# The number stays a number for maths elsewhere:
+print(age + 1, "next year")`}
+              output={"happy 23rd birthday\n24 next year"}
+              note="str() converts the integer to a string for the concatenation while preserving the numeric variable for calculations — exactly why the deck prefers it over typing quotes around the number."
+            />
+          </div>
+        </div>
+      </Reveal>
+
       {/* Comments */}
       <Reveal className="mt-6">
         <div className="card-warm p-6 md:p-8">
@@ -236,7 +272,7 @@ print("Hello Python people!")
         </div>
       </Reveal>
 
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
+<div className="mt-8 grid gap-5 md:grid-cols-2">
         <Reveal>
           <Quiz
             source="Concept check"
@@ -439,13 +475,6 @@ function ListVisualizer() {
   );
 }
 
-const SORTED_TABLE = [
-  { call: "cars.sort()", effect: "sorts alphabetically, permanently — original order lost", alt: "cars.sort(reverse=True) sorts Z→A" },
-  { call: "sorted(cars)", effect: "returns a sorted COPY — original order preserved", alt: "sorted(cars, reverse=True)" },
-  { call: "cars.reverse()", effect: "flips the current order permanently (not alphabetical!)", alt: "call twice to undo" },
-  { call: "len(cars)", effect: "returns how many items the list holds", alt: "works on strings too" },
-];
-
 export function ListsSection() {
   return (
     <Section id="lists" dark>
@@ -506,197 +535,51 @@ motorcycles.remove(too_expensive) # by VALUE (first match only)`}
         <ListVisualizer />
       </Reveal>
 
-      {/* Organizing */}
-      <Reveal className="mt-10">
+
+
+
+
+
+            <Reveal className="mt-8">
         <div className="card-warm p-6 md:p-8">
-          <p className="eyebrow">Organizing a list</p>
-          <h3 className="mt-2 text-2xl font-bold">sort(), sorted(), reverse(), len()</h3>
-          <div className="mt-5 overflow-x-auto">
-            <table className="warm-table min-w-[640px]">
-              <thead>
-                <tr><th>Call</th><th>Effect</th><th>Variation</th></tr>
-              </thead>
-              <tbody>
-                {SORTED_TABLE.map((r) => (
-                  <tr key={r.call}>
-                    <td className="font-mono-warm font-bold text-[#8a4508]">{r.call}</td>
-                    <td>{r.effect}</td>
-                    <td>{r.alt}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </Reveal>
-
-      {/* Loops */}
-      <Reveal className="mt-10">
-        <div className="card-warm p-6 md:p-8">
-          <p className="eyebrow">Looping through an entire list</p>
-          <h3 className="mt-2 text-2xl font-bold">The for loop — Python’s workhorse</h3>
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            <CodeBlock
-              title="magicians.py"
-              code={`magicians = ['alice', 'david', 'carolina']
-for magician in magicians:
-    print(magician)
-
-# Doing more work inside the loop
-for magician in magicians:
-    print(f"{magician.title()}, that was a great trick!")
-    print(f"I can't wait to see your next trick, {magician.title()}.\\n")
-
-print("Thank you, everyone. That was a great magic show!")  # runs once, after the loop`}
-              output={"alice\ndavid\ncarolina\n\nAlice, that was a great trick!\n..."}
-            />
-            <div>
-              <p className="text-[.8rem] font-extrabold uppercase tracking-[.16em] text-[#d9b88c]">
-                Indentation — Python’s grammar
-              </p>
-              <ul className="mt-2 grid gap-1.5 text-[.88rem] text-[#e9d7bf]">
-                <li>• Python uses <strong>indentation (4 spaces)</strong> to structure programs — lines indented after the <code className="font-mono-warm">for</code> line belong to the loop</li>
-                <li>• <strong>Forgetting to indent</strong> → IndentationError: expected an indented block</li>
-                <li>• <strong>Indenting unnecessarily</strong> → an unexpected indent error (or logic that runs too many times)</li>
-                <li>• <strong>Forgetting the colon</strong> after the loop statement → SyntaxError</li>
-              </ul>
-              <Callout kind="warn" title="The classic bug">
-                A line accidentally indented <em>inside</em> a loop will repeat for every
-                item. If an action should happen once, keep it at the outer level.
-              </Callout>
-            </div>
-          </div>
-        </div>
-      </Reveal>
-
-      {/* Numerical lists + range */}
-      <Reveal className="mt-10">
-        <div className="card-warm p-6 md:p-8">
-          <p className="eyebrow">Making numerical lists</p>
-          <h3 className="mt-2 text-2xl font-bold">range() — Python’s number factory</h3>
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            <CodeBlock
-              title="range_basics.py"
-              code={`for value in range(1, 5):   # 1,2,3,4 — stops BEFORE 5
-    print(value)
-
-even = list(range(2, 11, 2))  # start, stop, step
-print(even)                    # [2,4,6,8,10]
-
-odds = list(range(1, 21, 2))   # odd numbers 1..20
-threes = list(range(3, 31, 3)) # multiples of 3
-
-digits = list(range(1, 10))
-print(min(digits), max(digits), sum(digits))  # 1 9 45
-
-cubes = [n**3 for n in range(1, 11)]  # 2**3 means 2 cubed
-print(cubes)`}
-              output={"1\n2\n3\n4\n[2, 4, 6, 8, 10]\n1 9 45\n[1, 8, 27, 64, 125, 216, 343, 512, 729, 1000]"}
-            />
-            <div>
-              <Callout kind="insight" title="Off-by-one, memorized once">
-                <code className="font-mono-warm">range(1, 5)</code> gives 1, 2, 3, 4 — it
-                <strong> stops before the second number</strong>. To reach 5, write{" "}
-                <code className="font-mono-warm">range(1, 6)</code>. This habit will save
-                you a hundred bugs.
-              </Callout>
-              <Callout kind="why" title="Million-element lists are fine">
-                <code className="font-mono-warm">list(range(1, 1_000_001))</code> is a
-                million numbers — Python builds it in a blink. Printing them takes a
-                while; press <strong>Ctrl-C</strong> (or stop the cell) if the output
-                floods.
-              </Callout>
-            </div>
-          </div>
-        </div>
-      </Reveal>
-
-      {/* Slices */}
-      <Reveal className="mt-10">
-        <div className="card-warm p-6 md:p-8">
-          <p className="eyebrow">Working with part of a list</p>
-          <h3 className="mt-2 text-2xl font-bold">Slices & copying — with a famous trap</h3>
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            <CodeBlock
-              title="players.py — slicing"
-              code={`players = ['charles', 'martina', 'michael',
-           'florence', 'eli']
-
-print(players[0:3])   # first three
-print(players[1:4])   # middle three
-print(players[-3:])   # last three
-print(players[:3])    # from start
-print(players[3:])    # to the end`}
-              output={"['charles', 'martina', 'michael']\n['martina', 'michael', 'florence']\n['michael', 'florence', 'eli']\n['charles', 'martina', 'michael']\n['florence', 'eli']"}
-              note="A slice [start:stop] includes start, excludes stop — same off-by-one rule as range()."
-            />
-            <CodeBlock
-              title="foods.py — copying lists"
-              code={`my_foods = ['pizza', 'falafel', 'carrot cake']
-
-# CORRECT — a real, independent copy:
-friend_foods = my_foods[:]
-
-my_foods.append('cannoli')
-friend_foods.append('ice cream')
-
-print(my_foods)     # both lists grow independently
-print(friend_foods)
-
-# THE TRAP — this is NOT a copy:
-alias = my_foods    # two names, ONE list
-alias.append('sprouts')
-print(my_foods)     # sprouts appears here too!`}
-              note="Omitting the slice (my_foods[:] vs my_foods) is one of the most common beginner bugs. Always copy with [:]."
-            />
-          </div>
-        </div>
-      </Reveal>
-
-      {/* Tuples */}
-      <Reveal className="mt-10">
-        <div className="card-warm p-6 md:p-8">
-          <p className="eyebrow">Lists that cannot change</p>
-          <h3 className="mt-2 text-2xl font-bold">Tuples — the immutable list</h3>
-          <p className="mt-3 max-w-4xl text-[.92rem] leading-relaxed text-[#e9d7bf]">
-            Lists work well for sets of items that <strong>can change</strong> throughout
-            the life of a program — users on a website, characters in a game. But
-            sometimes we want <strong>a list of items that cannot change</strong>.
-            Python calls values that cannot change <strong>immutable</strong>, and an
-            immutable list is called a <strong>tuple</strong>. Write it with parentheses
-            instead of brackets.
+          <p className="eyebrow">The deck&rsquo;s dinner-party drill</p>
+          <h3 className="mt-2 text-2xl font-bold">guest_list.py — invitations, edits and apologies</h3>
+          <p className="mt-2 max-w-4xl text-[.9rem] text-[#e9d7bf]">
+            The classic exercise that touches every operation: invite three guests, one declines —
+            replace them, find a bigger table — insert a guest mid-list, append one to the end, then
+            cut the list down with pop.
           </p>
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+          <div className="mt-5">
             <CodeBlock
-              title="dimensions.py"
-              code={`dimensions = (200, 50)   # parentheses, not brackets
-print(dimensions[0])
-print(dimensions[1])
+              dark
+              title="guest_list.py"
+              code={`guests = ['ida', 'leo', 'asma']
+for g in guests:
+    print(f"{g.title()}, please come to dinner.")
 
-dimensions[0] = 250   # try to change one item`}
-              output={"200\n50\n\nTraceback (most recent call last):\nTypeError: 'tuple' object does not support item assignment"}
-              note="Python rejects the change — exactly what we wanted: protection."
-            />
-            <CodeBlock
-              title="buffet.py — rewriting a tuple"
-              code={`menu = ('rice', 'dal', 'paneer', 'salad', 'curd')
-for food in menu:
-    print(food)
+print("\nSadly, asma can't make it.")
+guests[guests.index('asma')] = 'amir'      # replace by index
+for g in guests:
+    print(f"{g.title()}, please come to dinner.")
 
-# The restaurant changes its menu:
-# you can't edit an item, but you CAN
-# redefine the whole tuple:
-menu = ('rice', 'dal', 'biryani', 'halwa', 'lassi')
-print("\\nRevised menu:")
-for food in menu:
-    print(food)`}
-              note="Assigning a NEW tuple to the same variable is legal — mutating the existing one is not."
+print("\nBigger table found!")
+guests.insert(1, 'kabir')                  # middle
+guests.append('tara')                      # end
+for g in guests:
+    print(f"{g.title()}, please come to dinner.")
+
+print("\nOnly two seats now.")
+while len(guests) > 2:
+    sorry = guests.pop()
+    print(f"Sorry, {sorry.title()} — no room this time.")
+for g in guests:
+    print(f"{g.title()}, you're still invited.")`}
+              output={"Ida, please come to dinner.\nLeo, please come to dinner.\nAsma, please come to dinner.\n\nSadly, asma can't make it.\nIda, please come to dinner.\nLeo, please come to dinner.\nAmir, please come to dinner.\n\nBigger table found!\nIda, please come to dinner.\nKabir, please come to dinner.\nLeo, please come to dinner.\nAmir, please come to dinner.\nTara, please come to dinner.\n\nOnly two seats now.\nSorry, Tara — no room this time.\nSorry, Amir — no room this time.\nSorry, Kabir — no room this time.\nIda, you're still invited.\nLeo, you're still invited."}
+              note="Replace via index assignment, grow with insert/append, shrink with pop — the whole Lecture-11 toolkit in one storyline. This is also the deck's assigned homework: personalize every name."
             />
           </div>
         </div>
-      </Reveal>
-
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
+      </Reveal><div className="mt-8 grid gap-5 md:grid-cols-2">
         <Reveal>
           <Quiz
             source="Concept check"
@@ -709,27 +592,20 @@ for food in menu:
         <Reveal delay={100}>
           <Quiz
             source="Concept check"
-            q="What is the key difference between cars.sort() and sorted(cars)?"
-            options={["No difference", "sort() sorts permanently; sorted() returns a sorted copy", "sorted() is only for numbers", "sort() is faster but wrong"]}
-            answer={1}
-            explain="sort() mutates the list permanently; sorted(cars) leaves the original untouched and hands you a new sorted list. Same for reverse=True on both."
+            q="Which removal method returns the removed value so you can keep using it?"
+            options={["del motorcycles[0]", "motorcycles.remove('ducati')", "popped = motorcycles.pop()", "None of them"]}
+            answer={2}
+            explain="pop() removes AND returns — perfect when the removed value still matters (a popped player, a printed design). del is gone forever; remove() drops by value with nothing returned."
           />
         </Reveal>
       </div>
 
       <Reveal className="mt-6">
         <Practice
-          title="Try It Yourself — lists drills"
+          title="Try It Yourself — list-basics drills"
           items={[
-            { q: <>Use a for loop to print numbers 1 to 20, inclusive.</>, hint: "range(1, 21)" },
-            { q: <>Make a list of 1 → 1,000,000 and loop to print (stop with Ctrl-C if it floods).</> },
-            { q: <>Verify the million-list with min() (1), max() (1,000,000) and sum() — how long does sum take?</> },
-            { q: <>Use range()’s third argument to list the odd numbers 1–20; print each.</>, hint: "range(1, 21, 2)" },
-            { q: <>Make a list of multiples of 3 from 3 to 30; loop and print.</>, hint: "range(3, 31, 3)" },
-            { q: <>Build the first ten cubes (2**3 is 2 cubed) and print them.</>, hint: "[n**3 for n in range(1,11)]" },
-            { q: <>With a 9-car list, slice and print the first three, middle three and last three — with a message before each.</>, hint: "cars[:3], cars[3:6] or middle, cars[-3:]" },
-            { q: <>Pizzas: loop your pizza list; copy with [:] into friend_pizzas; add different pizzas to each; prove the two lists are separate with two loops.</> },
-            { q: <>Buffet: store five foods in a tuple, loop it, try to modify one item (Python rejects it), then rewrite the whole tuple with a new menu and loop again.</> },
+            { q: <>Guest list: three invites → one declines (replace by index) → bigger table (insert + append) → only two seats (pop down to two, del the rest). Print every message.</> },
+            { q: <>Deliberately cause an IndexError by reading one past the end — then fix it with len()−1 or a negative index.</> },
           ]}
         />
       </Reveal>
@@ -739,14 +615,12 @@ for food in menu:
           dark
           items={[
             <>Lists are <strong>ordered and mutable</strong>; indexes start at <strong>0</strong>; <strong>-1</strong> is the last item.</>,
-            <>Grow with <strong>append()/insert()</strong>, shrink with <strong>del/pop()/remove()</strong>, order with <strong>sort()/sorted()/reverse()/len()</strong>.</>,
-            <><strong>for</strong> loops + 4-space indentation; indentation errors are real Python grammar errors.</>,
-            <><strong>range(start, stop, step)</strong> stops before stop; min/max/sum summarize numeric lists.</>,
-            <>Slices <strong>[a:b]</strong> copy segments; <strong>[:] copies the whole list</strong> — never alias by accident.</>,
-            <><strong>Tuples are immutable lists</strong> — item assignment raises TypeError; redefining the whole tuple is allowed.</>,
+            <>Grow with <strong>append()/insert()</strong>; shrink with <strong>del/pop()/remove()</strong> — pop returns the value.</>,
+            <>remove() deletes only the <strong>first occurrence</strong>; loop it to purge them all (Lecture 26 does exactly that).</>,
+            <>Ordering, slicing and tuples moved to their own lectures — <strong>12, 15 and 16</strong>.</>,
           ]}
         />
       </Reveal>
-    </Section>
+</Section>
   );
 }

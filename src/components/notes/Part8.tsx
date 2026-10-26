@@ -171,7 +171,7 @@ export function ArgsSection() {
             Arguments <span className="grad-text">in</span>, answers <span className="grad-text">out</span>
           </>
         }
-        lead="You've seen a function defined and called. Now the complete toolkit: passing information in three styles, letting defaults do quiet work, catching argument errors — and the return keyword that sends answers back to the caller."
+        lead="You've seen a function defined and called. The argument toolkit: passing information in three styles, letting defaults do quiet work, and catching argument errors. The return keyword that sends answers back lives in Lecture 28."
       />
 
       {/* 1 — anatomy */}
@@ -446,196 +446,16 @@ describe_student(student_name='Hardavi', course_name='Foundations of Computing')
         </div>
       </Reveal>
 
-      {/* 9 — return values */}
+      {/* 9 — pointer to the returns lecture */}
       <Reveal className="mt-8">
-        <div className="card-warm p-6 md:p-8">
-          <div className="flex items-center gap-3">
-            <CornerDownLeft className="h-6 w-6" style={{ color: "#c2410c" }} />
-            <h3 className="text-2xl font-bold">
-              Return values — <span className="grad-text">send the answer back</span>
-            </h3>
-          </div>
-          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
-            A function doesn't always have to display its output directly. It can process data and
-            <strong> return</strong> a value or a set of values. The value returned is called a
-            <strong> return value</strong> — the <code className="font-mono text-[.84rem] font-bold text-[#b45309]">return</code>{" "}
-            statement takes a value from inside the function and sends it back to the line that called it,
-            letting us simplify the body of our program.
-          </p>
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            <CodeBlock
-              title="names.py — return, don't print"
-              code={`def get_formatted_name(first_name, last_name):
-    """Return a full name, neatly formatted."""
-    full_name = first_name + ' ' + last_name
-    return full_name.title() # not print() here
-
-developer = get_formatted_name('agastya', 'gupta')
-print(developer) # print happens at the call site`}
-              output={"Agastya Gupta"}
-              note="The function combines the names, converts to title case and returns the result. The caller stores the return value in a variable — here, developer."
-            />
-            <div className="grid content-start gap-3">
-              <Callout kind="insight" title="return vs print">
-                <strong>print()</strong> shows something on screen; <strong>return</strong> hands the value back so
-                the calling line can store it, reuse it, or pass it on. Printing inside a function is a dead end —
-                returning is a doorway.
-              </Callout>
-              <KV k="store it" v="developer = get_formatted_name('agastya', 'gupta') — provide a variable to catch what comes back." />
-            </div>
-          </div>
-        </div>
+        <Callout kind="story" title="Answers, going back — next lecture">
+          Passing information <strong>in</strong> is mastered here. Sending answers{" "}
+          <strong>back out</strong> — return vs print, the optional middle name, building
+          dictionaries, and the greeter that loops — is Lecture 28&rsquo;s
+          &ldquo;Return values&rdquo; chapter. One keyword stands between you and it.
+        </Callout>
       </Reveal>
 
-      {/* 10 — optional argument */}
-      <Reveal className="mt-8">
-        <div className="card-warm p-6 md:p-8">
-          <h3 className="text-2xl font-bold">
-            Making an argument <span className="grad-text">optional</span>
-          </h3>
-          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
-            Use default values to make an argument optional — people can provide extra information only if they
-            want to. The optional middle name is listed <strong>last</strong> in the definition and defaults to an
-            empty string, so calls stay as simple as possible.
-          </p>
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            <div className="grid content-start gap-5">
-              <CodeBlock
-                title="v1 — middle name required"
-                code={`def get_formatted_name(first_name, middle_name, last_name):
-    """Return a full name, neatly formatted."""
-    full_name = first_name + ' ' + middle_name + ' ' + last_name
-    return full_name.title()
-
-musician = get_formatted_name('Lana', 'Del', 'Rey')
-print(musician)   # ✅ works
-musician = get_formatted_name('Arijit', 'Singh')  # 💥 middle names aren't always needed`}
-                output={"Lana Del Rey\nTraceback ... missing 1 required positional argument: 'last_name'"}
-              />
-              <Callout kind="warn" title="The problem">
-                Most people don't have a middle name — forcing one makes the function brittle.
-              </Callout>
-            </div>
-            <CodeBlock
-              title="v2 — middle name optional"
-              code={`def get_formatted_name(first_name, last_name, middle_name=''):
-    """Return a full name, neatly formatted."""
-    if middle_name:
-        full_name = first_name + ' ' + middle_name + ' ' + last_name
-    else:
-        full_name = first_name + ' ' + last_name
-    return full_name.title()
-
-musician = get_formatted_name('Arijit', 'Singh')   # no middle name
-print(musician)
-musician = get_formatted_name('Lana', 'Rey', 'Del') # middle name supplied
-print(musician)`}
-              output={"Arijit Singh\nLana Del Rey"}
-              note="The empty-string default is falsy — if middle_name: only builds the three-part name when one exists. Optional values let one function handle a wide range of use cases."
-            />
-          </div>
-        </div>
-      </Reveal>
-
-      {/* 11 — returning a dictionary */}
-      <Reveal className="mt-8">
-        <div className="card-warm p-6 md:p-8">
-          <div className="flex items-center gap-3">
-            <Layers className="h-6 w-6" style={{ color: "#c2410c" }} />
-            <h3 className="text-2xl font-bold">Returning a dictionary</h3>
-          </div>
-          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
-            A function can return <strong>any kind of value</strong> — including complicated data structures like
-            lists and dictionaries. Here a function builds a person's record and hands the whole dictionary back.
-          </p>
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            <CodeBlock
-              title="people.py — minimal version"
-              code={`def build_person(first_name, last_name):
-    """Return a dictionary of information about a person."""
-    person = {'first': first_name, 'last': last_name}
-    return person
-
-student = build_person('aryan', 'manhas')
-print(student)`}
-              output={"{'first': 'aryan', 'last': 'manhas'}"}
-            />
-            <CodeBlock
-              title="people.py — extended with an optional age"
-              code={`def build_person(first_name, last_name, age=''):
-    """Return a dictionary of information about a person."""
-    person = {'first': first_name, 'last': last_name}
-    if age:
-        person['age'] = age
-    return person
-
-student = build_person('daksh', 'parashar', age=18)
-print(student)`}
-              output={"{'first': 'daksh', 'last': 'parashar', 'age': 18}"}
-              note="Easily extended to accept optional values — middle name, age, occupation, anything you want to store about a person."
-            />
-          </div>
-        </div>
-      </Reveal>
-
-      {/* 12 — functions + while */}
-      <Reveal className="mt-8">
-        <div className="card-warm p-6 md:p-8">
-          <div className="flex items-center gap-3">
-            <Repeat className="h-6 w-6" style={{ color: "#c2410c" }} />
-            <h3 className="text-2xl font-bold">
-              Using a function with a <span className="grad-text">while loop</span>
-            </h3>
-          </div>
-          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
-            Functions compose with every structure you've learned. Here get_formatted_name() greets users in a
-            loop — first the broken attempt, then the fix.
-          </p>
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            <CodeBlock
-              title="greeter.py — infinite loop! 🚨"
-              runnable={false}
-              code={`def get_formatted_name(first_name, last_name):
-    """Return a full name, neatly formatted."""
-    full_name = first_name + ' ' + last_name
-    return full_name.title()
-
-# This is an infinite loop!
-while True:  # condition is always True
-    print("\\nPlease tell me your name:")
-    f_name = input("First name: ")
-    l_name = input("Last name: ")`}
-              note="while True never becomes False and nothing breaks out — this program never ends. A loop needs an exit."
-            />
-            <CodeBlock
-              title="greeter.py — with an exit"
-              code={`def get_formatted_name(first_name, last_name):
-    """Return a full name, neatly formatted."""
-    full_name = first_name + ' ' + last_name
-    return full_name.title()
-
-while True:
-    print("\\nPlease tell me your name:")
-    print("(enter 'q' at any time to quit)")
-
-    f_name = input("First name: ")
-    if f_name == 'q':
-        break
-
-    l_name = input("Last name: ")
-    if l_name == 'q':
-        break
-
-formatted_name = get_formatted_name('aman', 'pathak')
-print("\\nHello, " + formatted_name + "!")`}
-              output={"Hello, Aman Pathak!"}
-              note="We add a message explaining how to quit, then break out if the user enters 'q' at either prompt — the program greets people until someone quits."
-            />
-          </div>
-        </div>
-      </Reveal>
-
-      {/* quiz */}
       <Reveal className="mt-10">
         <div className="grid gap-4 md:grid-cols-2">
           <Quiz
@@ -649,18 +469,6 @@ print("\\nHello, " + formatted_name + "!")`}
             answer={1}
             explain="Keyword arguments are name-value pairs — pet_name='Kyle', animal_type='Parrot' — and their order doesn't matter. Mixing a bare positional value after a keyword one is a SyntaxError."
             source="Functions · arguments"
-          />
-          <Quiz
-            q="What does return full_name.title() do that print(full_name.title()) inside the function does not?"
-            options={[
-              "Nothing — they're interchangeable",
-              "It formats the name differently",
-              "It sends the value back to the calling line so it can be stored in a variable",
-              "It makes the function run faster",
-            ]}
-            answer={2}
-            explain="return sends the value back to the caller — developer = get_formatted_name(...) can store it, reuse it, pass it on. print() just displays and the value is gone."
-            source="Functions · return values"
           />
         </div>
       </Reveal>
@@ -682,18 +490,6 @@ print("\\nHello, " + formatted_name + "!")`}
               q: <>Call <code className="font-mono">describe_pet()</code> with no arguments on purpose. Read the TypeError out loud — which two names does Python ask for?</>,
               hint: "Descriptive parameter names are why the error is readable.",
             },
-            {
-              q: <>Rewrite <code className="font-mono">get_formatted_name</code> so the middle name is optional (empty-string default), then produce both <em>Arijit Singh</em> and <em>Lana Del Rey</em> with the same function.</>,
-              hint: "if middle_name: decides which full_name to build.",
-            },
-            {
-              q: <>Make <code className="font-mono">build_person(first, last, age='')</code> return a dictionary, then call it with and without <code className="font-mono">age=18</code>.</>,
-              hint: "Only add the 'age' key when age is truthy.",
-            },
-            {
-              q: <>Combine get_formatted_name() with a while loop that quits when the user enters <code className="font-mono">'q'</code> at either prompt. What breaks if you delete the break checks?</>,
-              hint: "while True is infinite by design — the breaks are the exits.",
-            },
           ]}
         />
       </Reveal>
@@ -714,10 +510,7 @@ print("\\nHello, " + formatted_name + "!")`}
             <>Positional arguments match <strong>by order</strong>; keyword arguments match <strong>by name</strong> — order-free and self-documenting.</>,
             <>Default values make calls simpler; a defaulted parameter must come <strong>after</strong> all non-defaulted ones.</>,
             <>Fewer or more arguments than needed → a <strong>TypeError traceback</strong> that names what went wrong.</>,
-            <><strong>return</strong> sends a value back to the caller (store it in a variable) — print only displays. Functions can return dictionaries too.</>,
-            <>Optional arguments: empty-string default + <strong>if middle_name:</strong>, listed last in the definition.</>,
-            <>Functions compose with while loops — always give an infinite <strong>while True</strong> an exit via <strong>break</strong>.</>,
-          ]}
+                      ]}
         />
       </Reveal>
     </Section>

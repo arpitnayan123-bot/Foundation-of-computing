@@ -8,8 +8,9 @@ import {
 import { Reveal, Section, SectionHead, Callout, Quiz, CodeBlock, Practice, Takeaways, ReadStep } from "./ui";
 
 /* Hidden setup — these loop demos continue the poll dictionary from the
-   previous step; the runner recreates it so the Run matches the page. */
-const POLL_PRE = `favorite_languages = {
+   previous step; the runner recreates it so the Run matches the page.
+   (Shared with FocParts7 — the dict-loops section reuses it.) */
+export const POLL_PRE = `favorite_languages = {
     'jen': 'python',
     'sarah': 'c',
     'edward': 'rust',
@@ -74,8 +75,9 @@ function IfAnatomy() {
   );
 }
 
-/* How Python walks an if-elif-else chain — classic True/False flowchart. */
-function ChainWalk() {
+/* How Python walks an if-elif-else chain — classic True/False flowchart.
+   (Shared with FocParts6 — the branches section imports it.) */
+export function ChainWalk() {
   const rows = [
     { cy: 112, test: "age < 2 ?", hit: "baby", y: 94 },
     { cy: 224, test: "age < 4 ?", hit: "toddler", y: 206 },
@@ -132,7 +134,7 @@ function ChainWalk() {
   );
 }
 
-function IfElseChainViz() {
+export function IfElseChainViz() {
   return (
     <svg viewBox="0 0 640 250" className="mx-auto w-full max-w-2xl" role="img" aria-label="if-elif-else chain">
       <defs>
@@ -286,173 +288,45 @@ can_edit = False`}
         </div>
       </Reveal>
 
-      {/* STEP 3 — the chain */}
-      <ReadStep n="3" title="if → if-else → the if-elif-else chain" sub="One question is rarely enough — chain questions so exactly one branch runs" />
+      {/* STEP 3 — pointer to the branches lecture */}
       <Reveal>
-        <div className="card-warm p-6 md:p-8">
-          <p className="mb-5 text-[.92rem] leading-relaxed text-[#2b2014]">
-            <strong>if-else</strong> covers two paths. The moment you need three or more, add
-            <strong> elif</strong> (= “else-if”) blocks between them. Watch how Python walks the chain
-            for <code className="font-mono-warm font-bold">age = 15</code> — every test is a door; the first one that
-            opens wins and the rest are never even looked at:
-          </p>
-          <div className="rounded-2xl p-4" style={{ background: "#fbf3e3", border: "1px dashed #e5c79d" }}>
-            <ChainWalk />
-          </div>
-          <div className="mt-6 grid gap-5 lg:grid-cols-2">
-            <CodeBlock
-              title="voting.py — if-else: two paths, always exactly one"
-              code={`age = 17
-if age >= 18:
-    print("Old enough to vote.")
-else:
-    print("Sorry, you are too young to vote.")
-
-# else needs NO condition — it is the
-# catch-all path when everything above failed`}
-              output={"Sorry, you are too young to vote."}
-              note="if-else guarantees exactly one of the two blocks runs. The else block never gets its own test — it is simply 'everything else'."
-            />
-            <CodeBlock
-              title="alien_points.py — if-elif-else"
-              code={`alien_color = 'yellow'   # try 'green' and 'red' too
-
-if alien_color == 'green':
-    points = 5
-elif alien_color == 'yellow':
-    points = 10
-elif alien_color == 'red':
-    points = 15
-else:
-    points = 0
-print(f"You just earned {points} points!")`}
-              output={"You just earned 10 points!"}
-              note="Python runs ONLY the first branch whose condition is True — the chain is a series of exclusive doors. You can use as many elif blocks as needed, and you may omit the else entirely when a specific final condition is more precise than a catch-all."
-            />
-          </div>
-
-          <div className="mt-6 rounded-2xl p-4" style={{ background: "#fbf3e3", border: "1px dashed #e5c79d" }}>
-            <IfElseChainViz />
-            <p className="mt-2 text-center text-[.8rem] text-[#7a5b39]">
-              The age bands as full-life mapping — notice each elif needs only one bound,
-              because reaching it means every band above has already been ruled out.
-            </p>
-          </div>
-
-          <div className="mt-6 grid gap-5 lg:grid-cols-2">
-            <CodeBlock
-              title="toppings.py — testing MULTIPLE conditions"
-              code={`requested_toppings = ['mushrooms', 'extra cheese']
-
-if 'mushrooms' in requested_toppings:
-    print("Adding mushrooms.")
-if 'pepperoni' in requested_toppings:
-    print("Adding pepperoni.")
-if 'extra cheese' in requested_toppings:
-    print("Adding extra cheese.")
-
-print("\\nFinished making your pizza!")`}
-              output={"Adding mushrooms.\nAdding extra cheese.\n\nFinished making your pizza!"}
-              note="An if-elif chain stops at the first match — it would have skipped the cheese! Use SEPARATE if statements when every relevant condition must run. Choosing between a chain and independent ifs is a real design decision."
-            />
-            <div>
-              <Callout kind="insight" title="Independent vs exclusive">
-                <strong>if-elif-else</strong> = exactly one path runs (mutually
-                exclusive: alien colors, life stages). <strong>Separate ifs</strong> = any
-                number of paths may run (independent features: pizza toppings).
-              </Callout>
-              <Callout kind="why" title="Stage of life — the classic chain">
-                &lt;2 baby · 2–3 toddler · 4–12 kid · 13–19 teenager · 20–64 adult ·
-                65+ elder. Order matters: test from youngest to oldest, and each elif
-                only needs one bound because earlier branches already failed.
-              </Callout>
-            </div>
-          </div>
-        </div>
-      </Reveal>
-
-      {/* STEP 4 — if + lists */}
-      <ReadStep n="4" title="if meets lists — filtering the real world" sub="Special items, empty-list guards, and case-insensitive checks — the patterns you'll write most" />
-      <Reveal>
-        <div className="card-warm p-6 md:p-8">
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            <CodeBlock
-              title="special_items_and_empty.py"
-              code={`# Special items inside a loop
-requested_toppings = ['mushrooms', 'green peppers', 'extra cheese']
-for topping in requested_toppings:
-    if topping == 'green peppers':
-        print("Sorry, we are out of green peppers right now.")
-    else:
-        print(f"Adding {topping}.")
-
-# Checking that a list is NOT empty
-requested_toppings = []
-if requested_toppings:            # empty list is False!
-    for topping in requested_toppings:
-        print(f"Adding {topping}.")
-else:
-    print("Are you sure you want a plain pizza?")`}
-              output={"Adding mushrooms.\nSorry, we are out of green peppers right now.\nAdding extra cheese.\n\nAre you sure you want a plain pizza?"}
-            />
-            <CodeBlock
-              title="unique_usernames.py — multiple lists"
-              code={`current_users = ['john', 'admin', 'maria', 'priya', 'sam']
-new_users = ['MARIA', 'rahul', 'SAM', 'zoe', 'kiran']
-
-for new_user in new_users:
-    if new_user.lower() in [u.lower() for u in current_users]:
-        print(f"Sorry, {new_user} — that name is taken.")
-    else:
-        print(f"Good news, {new_user} — the name is available.")`}
-              output={"Sorry, MARIA — that name is taken.\nGood news, rahul — the name is available.\nSorry, SAM — that name is taken.\nGood news, zoe — the name is available.\nGood news, kiran — the name is available."}
-              note="Real systems compare case-insensitively: if 'John' exists, 'JOHN' must be rejected too — that’s why we lower() both sides before comparing."
-            />
-          </div>
-        </div>
+        <Callout kind="story" title="Where the questions go next">
+          You can now ask any yes/no question Python can answer. The next lecture builds the
+          roads: <strong>if-else, the elif ladder and independent ifs</strong> live in the
+          &ldquo;If, Elif, Else&rdquo; chapter of Lecture 18 — and the list-filtering patterns
+          (special items, empty guards, multiple lists) live in Lecture 20.
+        </Callout>
       </Reveal>
 
       <div className="mt-8 grid gap-5 md:grid-cols-2">
         <Reveal>
           <Quiz
             source="Concept check"
-            q="Why use separate if statements instead of an if-elif chain for pizza toppings?"
-            options={[
-              "It looks cleaner",
-              "An elif chain stops at the first True — other valid toppings would be skipped",
-              "elif cannot be used with lists",
-              "Separate ifs run faster",
-            ]}
+            q="What does car.lower() == 'audi' return if car = 'Audi'?"
+            options={["False — lower() changes car permanently", "True — lower() normalizes just for this comparison", "TypeError", "It depends on the locale"]}
             answer={1}
-            explain="An if-elif chain is exclusive — only the first True branch runs. For independent conditions that may all be true (multiple toppings), use a series of independent if statements."
+            explain=".lower() does NOT change the stored value — it returns a lowercase copy used only in this comparison. print(car) would still show 'Audi'."
           />
         </Reveal>
         <Reveal delay={100}>
           <Quiz
             source="Concept check"
-            q="if requested_toppings: — what does this test when the list is empty?"
-            options={["True — an empty list is truthy", "False — an empty list is falsy", "SyntaxError", "It depends on the toppings"]}
+            q="(age_0 >= 21) or (age_1 >= 21) with age_0 = 22, age_1 = 18 evaluates to…"
+            options={["False — one of them failed", "True — or needs at least one pass", "Error — you cannot combine tests", "True only if both pass"]}
             answer={1}
-            explain="An empty list evaluates to False. That one line is the idiomatic Python guard for 'does the list actually contain anything?'"
+            explain="or passes when EITHER test passes: True or False → True. and would have demanded both."
           />
         </Reveal>
       </div>
 
       <Reveal className="mt-6">
         <Practice
-          title="Try It Yourself — if drills"
+          title="Try It Yourself — conditional-test drills"
           items={[
             { q: <>Series of conditional tests with printed predictions (car = 'subaru' pattern) — at least 10 tests evaluating to True and False.</> },
             { q: <>At least one True and one False for: string equality/inequality · lower() tests · numerical {'==, !=, >, <, >=, <='} · and / or · in a list · not in a list.</> },
-            { q: <>Alien color simple if: green → 5 points. Write one version that passes and one that fails (no output).</> },
-            { q: <>Alien if-else: green → 5 points, else → 10 points. One version runs the if block, another the else.</> },
-            { q: <>Turn it into if-elif-else: green 5, yellow 10, red 15 — three versions, one per color.</> },
-            { q: <>Stage of life: {'<2 baby, <4 toddler, <13 kid, <20 teenager, <65 adult, 65+ elder'}.</> },
-            { q: <>favorite_fruits: five independent if statements checking membership with ‘in’ — “You really like bananas!”</> },
-            { q: <>Usernames: special greeting for 'admin' (status report), generic greeting for everyone else.</> },
-            { q: <>Add an if test for an empty user list → “We need to find some users!”; empty the list and verify.</> },
-            { q: <>Unique usernames: current_users vs new_users, case-insensitive comparison.</> },
-            { q: <>Ordinals: loop 1–9 printing 1st, 2nd, 3rd, then 4th…9th via an if-elif-else inside the loop.</> },
+            { q: <>Banned users: check whether 'marie' can post — and whether 'david' can.</>, hint: "user not in banned_users" },
+            { q: <>Booleans: track game_active and can_edit; write two if statements that behave differently from the same pattern.</> },
           ]}
         />
       </Reveal>
@@ -462,8 +336,7 @@ for new_user in new_users:
           items={[
             <>Conditional tests always evaluate to <strong>True or False</strong>; <strong>= assigns, == compares</strong>; normalize case with <strong>lower()</strong>.</>,
             <><strong>and</strong> requires both, <strong>or</strong> requires one; <strong>in / not in</strong> test membership; booleans like <code className="font-mono-warm">game_active</code> name your states.</>,
-            <><strong>if-elif-else</strong> chains pick exactly one path; <strong>independent ifs</strong> allow many; you can omit <strong>else</strong>.</>,
-            <>With lists: treat <strong>special items</strong> inside loops, guard <strong>empty lists</strong> with a truthiness check, and filter across <strong>multiple lists</strong>.</>,
+            <>These tests are the <strong>heart of every if statement</strong> — the branches they drive live in Lecture 18.</>,
           ]}
         />
       </Reveal>
@@ -532,8 +405,9 @@ function ListVsDict() {
   );
 }
 
-/* The three loop lenses — .items() / .keys() / .values() */
-function DictLenses() {
+/* The three loop lenses — .items() / .keys() / .values()
+   (Shared with FocParts7 — the dict-loops section imports it.) */
+export function DictLenses() {
   const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
   const lenses = [
     {
@@ -714,119 +588,14 @@ print(speed)`}
         </div>
       </Reveal>
 
-      {/* STEP 3 — the loop lenses */}
-      <ReadStep dark n="3" title="Read it three ways — the loop lenses" sub=".items() gives pairs, .keys() gives labels, .values() gives answers — pick the lens that matches the question" />
+      {/* STEP 3 — pointer to the dict-loops & nesting lectures */}
       <Reveal>
-        <div className="rounded-2xl p-4" style={{ background: "#fbf3e3", border: "1px dashed #e5c79d" }}>
-          <DictLenses />
-        </div>
-      </Reveal>
-
-      <Reveal className="mt-6">
-        <div className="card-warm p-6 md:p-8">
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            <CodeBlock
-              title="loop_all_pairs.py"
-              pre={POLL_PRE}
-              code={`user_0 = {
-    'username': 'efermi',
-    'first': 'enrico',
-    'last': 'fermi',
-}
-
-# ALL key-value pairs — .items()
-for key, value in user_0.items():
-    print(f"\\nKey: {key}")
-    print(f"Value: {value}")
-
-# ALL keys — .keys()  (default!)
-for name in favorite_languages.keys():
-    print(name.title())
-
-# Keys in order — sorted()
-for name in sorted(favorite_languages.keys()):
-    print(f"{name.title()}, thank you for taking the poll.")`}
-              output={"Key: username\nValue: efermi\n..."}
-            />
-            <CodeBlock
-              title="loop_values_and_set.py"
-              pre={POLL_PRE}
-              code={`# ALL values — .values()
-print("Languages chosen:")
-for language in favorite_languages.values():
-    print(language.title())
-
-# Repetition is natural ('python' appears twice).
-# Use set() when each item should appear ONCE:
-print("\\nThe following languages have been chosen:")
-for language in set(favorite_languages.values()):
-    print(language.title())
-
-# Polling: who already responded vs who to invite
-if 'erin' not in favorite_languages.keys():
-    print("Erin, please take our poll!")`}
-              output={"Languages chosen:\nPython\nC\nRust\nPython\n\nThe following languages have been chosen:\nC\nPython\nRust\nErin, please take our poll!"}
-              note="A set is a collection in which each item must be unique — a list wrapped in set() loses duplicates."
-            />
-          </div>
-        </div>
-      </Reveal>
-
-      {/* STEP 4 — nesting */}
-      <ReadStep dark n="4" title="Nesting — dictionaries inside lists inside dictionaries" sub="The moment real data shows up, structures combine — this is how you model the world" />
-      <Reveal>
-        <div className="card-warm p-6 md:p-8">
-          <p className="mt-2 max-w-4xl text-[.9rem] text-[#e9d7bf]">
-            Python lets you nest lists inside dictionaries, dictionaries inside lists,
-            and dictionaries inside dictionaries. This is how you model the real world —
-            fleets of aliens, pizza orders, city profiles.
-          </p>
-          <div className="mt-5 grid gap-5 lg:grid-cols-3">
-            <CodeBlock
-              title="a list of dictionaries"
-              code={`aliens = []
-
-for n in range(3):
-    aliens.append({
-        'color': 'green',
-        'points': 5,
-        'speed': 'slow',
-    })
-
-for alien in aliens[:3]:
-    print(alien)`}
-            />
-            <CodeBlock
-              title="a list in a dictionary"
-              code={`pizza = {
-    'crust': 'thick',
-    'toppings': ['mushrooms', 'extra cheese'],
-}
-
-print(pizza['crust'])
-for topping in pizza['toppings']:
-    print(topping)`}
-            />
-            <CodeBlock
-              title="a dictionary in a dictionary"
-              code={`users = {
-    'aeinstein': {
-        'first': 'albert',
-        'last': 'einstein',
-    },
-    'mcurie': {
-        'first': 'marie',
-        'last': 'curie',
-    },
-}
-
-for username, info in users.items():
-    print(f"\\n{username}")
-    print(info['first'].title(),
-          info['last'].title())`}
-            />
-          </div>
-        </div>
+        <Callout kind="story" title="Where dictionaries go next">
+          You can build, read, modify and delete pairs. Next: <strong>loop through them three
+          ways</strong> (.items() / .keys() / .values()) in Lecture 22 — and then{" "}
+          <strong>nest</strong> dictionaries inside lists inside dictionaries in Lecture 23,
+          where fleets of aliens and user databases get built.
+        </Callout>
       </Reveal>
 
       <div className="mt-8 grid gap-5 md:grid-cols-2">
@@ -842,10 +611,22 @@ for username, info in users.items():
         <Reveal delay={100}>
           <Quiz
             source="Concept check"
-            q="Why wrap favorite_languages.values() in set() before looping?"
-            options={["To sort alphabetically", "To make each language appear only once", "To speed up the loop", "To convert values to keys"]}
+            q="del alien_0['points'] — what happens to the pair?"
+            options={["It is hidden until needed", "It is permanently removed — unrecoverable", "Its value becomes None", "A KeyError is raised"]}
             answer={1}
-            explain="A set keeps only unique items — so 'python' appearing for both jen and phil prints once. Use sorted(keys) when you want order instead."
+            explain="del permanently removes the key-value pair; a later lookup of 'points' would raise KeyError (that's what get() protects against)."
+          />
+        </Reveal>
+      </div>
+
+      <div className="mt-8 grid gap-5 md:grid-cols-2">
+        <Reveal>
+          <Quiz
+            source="Concept check"
+            q="What does alien_0.get('points', 0) do if 'points' is missing?"
+            options={["Crashes with KeyError", "Returns None", "Returns 0 instead of crashing", "Adds the key with value 0"]}
+            answer={2}
+            explain="get() looks up the key and returns your provided default (0) when it’s absent — graceful handling instead of a KeyError."
           />
         </Reveal>
       </div>
@@ -857,12 +638,6 @@ for username, info in users.items():
             { q: <>Person: store first_name, last_name, age, city in a dictionary; print each piece of information.</> },
             { q: <>Favorite numbers: five people as keys, a number each as values; print each pair (poll real friends!).</> },
             { q: <>Glossary: five programming words as keys, meanings as values; print each word and meaning neatly separated with \\n.</> },
-            { q: <>Loop the glossary with .items(); then add five more terms — the loop picks them up automatically.</> },
-            { q: <>Rivers: {'{'}'nile': 'egypt', …{'}'} — print “The Nile runs through Egypt.”, then all river names, then all countries.</> },
-            { q: <>Polling: loop a list of people; thank those already in favorite_languages, invite the rest.</> },
-            { q: <>Pets: several dictionaries (kind of animal + owner’s name) inside a list called pets; loop and print everything about each.</> },
-            { q: <>favorite_places: three people as keys, one to three favorite places each as lists; loop and print.</> },
-            { q: <>Cities: three cities as keys, each mapping to a nested dictionary {'{'}country, population, fact{'}'}; print each city with all its information.</> },
           ]}
         />
       </Reveal>
@@ -873,8 +648,6 @@ for username, info in users.items():
           items={[
             <>Dictionaries store <strong>key-value pairs</strong>; access by key, add/modify anytime, delete with <strong>del</strong>, build from <strong>empty {"{}"}</strong>.</>,
             <><strong>get(key, default)</strong> avoids KeyError; dictionaries of similar objects map one value per key (favorite languages, favorite numbers).</>,
-            <>Loop <strong>.items()</strong> for pairs, <strong>.keys()</strong> for names, <strong>sorted()</strong> for order, <strong>.values()</strong> + <strong>set()</strong> for unique values.</>,
-            <>Nesting models reality: <strong>list of dicts</strong> (fleets, users), <strong>dict with lists</strong> (pizza toppings), <strong>dict of dicts</strong> (city profiles).</>,
           ]}
         />
       </Reveal>

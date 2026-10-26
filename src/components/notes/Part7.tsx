@@ -83,7 +83,8 @@ const EXITS = [
   },
 ];
 
-function ExitToolkit() {
+/* (Shared with FocParts8 — the loop-control section imports it.) */
+export function ExitToolkit() {
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
       {EXITS.map((e) => (
@@ -151,7 +152,7 @@ export function WhileSection() {
             User input & <span className="grad-text">while</span> loops — interactive programs
           </>
         }
-        lead="Until now your programs ran top to bottom and finished. input() makes them listen; while makes them persist. This chapter is one conversation: ask the user something, keep responding until they say stop. Four steps — follow the numbers."
+        lead="Until now your programs ran top to bottom and finished. input() makes them listen; while makes them persist. This chapter is one conversation: ask the user something, keep responding until they say stop. Two steps here — the exits live in Lecture 26."
       />
 
       {/* STEP 1 — input() */}
@@ -249,128 +250,17 @@ print("done — the condition finally failed")`}
         </div>
       </Reveal>
 
-      {/* STEP 3 — the exit toolkit */}
-      <ReadStep n="3" title="Four ways out — the exit toolkit" sub="Every while loop needs a guaranteed path to False. Pick one of these four and the infinite-loop gremlin stays away" />
+      {/* STEP 3 — pointer to the loop-control lecture */}
       <Reveal>
-        <ExitToolkit />
-      </Reveal>
-
-      <Reveal className="mt-6">
-        <div className="card-warm p-6 md:p-8">
-          <p className="mb-5 text-[.92rem] leading-relaxed text-[#2b2014]">
-            All four exits, side by side in runnable code — read them in order and the
-            escalation makes sense: sentinel → flag → break, with continue as the
-            “skip one” companion:
-          </p>
-          <div className="grid gap-5 lg:grid-cols-2">
-            <CodeBlock
-              title="quit_flag_break_continue.py — three ways to stop"
-              code={`# 1) Let the user choose when to quit
-prompt = "\\nTell me something, and I will repeat it back. "
-prompt += "\\nEnter 'quit' to end. "
-message = ""
-while message != 'quit':
-    message = input(prompt)
-    if message != 'quit':
-        print(message)
-
-# 2) Using a FLAG — one variable governs the loop
-active = True
-while active:
-    message = input(prompt)
-    if message == 'quit':
-        active = False      # flips the flag
-    else:
-        print(message)
-
-# 3) break — exit the loop immediately
-while True:
-    city = input("\\nWhich city? ('quit' to stop) ")
-    if city == 'quit':
-        break
-    print(f"{city.title()} — great choice!")`}
-              note="All three produce the same conversation — the difference is WHO decides to stop: the while test itself, a variable you flip, or an emergency exit. Pick whichever reads clearest."
-            />
-            <CodeBlock
-              title="continue — skip one, keep the loop"
-              code={`current = 0
-while current < 10:
-    current += 1
-    if current % 2 == 0:
-        continue            # skip the print for evens
-    print(current)`}
-              output={"1\n3\n5\n7\n9"}
-              note="continue never exits — it only abandons the rest of THIS pass and jumps back to the test. break exits; continue skips. That pair is all you need to remember."
-            />
-          </div>
-        </div>
-      </Reveal>
-
-      {/* STEP 4 — while with lists & dicts */}
-      <ReadStep n="4" title="while + lists & dictionaries — where it pays off" sub="Drain a list, purge an item, collect responses — the patterns behind every to-do and survey app" />
-      <Reveal>
-        <div className="card-warm p-6 md:p-8">
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            <CodeBlock
-              title="sandwich_shop.py — moving between lists"
-              code={`sandwich_orders = ['tuna', 'pastrami', 'pastrami',
-                   'veg', 'pastrami', 'grilled cheese']
-finished_sandwiches = []
-
-# The deli ran out of pastrami — remove ALL of them:
-while 'pastrami' in sandwich_orders:
-    sandwich_orders.remove('pastrami')
-
-while sandwich_orders:          # while list not empty
-    sandwich = sandwich_orders.pop()
-    print(f"I made your {sandwich} sandwich.")
-    finished_sandwiches.append(sandwich)
-
-print("\\nAll sandwiches made:")
-for s in finished_sandwiches:
-    print(f"  · {s}")`}
-              output={"I made your grilled cheese sandwich.\nI made your veg sandwich.\nI made your tuna sandwich.\n\nAll sandwiches made:\n  · grilled cheese\n  · veg\n  · tuna"}
-              note="Two idioms to memorize: while x in list: list.remove(x) purges every occurrence; while list: pop() drains it."
-            />
-            <CodeBlock
-              title="mountain_poll.py — filling a dictionary"
-              code={`responses = {}
-
-polling_active = True          # the flag again
-while polling_active:
-    name = input("\\nWhat is your name? ")
-    response = input("Which mountain would you like to climb someday? ")
-    responses[name] = response     # store key → value
-
-    repeat = input("Another responder? (yes/ no) ")
-    if repeat == 'no':
-        polling_active = False
-
-print("\\n--- Poll Results ---")
-for name, mountain in responses.items():
-    print(f"{name} would like to climb {mountain}.")`}
-              output={"--- Poll Results ---\nEric would like to climb Denali.\nLynn would like to climb Devil's Thumb."}
-              note="A while loop + a dictionary = a program that collects data until you tell it to stop. This tiny pattern is the seed of every survey app."
-            />
-          </div>
-        </div>
+        <Callout kind="story" title="Four ways out — next lecture">
+          The exit toolkit — <strong>flags, break, continue</strong> — and while loops that
+          drain lists and fill dictionaries are the whole of Lecture 26,
+          &ldquo;Flags, Break &amp; Continue&rdquo;. First, make the counting loop below
+          second nature.
+        </Callout>
       </Reveal>
 
       <div className="mt-8 grid gap-5 md:grid-cols-2">
-        <Reveal>
-          <Quiz
-            source="Concept check"
-            q="What is the difference between break and continue inside a while loop?"
-            options={[
-              "They are identical",
-              "break exits the loop entirely; continue jumps back to the condition test",
-              "continue exits; break skips one iteration",
-              "Only for-loops can use break",
-            ]}
-            answer={1}
-            explain="break abandons the loop and moves to the code after it; continue abandons only the current iteration and returns to the while test."
-          />
-        </Reveal>
         <Reveal delay={100}>
           <Quiz
             source="Concept check"
@@ -395,12 +285,6 @@ for name, mountain in responses.items():
             { q: <>Ask how many people are in their dinner group: more than eight → wait for a table; otherwise → table is ready.</> },
             { q: <>Ask for a number and report whether it is a multiple of 10.</>, hint: "number % 10 == 0" },
             { q: <>While loop for pizza toppings until 'quit'; confirm each topping: “I’ll add that topping to their pizza.”</> },
-            { q: <>Movie tickets: while loop asking age — under 3 free, 3–12 $10, over 12 $15.</> },
-            { q: <>Three versions of a loop exit: a conditional test in the while statement · an active flag variable · a break statement.</> },
-            { q: <>Write a loop that never ends — and run it. Then stop it (Ctrl-C / interrupt) and explain why it never stops.</> },
-            { q: <>sandwich_orders → finished_sandwiches: make each, move it, then list everything made.</> },
-            { q: <>Ensure ‘pastrami’ appears three times, announce the deli ran out, while-remove all of them; prove none end up in finished_sandwiches.</> },
-            { q: <>Dream-vacation poll: store name → place in a dictionary while polling; then print the results block.</> },
           ]}
         />
       </Reveal>
@@ -410,8 +294,6 @@ for name, mountain in responses.items():
           items={[
             <><strong>input() shows a prompt and returns a string</strong>; convert with <strong>int()</strong> for math; <strong>% modulo</strong> gives remainders.</>,
             <><strong>while condition:</strong> repeats while True — the counter, flag or break must guarantee eventual False, or you have an infinite loop.</>,
-            <>Exit toolkit: <strong>sentinel value</strong> (‘quit’) · <strong>active flag</strong> · <strong>break</strong>; skip with <strong>continue</strong>.</>,
-            <>Lists: <strong>while x in list: remove(x)</strong> purges all copies; <strong>while list: pop()</strong> transfers items. Dictionaries: collect responses while a flag is active, then report with .items().</>,
           ]}
         />
       </Reveal>
