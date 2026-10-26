@@ -1036,3 +1036,17 @@ Work Log:
 Stage Summary:
 - PDF's 28/28 lectures mapped 1:1, in order, browser-verified with interactive machines, timelines, diagrams, animations, per-lecture clear/not-clear tracking and module exam banks
 - Shipped as b77f2c3..dacc84d (5 granular commits) + this log; PAT used one-time inline, never persisted
+---
+Task ID: 7-vercel-fix
+Agent: Z.ai Code (main)
+Task: User — Vercel deploy failed at f0e8538: TS2783 in MistakeLedger.tsx ("revealed is specified more than once"). Fix and push again.
+
+Work Log:
+- Root cause: dev (Turbopack) and eslint never run tsc's cross-file type gate, so two latent errors shipped silently; next build on Vercel enforces them
+- Error 1 — MistakeLedger.tsx:102: ResolveState.revealed/done are required, so `{revealed:false, done:null, ...prev[key], ...p}` re-specified guaranteed-overwritten keys (TS2783). Fixed via ??-fallback defaults — identical runtime semantics
+- Error 2 (hiding behind #1) — EbhApp passed clarity={clarityMap} to EbhHero whose props lacked it (TS2322). Wired properly: hero accepts clarity and renders passive per-lecture dots (green clear / amber not-clear-yet), the design clarity.ts's doc always described
+- bunx tsc --noEmit → 0 errors; eslint clean
+- Synced both files to the served app; Agent Browser: EBH hero dots render (L1/L5 green, L12 amber after localStorage inject), #/ledger mounts MistakeLedger, 0 console/browser errors
+- Pushed 4199cbc + eb9bedf; remote verified
+Stage Summary:
+- Vercel's two type errors fixed at the root (one bug, one intended-feature wiring); tsc --noEmit is now the local gate to run before every push
