@@ -52,6 +52,7 @@ import { BADGES, computeSnapshot, earnedCount, type AtlasSnapshot } from "@/lib/
 import { bumpGoal, GOAL_MAX, GOAL_MIN, goalStatus, type GoalStatus } from "@/lib/goal";
 import { PracticeHeatmap, type DayHit } from "./PracticeHeatmap";
 import { CardForge } from "./CardForge";
+import { MistakeLedger } from "./MistakeLedger";
 import { countCustomCardsByShelf } from "@/lib/custom-cards";
 import { readProgressCounts } from "@/lib/progress";
 import { useToast } from "@/hooks/use-toast";
@@ -237,6 +238,30 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
   });
   const openForge = useCallback(() => setForgeOpen(true), []);
 
+  /* the cockpit's RECHARGE move can queue the mistake ledger — same
+     handoff contract as review/drill/mock/forge; consumed once, the
+     page scrolls to the 错题本 section */
+  const [mistakesOpen, setMistakesOpen] = useState<boolean>(() => {
+    try {
+      const queued = sessionStorage.getItem("atlas:mistakes-open");
+      if (queued) {
+        sessionStorage.removeItem("atlas:mistakes-open");
+        return queued === "1";
+      }
+    } catch {
+      /* private mode — no handoff */
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (!mistakesOpen) return;
+    const t = window.setTimeout(() => {
+      document.getElementById("mistake-ledger")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 350);
+    return () => window.clearTimeout(t);
+  }, [mistakesOpen]);
+
   /* the daily goal + derived badges — both recomputed on every refresh */
   const [goal, setGoal] = useState<GoalStatus | null>(null);
   const [snap, setSnap] = useState<AtlasSnapshot | null>(null);
@@ -298,11 +323,16 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
       setForgeOpen(true);
       refresh();
     };
+    const onMistakes = () => {
+      setMistakesOpen(true);
+      refresh();
+    };
     document.addEventListener("visibilitychange", onVisible);
     window.addEventListener("atlas:review-subject", onReview);
     window.addEventListener("atlas:drill-subject", onDrill);
     window.addEventListener("atlas:mock-open", onMock);
     window.addEventListener("atlas:forge-open", onForge);
+    window.addEventListener("atlas:mistakes-open", onMistakes);
     return () => {
       cancelAnimationFrame(raf);
       document.removeEventListener("visibilitychange", onVisible);
@@ -310,6 +340,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
       window.removeEventListener("atlas:drill-subject", onDrill);
       window.removeEventListener("atlas:mock-open", onMock);
       window.removeEventListener("atlas:forge-open", onForge);
+      window.removeEventListener("atlas:mistakes-open", onMistakes);
     };
   }, [refresh]);
 
@@ -820,6 +851,9 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
             </ul>
           </section>
         ) : null}
+
+        {/* ------- the mistake ledger · 错题本 ------- */}
+        <MistakeLedger />
 
         {/* ------- achievements — derived, never stored ------- */}
         {snap ? (
