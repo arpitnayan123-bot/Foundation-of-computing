@@ -457,7 +457,34 @@ export function FaAssumptionsSection() {
           ))}
         </div>
 
-        <div className="mt-6">
+        {/* the full eight — Lecture 5's complete concept list */}
+        <FaReadStep n="03" title="The full eight — the lecture's complete concept list" sub="Four assumptions above, four more concepts, one invariant: Assets = Liabilities + Capital" />
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { n: "5", t: "Cost", d: "Recorded at acquisition price — land bought for \u20B950,000 stays \u20B950,000 whether market later reads \u20B960,000 or \u20B940,000. Objective, auditable — blind to inflation." },
+            { n: "6", t: "Dual aspect", d: "Every transaction has two equal effects — the foundation of double entry and of the equation itself." },
+            { n: "7", t: "Accounting period", d: "Business life divided into segments (usually a year) so results can be studied at each stop." },
+            { n: "8", t: "Realization", d: "Revenue recognized when the sale is made — property in goods passes to the buyer — not when cash arrives." },
+          ].map((a, i) => (
+            <Reveal key={a.t} delay={i * 80}>
+              <div className="card-warm lift flex h-full flex-col p-4">
+                <span className="font-mono text-[.62rem] font-black uppercase tracking-[.2em]" style={{ color: FA_G[700] }}>Concept {a.n}</span>
+                <p className="mt-1 text-[.92rem] font-extrabold text-[#3e2c1d]">{a.t}</p>
+                <p className="mt-1.5 text-[.78rem] leading-relaxed text-muted-warm">{a.d}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <div className="mt-4">
+          <FaCallout kind="why" title="The cost concept, argued both ways">
+            Advantages: it <b>removes subjectivity</b> — a standardized measurement brings objectivity to the
+            statements. Limitation: it <b>cannot account for inflation</b> — in high-inflation periods historical cost
+            may not reflect the firm's true financial position. That trade-off is the price of the objectivity every
+            other user relies on.
+          </FaCallout>
+        </div>
+
+        <div className="mt-8">
           <FaCallout kind="story" title="Why the assumptions matter more than they look">
             Every controversy you will meet in this course — the dinner-table argument, the
             revalued car, the commission paid in the wrong month — is one of these four
@@ -688,7 +715,24 @@ export function FaPeriodicitySection() {
           </FaCallout>
         </div>
 
-        <FaReadStep n="03" title="Money measurement — the rupee is the only common denominator" />
+        <FaReadStep n="03" title="Realization — revenue waits for delivery, not cash" sub="Order in March, goods delivered in April → revenue belongs to April" />
+        <div className="grid gap-3 md:grid-cols-2">
+          <FaCallout kind="insight" title="The rule">
+            Revenue is recognized <b>when a sale is made</b> — specifically when property in the
+            goods passes to the buyer and the buyer becomes legally liable to pay. The moment of
+            delivery, not the order and not the payment, owns the revenue.
+          </FaCallout>
+          <FaCallout kind="why" title="The two famous exceptions">
+            <b>Hire purchase:</b> ownership passes only at the final installment — yet sellers
+            record revenue progressively as installments fall due, because waiting would misstate
+            every interim period. <b>Long-term construction:</b> profit is recorded yearly on
+            work certified, not only at completion — a bridge billed over five years cannot hide
+            four years of results. Both exceptions exist for one reason: waiting for legal
+            completion gives a misleading picture of the period.
+          </FaCallout>
+        </div>
+
+        <FaReadStep n="04" title="Money measurement — the rupee is the only common denominator" />
         <div className="grid gap-3 md:grid-cols-2">
           <FaCallout kind="insight" title="The rule">
             Under the money measurement assumption, <b>all business transactions are expressed
@@ -704,7 +748,7 @@ export function FaPeriodicitySection() {
           </FaCallout>
         </div>
 
-        <FaReadStep n="04" title="What's wrong with these practices?" sub="Identify the assumption or principle violated — the lecture's own violation round" />
+        <FaReadStep n="05" title="What's wrong with these practices?" sub="Identify the assumption or principle violated — the lecture's own violation round" />
         <div className="grid gap-3 md:grid-cols-3">
           {[
             {

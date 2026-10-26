@@ -5,10 +5,11 @@
 
    Mounted by the Atlas router (src/app/page.tsx); `onExitAtlas`
    returns the reader to the Atlas landing page. A LECTURE
-   READER: the hero holds the 16-lecture sequence, each lecture
-   opens with a "Financial Accounting Lecture N" band, and all
-   pen-paper practice lives behind the "Test my knowledge"
-   hub so the reading surface stays clean.
+   READER: the hero holds the 29-lecture sequence (L1–L29,
+   mirroring the IIT Jodhpur deck lecture-for-lecture), each
+   lecture opens with a "Financial Accounting Lecture N" band,
+   and all pen-paper practice lives behind the "Test my
+   knowledge" hub so the reading surface stays clean.
    ============================================================ */
 
 import { PartBoundary } from "@/components/notes/PartBoundary";
@@ -57,6 +58,34 @@ import {
   FaTradingSection,
   FaGrossProfitLabSection,
 } from "@/components/fa/FaParts4";
+import {
+  FaCourseMapSection,
+  FaLanguageSection,
+  FaUsersRegulatorySection,
+} from "@/components/fa/FaParts5";
+import {
+  FaConventionsSection,
+  FaClassificationSection,
+  FaBalancingSection,
+} from "@/components/fa/FaParts6";
+import {
+  FaSuspenseSection,
+  FaBasisSection,
+  FaAdjustingLabSection,
+} from "@/components/fa/FaParts7";
+import { FaPandLSection, FaBalanceSheetSection } from "@/components/fa/FaParts8";
+import {
+  FaCashflowIntroSection,
+  FaCashflowMethodsSection,
+} from "@/components/fa/FaParts9";
+import {
+  FaCashflowBuildSection,
+  FaCashflowHealthSection,
+} from "@/components/fa/FaParts10";
+import {
+  FaFsAnalysisSection,
+  FaCashflowWrapSection,
+} from "@/components/fa/FaParts11";
 import { FaExamWindow } from "@/components/fa/FaExamWindow";
 import { FA_EXAM_BANKS, FA_EXAM_GROUPS, FA_TOTAL_QUESTIONS, type FaExamGroup } from "@/components/fa/questions";
 import {
@@ -72,9 +101,11 @@ const SAGE_LITE = "#a7d7b8";
 const EMERALD_DARK = "linear-gradient(165deg,#06281e,#0a3527 60%,#0d3a2c)";
 
 /* ============================================================
-   Structured chapter map — the top bar is organised into four
-   groups instead of a flat 16-chip strip. Each group owns a
-   "Test my knowledge" pen-paper window (see questions.ts).
+   Structured chapter map — the top bar is organised into seven
+   groups following the PDF's arc: orientation, concepts,
+   equation, recording, the cycle, final accounts, cash flow &
+   analysis. Each group owns a "Test my knowledge" pen-paper
+   window (see questions.ts).
    ============================================================ */
 const GROUPS: {
   id: FaExamGroup;
@@ -83,42 +114,77 @@ const GROUPS: {
 }[] = [
   {
     id: "foundations",
-    label: "Foundations",
+    label: "Orientation",
     items: [
+      { id: "course-map", label: "Course map", desc: "Five modules, one cycle, three outcomes" },
+      { id: "language", label: "The four verbs", desc: "Identify · record · measure · communicate" },
+      { id: "users-regulatory", label: "Users & regulators", desc: "Five objectives · nine users · ICAI–MCA–SEBI" },
       { id: "why", label: "Why accounting?", desc: "Five openings — every one ends at the same question" },
-      { id: "assumptions", label: "4 assumptions", desc: "Entity · going concern · periodicity · money measurement" },
-      { id: "entity-concern", label: "Entity & concern", desc: "The boundary — and the promise to continue" },
+    ],
+  },
+  {
+    id: "concepts",
+    label: "Concepts",
+    items: [
+      { id: "assumptions", label: "The eight concepts", desc: "Entity · concern · money · cost · the full eight" },
+      { id: "dual-aspect", label: "Dual aspect", desc: "Every rupee tells two stories" },
       { id: "periodicity", label: "Periods & matching", desc: "Time, cut into periods — and the match that follows" },
+      { id: "conventions", label: "Four conventions", desc: "Conservatism · disclosure · consistency · materiality" },
     ],
   },
   {
     id: "equation",
     label: "The Equation",
     items: [
-      { id: "dual-aspect", label: "Dual aspect", desc: "Every rupee tells two stories" },
-      { id: "elements", label: "The three elements", desc: "Assets, liabilities & equity — the whole cast" },
       { id: "equation-lab", label: "Equation, worked", desc: "Hot Chocolate · Abraham · Coffee Corner" },
       { id: "effects", label: "Transaction effects", desc: "The four moves — run the equation machine" },
+      { id: "entity-concern", label: "Entity & concern", desc: "The boundary — and the promise to continue" },
+      { id: "elements", label: "The three elements", desc: "Assets, liabilities & equity — the whole cast" },
     ],
   },
   {
     id: "recording",
     label: "Recording",
     items: [
+      { id: "classification", label: "Classification & journal", desc: "Personal · real · nominal — the rules and the entries" },
       { id: "journal", label: "Journal", desc: "The pipeline and the day book — Vogue Company" },
       { id: "ledger", label: "Ledger", desc: "Posting — the Cash T-account, for real" },
-      { id: "statements", label: "Five statements", desc: "One month of transactions, five shapes" },
+      { id: "balancing", label: "Opening & balancing", desc: "Balances b/d, balances c/d — and the ₹95,000 proof" },
       { id: "trial-balance", label: "Trial balance", desc: "Do the columns agree? — sort Pearl's books" },
+      { id: "suspense", label: "Suspense & errors", desc: "The ₹50,000 gap — and the errors it cannot see" },
+    ],
+  },
+  {
+    id: "cycle",
+    label: "The Cycle",
+    items: [
+      { id: "basis", label: "Cash vs accrual", desc: "Two bases, one matching principle, ₹10 split two ways" },
+      { id: "adjusting", label: "Adjusting entries", desc: "Deferrals & accruals — split the prepaid rupee" },
+      { id: "trading", label: "Trading account", desc: "Did buying and selling pay?" },
+      { id: "adjusting-lab", label: "The adjusting lab", desc: "Vogue's six entries — the cycle in one sitting" },
     ],
   },
   {
     id: "closing",
-    label: "Closing",
+    label: "Final Accounts",
     items: [
-      { id: "adjusting", label: "Adjusting entries", desc: "Deferrals & accruals — split the prepaid rupee" },
-      { id: "final-accounts", label: "Final accounts", desc: "Two questions, two statements" },
-      { id: "trading", label: "Trading account", desc: "Did buying and selling pay?" },
       { id: "gp-lab", label: "Gross profit lab", desc: "Six examples — then drive the ladder" },
+      { id: "pandl", label: "P&L & closing entries", desc: "Net profit, the ₹5,50,000 ladder — and the chain" },
+      { id: "statements", label: "Five statements", desc: "One month of transactions, five shapes" },
+      { id: "balance-sheet", label: "Balance sheet", desc: "A photograph — current vs fixed, two orders" },
+      { id: "cashflow-intro", label: "The fourth pillar", desc: "Why profit ≠ cash — operating, investing, financing" },
+      { id: "final-accounts", label: "Final accounts", desc: "Two questions, two statements" },
+    ],
+  },
+  {
+    id: "cashflow",
+    label: "Cash Flow & Analysis",
+    items: [
+      { id: "cashflow-methods", label: "Direct vs indirect", desc: "The ₹73,000 → ₹69,700 reconciliation ladder" },
+      { id: "cashflow-build", label: "The indirect build", desc: "Compass ₹72,000 · Ajay ₹4,32,000 → ₹3,48,000" },
+      { id: "cashflow-health", label: "Six questions", desc: "Compass diagnosed — then Pioneer Limited, built" },
+      { id: "fs-analysis", label: "FS analysis", desc: "Four standards, four techniques, one FX red herring" },
+      { id: "cashflow-wrap", label: "Profit is an opinion", desc: "Mira's shop · the student analogy · the closing argument" },
     ],
   },
 ];
@@ -135,6 +201,9 @@ function groupOf(id: string): string | null {
    reader renders exactly the slice the chosen lecture owns.
    ============================================================ */
 const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
+  "course-map": <FaCourseMapSection />,
+  language: <FaLanguageSection />,
+  "users-regulatory": <FaUsersRegulatorySection />,
   why: <FaWhySection />,
   assumptions: <FaAssumptionsSection />,
   "entity-concern": <FaEntityConcernSection />,
@@ -143,14 +212,28 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   elements: <FaElementsSection />,
   "equation-lab": <FaEquationLabSection />,
   effects: <FaEffectsSection />,
+  conventions: <FaConventionsSection />,
+  classification: <FaClassificationSection />,
   journal: <FaJournalSection />,
   ledger: <FaLedgerSection />,
-  statements: <FaStatementsSection />,
+  balancing: <FaBalancingSection />,
   "trial-balance": <FaTrialBalanceSection />,
+  suspense: <FaSuspenseSection />,
+  basis: <FaBasisSection />,
   adjusting: <FaAdjustingSection />,
-  "final-accounts": <FaFinalAccountsSection />,
+  "adjusting-lab": <FaAdjustingLabSection />,
   trading: <FaTradingSection />,
   "gp-lab": <FaGrossProfitLabSection />,
+  pandl: <FaPandLSection />,
+  statements: <FaStatementsSection />,
+  "balance-sheet": <FaBalanceSheetSection />,
+  "cashflow-intro": <FaCashflowIntroSection />,
+  "final-accounts": <FaFinalAccountsSection />,
+  "cashflow-methods": <FaCashflowMethodsSection />,
+  "cashflow-build": <FaCashflowBuildSection />,
+  "cashflow-health": <FaCashflowHealthSection />,
+  "fs-analysis": <FaFsAnalysisSection />,
+  "cashflow-wrap": <FaCashflowWrapSection />,
 };
 
 /* ============================================================
@@ -813,8 +896,8 @@ function LecturePager({ current, onJump }: { current: FaLecture; onJump: (id: st
           </button>
         ) : (
           <span className="rounded-2xl border border-dashed border-[#dbeae2] p-4 text-center text-[.78rem] font-bold leading-snug text-[#7d9a8b]">
-            End of the sequence — Lecture 16 closes the course. Drive the gross-profit ladder once
-            more, then retake the windows.
+            End of the sequence — Lecture 29 closes the course. Profit is an opinion; cash is a fact. Rebuild Pioneer
+            Limited once more, then retake the windows.
           </span>
         )}
       </div>
