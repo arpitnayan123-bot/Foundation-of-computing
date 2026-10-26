@@ -72,8 +72,12 @@ const LedgerView = dynamic(() => import("@/components/atlas/LedgerView").then((m
   ssr: false,
   loading: () => <ShelfLoader />,
 });
+const CockpitView = dynamic(() => import("@/components/atlas/CockpitView").then((m) => m.CockpitView), {
+  ssr: false,
+  loading: () => <ShelfLoader />,
+});
 
-type View = { name: "atlas" } | { name: "ledger" } | { name: "subject"; id: string };
+type View = { name: "atlas" } | { name: "ledger" } | { name: "cockpit" } | { name: "subject"; id: string };
 
 const SUBJECT_ROUTE = "#/subject/";
 
@@ -83,6 +87,7 @@ function parseRouteHash(hash: string): View | null {
   if (!hash.startsWith("#/")) return null;
   if (hash === "#/atlas") return { name: "atlas" };
   if (hash === "#/ledger") return { name: "ledger" };
+  if (hash === "#/cockpit") return { name: "cockpit" };
   if (hash.startsWith(SUBJECT_ROUTE)) {
     const id = hash.slice(SUBJECT_ROUTE.length);
     if (SUBJECT_IDS.includes(id)) return { name: "subject", id };
@@ -113,10 +118,11 @@ export default function Page() {
     };
   }, []);
 
-  // dark chrome (scrollbar etc.) while the Atlas landing is on stage
+  // dark chrome (scrollbar etc.) while the Atlas landing or the
+  // cockpit is on stage — both live on the midnight chrome
   useEffect(() => {
     const el = document.documentElement;
-    el.classList.toggle("atlas-active", view.name === "atlas");
+    el.classList.toggle("atlas-active", view.name === "atlas" || view.name === "cockpit");
     return () => el.classList.remove("atlas-active");
   }, [view.name]);
 
@@ -150,6 +156,9 @@ export default function Page() {
             ) : view.name === "ledger" ? (
               // the ledger — local-first progress, mastery and spaced review
               <LedgerView onExitAtlas={exitToAtlas} />
+            ) : view.name === "cockpit" ? (
+              // the cockpit — today's flight plan + ask the atlas
+              <CockpitView onExitAtlas={exitToAtlas} />
             ) : view.id === "foc" ? (
               <FocApp onExitAtlas={exitToAtlas} />
             ) : view.id === "atb" ? (

@@ -27,7 +27,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Command } from "cmdk";
 import * as Dialog from "@radix-ui/react-dialog";
-import { BookOpenText, FlaskConical, Home, Layers, ListChecks, NotebookPen, ScrollText, Sparkles, WandSparkles, Zap, type LucideIcon } from "lucide-react";
+import { BookOpenText, FlaskConical, Home, Layers, ListChecks, NotebookPen, Rocket, ScrollText, Sparkles, WandSparkles, Zap, type LucideIcon } from "lucide-react";
 import { LIVE_SUBJECTS, SUBJECTS, type Subject } from "./subjects";
 import { CHAPTER_INDEX } from "@/lib/chapter-index";
 import { dueCounts } from "@/lib/sm2";
@@ -351,6 +351,15 @@ export function CommandPalette() {
               ) : null}
 
               <Command.Group heading="Progress" className="cmdk-group">
+                <Item
+                  onSelect={() => go("#/cockpit")}
+                  icon={Rocket}
+                  tint="#f5c889"
+                  kicker="the daily flight plan"
+                  title="Open the Cockpit"
+                  sub="Today's three moves + ask your notes anything"
+                  keywords="cockpit flight plan daily mission study plan ask tutor ai copilot what to study"
+                />
                 <Item
                   onSelect={() => go("#/ledger")}
                   icon={NotebookPen}

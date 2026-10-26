@@ -32,6 +32,7 @@ import {
   Lock,
   Map as MapIcon,
   PenLine,
+  Rocket,
   Waypoints,
 } from "lucide-react";
 import { SUBJECTS, type Subject, type SubjectAmbience } from "./subjects";
@@ -503,6 +504,19 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           >
             <CommandIcon aria-hidden className="h-3 w-3" />
             K
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              window.location.hash = "#/cockpit";
+              window.scrollTo(0, 0);
+            }}
+            aria-label="Open the Cockpit — today's flight plan and ask the atlas"
+            title="The Cockpit — today's flight plan + ask the atlas"
+            className="flex items-center gap-1.5 rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-2.5 py-1 font-mono text-[.6rem] font-bold uppercase tracking-[.14em] text-[#f5c889] transition hover:bg-[#f59e0b2e]"
+          >
+            <Rocket aria-hidden className="h-3 w-3" />
+            <span className="hidden sm:inline">Cockpit</span>
           </button>
           <GoalChip />
           <span
