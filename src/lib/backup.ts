@@ -35,6 +35,7 @@ import { loadBlueprint, MOCK_KEY, type MockBlueprint } from "./mock";
 import { CUSTOM_CARDS_KEY, listCustomCards, type CustomCardStore } from "./custom-cards";
 import { MISTAKES_KEY, loadMistakes, type MistakeEntry, type MistakeStore } from "./mistakes";
 import { REFLECTION_KEY, loadReflections, type ReflectionEntry, type ReflectionStore } from "./reflection";
+import { CLARITY_KEY, loadClarity, type ClarityStore } from "./clarity";
 
 export const BACKUP_VERSION = 1;
 
@@ -62,6 +63,7 @@ export interface BackupBundle {
     custom?: CustomCardStore;
     /** the Mistake Ledger (错题本) — optional, same tolerance */
     mistakes?: MistakeStore;
+    clarity?: ClarityStore;
     /** the evening debriefs (yonaoshi) — optional, same tolerance */
     reflections?: ReflectionStore;
     /** the Python Lab notebooks — the exact localStorage value,
@@ -79,6 +81,7 @@ export interface BackupSummary {
   customCards: number;
   /** Mistake Ledger entries in the bundle */
   mistakes: number;
+  clarityLectures: number;
   /** evening debriefs in the bundle */
   reflections: number;
   /** Python Lab cells in the bundle (0 when the lab value is
@@ -108,6 +111,7 @@ export function exportBackup(): string {
       custom: { cards: listCustomCards() },
       mistakes: loadMistakes(),
       reflections: loadReflections(),
+      clarity: loadClarity(),
       ...(lab !== null ? { lab } : {}),
     },
   };
@@ -260,6 +264,18 @@ function validReflections(x: unknown): x is ReflectionStore {
   );
 }
 
+/** the lecture clarity marks are optional — subject → lecture id → status */
+function validClarity(x: unknown): x is ClarityStore {
+  if (!isObj(x)) return false;
+  for (const subject of Object.values(x)) {
+    if (!isObj(subject)) return false;
+    for (const status of Object.values(subject)) {
+      if (status !== "clear" && status !== "unclear") return false;
+    }
+  }
+  return true;
+}
+
 /* ---------------- import ---------------- */
 
 export function parseBackup(text: string): ParseResult {
@@ -294,6 +310,9 @@ export function parseBackup(text: string): ParseResult {
   if (stores.reflections !== undefined && !validReflections(stores.reflections)) {
     return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
   }
+  if (stores.clarity !== undefined && !validClarity(stores.clarity)) {
+    return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
+  }
   /* the lab block is opaque — the only hard rule is that it is a
      string, so a restore can write it back byte-for-byte */
   if (stores.lab !== undefined && typeof stores.lab !== "string") {
@@ -315,6 +334,7 @@ export function parseBackup(text: string): ParseResult {
       ...(validCustom(stores.custom) ? { custom: stores.custom } : {}),
       ...(validMistakes(stores.mistakes) ? { mistakes: stores.mistakes } : {}),
       ...(validReflections(stores.reflections) ? { reflections: stores.reflections } : {}),
+      ...(validClarity(stores.clarity) ? { clarity: stores.clarity } : {}),
       ...(typeof stores.lab === "string" ? { lab: stores.lab } : {}),
     },
   };
@@ -333,6 +353,9 @@ export function parseBackup(text: string): ParseResult {
       sections,
       customCards: bundle.stores.custom?.cards.length ?? 0,
       mistakes: bundle.stores.mistakes?.entries.length ?? 0,
+      clarityLectures: bundle.stores.clarity
+        ? Object.values(bundle.stores.clarity).reduce((n, m) => n + Object.keys(m).length, 0)
+        : 0,
       reflections: bundle.stores.reflections?.entries.length ?? 0,
       labCells: labCellCount(bundle.stores.lab),
       exportedAt: bundle.exportedAt,
@@ -370,6 +393,7 @@ export function applyBackup(bundle: BackupBundle): ApplyResult {
     [CUSTOM_CARDS_KEY, bundle.stores.custom ? JSON.stringify(bundle.stores.custom) : null],
     [MISTAKES_KEY, bundle.stores.mistakes ? JSON.stringify(bundle.stores.mistakes) : null],
     [REFLECTION_KEY, bundle.stores.reflections ? JSON.stringify(bundle.stores.reflections) : null],
+    [CLARITY_KEY, bundle.stores.clarity ? JSON.stringify(bundle.stores.clarity) : null],
     [LAB_KEY, typeof bundle.stores.lab === "string" ? bundle.stores.lab : null],
   ];
   for (const [key, value] of writes) {
@@ -398,6 +422,7 @@ export function eraseAllStores(): void {
     window.localStorage.removeItem(CUSTOM_CARDS_KEY);
     window.localStorage.removeItem(MISTAKES_KEY);
     window.localStorage.removeItem(REFLECTION_KEY);
+    window.localStorage.removeItem(CLARITY_KEY);
     window.localStorage.removeItem(LAB_KEY);
   } catch {
     /* noop */
