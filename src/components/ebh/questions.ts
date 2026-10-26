@@ -1,17 +1,19 @@
 /* ============================================================
    TEST MY KNOWLEDGE — Economic & Business History question
-   banks, one per chapter group (shelf 04 of The Atlas).
-   History is argued, not computed — so the bank sticks to
-   mcq | output | short: name-the-actor, recall-the-year,
-   pick-the-cause, and argue-the-connection in your own words.
-   Every date and figure below is taken straight from the
-   lecture deck (Dr. Manu Kanchan, IIT Jodhpur) and
-   hand-checked: IPR 1956, Bajaj 1945–1971, guild charters,
-   Silk Road speeds, the 1760s machine wave, Peterloo, the
-   1825 Act, Manchester's mills.
+   banks, one per module of the 28-lecture deck (shelf 04 of
+   The Atlas). History is argued, not computed — so the banks
+   stick to mcq | output | short: name-the-actor,
+   recall-the-year, pick-the-cause, and argue-the-connection
+   in your own words. Every date and figure below is taken
+   straight from the lecture deck (Dr. Manu Kanchan, IIT
+   Jodhpur) and hand-checked: IPR 1956, Bajaj 1945–1971,
+   guild charters, Silk Road speeds, the 1760s machine wave,
+   Peterloo, the 1825 Act, Tolpuddle 1834, the Ten Hours Act,
+   the Chartists, Schmidt's 12.5→47 tons, Fayol's 14,
+   DuPont's 40%, the charters 1600→1813.
    ============================================================ */
 
-export type EbhExamGroup = "lens" | "currents" | "before" | "machines";
+export type EbhExamGroup = "lens" | "before" | "machines" | "corporation" | "india";
 export type EbhQuestionType = "mcq" | "output" | "short";
 
 export interface EbhExamQuestion {
@@ -553,36 +555,406 @@ const MACHINES: EbhExamQuestion[] = [
     explain:
       "The arc that earns full marks: outlawed (1799/1800) → riot (Luddites) → blood (Frame Breaking Act 1812, 1813 executions, Peterloo 1819) → repeal (1824) → strike wave → the 1825 Act's half-freedom (wages and hours only) → underground and alternate methods.",
   },
+  {
+    id: "m11",
+    type: "mcq",
+    q: "Phase Three (1830s–1850s) took the fight into law and politics. In 1834, six farm labourers from Tolpuddle, Dorset — the Tolpuddle Martyrs — were punished for…",
+    options: [
+      "Smashing threshing machines at night",
+      "Swearing unlawful secret oaths while organising a friendly society — lawful organising, punished anyway",
+      "Refusing to work more than ten hours a day",
+      "Printing the Chartist petition without a licence",
+    ],
+    answer: 1,
+    explain:
+      "The Tolpuddle Martyrs (1834) prove the era's central lesson: even lawful organising was punished. The six men had formed a friendly society — legal after the 1825 Act — but were convicted for swearing unlawful secret oaths and transported to Australia. The outcry won them a pardon and a famous place in union history: Tolpuddle proved the movement needed political power, not just members.",
+  },
+  {
+    id: "m12",
+    type: "mcq",
+    q: "The legislative wins of Phase Three include the Factory Act 1833 and the Ten Hours Act 1847. What exactly did the Ten Hours Act do?",
+    options: [
+      "Banned all child labour in textile mills",
+      "Set a ten-hour working-day limit for women and children/teenagers — the fruit of a 15-year movement",
+      "Legalised strikes for the first time",
+      "Created the position of Governor-General of factories",
+    ],
+    answer: 1,
+    explain:
+      "The Factory Act 1833 was the first major workplace regulation; the Ten Hours Act 1847 capped the working day at ten hours for women and children/teenagers — the fruit of a fifteen-year campaign. Together with the Public Health Act 1848, the state had begun to regulate what the market had been left to abuse.",
+  },
+  {
+    id: "m13",
+    type: "mcq",
+    q: "The Chartist Movement (1838–1848) petitioned Parliament with the 'People's Charter'. What did it demand?",
+    options: [
+      "A ten-hour day and a minimum wage for mill workers",
+      "Nationalisation of the cotton mills",
+      "Political democracy for workers: votes for all men, secret ballots, no property requirements for MPs",
+      "Repeal of the Corn Laws only",
+    ],
+    answer: 2,
+    explain:
+      "The Chartists demanded political democracy for workers — votes for all men, the secret ballot, and no property requirements for MPs. The petitions were defeated (the movement's defeat), but nearly every demand on the list is ordinary politics today: the defeat that won.",
+  },
+  {
+    id: "m14",
+    type: "mcq",
+    q: "The lecture dates the three economic systems' rise in order. Which sequence is correct?",
+    options: [
+      "Socialism → capitalism → communism",
+      "Capitalism 1760s–90s → socialism 1830s–50s → communism 1850s–90s",
+      "Communism → socialism → capitalism",
+      "All three emerged together after 1815",
+    ],
+    answer: 1,
+    explain:
+      "Capitalism rose first (1760s–90s): machines needed concentrated capital, Adam Smith's laissez-faire supplied the ideology, and canals, turnpikes, railways and the stock market provided the infrastructure and legal innovations. Socialism (1830s–50s) and communism (1850s–90s) were responses to what capitalism did to labour — exploitation, inequality, insecurity.",
+  },
+  {
+    id: "m15",
+    type: "mcq",
+    q: "Marx & Engels' communist answer rests on one prediction about capitalism. Which is it?",
+    options: [
+      "Capitalism will slowly reform itself into socialism through elections",
+      "Capitalism inevitably creates two classes — the bourgeoisie who own the means of production and the proletariat who sell labour — and revolution leads to a stateless, classless society",
+      "Capitalism and socialism will merge into a mixed economy",
+      "Markets maximise efficiency when left unregulated",
+    ],
+    answer: 1,
+    explain:
+      "Marx & Engels: capitalism inevitably creates two classes — bourgeoisie (owners of the means of production) and proletariat (those who must sell their labour) — and class struggle ends in revolution, producing a stateless, classless society. Option D is Adam Smith's argument, not Marx's; option A is the reformist path the lecture contrasts with it.",
+  },
+  {
+    id: "m16",
+    type: "short",
+    q: "The Industrial Revolution's social-cultural ledger: name three ways it rewrote everyday life, and connect each to the machine age.",
+    answerText:
+      "Cities: populations swelled around mills and factories — Manchester's ~20,000 (1771) became over 300,000 by 1851 — urbanisation is the factory system written in geography. Classes: society re-sorted into the industrial middle class (owners, managers, merchants) and the working class (wage labourers in the mills) — the two classes Marx named. Time: the clock became the boss — working hours replaced sun and season, 'time is money' became the industrial creed, and time-discipline (shifts, schedules, the factory bell) governed the day. Any three with the causal link to machines earns the marks.",
+    explain:
+      "The connective thread the lecture wants: each social change is a downstream effect of the factory system — machines required factories, factories required cities, cities resorted classes, and all of them re-ordered time.",
+  },
+];
+
+/* ------------------------------------------------------------
+   GROUP 4 — THE CORPORATION  (Taylor, the impact recap, Fayol,
+             the rise of large corporations, the World Wars)
+   ------------------------------------------------------------ */
+const CORPORATION: EbhExamQuestion[] = [
+  {
+    id: "r1",
+    type: "mcq",
+    q: "Adam Smith's pin factory (1776) opens the division-of-labour story. What did dividing the job into 18 distinct operations demonstrate?",
+    options: [
+      "Pins could only be made by machines",
+      "One artisan working alone made 1 pin a day; with the job divided, output exploded to thousands per day",
+      "Pins were cheaper to import than to make",
+      "Eighteen foremen were needed per worker",
+    ],
+    answer: 1,
+    explain:
+      "Smith's pin factory: one worker producing an entire pin alone managed only one pin per day; the job divided into 18 distinct operations — each person assigned one task — and productivity exploded. Division of labour is the seed idea that Taylor will scientificise a century later.",
+  },
+  {
+    id: "r2",
+    type: "mcq",
+    q: "Taylor's pig-iron experiments at Bethlehem Steel (1898–1901): what did direction by time-and-motion study do to Schmidt's daily output?",
+    options: [
+      "12.5 tons → 47 tons per day",
+      "47 tons → 12.5 tons per day",
+      "1 ton → 18 tons per day",
+      "No measurable change — it was a theory exercise",
+    ],
+    answer: 0,
+    explain:
+      "Taylor selected a physically fit, highly motivated worker — Schmidt — and directed him through precise timed movements: output rose from 12.5 to 47 tons per day. The stopwatch worked — and both raised a human cost the lecture is careful to weigh.",
+  },
+  {
+    id: "r3",
+    type: "mcq",
+    q: "Taylorism replaced which way of organising work?",
+    options: [
+      "The joint-stock charter",
+      "Rule-of-thumb — work done by tradition and guesswork — with stopwatch-measured, standardised 'science'",
+      "The guild apprenticeship ladder",
+      "Fayol's fourteen principles",
+    ],
+    answer: 1,
+    explain:
+      "From rule-of-thumb to stopwatch: Taylor timed the shop floor, standardised every task, and made management itself a science. (The guild ladder is centuries earlier; Fayol is the contemporary he argued with.)",
+  },
+  {
+    id: "r4",
+    type: "mcq",
+    q: "Fayol's fourth principle, 'unity of command', directly contradicts which feature of Taylor's system?",
+    options: [
+      "Taylor's time-and-motion studies",
+      "Taylor's assignment of eight foremen per worker (functional foremanship)",
+      "Taylor's piece-rate pay",
+      "Taylor's standardised tools",
+    ],
+    answer: 1,
+    explain:
+      "Taylor assigned eight foremen per worker, each ruling one aspect of the job; Fayol insisted each employee receive orders from only one supervisor. The disagreement is the clearest marker of their two altitudes: shop-floor efficiency vs organisational order.",
+  },
+  {
+    id: "r5",
+    type: "mcq",
+    q: "The Taylor-vs-Fayol ledger: what altitude does each man write from?",
+    options: [
+      "Both write from the executive desk",
+      "Taylor = the technical/operational shop floor; Fayol = the broader administrative frame of the whole firm",
+      "Taylor = government policy; Fayol = the union hall",
+      "Taylor = the boardroom; Fayol = the machine shop",
+    ],
+    answer: 1,
+    explain:
+      "Taylor examined efficiency at the shop floor — the technical/operational level (time studies, standardised tasks, piece rates). Fayol — French engineer, mining-firm CEO from the 1880s — asked the bigger question: how do you run the whole firm? His answer: six business activities, five functions, fourteen principles. Both still anchor management curricula.",
+  },
+  {
+    id: "r6",
+    type: "mcq",
+    q: "The joint-stock corporation solved the capital problem that railroads and massive factories created. How?",
+    options: [
+      "By borrowing only from the government",
+      "By share-based ownership — e.g. 1,000 shares at ₹50 each — so many investors pool capital, with ownership continuing indefinitely through transferred shares",
+      "By guild-level fundraising",
+      "By refusing to pay debts — corporations cannot be sued",
+    ],
+    answer: 1,
+    explain:
+      "The joint-stock corporation answered with share-based ownership: 1,000 shares at ₹50 each lets thousands of small investors pool the enormous capital railroads and factories demanded, ownership continues indefinitely through transferred shares, and limited liability caps each investor's loss if the corporation fails to pay debts. Legal innovation, not just machinery, built the modern firm.",
+  },
+  {
+    id: "r7",
+    type: "mcq",
+    q: "Ford's assembly line (1910s–1920s) is the mass-production exhibit. How many distinct steps did it split automobile manufacturing into?",
+    options: [
+      "18 steps — one per pin",
+      "84 distinct steps, flowing to 50–60 cars per day",
+      "8 steps, one per foreman",
+      "1,000 steps, one per shareholder",
+    ],
+    answer: 1,
+    explain:
+      "Ford's assembly line split automobile manufacturing into 84 distinct steps, each standardised by Taylor-style task analysis, flowing to 50–60 cars per day. Taylor's and Fayol's standardised-task concepts enabled mass-production efficiency — the ideas and the moving belt meet.",
+  },
+  {
+    id: "r8",
+    type: "mcq",
+    q: "WWI (1914–1918) put business under the state — 'state capitalism'. Which pairing from the war-industries ledger is correct?",
+    options: [
+      "Renault supplied 40% of Allied explosives; DuPont built the first modern tank",
+      "DuPont supplied approximately 40% of all explosives to the Allies (1914–1917); Renault's FT became the world's first modern tank",
+      "Coca-Cola supplied explosives; Gillette built tanks",
+      "Jagat Seth financed the war effort",
+    ],
+    answer: 1,
+    explain:
+      "DuPont ran from 1914 to 1917 and supplied approximately 40% of all explosives to the Allies — output multiplied ×70. Renault transitioned from civilian vehicles to armaments; the Renault FT, recognised as the world's first modern tank, became foundational for all tank design that followed.",
+  },
+  {
+    id: "r9",
+    type: "mcq",
+    q: "Coca-Cola's WWII story is the consumer-goods case in the war ledger. What did the company secure?",
+    options: [
+      "A monopoly on steel rationing",
+      "A rationing exemption and 64 overseas bottling plants — plus Fanta, invented for the German market when syrup supplies were cut",
+      "The exclusive contract to feed the US Army",
+      "State ownership of its bottling network",
+    ],
+    answer: 1,
+    explain:
+      "Coca-Cola lobbied successfully for a rationing exemption (its product declared essential for morale), rode the war to 64 overseas bottling plants, and Fanta was created for the German market when wartime shortages cut off syrup supplies. War, ironically, built the global distribution network.",
+  },
+  {
+    id: "r10",
+    type: "short",
+    q: "Trace how the World Wars (1914–1945) redrew the business map: state control during the wars, disruption between them, and the 1945 settlement.",
+    answerText:
+      "During the wars: 'state capitalism' — governments directed industry, fixed priorities and prices; business converted to war production (Renault's FT tank, DuPont's ~40% of Allied explosives, Coca-Cola's rationing exemption and 64 overseas bottling plants, Gillette's 3-in-1). Between the wars: trade disrupted — blocks, tariffs, the Depression — and the international system that free trade had built came apart. The 1945 settlement: European powers too weakened to maintain imperial control — decolonisation follows through 1945–1950s — and the United States emerges as number one global power militarily and economically. Two wars, one lesson: the state can mobilise an economy overnight — and business learned to live with that fact.",
+    explain:
+      "The three-beat answer that earns full marks: mobilisation (state capitalism, war industries) → disruption (trade blocks, Depression, broken international system) → settlement (US superpower, decolonisation 1945–1950s, Module 5's road into Indian business history).",
+  },
+];
+
+/* ------------------------------------------------------------
+   GROUP 5 — INDIAN BUSINESS  (Module 5: the EIC charters and
+             the entrepreneurs beside them, 1600s–1813)
+   ------------------------------------------------------------ */
+const INDIA: EbhExamQuestion[] = [
+  {
+    id: "i1",
+    type: "mcq",
+    q: "The East India Company's Charter of 1600 — granted by Queen Elizabeth I — was deliberately limited in scope. What did it contain?",
+    options: [
+      "Trade monopoly plus the right to govern territory and raise armies",
+      "An exclusive trade monopoly for 15 years in the East Indies — purely commercial, with no administrative, judicial or military powers",
+      "Permanent sovereignty over Bengal",
+      "A banking licence for all of Asia",
+    ],
+    answer: 1,
+    explain:
+      "The 1600 charter was purely commercial: an exclusive trade monopoly for 15 years in the East Indies, deliberately withholding any administrative, judicial or military powers. A company of merchants — not a state. That comes later.",
+  },
+  {
+    id: "i2",
+    type: "mcq",
+    q: "The Charter of 1661 changed the Company's character. What did Charles II's charter add?",
+    options: [
+      "A longer monopoly — 30 years instead of 15",
+      "Territorial & administrative powers, judicial powers (civil and criminal justice under English law), and military powers — troops, fortifications, weapons, even declaring war or peace",
+      "The exclusive right to trade with China",
+      "Permission to manufacture in England",
+    ],
+    answer: 1,
+    explain:
+      "The 1661 charter confirmed the monopoly but added territorial & administrative powers, judicial powers (civil and criminal justice under English law), and military powers — raising troops, fortifying bases, building weapons, declaring war or peace. A trading company had become a quasi-state.",
+  },
+  {
+    id: "i3",
+    type: "mcq",
+    q: "The charters then eroded, step by step, through 1726–1784. Which pairing is correct?",
+    options: [
+      "1726 created the Governor-General; 1773 built the Mayor's Courts",
+      "1726 established Royal Mayor's Courts in Madras, Bombay and Calcutta; 1753 limited judicial authority; 1773 created the position of Governor-General; 1784 extended Crown oversight of company operations",
+      "1784 ended the monopoly; 1726 nationalised the Company",
+      "1753 granted the military powers; 1784 removed them",
+    ],
+    answer: 1,
+    explain:
+      "The erosion sequence: 1726 — Royal Mayor's Courts in Madras, Bombay and Calcutta; 1753 — further limits on the Company's judicial authority; 1773 — superseded parts of the 1753 Charter and created the position of Governor-General; 1784 — extended Crown oversight of company operations. The quasi-state is being reeled back in, decade by decade.",
+  },
+  {
+    id: "i4",
+    type: "mcq",
+    q: "1813 is the watershed year of Module 5. What happened?",
+    options: [
+      "The Company lost its Indian territories",
+      "The Charter Act stripped the Company's exclusive trade monopoly — the doors opened to other British traders, and manufacturing began rising in India",
+      "The Company was founded",
+      "The Crown seized all Company assets",
+    ],
+    answer: 1,
+    explain:
+      "1813 stripped the East India Company of its exclusive trade monopoly (retaining only the China trade). The doors opened to other traders, manufacturing began rising in India, and Indian business roles evolved — the road runs to 1857 and beyond. 1600 → 1813: roughly 200 years of controlled colonial commerce.",
+  },
+  {
+    id: "i5",
+    type: "mcq",
+    q: "Why did the Company need Indian intermediaries and middlemen at all?",
+    options: [
+      "British law required local partners",
+      "The Company lacked local languages, geographical knowledge and social connections — Indian merchants brokered between company officials and local people/suppliers, facilitating purchases of local products and sales of British goods",
+      "Middlemen were cheaper than ships",
+      "The Mughal court banned direct European trade",
+    ],
+    answer: 1,
+    explain:
+      "Role 1 — intermediaries & middlemen: the East India Company lacked local languages, geographical knowledge and social connections. Indian merchants brokered between company officials and local people/suppliers — facilitating the purchase of local products and the sale of British goods. The Company could not operate without them.",
+  },
+  {
+    id: "i6",
+    type: "mcq",
+    q: "Which figure embodies Role 2 — financiers & bankers — and which battle proved it?",
+    options: [
+      "Lovji Wadia — the Battle of Plassey",
+      "Jagat Seth and his house — massive credit lines to the Company; a crucial player in the Battle of Plassey (1757), after which the Company captured significant Bengal territory",
+      "Jamsetji Tata — the Third Anglo-Mysore War",
+      "Queen Elizabeth I — Plassey",
+    ],
+    answer: 1,
+    explain:
+      "Jagat Seth and his house supplied massive credit lines to the East India Company and other trading companies — capital for military campaigns, trade operations, soldier payments, weapons and uniforms — and were a crucial player in the Battle of Plassey (1757), after which the Company captured significant Bengal territory.",
+  },
+  {
+    id: "i7",
+    type: "mcq",
+    q: "Lovji Wadia, the Parsi entrepreneur of 1736, built which business — and what stands of it today?",
+    options: [
+      "Opium trading in Calcutta — ended by 1813",
+      "Shipbuilding in the Bombay dockyards on East India Company contracts for ships and docks — the group still exists after nearly 300 years, later expanding into clothing and apparel (the Bombay Dyeing brand)",
+      "Silk weaving in Bengal — absorbed by the Crown",
+      "Banking in Surat — dissolved in 1757",
+    ],
+    answer: 1,
+    explain:
+      "Role 3 — shipping & maritime trade: Lovji Wadia established the Wadia Group in 1736, shipbuilding in the Bombay dockyards on British East India Company contracts for ships and docks. Still in existence after nearly 300 years; Bombay grew as a major port, and the group later expanded into clothing and apparel — the Bombay Dyeing brand.",
+  },
+  {
+    id: "i8",
+    type: "mcq",
+    q: "Between the Company's gaps, Indian entrepreneurs built their own trades. Which triangle of commerce does the lecture name?",
+    options: [
+      "Tea, silk and indigo to Europe",
+      "Opium, China and the raw-cotton trade",
+      "Salt, spices and pepper to Arabia",
+      "Steel, coal and railways",
+    ],
+    answer: 1,
+    explain:
+      "Beside the intermediary, financier and shipbuilder roles, Indian entrepreneurs filled the Company's gaps with their own long-distance commerce: opium, China and the raw-cotton trade — the triangle that funded many of the great Indian business houses.",
+  },
+  {
+    id: "i9",
+    type: "mcq",
+    q: "Put the Company's arc in order. Which sequence is right?",
+    options: [
+      "1661 commercial charter → 1600 quasi-state → 1813 monopoly begins",
+      "1600 commercial charter → 1661 quasi-state → erosion (1726/1753, 1773/1784) → 1813 monopoly ends",
+      "1600 military charter → 1661 monopoly ends → 1773 charter begins",
+      "1726 charter founded → 1773 monopoly → 1813 Governor-General",
+    ],
+    answer: 1,
+    explain:
+      "The arc: 1600 commercial charter (Elizabeth I, trade only) → 1661 quasi-state (Charles II adds territorial, judicial, military powers) → erosion (1726/1753 Mayor's Courts and judicial limits, 1773/1784 Governor-General and Crown oversight) → 1813 monopoly ends. ~200 years of controlled colonial commerce.",
+  },
+  {
+    id: "i10",
+    type: "short",
+    q: "'The Company wrote the rules, but Indian entrepreneurs did the work the Company couldn't.' Trace the charters 1600→1813 and the entrepreneur roles beside them.",
+    answerText:
+      "The rules: 1600 — Elizabeth I's purely commercial charter (15-year East Indies monopoly, no governing powers); 1661 — Charles II adds territorial & administrative, judicial and military powers, making the Company a quasi-state; 1726/1753 — Royal Mayor's Courts and judicial limits begin the erosion; 1773/1784 — the Governor-General position and Crown oversight complete it; 1813 — the Charter Act strips the trade monopoly, doors open, manufacturing rises in India. The work: Indian entrepreneurs filled the Company's gaps — Role 1, intermediaries & middlemen (the Company lacked local languages, geography, connections); Role 2, financiers & bankers (Jagat Seth's credit lines, crucial at Plassey 1757); Role 3, shipping & maritime trade (Lovji Wadia's 1736 Bombay shipyards, still alive ~300 years later as Bombay Dyeing's parent). Plus the triangle: opium, China, raw cotton.",
+    explain:
+      "Full marks needs both tracks in order: the charter arc (1600 commercial → 1661 quasi-state → 1726/1753/1773/1784 erosion → 1813 watershed) AND the three entrepreneur roles with their named figures — Jagat Seth, Lovji Wadia — plus the opium–China–cotton triangle.",
+  },
 ];
 
 export const EBH_EXAM_BANKS: Record<EbhExamGroup, EbhExamBank> = {
   lens: {
     group: "lens",
-    title: "The Lens",
-    subtitle: "Economics · business · history — and the frame that binds them",
-    topics: "What is economics · what is business · what is history · rules & players",
-    questions: LENS,
-  },
-  currents: {
-    group: "currents",
-    title: "Three Currents",
-    subtitle: "Economy, society and technology flowing into business",
-    topics: "License Raj · IPR 1956 · Bajaj Auto · McDonald's & Cadbury · the weekend · Netflix · PESTLE",
-    questions: CURRENTS,
+    title: "Module 1 · The Lens",
+    subtitle: "Economics, business, history — the frame, and the three currents flowing through it",
+    topics: "What is economics · what is business · what is history · rules & players · License Raj · IPR 1956 · Bajaj Auto · McDonald's & Cadbury · the weekend · Netflix · PESTLE",
+    questions: [...LENS, ...CURRENTS],
   },
   before: {
     group: "before",
-    title: "Before the Machines",
+    title: "Module 2 · Early Systems",
     subtitle: "Pre-industrial economies — land, guilds and the first trade webs",
-    topics: "Agrarian economies · serfdom · zamindari · guilds · Silk Road · enclosures · putting-out",
+    topics: "Agrarian economies · feudal Europe · zamindari · guilds · Silk Road · enclosures · putting-out · trade routes",
     questions: BEFORE,
   },
   machines: {
     group: "machines",
-    title: "The Machine Age",
+    title: "Module 3 · The Machine Age",
     subtitle: "The Industrial Revolution and everyone it swept up",
-    topics: "Flying shuttle · Spinning Jenny · Water Frame · Watt · Cottonopolis · Luddites · 1825 · Empire",
+    topics: "Flying shuttle · Spinning Jenny · Water Frame · Watt · Cottonopolis · Luddites · 1825 · Empire · Tolpuddle · Factory Acts · Chartists · economic systems",
     questions: MACHINES,
+  },
+  corporation: {
+    group: "corporation",
+    title: "Module 4 · The Corporation",
+    subtitle: "Taylor, Fayol, the modern firm — and the World Wars that remade it",
+    topics: "Pin factory · scientific management · Schmidt 12.5→47 · Fayol's 14 principles · joint-stock · Ford's 84 steps · state capitalism · DuPont 40% · Coca-Cola",
+    questions: CORPORATION,
+  },
+  india: {
+    group: "india",
+    title: "Module 5 · Indian Business",
+    subtitle: "The charters 1600→1813 — and the entrepreneurs beside them",
+    topics: "Charter 1600 · Charter 1661 · erosion 1726–1784 · 1813 · middlemen · Jagat Seth · Lovji Wadia · opium-China-cotton",
+    questions: INDIA,
   },
 };
 

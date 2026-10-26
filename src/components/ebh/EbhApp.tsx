@@ -5,10 +5,12 @@
 
    Mounted by the Atlas router (src/app/page.tsx); `onExitAtlas`
    returns the reader to the Atlas landing page. A LECTURE
-   READER: the hero holds the 18-lecture sequence, each lecture
-   opens with an "Economic & Business History Lecture N" band,
-   and all pen-paper practice lives behind the "Test my
-   knowledge" hub so the reading surface stays clean.
+   READER: the hero holds the full 28-lecture sequence (mapped
+   1:1 to the official deck), each lecture opens with an
+   "Economic & Business History Lecture N" band plus a
+   clear/not-clear tracker, and all pen-paper practice lives
+   behind the "Test my knowledge" hub so the reading surface
+   stays clean.
    ============================================================ */
 
 import { PartBoundary } from "@/components/notes/PartBoundary";
@@ -32,11 +34,16 @@ import {
 import { useSectionProgress } from "@/lib/use-section-progress";
 import { jumpTo, useOpenSection } from "@/lib/use-open-section";
 import { loadProgress } from "@/lib/progress";
+import { clarityFor, setClarity, type ClarityStatus } from "@/lib/clarity";
 import { EbhHero } from "@/components/ebh/EbhHero";
 import { EbhEconomicsSection, EbhBusinessSection, EbhHistorySection, EbhRulesPlayersSection } from "@/components/ebh/EbhParts1";
 import { EbhLicenseRajSection, EbhBajajSection, EbhSocietySection, EbhWeekendSection, EbhBizEconTechSection } from "@/components/ebh/EbhParts2";
 import { EbhAgrarianSection, EbhGuildsSection, EbhTradeSection, EbhLifeBeforeSection } from "@/components/ebh/EbhParts3";
 import { EbhWhyMachinesSection, EbhTextileSection, EbhSteamSection, EbhLaborSection, EbhEmpireSection } from "@/components/ebh/EbhParts4";
+import { EbhCourseIntroSection, EbhFeudalZamindariSection, EbhWaterFrameSection } from "@/components/ebh/EbhParts5";
+import { EbhLaborPhase2Section, EbhLaborPhase3Section, EbhEconSystemsSection, EbhSystemsSocietySection } from "@/components/ebh/EbhParts6";
+import { EbhManagementTaylorSection, EbhIrImpactSection, EbhManagementFayolSection, EbhCorporationsSection } from "@/components/ebh/EbhParts7";
+import { EbhWorldWarsSection, EbhIndianBusinessSection } from "@/components/ebh/EbhParts8";
 import { EbhExamWindow } from "@/components/ebh/EbhExamWindow";
 import { EBH_EXAM_BANKS, EBH_EXAM_GROUPS, EBH_TOTAL_QUESTIONS, type EbhExamGroup } from "@/components/ebh/questions";
 import {
@@ -52,9 +59,10 @@ const GOLD_LITE = "#ca8a4a";
 const BRONZE = "linear-gradient(165deg,#241708,#33200e 60%,#3a2410)";
 
 /* ============================================================
-   Structured chapter map — the top bar is organised into four
-   groups instead of a flat 18-chip strip. Each group owns a
-   "Test my knowledge" pen-paper window (see questions.ts).
+   Structured chapter map — the top bar is organised into the
+   course's five modules instead of a flat 31-chip strip. Each
+   group owns a "Test my knowledge" pen-paper window (see
+   questions.ts).
    ============================================================ */
 const GROUPS: {
   id: EbhExamGroup;
@@ -63,18 +71,13 @@ const GROUPS: {
 }[] = [
   {
     id: "lens",
-    label: "The Lens",
+    label: "Module 1 · The Lens",
     items: [
+      { id: "course-intro", label: "The course map", desc: "Objectives, audience, and the five modules" },
       { id: "economics", label: "What is economics?", desc: "Scarcity, choices, and the two branches" },
       { id: "business", label: "What is business?", desc: "Economic activity, profit, and why firms exist" },
       { id: "history", label: "What is history?", desc: "Change over time — through evidence" },
       { id: "rules-players", label: "Rules & players", desc: "The two-by-two that names this course" },
-    ],
-  },
-  {
-    id: "currents",
-    label: "Three Currents",
-    items: [
       { id: "license-raj", label: "Economy → business", desc: "The License Raj and IPR 1956" },
       { id: "bajaj", label: "Case: Bajaj Auto", desc: "Two tracks — the economy and the scooter" },
       { id: "society-business", label: "Society → business", desc: "McAloo Tikki and the Cadbury ads" },
@@ -84,23 +87,47 @@ const GROUPS: {
   },
   {
     id: "before",
-    label: "Before the Machines",
+    label: "Module 2 · Early Systems",
     items: [
       { id: "agrarian", label: "Agrarian economies", desc: "Seasons, land, lords and zamindars" },
+      { id: "feudal-zamindari", label: "Land ownership", desc: "Feudal Europe vs the zamindari system" },
       { id: "guilds", label: "Guild systems", desc: "Apprentice, journeyman, master" },
-      { id: "trade-routes", label: "Trade routes", desc: "Silk Road speeds, the Commercial Revolution" },
       { id: "life-before", label: "Life before machines", desc: "Enclosures, seed drills, putting-out" },
+      { id: "why-machines", label: "Why machines?", desc: "Population, trade, and the thread bottleneck" },
+      { id: "textile-machines", label: "Shuttle & Jenny", desc: "Kay 1733, Hargreaves 1764 — and the mobs" },
+      { id: "trade-routes", label: "Trade routes", desc: "Silk Road speeds, the Commercial Revolution" },
     ],
   },
   {
     id: "machines",
-    label: "The Machine Age",
+    label: "Module 3 · The Machine Age",
     items: [
-      { id: "why-machines", label: "Why machines?", desc: "Population, trade, and the thread bottleneck" },
-      { id: "textile-machines", label: "Textile machines", desc: "Shuttle, jenny, water frame — and the mobs" },
+      { id: "water-frame", label: "The water frame", desc: "Arkwright, patents, and the factory system" },
       { id: "steam-cottonopolis", label: "Steam & Cottonopolis", desc: "Watt's liberation, Manchester's mills" },
-      { id: "labor-movement", label: "The labor movement", desc: "Luddites, Peterloo, and the 1825 Act" },
+      { id: "labor-movement", label: "Phase One", desc: "Conditions, Luddites, 1799 Acts, Peterloo" },
+      { id: "labor-phase2", label: "Phase Two", desc: "1824 repeal, the strike wave, the 1825 Act" },
       { id: "empire", label: "Empire & mercantilism", desc: "Companies, colonies, British ships" },
+      { id: "labor-phase3", label: "Phase Three", desc: "National unions, Tolpuddle, the Factory Acts" },
+      { id: "econ-systems", label: "Economic systems", desc: "Capitalism · socialism · communism" },
+      { id: "systems-society", label: "Systems & society", desc: "Pros & cons, cities, classes, 'time is money'" },
+    ],
+  },
+  {
+    id: "corporation",
+    label: "Module 4 · The Corporation",
+    items: [
+      { id: "management-taylor", label: "Taylorism", desc: "Pin factory, time studies, pig iron" },
+      { id: "ir-impact", label: "The impact recap", desc: "Unions, reforms, systems — one thread" },
+      { id: "management-fayol", label: "Fayolism", desc: "6 activities · 5 functions · 14 principles" },
+      { id: "corporations", label: "Large corporations", desc: "Railroads, Ford, joint-stock, monopolies" },
+      { id: "world-wars", label: "The world wars", desc: "State control, war industries, US superpower" },
+    ],
+  },
+  {
+    id: "india",
+    label: "Module 5 · Indian Business",
+    items: [
+      { id: "indian-business", label: "Indian business history", desc: "EIC charters, Jagat Seth, Wadia, 1813" },
     ],
   },
 ];
@@ -117,6 +144,7 @@ function groupOf(id: string): string | null {
    reader renders exactly the slice the chosen lecture owns.
    ============================================================ */
 const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
+  "course-intro": <EbhCourseIntroSection />,
   economics: <EbhEconomicsSection />,
   business: <EbhBusinessSection />,
   history: <EbhHistorySection />,
@@ -127,14 +155,26 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   weekend: <EbhWeekendSection />,
   "business-econ-tech": <EbhBizEconTechSection />,
   agrarian: <EbhAgrarianSection />,
+  "feudal-zamindari": <EbhFeudalZamindariSection />,
   guilds: <EbhGuildsSection />,
   "trade-routes": <EbhTradeSection />,
   "life-before": <EbhLifeBeforeSection />,
   "why-machines": <EbhWhyMachinesSection />,
   "textile-machines": <EbhTextileSection />,
+  "water-frame": <EbhWaterFrameSection />,
   "steam-cottonopolis": <EbhSteamSection />,
   "labor-movement": <EbhLaborSection />,
+  "labor-phase2": <EbhLaborPhase2Section />,
   empire: <EbhEmpireSection />,
+  "labor-phase3": <EbhLaborPhase3Section />,
+  "econ-systems": <EbhEconSystemsSection />,
+  "systems-society": <EbhSystemsSocietySection />,
+  "management-taylor": <EbhManagementTaylorSection />,
+  "ir-impact": <EbhIrImpactSection />,
+  "management-fayol": <EbhManagementFayolSection />,
+  corporations: <EbhCorporationsSection />,
+  "world-wars": <EbhWorldWarsSection />,
+  "indian-business": <EbhIndianBusinessSection />,
 };
 
 /* ============================================================
@@ -691,10 +731,74 @@ function PracticeHub({
 }
 
 /* ============================================================
-   EbhLectureHead — the "Economic & Business History Lecture N"
-   hero band. Compact: the number, the name, the chapter jumps.
+   ClarityToggle — the per-lecture "is this clear?" instrument.
+   Three states: unmarked → clear (✓) or not-clear-yet (still
+   fuzzy). Persisted in localStorage via lib/clarity.
    ============================================================ */
-function EbhLectureHead({ lecture }: { lecture: EbhLecture }) {
+function ClarityToggle({
+  status,
+  onChange,
+}: {
+  status: ClarityStatus | undefined;
+  onChange: (next: ClarityStatus | undefined) => void;
+}) {
+  const isClear = status === "clear";
+  const isUnclear = status === "unclear";
+  const cycle = () => {
+    if (!status) onChange("clear");
+    else if (status === "clear") onChange("unclear");
+    else onChange(undefined);
+  };
+  return (
+    <button
+      type="button"
+      onClick={cycle}
+      aria-pressed={isClear ? "true" : isUnclear ? "mixed" : "false"}
+      title={
+        isClear
+          ? "Marked clear — tap to switch to “not clear yet”"
+          : isUnclear
+          ? "Marked not-clear-yet — tap to unmark"
+          : "Is this lecture clear? Tap to mark it clear"
+      }
+      className="flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-1.5 text-[.64rem] font-extrabold uppercase tracking-[.12em] transition-all duration-200"
+      style={
+        isClear
+          ? { borderColor: "rgba(143,174,93,.5)", background: "rgba(143,174,93,.16)", color: "#b6d98a" }
+          : isUnclear
+          ? { borderColor: "rgba(234,164,124,.5)", background: "rgba(234,164,124,.14)", color: "#f0bd94" }
+          : { borderColor: "rgba(255,255,255,.18)", background: "rgba(255,255,255,.07)", color: "#e9d7bf" }
+      }
+    >
+      <motion.span
+        key={status ?? "none"}
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 340, damping: 18 }}
+        className="flex h-4 w-4 items-center justify-center rounded-full"
+        style={{ background: isClear ? "#8fae5d" : isUnclear ? "#e0a274" : "rgba(255,255,255,.14)" }}
+      >
+        {isClear ? <Check className="h-2.5 w-2.5 text-[#1c1403]" /> : isUnclear ? <span className="text-[.55rem] font-black text-[#1c1403]">?</span> : null}
+      </motion.span>
+      {isClear ? "Lecture clear" : isUnclear ? "Not clear yet" : "Mark clear?"}
+    </button>
+  );
+}
+
+/* ============================================================
+   EbhLectureHead — the "Economic & Business History Lecture N"
+   hero band. Compact: the number, the name, the clarity
+   tracker, the chapter jumps.
+   ============================================================ */
+function EbhLectureHead({
+  lecture,
+  clarity,
+  onClarity,
+}: {
+  lecture: EbhLecture;
+  clarity: ClarityStatus | undefined;
+  onClarity: (next: ClarityStatus | undefined) => void;
+}) {
   return (
     <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
       <div
@@ -714,10 +818,13 @@ function EbhLectureHead({ lecture }: { lecture: EbhLecture }) {
         </svg>
 
         <div className="relative">
-          <p className="flex flex-wrap items-center gap-1.5 text-[.56rem] font-extrabold uppercase tracking-[.22em] text-[#d9bd6e]">
-            <Landmark className="h-3 w-3" style={{ color: BRASS_BRIGHT }} />
-            Economic &amp; Business History
-          </p>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="flex flex-wrap items-center gap-1.5 text-[.56rem] font-extrabold uppercase tracking-[.22em] text-[#d9bd6e]">
+              <Landmark className="h-3 w-3" style={{ color: BRASS_BRIGHT }} />
+              Economic &amp; Business History · Lecture {lecture.n} of 28
+            </p>
+            <ClarityToggle status={clarity} onChange={onClarity} />
+          </div>
           <h2 className="mt-1 text-xl font-black leading-tight text-[#f5ecd2] sm:text-2xl">
             Lecture {lecture.n}
             <span
@@ -797,7 +904,7 @@ function LecturePager({ current, onJump }: { current: EbhLecture; onJump: (id: s
           </button>
         ) : (
           <span className="rounded-2xl border border-dashed border-[#e0cb84] p-4 text-center text-[.78rem] font-bold leading-snug text-[#a1876a]">
-            End of the sequence — Lecture 18 closes the course. Revise the rules and the players,
+            End of the sequence — Lecture 28 closes the deck. Revise the rules and the players,
             then retake the windows.
           </span>
         )}
@@ -814,6 +921,7 @@ export function EbhApp({ onExitAtlas }: { onExitAtlas: () => void }) {
   const [lectureId, setLectureId] = useState<string>(EBH_DEFAULT_LECTURE);
   const [examGroup, setExamGroup] = useState<EbhExamGroup | null>(null);
   const [hubOpen, setHubOpen] = useState(false);
+  const [clarityMap, setClarityMap] = useState<Record<string, ClarityStatus>>({});
   const lectureIdRef = useRef(lectureId);
   useEffect(() => {
     lectureIdRef.current = lectureId;
@@ -821,6 +929,16 @@ export function EbhApp({ onExitAtlas }: { onExitAtlas: () => void }) {
 
   const lecture = lectureById(lectureId) ?? EBH_LECTURES[0];
   const seen = useSeenDisplay(lecture);
+
+  /* clarity — per-lecture clear / not-clear marks (localStorage) */
+  useEffect(() => {
+    setClarityMap(clarityFor("ebh"));
+  }, []);
+  const lectureClarity = clarityMap[lecture.id];
+  const changeClarity = useCallback((next: ClarityStatus | undefined) => {
+    setClarity("ebh", lectureIdRef.current, next);
+    setClarityMap(clarityFor("ebh"));
+  }, []);
 
   const selectLecture = useCallback((id: string) => {
     setLectureId(id);
@@ -874,6 +992,7 @@ export function EbhApp({ onExitAtlas }: { onExitAtlas: () => void }) {
             onSelect={selectLecture}
             onPractice={openHub}
             seen={seen}
+            clarity={clarityMap}
           />
         </PartBoundary>
 
@@ -886,7 +1005,7 @@ export function EbhApp({ onExitAtlas }: { onExitAtlas: () => void }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <EbhLectureHead lecture={lecture} />
+            <EbhLectureHead lecture={lecture} clarity={lectureClarity} onClarity={changeClarity} />
             {lecture.chapters.map((c) => (
               <PartBoundary key={c.id} label={c.label}>
                 {SECTION_COMPONENTS[c.id]}
