@@ -5,10 +5,10 @@
    any chapter by name, topic or shelf and jump straight to it.
 
    GENERATED from the apps' GROUPS arrays (counts asserted
-   against lib/section-counts.ts — foc 17, atb 19, fa 16, ebh
-   18, stm 16 = 86). If a shelf gains a chapter, regenerate
-   this file to match. No app chunk is imported here — the
-   landing and palette stay light.
+   against lib/section-counts.ts — foc 17, atb 28, fa 16, ebh
+   31, stm 16, mktg 53 = 161). If a shelf gains a chapter,
+   regenerate this file to match. No app chunk is imported here
+   — the landing and palette stay light.
    ============================================================ */
 
 export interface ChapterEntry {
@@ -87,24 +87,37 @@ export const CHAPTER_INDEX: ChapterEntry[] = [
   { subject: "fa", section: "final-accounts", label: "Final accounts", desc: "Two questions, two statements", group: "closing", groupLabel: "Closing" },
   { subject: "fa", section: "trading", label: "Trading account", desc: "Did buying and selling pay?", group: "closing", groupLabel: "Closing" },
   { subject: "fa", section: "gp-lab", label: "Gross profit lab", desc: "Six examples — then drive the ladder", group: "closing", groupLabel: "Closing" },
-  { subject: "ebh", section: "economics", label: "What is economics?", desc: "Scarcity, choices, and the two branches", group: "lens", groupLabel: "The Lens" },
-  { subject: "ebh", section: "business", label: "What is business?", desc: "Economic activity, profit, and why firms exist", group: "lens", groupLabel: "The Lens" },
-  { subject: "ebh", section: "history", label: "What is history?", desc: "Change over time — through evidence", group: "lens", groupLabel: "The Lens" },
-  { subject: "ebh", section: "rules-players", label: "Rules & players", desc: "The two-by-two that names this course", group: "lens", groupLabel: "The Lens" },
-  { subject: "ebh", section: "license-raj", label: "Economy → business", desc: "The License Raj and IPR 1956", group: "currents", groupLabel: "Three Currents" },
-  { subject: "ebh", section: "bajaj", label: "Case: Bajaj Auto", desc: "Two tracks — the economy and the scooter", group: "currents", groupLabel: "Three Currents" },
-  { subject: "ebh", section: "society-business", label: "Society → business", desc: "McAloo Tikki and the Cadbury ads", group: "currents", groupLabel: "Three Currents" },
-  { subject: "ebh", section: "weekend", label: "Business → society", desc: "The story of the weekend, 1886–1938", group: "currents", groupLabel: "Three Currents" },
-  { subject: "ebh", section: "business-econ-tech", label: "Economies & technology", desc: "Ford, 2008, Netflix, PESTLE", group: "currents", groupLabel: "Three Currents" },
-  { subject: "ebh", section: "agrarian", label: "Agrarian economies", desc: "Seasons, land, lords and zamindars", group: "before", groupLabel: "Before the Machines" },
-  { subject: "ebh", section: "guilds", label: "Guild systems", desc: "Apprentice, journeyman, master", group: "before", groupLabel: "Before the Machines" },
-  { subject: "ebh", section: "trade-routes", label: "Trade routes", desc: "Silk Road speeds, the Commercial Revolution", group: "before", groupLabel: "Before the Machines" },
-  { subject: "ebh", section: "life-before", label: "Life before machines", desc: "Enclosures, seed drills, putting-out", group: "before", groupLabel: "Before the Machines" },
-  { subject: "ebh", section: "why-machines", label: "Why machines?", desc: "Population, trade, and the thread bottleneck", group: "machines", groupLabel: "The Machine Age" },
-  { subject: "ebh", section: "textile-machines", label: "Textile machines", desc: "Shuttle, jenny, water frame — and the mobs", group: "machines", groupLabel: "The Machine Age" },
-  { subject: "ebh", section: "steam-cottonopolis", label: "Steam & Cottonopolis", desc: "Watt's liberation, Manchester's mills", group: "machines", groupLabel: "The Machine Age" },
-  { subject: "ebh", section: "labor-movement", label: "The labor movement", desc: "Luddites, Peterloo, and the 1825 Act", group: "machines", groupLabel: "The Machine Age" },
-  { subject: "ebh", section: "empire", label: "Empire & mercantilism", desc: "Companies, colonies, British ships", group: "machines", groupLabel: "The Machine Age" },
+  { subject: "ebh", section: "course-intro", label: "The course map", desc: "Objectives, audience, and the five modules", group: "lens", groupLabel: "Module 1 · The Lens" },
+  { subject: "ebh", section: "economics", label: "What is economics?", desc: "Scarcity, choices, and the two branches", group: "lens", groupLabel: "Module 1 · The Lens" },
+  { subject: "ebh", section: "business", label: "What is business?", desc: "Economic activity, profit, and why firms exist", group: "lens", groupLabel: "Module 1 · The Lens" },
+  { subject: "ebh", section: "history", label: "What is history?", desc: "Change over time — through evidence", group: "lens", groupLabel: "Module 1 · The Lens" },
+  { subject: "ebh", section: "rules-players", label: "Rules & players", desc: "The two-by-two that names this course", group: "lens", groupLabel: "Module 1 · The Lens" },
+  { subject: "ebh", section: "license-raj", label: "Economy → business", desc: "The License Raj and IPR 1956", group: "lens", groupLabel: "Module 1 · The Lens" },
+  { subject: "ebh", section: "bajaj", label: "Case: Bajaj Auto", desc: "Two tracks — the economy and the scooter", group: "lens", groupLabel: "Module 1 · The Lens" },
+  { subject: "ebh", section: "society-business", label: "Society → business", desc: "McAloo Tikki and the Cadbury ads", group: "lens", groupLabel: "Module 1 · The Lens" },
+  { subject: "ebh", section: "weekend", label: "Business → society", desc: "The story of the weekend, 1886–1938", group: "lens", groupLabel: "Module 1 · The Lens" },
+  { subject: "ebh", section: "business-econ-tech", label: "Economies & technology", desc: "Ford, 2008, Netflix, PESTLE", group: "lens", groupLabel: "Module 1 · The Lens" },
+  { subject: "ebh", section: "agrarian", label: "Agrarian economies", desc: "Seasons, land, lords and zamindars", group: "before", groupLabel: "Module 2 · Early Systems" },
+  { subject: "ebh", section: "feudal-zamindari", label: "Land ownership", desc: "Feudal Europe vs the zamindari system", group: "before", groupLabel: "Module 2 · Early Systems" },
+  { subject: "ebh", section: "guilds", label: "Guild systems", desc: "Apprentice, journeyman, master", group: "before", groupLabel: "Module 2 · Early Systems" },
+  { subject: "ebh", section: "life-before", label: "Life before machines", desc: "Enclosures, seed drills, putting-out", group: "before", groupLabel: "Module 2 · Early Systems" },
+  { subject: "ebh", section: "why-machines", label: "Why machines?", desc: "Population, trade, and the thread bottleneck", group: "before", groupLabel: "Module 2 · Early Systems" },
+  { subject: "ebh", section: "textile-machines", label: "Shuttle & Jenny", desc: "Kay 1733, Hargreaves 1764 — and the mobs", group: "before", groupLabel: "Module 2 · Early Systems" },
+  { subject: "ebh", section: "trade-routes", label: "Trade routes", desc: "Silk Road speeds, the Commercial Revolution", group: "before", groupLabel: "Module 2 · Early Systems" },
+  { subject: "ebh", section: "water-frame", label: "The water frame", desc: "Arkwright, patents, and the factory system", group: "machines", groupLabel: "Module 3 · The Machine Age" },
+  { subject: "ebh", section: "steam-cottonopolis", label: "Steam & Cottonopolis", desc: "Watt's liberation, Manchester's mills", group: "machines", groupLabel: "Module 3 · The Machine Age" },
+  { subject: "ebh", section: "labor-movement", label: "Phase One", desc: "Conditions, Luddites, 1799 Acts, Peterloo", group: "machines", groupLabel: "Module 3 · The Machine Age" },
+  { subject: "ebh", section: "labor-phase2", label: "Phase Two", desc: "1824 repeal, the strike wave, the 1825 Act", group: "machines", groupLabel: "Module 3 · The Machine Age" },
+  { subject: "ebh", section: "empire", label: "Empire & mercantilism", desc: "Companies, colonies, British ships", group: "machines", groupLabel: "Module 3 · The Machine Age" },
+  { subject: "ebh", section: "labor-phase3", label: "Phase Three", desc: "National unions, Tolpuddle, the Factory Acts", group: "machines", groupLabel: "Module 3 · The Machine Age" },
+  { subject: "ebh", section: "econ-systems", label: "Economic systems", desc: "Capitalism · socialism · communism", group: "machines", groupLabel: "Module 3 · The Machine Age" },
+  { subject: "ebh", section: "systems-society", label: "Systems & society", desc: "Pros & cons, cities, classes, 'time is money'", group: "machines", groupLabel: "Module 3 · The Machine Age" },
+  { subject: "ebh", section: "management-taylor", label: "Taylorism", desc: "Pin factory, time studies, pig iron", group: "corporation", groupLabel: "Module 4 · The Corporation" },
+  { subject: "ebh", section: "ir-impact", label: "The impact recap", desc: "Unions, reforms, systems — one thread", group: "corporation", groupLabel: "Module 4 · The Corporation" },
+  { subject: "ebh", section: "management-fayol", label: "Fayolism", desc: "6 activities · 5 functions · 14 principles", group: "corporation", groupLabel: "Module 4 · The Corporation" },
+  { subject: "ebh", section: "corporations", label: "Large corporations", desc: "Railroads, Ford, joint-stock, monopolies", group: "corporation", groupLabel: "Module 4 · The Corporation" },
+  { subject: "ebh", section: "world-wars", label: "The world wars", desc: "State control, war industries, US superpower", group: "corporation", groupLabel: "Module 4 · The Corporation" },
+  { subject: "ebh", section: "indian-business", label: "Indian business history", desc: "EIC charters, Jagat Seth, Wadia, 1813", group: "india", groupLabel: "Module 5 · Indian Business" },
   { subject: "stm", section: "lens", label: "What is statistics?", desc: "Two meanings, six business applications", group: "displays", groupLabel: "Data & Displays" },
   { subject: "stm", section: "scales", label: "Scales of measurement", desc: "Nominal → ordinal → interval → ratio", group: "displays", groupLabel: "Data & Displays" },
   { subject: "stm", section: "sources", label: "Sources, analytics & ethics", desc: "Hudson's loop, big data, the ASA", group: "displays", groupLabel: "Data & Displays" },
