@@ -8,9 +8,9 @@
 at **IIT Jodhpur**, rebuilt as living, animated notes you can watch, poke and revise from.
 
 [![shelves](https://img.shields.io/badge/shelves-5%2F6%20live-eab308?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
-[![chapters](https://img.shields.io/badge/chapters-171-f5c889?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
-[![questions](https://img.shields.io/badge/exam_questions-372-f59e0b?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
-[![windows](https://img.shields.io/badge/pen--paper_windows-35-d97706?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
+[![chapters](https://img.shields.io/badge/chapters-209-f5c889?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
+[![questions](https://img.shields.io/badge/exam_questions-453-f59e0b?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
+[![windows](https://img.shields.io/badge/pen--paper_windows-37-d97706?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
 
 [![next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
 [![typescript](https://img.shields.io/badge/TypeScript_5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://typescriptlang.org)
@@ -45,14 +45,14 @@ Six shelves live — every shelf is one subject, one accent, one ambience.
 
 | Shelf | Subject | Sigil | Accent | Chapters | Questions | Windows | Status |
 |:-----:|:--------|:-----:|:------:|:--------:|:---------:|:-------:|:------:|
-| 01 | [Foundations of Computing](#shelf-01--foundations-of-computing-foc) | 🧭 | `#f59e0b` amber | 17 | 120 | 4 | 🟢 live |
+| 01 | [Foundations of Computing](#shelf-01--foundations-of-computing-foc) | 🧭 | `#f59e0b` amber | 33 | 160 | 6 | 🟢 live |
 | 02 | [Algorithmic Thinking in Business](#shelf-02--algorithmic-thinking-in-business-atb) | 🛣️ | `#f43f5e` rose | 19 | 30 | 6 | 🟢 live |
 | 03 | [Financial Accounting](#shelf-03--financial-accounting-fa) | ⚖️ | `#10b981` emerald | 33 | 72 | 7 | 🟢 live |
 | 04 | [Economic & Business History](#shelf-04--economic--business-history-ebh) | 🏛️ | `#eab308` gold | 18 | 40 | 4 | 🟢 live |
 | 05 | [Statistics for Managers](#shelf-05--statistics-for-managers-stm) | Σ | `#8b5cf6` violet | 31 | 62 | 6 | 🟢 live |
 | 06 | [Principles of Marketing](#shelf-05--statistics-for-managers-stm) | 📣 | `#fb923c` ember | 53 | 48 | 8 | 🟢 live |
 
-**Totals — 171 chapters · 372 exam questions · 35 pen-paper windows · 6/6 shelves live.**
+**Totals — 209 chapters · 453 exam questions · 37 pen-paper windows · 6/6 shelves live.**
 
 ---
 
@@ -60,14 +60,15 @@ Six shelves live — every shelf is one subject, one accent, one ambience.
 
 > From the IPO model to object-oriented Python — the whole course, alive.
 
-The opening shelf. Seventeen chapters that walk from *"what is a computer"* to writing
-classes in Python — with an animated DIKW pyramid, the four pillars, CPU pipelines that
-stream through their stages, and **real CPython 3.12 running in the browser** so every
-code snippet is executable, not decorative.
+Thirty-three chapters mirroring the IIT Jodhpur deck lecture-for-lecture (28 recorded
+lectures + the classes finale), from the IPO model to object-oriented Python — with the
+Knight Capital case file, the Netflix DIKW walkthrough, the indentation-law machine, an
+interactive alias-vs-copy simulator, the records-lab pipeline, and **real CPython 3.12
+running in the browser** so every code snippet is executable, not decorative.
 
-- **Topics** — IPO & Four Pillars · Data & DIKW · Algorithms · Hardware · Python core · Functions · Classes & OOP
-- **Exam bank** — 120 questions · 4 pen-paper windows
-- **Signature machines** — the DIKW pyramid, the pipeline, the live Python runner
+- **Topics** — Course map & IPO · Data, classified · Case files · Algorithms · Hardware & Software · Python core · Lists, dicts & loops · Functions & Classes
+- **Exam bank** — 160 questions · 6 pen-paper windows
+- **Signature machines** — the DIKW pyramid, Knight Capital's burn-rate math, the alias-vs-copy simulator, the indentation-law error picker, the records-lab pipeline, the live Python runner
 
 ### Shelf 02 · Algorithmic Thinking in Business (ATB)
 
