@@ -1066,3 +1066,161 @@ Work Log:
 
 Stage Summary:
 - Shelf 05 now mirrors the official STM deck end-to-end; next pending: none — both EBH and STM integrated; user may send more PDFs
+
+---
+
+> Session continuation — the full pipeline (clone -> STM -> FA) was rebuilt and
+> re-verified end-to-end in a fresh sandbox. Entries below are renumbered to
+> continue the sequence above.
+
+---
+Task ID: 13-clone-preview (session rebuild)
+Agent: main (Z.ai)
+Task: Clone https://github.com/arpitnayan123-bot/Foundation-of-computing and preview it
+
+Work Log:
+- Cloned repo to /home/z/my-project/Foundation-of-computing
+- Identified project: "The Atlas" — Next.js 16 + TS 5 + Tailwind 4 + shadcn/ui study-notes app for IIT Jodhpur (6 subject shelves, 86 chapters, 270 exam questions)
+- Ran fullstack init script to scaffold sandbox environment at /home/z/my-project
+- Synced repo source into sandbox root: src/, public/, prisma/schema.prisma, db/custom.db, next.config.ts (kept scaffold package.json as superset + added missing deps)
+- Installed missing dependencies: minisearch, @vercel/analytics
+- Regenerated Prisma client (schema: SyncBlob model for cross-device sync)
+- Dev server compiled and served GET / 200
+
+Stage Summary:
+- Verification via agent-browser PASSED:
+  - Landing page (#/atlas) renders: Sunset Velocity hero, nav, command palette, 6 shelf cards
+  - Hash routing works: #/subject/foc opens Foundations of Computing with all 17 chapters
+  - Exam window works: 120 questions / 4 windows, timer, navigator, instant answer feedback with model explanations, score tracking
+  - Mobile responsive (390x844) verified on landing + exam window
+  - /api returns 200, manifest 200, no console/page errors
+- App is live on port 3000 and previewable
+
+---
+Task ID: 14-stm-rebuild (session rebuild)
+Agent: main (Z.ai)
+Task: Integrate Statistics for Managers lecture notes PDF (L1-L27, 282 pages) into the STM shelf — map, match, correct, revise, extend with animations/diagrams/cases
+
+Work Log:
+- Extracted all 27 lectures from upload/Notes_261026_224442.pdf (pdftotext, 5,399 lines) and built the full lecture→section map
+- Audited existing STM shelf (16 sections, StmParts1-8) and reference shelves (mktg/ebh) for style patterns
+- Created 4 new section files:
+  * StmParts9.tsx — sampling-dist (standard-error explorer machine, CLT, Marrian Dairies BlueGurt case 7.86%→0.7%) + sampling-methods (animated 5-method selector with SVG dot diagrams, stratified vs cluster cards, probability-vs-non-probability table)
+  * StmParts10.tsx — interval-known (confidence dial machine: 90/95/99 stretching the 41,100 interval) + interval-t (df-morph machine: t vs normal curves, housing 750±29.3, Discount Sounds n=312)
+  * StmParts11.tsx — prop-interval (p* planner curve machine, exit poll 0.44±0.0435) + hypothesis (tail-selector SVG machine, interactive Type I/II error courtroom matrix)
+  * StmParts12.tsx — case-file-2: Pelican Stores (animated payment bars), Specialty Toys Weather Teddy (order-quantity switcher, Q=22,653), Metropolitan Research (CI [66,264, 80,416])
+- Wired registry: lectures.ts +7 lectures (l17-l23, 16→23), StmApp GROUPS +6th "Inference" group + 7 render entries, questions.ts +12-question INFERENCE bank (52 total, 6 windows)
+- Revised existing sections: Go Bananas solved levers (4.5%/0.3%/~1%) in StmParts8, independence test corrected to P(M)P(C)=0.336 in StmParts5
+- Updated counts: section-counts stm 23 (total 168), question-counts stm 52, chapter-index +7 entries, subjects.ts topics, README badges (93 chapters / 282 questions / 24 windows)
+- Regenerated search corpus via adapted scripts/build-search-corpus.ts: 168 chapters, 371 questions
+- Fixed lint issue (inline Btn component → module-level MatrixBtn), excluded cloned repo copy from eslint
+- Browser-verified end-to-end: 23-lecture picker, Inference nav group with scroll-spy, confidence dial state machine, error matrix reveal, method tabs, 6th exam window (12 questions, timer, scoring, feedback), landing badges, mobile 390px, 0 console errors
+
+Stage Summary:
+- STM shelf grew 16 → 23 sections; exam system 5 → 6 windows (40 → 52 questions)
+- Every PDF lecture L1-L27 now maps to a section; L19-L27 (previously missing) fully built with interactive machines and hand-checked numbers
+- App compiles clean (lint + tsc on src), corpus and counts consistent across all derived files
+
+---
+Task ID: 15-stm-remap (session rebuild)
+Agent: main (Z.ai)
+Task: Full PDF re-map — user reported STM shelf stopped at Lecture 23 while the deck runs to L27. Re-map the registry to all 27 lectures, build the missing sections, correct errors found on re-audit.
+
+Work Log:
+- Re-extracted all 27 lecture titles from upload/Notes_261026_224442.pdf (282 pages) and audited the old 23-lecture registry: L24–L27 content had been compressed into L20–L23, and app numbering diverged from the deck from L9 onward
+- Built StmParts13.tsx — #case-file-1 (L8: Pelican Stores moved out of case-file-2 + COUNTIF/pivot Excel lab + Marada recap + freq/rel/percentage toggle) and #toy-order (L15: Weather Teddy moved + new service-level dial Q = 20,000 + z·5,102)
+- Built StmParts14.tsx — #dist-checkpoint (L13: discrete/continuous chooser, E(x) shift machine 1.20 → 5.20 on JSL's 80 zero-days, quiz briefing) + #z-lab (L14: live standardiser with Zelen-Severo Φ, table reading, salary band 0.7698, reverse reorder 24.87 ≈ 25 gal) + #dist-apps (L18: McNeil's Poisson staffing moved from sampling + PMF/CDF toggle)
+- Built StmParts15.tsx — #point-estimation (L17: seven vocabulary cards, statistic→parameter bridge, SRS/NICE) + #marrian-case (L21: BlueGurt/StrawGurt n-switcher 7.86% → 0.72% → 0.003%, extended band 84.3%) + #practice-lab (L23: RANDBETWEEN recipe, paste-values trap, SE shrink machine, quiz update to 2/best-of-2/through Ch8)
+- Rewrote lectures.ts to 27 PDF-ordered lectures (L1–L27 exact titles/order); StmApp GROUPS rebalanced to 6 groups/31 items, SECTION_COMPONENTS +8, LecturePager end-card now "Lecture 27 closes the course"
+- Surgeries: StmParts12 → Metropolitan-only (Pelican/Teddy moved out, retitled "Lecture 26 — the transmission file"); StmParts8 sampling lost the McNeil block (ReadSteps renumbered)
+- CORRECTIONS: Pelican Amex count 2 → 3 (case total must sum to 100); Teddy "stockout" figures relabelled (16.35%/34.83% were P(D ≤ Q) fill probabilities; true stockouts 83.65%/65.17%); McNeil "more than two waiting" fixed from P(X>5) to X > s+2 (5 staff → P(X>7) = 37.2% fail, 8 staff → P(X>10) = 8.4% pass)
+- questions.ts +10 (d9-d10, m9 box-plot fences, k9-k10 PMF/CDF + E(x) shift, c9-c11 Z-invariance/salary band/reorder, f13-f14 Marrian n=150/paste-values) → 62 total; Inference window now 14 Qs
+- Derived data: section-counts stm 31, question-counts stm 62, chapter-index +8 entries (176 total), README badges 101 chapters/292 questions, corpus rebuilt (stm 31 chapters, all with text)
+- Verified end-to-end: picker shows L1–L27, all 8 new sections render with working machines (E(x) shift, Teddy dial Q=24,296 @ 80%, Z=0.333 live, PMF toggle 0.3715, Marrian n-switcher 0.72%), case-file-2 clean of stale Pelican/Teddy, exam Q13/14 present, ⌘K finds new chapters, mobile 390px OK, lint + tsc(src) clean, 0 console/page errors
+
+Stage Summary:
+- STM shelf now mirrors the PDF lecture-for-lecture: 27 lectures, 31 sections (was 23), exam 62 questions/6 windows (was 52)
+- Three genuine content errors fixed (Pelican Amex, Teddy fill-vs-stockout label, McNeil waiting-event definition)
+- App live on port 3000; corpus/counts/README consistent
+
+---
+Task ID: 16-fa-prep (session rebuild)
+Agent: main (Z.ai)
+Task: Readiness audit for the upcoming Financial Accounting PDF (up to 29 lectures) — map the current FA shelf and all derived-data touchpoints before the PDF arrives.
+
+Work Log:
+- Audited src/components/fa/: FaApp.tsx (GROUPS: 4 groups × 4 items; SECTION_COMPONENTS registry), lectures.ts (FA_LECTURES, 16 lectures L1-L16, 1 chapter each), FaParts1-4.tsx (16 sections, 4 per file), questions.ts (4 banks: foundations/equation/recording/closing, 40 questions total)
+- Confirmed FA shared primitives live in FaParts1 (FA_G palette, FaCallout, FaEq, FaQuiz, FaReadStep, FA_BTN_GRAD) + notes/ui (Section, SectionHead, Reveal, Practice, Takeaways)
+- Confirmed derived-data touchpoints: chapter-index.ts (16 fa entries), section-counts.ts (fa:16), question-counts.ts (fa:40), search-corpus.json (regenerate via scripts/build-search-corpus.ts), atlas/subjects.ts topics, README badges
+- Reference pattern locked in = STM Task-3 flow (lectures.ts mirrored lecture-for-lecture, new Parts files with interactive machines, hand-checked exam figures, corpus rebuild, browser verify)
+- Dev server confirmed LIVE on port 3000; upload/ currently holds only the old Statistics PDF — the FA PDF has NOT arrived yet
+
+Stage Summary:
+- FA shelf baseline: 16 lectures / 16 sections / 40 questions. Expected gap once PDF lands: L17-L29 (+13 lectures) plus a full L1-L16 content audit against the new PDF
+- Integration plan mirrors the user-approved STM Task-3 pipeline: pdftotext -> full 29-lecture map -> bidirectional audit -> rewrite lectures.ts -> build new Parts files (animations/diagrams/flowcharts, emerald FA style) -> extend question banks -> update all derived data -> agent-browser verify -> worklog
+
+---
+Task ID: 17-fa-map (session rebuild)
+Agent: main (Z.ai)
+Task: FA PDF (29 lectures) arrived — full extraction, bidirectional audit, and the lecture→section master map.
+
+Work Log:
+- Extracted upload/Financial_Accounting_Lectures_1-29.pdf (pdftotext, 3,628 lines) and read all 29 lectures end-to-end
+- Audited existing FA shelf (16 lectures/16 sections, FaParts1-4, 4 exam banks/40 questions) against the PDF
+
+Stage Summary — MASTER MAP (29 PDF lectures -> 33 sections, 16 existing re-anchored + 17 new):
+- L1 course-map(NEW) | L2 language(NEW) | L3 users-regulatory(NEW) | L4 why(existing) | L5 assumptions+dual-aspect(existing; assumptions gains the 8-concept strip + cost concept ₹50,000 land) | L6 periodicity(existing; gains realization + hire-purchase/construction exceptions) | L7 conventions(NEW: conservatism dial ₹1,00,000/₹1,40,000/₹80,000, disclosure, consistency, materiality) | L8 equation-lab+effects(existing) | L9 entity-concern+elements(existing; Kingfisher already present) | L10 classification(NEW: personal/real/nominal rules + Anbu/Somu/Kyrthana 5,000=4,800+200/Dinesh 40p insolvent) | L11 ledger(existing, Basu) | L12 balancing(NEW: Joy opening entry 45+50+35+50 vs 20+160, CD/BD, cash 3,05,000-2,10,000=95,000) | L13 trial-balance(existing) | L14 journal(existing, Vogue) | L15 suspense(NEW: Murali 1,62,250, ABC Startup 50,000 gap, error taxonomy) | L16 basis(NEW: cash vs accrual, ₹1,000 Jan-1 case, replacement vs traditional ₹20/25/30) | L17 adjusting(existing) | L18 trading(existing) | L19 adjusting-lab(NEW: Vogue six entries 60/800/50/900/500/700 + Tech Mahindra 9,682/2,005) | L20 gp-lab(existing) | L21 pandl(NEW: closing entries, RE statement 500+100-50=550) + statements(existing) | L22 balance-sheet(NEW) | L23 cashflow-intro(NEW: Cathay Pacific 9.2b/8.6b, 3 activity sorter) | L24 final-accounts(existing) | L25 cashflow-methods(NEW: Jaws Photo Plus 73,000+7,000-2,500-4,000-3,800=69,700) | L26 cashflow-build(NEW: Compass 72,000, Ajay 432,000->348,000) | L27 cashflow-health(NEW: 6 questions, profit 1,141,000 vs cash 72,000, coverage 3.3x, Pioneer Ltd 2,70,000->1,52,000/-1,50,000/-60,000/close 1,42,000) | L28 fs-analysis(NEW: Kodak, Dr. Reddy's +4.49%/-7.92%/FX 4,621/operating +9.23%) | L29 cashflow-wrap(NEW: Mira, student analogy, profit is an opinion cash is a fact)
+- PDF ERRORS FOUND TO FIX: (1) L25 Jaws "Add: Decrease in accounts payable 3,800" mislabeled — must be DEDUCTED for 69,700 to hold (L29's 6,000 variant is arithmetically wrong); (2) L27 "95% of sales (8,081,000/9,025,000)" — actually 89.5%; (3) L27 equipment financing breakdown self-inconsistent (253,000 of sources vs 1,173,000 purchase) — present the reasoning, flag the gap; (4) L15 ABC "1,80,00,000 vs 1,90,00,000 — a 50,000 difference" — totals garbled, the ₹50,000 suspense gap is the consistent figure
+- Groups: 7 (foundations/concepts/equation/recording/cycle/closing/cashflow) — 3 new exam banks, FaExamGroup type extended
+
+---
+Task ID: 18-fa-build (session rebuild)
+Agent: main (Z.ai)
+Task: FA shelf rebuilt to mirror the 29-lecture PDF lecture-for-lecture — 17 new sections built, existing sections audited & extended, exam system grown 4 → 7 windows, all derived data synced, browser-verified end-to-end.
+
+Work Log:
+- Rewrote fa/lectures.ts: 29 lectures L1-L29 in exact PDF order (33 chapters; L5/L8/L9/L21 own two chapters each)
+- Built 7 new part files (FaParts5-11, ~4,900 lines) with 17 new sections:
+  * course-map (5-module click machines + 6-station cycle flow), language (4-verb pipeline + 3 branches), users-regulatory (5 objectives, internal/external toggle, ICAI-MCA-SEBI pillars, IFRS/Ind AS)
+  * conventions (conservatism dial: drag market price, valuation = min(cost, market) bars), classification (rules family switcher, 7-step journalizing, Anbu/Somu entries + Kyrthana 5,000=4,800+200 + Dinesh 40p insolvency), balancing (Joy opening entry 1,80,000=1,80,000, cash balancer 3,05,000-2,10,000=95,000, CD/BD handshake)
+  * suspense (error taxonomy click-cards: principle/omission/commission/compensating + ABC Startup ₹50,000 walk), basis (₹1,000 upfront 12-month slider cash-vs-accrual, replacement-cost calculator ₹5+₹5=₹10), adjusting-lab (Vogue six-entry stepper 60/800/50/900/500/700 + Tech Mahindra 9,682/2,005)
+  * pandl (4 closing-entry stepper, RE ladder 500+100−dividend, statement chain flow), balance-sheet (13-item sorter, liquidity/permanency animated toggle, P&L-vs-BS audit table)
+  * cashflow-intro (cash-equivalents judge incl. the 1-year-FD-with-2-months-left trap, 12-item activity sorter, Cathay Pacific), cashflow-methods (direct vs indirect, Jaws ladder 73,000+7,000−2,500−4,000−3,800=69,700 with the PDF's mislabeled "Add" corrected in-line)
+  * cashflow-build (indirect formula ladder, Compass 72,000, Ajay step-ladder 4,32,000→3,48,000, tax-paid formula), cashflow-health (six-question cards, 3.3× cover, Pioneer three-section accordion: +1,52,000/−1,50,000/−60,000 → closing 1,42,000 verified), fs-analysis (4 standards + Kodak, 4 techniques, Dr. Reddy's headline/operating lens flip −7.92% vs +9.23%), cashflow-wrap (Mira March/April/May timeline, student analogy, 4-company reality check)
+- Surgical edits to existing sections: FaParts1 assumptions gained the "full eight concepts" strip (cost concept ₹50,000 land + inflation trade-off); periodicity gained realization (March order/April delivery) + hire-purchase & long-term-construction exceptions; steps renumbered
+- FaApp rewired: 7 GROUPS (Orientation 4 · Concepts 4 · Equation 4 · Recording 6 · Cycle 4 · Final Accounts 6 · Cash Flow & Analysis 5), SECTION_COMPONENTS +17, end-card now "Lecture 29 closes the course"
+- questions.ts: FaExamGroup +concepts/cycle/cashflow; 3 new banks (CONCEPTS 8, CYCLE 8, CASHFLOW 10) + FOUNDATIONS_EXTRA 2 + RECORDING_EXTRA 2 + CLOSING_EXTRA 2 → 40 → 72 questions, all figures hand-checked against the PDF
+- Fixed build-blocker: 17 new section components were missing `export` (corpus rendered empty + FaApp import would fail) — added exports, corpus rebuilt: fa 33/33 chapters with text
+- Derived data: chapter-index 16→33 fa entries (7 groupLabels), section-counts fa 33 (total 193), question-counts fa 72, subjects.ts FA topics, corpus rebuilt (193 chapters · 413 questions · 1,058 KB)
+- README reconciled: FA row 33/72/7; discovered & fixed stale mktg row (was "Reserved shelf" though live: 53/48/8); badges now 171 chapters · 372 questions · 35 windows · 6/6 live
+- Verification: lint clean; tsc clean for src/ (remaining errors pre-exist in clone/examples/skills dirs); browser end-to-end:
+  * 7-group top bar + 29-row lecture picker with search
+  * conservatism dial drag → "Inventory valued at ₹80,000" live
+  * Jaws ladder → "Net cash from operating activities = ₹69,700 ✓"
+  * Pioneer investing accordion → −1,50,000 visible
+  * Cash Flow & Analysis exam window: 10 Qs, timer, answer → "Correct." + 1/10
+  * hero search finds L15; ⌘K palette finds "Six questions" + flash-jumps to L27
+  * mobile 390px: nav collapse, lecture band, accordion OK
+  * landing: FA topics updated, 6/6 LIVE badge
+  * 0 console errors, 0 page errors, dev.log clean 200s
+
+Stage Summary:
+- FA shelf now mirrors the PDF lecture-for-lecture: 29 lectures, 33 sections (was 16), 7 exam windows / 72 questions (was 4 / 40)
+- 4 PDF content errors corrected in-app (Jaws payables sign, 95%→≈90% cash conversion, ABC totals garble noted, equipment-financing inconsistency handled by presenting the reasoning)
+- Ready for the user's GitHub PAT: all changes are in the working tree at /home/z/my-project, nothing committed yet
+
+---
+Task ID: 19-fa-push
+Agent: main (Z.ai)
+Task: Commit the session's entire verified build to github.com/arpitnayan123-bot/Foundation-of-computing as the user (Arpit Nayan <arpitnayan123@gmail.com>), in small granular commits.
+
+Work Log:
+- Fetched origin/main (74e8b7b) and re-anchored the sandbox's final tree onto it — the repo's own history is preserved, nothing force-pushed
+- Restored environment drift that was never part of the work: mode-only config churn (components.json, next.config.ts, postcss.config.mjs, tailwind.config.ts, examples, Caddyfile), runtime logs (dev.log, .zscripts/*), package-lock.json and .zscripts/mktg-spec.md
+- Merged this worklog with the remote's multi-session record (this section) instead of overwriting it
+- Crafted granular commits: deps (minisearch + @vercel/analytics), eslint ignores, STM reconciliation, FA 29-lecture map, FA parts 5-11, FA shell + existing-section surgery, FA exam banks, derived data (index/counts/corpus/topics), db snapshot, verification screenshots + lecture extracts, source lecture decks, tool-results sweep, README, this log
+- Pushed main to origin as a fast-forward; every commit authored Arpit Nayan <arpitnayan123@gmail.com>
+
+Stage Summary:
+- Repo HEAD now mirrors the verified app: 6/6 shelves live, 171 chapters, 372 questions, 35 exam windows
+- FA shelf ships the full 29-lecture deck (33 sections, 72 questions, 7 windows); STM ships the verified 27-lecture build (31 sections, 62 questions, 6 windows)
