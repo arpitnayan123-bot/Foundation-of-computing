@@ -1224,3 +1224,41 @@ Work Log:
 Stage Summary:
 - Repo HEAD now mirrors the verified app: 6/6 shelves live, 171 chapters, 372 questions, 35 exam windows
 - FA shelf ships the full 29-lecture deck (33 sections, 72 questions, 7 windows); STM ships the verified 27-lecture build (31 sections, 62 questions, 6 windows)
+
+---
+Task ID: 20-foc-prep
+Agent: main (Z.ai)
+Task: Readiness audit for the upcoming Foundations of Computing PDF — baseline the FoC shelf, its Python code inventory, and all derived-data touchpoints before the PDF arrives.
+
+Work Log:
+- Audited src/components/foc/: lectures.ts (FOC_LECTURES, 17 lectures L1-L17, 1 chapter each) + FocHero.tsx (ember/gold hero with searchable sequence)
+- Section content lives in src/components/notes/Part1-10.tsx (FoC owns all ten): P1 why/computing/pillars, P2 data, P3 algorithm/hardware, P4 software/python, P5 basics/lists, P6 if/dicts, P7 while/functions, P8 args, P9 funcs2, P10 classes
+- FocApp.tsx (notes/): 4 top-bar groups (foundations 4 · machines 3 · pycore 6 · pro 4), SECTION_COMPONENTS registry ×17, Python Lab + exam wiring via notes/questions.ts (f1-f18+ banks, 120 questions)
+- PYTHON CODE INVENTORY (do-not-delete): 89 runnable CodeBlocks — P3:1, P5:15, P6:15, P7:9, P8:15, P9:12, P10:22 — executed via src/lib/pyruntime.ts (Pyodide 0.26.4, CPython 3.12 WASM, run-lock, module purge for pizza/car/electric_car, notebook namespace with restart-kernel) + notes/Playground.tsx (Python Lab)
+- Derived-data touchpoints: chapter-index.ts (~17-19 foc rows), section-counts foc:17, question-counts foc:120, search corpus (scripts/build-search-corpus.ts), atlas/subjects.ts topics, README badges
+- Expected work once the PDF lands: full lecture map (unknown count, likely >17) -> sequence re-alignment per PDF -> match every existing CodeBlock to its lecture -> GENERATE runnable code for lectures the PDF covers but the shelf lacks -> build missing sections (animations/algorithm diagrams/structures) -> extend exam banks -> sync derived data -> browser verify
+
+Stage Summary:
+- FoC baseline: 17 lectures / 17 sections / 89 live Python blocks / 120 questions / 4 exam groups
+- Pipeline locked = the FA/STM flow (pdftotext -> master map -> bidirectional audit -> registry rewrite -> new parts -> code generation where missing -> derived sync -> agent-browser verify -> worklog), with one FoC-specific addition: every lecture must end up owning its matching Python code
+
+---
+Task ID: 21-foc-build
+Agent: main (Z.ai)
+Task: Foundations of Computing rebuilt to mirror the 28-lecture deck (Notes_261027_010112.pdf) lecture-for-lecture — sequence re-aligned, all existing Python code preserved & re-homed, missing code generated, 16 new sections built, exam grown to 6 windows, derived data synced, browser-verified end-to-end.
+
+Work Log:
+- Extracted the full deck (4,651 lines): 28 lectures L1-L28, no gaps (L7/L10/L21 were inline-merged in the PDF text); plus the pre-existing Classes content kept as L29 "ahead of the deck"
+- Rewrote foc/lectures.ts: 29 rows / 33 chapters — L2 owns computing+pillars+data, L27 owns functions+args, L28 owns returns+funcs2
+- Built 9 new part files (FocParts1-9, ~3,900 lines) with 16 new sections: course-map (objective deck + sentiment teaser), data-types (format switcher + time machine + quant/qual), case-files (Knight Capital, Zara, redlining, AgroStar/ECG — dark ember), list-organize, for-loops (indentation-law error picker), checkpoint-1 (quiz briefing + recap board), numeric-lists, copies-tuples (alias-vs-copy simulator), branches, skills-lab (shipment inventory), if-lists, dict-loops, nesting (30-alien fleet), records-lab (student-records pipeline), loop-control, returns
+- SURGERIES (nothing deleted, everything re-anchored): Part5 organizing/looping/range/slices/tuples halves re-homed to L12/13/15/16 + basics gained float-precision & str()-conversion blocks + lists gained guest_list; Part6 chain half -> branches, list-filtering half -> if-lists, loop lenses -> dict-loops, nesting -> nesting (ChainWalk/IfElseChainViz/DictLenses/POLL_PRE now exported); Part7 exit-toolkit half -> loop-control (ExitToolkit exported); Part8 return-value half -> returns
+- CODE LEDGER: 89 existing blocks preserved (63 in place, 26 re-homed) + 22 newly generated runnable blocks = 111 total (108 runnable in live CPython 3.12 via Pyodide + 3 deliberate statics for traceback teaching)
+- FocApp rewired: 6 GROUPS (Orientation 5 · Pillars & Cases 6 · Python Core 7 · Decisions & Data 8 · Loops 2 · Functions & OOP 5 = 33), SECTION_COMPONENTS +16, end-card now "Lecture 28 closes the recorded deck"
+- questions.ts: ExamGroup 4 -> 6; PYCORE split by id into decisions (7) + loops (7); 40 NEW hand-checked questions (fc6/pc8/px6/d8/w6/c6) -> 160 questions, 0 duplicate ids, bank totals 36/38/22/15/13/36
+- Derived data: section-counts foc 33 (total 209), question-counts foc 160, chapter-index 33 foc rows (6 groupLabels), subjects.ts topics, corpus rebuilt (foc 33/33 with text · 160 questions · 209 chapters · 453 questions total), README badges + shelf-01 section rewritten
+- Fixed en route: template-literal \$ escaping (2 files), hyphenated JSX keys, TimeMachine mode typing, one quiz-grid div eaten by a cut (repaired), stale QUESTION_COUNTS dev.log noise confirmed not recurring
+- Verification: tsc clean for src/, eslint clean; browser end-to-end — 29-row picker, course-map renders at L1, case-files at L9, knight_capital.py executed LIVE: "trades per second : 1,481 · loss per second : $162,963 · loss per trade : $110.00" matching the static panel, Decisions & Data window 15 Qs with timer, ⌘K finds Records lab/Case files/Copies & tuples, mobile 390px OK, 0 console/page errors
+
+Stage Summary:
+- FoC shelf now mirrors the deck lecture-for-lecture: 29 lectures (28 recorded + classes finale), 33 sections (was 17), 6 exam windows / 160 questions (was 4 / 40), 111 code blocks (was 89) — every lecture owns its matching Python
+- Ready for the user's next instruction (commit comes when they say so)
