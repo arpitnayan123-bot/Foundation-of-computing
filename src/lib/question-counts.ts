@@ -16,9 +16,9 @@
 export const QUESTION_COUNTS = {
   foc: 120,
   atb: 30,
-  fa: 40,
+  fa: 72,
   ebh: 66,
-  stm: 56,
+  stm: 62,
   mktg: 48,
 } as const;
 

@@ -50,16 +50,19 @@ import * as FaParts1 from "../src/components/fa/FaParts1";
 import * as FaParts2 from "../src/components/fa/FaParts2";
 import * as FaParts3 from "../src/components/fa/FaParts3";
 import * as FaParts4 from "../src/components/fa/FaParts4";
+import * as FaParts5 from "../src/components/fa/FaParts5";
+import * as FaParts6 from "../src/components/fa/FaParts6";
+import * as FaParts7 from "../src/components/fa/FaParts7";
+import * as FaParts8 from "../src/components/fa/FaParts8";
+import * as FaParts9 from "../src/components/fa/FaParts9";
+import * as FaParts10 from "../src/components/fa/FaParts10";
+import * as FaParts11 from "../src/components/fa/FaParts11";
 
 /* ---- EBH — mirror EbhApp's imports ---- */
 import * as EbhParts1 from "../src/components/ebh/EbhParts1";
 import * as EbhParts2 from "../src/components/ebh/EbhParts2";
 import * as EbhParts3 from "../src/components/ebh/EbhParts3";
 import * as EbhParts4 from "../src/components/ebh/EbhParts4";
-import * as EbhParts5 from "../src/components/ebh/EbhParts5";
-import * as EbhParts6 from "../src/components/ebh/EbhParts6";
-import * as EbhParts7 from "../src/components/ebh/EbhParts7";
-import * as EbhParts8 from "../src/components/ebh/EbhParts8";
 
 /* ---- STM — mirror StmApp's imports ---- */
 /* ---- MKTG — mirror MktgApp's imports ---- */
@@ -82,6 +85,8 @@ import * as StmParts10 from "../src/components/stm/StmParts10";
 import * as StmParts11 from "../src/components/stm/StmParts11";
 import * as StmParts12 from "../src/components/stm/StmParts12";
 import * as StmParts13 from "../src/components/stm/StmParts13";
+import * as StmParts14 from "../src/components/stm/StmParts14";
+import * as StmParts15 from "../src/components/stm/StmParts15";
 
 /* ---- question banks ---- */
 import { EXAM_BANKS } from "../src/components/notes/questions";
@@ -129,9 +134,9 @@ const MAX_QUESTION_CHARS = 1_600;
 const SHELF_PART_MODULES: Record<string, Record<string, unknown>[]> = {
   foc: [FocPart1, FocPart2, FocPart3, FocPart4, FocPart5, FocPart6, FocPart7, FocPart8, FocPart9, FocPart10],
   atb: [AtbParts1, AtbParts2, AtbParts3, AtbParts4, AtbParts5, AtbParts6, AtbParts7, AtbParts8, AtbParts9],
-  fa: [FaParts1, FaParts2, FaParts3, FaParts4],
-  ebh: [EbhParts1, EbhParts2, EbhParts3, EbhParts4, EbhParts5, EbhParts6, EbhParts7, EbhParts8],
-  stm: [StmParts1, StmParts2, StmParts3, StmParts4, StmParts5, StmParts6, StmParts7, StmParts8, StmParts9, StmParts10, StmParts11, StmParts12, StmParts13],
+  fa: [FaParts1, FaParts2, FaParts3, FaParts4, FaParts5, FaParts6, FaParts7, FaParts8, FaParts9, FaParts10, FaParts11],
+  ebh: [EbhParts1, EbhParts2, EbhParts3, EbhParts4],
+  stm: [StmParts1, StmParts2, StmParts3, StmParts4, StmParts5, StmParts6, StmParts7, StmParts8, StmParts9, StmParts10, StmParts11, StmParts12, StmParts13, StmParts14, StmParts15],
   mktg: [MktgParts1, MktgParts2, MktgParts3, MktgParts4],
 };
 
