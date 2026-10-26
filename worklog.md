@@ -1020,3 +1020,19 @@ Work Log:
 Stage Summary:
 - Repo confirmed fully shipped: local main == origin/main; all six research patterns + cockpit live on GitHub at cba4927 (and this log commit)
 - PAT never persisted to disk, config, or history; one-time inline URL only
+---
+Task ID: 6-ebh-28
+Agent: Z.ai Code (main)
+Task: User — "check the PDF has all 28 lectures… integrated with diagram workflow and beautiful animations… commit in granular commits to my GitHub repo" (PAT provided).
+
+Work Log:
+- Located the EBH deck at upload/Notes_261026_203739.pdf (327 pp); pypdf sweep confirms exactly 28 lectures, headers on pp. 1,3,12,21,32,45,57,70,78,90,104,119,131,140,158,169,178,190,200,212,222,234,251,261,272,287,297,314
+- Cross-checked ambiguous titles against body text: L19 = IR & Machine Usage incl. EIC/Plassey 1757 + Navigation Acts (pp. 204–205) → "Empire & Mercantilism"; L23 = Evolution of Management Thought, Schmidt pig-iron 12.5→47.5 tons (p. 257) → "Division of Labour & Taylor"; L25 = "…From Taylor to Fayol" (p. 272) → exact match
+- lectures.ts verified: 28 entries (n:1→28), 31 chapter ids, all 31 wired in EbhApp SECTION_COMPONENTS and the 5-module GROUPS menu
+- Agent Browser E2E on the running app: EBH hero renders the 28-lecture grid; Lecture 1 band shows "LECTURE 1 OF 28" + LECTURE CLEAR tracker; open-section handoff jumps verified for management-taylor (L23) and econ-systems (L21, interactive System Switcher); L28 charter timeline machine renders; zero browser/console errors; dev.log clean
+- Fresh clone from GitHub; copied verified state; eslint clean
+- Five granular commits: clarity tracker+backup, 28-lecture map, counts/corpus reindex, parts 5–8 chapter machines, reader rewire+question banks
+
+Stage Summary:
+- PDF's 28/28 lectures mapped 1:1, in order, browser-verified with interactive machines, timelines, diagrams, animations, per-lecture clear/not-clear tracking and module exam banks
+- Shipped as b77f2c3..dacc84d (5 granular commits) + this log; PAT used one-time inline, never persisted
