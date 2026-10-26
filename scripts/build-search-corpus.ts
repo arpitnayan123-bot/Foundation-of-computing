@@ -33,6 +33,15 @@ import * as FocPart7 from "../src/components/notes/Part7";
 import * as FocPart8 from "../src/components/notes/Part8";
 import * as FocPart9 from "../src/components/notes/Part9";
 import * as FocPart10 from "../src/components/notes/Part10";
+import * as FocParts1 from "../src/components/foc/FocParts1";
+import * as FocParts2 from "../src/components/foc/FocParts2";
+import * as FocParts3 from "../src/components/foc/FocParts3";
+import * as FocParts4 from "../src/components/foc/FocParts4";
+import * as FocParts5 from "../src/components/foc/FocParts5";
+import * as FocParts6 from "../src/components/foc/FocParts6";
+import * as FocParts7 from "../src/components/foc/FocParts7";
+import * as FocParts8 from "../src/components/foc/FocParts8";
+import * as FocParts9 from "../src/components/foc/FocParts9";
 
 /* ---- ATB — mirror AtbApp's imports ---- */
 import * as AtbParts1 from "../src/components/atb/AtbParts1";
@@ -132,7 +141,7 @@ const MAX_QUESTION_CHARS = 1_600;
 /** every module whose named exports may hold chapter sections,
  *  grouped exactly the way each subject App composes them */
 const SHELF_PART_MODULES: Record<string, Record<string, unknown>[]> = {
-  foc: [FocPart1, FocPart2, FocPart3, FocPart4, FocPart5, FocPart6, FocPart7, FocPart8, FocPart9, FocPart10],
+  foc: [FocPart1, FocPart2, FocPart3, FocPart4, FocPart5, FocPart6, FocPart7, FocPart8, FocPart9, FocPart10, FocParts1, FocParts2, FocParts3, FocParts4, FocParts5, FocParts6, FocParts7, FocParts8, FocParts9],
   atb: [AtbParts1, AtbParts2, AtbParts3, AtbParts4, AtbParts5, AtbParts6, AtbParts7, AtbParts8, AtbParts9],
   fa: [FaParts1, FaParts2, FaParts3, FaParts4, FaParts5, FaParts6, FaParts7, FaParts8, FaParts9, FaParts10, FaParts11],
   ebh: [EbhParts1, EbhParts2, EbhParts3, EbhParts4],

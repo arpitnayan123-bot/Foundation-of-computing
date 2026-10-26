@@ -41,7 +41,7 @@ export const SUBJECTS: Subject[] = [
     shelf: "01",
     title: "Foundations of Computing",
     short: "FoC Notes",
-    topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
+    topics: ["Course map & IPO", "Data, classified", "Case files", "Algorithms", "Hardware & Software", "Python core", "Lists, dicts & loops", "Functions & Classes"],
     accent: "#f59e0b",
     accent2: "#ea580c",
     icon: Compass,
