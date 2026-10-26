@@ -56,6 +56,10 @@ import * as EbhParts1 from "../src/components/ebh/EbhParts1";
 import * as EbhParts2 from "../src/components/ebh/EbhParts2";
 import * as EbhParts3 from "../src/components/ebh/EbhParts3";
 import * as EbhParts4 from "../src/components/ebh/EbhParts4";
+import * as EbhParts5 from "../src/components/ebh/EbhParts5";
+import * as EbhParts6 from "../src/components/ebh/EbhParts6";
+import * as EbhParts7 from "../src/components/ebh/EbhParts7";
+import * as EbhParts8 from "../src/components/ebh/EbhParts8";
 
 /* ---- STM — mirror StmApp's imports ---- */
 /* ---- MKTG — mirror MktgApp's imports ---- */
@@ -73,6 +77,11 @@ import * as StmParts5 from "../src/components/stm/StmParts5";
 import * as StmParts6 from "../src/components/stm/StmParts6";
 import * as StmParts7 from "../src/components/stm/StmParts7";
 import * as StmParts8 from "../src/components/stm/StmParts8";
+import * as StmParts9 from "../src/components/stm/StmParts9";
+import * as StmParts10 from "../src/components/stm/StmParts10";
+import * as StmParts11 from "../src/components/stm/StmParts11";
+import * as StmParts12 from "../src/components/stm/StmParts12";
+import * as StmParts13 from "../src/components/stm/StmParts13";
 
 /* ---- question banks ---- */
 import { EXAM_BANKS } from "../src/components/notes/questions";
@@ -121,8 +130,8 @@ const SHELF_PART_MODULES: Record<string, Record<string, unknown>[]> = {
   foc: [FocPart1, FocPart2, FocPart3, FocPart4, FocPart5, FocPart6, FocPart7, FocPart8, FocPart9, FocPart10],
   atb: [AtbParts1, AtbParts2, AtbParts3, AtbParts4, AtbParts5, AtbParts6, AtbParts7, AtbParts8, AtbParts9],
   fa: [FaParts1, FaParts2, FaParts3, FaParts4],
-  ebh: [EbhParts1, EbhParts2, EbhParts3, EbhParts4],
-  stm: [StmParts1, StmParts2, StmParts3, StmParts4, StmParts5, StmParts6, StmParts7, StmParts8],
+  ebh: [EbhParts1, EbhParts2, EbhParts3, EbhParts4, EbhParts5, EbhParts6, EbhParts7, EbhParts8],
+  stm: [StmParts1, StmParts2, StmParts3, StmParts4, StmParts5, StmParts6, StmParts7, StmParts8, StmParts9, StmParts10, StmParts11, StmParts12, StmParts13],
   mktg: [MktgParts1, MktgParts2, MktgParts3, MktgParts4],
 };
 

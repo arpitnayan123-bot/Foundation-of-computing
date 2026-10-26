@@ -6,7 +6,7 @@
    all need a section TOTAL without importing a subject app
    chunk (those are 100s of KB of animated notes). The numbers
    here mirror the flat chapter lists in FocApp / AtbApp /
-   FaApp / EbhApp / StmApp / MktgApp — 17 + 28 + 16 + 31 + 16 + 53 = 161.
+   FaApp / EbhApp / StmApp / MktgApp — 17 + 28 + 16 + 31 + 33 + 53 = 178.
    ============================================================ */
 
 export const SECTION_COUNTS: Record<string, number> = {
@@ -14,7 +14,7 @@ export const SECTION_COUNTS: Record<string, number> = {
   atb: 28,
   fa: 16,
   ebh: 31,
-  stm: 16,
+  stm: 33,
   mktg: 53,
 };
 
