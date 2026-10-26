@@ -5,7 +5,7 @@
 
    Mounted by the Atlas router (src/app/page.tsx); `onExitAtlas`
    returns the reader to the Atlas landing page. A LECTURE
-   READER: the hero holds the 17-lecture sequence, each lecture
+   READER: the hero holds the 29-lecture sequence, each lecture
    opens with a "Foundations of Computing Lecture N" band, and
    all pen-paper practice lives behind the "Test my knowledge"
    hub so the reading surface stays clean. The subject's unique
@@ -49,6 +49,15 @@ import { WhileSection, FunctionsSection } from "@/components/notes/Part7";
 import { ArgsSection } from "@/components/notes/Part8";
 import { FuncsScaleSection } from "@/components/notes/Part9";
 import { ClassesSection } from "@/components/notes/Part10";
+import { CourseMapSection, DataTypesSection } from "@/components/foc/FocParts1";
+import { CaseFilesSection } from "@/components/foc/FocParts2";
+import { ListOrganizeSection, ForLoopsSection } from "@/components/foc/FocParts3";
+import { Checkpoint1Section, NumericListsSection } from "@/components/foc/FocParts4";
+import { CopiesTuplesSection, SkillsLabSection } from "@/components/foc/FocParts5";
+import { BranchesSection, IfListsSection } from "@/components/foc/FocParts6";
+import { DictLoopsSection, NestingSection } from "@/components/foc/FocParts7";
+import { RecordsLabSection, LoopControlSection } from "@/components/foc/FocParts8";
+import { ReturnsSection } from "@/components/foc/FocParts9";
 import { PyReadyToast } from "@/components/notes/ui";
 import { PythonLab } from "@/components/notes/Playground";
 import { ExamWindow } from "@/components/notes/ExamWindow";
@@ -63,7 +72,7 @@ const EMBER_DARK = "linear-gradient(165deg,#241608 0%,#33200e 55%,#3e2c1d 100%)"
 
 /* ============================================================
    Structured chapter map — the top bar is organised into
-   four groups instead of a flat 17-chip strip. Each group owns
+   six groups that follow the deck's arc. Each group owns
    a "Test my knowledge" exam window (see questions.ts).
    ============================================================ */
 const GROUPS: {
@@ -73,33 +82,60 @@ const GROUPS: {
 }[] = [
   {
     id: "foundations",
-    label: "Foundations",
+    label: "Orientation",
     items: [
-      { id: "why", label: "Why code?", desc: "What programming actually unlocks" },
+      { id: "course-map", label: "Course map", desc: "Four objectives · why Python · the finale" },
       { id: "computing", label: "Computing", desc: "Input → process → output, everywhere" },
       { id: "pillars", label: "4 Pillars", desc: "Decompose · patterns · abstraction · algorithms" },
-      { id: "data", label: "Data", desc: "Data → information → knowledge → wisdom" },
+      { id: "data", label: "Data & DIKW", desc: "Data → information → knowledge → wisdom" },
+      { id: "data-types", label: "Data types", desc: "Structured · temporal · quant vs qual" },
     ],
   },
   {
-    id: "machines",
-    label: "Machines",
+    id: "pillars",
+    label: "Pillars & Cases",
     items: [
+      { id: "why", label: "Why code?", desc: "What programming actually unlocks" },
       { id: "algorithm", label: "Algorithms", desc: "Recipes a machine can follow" },
       { id: "hardware", label: "Hardware", desc: "CPU, memory, sensors & I/O" },
       { id: "software", label: "Software", desc: "OS, apps, compilers & interpreters" },
+      { id: "python", label: "Python", desc: "Meet the language" },
+      { id: "case-files", label: "Case files", desc: "Knight Capital · Netflix · Zara · redlining" },
     ],
   },
   {
     id: "pycore",
     label: "Python Core",
     items: [
-      { id: "python", label: "Python", desc: "Meet the language" },
-      { id: "basics", label: "Basics", desc: "Variables, strings, numbers, input" },
-      { id: "lists", label: "Lists", desc: "Ordered collections, slices, tuples" },
+      { id: "basics", label: "Basics", desc: "Variables, strings, numbers, comments" },
+      { id: "lists", label: "Lists", desc: "Ordered collections, indexing, add & remove" },
+      { id: "list-organize", label: "Organize", desc: "sort · sorted · reverse · len · index errors" },
+      { id: "for-loops", label: "For loops", desc: "Loop a list · the indentation law" },
+      { id: "checkpoint-1", label: "Checkpoint 1", desc: "Recap · quiz format · predict the output" },
+      { id: "numeric-lists", label: "Numeric lists", desc: "range · comprehensions · statistics · slices" },
+      { id: "copies-tuples", label: "Copies & tuples", desc: "Copy vs reference · immutable tuples" },
+    ],
+  },
+  {
+    id: "decisions",
+    label: "Decisions & Data",
+    items: [
       { id: "if", label: "If / Else", desc: "Decisions, comparisons, logic" },
-      { id: "dicts", label: "Dictionaries", desc: "Key–value pairs & nesting" },
-      { id: "while", label: "While Loops", desc: "Repeat until the job is done" },
+      { id: "branches", label: "Branches", desc: "if-else · elif ladders · independent ifs" },
+      { id: "skills-lab", label: "Skills lab", desc: "Recap · the shipment inventory challenge" },
+      { id: "if-lists", label: "If × lists", desc: "Special items · empty checks · multiple lists" },
+      { id: "dicts", label: "Dictionaries", desc: "Key–value pairs & the safe lookup" },
+      { id: "dict-loops", label: "Dict loops", desc: "items · keys · sorted · values · sets" },
+      { id: "nesting", label: "Nesting", desc: "List of dicts · dict of lists · dict of dicts" },
+      { id: "records-lab", label: "Records lab", desc: "Filter · reward · insert · sort" },
+    ],
+  },
+  {
+    id: "loops",
+    label: "Loops",
+    items: [
+      { id: "while", label: "While loops", desc: "Repeat until the job is done" },
+      { id: "loop-control", label: "Loop control", desc: "Flags · break · continue · while with data" },
     ],
   },
   {
@@ -107,7 +143,8 @@ const GROUPS: {
     label: "Functions & OOP",
     items: [
       { id: "functions", label: "Functions", desc: "Define, call, reuse — first steps" },
-      { id: "args", label: "Args & Return", desc: "Positional, keyword, defaults, return" },
+      { id: "args", label: "Arguments", desc: "Positional, keyword, defaults & errors" },
+      { id: "returns", label: "Return values", desc: "return · optional args · dict builders" },
       { id: "funcs2", label: "Funcs × Lists", desc: "Passing lists, *args, **kwargs, modules" },
       { id: "classes", label: "Classes", desc: "Objects, __init__, inheritance" },
     ],
@@ -126,21 +163,37 @@ function groupOf(id: string): string | null {
    reader renders exactly the slice the chosen lecture owns.
    ============================================================ */
 const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
-  why: <WhySection />,
+  "course-map": <CourseMapSection />,
   computing: <ComputingSection />,
   pillars: <PillarsSection />,
   data: <DataSection />,
+  "data-types": <DataTypesSection />,
+  why: <WhySection />,
   algorithm: <AlgorithmSection />,
   hardware: <HardwareSection />,
   software: <SoftwareSection />,
   python: <ProgrammingSection />,
+  "case-files": <CaseFilesSection />,
   basics: <BasicsSection />,
   lists: <ListsSection />,
+  "list-organize": <ListOrganizeSection />,
+  "for-loops": <ForLoopsSection />,
+  "checkpoint-1": <Checkpoint1Section />,
+  "numeric-lists": <NumericListsSection />,
+  "copies-tuples": <CopiesTuplesSection />,
   if: <IfSection />,
+  branches: <BranchesSection />,
+  "skills-lab": <SkillsLabSection />,
+  "if-lists": <IfListsSection />,
   dicts: <DictsSection />,
+  "dict-loops": <DictLoopsSection />,
+  nesting: <NestingSection />,
+  "records-lab": <RecordsLabSection />,
   while: <WhileSection />,
+  "loop-control": <LoopControlSection />,
   functions: <FunctionsSection />,
   args: <ArgsSection />,
+  returns: <ReturnsSection />,
   funcs2: <FuncsScaleSection />,
   classes: <ClassesSection />,
 };
@@ -851,7 +904,7 @@ function LecturePager({ current, onJump }: { current: FocLecture; onJump: (id: s
           </button>
         ) : (
           <span className="rounded-2xl border border-dashed border-[#e8dcc0] p-4 text-center text-[.78rem] font-bold leading-snug text-[#a08568]">
-            End of the sequence — Lecture 17 closes the course. Revise the classes, then retake the windows.
+            End of the sequence — Lecture 28 closes the recorded deck, and Classes waits just beyond it. Revise, then retake the windows.
           </span>
         )}
       </div>
