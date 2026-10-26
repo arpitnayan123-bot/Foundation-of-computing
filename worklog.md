@@ -1050,3 +1050,19 @@ Work Log:
 - Pushed 4199cbc + eb9bedf; remote verified
 Stage Summary:
 - Vercel's two type errors fixed at the root (one bug, one intended-feature wiring); tsc --noEmit is now the local gate to run before every push
+---
+Task ID: 12-stm-integrate
+Agent: Z.ai Code (main) + 4 content subagents (10-a, 10-b, 11-a, 11-b)
+Task: Integrate the STM deck (Notes_261026_224442.pdf, 282pp) — map Lectures 1→27, correct order, full content with diagrams/flowcharts/animations, ship granularly.
+
+Work Log:
+- PDF parsed to /tmp/stm_full.txt: exactly 27 lectures (user expected 28 — the deck ends at L27, Hypothesis Testing); every lecture title extracted and mapped
+- lectures.ts rewritten 1:1: 27 lectures → 33 chapters; 16 pre-existing chapter ids byte-identical, 17 new (course-tools, scatter, pelican, dist-recap, normal-practice, specialty-toys, go-bananas, mgmt-apps, clt, sampling-methods, marrian-dairies, interval-estimation, sampling-excel, t-distribution, proportions, transmission, hypothesis)
+- StmParts9 written by main agent as the exemplar (course-tools, scatter, pelican); StmParts10–13 written by 4 parallel subagents from precise page-range briefs (pp. 143–282); StmCallout API mismatch (tone/label → kind/title) caught by subagents and fixed in Parts9
+- StmApp rewired: 8-module GROUPS, 33-entry SECTION_COMPONENTS, "Lecture N of 27" band with ClarityToggle; StmHero wears ClarityDots; questions.ts +3 banks (lens 6, inference 6, decisions 4) → 8 banks, 56 questions
+- Machinery: section-counts stm 33 (atlas 178), question-counts 56, chapter-index regenerated, build-search-corpus extended to parts 9–13 and re-run (33 chapters / 176.9 KB text / 56 questions)
+- Gates: bunx tsc --noEmit → 0 errors (repo); eslint clean; Agent Browser — 8-module nav renders, 27-lecture grid with clarity dots (L1/L7 injected), L27 band + courtroom/error-grid machines render, 0 console/browser errors
+- Shipped as 4 granular commits + this log
+
+Stage Summary:
+- Shelf 05 now mirrors the official STM deck end-to-end; next pending: none — both EBH and STM integrated; user may send more PDFs
