@@ -1005,3 +1005,18 @@ Stage Summary:
 - New stores: atlas:mistakes:v1, atlas:reflection:v1 — both backup-covered
 - New API routes: /api/defend, /api/case-strike (z-ai-web-dev-sdk, server-only)
 - Local main rewritten to granular history before push (sandbox UUID auto-commits reworded)
+---
+Task ID: 4-push
+Agent: Z.ai Code (main)
+Task: User request — "Now commit it to my repo" (PAT provided). Verify ship state, log it, and push anything outstanding.
+
+Work Log:
+- git status --short → clean tree; nothing uncommitted
+- git ls-remote (fresh PAT auth) → remote refs/heads/main = cba49275dd0a5d0a402a5ffe0d92de068b7b1288 = local HEAD → the six-pattern work (b0d5a47..cba4927: cockpit, 错题本 ledger, backup stores, forge path, worklog) is already on GitHub
+- Token-leak audit across full history: git log -S <full PAT> → 0 matches; single 'ghp_' hit in worklog.md line 801 is prose describing the scan command itself (benign)
+- git config: no credential material in any remote URL; stashes empty; stray local branches (granular-replay, granular-ship, main-local-backup) intentionally not pushed
+- Appended this entry, committed as Arpit Nayan, pushed via one-time PAT URL, re-verified remote hash
+
+Stage Summary:
+- Repo confirmed fully shipped: local main == origin/main; all six research patterns + cockpit live on GitHub at cba4927 (and this log commit)
+- PAT never persisted to disk, config, or history; one-time inline URL only
