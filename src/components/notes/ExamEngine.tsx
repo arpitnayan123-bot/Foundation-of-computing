@@ -43,6 +43,21 @@ import {
 } from "./exam-runtime";
 import { gradeQuestion } from "@/lib/sm2";
 import { logAttempt } from "@/lib/ledger";
+import { captureMiss } from "@/lib/mistakes";
+
+/** File a wrong answer into the Mistake Ledger (错题本) with the
+ *  question, its choices and the correct answer — the notebook
+ *  the reader re-solves from. */
+function fileMiss(q: EngineQuestion, subject: string): void {
+  captureMiss(subject, q.srcId ?? q.id, {
+    q: q.q,
+    options: q.options,
+    answer:
+      typeof q.answer === "number" && q.options
+        ? (q.options[q.answer] ?? "")
+        : (q.answerText ?? q.solution ?? ""),
+  });
+}
 
 /* ---------------- theme contract ---------------- */
 
@@ -360,12 +375,14 @@ export function ExamEngine({
     // SM-2: first-try MCQ answers are trusted fully (5), misses reset the card (2)
     // — routed to the question's own shelf in mixed review sessions
     gradeQuestion(q.subject ?? theme.key, q.srcId ?? q.id, ok ? 5 : 2);
+    if (!ok) fileMiss(q, q.subject ?? theme.key);
   }
 
   function selfCheck(ok: boolean) {
     patch(q.id, { status: ok ? "correct" : "wrong" });
     // SM-2: the model answer was visible — grade honestly but trust less
     gradeQuestion(q.subject ?? theme.key, q.srcId ?? q.id, ok ? 3 : 1);
+    if (!ok) fileMiss(q, q.subject ?? theme.key);
   }
 
   function retake() {

@@ -31,6 +31,7 @@ import { Check, Eye, GraduationCap, RotateCcw, Trophy, X, Zap } from "lucide-rea
 import { buildDrill, deckSummary, reasonLabel, type DrillCard, type DrillSession } from "@/lib/drill";
 import { gradeQuestion } from "@/lib/sm2";
 import { logAttempt } from "@/lib/ledger";
+import { captureMiss } from "@/lib/mistakes";
 import { SUBJECTS } from "@/components/atlas/subjects";
 import { useDialogA11y } from "./exam-runtime";
 
@@ -121,6 +122,12 @@ export function DrillWindow({
       setGraded((prev) => ({ ...prev, [card.id]: { status: ok ? "correct" : "wrong", chosen: i } }));
       // first-try MCQ answers are trusted fully (5); misses reset the card (2)
       gradeQuestion(card.subject ?? subject, card.srcId ?? card.id, ok ? 5 : 2);
+      if (!ok)
+        captureMiss(card.subject ?? subject, card.srcId ?? card.id, {
+          q: card.q,
+          options: card.options,
+          answer: typeof card.answer === "number" && card.options ? (card.options[card.answer] ?? "") : (card.answerText ?? card.solution ?? ""),
+        });
     },
     [card, graded, subject]
   );
@@ -136,6 +143,12 @@ export function DrillWindow({
       setGraded((prev) => ({ ...prev, [card.id]: { status: ok ? "correct" : "wrong" } }));
       // the model answer was visible — grade honestly but trust less
       gradeQuestion(card.subject ?? subject, card.srcId ?? card.id, ok ? 3 : 1);
+      if (!ok)
+        captureMiss(card.subject ?? subject, card.srcId ?? card.id, {
+          q: card.q,
+          options: card.options,
+          answer: typeof card.answer === "number" && card.options ? (card.options[card.answer] ?? "") : (card.answerText ?? card.solution ?? ""),
+        });
     },
     [card, graded, subject]
   );
