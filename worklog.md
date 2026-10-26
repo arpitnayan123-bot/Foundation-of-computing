@@ -948,3 +948,60 @@ Work Log:
 Stage Summary:
 - All six user complaints resolved app-wide: hero descriptions gone, lecture sequences are number+name only (hero + dropdowns + palette), Instructor/Reference deleted (live AND dead code), all course-stat numbers removed from landing cards + landing hero + shelf heroes, lecture bands compact (kept from the agent round), "Test my knowledge" untouched everywhere
 - No commits existed for this work before this task; everything lands now as granular commits on top of ba60676
+
+---
+Task ID: 28
+Agent: Z.ai Code (main session)
+Task: Build "Cockpit Mode" — the app's MOAT feature: a deterministic daily flight plan (READ · RECHARGE · STRIKE) computed from the reader's own ledger + "Ask the Atlas", an AI tutor grounded in the committed corpus with clickable chapter citations and answer-to-flashcards forging. Exam-countdown mode explicitly deferred by the user until the remaining lectures (STM/FA/EBH/Economics) are integrated.
+
+Work Log:
+- Recon (surface, not line-audit): mapped hash router (#/atlas|#/ledger|#/subject/<id> in page.tsx), SM-2 API (dueCounts/masteryFor/troubleSpots), drill engine (buildDrill tiering due→shaky→new→fill, "all" support), custom-cards store (addCustomCards), reading progress (loadProgress/SECTION_COUNTS/QUESTION_COUNTS), ledger streak (currentStreak/goalStatus), window handoff contracts (sessionStorage flags atlas:open-section / atlas:drill-subject / atlas:review-subject / atlas:mock-open / atlas:forge-open + live CustomEvents), ZAI call pattern from generate-cards route, corpus shape (search-corpus.json chapters with shelfId/chapterKey/label/groupLabel/text)
+- NEW src/lib/cockpit.ts — deterministic plan engine: READ = first unread chapter on least-read shelf (falls to full-mock step when everything is read); RECHARGE = clear due cards (review on most-due shelf) → else chase trouble spots (drill) → else seed schedule (drill "all"); STRIKE = 12-card drill on weakest-mastery shelf (QUESTION_COUNTS + customs denominator); returns brief telemetry line (streak · chapters read · due · goal); exports enterSection/openLedgerWindow/runFlightAction reusing the palette's exact handoff contracts
+- NEW src/app/api/ask/route.ts — grounded tutor: Minisearch (AND, OR fallback) over the SAME corpus the ⌘K search indexes; top-4 chapters (3.2k chars each) as the ONLY permitted source; system prompt: cite chapters inline like (MKTG · Need · Want · Demand), admit out-of-notes questions, teach in the notes' voice, close with "Check yourself:" self-test; 4-turn history for follow-ups; honest-miss path returns answer:null WITHOUT a model call when retrieval lands nothing; z-ai-web-dev-sdk backend-only
+- src/app/api/generate-cards/route.ts — added optional {text,label} cockpit path so an Ask-the-Atlas answer can be forged into cards directly (20–12k chars, sanitized chapterKey fallback "cockpit"); response now echoes chapterKey+label; chapter path unchanged
+- NEW src/components/atlas/CockpitView.tsx (#/cockpit) — flight-deck UI on the landing's midnight chrome (#070509 + instrument amber #f59e0b family): sticky header (back chip, date, streak/due/goal telemetry chips), three PlanStep cards with shelf-accent icon chips + one-tap action buttons, ~X min total + rebuild button, "Ask the Atlas" panel (suggestion chips, user bubbles amber / atlas answers cream with paragraph renderer, citation chips deep-linking via enterSection, "Forge cards from this answer" with inline idle/loading/done/error status — no toast dependency), error banner, Enter-to-send, aria roles (log/status/alert) + cockpit-scroll dark scrollbar
+- Wiring: page.tsx adds {name:"cockpit"} view + #/cockpit route + dynamic chunk + atlas-active dark chrome; AtlasLanding nav gains amber Rocket "Cockpit" chip (text hidden on mobile); CommandPalette Progress group gains "Open the Cockpit" item; globals.css adds .cockpit-scroll amber scrollbar
+- Verification: bun run lint clean; curl API checks — real question returns grounded answer + 4 correct sources, off-notes question returns honest miss; agent-browser E2E: landing chip → cockpit renders 3 moves; suggestion chip answer with citations (MKTG · Needs & demand states…); citation chip deep-links #/subject/mktg scrolled to #demand-states (top 80px); forge → 8 cards in atlas:custom-cards:v1 + "8 cards forged" status; RUN THE DRILL → #/ledger with drill dialog open (first attempt looked failed — was cold compile of 6 bank chunks, passes with warm cache); OPEN THE CHAPTER → #/subject/foc scrolled to #why; typed question retrieves FA · Dual aspect first; zero console/page errors; mobile 390px layout clean
+- NOT committed — awaiting the user's go-ahead per established pattern
+
+Stage Summary:
+- Cockpit Mode is live end-to-end: data → plan → one-tap execution → grounded AI tutor → citations → flashcards → SM-2, closing the study loop the research identified
+- Plan targets are deterministic (never AI-picked) so every deep-link is real; AI is confined to the grounded tutor + forging
+- New surfaces: #/cockpit route, /api/ask, generate-cards text path; zero regressions to existing handoffs (palette drill handoff re-verified)
+---
+Task ID: 3 (research)
+Agent: Z.ai Code (main)
+Task: Research how top world institutions (US/Ivy, UK, China, Japan) structure learning & concept-building; identify what is integrable into The Atlas. Report in chat only, no code changes.
+
+Work Log:
+- Verified z-ai-web-dev-sdk exposes functions.invoke('web_search') + ('page_reader'); built scratch harnesses .research/edu-search.ts and .research/edu-read.ts
+- Ran 12 targeted searches: MIT OCW/TEAL, Harvard CS50 + CS50.ai duck, HBS case method, Oxford tutorial system, Stanford Online, Tsinghua XuetangX + AI TA, PKU, gaokao cuoti-ben error notebook, JOCW/U-Tokyo active learning, Japanese kaizen/fukushuu study methods
+- First-hand page reads: cs50.readthedocs.io/cs50.ai (duck design), web.mit.edu TEAL case study, new.ox.ac.uk tutorial system, tsinghua.edu.cn AI TA article, atutor.ca Japanese methods, hbs.edu case method
+- agent-browser site walks: ocw.mit.edu homepage + 18.01 course page (resource-type structure), cs50.harvard.edu/x (Week 0→N path + duck + Ed Discussion), cs50.ai; stanford.edu/ox.ac.uk blocked by 403/Cloudflare (covered via page_reader instead)
+- No code modified — research deliverable in chat only
+
+Stage Summary:
+- 6 integrable patterns identified: (1) Gaokao Error Notebook (cuoti ben) — Mistake Ledger; (2) CS50 duck Socratic guardrails for Ask the Atlas (lead-don't-leak hint ladder); (3) Oxford tutorial explain-it-back mode; (4) HBS case-strike decision questions; (5) TEAL 20-min micro-cycle with interspersed checks; (6) Tsinghua-style cited answers locked to own corpus
+- Scratch harnesses remain in .research/ (uncommitted)
+---
+Task ID: 4
+Agent: Z.ai Code (main)
+Task: Integrate the six research patterns into the Atlas, one by one (user-approved build)
+
+Work Log:
+- Pattern 1 (Mistake Ledger cuoti-ben): new lib/mistakes.ts (atlas:mistakes:v1, miss kinds concept/careless/misread, day-spaced re-solve, 2-streak close, anti-gaming day-gap); capture hooks in ExamEngine.chooseMCQ/selfCheck + DrillWindow.answerMCQ/selfCheck
+- Pattern 2 (Socratic tutor): /api/ask gains mode:"socratic" — CS50-duck hint ladder (grounded hint + one guiding question, reveal only on explicit ask); CockpitView toggle chips "straight answer / lead me there"
+- Pattern 3 (Defend it): /api/defend (probe + grade actions, Oxford don persona, VERDICT JSON parse); DefendPanel with chapter picker, tutorial thread, green/amber/red verdict + gaps -> forge cards
+- Pattern 4 (Case strike): /api/case-strike (brief + grade, HBS decision cases from corpus, CONCEPTS/RUBRIC parse); CaseStrikePanel; every strike logs one LedgerAttempt (streak/goal/heatmap count it)
+- Pattern 5 (TEAL checks): ConceptCheck.tsx — one deterministic shelf-bank MCQ per cockpit READ step; grades SM-2 (5/2) and files misses into the mistake ledger automatically
+- Pattern 6 (Yonaoshi): lib/reflection.ts (atlas:reflection:v1, one entry/day, streak) + YonaoshiPanel as the cockpit's closing instrument
+- Cockpit plan: RECHARGE now serves due re-solves first ("recharge · 错题本" step) via dueMistakes; new FlightAction "mistakes" -> atlas:mistakes-open handoff; LedgerView scrolls to section
+- backup.ts: mistakes + reflections stores ride export/import/erase (validated, tolerant)
+- Fixed: MistakeLedger resolve-state pruning (stale done-state blocked the next re-solve window)
+- Verified (agent-browser E2E): concept check -> wrong answer -> SM-2 grade + miss captured -> cockpit RECHARGE shows cuoti-ben step -> deep-link scrolls ledger -> re-solve x2; /api/ask socratic cited hint+question; /api/defend probe = one pointed question; /api/case-strike brief (chai case + concepts) + grade (75/100 rubric); yonaoshi save; toggle aria-pressed; zero console errors; bun lint clean
+
+Stage Summary:
+- All six research patterns live: Mistake Ledger (data+UI+loop), Socratic Ask, Defend It, Case Strike, TEAL checks, Yonaoshi
+- New stores: atlas:mistakes:v1, atlas:reflection:v1 — both backup-covered
+- New API routes: /api/defend, /api/case-strike (z-ai-web-dev-sdk, server-only)
+- Local main rewritten to granular history before push (sandbox UUID auto-commits reworded)
