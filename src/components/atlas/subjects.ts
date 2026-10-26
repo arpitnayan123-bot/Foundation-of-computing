@@ -77,7 +77,7 @@ export const SUBJECTS: Subject[] = [
     shelf: "04",
     title: "Economic & Business History",
     short: "EBH Notes",
-    topics: ["Rules & players", "License Raj", "Agrarian & guilds", "Trade routes", "Industrial Revolution", "Labor movement"],
+    topics: ["Rules & players", "Agrarian & guilds", "Industrial Revolution", "Labor movement", "Taylor & Fayol", "World Wars", "Indian business history"],
     accent: "#eab308",
     accent2: "#854d0e",
     icon: Landmark,
