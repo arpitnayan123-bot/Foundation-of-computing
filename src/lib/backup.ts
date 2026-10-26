@@ -11,6 +11,10 @@
                              optional tolerance)
      atlas:custom-cards:v1 — the AI-forged flashcards (optional,
                              same tolerance as goal/mock)
+     atlas:mistakes:v1     — the Mistake Ledger 错题本 (optional,
+                             same tolerance)
+     atlas:reflection:v1   — the evening debriefs, yonaoshi
+                             (optional, same tolerance)
      foc-py-lab-v1         — the Python Lab notebooks, carried
                              opaquely (the lab owns its schema)
    Export bundles all of them; import validates and replaces.
@@ -29,6 +33,8 @@ import { loadProgress, type ProgressStore } from "@/lib/progress";
 import { loadGoal } from "./goal";
 import { loadBlueprint, MOCK_KEY, type MockBlueprint } from "./mock";
 import { CUSTOM_CARDS_KEY, listCustomCards, type CustomCardStore } from "./custom-cards";
+import { MISTAKES_KEY, loadMistakes, type MistakeEntry, type MistakeStore } from "./mistakes";
+import { REFLECTION_KEY, loadReflections, type ReflectionEntry, type ReflectionStore } from "./reflection";
 
 export const BACKUP_VERSION = 1;
 
@@ -54,6 +60,10 @@ export interface BackupBundle {
     mock?: MockBlueprint;
     /** the AI-forged flashcards — optional, same tolerance */
     custom?: CustomCardStore;
+    /** the Mistake Ledger (错题本) — optional, same tolerance */
+    mistakes?: MistakeStore;
+    /** the evening debriefs (yonaoshi) — optional, same tolerance */
+    reflections?: ReflectionStore;
     /** the Python Lab notebooks — the exact localStorage value,
      *  carried opaquely; absent from older exports */
     lab?: string;
@@ -67,6 +77,10 @@ export interface BackupSummary {
   sections: number;
   /** AI-forged cards riding along in the bundle */
   customCards: number;
+  /** Mistake Ledger entries in the bundle */
+  mistakes: number;
+  /** evening debriefs in the bundle */
+  reflections: number;
   /** Python Lab cells in the bundle (0 when the lab value is
    *  absent or not a plain JSON array of strings) */
   labCells: number;
@@ -92,6 +106,8 @@ export function exportBackup(): string {
       goal: loadGoal(),
       mock: loadBlueprint(),
       custom: { cards: listCustomCards() },
+      mistakes: loadMistakes(),
+      reflections: loadReflections(),
       ...(lab !== null ? { lab } : {}),
     },
   };
@@ -216,6 +232,34 @@ function validCustom(x: unknown): x is CustomCardStore {
   );
 }
 
+/** the Mistake Ledger is optional — but when present it must be whole */
+function validMistakes(x: unknown): x is MistakeStore {
+  if (!isObj(x) || !Array.isArray(x.entries)) return false;
+  return x.entries.every(
+    (e) =>
+      isObj(e) &&
+      typeof e.subject === "string" &&
+      typeof e.id === "string" &&
+      typeof e.kind === "string" &&
+      typeof e.q === "string" &&
+      typeof e.answer === "string" &&
+      num(e.hits) &&
+      num(e.firstAt) &&
+      num(e.lastAt) &&
+      num(e.reDue) &&
+      num(e.streak) &&
+      (e.closedAt === null || num(e.closedAt))
+  );
+}
+
+/** the evening debriefs are optional — but when present they must be whole */
+function validReflections(x: unknown): x is ReflectionStore {
+  if (!isObj(x) || !Array.isArray(x.entries)) return false;
+  return x.entries.every(
+    (e) => isObj(e) && typeof e.date === "string" && typeof e.text === "string" && num(e.createdAt)
+  );
+}
+
 /* ---------------- import ---------------- */
 
 export function parseBackup(text: string): ParseResult {
@@ -244,6 +288,12 @@ export function parseBackup(text: string): ParseResult {
   if (stores.custom !== undefined && !validCustom(stores.custom)) {
     return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
   }
+  if (stores.mistakes !== undefined && !validMistakes(stores.mistakes)) {
+    return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
+  }
+  if (stores.reflections !== undefined && !validReflections(stores.reflections)) {
+    return { ok: false, error: "The backup's stores are damaged — refusing to overwrite your data." };
+  }
   /* the lab block is opaque — the only hard rule is that it is a
      string, so a restore can write it back byte-for-byte */
   if (stores.lab !== undefined && typeof stores.lab !== "string") {
@@ -263,6 +313,8 @@ export function parseBackup(text: string): ParseResult {
       ...(validGoal(stores.goal) ? { goal: stores.goal } : {}),
       ...(validMock(stores.mock) ? { mock: stores.mock } : {}),
       ...(validCustom(stores.custom) ? { custom: stores.custom } : {}),
+      ...(validMistakes(stores.mistakes) ? { mistakes: stores.mistakes } : {}),
+      ...(validReflections(stores.reflections) ? { reflections: stores.reflections } : {}),
       ...(typeof stores.lab === "string" ? { lab: stores.lab } : {}),
     },
   };
@@ -280,6 +332,8 @@ export function parseBackup(text: string): ParseResult {
       days: bundle.stores.ledger.days.length,
       sections,
       customCards: bundle.stores.custom?.cards.length ?? 0,
+      mistakes: bundle.stores.mistakes?.entries.length ?? 0,
+      reflections: bundle.stores.reflections?.entries.length ?? 0,
       labCells: labCellCount(bundle.stores.lab),
       exportedAt: bundle.exportedAt,
     },
@@ -314,6 +368,8 @@ export function applyBackup(bundle: BackupBundle): ApplyResult {
     ["atlas:goal:v1", bundle.stores.goal ? JSON.stringify(bundle.stores.goal) : null],
     [MOCK_KEY, bundle.stores.mock ? JSON.stringify(bundle.stores.mock) : null],
     [CUSTOM_CARDS_KEY, bundle.stores.custom ? JSON.stringify(bundle.stores.custom) : null],
+    [MISTAKES_KEY, bundle.stores.mistakes ? JSON.stringify(bundle.stores.mistakes) : null],
+    [REFLECTION_KEY, bundle.stores.reflections ? JSON.stringify(bundle.stores.reflections) : null],
     [LAB_KEY, typeof bundle.stores.lab === "string" ? bundle.stores.lab : null],
   ];
   for (const [key, value] of writes) {
@@ -340,6 +396,8 @@ export function eraseAllStores(): void {
     window.localStorage.removeItem("atlas:goal:v1");
     window.localStorage.removeItem(MOCK_KEY);
     window.localStorage.removeItem(CUSTOM_CARDS_KEY);
+    window.localStorage.removeItem(MISTAKES_KEY);
+    window.localStorage.removeItem(REFLECTION_KEY);
     window.localStorage.removeItem(LAB_KEY);
   } catch {
     /* noop */
