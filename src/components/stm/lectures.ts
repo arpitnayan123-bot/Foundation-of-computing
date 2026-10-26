@@ -3,16 +3,19 @@
 /* ============================================================
    STM — the lecture sequence (shelf 05).
 
-   "Statistics for Managers" is now mapped 1:1 to the official
-   lecture deck (Dr. Deepak Silvastov, IIT Jodhpur): Lecture 1
-   → Lecture 27, in order, no gaps. Each lecture opens with a
-   "Statistics for Managers Lecture N" band and renders exactly
-   the chapters it owns. Editing this one table re-maps the
-   whole reader.
+   "Statistics for Managers" arrived as one continuous slide
+   deck (Chapters 1–8, Dr. Deepak Srivastav, IIT Jodhpur). The
+   reader picks a lecture in the hero and the page below renders
+   exactly that lecture's chapters. Editing this one table
+   re-maps the whole reader.
 
-   Section ids / labels / descs stay byte-identical wherever a
-   chapter already existed — the search corpus, the ⌘K palette,
-   the progress store and the SM-2 cards all key off them.
+   FULL PDF RE-MAP — the registry now carries ALL TWENTY-SEVEN
+   lectures, numbered exactly as the deck numbers them. One
+   lecture per section in course order; where the deck packed
+   two arcs into one lecture (L4–L5, L7, L9), the lecture owns
+   two sections. The chapter ids/labels/descs mirror the TopNav
+   GROUPS in StmApp (the search index, progress store, ⌘K
+   palette and SM-2 cards all depend on them staying identical).
    ============================================================ */
 
 export interface StmLectureChapter {
@@ -23,7 +26,7 @@ export interface StmLectureChapter {
 
 export interface StmLecture {
   id: string; // "l1".."l27"
-  n: number; // lecture number — matches the official deck
+  n: number; // lecture number
   code: string; // badge text: "L1".."L27"
   title: string;
   blurb: string;
@@ -40,16 +43,15 @@ export const STM_LECTURES: StmLecture[] = [
       "Statistics is two things at once: the numbers a manager collects and the toolkit that reads them. Meet the data-anatomy table, the six business places statistics is computed, and the descriptive-to-inferential loop every later lecture rides.",
     chapters: [
       { id: "lens", label: "What is statistics?", desc: "Two meanings, six business applications" },
-      { id: "scales", label: "Scales of measurement", desc: "Nominal → ordinal → interval → ratio" },
     ],
   },
   {
     id: "l2",
     n: 2,
     code: "L2",
-    title: "Where Data Lives — Sources, Analytics & Ethics",
+    title: "Understanding Data, Statistics & Analysis",
     blurb:
-      "From internal records to government agencies to the web and AI: where data actually comes from, the analytics loop that turns it into decisions, big data's volume–velocity–variety — and the ethical guardrails every analyst should keep.",
+      "From internal records to AI scrapes: where data actually comes from, observational versus experimental collection, the analytics ladder — and the ethical guardrail that keeps cherry-picked charts honest.",
     chapters: [
       { id: "sources", label: "Sources, analytics & ethics", desc: "Hudson's loop, big data, the ASA" },
     ],
@@ -58,35 +60,34 @@ export const STM_LECTURES: StmLecture[] = [
     id: "l3",
     n: 3,
     code: "L3",
-    title: "The Course Briefing — Tools, Rules & the Way In",
+    title: "Course Launch — Data Anatomy & the Scales",
     blurb:
-      "The live opener: Prof. Silvastov's 30+10 format, the Anderson–Sweeney textbook, the Excel + R toolkit every manager installs before session two, how the quizzes and end-term grade — and the AI policy that keeps the work honest.",
+      "Elements, variables, observations, datasets — the anatomy every table is built from — then the four-rung measurement ladder: nominal, ordinal, interval, ratio. Climb it correctly and the right summaries choose themselves.",
     chapters: [
-      { id: "course-tools", label: "Course & tools", desc: "The syllabus, Excel + R, the AI policy" },
+      { id: "scales", label: "Scales of measurement", desc: "Nominal → ordinal → interval → ratio" },
     ],
   },
   {
     id: "l4",
     n: 4,
     code: "L4",
-    title: "Summarizing Data — Marada Inn, Hudson's Bins & Simpson's Trap",
+    title: "Descriptive Statistics — Tables & Displays",
     blurb:
-      "Descriptive statistics is the first step from raw data to actionable information: categorical frequencies, bar and pie, quantitative class intervals and histograms, cumulative distributions — then two variables at once, and Simpson's paradox waiting inside the crosstab.",
+      "Twenty guests at the Marada Inn become frequency tables, bars and pie; Hudson's audit hours need bins, histograms and stem-and-leaf. The course's first display machines, built live.",
     chapters: [
       { id: "categorical", label: "Categorical displays", desc: "Marada Inn: tables, bars, pie" },
       { id: "quantitative", label: "Quantitative displays", desc: "Histograms, dot plots, stem-and-leaf" },
-      { id: "twovars", label: "Two variables", desc: "Crosstabs, Simpson's paradox, dashboards" },
     ],
   },
   {
     id: "l5",
     n: 5,
     code: "L5",
-    title: "Two Variables Graphed & Where the Centre Lives",
+    title: "Two Variables & the Numerical Measures",
     blurb:
-      "Scatter diagrams put two quantitative variables on one canvas: positive, negative, or no relationship — trend lines make the direction visible, side-by-side and stacked bars compress the tables. Then the centre: mean, median, mode, weighted and geometric means, percentiles and quartiles.",
+      "Crosstabs and Simpson's paradox show how one table can argue both ways; scatters and trend lines read relationships. Then the location measures — mean, median, mode, percentiles — with the outlier machine.",
     chapters: [
-      { id: "scatter", label: "Scatter studio", desc: "Trend lines, side-by-side & stacked bars" },
+      { id: "twovars", label: "Two variables", desc: "Crosstabs, Simpson's paradox, dashboards" },
       { id: "location", label: "Measures of location", desc: "Mean, median, mode, percentiles" },
     ],
   },
@@ -94,9 +95,9 @@ export const STM_LECTURES: StmLecture[] = [
     id: "l6",
     n: 6,
     code: "L6",
-    title: "Measures of Spread — σ, z and the Shape of the Data",
+    title: "Measures of Spread & Distribution Shape",
     blurb:
-      "Location alone can mislead: quick commerce may promise 10–20 minutes but vary wildly. Range, IQR, variance and σ — computed live on the rents (s = 54.74) — then skewness, z-scores, Chebyshev's floor, the empirical 68-95-99.7 bell, and the ±3σ outlier rule.",
+      "Spread is the second story: range, IQR, variance and σ — computed live on the rents (s = 54.74) — then z-scores, Chebyshev and the empirical rule flag the outliers before the box plot draws the whole shape at once.",
     chapters: [
       { id: "variability", label: "Variability & shape", desc: "Range, IQR, σ, z, box plots" },
     ],
@@ -105,11 +106,11 @@ export const STM_LECTURES: StmLecture[] = [
     id: "l7",
     n: 7,
     code: "L7",
-    title: "The Box Plot, Association & the Doors of Probability",
+    title: "Box Plots, Association & Probability Doors",
     blurb:
-      "Draw the box: five numbers, whisker limits at 1.5 × IQR, outliers flagged beyond. Then association — covariance's sign, correlation's −1 to +1 — and the probability doors open: random experiments, sample spaces, counting rules, and the three ways a probability is assigned.",
+      "The box plot's five-number summary and 1.5·IQR fences, then covariance and correlation on the desk. The second half opens probability: random experiments, sample spaces, counting rules and the three ways probabilities are assigned.",
     chapters: [
-      { id: "association", label: "Association", desc: "Covariance & correlation" },
+      { id: "association", label: "Association", desc: "Box plots, covariance & correlation" },
       { id: "prob-basics", label: "Experiments & counting", desc: "Sample space, counting rules, priors" },
     ],
   },
@@ -117,20 +118,20 @@ export const STM_LECTURES: StmLecture[] = [
     id: "l8",
     n: 8,
     code: "L8",
-    title: "The Pelican Stores Case — Descriptive Analysis That Sells",
+    title: "Case File I — Pelican Stores & the Excel Lab",
     blurb:
-      "One hundred transactions during a promotion: who came, what they bought, how they paid. COUNTIF, pivot tables, means per payment method, scatter plots of age vs sales — the coupon case where descriptive statistics becomes a manager's day job.",
+      "Chapters 1–2 close on real receipts: Pelican Stores profiles 100 promotional transactions with COUNTIF, pivot tables and the three readings of one table — and the Marada Inn recap turns chapters 1–2 into a checklist.",
     chapters: [
-      { id: "pelican", label: "Case: Pelican Stores", desc: "COUNTIF, pivots, the 70% coupon cohort" },
+      { id: "case-file-1", label: "Case file I & Excel lab", desc: "Pelican Stores, COUNTIF, pivots" },
     ],
   },
   {
     id: "l9",
     n: 9,
     code: "L9",
-    title: "Events, the Laws & the Venn Laboratory",
+    title: "The Probability Laws & Bayes' Revision",
     blurb:
-      "Events compose: complements stay inside the sample space, unions add, intersections overlap — the addition law with mutually exclusive as its special case, then conditional probability, the multiplication law, and the independence test that separates 'no overlap' from 'no influence'.",
+      "Events compose: unions, intersections, complements — the addition law with mutually exclusive as its special case, then conditional probability, independence, and Bayes' prior-to-posterior machine, tabula by tabula.",
     chapters: [
       { id: "prob-laws", label: "Events & the laws", desc: "Union, intersection, conditionals" },
       { id: "bayes", label: "Bayes' theorem", desc: "Prior → information → posterior" },
@@ -140,9 +141,9 @@ export const STM_LECTURES: StmLecture[] = [
     id: "l10",
     n: 10,
     code: "L10",
-    title: "Random Variables & Expected Value",
+    title: "Random Variables & Discrete Distributions",
     blurb:
-      "A random variable is a number attached to every outcome — discrete like JSL's 0–4 TVs, continuous like the drive to the store. E(x) is its centre of gravity (1.2 TVs a day), variance its wobble, and every probability distribution must sum to exactly 1.",
+      "A random variable is a number attached to every outcome — and E(x) is its centre of gravity. JSL's expected 1.20 TVs per customer, the variance that sizes the safety stock, and DiCarlo's bivariate E(xy).",
     chapters: [
       { id: "discrete", label: "Random variables & E(x)", desc: "JSL's 1.20 TVs, DiCarlo's bivariate" },
     ],
@@ -151,9 +152,9 @@ export const STM_LECTURES: StmLecture[] = [
     id: "l11",
     n: 11,
     code: "L11",
-    title: "Bivariate, Binomial & Poisson — the Workhorses",
+    title: "The Three Workhorses — Binomial · Poisson · Hypergeometric",
     blurb:
-      "Two dealerships tracked over 300 days make a bivariate distribution; covariance and correlation measure how they move together. Then the workhorses: Evans' 0.243 binomial (four conditions), Mercy Hospital's 0.1680 Poisson arrivals (two conditions, mean = variance).",
+      "The three workhorses of discrete data: Evans' 0.243 binomial, Mercy Hospital's 0.1680 Poisson arrivals, Neveready's hypergeometric draws — each machine runs the formula live.",
     chapters: [
       { id: "binomial", label: "Binomial · Poisson · Hypergeometric", desc: "Evans, Mercy Hospital, Neveready" },
     ],
@@ -164,7 +165,7 @@ export const STM_LECTURES: StmLecture[] = [
     code: "L12",
     title: "Continuous Distributions — Probability as Area",
     blurb:
-      "Probability becomes area under a curve: the cake-vs-biscuit analogy, Slater's uniform flight times, the normal curve with μ = median = mode, the 68-95-99.7 empirical rule — and Pep Zone's 0.2033 stockout tail, read off the standard normal table.",
+      "Probability becomes area under a curve: Slater's uniform flight times, Pep Zone's 0.2033 normal tail and HUL's reorder point, Al's pump exponential lifetimes — and the empirical-rule bell that breathes.",
     chapters: [
       { id: "continuous", label: "Uniform · Normal · Exponential", desc: "Slater, Pep Zone, Al's pump, HUL" },
     ],
@@ -173,165 +174,165 @@ export const STM_LECTURES: StmLecture[] = [
     id: "l13",
     n: 13,
     code: "L13",
-    title: "The Distribution Recap & the Quiz Map",
+    title: "The Distributions Checkpoint",
     blurb:
-      "A consolidation lap: discrete vs continuous one more time, the TV-sales table rebuilt from 200 observed days, E(x) and variance walked cell by cell in Excel, the quiz logistics (two quizzes of 20 marks, best two of three) — and why formulas beat endless observation.",
+      "A consolidation stop: discrete versus continuous, why formulas replace re-counting, and the JSL demand-mix machine — 80 zero-sale days become 10-unit days and E(x) jumps 1.20 → 5.20. Quiz pattern briefed.",
     chapters: [
-      { id: "dist-recap", label: "The recap lab", desc: "TV sales rebuilt, Excel steps, quiz map" },
+      { id: "dist-checkpoint", label: "Distributions checkpoint", desc: "Discrete vs continuous, E(x) shift machine" },
     ],
   },
   {
     id: "l14",
     n: 14,
     code: "L14",
-    title: "Normal in Practice — z-Tables & Reverse Probability",
+    title: "The Z Laboratory",
     blurb:
-      "Now solve with the table: football players over 250 pounds (z = 2 → 2.28%), salaries between 34k and 46k, and the reverse problem — start from a probability, land on a reorder point (z = 1.645 → 25 gallons). NORM.DIST and NORM.S.DIST close the loop, exponential opens the next door.",
+      "Three requirements unlock every normal problem; Z = (x − μ)/σ collapses them onto one table. Forward mode prices a tail (0.2033), reverse mode builds a reorder point — μ = 15, σ = 6, a 5% stockout promise lands at 25 gallons.",
     chapters: [
-      { id: "normal-practice", label: "z-Tables in action", desc: "Forward & reverse normal problems" },
+      { id: "z-lab", label: "The Z laboratory", desc: "Standardise, read the table, reverse it" },
     ],
   },
   {
     id: "l15",
     n: 15,
     code: "L15",
-    title: "Case: Specialty Toys — Ordering Under a Normal Sky",
+    title: "Inventory by the Curve — Weather Teddy",
     blurb:
-      "Weather Teddy sells for $24, costs $16, clears at $5. Demand is normal around 20,000 with σ = 5,102 — so four order quantities trade profit against stockout probability, and a risk-based Q = μ + z·σ lands on 22,653 units. Order more, risk more.",
+      "The normal distribution signs a purchase order: recover σ = 5,102 from the 95% demand band, price every order quantity's stockout risk, and let the 70% service level pick Q = 22,653 — with the dial that prices your own risk.",
     chapters: [
-      { id: "specialty-toys", label: "Case: Specialty Toys", desc: "Stockout odds, order quantities, risk" },
+      { id: "toy-order", label: "Weather Teddy order", desc: "σ recovery, service-level dial, Q = 22,653" },
     ],
   },
   {
     id: "l16",
     n: 16,
     code: "L16",
-    title: "Case: Go Bananas — Binomial Quality Control",
+    title: "Quality Control — the Discrete Cases",
     blurb:
-      "Twenty-five boxes a week, an 8% failure rate, a shutdown alarm at five. The binomial answers three manager problems: how often a good line stops (4.5%), whether to relax the rule to seven (0.3%, but the brand pays), or improve the process to 5% and keep the strict rule (~1%).",
+      "NICE Paper's 500-tree forest sample, Go Bananas!' binomial shutdown rule (n = 25, p = 0.08, alarm at x ≥ 5) and the three levers that fix it — discrete distributions policing a production line.",
     chapters: [
-      { id: "go-bananas", label: "Case: Go Bananas", desc: "BINOM.DIST, thresholds, the 3-way fix" },
+      { id: "sampling", label: "Sampling & the case file", desc: "NICE Paper, Go Bananas, SRS" },
     ],
   },
   {
     id: "l17",
     n: 17,
     code: "L17",
-    title: "Sampling & Point Estimation",
+    title: "Sampling — the Vocabulary of Estimation",
     blurb:
-      "Why sample at all: blood you cannot drain, rice you taste by the spoonful, tires you must not destroy. Simple random samples from finite and infinite populations, the frame, and the point estimators — x̄ estimates μ, s estimates σ, p̂ estimates p — checked against the 900-admission truth.",
+      "Element, population, sample, frame, census — seven words that carry every inference sentence — plus the statistic→parameter bridge (x̄→μ, s→σ, p̄→p) and the SRS procedure NICE Paper ran.",
     chapters: [
-      { id: "sampling", label: "Sampling & the case file", desc: "NICE Paper, Go Bananas, McNeil's" },
+      { id: "point-estimation", label: "Sampling vocabulary", desc: "Frame, census, the bridge, SRS" },
     ],
   },
   {
     id: "l18",
     n: 18,
     code: "L18",
-    title: "Distributions Deciding — the Dealership & the Salaries",
+    title: "Distributions at Work — McNeil's Poisson Lot",
     blurb:
-      "Statistics allocating people: McNeill's 6.8-arrivals Poisson keeps the lot busy but not mobbed (5 salespeople → 37.2% overload; 8 → 8.5%), the $40,000 MBA salary normal answers three probability questions — and the 'exactly' vs 'at least' language rule that decides mass vs cumulative every time.",
+      "6.8 customers an hour, random and rate-constant: Poisson country. Translate 'more than two waiting with s servers' into X > s+2 — five salespeople fail at 37.2%, eight pass at 8.4% — and master exactly-vs-at-least in Excel.",
     chapters: [
-      { id: "mgmt-apps", label: "Distributions at work", desc: "Dealership staffing, salaries, language" },
+      { id: "dist-apps", label: "Distributions at work", desc: "McNeil's staffing, PMF vs CDF" },
     ],
   },
   {
     id: "l19",
     n: 19,
     code: "L19",
-    title: "The Sampling Distribution & the Central Limit Theorem",
+    title: "Sampling Distributions & the CLT",
     blurb:
-      "Draw many samples, collect the means, and a bell appears — the sampling distribution. x̄ is unbiased (its expected value is μ), the standard error σ/√n shrinks as n grows, the CLT normalizes any population past n = 30, and the same logic carries to proportions with np ≥ 5.",
+      "Every sample mean wobbles — and the distribution of all possible means is the bridge to inference: σ/√n, unbiased estimators, the Central Limit Theorem's n ≥ 30, and the salary simulator's means tightening around 71,800.",
     chapters: [
-      { id: "clt", label: "Sampling distribution & CLT", desc: "σ/√n, unbiasedness, the n ≥ 30 rule" },
+      { id: "sampling-dist", label: "Sampling distributions & CLT", desc: "σ/√n, the CLT, the salary simulator" },
     ],
   },
   {
     id: "l20",
     n: 20,
     code: "L20",
-    title: "Five Ways to Sample — and When to Trust Each",
+    title: "Five Ways to Ask — Sampling Designs",
     blurb:
-      "Stratified splits the population into homogeneous strata, cluster leans on geography, systematic walks every kth element — while convenience and judgment skip the probabilities entirely. The comparison table tells managers which method the decision can afford to trust.",
+      "Stratified, cluster, systematic, convenience, judgment — one animated population, five designs. The honesty line: can the accuracy of the result be evaluated? Only probability methods can say yes.",
     chapters: [
-      { id: "sampling-methods", label: "Sampling methods", desc: "Stratified · cluster · systematic · the rest" },
+      { id: "sampling-methods", label: "Sampling methods", desc: "Stratified · cluster · systematic · convenience · judgment" },
     ],
   },
   {
     id: "l21",
     n: 21,
     code: "L21",
-    title: "Case: Marrian Dairies — Sampling in a Market Entry",
+    title: "Case Study — Marrian Dairies' Market Entry",
     blurb:
-      "BlueGurt rates 80 ± 25; StrawGurt wants the customers who score ≤ 75. With n = 50 the sampling distribution puts that chance at 7.86% — a small unhappy segment, and a cautious launch. Raise n to 150 and the estimate sharpens to 0.7%: sample size is precision.",
+      "BlueGurt scores μ = 80, σ = 25; StrawGurt wants the dissatisfied end. The sampling distribution prices the signal: P(X̄ ≤ 75) falls 7.86% → 0.72% → 0.003% as n climbs 50 → 150 → 400. Sample size is discriminative power.",
     chapters: [
-      { id: "marrian-dairies", label: "Case: Marrian Dairies", desc: "σ/√50 = 3.5355, the 7.86% verdict" },
+      { id: "marrian-case", label: "Marrian Dairies case", desc: "BlueGurt/StrawGurt, the n-switcher" },
     ],
   },
   {
     id: "l22",
     n: 22,
     code: "L22",
-    title: "Interval Estimation — the Confidence Ledger",
+    title: "Interval Estimation — σ Known",
     blurb:
-      "Sahadri's 1,000 stores cannot all be audited — so 50 do the work, at 5% of the cost. A point estimate alone wobbles; fix the probability first and the interval follows: x̄ ± z(α/2)·σ/√n, the 90/95/99 z-values, and the trade-off between certainty and width.",
+      "Sahadri's 1,000-store census costs a fortune; 50 stores cost 5% of it. Fix the probability first, compute the range second: x̄ ± z(α/2)·σ/√n — the confidence dial stretches the income interval across 90, 95 and 99 percent.",
     chapters: [
-      { id: "interval-estimation", label: "Interval estimation", desc: "Margin of error, the 90/95/99 z's" },
+      { id: "interval-known", label: "Interval estimation (σ known)", desc: "Margin of error, 90/95/99, income interval" },
     ],
   },
   {
     id: "l23",
     n: 23,
     code: "L23",
-    title: "Sampling Distributions in Excel — Verify It Yourself",
+    title: "The Sampling Laboratory — Excel, Live",
     blurb:
-      "RAND from 1 to 2,500, paste-special to freeze, sort, take the first 50: a live sampling distribution built in cells. Sample means cluster around 71,800; proportions cluster around 0.40; doubling n shrinks the standard error by √2 — the formulas verified, not just memorized.",
+      "RANDBETWEEN a sample of 50 from 2,500 salaries, freeze it with paste-values, watch the means hover at 71,000–72,500 around μ = 71,800 — and the SE shrink machine sells precision at √n. Quiz pattern revised: two quizzes, through Chapter 8.",
     chapters: [
-      { id: "sampling-excel", label: "Sampling in Excel", desc: "RAND, the demo, the √2 law" },
+      { id: "practice-lab", label: "The sampling lab", desc: "RANDBETWEEN recipe, SE shrink, quiz update" },
     ],
   },
   {
     id: "l24",
     n: 24,
     code: "L24",
-    title: "When σ Is Unknown — the t-Distribution",
+    title: "Student's t — Interval Estimation, σ Unknown",
     blurb:
-      "Sigma rarely comes free: estimate it with s and switch to Student's t — born at the Guinness brewery, heavier-tailed, a whole family indexed by n − 1 degrees of freedom. Sixteen apartments, $750 ± 2.131(55/4): the 95% interval [720.7, 779.3], and the round-up rule for required n.",
+      "When σ hides, s estimates it and Student's t pays the honesty premium: df = n − 1, heavier tails that melt into the normal, the housing interval 750 ± 29.3 — and the n = (z·σ/E)² planner that sends Discount Sounds to 312.",
     chapters: [
-      { id: "t-distribution", label: "The t-distribution", desc: "df = n − 1, heavier tails, real CIs" },
+      { id: "interval-t", label: "The t-distribution", desc: "df = n−1, housing interval, sample-size planner" },
     ],
   },
   {
     id: "l25",
     n: 25,
     code: "L25",
-    title: "Estimating Proportions — the Exit Poll",
+    title: "Proportions — the p̂ Interval",
     blurb:
-      "220 of 500 voters favour the candidate: p̂ = 0.44 ± 1.96·√(0.44×0.56/500) → [39.65%, 48.35%]. Planning a survey backwards: pick p*, square the z, divide by E² — and when nothing is known, p* = 0.5 is the conservative default that can never undershoot.",
+      "Same skeleton, different standard error: p̂ ± z·√[p̂(1−p̂)/n]. The exit poll lands at 0.44 ± 0.0435, and the planning-value lab shows why p* = 0.5 is the conservative ceiling that can never undersample.",
     chapters: [
-      { id: "proportions", label: "Proportion estimation", desc: "p̂ ± E, sample size, p* = 0.5" },
+      { id: "prop-interval", label: "Proportion estimation", desc: "Exit poll, planning value p* = 0.5" },
     ],
   },
   {
     id: "l26",
     n: 26,
     code: "L26",
-    title: "Case: Transmission Failure — What the Descriptives Say",
+    title: "Case File II — Metropolitan Research",
     blurb:
-      "Fifty Detroit repair records: mean 73,340, median 72,700, σ 24,849, no mode. The 95% interval [66,264, 80,416] hides the real story — 19 vehicles died below its floor, and the n = 96 recommendation follows. Averages need their distribution, or outliers run the brand.",
+      "Fifty transmission repair records, a mean of 73,340 miles — and the interval's lower bound at 66,264 with 19 cars failing below it. Averages comfort, distributions decide; the follow-up study is planned at n ≈ 100.",
     chapters: [
-      { id: "transmission", label: "Case: Transmission failure", desc: "Descriptives, CI, the early-failure tail" },
+      { id: "case-file-2", label: "Metropolitan Research", desc: "The transmission file, n ≈ 100" },
     ],
   },
   {
     id: "l27",
     n: 27,
     code: "L27",
-    title: "Hypothesis Testing — the Court of Evidence",
+    title: "Hypothesis Testing — the Framework",
     blurb:
-      "Two competing statements enter, sample evidence judges: H₀ holds the status quo with its equality, Hₐ carries what you hope to prove. Right-tailed, left-tailed, two-tailed — and the two errors every decision risks: the false positive priced at α, the false negative harder to see.",
+      "Put a claim on trial: H₀ holds the equality and the status quo, Hₐ carries the research hope. Three tail forms, the interactive Type I/II courtroom, and the language rule — reject or fail to reject, never accept.",
     chapters: [
-      { id: "hypothesis", label: "Hypothesis testing", desc: "H₀ vs Hₐ, tails, Type I & II errors" },
+      { id: "hypothesis", label: "Hypothesis testing framework", desc: "H₀ vs Hₐ, three tails, Type I & II errors" },
     ],
   },
 ];

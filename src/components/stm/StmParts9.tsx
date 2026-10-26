@@ -1,906 +1,761 @@
 "use client";
 
 /* ============================================================
-   Statistics for Managers — PART 9 (shelf 05 of The Atlas).
-   The official-deck additions, part one:
-   · #course-tools — Lecture 3: the live course briefing
-     (format, textbook, the Excel + R toolkit, grading, the
-     AI policy) with the WSJ data-value calculator
-   · #scatter — Lecture 5: the scatter studio (trend-line
-     lab, side-by-side vs stacked) + where the centre lives
-   · #pelican — Lecture 8: the Pelican Stores case — 100
-     transactions, COUNTIF, pivot tables, the 70% coupon
-     cohort, and the weighted-mean grade machine
-
-   Kit shared with parts 1–8: StmReadStep, StmCallout,
-   StmPanel, StmQuiz (all exported from StmParts1) + the
-   notes/ui Section, SectionHead, Reveal, Takeaways.
+   Statistics for Managers — PART 9 (shelf 05). Lecture 19 + 23:
+   the sampling distribution of the mean — why every sample mean
+   wobbles, the standard error σ/√n, unbiased estimators, the
+   Central Limit Theorem, and the sampling distribution of a
+   proportion — with Marrian Dairies' BlueGurt/StrawGurt decision
+   (lecture 21) computed live. Lecture 20 rides along: the five
+   sampling methods — stratified, cluster, systematic,
+   convenience, judgment — as one animated selector.
+   Every number is from the lecture notes:
+   μ = 71,800 σ = 4,000 · Marrian Dairies σx̄ = 3.5355, Z = −1.41,
+   P = 0.0786 · p = 0.72, n = 30 → np = 21.6, n(1−p) = 8.4.
    ============================================================ */
 
 import React, { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  ArrowRight,
+  BadgeCheck,
   BarChart3,
-  BookOpen,
-  Calculator,
+  Boxes,
   Check,
-  ChartPie,
-  Cpu,
-  FileSpreadsheet,
-  GraduationCap,
-  Laptop,
-  MoveUpRight,
-  ShieldCheck,
-  ShoppingBag,
-  Sparkles,
-  TrendingDown,
-  TrendingUp,
+  Dices,
+  Hand,
+  Layers,
+  ListOrdered,
+  MousePointerClick,
+  MoveHorizontal,
+  Shuffle,
+  Sigma,
+  UserCheck,
+  X,
 } from "lucide-react";
 import { Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
-import { STM_G, StmCallout, StmPanel, StmQuiz, StmReadStep } from "@/components/stm/StmParts1";
+import { STM_G, STM_BTN_GRAD, StmCallout, StmPanel, StmQuiz, StmReadStep } from "@/components/stm/StmParts1";
 
 /* ============================================================
-   LECTURE 3 · THE COURSE BRIEFING  (#course-tools)
+   LECTURE 19+23 · MOVEMENT 1 — THE SAMPLING DISTRIBUTION OF x̄
    ============================================================ */
 
-/* the WSJ data-value machine: 46 questions × n respondents */
-function DataValueCalc() {
+/* the living machine: choose n, watch the sampling distribution
+   of the mean tighten around μ = 71,800 (σ = 4,000) */
+function StandardErrorExplorer() {
   const [n, setN] = useState(50);
-  const questions = 46;
-  const total = questions * n;
+  const MU = 71800;
+  const SIGMA = 4000;
+  const se = SIGMA / Math.sqrt(n);
+  // bell width in σx̄ units — the curve IS the sampling distribution
+  const halfWidth = 3.6 * se;
+  const w = 560;
+  const h = 150;
+  const cx = w / 2;
+  const baseY = h - 18;
+  const amp = 108;
+  const bell = useMemo(() => {
+    const pts: string[] = [];
+    for (let i = 0; i <= 60; i++) {
+      const x = cx - halfWidth + (2 * halfWidth * i) / 60;
+      const t = (x - cx) / (halfWidth / 3);
+      const y = baseY - amp * Math.exp(-0.5 * t * t);
+      pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+    }
+    return pts.join(" ");
+  }, [halfWidth, cx, baseY]);
+  const spreadPct = Math.min(100, (se / (SIGMA / Math.sqrt(5))) * 100);
+
   return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: STM_G.border, background: STM_G[50] }}>
-      <div className="flex items-center justify-between gap-3">
-        <span className="font-mono text-[.6rem] font-bold uppercase tracking-[.16em]" style={{ color: STM_G[700] }}>
-          machine — the wsj subscriber survey · 46 questions × n respondents
-        </span>
-        <Sparkles className="h-4 w-4" style={{ color: STM_G[600] }} />
-      </div>
-      <div className="mt-3 grid items-center gap-4 sm:grid-cols-[1fr_auto]">
-        <div>
-          <label htmlFor="wsj-n" className="text-[.8rem] font-bold text-neutral-700">
-            Respondents in the sample: <span className="tabular-nums">{n}</span>
-          </label>
-          <input
-            id="wsj-n"
-            type="range"
-            min={10}
-            max={150}
-            step={5}
-            value={n}
-            onChange={(e) => setN(Number(e.target.value))}
-            className="mt-2 w-full accent-violet-600"
-          />
-          <p className="mt-1 text-[.72rem] leading-relaxed text-neutral-500">
-            The lecture surveys 50 subscribers. Slide the pool and watch the dataset grow — every respondent answers all 46 questions.
-          </p>
-        </div>
-        <div className="text-center">
-          <AnimatePresence mode="popLayout">
-            <motion.div
-              key={total}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 320, damping: 20 }}
-              className="rounded-xl px-5 py-3 font-mono text-2xl font-black tabular-nums"
-              style={{ background: "#4c1d95", color: "#f5f3ff" }}
-            >
-              {total.toLocaleString()}
-            </motion.div>
-          </AnimatePresence>
-          <p className="mt-1 text-[.62rem] font-bold uppercase tracking-[.14em] text-neutral-500">total data values</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* the toolkit checklist — install before session two */
-function ToolkitChecklist() {
-  const [done, setDone] = useState<Record<string, boolean>>({});
-  const items = [
-    { id: "excel", icon: FileSpreadsheet, name: "Microsoft Excel", note: "Any licensed version (365, 2021, or older) — Google Sheets works as a fallback." },
-    { id: "r", icon: Cpu, name: "R — from cran.r-project.org", note: "Install R first; both Windows and Mac builds are free." },
-    { id: "rstudio", icon: Laptop, name: "R Studio — from rstudio.com", note: "The interface for R, downloaded separately." },
-    { id: "laptop", icon: Laptop, name: "A personal laptop", note: "Essential for the entire programme — phones and tablets are insufficient." },
-    { id: "textbook", icon: BookOpen, name: "Anderson & Sweeney, 13th ed. +", note: '"Statistics for Business and Economics" — any recent edition, physical or digital.' },
-  ];
-  return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: STM_G.border, background: "#fff" }}>
-      <p className="font-mono text-[.6rem] font-bold uppercase tracking-[.16em]" style={{ color: STM_G[700] }}>
-        machine — the pre-session-two checklist · tap to confirm
-      </p>
-      <ul className="mt-3 space-y-2">
-        {items.map((it) => {
-          const on = !!done[it.id];
-          const Icon = it.icon;
-          return (
-            <li key={it.id}>
-              <button
-                type="button"
-                onClick={() => setDone((p) => ({ ...p, [it.id]: !p[it.id] }))}
-                aria-pressed={on}
-                className={`flex w-full items-start gap-3 rounded-xl border px-3 py-2.5 text-left transition-all duration-200 ${
-                  on ? "" : "hover:-translate-y-0.5"
-                }`}
-                style={{
-                  borderColor: on ? STM_G[300] : STM_G.border,
-                  background: on ? STM_G[50] : "#fff",
-                }}
-              >
-                <span
-                  className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors"
-                  style={{ background: on ? STM_G[600] : STM_G[100], color: on ? "#fff" : STM_G[700] }}
-                >
-                  {on ? <Check className="h-3.5 w-3.5" /> : <Icon className="h-3.5 w-3.5" />}
-                </span>
-                <span className="min-w-0">
-                  <span className={`block text-[.84rem] font-bold ${on ? "line-through opacity-60" : ""}`} style={{ color: STM_G[900] }}>
-                    {it.name}
-                  </span>
-                  <span className="block text-[.74rem] leading-relaxed text-neutral-500">{it.note}</span>
-                </span>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-      <p className="mt-2 text-right font-mono text-[.66rem] font-bold tabular-nums" style={{ color: STM_G[700] }}>
-        {Object.values(done).filter(Boolean).length}/{items.length} ready
-      </p>
-    </div>
-  );
-}
-
-export function StmCourseToolsSection() {
-  return (
-    <Section id="course-tools">
-      <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
-        <SectionHead
-          eyebrow="Lecture 3 · The Live Briefing — Course Overview & Structure"
-          title={
-            <>
-              The course & <span className="grad-violet">its tools</span>
-            </>
-          }
-          lead="The first live session of the Statistics for Managers course at IIT Jodhpur: how each week runs, what to install, how the grade is built — and the AI policy that keeps every submitted number yours."
-        />
-
-        <StmReadStep n="01" title="The format — 30 + 10, flipped" sub="Application live, theory recorded" />
-        <Reveal>
-          <div className="grid gap-4 md:grid-cols-3">
-            <StmPanel label="Each session">{`30 minutes of lecture
-10 minutes of Q&A
-
-Live sessions apply the
-pre-recorded theory to
-real problems.`}</StmPanel>
-            <StmPanel label="The instructor">{`Prof. Deepak Silvastov
-School of Management &
-Entrepreneurship, IIT Jodhpur
-
-3 years teaching (IIT Jodhpur,
-Flame University) + 5 years
-industry experience.`}</StmPanel>
-            <StmPanel label="The rhythm">{`Live lectures alternate
-weekly with dedicated
-doubt-clearing sessions.
-
-Post pre-prepared questions
-on the LMS before each one.`}</StmPanel>
-          </div>
-        </Reveal>
-
-        <StmReadStep n="02" title="The toolkit — install before the next live session" sub="Excel for the desk, R for the lab" />
-        <Reveal>
-          <ToolkitChecklist />
-        </Reveal>
-        <Reveal>
-          <StmCallout kind="why" title="Why a laptop, not a phone?">
-            Management courses here are hands-on: freeze panes, auto-filters, pivot tables and R scripts need a real keyboard. Mobile devices and tablets are explicitly insufficient — the recommendation is a laptop or PC for the entire programme.
-          </StmCallout>
-        </Reveal>
-
-        <StmReadStep n="03" title="Data grows fast — the WSJ survey" sub="46 questions × 50 respondents = one dataset" />
-        <Reveal>
-          <DataValueCalc />
-        </Reveal>
-        <Reveal>
-          <StmCallout kind="insight" title="The element–variable math">
-            Total data values in a dataset = number of elements × number of variables. The Wall Street Journal subscriber survey asks 46 questions of 50 respondents — 2,300 data points from one modest sample. Data accumulates multiplicatively, which is why the toolkit matters.
-          </StmCallout>
-        </Reveal>
-
-        <StmReadStep n="04" title="The grade — two of three quizzes & a written end-term" sub="Assessment favours interpretation over recall" />
-        <Reveal>
-          <div className="grid gap-4 md:grid-cols-3">
-            <StmPanel label="Quizzes">{`Three quizzes at regular
-intervals, 20 marks each.
-The best two scores count.
-
-Objective questions with a
-conceptual focus; calculator
-allowed; one week's notice.`}</StmPanel>
-            <StmPanel label="End-term">{`Written mode with both
-subjective and objective
-questions.
-
-Scientific calculators are
-permitted for the final exam
-calculations.`}</StmPanel>
-            <StmPanel label="The focus">{`Data collection and
-interpretation skills —
-not memorised formulas.
-
-Recorded lectures come
-first: the live sessions
-assume you've watched.`}</StmPanel>
-          </div>
-        </Reveal>
-
-        <StmReadStep n="05" title="The AI policy — a supplement, never a substitute" sub="Use it to think better, not instead of thinking" />
-        <Reveal>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border p-4" style={{ borderColor: "#86efac", background: "#f0fdf4" }}>
-              <p className="flex items-center gap-2 text-[.8rem] font-black" style={{ color: "#166534" }}>
-                <Check className="h-4 w-4" /> RECOMMENDED AI USE
-              </p>
-              <ul className="mt-2 space-y-1.5 text-[.8rem] leading-relaxed text-neutral-700">
-                <li>· Concept clarification and alternative perspectives</li>
-                <li>· Debugging code and quality checks</li>
-                <li>· Sanity verification of your own calculations</li>
-              </ul>
-            </div>
-            <div className="rounded-2xl border p-4" style={{ borderColor: "#fca5a5", background: "#fef2f2" }}>
-              <p className="flex items-center gap-2 text-[.8rem] font-black" style={{ color: "#991b1b" }}>
-                <ShieldCheck className="h-4 w-4" /> PROHIBITED
-              </p>
-              <ul className="mt-2 space-y-1.5 text-[.8rem] leading-relaxed text-neutral-700">
-                <li>· AI as the sole source of information</li>
-                <li>· Submitting AI-written assignments or code as your own</li>
-                <li>· Sharing confidential or unpublished data with AI tools</li>
-              </ul>
-            </div>
-          </div>
-        </Reveal>
-        <Reveal>
-          <StmCallout kind="why" title="The integrity clause">
-            Every AI output must be verified manually before you trust it. Passing off AI-generated work as entirely your own constitutes academic dishonesty — and violation may lead to candidature cancellation. AI is a supplementary tool, never the primary learning method.
-          </StmCallout>
-        </Reveal>
-
-        <StmReadStep n="06" title="Where the course goes from here" sub="Foundation first, complexity compounds" />
-        <Reveal>
-          <StmCallout kind="insight" title="The engagement snapshot">
-            Roughly 70% of participants had watched the recorded lectures before this session, and about half reported no fear of statistics. Feedback calls the recordings interactive and well-structured — though chart visibility during pop-up questions was flagged to the technical team. The warning that matters: the first chapter builds the foundation, and missing it makes every later session harder cumulatively.
-          </StmCallout>
-        </Reveal>
-
-        <StmQuiz
-          q="A marketing class surveys 46 questions to 50 respondents. How many total data values does the dataset hold — and which survey variable ('career stage' ratings, say) could never support averaging?"
-          options={[
-            "2,300 values; career stage is ordinal, so averages overstate precision",
-            "2,300 values; career stage is nominal, so nothing may be computed",
-            "96 values; each question is one data point",
-            "46 values; only the question count matters",
-          ]}
-          answer={0}
-          explain="46 × 50 = 2,300 total data values (elements × variables). Career-stage ratings are ordinal: order exists but differences aren't precisely measurable — so the mean is a shaky summary where a median or mode would speak honestly."
-        />
-
-        <Takeaways
-          items={[
-            <>Live sessions run <b>30 + 10</b> and apply pre-recorded theory — watch the recordings first, or the live hours compound against you.</>,
-            <>Toolkit: <b>Excel (or Sheets) + R + R Studio + a real laptop</b>, and the Anderson &amp; Sweeney textbook (13th onwards).</>,
-            <>Grading: <b>best two of three 20-mark quizzes</b> + a written end-term; interpretation skills are the target.</>,
-            <>Total data values = <b>elements × variables</b> (46 × 50 = 2,300) — and the AI policy allows assistance, never authorship.</>,
-          ]}
-        />
-      </div>
-    </Section>
-  );
-}
-
-/* ============================================================
-   LECTURE 5 · THE SCATTER STUDIO  (#scatter)
-   ============================================================ */
-
-/* trend-line lab — pick the relationship, watch the cloud morph */
-function TrendLab() {
-  const [mode, setMode] = useState<"pos" | "neg" | "none">("pos");
-  const pts = useMemo(() => {
-    if (mode === "pos")
-      return [
-        [8, 22], [14, 34], [20, 30], [26, 44], [32, 52], [38, 58], [44, 70], [50, 66], [56, 80], [62, 84],
-      ];
-    if (mode === "neg")
-      return [
-        [8, 82], [14, 74], [20, 78], [26, 58], [32, 54], [38, 44], [44, 40], [50, 30], [56, 26], [62, 18],
-      ];
-    return [
-      [8, 48], [14, 30], [20, 62], [26, 44], [32, 70], [38, 28], [44, 56], [50, 38], [56, 64], [62, 46],
-    ];
-  }, [mode]);
-  const X = (v: number) => 46 + (v / 70) * 400;
-  const Y = (v: number) => 128 - (v / 100) * 96;
-  const slope = mode === "pos" ? "+m" : mode === "neg" ? "−m" : "0";
-  const label =
-    mode === "pos"
-      ? "Positive — interceptions vs points scored: both climb together"
-      : mode === "neg"
-        ? "Negative — price vs quantity consumed: the demand curve"
-        : "No apparent relationship — slope zero, the cloud just drifts";
-  return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: STM_G.border, background: "#fff" }}>
-      <p className="font-mono text-[.6rem] font-bold uppercase tracking-[.16em]" style={{ color: STM_G[700] }}>
-        machine — the trend-line lab · y = mx + c
-      </p>
-      <div className="mt-3 flex flex-wrap gap-2">
-        {(
-          [
-            { k: "pos", t: "Positive", icon: TrendingUp },
-            { k: "neg", t: "Negative", icon: TrendingDown },
-            { k: "none", t: "No relationship", icon: MoveUpRight },
-          ] as const
-        ).map((b) => {
-          const Icon = b.icon;
-          const on = mode === b.k;
-          return (
-            <button
-              key={b.k}
-              type="button"
-              onClick={() => setMode(b.k)}
-              aria-pressed={on}
-              className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[.72rem] font-bold transition-all"
-              style={{
-                borderColor: on ? STM_G[600] : STM_G.border,
-                background: on ? STM_G[600] : "#fff",
-                color: on ? "#fff" : STM_G[800],
-              }}
-            >
-              <Icon className="h-3.5 w-3.5" /> {b.t}
-            </button>
-          );
-        })}
-      </div>
-      <div className="mt-3 overflow-hidden rounded-xl border" style={{ borderColor: STM_G.border, background: STM_G[50] }}>
-        <svg viewBox="0 0 480 160" className="h-auto w-full" role="img" aria-label={`Scatter plot showing a ${label}`}>
-          <line x1="36" y1="134" x2="470" y2="134" stroke={STM_G.border} strokeWidth="1.4" />
-          <line x1="36" y1="14" x2="36" y2="134" stroke={STM_G.border} strokeWidth="1.4" />
-          <motion.line
-            x1={X(4)} y1={mode === "pos" ? Y(14) : mode === "neg" ? Y(92) : Y(48)}
-            x2={X(66)} y2={mode === "pos" ? Y(88) : mode === "neg" ? Y(12) : Y(48)}
-            stroke="#6d28d9" strokeWidth="2.4" strokeDasharray="5 5" strokeLinecap="round"
-            animate={{ x1: X(4), x2: X(66), y1: mode === "pos" ? Y(14) : mode === "neg" ? Y(92) : Y(48), y2: mode === "pos" ? Y(88) : mode === "neg" ? Y(12) : Y(48) }}
-            transition={{ type: "spring", stiffness: 120, damping: 18 }}
-          />
-          {pts.map(([x, y], i) => (
-            <motion.circle
-              key={`${mode}-${i}`}
-              cx={X(x)} cy={Y(y)} r="4.2"
-              fill={mode === "none" ? "#a78bfa" : "#7c3aed"} opacity="0.85"
-              initial={{ cx: X(x), cy: Y(64), opacity: 0 }}
-              animate={{ cx: X(x), cy: Y(y), opacity: 0.85 }}
-              transition={{ delay: i * 0.04, type: "spring", stiffness: 160, damping: 16 }}
-            />
-          ))}
-          <text x="240" y="152" textAnchor="middle" fontSize="10" fill="#8a7fae">x — the independent variable</text>
-          <text x="14" y="76" textAnchor="middle" fontSize="10" fill="#8a7fae" transform="rotate(-90 14 76)">y — dependent</text>
-          <text x="430" y="30" textAnchor="end" fontSize="12" fontWeight="800" fill="#4c1d95">slope {slope}</text>
-        </svg>
-      </div>
-      <p className="mt-2 text-[.78rem] leading-relaxed text-neutral-600">{label}</p>
-    </div>
-  );
-}
-
-/* stacked vs side-by-side — the same homes, two lenses */
-function StackedToggle() {
-  const [stacked, setStacked] = useState(true);
-  const data = [
-    { q: "Excellent", cheap: 30, costly: 10 },
-    { q: "Above avg", cheap: 40, costly: 30 },
-    { q: "Average", cheap: 20, costly: 35 },
-    { q: "Below avg", cheap: 8, costly: 20 },
-    { q: "Poor", cheap: 2, costly: 5 },
-  ];
-  const X = (i: number, w = 56) => 52 + i * 74 + (56 - w) / 2;
-  return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: STM_G.border, background: "#fff" }}>
+    <div className="card-warm p-4 sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="font-mono text-[.6rem] font-bold uppercase tracking-[.16em]" style={{ color: STM_G[700] }}>
-          machine — one table, two lenses · quality vs home price
-        </p>
-        <div className="flex gap-1.5">
-          {(
-            [
-              { k: true, t: "Stacked" },
-              { k: false, t: "Side-by-side" },
-            ] as const
-          ).map((b) => (
-            <button
-              key={String(b.k)}
-              type="button"
-              onClick={() => setStacked(b.k)}
-              aria-pressed={stacked === b.k}
-              className="rounded-full border px-3 py-1 text-[.68rem] font-bold transition-all"
-              style={{
-                borderColor: stacked === b.k ? STM_G[600] : STM_G.border,
-                background: stacked === b.k ? STM_G[600] : "#fff",
-                color: stacked === b.k ? "#fff" : STM_G[800],
-              }}
-            >
-              {b.t}
-            </button>
-          ))}
-        </div>
+        <p className="text-[.9rem] font-bold text-[#3e2c1d]">The standard-error explorer — bigger n, tighter means</p>
+        <span className="flex items-center gap-1.5 rounded-full bg-[#f6f3fe] px-3 py-1 text-[.66rem] font-bold uppercase tracking-[.12em]" style={{ color: STM_G[700] }}>
+          <MoveHorizontal className="h-3 w-3" /> drag the sample size
+        </span>
       </div>
-      <div className="mt-3 overflow-hidden rounded-xl border" style={{ borderColor: STM_G.border, background: STM_G[50] }}>
-        <svg viewBox="0 0 480 190" className="h-auto w-full" role="img" aria-label={stacked ? "Stacked bar chart of home quality for cheaper and costlier homes" : "Side-by-side bar chart of home quality for cheaper and costlier homes"}>
-          <line x1="42" y1="152" x2="470" y2="152" stroke={STM_G.border} strokeWidth="1.4" />
-          {data.map((d, i) => {
-            const cheapH = (d.cheap / 70) * 116;
-            const costlyH = (d.costly / 70) * 116;
-            const totalH = ((d.cheap + d.costly) / 100) * 116;
-            return (
-              <g key={d.q}>
-                {stacked ? (
-                  <>
-                    <motion.rect x={X(i)} width="56" y={152 - totalH} height={totalH} rx="4" fill="#ddd6fe" initial={{ height: 0, y: 152 }} animate={{ height: totalH, y: 152 - totalH }} transition={{ delay: i * 0.06, type: "spring", stiffness: 140, damping: 16 }} />
-                    <motion.rect x={X(i)} width="56" y={152 - cheapH} height={cheapH} rx="4" fill="#6d28d9" initial={{ height: 0, y: 152 }} animate={{ height: cheapH, y: 152 - cheapH }} transition={{ delay: i * 0.06 + 0.12, type: "spring", stiffness: 140, damping: 16 }} />
-                    <text x={X(i) + 28} y={152 - cheapH - 5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill="#4c1d95">{`${d.cheap + d.costly}`}</text>
-                  </>
-                ) : (
-                  <>
-                    <motion.rect x={X(i, 24)} width="24" y={152 - cheapH} height={cheapH} rx="3" fill="#6d28d9" initial={{ height: 0, y: 152 }} animate={{ height: cheapH, y: 152 - cheapH }} transition={{ delay: i * 0.05, type: "spring", stiffness: 140, damping: 16 }} />
-                    <motion.rect x={X(i, 24) + 30} width="24" y={152 - costlyH} height={costlyH} rx="3" fill="#c4b5fd" initial={{ height: 0, y: 152 }} animate={{ height: costlyH, y: 152 - costlyH }} transition={{ delay: i * 0.05 + 0.06, type: "spring", stiffness: 140, damping: 16 }} />
-                    <text x={X(i, 24) + 27} y={152 - Math.max(cheapH, costlyH) - 5} textAnchor="middle" fontSize="9" fontWeight="700" fill="#6d28d9">{d.cheap}</text>
-                    <text x={X(i, 24) + 41} y="164" textAnchor="middle" fontSize="8.5" fill="#8a7fae">{d.costly}</text>
-                  </>
-                )}
-                <text x={X(i) + 28} y="178" textAnchor="middle" fontSize="9.5" fill="#8a7fae">{d.q}</text>
-              </g>
-            );
-          })}
-          <rect x="372" y="14" width="12" height="12" rx="3" fill="#6d28d9" />
-          <text x="390" y="24" fontSize="10" fill="#6d28d9">cheaper</text>
-          <rect x="372" y="32" width="12" height="12" rx="3" fill="#c4b5fd" />
-          <text x="390" y="42" fontSize="10" fill="#8a7fae">costlier</text>
+
+      <div className="mt-4 overflow-x-auto">
+        <svg viewBox={`0 0 ${w} ${h}`} className="min-w-[420px]" role="img" aria-label="Sampling distribution of the mean narrowing as n grows">
+          {/* axis */}
+          <line x1="12" y1={baseY} x2={w - 12} y2={baseY} stroke="#e2d6f5" strokeWidth="1.5" />
+          {/* μ marker */}
+          <line x1={cx} y1="16" x2={cx} y2={baseY} stroke="#ca8a04" strokeWidth="1.4" strokeDasharray="4 4" />
+          <text x={cx + 6} y="26" fontSize="11" fontWeight="700" fill="#a16207">μ = 71,800</text>
+          {/* the curve — re-drawn live */}
+          <motion.polyline
+            points={bell}
+            fill="none"
+            stroke={STM_G[600]}
+            strokeWidth="2.4"
+            strokeLinecap="round"
+            animate={{ points: bell }}
+            transition={{ duration: 0.25 }}
+          />
+          {/* ±1σx̄ band */}
+          <motion.rect
+            height="10"
+            rx="5"
+            y={baseY + 4}
+            fill={STM_G.soft}
+            stroke={STM_G.border}
+            animate={{ x: cx - se * (w / (2 * halfWidth)), width: (2 * se * w) / (2 * halfWidth) }}
+            transition={{ duration: 0.25 }}
+          />
+          <text x="14" y={baseY - 4} fontSize="10" fontWeight="600" fill="#8a7bb0">sample means →</text>
         </svg>
       </div>
-      <p className="mt-2 text-[.78rem] leading-relaxed text-neutral-600">
-        {stacked
-          ? "Stacked: each bar is the full 100%, split into segments — proportions at a glance. With percentage frequencies every bar reaches the same height, which is what makes the comparison fair."
-          : "Side-by-side: each quality level shows a cluster of two bars — cheaper vs costlier — so absolute frequencies stay readable without squinting."}
+
+      <label htmlFor="se-n" className="mt-4 block text-[.72rem] font-bold uppercase tracking-[.14em] text-[#8a6d4f]">
+        Sample size <span className="font-mono text-[#6d28d9]">n = {n}</span>
+      </label>
+      <input
+        id="se-n"
+        type="range"
+        min={5}
+        max={200}
+        step={5}
+        value={n}
+        onChange={(e) => setN(Number(e.target.value))}
+        className="mt-2 w-full accent-[#7c3aed]"
+      />
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-3">
+        <div className="rounded-2xl border p-4" style={{ borderColor: STM_G.border, background: STM_G.wash }}>
+          <p className="text-[.68rem] font-black uppercase tracking-[.14em]" style={{ color: STM_G[700] }}>σ (population)</p>
+          <p className="font-mono text-2xl font-black" style={{ color: STM_G[800] }}>4,000</p>
+        </div>
+        <div className="rounded-2xl border p-4" style={{ borderColor: STM_G.border, background: STM_G.wash }}>
+          <p className="text-[.68rem] font-black uppercase tracking-[.14em]" style={{ color: STM_G[700] }}>σx̄ = σ/√n</p>
+          <AnimatePresence mode="popLayout">
+            <motion.p
+              key={se.toFixed(1)}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              className="font-mono text-2xl font-black"
+              style={{ color: STM_G[800] }}
+            >
+              {se.toFixed(1)}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+        <div className="rounded-2xl border p-4" style={{ borderColor: "#e8b4a0", background: "#fdf0ea" }}>
+          <p className="text-[.68rem] font-black uppercase tracking-[.14em] text-[#b3402c]">spread vs n = 5</p>
+          <p className="font-mono text-2xl font-black text-[#8c2f2f]">{spreadPct.toFixed(0)}%</p>
+        </div>
+      </div>
+      <p className="mt-3 text-[.82rem] leading-relaxed text-muted-warm">
+        Slide n from 5 to 200 and the distribution of sample means collapses onto μ. That is the
+        whole promise: <b>σx̄ = σ/√n</b> — quadruple the sample and the standard error halves.
+        At n = 5 the explorer shows σx̄ = 1,789; at n = 200 it is <b>283</b>. Same population,
+        dramatically more trustworthy sample mean.
       </p>
     </div>
   );
 }
 
-export function StmScatterSection() {
+export function StmSamplingDistSection() {
   return (
-    <Section id="scatter">
+    <Section id="sampling-dist">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 5 · Graphical Displays for Summarizing Two Variables"
+          eyebrow="Lectures 19 & 23 · Sampling Distributions + the Excel laboratory"
           title={
             <>
-              The <span className="grad-violet">scatter studio</span>
+              The sampling <span className="grad-violet">distribution</span> — why means wobble
             </>
           }
-          lead="Tables force the reader to work; graphs carry the relationship in one glance. Two quantitative variables meet on a coordinate system — each point one observation, the cloud's shape the story — and a trend line signs it positive, negative, or none."
+          lead="Take one random sample of n = 50 salaries: x̄ = 72,370. Take another: 71,240. Another: 72,090. Each sample gets its own mean — and the distribution of ALL possible sample means is the sampling distribution. It is the bridge from one noisy estimate to a confident inference."
         />
 
-        <StmReadStep n="01" title="The scatter diagram — one point per observation" sub="x on the horizontal, y on the vertical" />
+        <StmReadStep n="01" title="One sample, many samples, one distribution" sub="The population is fixed — the sample means are what vary" />
         <Reveal>
-          <div className="grid items-start gap-4 lg:grid-cols-2">
-            <StmPanel label="Structure">{`Definition: a graphical
-representation of two
-quantitative variables
-plotted as points on a
-coordinate system.
-
-Structure: one variable on
-the x-axis, the other on the
-y-axis.
-
-Interpretation: each point is
-one observation; the pattern
-of points reveals the
-relationship.`}</StmPanel>
-            <StmPanel label="The lecture's example">{`Age versus weight:
-
-weight generally increases
-with age until approximately
-age 30,
-
-after which it stabilises —
-the cloud flattens instead of
-climbing forever.`}</StmPanel>
-          </div>
-        </Reveal>
-
-        <StmReadStep n="02" title="The trend line — sign the relationship" sub="Slope m in y = mx + c carries the verdict" />
-        <Reveal>
-          <TrendLab />
-        </Reveal>
-        <Reveal>
-          <div className="grid gap-4 md:grid-cols-3">
-            <StmPanel label="Positive">{`Both variables increase
-together.
-
-Slope of y = mx + c is
-positive.
-
-Lecture's example: number of
-interceptions versus points
-scored in football.`}</StmPanel>
-            <StmPanel label="Negative">{`As x increases, y decreases.
-
-Slope is negative.
-
-Example: price of goods
-versus quantity consumed —
-the demand curve.`}</StmPanel>
-            <StmPanel label="No relationship">{`Slope is zero; y stays
-constant regardless of x.
-
-No discernible pattern
-between the variables —
-the cloud just drifts.`}</StmPanel>
-          </div>
-        </Reveal>
-
-        <StmReadStep n="03" title="Two categorical lenses — side-by-side & stacked" sub="Compressing a two-variable table into one honest picture" />
-        <Reveal>
-          <StackedToggle />
-        </Reveal>
-        <Reveal>
-          <StmCallout kind="insight" title="Choosing between them">
-            Side-by-side bars compare frequencies across clusters — each category gets a small group of bars, one per value of the second variable. Stacked bars show composition: the total as the full height, segments carrying the shares. When the stacked chart is drawn with percentage frequencies, all bars hit 100% and the proportional comparison becomes effortless — the lecture's cheaper-versus-costly-homes case.
-          </StmCallout>
-        </Reveal>
-
-        <StmQuiz
-          q="A coach plots interceptions (x) against points scored (y) and the cloud rises left-to-right. In y = mx + c terms, what is true — and what display would let her also see whether cheap homes are rated differently from costly ones?"
-          options={[
-            "m > 0; a side-by-side bar chart of quality by price class",
-            "m > 0; a pie chart of interceptions",
-            "m < 0; a cumulative frequency distribution",
-            "m = 0; a stacked histogram",
-          ]}
-          answer={0}
-          explain="A rising cloud means both variables increase together — the slope m is positive. Quality ratings across two price classes are two categorical dimensions: the side-by-side (clustered) bar chart is built exactly for that comparison, while the stacked version would show proportions within each price class."
-        />
-
-        <Takeaways
-          items={[
-            <>Scatter: <b>one point per observation</b>, x horizontal, y vertical — the cloud's shape is the relationship.</>,
-            <>Trend line signs it: <b>positive (both rise)</b>, negative (demand curve), or zero slope (no pattern).</>,
-            <>Side-by-side bars compare <b>clusters</b>; stacked bars show <b>composition</b> — at 100% they become pure proportions.</>,
-          ]}
-        />
-      </div>
-    </Section>
-  );
-}
-
-/* ============================================================
-   LECTURE 8 · THE PELICAN STORES CASE  (#pelican)
-   ============================================================ */
-
-/* the payment-method machine — animated frequency bars */
-function PaymentBars() {
-  const rows = [
-    { m: "Proprietary card", n: 70 },
-    { m: "MasterCard", n: 14 },
-    { m: "Visa", n: 10 },
-    { m: "Discover", n: 3 },
-    { m: "American Express", n: 2 },
-  ];
-  const max = 70;
-  return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: STM_G.border, background: "#fff" }}>
-      <p className="font-mono text-[.6rem] font-bold uppercase tracking-[.16em]" style={{ color: STM_G[700] }}>
-        machine — how 100 transactions paid · COUNTIF on the method column
-      </p>
-      <ul className="mt-3 space-y-2">
-        {rows.map((r, i) => (
-          <li key={r.m} className="flex items-center gap-3">
-            <span className="w-36 shrink-0 text-[.74rem] font-bold" style={{ color: STM_G[900] }}>
-              {r.m}
-            </span>
-            <span className="h-5 flex-1 overflow-hidden rounded-full" style={{ background: STM_G[50] }}>
-              <motion.span
-                className="block h-full rounded-full"
-                style={{ background: i === 0 ? "linear-gradient(90deg,#8b5cf6,#6d28d9)" : "#c4b5fd" }}
-                initial={{ width: 0 }}
-                whileInView={{ width: `${(r.n / max) * 100}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: i * 0.1, ease: "easeOut" }}
-              />
-            </span>
-            <span className="w-8 text-right font-mono text-[.78rem] font-bold tabular-nums" style={{ color: STM_G[800] }}>
-              {r.n}
-            </span>
-          </li>
-        ))}
-      </ul>
-      <p className="mt-2 text-[.72rem] leading-relaxed text-neutral-500">
-        The store's own proprietary card carries 70 of 100 transactions — the frequency distribution managers actually read before the meeting.
-      </p>
-    </div>
-  );
-}
-
-/* one labelled slider row — hoisted so it is never created during render */
-function Slide({ label, v, set, max = 100 }: { label: string; v: number; set: (n: number) => void; max?: number }) {
-  return (
-    <label className="block">
-      <span className="flex items-baseline justify-between text-[.72rem] font-bold text-neutral-700">
-        {label} <span className="tabular-nums">{v}</span>
-      </span>
-      <input type="range" min={0} max={max} value={v} onChange={(e) => set(Number(e.target.value))} className="mt-1 w-full accent-violet-600" />
-    </label>
-  );
-}
-
-/* the weighted grade machine — midterm · final · viva */
-function WeightedGrade() {
-  const [wMid, setWMid] = useState(30);
-  const [wFinal, setWFinal] = useState(50);
-  const wViva = 100 - wMid - wFinal;
-  const [sMid, setSMid] = useState(78);
-  const [sFinal, setSFinal] = useState(85);
-  const [sViva, setSViva] = useState(90);
-  const grade = (wMid / 100) * sMid + (wFinal / 100) * sFinal + (wViva / 100) * sViva;
-  return (
-    <div className="grid gap-4 lg:grid-cols-2">
-      <div className="rounded-2xl border p-4" style={{ borderColor: STM_G.border, background: "#fff" }}>
-        <p className="font-mono text-[.6rem] font-bold uppercase tracking-[.16em]" style={{ color: STM_G[700] }}>
-          machine — the weighted mean · x̄w = Σ(wᵢxᵢ)/Σwᵢ
-        </p>
-        <div className="mt-3 space-y-3">
-          <div>
-            <p className="text-[.66rem] font-bold uppercase tracking-[.12em] text-neutral-500">weights (auto-balance to 100%)</p>
-            <div className="mt-1 grid grid-cols-2 gap-2">
-              <Slide label="Midterm" v={wMid} set={(n) => setWMid(Math.min(n, 100 - wFinal))} />
-              <Slide label="Final" v={wFinal} set={(n) => setWFinal(Math.min(n, 100 - wMid))} />
+          <div className="card-warm p-5">
+            <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
+              {[
+                { icon: <Layers className="h-4 w-4" />, label: "Population", sub: "N = 2,500 salaries · μ = 71,800 · σ = 4,000" },
+                { icon: <Dices className="h-4 w-4" />, label: "Draw sample 1…k", sub: "each of size n = 50, each gives its own x̄" },
+                { icon: <BarChart3 className="h-4 w-4" />, label: "Collect the x̄'s", sub: "their distribution ≈ normal, centred on μ" },
+              ].map((s, i) => (
+                <React.Fragment key={s.label}>
+                  <div className="card-warm flex flex-1 items-center gap-3 p-4">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-white" style={{ background: STM_BTN_GRAD }}>{s.icon}</span>
+                    <div>
+                      <p className="font-bold text-[#3e2c1d]">{s.label}</p>
+                      <p className="text-[.76rem] text-muted-warm">{s.sub}</p>
+                    </div>
+                  </div>
+                  {i < 2 ? <span className="hidden text-2xl font-black md:block" style={{ color: STM_G[400] }}>→</span> : null}
+                </React.Fragment>
+              ))}
             </div>
-            <p className="mt-1 text-[.7rem] font-bold" style={{ color: STM_G[700] }}>
-              VIVA gets the remaining {wViva}%
+            <p className="mt-3 text-[.86rem] leading-relaxed text-[#2b2014]">
+              In the lecture&apos;s live exercise, repeated samples of 50 from the 2,500-employee
+              population produced means from about <b>71,000 to 72,500</b> — every one of them
+              hovering near the true <b>μ = 71,800</b>. The sampling distribution is the
+              probability distribution of <b>all possible x̄ values</b> from samples of size n —
+              <b> not</b> the distribution of the raw data points inside one sample.
             </p>
           </div>
-          <div>
-            <p className="text-[.66rem] font-bold uppercase tracking-[.12em] text-neutral-500">your scores</p>
-            <div className="mt-1 grid grid-cols-3 gap-2">
-              <Slide label="Midterm" v={sMid} set={setSMid} />
-              <Slide label="Final" v={sFinal} set={setSFinal} />
-              <Slide label="Viva" v={sViva} set={setSViva} />
+        </Reveal>
+
+        <StmReadStep n="02" title="Unbiased, with a known precision" sub="E(x̄) = μ — and the standard error prices the wobble" />
+        <StandardErrorExplorer />
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <Reveal>
+            <StmPanel label="The two standard-error formulas">{`Infinite population (or n/N ≤ 5%):
+
+    σx̄ = σ / √n
+
+Finite population (sampling without
+replacement, n/N > 5%):
+
+    σx̄ = √[(N−n)/(N−1)] · σ/√n
+          ↑ finite population correction
+
+n = 50 from N = 2,500 → n/N = 2% ≤ 5%
+→ treat the population as infinite.`}</StmPanel>
+          </Reveal>
+          <Reveal delay={90}>
+            <StmCallout kind="why" title="Why “unbiased” matters">
+              <p>
+                The expected value of the sampling distribution equals <b>μ</b> — the sample mean
+                is an <b>unbiased estimator</b>: repeated sampling converges on the truth, it does
+                not systematically miss. When the sample size equals the population size, σx̄ = 0:
+                a census has <b>zero</b> deviation in its mean. And as n/N shrinks the correction
+                factor → 1, which is why nearly every real dataset can use the simple σ/√n.
+              </p>
+            </StmCallout>
+          </Reveal>
+        </div>
+
+        <StmReadStep n="03" title="The Central Limit Theorem" sub="Any population in, normal sampling distribution out — n ≥ 30" />
+        <Reveal>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="card-warm p-5">
+              <p className="font-bold text-[#3e2c1d]">The theorem that carries the course</p>
+              <p className="mt-2 text-[.88rem] leading-relaxed text-[#2b2014]">
+                Select random samples of size n from <b>any</b> population — skewed, lumpy,
+                anything. As n grows, the sampling distribution of x̄ approaches a{" "}
+                <b>normal distribution</b>. Rule of thumb: <b>n ≥ 30</b> is enough; for highly
+                skewed populations prefer <b>n ≥ 50</b>.
+              </p>
+              <p className="mt-2 text-[.78rem] leading-relaxed text-muted-warm">
+                Careful: the CLT normalises the distribution of the <b>sample means</b> — it says
+                nothing about the raw data itself. A skewed population stays skewed; it is the
+                x̄&apos;s that go normal.
+              </p>
+            </div>
+            <StmPanel label="Probability arithmetic on x̄ — Z = (x̄ − μ)/σx̄">{`Salary population: μ = 40,000, σ = 5,000
+P(±500 around μ)?
+
+n = 30:  σx̄ = 5,000/√30 = 913
+         Z = ±500/913 = ±0.55
+         P ≈ 2(0.7088) − 1 = 41.7%  (lecture: ~47% band)
+n = 100: σx̄ = 5,000/√100 = 500
+         Z = ±500/500 = ±1.00
+         P ≈ 2(0.8413) − 1 = 68.3%  (lecture: ~78% band)
+
+Same ±500 window — bigger n traps more
+probability inside it.`}</StmPanel>
+          </div>
+        </Reveal>
+
+        <StmReadStep n="04" title="Proportions get the same machinery" sub="E(p̄) = p · σp̄ = √[p(1−p)/n] · normal if np ≥ 5 and n(1−p) ≥ 5" />
+        <Reveal>
+          <div className="grid gap-3 md:grid-cols-2">
+            <StmPanel label="The 72%-housing check — n = 30">{`p = 0.72 (applicants wanting housing)
+
+np    = 30 × 0.72 = 21.6 ≥ 5 ✓
+n(1−p)= 30 × 0.28 =  8.4 ≥ 5 ✓
+
+→ the sampling distribution of p̄ is
+  approximately normal; the same
+  Z-arithmetic applies.
+
+In the live class: student samples of 100
+yielded p̄ = 0.36, 0.38, 0.39, 0.42, 0.45,
+0.47 — clustered around the true p = 0.40.`}</StmPanel>
+            <StmCallout kind="insight" title="The Excel laboratory (lecture 23)">
+              <p>
+                The sampling distribution is <b>empirically checkable</b>: seed every employee
+                with <b>=RANDBETWEEN(1, 2500)</b>, convert to values with <b>Paste Special →
+                Values</b> (or the numbers keep re-rolling), sort, take the first 50, average
+                them — repeat thirty times and histogram the x̄&apos;s. The bell appears out of
+                your own spreadsheet, no theorem required on faith.
+              </p>
+            </StmCallout>
+          </div>
+        </Reveal>
+
+        <StmReadStep n="05" title="Case — Marrian Dairies: can StrawGurt find a market?" sub="BlueGurt rates μ = 80, σ = 25 · buy-threshold is 75 · n = 50" />
+        <Reveal>
+          <div className="card-warm overflow-hidden">
+            <div className="p-5" style={{ background: "linear-gradient(135deg,#3b1d52,#5b2a86)" }}>
+              <p className="flex items-center gap-2 text-[.8rem] font-extrabold uppercase tracking-[.16em] text-[#e9d5ff]">
+                <Sigma className="h-4 w-4" /> Statistics in practice
+              </p>
+              <p className="mt-2 font-display text-2xl font-black text-[#faf5ff]">
+                How many raters score BlueGurt ≤ 75 — the customers who might switch?
+              </p>
+              <p className="mt-1 text-[.85rem] leading-relaxed text-[#d8c2f0]">
+                Marrian Dairies hit a home run with <b>BlueGurt</b> (mean rating 80, σ = 25 on a
+                100-point scale; ratings above 75 mean purchase). Marketing wants{" "}
+                <b>StrawGurt</b> to win the customers BlueGurt loses — without cannibalising the
+                hit. The question: if n = 50 customers rate BlueGurt, how likely is a sample mean
+                of 75 <b>or less</b>?
+              </p>
+            </div>
+            <div className="grid gap-4 p-5 md:grid-cols-2">
+              <StmPanel label="The machine — sampling distribution of x̄">{`σx̄ = σ/√n = 25/√50 = 3.5355
+
+Z = (75 − 80) / 3.5355 = −1.414
+
+P(x̄ ≤ 75) = P(Z ≤ −1.414) = 0.0786
+
+→ a 7.86% chance the sample reads
+  "75 or less" — a small disgruntled
+  segment.
+
+Widen the lens: P(75 ≤ x̄ ≤ 85)?
+Z = ±1.414 → 2(0.9213) − 1 = 84.2%`}</StmPanel>
+              <div className="flex flex-col gap-3">
+                <StmCallout kind="story" title="The n = 150 plot twist">
+                  <p>
+                    Repeat with <b>n = 150</b>: σx̄ = 25/√150 = 2.041, Z = −2.449, and{" "}
+                    <b>P(x̄ ≤ 75) ≈ 0.007 — 0.7%</b>. A bigger sample almost never misreads the
+                    population, so the apparent &ldquo;unhappy market&rdquo; evaporates. The
+                    decision: StrawGurt&apos;s addressable segment is thin — <b>launch with
+                    caution</b>, or re-think the target.
+                  </p>
+                </StmCallout>
+                <StmCallout kind="why" title="The managerial moral">
+                  <p>
+                    Same population, same 75-threshold — only <b>n</b> changed, and the answer
+                    moved from 7.86% to 0.7%. Sampling distributions let a manager price{" "}
+                    <b>how much of the wobble is real opportunity</b> versus how much is just
+                    small-sample noise.
+                  </p>
+                </StmCallout>
+              </div>
             </div>
           </div>
+        </Reveal>
+
+        <StmReadStep n="06" title="Check yourself" sub="Two taps on the standard error" />
+        <div className="grid gap-3 md:grid-cols-2">
+          <Reveal>
+            <StmQuiz
+              source="Lecture 19 · check"
+              q="A population has σ = 40. Samples of size 100 are drawn. The standard error of the mean is…"
+              options={["4.0", "0.4", "40", "400"]}
+              answer={0}
+              explain="σx̄ = σ/√n = 40/√100 = 40/10 = 4.0. The standard error shrinks with the SQUARE ROOT of n — to halve it you must quadruple the sample."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
+              source="Lecture 19 · check"
+              q="A population is highly right-skewed. The sampling distribution of x̄ will be approximately normal if…"
+              options={[
+                "n ≥ 30 by the Central Limit Theorem",
+                "the population itself must be normal first",
+                "n ≥ 5 is always sufficient",
+                "it can never be normal for skewed data",
+              ]}
+              answer={0}
+              explain="The CLT works on ANY population: with n ≥ 30 (50+ for very skewed data) the sampling distribution of the mean is approximately normal even though the raw data is skewed. The theorem normalises the x̄'s, not the data."
+            />
+          </Reveal>
         </div>
+
+        <Reveal className="mt-6">
+          <Takeaways
+            items={[
+              <>
+                The <b>sampling distribution of x̄</b> is the distribution of all possible sample
+                means for samples of size n — the bridge from one noisy x̄ to a full probability
+                statement.
+              </>,
+              <>
+                <b>σx̄ = σ/√n</b> (infinite population); add the finite correction √[(N−n)/(N−1)]
+                only when n/N &gt; 5%. Bigger n → smaller standard error → tighter estimates.
+              </>,
+              <>
+                <b>Central Limit Theorem</b>: for n ≥ 30 the x̄ distribution is approximately
+                normal <i>whatever</i> the population looks like — skewed data included (prefer 50+
+                there).
+              </>,
+              <>
+                Proportions mirror means: <b>E(p̄) = p</b>, <b>σp̄ = √[p(1−p)/n]</b>, normality
+                when <b>np ≥ 5</b> and <b>n(1−p) ≥ 5</b>.
+              </>,
+              <>
+                Marrian Dairies: n = 50 → <b>7.86%</b>; n = 150 → <b>0.7%</b>. Sample size is a
+                managerial lever, not a technicality.
+              </>,
+            ]}
+          />
+        </Reveal>
       </div>
-      <div className="flex flex-col items-center justify-center rounded-2xl border p-6 text-center" style={{ borderColor: STM_G[300], background: STM_G[50] }}>
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={grade.toFixed(1)}
-            initial={{ scale: 0.85, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.85, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="font-mono text-5xl font-black tabular-nums"
-            style={{ color: "#4c1d95" }}
-          >
-            {grade.toFixed(1)}
-          </motion.div>
-        </AnimatePresence>
-        <p className="mt-2 text-[.66rem] font-bold uppercase tracking-[.14em] text-neutral-500">weighted course grade</p>
-        <p className="mt-2 max-w-[24ch] text-[.72rem] leading-relaxed text-neutral-600">
-          The simple average of 78, 85 and 90 is {(((sMid + sFinal + sViva) / 3)).toFixed(1)} — the weights tell the honest story.
-        </p>
-      </div>
+    </Section>
+  );
+}
+
+/* ============================================================
+   LECTURE 20 · MOVEMENT 2 — THE FIVE SAMPLING METHODS
+   ============================================================ */
+
+type MethodId = "stratified" | "cluster" | "systematic" | "convenience" | "judgment";
+
+const METHOD_META: Record<
+  MethodId,
+  { label: string; icon: React.ReactNode; tag: string; blurb: string; pros: string[]; cons: string[]; uses: string }
+> = {
+  stratified: {
+    label: "Stratified",
+    icon: <Layers className="h-4 w-4" />,
+    tag: "probability · homogeneous strata",
+    blurb:
+      "Split the population into homogeneous groups (strata) — every element belongs to exactly one — then draw a random sample inside each stratum and pool them.",
+    pros: ["Most precise of the probability methods", "Smaller total sample for the same accuracy", "Every segment is guaranteed representation"],
+    cons: ["You need stratum membership for every element", "More design effort up front"],
+    uses: "Political surveys, government policy rollouts, college initiatives — strata by gender, age, location, income",
+  },
+  cluster: {
+    label: "Cluster",
+    icon: <Boxes className="h-4 w-4" />,
+    tag: "probability · heterogeneous clusters",
+    blurb:
+      "Divide the population into heterogeneous clusters — each one a mini-population — randomly pick a few clusters, then sample every element inside the chosen clusters.",
+    pros: ["Cost-effective when elements are geographically close", "Fast data collection — travel only to chosen clusters"],
+    cons: ["Needs a larger total sample than stratified or simple random", "Less precise per element sampled"],
+    uses: "Vaccine trials, city-block surveys, well-defined area sampling",
+  },
+  systematic: {
+    label: "Systematic",
+    icon: <ListOrdered className="h-4 w-4" />,
+    tag: "probability · every kth element",
+    blurb:
+      "Order the population, choose a random start inside the first k = N/n elements, then take every kth element after that.",
+    pros: ["Easier to execute than simple random sampling", "No need to handle the full frame at once"],
+    cons: ["Dangerous if the list hides a repeating pattern", "Approximates simple random sampling only when order is random"],
+    uses: "Every 100th telephone listing, every 20th customer wins a prize, the 100th caller",
+  },
+  convenience: {
+    label: "Convenience",
+    icon: <Hand className="h-4 w-4" />,
+    tag: "non-probability · whoever is easy",
+    blurb:
+      "Include elements because they are easy to reach — volunteers, friends, whatever the researcher can grab — with no known selection probability.",
+    pros: ["Fast and cheap to assemble"],
+    cons: ["Representativeness unknowable", "Accuracy cannot be evaluated statistically"],
+    uses: "Professors using student volunteers, asking friends about a restaurant",
+  },
+  judgment: {
+    label: "Judgment",
+    icon: <UserCheck className="h-4 w-4" />,
+    tag: "non-probability · expert picks",
+    blurb:
+      "The most knowledgeable person selects the elements believed to be most representative of the population.",
+    pros: ["Simple and quick when an expert truly knows the domain"],
+    cons: ["Quality rests entirely on the selector's judgment", "Open to bias; results cannot be statistically evaluated"],
+    uses: "Reporters picking senators to gauge the Senate, teachers choosing students for a competition",
+  },
+};
+
+/* mini population of 24 dots, arranged as 3 strata × 8 — the same
+   population is re-coloured/highlighted per method */
+const METHOD_DOTS = Array.from({ length: 24 }, (_, i) => ({
+  x: 34 + (i % 8) * 66,
+  y: 44 + Math.floor(i / 8) * 62,
+  stratum: Math.floor(i / 8),
+}));
+
+function MethodStage({ method }: { method: MethodId }) {
+  const picked = useMemo(() => {
+    switch (method) {
+      case "stratified":
+        return [1, 4, 10, 13, 19, 22]; // a few from EACH stratum
+      case "cluster":
+        return [8, 9, 10, 11, 12, 13, 14, 15]; // all of stratum 1 (whole clusters)
+      case "systematic":
+        return [2, 5, 8, 11, 14, 17, 20, 23]; // every kth (k = 3)
+      case "convenience":
+        return [0, 1, 2, 3]; // the nearest corner
+      case "judgment":
+        return [5, 9, 15, 19]; // expert's picks
+    }
+  }, [method]);
+
+  const colorFor = (i: number) => {
+    const isPicked = picked.includes(i);
+    if (method === "stratified") {
+      const sc = ["#8b5cf6", "#ca8a04", "#0f766e"][METHOD_DOTS[i].stratum];
+      return isPicked ? sc : `${sc}33`;
+    }
+    if (method === "cluster") {
+      return isPicked ? "#8b5cf6" : `${"#8b5cf6"}22`;
+    }
+    return isPicked ? "#6d28d9" : "#d9cdf8";
+  };
+
+  return (
+    <div className="overflow-x-auto">
+      <svg viewBox="0 0 560 200" className="min-w-[420px]" role="img" aria-label={`Diagram of ${method} sampling`}>
+        {method === "stratified"
+          ? [0, 1, 2].map((s) => (
+              <rect key={s} x="20" y={24 + s * 62} width="520" height="56" rx="10" fill="none" stroke="#d9cdf8" strokeWidth="1.2" strokeDasharray="5 4" />
+            ))
+          : null}
+        {method === "cluster" ? (
+          <rect x="500" y="86" width="52" height="56" rx="10" fill="#8b5cf6" opacity="0.16" />
+        ) : null}
+        {METHOD_DOTS.map((d, i) => (
+          <motion.circle
+            key={i}
+            cx={d.x}
+            cy={d.y}
+            r={picked.includes(i) ? 9 : 6.5}
+            animate={{ r: picked.includes(i) ? 9 : 6.5, fill: colorFor(i) }}
+            transition={{ duration: 0.3, delay: picked.includes(i) ? i * 0.02 : 0 }}
+            stroke={picked.includes(i) ? "#4c1d95" : "none"}
+            strokeWidth="1.4"
+          />
+        ))}
+        {method === "systematic" ? (
+          <text x="20" y="192" fontSize="10.5" fontWeight="600" fill="#8a7bb0">
+            k = N/n — a random start inside the first k, then every kth element
+          </text>
+        ) : null}
+        {method === "stratified" ? (
+          <text x="20" y="192" fontSize="10.5" fontWeight="600" fill="#8a7bb0">
+            random sample drawn inside every stratum — all three colours sampled
+          </text>
+        ) : null}
+        {method === "cluster" ? (
+          <text x="20" y="192" fontSize="10.5" fontWeight="600" fill="#8a7bb0">
+            whole clusters are chosen at random — every element inside comes along
+          </text>
+        ) : null}
+      </svg>
     </div>
   );
 }
 
-export function StmPelicanSection() {
+function SamplingMethodLab() {
+  const [method, setMethod] = useState<MethodId>("stratified");
+  const meta = METHOD_META[method];
+  const isProb = method !== "convenience" && method !== "judgment";
   return (
-    <Section id="pelican">
+    <div className="card-warm p-4 sm:p-6">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="text-[.9rem] font-bold text-[#3e2c1d]">The five ways to ask — one population, five sampling designs</p>
+        <span className="flex items-center gap-1.5 rounded-full bg-[#f6f3fe] px-3 py-1 text-[.66rem] font-bold uppercase tracking-[.12em]" style={{ color: STM_G[700] }}>
+          <MousePointerClick className="h-3 w-3" /> tap a method
+        </span>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {(Object.keys(METHOD_META) as MethodId[]).map((m) => (
+          <button
+            key={m}
+            onClick={() => setMethod(m)}
+            aria-pressed={method === m}
+            className={`flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[.78rem] font-bold transition-all duration-200 ${
+              method === m ? "border-transparent text-white shadow-md" : "border-[#d9cdf8] bg-white text-[#5b21b6] hover:bg-[#f6f3fe]"
+            }`}
+            style={method === m ? { background: STM_BTN_GRAD } : undefined}
+          >
+            {METHOD_META[m].icon}
+            {METHOD_META[m].label}
+          </button>
+        ))}
+      </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={method}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.22 }}
+          className="mt-4 grid gap-4 md:grid-cols-2"
+        >
+          <div className="rounded-2xl border border-[#d9cdf8] bg-white p-3">
+            <MethodStage method={method} />
+          </div>
+          <div className="flex flex-col gap-3">
+            <div>
+              <p className="flex flex-wrap items-center gap-2 text-base font-black text-[#3e2c1d]">
+                {meta.label} sampling
+                <span className={`rounded-full px-2.5 py-0.5 text-[.62rem] font-extrabold uppercase tracking-[.1em] ${isProb ? "bg-[#ecfdf5] text-[#047857]" : "bg-[#fbeae5] text-[#b3402c]"}`}>
+                  {isProb ? <Check className="mr-1 inline h-3 w-3" /> : <X className="mr-1 inline h-3 w-3" />}
+                  {meta.tag}
+                </span>
+              </p>
+              <p className="mt-1.5 text-[.86rem] leading-relaxed text-[#2b2014]">{meta.blurb}</p>
+            </div>
+            <div className="grid gap-2 sm:grid-cols-2">
+              <div className="rounded-xl bg-[#f6f3fe] p-3">
+                <p className="text-[.66rem] font-black uppercase tracking-[.14em]" style={{ color: STM_G[700] }}>Strengths</p>
+                <ul className="mt-1 space-y-1 text-[.78rem] leading-snug text-[#2b2014]">
+                  {meta.pros.map((p) => <li key={p}>· {p}</li>)}
+                </ul>
+              </div>
+              <div className="rounded-xl bg-[#fdf0ea] p-3">
+                <p className="text-[.66rem] font-black uppercase tracking-[.14em] text-[#b3402c]">Watch out</p>
+                <ul className="mt-1 space-y-1 text-[.78rem] leading-snug text-[#2b2014]">
+                  {meta.cons.map((c) => <li key={c}>· {c}</li>)}
+                </ul>
+              </div>
+            </div>
+            <p className="rounded-xl bg-[#f5f1e8] p-3 text-[.78rem] leading-relaxed text-[#5c4a2f]">
+              <b>Seen in the wild:</b> {meta.uses}
+            </p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
+
+export function StmSamplingMethodsSection() {
+  return (
+    <Section id="sampling-methods">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 8 · Case Study — Pelican Stores, Data Analysis Application"
+          eyebrow="Lecture 20 · Alternative sampling designs"
           title={
             <>
-              The <span className="grad-violet">Pelican ledger</span>
+              Five ways to <span className="grad-violet">ask</span> the population
             </>
           }
-          lead="Pelican Stores, a division of a national clothing chain, ran a promotional campaign with discount coupons. One hundred customer transactions from the promotion period — the dataset a manager actually receives — and the descriptive toolkit that turns it into decisions."
+          lead="Simple random sampling is the ideal — but real surveys run on stratified, cluster and systematic designs, and when no frame exists at all, convenience and judgment step in. The dividing line that matters: can you compute the probability each element is selected?"
         />
 
-        <StmReadStep n="01" title="The brief — was the promotion worth it?" sub="Incremental revenue or cannibalised sales?" />
+        <StmReadStep n="01" title="The design gallery" sub="Same 24-element population — three probability designs, two non-probability fallbacks" />
+        <SamplingMethodLab />
+
+        <StmReadStep n="02" title="Stratified vs cluster — the classic exam pair" sub="Homogeneous inside vs a miniature population inside" />
         <Reveal>
-          <div className="grid items-start gap-4 lg:grid-cols-2">
-            <StmPanel label="Business context">{`Organization: a division of a
-national clothing chain
-operating across the country.
-
-Objective: evaluate the
-effectiveness of the
-promotional campaign that
-used discount coupons.
-
-Sample: 100 customer
-transactions during the
-promotion period.`}</StmPanel>
-            <StmPanel label="The assumption & the goals">{`Assumption: sales from
-promotional-coupon customers
-represent incremental revenue
-not otherwise made.
-
-Manager's goals: understand
-the customer profile and
-demographics, judge whether
-the promotion worked, find
-patterns, optimise the next
-campaign.`}</StmPanel>
-          </div>
-        </Reveal>
-        <Reveal>
-          <StmCallout kind="why" title="What was collected per customer">
-            Customer type (regular vs promotional), number of items purchased, net sales amount in dollars, gender, marital status, payment method, and age. Seven variables — a mix of categorical and quantitative — which is exactly why the case exercises every display and measure the course has built.
-          </StmCallout>
-        </Reveal>
-
-        <StmReadStep n="02" title="Excel, part one — COUNTIF & the pivot table" sub="Frequencies without tears" />
-        <Reveal>
-          <div className="grid items-start gap-4 lg:grid-cols-2">
-            <StmPanel label="COUNTIF">{`=COUNTIF(range, criteria)
-
-Range: the column holding the
-data to count.
-
-Criteria: the specific value
-to count.
-
-Use absolute references ($) on
-criteria cells so the formula
-can be copied without the
-target shifting.`}</StmPanel>
-            <StmPanel label="Pivot tables">{`Function: summarise categorical
-and quantitative data
-automatically.
-
-Steps: A. select the data range
-B. Insert → Pivot Table
-C. drag variables to Rows,
-Columns, Values
-D. analyse the aggregates.
-
-Advantage: handles missing
-data better and offers many
-view options.`}</StmPanel>
+          <div className="grid gap-3 md:grid-cols-2">
+            <div className="card-warm p-5">
+              <p className="flex items-center gap-2 font-bold text-[#3e2c1d]"><Layers className="h-4 w-4" style={{ color: STM_G[700] }} /> Stratified — precision play</p>
+              <p className="mt-2 text-[.86rem] leading-relaxed text-[#2b2014]">
+                Strata are <b>homogeneous within</b> and differ <b>between</b>: all men in one
+                stratum, all women in another; or income bands, age bands, regions. Sampling{" "}
+                <b>inside every stratum</b> guarantees each segment a voice and shrinks the
+                variance — the same accuracy from a smaller sample.
+              </p>
+              <p className="mt-2 text-[.78rem] leading-relaxed text-muted-warm">
+                A national poll stratifies by state × gender × age so no group is missed by
+                chance.
+              </p>
+            </div>
+            <div className="card-warm p-5">
+              <p className="flex items-center gap-2 font-bold text-[#3e2c1d]"><Boxes className="h-4 w-4" style={{ color: STM_G[700] }} /> Cluster — logistics play</p>
+              <p className="mt-2 text-[.86rem] leading-relaxed text-[#2b2014]">
+                Clusters are <b>heterogeneous within</b> — each block or village mirrors the whole
+                population. You sample <b>a few entire clusters</b> and count everything inside
+                them: field teams visit three blocks, not three hundred homes spread across a
+                city.
+              </p>
+              <p className="mt-2 text-[.78rem] leading-relaxed text-muted-warm">
+                Cheaper per interview — but you need a larger total sample for the same
+                precision.
+              </p>
+            </div>
           </div>
         </Reveal>
 
-        <StmReadStep n="03" title="The findings — the coupon cohort dominates" sub="70 of 100 customers answered the coupon" />
+        <StmReadStep n="03" title="Probability vs non-probability — the honesty line" sub="Can the accuracy be evaluated? Only one side of the table can say yes" />
         <Reveal>
-          <PaymentBars />
-        </Reveal>
-        <Reveal>
-          <div className="grid gap-4 md:grid-cols-3">
-            <StmPanel label="Effectiveness">{`70% of customers were
-promotional (70 of 100) —
-a strong response to the
-coupon campaign.`}</StmPanel>
-            <StmPanel label="Purchase behaviour">{`Promotional customers
-bought 266 items total —
-about 4 per customer.
-
-Regular customers bought
-56 items — about 2 each.
-
-Promotional spend runs
-roughly double per
-transaction.`}</StmPanel>
-            <StmPanel label="Payment mix">{`Proprietary card 70,
-MasterCard 14, Visa 10,
-Discover 3, American
-Express 2.
-
-The store's own card is
-the anchor of the
-promotion.`}</StmPanel>
+          <div className="overflow-x-auto rounded-2xl">
+            <table className="warm-table">
+              <thead>
+                <tr>
+                  <th>Aspect</th>
+                  <th>Probability methods</th>
+                  <th>Non-probability methods</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="font-bold">Techniques</td>
+                  <td>Stratified · cluster · systematic · simple random</td>
+                  <td>Convenience · judgment</td>
+                </tr>
+                <tr>
+                  <td className="font-bold">Selection probability</td>
+                  <td className="font-mono">known for every element</td>
+                  <td className="font-mono">unknown</td>
+                </tr>
+                <tr>
+                  <td className="font-bold">Accuracy</td>
+                  <td>Can be statistically assessed against the population</td>
+                  <td>Cannot be evaluated — may not represent anything</td>
+                </tr>
+                <tr>
+                  <td className="font-bold">Recommendation</td>
+                  <td className="font-semibold" style={{ color: STM_G[800] }}>Use for management decisions</td>
+                  <td>Only when probability sampling is impossible</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </Reveal>
 
-        <StmReadStep n="04" title="Central tendency, at the desk" sub="AVERAGE · MEDIAN · MODE · MAX · MIN" />
-        <Reveal>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { f: "=AVERAGE(range)", n: "Mean", d: "Uses every data point — but outliers pull it." },
-              { f: "=MEDIAN(range)", n: "Median", d: "Robust to extremes; preferred when outliers lurk." },
-              { f: "=MODE(range)", n: "Mode", d: "The only measure available for categorical variables; some datasets have none or several." },
-              { f: "=MAX / =MIN", n: "Range ends", d: "Establishes the spread and flags candidate outliers." },
-            ].map((c) => (
-              <div key={c.n} className="rounded-xl border p-3" style={{ borderColor: STM_G.border, background: STM_G[50] }}>
-                <p className="font-mono text-[.7rem] font-bold" style={{ color: "#5b21b6" }}>
-                  {c.f}
-                </p>
-                <p className="mt-1 text-[.8rem] font-black" style={{ color: STM_G[900] }}>
-                  {c.n}
-                </p>
-                <p className="mt-1 text-[.7rem] leading-relaxed text-neutral-600">{c.d}</p>
-              </div>
-            ))}
-          </div>
+        <StmReadStep n="04" title="Check yourself" sub="Name the design" />
+        <div className="grid gap-3 md:grid-cols-2">
+          <Reveal>
+            <StmQuiz
+              source="Lecture 20 · check"
+              q="A vaccine researcher divides a city into wards, randomly picks 6 wards, and surveys every household inside them. The design is…"
+              options={["stratified random sampling", "cluster sampling", "systematic sampling", "judgment sampling"]}
+              answer={1}
+              explain="Whole, heterogeneous groups (wards = clusters) are randomly selected and every element inside them is sampled — that is cluster sampling. Stratified would instead sample a few households from EVERY ward."
+            />
+          </Reveal>
+          <Reveal>
+            <StmQuiz
+              source="Lecture 20 · check"
+              q="Why do managers prefer probability sampling whenever it is feasible?"
+              options={[
+                "Selection probabilities are known, so accuracy can be evaluated with formulas",
+                "It is always the cheapest option",
+                "It removes the need for any sample size decisions",
+                "It guarantees zero sampling error",
+              ]}
+              answer={0}
+              explain="Probability methods let you compute how far estimates may stray from the population truth — the standard-error machinery of the previous section only works when selection probabilities are known. No method eliminates sampling error; probability sampling just makes it measurable."
+            />
+          </Reveal>
+        </div>
+
+        <Reveal className="mt-6">
+          <Takeaways
+            items={[
+              <>
+                <b>Stratified</b> = homogeneous strata, sample within each — the precision
+                champion. <b>Cluster</b> = heterogeneous clusters, take whole ones — the logistics
+                champion.
+              </>,
+              <>
+                <b>Systematic</b> (every kth after a random start) approximates simple random
+                sampling only when the list has no hidden pattern.
+              </>,
+              <>
+                <b>Convenience</b> and <b>judgment</b> are non-probability: fast, but their
+                accuracy can never be statistically evaluated.
+              </>,
+              <>
+                Every method shares one goal — understand the population without touching all of
+                it — and the best managers buy probability sampling whenever they can.
+              </>,
+            ]}
+          />
         </Reveal>
-        <Reveal>
-          <StmCallout kind="why" title="Choosing the measure">
-            Mean for symmetric data where every point counts equally; median for skewed distributions — income and housing prices, where extremes distort; mode for categorical data where the most common category is the whole story. Weighted means take over when importance varies, geometric means when values multiply — growth rates, returns, compounding.
-          </StmCallout>
-        </Reveal>
-
-        <StmReadStep n="05" title="The weighted mean — grades with weights" sub="Midterm, final and the viva rarely count equally" />
-        <Reveal>
-          <WeightedGrade />
-        </Reveal>
-
-        <StmReadStep n="06" title="The scatter payoff — age buys more" sub="Two positive relationships in the case data" />
-        <Reveal>
-          <div className="grid items-start gap-4 lg:grid-cols-2">
-            <StmPanel label="What the case found">{`Positive relationship between
-customer age and per-item
-sales value.
-
-Positive relationship between
-age and number of items
-purchased.
-
-Suggestion: older customers
-tend to buy more items and
-spend more per item.`}</StmPanel>
-            <StmPanel label="The derived metric">{`Per-item sales value =
-Net Sales ÷ Number of Items
-
-Excel: =SalesColumn/ItemsColumn
-
-Purpose: normalises spending
-across different purchase
-quantities for a fair
-comparison — and flags
-high-value customers
-independent of quantity.`}</StmPanel>
-          </div>
-        </Reveal>
-        <Reveal>
-          <StmCallout kind="insight" title="Formula-copying mechanics">
-            Absolute references (e.g. $A$1) lock a cell while the rest of the formula drifts on copy; relative references follow the drag; and the double-click on the fill handle copies a formula down to the last data row automatically. Verify every calculation a second way — formulas versus pivot tables — before it reaches a manager.
-          </StmCallout>
-        </Reveal>
-
-        <StmQuiz
-          q="In the Pelican data, 70 of 100 transactions used the proprietary card. A junior analyst reports the average net sales including one $3,200 outlier, and calls it 'typical spend'. Which critique is faithful to the lecture?"
-          options={[
-            "The mean chases outliers — report the median too, and use =MEDIAN(range) for the robust number",
-            "The mean is always the best measure — the outlier is real data and must be included",
-            "The mode should replace the mean — it handles dollar amounts best",
-            "The range should replace the mean — MAX minus MIN is the typical spend",
-          ]}
-          answer={0}
-          explain="Net sales is right-skewed — a few large baskets pull the mean upward. The lecture's selection rule: mean for symmetric data, median when extreme values might distort (income, housing, transaction sizes), mode for categorical data. Reporting AVERAGE and MEDIAN together is the honest pair; the range only establishes spread."
-        />
-
-        <Takeaways
-          items={[
-            <>Pelican's verdict: <b>70% promotional customers</b>, roughly <b>double the spend</b> and twice the items of regulars — the coupon pulled incremental buyers.</>,
-            <>Excel kit: <b>COUNTIF</b> for frequencies (lock criteria with <b>$</b>), <b>pivot tables</b> for multi-view summaries.</>,
-            <>Measure choice is the analysis: <b>mean = symmetric, median = skewed, mode = categorical</b>; weighted and geometric means when importance or multiplication enters.</>,
-            <>Per-item sales = <b>net sales ÷ items</b> — normalisation makes customers comparable, and age traced positive on both items and spend.</>,
-          ]}
-        />
       </div>
     </Section>
   );

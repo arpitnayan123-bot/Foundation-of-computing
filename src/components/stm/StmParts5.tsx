@@ -545,8 +545,8 @@ P(M ∩ C) = P(M) · P(C | M)
          = (0.70)(0.5143) = 0.36 ✓`}</StmPanel>
               <StmCallout kind="insight" title="Independence — the test">
                 If P(A|B) = P(A), the events are <b>independent</b>. Test: does P(M ∩ C) =
-                P(M)·P(C)? Here (0.7)(0.48) = <b>0.34 ≠ 0.36</b> — so M and C are{" "}
-                <b>not independent</b>.
+                P(M)·P(C)? Here (0.7)(0.48) = <b>0.336 ≠ 0.36</b> — so M and C are{" "}
+                <b>not independent</b>: profitability at one firm tilts the odds at the other.
               </StmCallout>
             </div>
           </div>
@@ -567,7 +567,7 @@ P(M ∩ C) = P(M) · P(C | M)
               q="P(M) = 0.70, P(C) = 0.48, P(M ∩ C) = 0.36. What is P(M ∪ C) — and are M and C independent?"
               options={["1.18 · yes", "0.82 · no", "0.82 · yes", "0.58 · no"]}
               answer={1}
-              explain="0.70 + 0.48 − 0.36 = 0.82. Independence fails: P(M)P(C) = 0.34 ≠ 0.36 = P(M ∩ C)."
+              explain="0.70 + 0.48 − 0.36 = 0.82. Independence fails: P(M)P(C) = 0.336 ≠ 0.36 = P(M ∩ C)."
             />
           </Reveal>
           <Reveal>

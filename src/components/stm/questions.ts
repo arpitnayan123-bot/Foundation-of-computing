@@ -11,15 +11,7 @@
    0.243, Mercy Hospital's 0.1680, Pep Zone's 0.2033.
    ============================================================ */
 
-export type StmExamGroup =
-  | "lens"
-  | "displays"
-  | "measures"
-  | "probability"
-  | "discrete"
-  | "continuous"
-  | "inference"
-  | "decisions";
+export type StmExamGroup = "displays" | "measures" | "probability" | "discrete" | "continuous" | "inference";
 export type StmQuestionType = "mcq" | "output" | "short";
 
 export interface StmExamQuestion {
@@ -134,6 +126,29 @@ const DISPLAYS: StmExamQuestion[] = [
     explain:
       "The separation rule is the classic exam trap: bars separated = categories (bar chart); rectangles touching = intervals of a numeric variable (histogram). The trendline is the scatter diagram's approximation of the relationship.",
   },
+  {
+    id: "d9",
+    type: "output",
+    q: "Pelican Stores' 100-transaction sample bought 266 items for 70 promotional customers and 56 items for 30 regulars. Compute the per-customer rates and state what they show.",
+    code: "Promotional: 266 items / 70 customers = ?\nRegular:      56 items / 30 customers = ?",
+    answerText: "266/70 ≈ 3.8 vs 56/30 ≈ 1.9 items per customer — promotional buyers carry about double the basket",
+    explain:
+      "Raw totals mislead when groups differ in size — normalise first. 266/70 ≈ 3.8 items per promotional customer vs 56/30 ≈ 1.9 for regulars: the coupon campaign roughly doubled basket size, which is the incremental-business evidence the manager was after.",
+  },
+  {
+    id: "d10",
+    type: "mcq",
+    q: "One payment-method table is read three ways: counts (Σ = 100), relative frequencies (Σ = 1.00), percentage frequencies (Σ = 100%). The percentage form exists because…",
+    options: [
+      "decimals are hard to present — percentages communicate to people, proportions feed the maths",
+      "Excel refuses to display decimals below 0.01",
+      "relative frequencies are invalid for categorical data",
+      "percentages change the underlying counts",
+    ],
+    answer: 0,
+    explain:
+      "Same data, three readings: frequency for the audit trail, relative frequency for computation (each = f/n), percentage for the boardroom (× 100). The lecture's words: decimals are difficult to interpret — percentages give better clarity for decision-making.",
+  },
 ];
 
 /* ------------------------------------------------------------
@@ -233,6 +248,15 @@ const MEASURES: StmExamQuestion[] = [
     answer: 1,
     explain:
       "For bell-shaped data: ≈68% (68.26%) within ±1σ, ≈95% (95.44%) within ±2σ, almost all (99.72%) within ±3σ. Contrast Chebyshev's theorem, which works for ANY distribution but only guarantees at least 1 − 1/z² within z standard deviations (z > 1): 75% at z = 2, 89% at z = 3, 94% at z = 4.",
+  },
+  {
+    id: "m9",
+    type: "output",
+    q: "Apartment rents have Q₁ = 545 and Q₃ = 625. Compute the IQR and the box plot's outlier fences.",
+    code: "IQR   = Q₃ − Q₁ = ?\nLower = Q₁ − 1.5·IQR = ?\nUpper = Q₃ + 1.5·IQR = ?",
+    answerText: "IQR = 80; fences at 545 − 120 = 425 and 625 + 120 = 745 — any rent beyond [425, 745] is an outlier",
+    explain:
+      "IQR = 625 − 545 = 80; 1.5·IQR = 120, so the whiskers may reach 425 and 745 and anything outside is plotted as a point. This is the five-number summary turned into a machine: box (Q₁→Q₃), median line, whiskers, flagged outliers.",
   },
 ];
 
@@ -421,6 +445,29 @@ const DISCRETE: StmExamQuestion[] = [
     explain:
       "Hypergeometric: trials are NOT independent and p changes from trial to trial (each draw alters the population). Mean E(x) = n(r/N) = 2(2/4) = 1; variance uses the finite-population correction (N−n)/(N−1) = 2/3 → 0.333. When N is large, (N−n)/(N−1) → 1 and the hypergeometric collapses into the binomial with p = r/N.",
   },
+  {
+    id: "k9",
+    type: "mcq",
+    q: "McNeil's lot receives μ = 6.8 customers per hour. Which pairing of question and Excel call is correct?",
+    options: [
+      "'exactly 7' → POISSON.DIST(7, 6.8, FALSE) = 0.1486; 'at most 7' → POISSON.DIST(7, 6.8, TRUE) = 0.6285",
+      "both questions use cumulative TRUE — only the x differs",
+      "'exactly 7' needs 1 − POISSON.DIST(7, 6.8, TRUE)",
+      "Poisson has no cumulative form — use the normal with μ = σ = 6.8",
+    ],
+    answer: 0,
+    explain:
+      "The trigger word decides the cumulative argument: 'exactly' is the mass function (FALSE), 'at most/at least/more than' is the CDF (TRUE) or its complement 1 − F. And Poisson absolutely has a cumulative form — μ = 6.8 gives P(X = 7) = 0.1486, P(X ≤ 7) = 0.6285, P(X > 7) = 0.3715.",
+  },
+  {
+    id: "k10",
+    type: "output",
+    q: "JSL's 200-day distribution has E(x) = 1.20 TVs (80 of the days sold zero). Those 80 days all become 10-unit days. Compute the new expected value.",
+    code: "old total units = 1.20 × 200 = 240\nadded           = 80 days × 10 units\nn stays          = 200 days",
+    answerText: "(240 + 800)/200 = 5.20 TVs per day",
+    explain:
+      "E(x) = Σ x·f(x) over the same n = 200 days: 240 old units + 800 new units = 1,040, spread over 200 days → 5.20. The formula never moved — the DISTRIBUTION did, and the stock plan built for 1.20 collapses at 5.20.",
+  },
 ];
 
 /* ------------------------------------------------------------
@@ -526,217 +573,204 @@ const CONTINUOUS: StmExamQuestion[] = [
     explain:
       "0.4 m³ is a statistic — the sample mean of the 500 selected trees — and it estimates the population mean, which would be too costly to measure across a million trees. Compute it from a population and it's a parameter; from a sample it's a sample statistic and serves as the point estimator. That is the whole logic of the sampling chapter.",
   },
+  {
+    id: "c9",
+    type: "output",
+    q: "Firm A: μ = 150, σ = 60, find P(X > 200). Firm B: μ = 1,500, σ = 600, find P(X > 2,000). Compute both Z-scores.",
+    code: "Firm A: Z = (200 − 150)/60   = ?\nFirm B: Z = (2,000 − 1,500)/600 = ?",
+    answerText: "Both Z = 0.83 — P(X > x) = 1 − 0.7967 = 0.2033 in both firms",
+    explain:
+      "Ten-fold bigger firm, ten-fold bigger σ — identical Z. Standardisation makes every normal problem the same problem: 0.83 reads 0.7967 off the table, so the tail is 0.2033 in both. Scale cannot hide from Z.",
+  },
+  {
+    id: "c10",
+    type: "output",
+    q: "Salaries are normal with μ = 40,000 and σ = 5,000. Compute P(34,000 ≤ X ≤ 46,000).",
+    code: "Z₁ = (34,000 − 40,000)/5,000 = −1.2\nZ₂ = (46,000 − 40,000)/5,000 = +1.2\n\nP(−1.2 ≤ Z ≤ 1.2) = ?",
+    answerText: "Φ(1.2) − Φ(−1.2) = 0.8849 − 0.1151 = 0.7698 ≈ 77%",
+    explain:
+      "Both edges sit 1.2σ from the mean. By symmetry the band probability is 2Φ(1.2) − 1 = 2(0.8849) − 1 = 0.7698 — the symmetric-band shortcut that turns one table lookup into a whole interval.",
+  },
+  {
+    id: "c11",
+    type: "output",
+    q: "Daily petrol demand: μ = 15 gallons, σ = 6. Management caps stockout probability at 5%. Compute the reorder point.",
+    code: "P(X > x) = 0.05 → P(X ≤ x) = 0.95\nz = NORM.S.INV(0.95) = 1.645\n\nX = μ + z·σ = ?",
+    answerText: "X = 15 + 1.645 × 6 = 24.87 ≈ 25 gallons",
+    explain:
+      "Reverse mode: the VALUE that owns the 5% tail is X = μ + zσ = 15 + 9.87 = 24.87 → order at 25 gallons. Stocking 20 ran dry 20% of days; 25 cuts that to 5% — the extra 5 gallons buy 15 points of service.",
+  },
+];
+
+/* ------------------------------------------------------------
+   GROUP 6 — INFERENCE  (Lectures 19–27: sampling distributions,
+             the CLT, the five sampling designs, interval
+             estimation with σ known and unknown, proportions,
+             and the hypothesis-testing framework)
+   ------------------------------------------------------------ */
+const INFERENCE: StmExamQuestion[] = [
+  {
+    id: "f1",
+    type: "mcq",
+    q: "A population has σ = 40. For samples of size 100, the standard error of the mean is…",
+    options: ["4.0", "0.4", "40", "400"],
+    answer: 0,
+    explain:
+      "σx̄ = σ/√n = 40/√100 = 40/10 = 4.0. The standard error shrinks with the square root of n — to cut it in half you must quadruple the sample size.",
+  },
+  {
+    id: "f2",
+    type: "mcq",
+    q: "The Central Limit Theorem says the sampling distribution of x̄ is approximately normal when…",
+    options: [
+      "the population is normal, whatever n is",
+      "n ≥ 30, whatever the population looks like",
+      "the population is symmetric, n ≥ 5",
+      "n ≥ 30 AND the population is normal",
+    ],
+    answer: 1,
+    explain:
+      "The CLT works on ANY population: with n ≥ 30 (prefer 50+ for highly skewed data) the sampling distribution of the mean is approximately normal. The theorem normalises the x̄'s, not the raw data.",
+  },
+  {
+    id: "f3",
+    type: "mcq",
+    q: "Marrian Dairies: BlueGurt rates have μ = 80, σ = 25. For n = 50 raters, P(x̄ ≤ 75) is…",
+    options: ["0.0786", "0.3413", "0.1587", "0.9214"],
+    answer: 0,
+    explain:
+      "σx̄ = 25/√50 = 3.5355; Z = (75 − 80)/3.5355 = −1.414; P(Z ≤ −1.414) = 0.0786 — about a 7.86% chance the sample reads '75 or less'. At n = 150 the same question collapses to 0.7%: bigger samples barely misread the population.",
+  },
+  {
+    id: "f4",
+    type: "mcq",
+    q: "Which design samples a few whole, heterogeneous groups and every element inside them?",
+    options: ["stratified random sampling", "cluster sampling", "systematic sampling", "judgment sampling"],
+    answer: 1,
+    explain:
+      "Cluster sampling picks whole clusters (wards, city blocks) at random and counts everything inside — cheap logistics, but a larger total sample than stratified for the same precision. Stratified instead samples a few elements from EVERY homogeneous stratum.",
+  },
+  {
+    id: "f5",
+    type: "mcq",
+    q: "The z-value used in a 95% confidence interval is…",
+    options: ["1.645", "1.960", "2.576", "2.326"],
+    answer: 1,
+    explain:
+      "95% confidence → α = 0.05, split as α/2 = 0.025 per tail → z(0.025) = 1.960. The set worth memorising: 1.645 (90%), 1.960 (95%), 2.576 (99%).",
+  },
+  {
+    id: "f6",
+    type: "output",
+    q: "n = 36, x̄ = $41,100, σ = $4,500. Compute the 95% confidence interval for the population mean.",
+    code: "σx̄ = 4,500/√36 = 750\nE   = 1.960 × 750 = 1,470\nCI  = 41,100 ± 1,470",
+    answerText: "[39,630 , 42,570]",
+    explain:
+      "Standard error 750, margin of error 1.960 × 750 = 1,470 → the interval runs from 39,630 to 42,570. At 90% the margin is 1,234 and at 99% it is 1,932 — confidence is purchased with width.",
+  },
+  {
+    id: "f7",
+    type: "mcq",
+    q: "Quadrupling the sample size (n → 4n) changes the margin of error to…",
+    options: ["1/4 of the original", "1/2 of the original", "2× the original", "unchanged"],
+    answer: 1,
+    explain:
+      "E = z·σ/√n — the square root again. Quadrupling n halves the standard error and therefore halves the margin of error: precision per rupee follows √n.",
+  },
+  {
+    id: "f8",
+    type: "mcq",
+    q: "n = 16 apartments, x̄ = $750, s = $55, σ unknown. The 95% interval uses…",
+    options: [
+      "z = 1.960 → 750 ± 26.9",
+      "t(0.025, 15) = 2.131 → 750 ± 29.3",
+      "t(0.05, 16) = 1.753 → 750 ± 24.1",
+      "z = 2.576 → 750 ± 35.4",
+    ],
+    answer: 1,
+    explain:
+      "σ unknown → the t-distribution with df = n − 1 = 15; 95% splits α as 0.025 per tail → t = 2.131. Margin: 2.131 × (55/√16) = 29.3, giving [720.7, 779.3] — the honesty premium over z's 1.960.",
+  },
+  {
+    id: "f9",
+    type: "mcq",
+    q: "With no prior information about p, the safest planning value for the sample-size formula is…",
+    options: [
+      "p* = 0.5 — p(1−p) is maximised there, giving the largest n",
+      "p* = 0.1 — it minimises cost",
+      "p* = 1.0 — the worst case",
+      "any p* — n does not depend on p*",
+    ],
+    answer: 0,
+    explain:
+      "n = z²·p*(1−p*)/E², and p(1−p) peaks at 0.25 when p = 0.5 — the maximum sample size. The actual margin of error can then never exceed the planned E, whatever the true proportion turns out to be.",
+  },
+  {
+    id: "f10",
+    type: "output",
+    q: "Exit poll: n = 500, 220 voters favour the candidate, 95% confidence. Compute the margin of error for the proportion.",
+    code: "p̂ = 220/500 = 0.44\nσ(p̂) = √[0.44 × 0.56/500]\nE = 1.96 × σ(p̂)",
+    answerText: "E ≈ 0.0435 → CI [0.3965 , 0.4835]",
+    explain:
+      "σ(p̂) = √(0.44 × 0.56/500) = 0.0222; E = 1.96 × 0.0222 = 0.0435. The interval [0.3965, 0.4835] says PSI is 95% confident the true support lies between 39.65% and 48.35%.",
+  },
+  {
+    id: "f11",
+    type: "mcq",
+    q: "A researcher suspects an online platform's true average score is BELOW its claimed 70. The hypotheses are…",
+    options: [
+      "H₀: μ ≥ 70 vs Hₐ: μ < 70 — left-tailed",
+      "H₀: μ < 70 vs Hₐ: μ ≥ 70 — right-tailed",
+      "H₀: μ = 70 vs Hₐ: μ ≠ 70 — two-tailed",
+      "H₀: x̄ ≥ 70 vs Hₐ: x̄ < 70",
+    ],
+    answer: 0,
+    explain:
+      "The research hope ('lower') belongs in Hₐ: μ < 70, so H₀ keeps the equality as μ ≥ 70 — a left-tailed test. Hypotheses always describe the population parameter μ, never the sample statistic x̄.",
+  },
+  {
+    id: "f12",
+    type: "short",
+    q: "Name the two errors a hypothesis test can make, which one is controlled by α, and why statisticians never 'accept' H₀.",
+    answerText:
+      "Type I error: rejecting H₀ when it is actually true — probability = α, the level of significance.\nType II error: failing to reject H₀ when it is actually false — hard to control directly.\n'Fail to reject' means the evidence was insufficient, not that H₀ was proven true — accepting it would invite Type II errors into every conclusion.",
+    explain:
+      "The courtroom analogy: H₀ is innocent until proven guilty. Convicting the innocent = Type I (priced at α); freeing the guilty = Type II. The only verdicts are reject and fail to reject — 'accept' is not a statistical word.",
+  },
+  {
+    id: "f13",
+    type: "output",
+    q: "Marrian Dairies: BlueGurt rates μ = 80, σ = 25. For n = 150, compute P(X̄ ≤ 75).",
+    code: "σx̄ = 25/√150 = 2.0412\nZ  = (75 − 80)/2.0412 = ?",
+    answerText: "Z = −2.449 → P(X̄ ≤ 75) ≈ 0.0072 (0.72%)",
+    explain:
+      "σx̄ = 25/√150 = 2.0412; Z = −5/2.0412 = −2.449; Φ(−2.45) ≈ 0.0072. Compare n = 50: 7.86%. Sample size is discriminative power — the same 5-point signal becomes rare noise when the study grows. (Continuity: at n = 400 the probability is 0.003%.)",
+  },
+  {
+    id: "f14",
+    type: "mcq",
+    q: "You draw a 50-person salary sample with =RANDBETWEEN(1, 2500) but the numbers change every time you sort the sheet. The step that was skipped — and why it matters — is…",
+    options: [
+      "Copy → Paste Special → Values Only: RANDBETWEEN is volatile and redraws on every recalculation",
+      "Format → Cells → Number: the IDs were displayed rounded",
+      "nothing — changing samples improve the estimate",
+      "freeze panes: the IDs scrolled out of view",
+    ],
+    answer: 0,
+    explain:
+      "RANDBETWEEN is volatile — every edit, sort or recalc redraws the whole draw. Paste-Special-Values converts the formulas to static IDs so the sample exists like a photograph. Freeze FIRST, sort second; the lab's μ = 71,800, σ = 4,000 population then yields stable means near 71,000–72,500 at n = 50.",
+  },
 ];
 
 /* ------------------------------------------------------------
    Registry
    ------------------------------------------------------------ */
-const LENS: StmExamQuestion[] = [
-  {
-    id: "lens-1",
-    type: "mcq",
-    q: "Statistics functions as both an art and a science. Which pairing matches the lecture?",
-    options: [
-      "Science: data collection is objective and reproducible — Art: deciding WHAT data to collect involves judgment",
-      "Science: the numbers themselves — Art: drawing bar charts",
-      "Science: only experiments qualify — Art: surveys and observation",
-      "Science: the calculations — Art: the presentation slides",
-    ],
-    answer: 0,
-    explain:
-      "Data collection is objective and reproducible (heights in inches read the same whoever measures) — that is the science. Choosing which measurements and controls to study (a supplement's effect on child growth) requires expertise and judgment — that is the art. Overall: the art and science of collecting, analyzing, presenting, and interpreting data.",
-  },
-  {
-    id: "lens-2",
-    type: "mcq",
-    q: "Student A logs 10th % = 81, 12th % = 78, Physics 82, Chemistry 80, Math 78. In dataset language, that complete row is…",
-    options: ["an element", "a variable", "one observation", "the dataset"],
-    answer: 2,
-    explain:
-      "Each student is an element; the five marks are variables; ALL measurements for one student constitute one observation; the data for all students forms the dataset. Total data values = elements × variables.",
-  },
-  {
-    id: "lens-3",
-    type: "mcq",
-    q: "Railway travel classes (Class 1, Class 2, Class 3) sit on which scale of measurement?",
-    options: ["Nominal — the numbers are just labels", "Ordinal — ordered, but the gaps between ranks are not equal", "Interval — differences are meaningful", "Ratio — there is a true zero"],
-    answer: 1,
-    explain:
-      "Ordinal adds ranking to nominal: Class 1 is better than Class 2, so order is meaningful — but the difference between ranks is not necessarily equal, which is exactly what disqualifies interval.",
-  },
-  {
-    id: "lens-4",
-    type: "mcq",
-    q: "Average gasoline price per gallon tracked from January 2009 to April 2014 is which kind of data?",
-    options: ["Cross-sectional — many elements at one time", "Time series — one subject over many periods", "Categorical — the months are labels", "Experimental — a treatment was applied"],
-    answer: 1,
-    explain:
-      "Time series data is collected over multiple time periods and shows how values change — trends and projections live here. Cross-sectional data gathers many elements at approximately the same point in time.",
-  },
-  {
-    id: "lens-5",
-    type: "mcq",
-    q: "The 1954 polio vaccine trial involving 2 million U.S. children is the lecture's example of…",
-    options: ["observational data", "experimental data — treatment administered, pre vs post compared", "a census", "secondary data from government agencies"],
-    answer: 1,
-    explain:
-      "Experimental data involves administering a treatment and measuring its effects — pre-treatment vs post-treatment compared. Observational studies (smokers vs non-smokers) watch without interference, like a hidden camera.",
-  },
-  {
-    id: "lens-6",
-    type: "mcq",
-    q: "Under the course's AI policy, which use is PROHIBITED?",
-    options: [
-      "Asking AI to clarify a concept or debug your own code",
-      "Using AI for sanity checks on calculations you did yourself",
-      "Submitting AI-written assignments as entirely your own work",
-      "Exploring alternative perspectives on a solved problem",
-    ],
-    answer: 2,
-    explain:
-      "Concept clarification, debugging, quality checks and sanity verification are the recommended uses. Submitting AI-written work as your own is academic dishonesty — and violation may lead to candidature cancellation. AI is a supplementary tool, never the primary learning method.",
-  },
-];
-
-const INFERENCE: StmExamQuestion[] = [
-  {
-    id: "inf-1",
-    type: "mcq",
-    q: "The Central Limit Theorem says that for random samples of size n from ANY population…",
-    options: [
-      "the population itself becomes normal",
-      "the sampling distribution of the sample mean is approximated by a normal distribution as n becomes large",
-      "every individual observation becomes normal",
-      "the sample mean always equals the population mean",
-    ],
-    answer: 1,
-    explain:
-      "The CLT operates on the distribution of sample MEANS — rule of thumb n ≥ 30 (50+ for highly skewed populations). It says nothing about individual elements, and the mean still wobbles around μ; it just wobbles normally.",
-  },
-  {
-    id: "inf-2",
-    type: "mcq",
-    q: "BlueGurt: μ = 80, σ = 25, n = 50. The standard error of the mean is…",
-    options: ["25/√50 = 3.5355", "25/50 = 0.5", "√25 = 5", "80/√50 ≈ 11.31"],
-    answer: 0,
-    explain:
-      "σ_x̄ = σ/√n = 25/√50 = 3.5355. That drives Z = (75 − 80)/3.5355 = −1.414 and P(X̄ ≤ 75) = 7.86% — Marrian Dairies' cautious-launch verdict.",
-  },
-  {
-    id: "inf-3",
-    type: "mcq",
-    q: "95% confidence, n = 36, x̄ = $41,100, σ = $4,500. The margin of error is…",
-    options: ["1.960 × (4,500/√36) = $1,470", "1.645 × 750 = $1,234", "2.576 × 750 = $1,932", "4,500/√36 = $750"],
-    answer: 0,
-    explain:
-      "SE = 4,500/√36 = 750; MoE = z(α/2) × SE = 1.960 × 750 = 1,470 → CI [39,630, 42,570]. The 1.645 and 2.576 answers are the 90% and 99% margins.",
-  },
-  {
-    id: "inf-4",
-    type: "mcq",
-    q: "n = 16 apartments, x̄ = $750, S = $55, 95% confidence. Why t(0.025, 15) = 2.131 instead of z = 1.96?",
-    options: [
-      "σ is unknown — s estimates it, so Student's t with df = n − 1 carries heavier tails",
-      "16 is above 30 so the normal cannot be used at all",
-      "The t-distribution only applies to proportions",
-      "Because the rents are symmetric",
-    ],
-    answer: 0,
-    explain:
-      "When σ is unknown the t-distribution (born at the Guinness brewery) replaces z; df = n − 1 = 15, and the extra tail weight widens the interval: 750 ± 2.131 × 13.75 = [720.7, 779.3]. Beyond ~100 df, t ≈ z.",
-  },
-  {
-    id: "inf-5",
-    type: "mcq",
-    q: "PSI exit poll: p̂ = 0.44, n = 500, 95% confidence. The margin of error is…",
-    options: ["1.96 × √(0.44 × 0.56 / 500) = 0.0435", "1.96 × 0.44 = 0.862", "√(0.44 × 0.56) = 0.496", "0.44 / 500 = 0.00088"],
-    answer: 0,
-    explain:
-      "σ(p̂) = √[p̂(1−p̂)/n]; MoE = 1.96 × 0.0222 ≈ 0.0435 → CI [0.3965, 0.4835]. Planning a survey with E = ±0.03 at 99% needs n = 1,817 with p* = 0.44.",
-  },
-  {
-    id: "inf-6",
-    type: "mcq",
-    q: "When no prior information about a population proportion exists, the lecture's default planning value is p* = 0.5 because…",
-    options: [
-      "0.5 is the easiest number to remember",
-      "p(1−p) is maximized at 0.5, giving the largest — never undershooting — sample size",
-      "proportions are always near 0.5 in practice",
-      "it makes the margin of error exactly zero",
-    ],
-    answer: 1,
-    explain:
-      "p(1−p) peaks at 0.25 when p = 0.5, so the required n is maximal — the conservative default that protects against undersampling whatever the true proportion turns out to be.",
-  },
-];
-
-const DECISIONS: StmExamQuestion[] = [
-  {
-    id: "dec-1",
-    type: "mcq",
-    q: "Hypothesis testing can never 'prove' a statement true. The two possible conclusions are…",
-    options: [
-      "accept H₀ or accept Hₐ",
-      "reject H₀ or fail to reject H₀",
-      "confirm or deny the parameter",
-      "significant or impossible",
-    ],
-    answer: 1,
-    explain:
-      "Testing only ever rejects or fails to reject. Failing to reject means insufficient evidence — not proof. 'Accepting' a hypothesis would risk Type II errors.",
-  },
-  {
-    id: "dec-2",
-    type: "mcq",
-    q: "Emergency services target a 12-minute response. The research objective is to check whether the goal is met. The pair is…",
-    options: [
-      "H₀: μ ≥ 12, Hₐ: μ < 12 — left-tailed",
-      "H₀: μ ≤ 12, Hₐ: μ > 12 — right-tailed",
-      "H₀: μ = 12, Hₐ: μ ≠ 12 — two-tailed",
-      "H₀: μ < 12, Hₐ: μ ≥ 12",
-    ],
-    answer: 0,
-    explain:
-      "The status quo ('service is meeting the goal') holds the equality: H₀ μ ≥ 12; what you'd flag as a problem goes in Hₐ μ < 12 — a left-tailed test.",
-  },
-  {
-    id: "dec-3",
-    type: "mcq",
-    q: "Concluding an innocent person is guilty is the lecture's example of…",
-    options: [
-      "Type I error — a false positive, probability α",
-      "Type II error — a false negative",
-      "a correct decision under H₀",
-      "the power of the test",
-    ],
-    answer: 0,
-    explain:
-      "Type I = rejecting a true H₀ (the 'innocent until proven guilty' null). Its probability is the significance level α. Type II — letting the guilty go free — is harder to control statistically.",
-  },
-  {
-    id: "dec-4",
-    type: "mcq",
-    q: "A 'greater than' test of μ takes which form?",
-    options: ["H₀ μ ≤ μ₀ vs Hₐ μ > μ₀, right-tailed", "H₀ μ ≥ μ₀ vs Hₐ μ < μ₀, left-tailed", "H₀ μ = μ₀ vs Hₐ μ ≠ μ₀, two-tailed", "H₀ μ > μ₀ vs Hₐ μ ≤ μ₀"],
-    answer: 0,
-    explain:
-      "The null always keeps the equality (≤, ≥, or =); the alternate carries the strict inequality. Greater-than ⇒ H₀ μ ≤ μ₀ against Hₐ μ > μ₀ — right-tailed.",
-  },
-];
-
 export const STM_EXAM_BANKS: Record<StmExamGroup, StmExamBank> = {
-  lens: {
-    group: "lens",
-    title: "The Lens",
-    subtitle: "Lectures 1–3 — what statistics is, how data is measured, and the course's tools & rules",
-    topics: "Art & science · elements & variables · the four scales · data sources · the AI policy",
-    questions: LENS,
-  },
   displays: {
     group: "displays",
-    title: "Summaries & Displays",
-    subtitle: "Lectures 4–8 — from the Marada Inn to the Pelican Stores ledger",
-    topics: "Frequency tables · charts · histograms · crosstabs · Simpson's paradox · COUNTIF · weighted means",
+    title: "Data & Displays",
+    subtitle: "Chapters 1–2 — what data is, where it comes from, and how to show it",
+    topics: "Scales · sources · inference · big data · frequency tables · charts",
     questions: DISPLAYS,
   },
   measures: {
@@ -762,24 +796,17 @@ export const STM_EXAM_BANKS: Record<StmExamGroup, StmExamBank> = {
   },
   continuous: {
     group: "continuous",
-    title: "Continuous at Work",
-    subtitle: "Lectures 12–18 — uniform, normal, exponential, and the two applied cases",
-    topics: "Uniform · z-tables · reorder points · exponential · Specialty Toys · Go Bananas",
+    title: "Continuous & Sampling",
+    subtitle: "Chapter 6 (+7) — uniform, normal, exponential, and the sampling logic",
+    topics: "Uniform · z-tables · reorder points · exponential · sampling",
     questions: CONTINUOUS,
   },
   inference: {
     group: "inference",
-    title: "Sampling & Estimation",
-    subtitle: "Lectures 17–25 — sampling distributions, the CLT, and the confidence ledger",
-    topics: "σ/√n · the CLT · margin of error · t-distribution · proportions",
+    title: "Inference",
+    subtitle: "Lectures 19–27 — sampling distributions, confidence intervals, and hypothesis tests",
+    topics: "σ/√n & CLT · sampling designs · z & t intervals · proportions · H₀ vs Hₐ",
     questions: INFERENCE,
-  },
-  decisions: {
-    group: "decisions",
-    title: "Cases & Decisions",
-    subtitle: "Lectures 26–27 — what the descriptives confess, and the court of evidence",
-    topics: "Transmission failures · H₀ vs Hₐ · tails · Type I & II errors",
-    questions: DECISIONS,
   },
 };
 

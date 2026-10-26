@@ -18,7 +18,6 @@ import {
   Bell,
   Boxes,
   Building2,
-  Car,
   Cpu,
   LineChart,
   Package,
@@ -473,57 +472,37 @@ Excel: 1 − BINOM.DIST(4, 25, 0.08, TRUE)
        = P(x ≥ 5)`}</StmPanel>
               </div>
             </div>
-          </div>
-        </Reveal>
-
-        {/* McNeil's */}
-        <StmReadStep n="03" title="Case — McNeil&rsquo;s Auto Mall" sub="A Poisson staffing question on Saturday mornings" />
-        <Reveal>
-          <div className="card-warm overflow-hidden">
-            <div className="p-5" style={{ background: "linear-gradient(135deg,#0e2a3d,#164a63)" }}>
-              <p className="flex items-center gap-2 text-[.8rem] font-extrabold uppercase tracking-[.16em] text-[#a5d8ef]">
-                <Car className="h-4 w-4" /> Statistics in practice
-              </p>
-              <p className="mt-2 font-display text-2xl font-black text-[#f0f9ff]">
-                6.8 customers per hour — how many salespeople on the lot?
-              </p>
-              <p className="mt-1 text-[.85rem] leading-relaxed text-[#c9e4f2]">
-                Harriet McNeil believes a dealership should have <b>more customers on the lot
-                than can be served</b> (customers generate showroom traffic, attract other
-                customers, and help salespeople sell) — but not so many that frustrated visitors
-                leave without buying. Customers arrive <b>randomly at a constant rate</b> through
-                Saturday morning — and she wants two more customers on the lot than can be served
-                at any time, accepting more than two waiting <b>no more than 10% of the time</b>.
-              </p>
+            {/* solved in lecture 16 — the three levers */}
+            <div className="grid gap-3 border-t p-5 md:grid-cols-3">
+              {[
+                { k: "Current rule — x ≥ 5", v: "4.5%", note: "shutdown probability under normal operations" },
+                { k: "Relax to x ≥ 7", v: "0.3%", note: "meets the ≤1% goal — but tolerates 28% failing boxes" },
+                { k: "Improve process to p = 0.05", v: "≈ 1%", note: "keep the strict rule, fix the machine instead" },
+              ].map((r) => (
+                <div key={r.k} className="rounded-2xl border p-4" style={{ borderColor: "#d9cdf8", background: "#f8f6ff" }}>
+                  <p className="text-[.66rem] font-black uppercase tracking-[.12em]" style={{ color: STM_G[700] }}>{r.k}</p>
+                  <p className="mt-1 font-mono text-2xl font-black" style={{ color: STM_G[800] }}>{r.v}</p>
+                  <p className="mt-1 text-[.74rem] leading-snug text-muted-warm">{r.note}</p>
+                </div>
+              ))}
             </div>
-            <div className="grid gap-4 p-5 md:grid-cols-2">
-              <div>
-                <p className="text-[.85rem] font-extrabold uppercase tracking-[.12em]" style={{ color: STM_G[700] }}>
-                  The report&rsquo;s three questions
+            <div className="px-5 pb-5">
+              <StmCallout kind="why" title="The lecture's verdict — and the Excel that got there">
+                <p>
+                  Lecture 16 evaluates all three levers with <b>BINOM.DIST</b> (FALSE for the exact
+                  mass, TRUE for the cumulative) and absolute-referenced n and p cells. Relaxing to
+                  7 failures reaches 0.2–0.3% but lets <b>28%</b> of boxes fail — a brand-quality
+                  cost. Improving the process from p = 0.08 to <b>p = 0.05</b> hits the ≤1% goal at
+                  the strict threshold, and a 100% error-free line remains statistically
+                  impossible: management picks its baseline failure rate deliberately.
                 </p>
-                <ul className="mt-2 space-y-1.5 text-[.84rem] leading-relaxed text-muted-warm">
-                  <li>· How are the number of arriving customers distributed? (Poisson — random arrivals at a constant rate)</li>
-                  <li>· With five salespeople, does the probability that more than two customers must wait satisfy the 10% objective?</li>
-                  <li>· What is the minimum number of salespeople to achieve the stated objective?</li>
-                </ul>
-              </div>
-              <div>
-                <StmPanel label="The machine — Poisson, μ = 6.8/hour">{`x = customers needing service at one time
-
-f(x) = μˣ e^(−μ) / x!  ·  μ = 6.8
-
-More than two waiting = more than
-5 customers needing service at once:
-
-P(x > 5) = 1 − P(x ≤ 5)
-         = 1 − Σ f(0)…f(5)`}</StmPanel>
-              </div>
+              </StmCallout>
             </div>
           </div>
         </Reveal>
 
         {/* Ch7 practice digest — the deck's full Q1–Q12 set */}
-        <StmReadStep n="04" title="Chapter 7 practice — the sampling set" sub="Twelve questions previewing sampling & sampling distributions" />
+        <StmReadStep n="03" title="Chapter 7 practice — the sampling set" sub="Twelve questions previewing sampling & sampling distributions" />
         <div className="grid gap-3 md:grid-cols-2">
           <Reveal>
             <StmQuiz
@@ -646,7 +625,7 @@ P(x > 5) = 1 − P(x ≤ 5)
         </div>
 
         {/* NICE — questions to consider + reflection */}
-        <StmReadStep n="05" title="Questions to consider — and the reflection" sub="The case closes by asking you to think like a manager" />
+        <StmReadStep n="04" title="Questions to consider — and the reflection" sub="The case closes by asking you to think like a manager" />
         <div className="grid gap-4 md:grid-cols-2">
           <Reveal>
             <div className="card-warm h-full p-5">
@@ -691,7 +670,7 @@ P(x > 5) = 1 − P(x ≤ 5)
         <Takeaways
           items={[
             <>NICE Paper: population 1,000,000 → <b>SRS of 500</b> → sample mean 0.4 m³ estimates the population mean.</>,
-            <>Go Bananas: a <b>binomial shutdown rule</b> (n = 25, p = 0.08, alarm at x ≥ 5); McNeil&rsquo;s: a <b>Poisson staffing rule</b> (μ = 6.8/hour, wait &gt; 2 at most 10%).</>,
+            <>Go Bananas: a <b>binomial shutdown rule</b> (n = 25, p = 0.08, alarm at x ≥ 5); McNeil&apos;s Poisson staffing case now lives in <b>Lecture 18</b>.</>,
             <>Sampling designs to name on sight: <b>SRS · stratified · cluster · systematic · convenience · judgment</b>.</>,
           ]}
         />

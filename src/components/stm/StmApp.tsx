@@ -37,7 +37,6 @@ import {
 import { useSectionProgress } from "@/lib/use-section-progress";
 import { jumpTo, useOpenSection } from "@/lib/use-open-section";
 import { loadProgress } from "@/lib/progress";
-import { clarityFor, setClarity, type ClarityStatus } from "@/lib/clarity";
 import { StmHero } from "@/components/stm/StmHero";
 import { StmLensSection, StmScalesSection } from "@/components/stm/StmParts1";
 import { StmSourcesSection, StmCategoricalSection } from "@/components/stm/StmParts2";
@@ -47,11 +46,13 @@ import { StmAssociationSection, StmProbBasicsSection, StmProbLawsSection } from 
 import { StmBayesSection, StmDiscreteSection } from "@/components/stm/StmParts6";
 import { StmBinomialSection } from "@/components/stm/StmParts7";
 import { StmContinuousSection, StmSamplingSection } from "@/components/stm/StmParts8";
-import { StmCourseToolsSection, StmScatterSection, StmPelicanSection } from "@/components/stm/StmParts9";
-import { StmDistRecapSection, StmNormalPracticeSection, StmSpecialtyToysSection, StmGoBananasSection } from "@/components/stm/StmParts10";
-import { StmMgmtAppsSection, StmCltSection, StmSamplingMethodsSection } from "@/components/stm/StmParts11";
-import { StmMarrianSection, StmIntervalSection, StmSamplingExcelSection } from "@/components/stm/StmParts12";
-import { StmTDistSection, StmProportionsSection, StmTransmissionSection, StmHypothesisSection } from "@/components/stm/StmParts13";
+import { StmSamplingDistSection, StmSamplingMethodsSection } from "@/components/stm/StmParts9";
+import { StmIntervalKnownSection, StmIntervalTSection } from "@/components/stm/StmParts10";
+import { StmPropIntervalSection, StmHypothesisSection } from "@/components/stm/StmParts11";
+import { StmCaseFile2Section } from "@/components/stm/StmParts12";
+import { StmCaseFile1Section, StmToyOrderSection } from "@/components/stm/StmParts13";
+import { StmDistCheckpointSection, StmZLabSection, StmDistAppsSection } from "@/components/stm/StmParts14";
+import { StmPointEstimationSection, StmMarrianCaseSection, StmPracticeLabSection } from "@/components/stm/StmParts15";
 import { StmExamWindow } from "@/components/stm/StmExamWindow";
 import { STM_EXAM_BANKS, STM_EXAM_GROUPS, STM_TOTAL_QUESTIONS, type StmExamGroup } from "@/components/stm/questions";
 import {
@@ -67,10 +68,10 @@ const GOLD_LITE = "#e6cd7f";
 const PLUM = "linear-gradient(165deg,#1e1033 0%,#2a1547 60%,#301a52 100%)";
 
 /* ============================================================
-   Structured chapter map — the top bar is organised into the
-   official deck's eight movements instead of a flat 33-chip
-   strip. Each group owns a "Test my knowledge" pen-paper
-   window (see questions.ts).
+   Structured chapter map — the top bar is organised into six
+   groups instead of a flat 31-chip strip, numbered to follow
+   the deck's lectures L1–L27. Each group owns a "Test my
+   knowledge" pen-paper window (see questions.ts).
    ============================================================ */
 const GROUPS: {
   id: StmExamGroup;
@@ -78,38 +79,30 @@ const GROUPS: {
   items: { id: string; label: string; desc: string }[];
 }[] = [
   {
-    id: "lens",
-    label: "Module 1 · The Lens",
+    id: "displays",
+    label: "Data & Displays",
     items: [
       { id: "lens", label: "What is statistics?", desc: "Two meanings, six business applications" },
-      { id: "scales", label: "Scales of measurement", desc: "Nominal → ordinal → interval → ratio" },
       { id: "sources", label: "Sources, analytics & ethics", desc: "Hudson's loop, big data, the ASA" },
-      { id: "course-tools", label: "Course & tools", desc: "The syllabus, Excel + R, the AI policy" },
-    ],
-  },
-  {
-    id: "displays",
-    label: "Module 2 · Summaries",
-    items: [
+      { id: "scales", label: "Scales of measurement", desc: "Nominal → ordinal → interval → ratio" },
       { id: "categorical", label: "Categorical displays", desc: "Marada Inn: tables, bars, pie" },
       { id: "quantitative", label: "Quantitative displays", desc: "Histograms, dot plots, stem-and-leaf" },
       { id: "twovars", label: "Two variables", desc: "Crosstabs, Simpson's paradox, dashboards" },
-      { id: "scatter", label: "Scatter studio", desc: "Trend lines, side-by-side & stacked bars" },
-      { id: "pelican", label: "Case: Pelican Stores", desc: "COUNTIF, pivots, the 70% coupon cohort" },
+      { id: "case-file-1", label: "Case file I & Excel lab", desc: "Pelican Stores, COUNTIF, pivots" },
     ],
   },
   {
     id: "measures",
-    label: "Module 3 · Measures",
+    label: "Numerical Measures",
     items: [
       { id: "location", label: "Measures of location", desc: "Mean, median, mode, percentiles" },
       { id: "variability", label: "Variability & shape", desc: "Range, IQR, σ, z, box plots" },
-      { id: "association", label: "Association", desc: "Covariance & correlation" },
+      { id: "association", label: "Association", desc: "Box plots, covariance & correlation" },
     ],
   },
   {
     id: "probability",
-    label: "Module 4 · Probability",
+    label: "Probability",
     items: [
       { id: "prob-basics", label: "Experiments & counting", desc: "Sample space, counting rules, priors" },
       { id: "prob-laws", label: "Events & the laws", desc: "Union, intersection, conditionals" },
@@ -118,44 +111,38 @@ const GROUPS: {
   },
   {
     id: "discrete",
-    label: "Module 5 · Distributions",
+    label: "Discrete Distributions",
     items: [
       { id: "discrete", label: "Random variables & E(x)", desc: "JSL's 1.20 TVs, DiCarlo's bivariate" },
       { id: "binomial", label: "Binomial · Poisson · Hypergeometric", desc: "Evans, Mercy Hospital, Neveready" },
-      { id: "dist-recap", label: "The recap lab", desc: "TV sales rebuilt, Excel steps, quiz map" },
+      { id: "dist-checkpoint", label: "Distributions checkpoint", desc: "Discrete vs continuous, the E(x) shift machine" },
+      { id: "dist-apps", label: "Distributions at work", desc: "McNeil's Poisson staffing, PMF vs CDF" },
     ],
   },
   {
     id: "continuous",
-    label: "Module 6 · Continuous at Work",
+    label: "Continuous & Sampling",
     items: [
       { id: "continuous", label: "Uniform · Normal · Exponential", desc: "Slater, Pep Zone, Al's pump, HUL" },
-      { id: "normal-practice", label: "z-Tables in action", desc: "Forward & reverse normal problems" },
-      { id: "specialty-toys", label: "Case: Specialty Toys", desc: "Stockout odds, order quantities, risk" },
-      { id: "go-bananas", label: "Case: Go Bananas", desc: "BINOM.DIST, thresholds, the 3-way fix" },
-      { id: "mgmt-apps", label: "Distributions at work", desc: "Dealership staffing, salaries, language" },
+      { id: "z-lab", label: "The Z laboratory", desc: "Standardise, read the table, reverse it" },
+      { id: "toy-order", label: "Weather Teddy order", desc: "σ recovery, service-level dial, Q = 22,653" },
+      { id: "sampling", label: "Sampling & the QC case file", desc: "NICE Paper, Go Bananas, SRS" },
+      { id: "point-estimation", label: "Sampling vocabulary", desc: "Frame, census, the bridge, SRS" },
     ],
   },
   {
     id: "inference",
-    label: "Module 7 · Sampling & Estimation",
+    label: "Inference & Estimation",
     items: [
-      { id: "sampling", label: "Sampling & the case file", desc: "NICE Paper, Go Bananas, McNeil's" },
-      { id: "clt", label: "Sampling distribution & CLT", desc: "σ/√n, unbiasedness, the n ≥ 30 rule" },
-      { id: "sampling-methods", label: "Sampling methods", desc: "Stratified · cluster · systematic · the rest" },
-      { id: "marrian-dairies", label: "Case: Marrian Dairies", desc: "σ/√50 = 3.5355, the 7.86% verdict" },
-      { id: "interval-estimation", label: "Interval estimation", desc: "Margin of error, the 90/95/99 z's" },
-      { id: "sampling-excel", label: "Sampling in Excel", desc: "RAND, the demo, the √2 law" },
-      { id: "t-distribution", label: "The t-distribution", desc: "df = n − 1, heavier tails, real CIs" },
-      { id: "proportions", label: "Proportion estimation", desc: "p̂ ± E, sample size, p* = 0.5" },
-    ],
-  },
-  {
-    id: "decisions",
-    label: "Module 8 · Cases & Decisions",
-    items: [
-      { id: "transmission", label: "Case: Transmission failure", desc: "Descriptives, CI, the early-failure tail" },
-      { id: "hypothesis", label: "Hypothesis testing", desc: "H₀ vs Hₐ, tails, Type I & II errors" },
+      { id: "sampling-dist", label: "Sampling distributions & CLT", desc: "σ/√n, the CLT, the salary simulator" },
+      { id: "sampling-methods", label: "Sampling methods", desc: "Stratified · cluster · systematic · convenience · judgment" },
+      { id: "marrian-case", label: "Marrian Dairies case", desc: "BlueGurt/StrawGurt, the n-switcher" },
+      { id: "interval-known", label: "Interval estimation (σ known)", desc: "Margin of error, 90/95/99, income interval" },
+      { id: "practice-lab", label: "The sampling lab", desc: "RANDBETWEEN recipe, SE shrink, quiz update" },
+      { id: "interval-t", label: "The t-distribution", desc: "df = n−1, housing interval, sample-size planner" },
+      { id: "prop-interval", label: "Proportion estimation", desc: "Exit poll, planning value p* = 0.5" },
+      { id: "case-file-2", label: "Metropolitan Research", desc: "The transmission file, n ≈ 100" },
+      { id: "hypothesis", label: "Hypothesis testing framework", desc: "H₀ vs Hₐ, three tails, Type I & II errors" },
     ],
   },
 ];
@@ -175,12 +162,9 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   lens: <StmLensSection />,
   scales: <StmScalesSection />,
   sources: <StmSourcesSection />,
-  "course-tools": <StmCourseToolsSection />,
   categorical: <StmCategoricalSection />,
   quantitative: <StmQuantitativeSection />,
   twovars: <StmTwoVarsSection />,
-  scatter: <StmScatterSection />,
-  pelican: <StmPelicanSection />,
   location: <StmLocationSection />,
   variability: <StmVariabilitySection />,
   association: <StmAssociationSection />,
@@ -189,22 +173,23 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   bayes: <StmBayesSection />,
   discrete: <StmDiscreteSection />,
   binomial: <StmBinomialSection />,
-  "dist-recap": <StmDistRecapSection />,
   continuous: <StmContinuousSection />,
-  "normal-practice": <StmNormalPracticeSection />,
-  "specialty-toys": <StmSpecialtyToysSection />,
-  "go-bananas": <StmGoBananasSection />,
-  "mgmt-apps": <StmMgmtAppsSection />,
   sampling: <StmSamplingSection />,
-  clt: <StmCltSection />,
+  "sampling-dist": <StmSamplingDistSection />,
   "sampling-methods": <StmSamplingMethodsSection />,
-  "marrian-dairies": <StmMarrianSection />,
-  "interval-estimation": <StmIntervalSection />,
-  "sampling-excel": <StmSamplingExcelSection />,
-  "t-distribution": <StmTDistSection />,
-  proportions: <StmProportionsSection />,
-  transmission: <StmTransmissionSection />,
+  "interval-known": <StmIntervalKnownSection />,
+  "interval-t": <StmIntervalTSection />,
+  "prop-interval": <StmPropIntervalSection />,
   hypothesis: <StmHypothesisSection />,
+  "case-file-2": <StmCaseFile2Section />,
+  "case-file-1": <StmCaseFile1Section />,
+  "toy-order": <StmToyOrderSection />,
+  "dist-checkpoint": <StmDistCheckpointSection />,
+  "z-lab": <StmZLabSection />,
+  "dist-apps": <StmDistAppsSection />,
+  "point-estimation": <StmPointEstimationSection />,
+  "marrian-case": <StmMarrianCaseSection />,
+  "practice-lab": <StmPracticeLabSection />,
 };
 
 /* ============================================================
@@ -762,68 +747,9 @@ function PracticeHub({
 
 /* ============================================================
    StmLectureHead — the "Statistics for Managers Lecture N"
-   hero band. Compact: the number, the name, the clarity
-   tracker, the chapter jumps.
+   hero band. Compact: the number, the name, the chapter jumps.
    ============================================================ */
-function ClarityToggle({
-  status,
-  onChange,
-}: {
-  status: ClarityStatus | undefined;
-  onChange: (next: ClarityStatus | undefined) => void;
-}) {
-  const isClear = status === "clear";
-  const isUnclear = status === "unclear";
-  const cycle = () => {
-    if (!status) onChange("clear");
-    else if (status === "clear") onChange("unclear");
-    else onChange(undefined);
-  };
-  return (
-    <button
-      type="button"
-      onClick={cycle}
-      aria-pressed={isClear ? "true" : isUnclear ? "mixed" : "false"}
-      title={
-        isClear
-          ? "Marked clear — tap to switch to “not clear yet”"
-          : isUnclear
-          ? "Marked not-clear-yet — tap to unmark"
-          : "Is this lecture clear? Tap to mark it clear"
-      }
-      className="flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-1.5 text-[.64rem] font-extrabold uppercase tracking-[.12em] transition-all duration-200"
-      style={
-        isClear
-          ? { borderColor: "rgba(139,92,246,.55)", background: "rgba(139,92,246,.18)", color: "#d6c6fa" }
-          : isUnclear
-          ? { borderColor: "rgba(230,205,127,.5)", background: "rgba(230,205,127,.14)", color: "#f0e2ac" }
-          : { borderColor: "rgba(255,255,255,.18)", background: "rgba(255,255,255,.07)", color: "#e4dbf7" }
-      }
-    >
-      <motion.span
-        key={status ?? "none"}
-        initial={{ scale: 0.5, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 340, damping: 18 }}
-        className="flex h-4 w-4 items-center justify-center rounded-full"
-        style={{ background: isClear ? "#8b5cf6" : isUnclear ? "#e6cd7f" : "rgba(255,255,255,.14)" }}
-      >
-        {isClear ? <Check className="h-2.5 w-2.5 text-[#1a0f2e]" /> : isUnclear ? <span className="text-[.55rem] font-black text-[#1a0f2e]">?</span> : null}
-      </motion.span>
-      {isClear ? "Lecture clear" : isUnclear ? "Not clear yet" : "Mark clear?"}
-    </button>
-  );
-}
-
-function StmLectureHead({
-  lecture,
-  clarity,
-  onClarity,
-}: {
-  lecture: StmLecture;
-  clarity: ClarityStatus | undefined;
-  onClarity: (next: ClarityStatus | undefined) => void;
-}) {
+function StmLectureHead({ lecture }: { lecture: StmLecture }) {
   return (
     <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
       <div
@@ -843,13 +769,10 @@ function StmLectureHead({
         </svg>
 
         <div className="relative">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="flex flex-wrap items-center gap-1.5 text-[.56rem] font-extrabold uppercase tracking-[.22em] text-[#c0aef0]">
-              <Sigma className="h-3 w-3" style={{ color: VIOLET_BRIGHT }} />
-              Statistics for Managers · Lecture {lecture.n} of 27
-            </p>
-            <ClarityToggle status={clarity} onChange={onClarity} />
-          </div>
+          <p className="flex flex-wrap items-center gap-1.5 text-[.56rem] font-extrabold uppercase tracking-[.22em] text-[#c0aef0]">
+            <Sigma className="h-3 w-3" style={{ color: VIOLET_BRIGHT }} />
+            Statistics for Managers
+          </p>
           <h2 className="mt-1 text-xl font-black leading-tight text-[#f1eafd] sm:text-2xl">
             Lecture {lecture.n}
             <span
@@ -929,7 +852,7 @@ function LecturePager({ current, onJump }: { current: StmLecture; onJump: (id: s
           </button>
         ) : (
           <span className="rounded-2xl border border-dashed border-[#e6e0f2] p-4 text-center text-[.78rem] font-bold leading-snug text-[#8f7fa5]">
-            End of the sequence — Lecture 16 closes the course. Revise the workhorses, then retake the windows.
+            End of the sequence — Lecture 27 closes the course. Revise the framework, then retake the windows.
           </span>
         )}
       </div>
@@ -952,17 +875,6 @@ export function StmApp({ onExitAtlas }: { onExitAtlas: () => void }) {
 
   const lecture = lectureById(lectureId) ?? STM_LECTURES[0];
   const seen = useSeenDisplay(lecture);
-
-  /* clarity — per-lecture clear / not-clear marks (localStorage) */
-  const [clarityMap, setClarityMap] = useState<Record<string, ClarityStatus>>({});
-  useEffect(() => {
-    setClarityMap(clarityFor("stm"));
-  }, []);
-  const lectureClarity = clarityMap[lecture.id];
-  const changeClarity = useCallback((next: ClarityStatus | undefined) => {
-    setClarity("stm", lectureIdRef.current, next);
-    setClarityMap(clarityFor("stm"));
-  }, []);
 
   const selectLecture = useCallback((id: string) => {
     setLectureId(id);
@@ -1016,7 +928,6 @@ export function StmApp({ onExitAtlas }: { onExitAtlas: () => void }) {
             onSelect={selectLecture}
             onPractice={openHub}
             seen={seen}
-            clarity={clarityMap}
           />
         </PartBoundary>
 
@@ -1029,7 +940,7 @@ export function StmApp({ onExitAtlas }: { onExitAtlas: () => void }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <StmLectureHead lecture={lecture} clarity={lectureClarity} onClarity={changeClarity} />
+            <StmLectureHead lecture={lecture} />
             {lecture.chapters.length > 0 ? (
               lecture.chapters.map((c) => (
                 <PartBoundary key={c.id} label={c.label}>
