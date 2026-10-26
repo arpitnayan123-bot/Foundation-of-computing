@@ -10,7 +10,14 @@
    Vogue, Pearl, Softomation, Tech Mahindra) and hand-checked.
    ============================================================ */
 
-export type FaExamGroup = "foundations" | "equation" | "recording" | "closing";
+export type FaExamGroup =
+  | "foundations"
+  | "concepts"
+  | "equation"
+  | "recording"
+  | "cycle"
+  | "closing"
+  | "cashflow";
 export type FaQuestionType = "mcq" | "output" | "short";
 
 export interface FaExamQuestion {
@@ -535,36 +542,502 @@ const CLOSING: FaExamQuestion[] = [
   },
 ];
 
+/* ------------------------------------------------------------
+   LECTURE 29 EXTENSIONS — hand-checked figures from the new
+   deck, grafted onto the existing banks.
+   ------------------------------------------------------------ */
+const FOUNDATIONS_EXTRA: FaExamQuestion[] = [
+  {
+    id: "f11",
+    type: "mcq",
+    q: "Who drafts India's accounting standards, who gives them the force of law, and who polices listed companies?",
+    options: [
+      "SEBI drafts · ICAI enforces · MCA polices",
+      "ICAI drafts · MCA notifies under the Companies Act 2013 · SEBI polices listed companies",
+      "MCA drafts · SEBI notifies · ICAI polices",
+      "The IASB drafts all three, India only adopts",
+    ],
+    answer: 1,
+    explain:
+      "Three pillars: ICAI (the author) drafts standards through its Accounting Standards Board; MCA (the legislator) prescribes them under the Companies Act 2013 and enforces compliance; SEBI (the police) mandates disclosure norms and quarterly reporting for listed companies.",
+  },
+  {
+    id: "f12",
+    type: "mcq",
+    q: "India's converged version of IFRS — Ind AS — is mandatory for which companies?",
+    options: [
+      "Only listed companies",
+      "Listed companies and large unlisted companies with net worth exceeding ₹250 crore",
+      "Every registered business regardless of size",
+      "Only companies that export goods",
+    ],
+    answer: 1,
+    explain:
+      "Ind AS is notified by the MCA under the Companies Act 2013 and mandatory for all listed companies plus large unlisted companies above ₹250 crore net worth — making Indian statements comparable across borders while allowing Indian deviations.",
+  },
+];
+
+const RECORDING_EXTRA: FaExamQuestion[] = [
+  {
+    id: "r11",
+    type: "mcq",
+    q: "Under the traditional approach, which rule pair belongs to which account family?",
+    options: [
+      "Personal: debit what comes in · Real: debit the receiver · Nominal: debit expenses",
+      "Personal: debit the receiver, credit the giver · Real: debit what comes in, credit what goes out · Nominal: debit expenses & losses, credit incomes & gains",
+      "Personal: debit expenses · Real: credit the receiver · Nominal: debit what comes in",
+      "All three families share one rule: debit the receiver",
+    ],
+    answer: 1,
+    explain:
+      "Three families, three laws. Personal (natural, artificial, representative persons): debit the receiver, credit the giver. Real (tangible & intangible assets): debit what comes in, credit what goes out. Nominal (expenses, losses, incomes, gains — closed to P&L): debit expenses & losses, credit incomes & gains.",
+  },
+  {
+    id: "r12",
+    type: "output",
+    q: "A cash account shows debits of ₹3,05,000 and credits of ₹2,10,000. Compute the Balance c/d and state the account's nature.",
+    code: "Dr side  = 3,00,000 + 5,000 = 3,05,000\nCr side  = 2,00,000 + 10,000 = 2,10,000\n\nBalance c/d = ?",
+    answerText: "95,000",
+    explain:
+      "Debits exceed credits by 95,000, so 'By Balance c/d ₹95,000' is placed on the lower (credit) side to equalize the account — making cash a DEBIT balance. Next period it opens as 'To Balance b/d ₹95,000'. The side with the higher total decides the account's nature.",
+  },
+];
+
+const CLOSING_EXTRA: FaExamQuestion[] = [
+  {
+    id: "c11",
+    type: "mcq",
+    q: "The fourth of the year's closing entries transfers the P&L's balancing figure. If the year ended in net profit, that entry is…",
+    options: [
+      "Debit Capital A/c, credit Profit & Loss A/c",
+      "Debit Profit & Loss A/c, credit Capital A/c",
+      "Debit Trading A/c, credit Capital A/c",
+      "No entry — net profit stays in the P&L",
+    ],
+    answer: 1,
+    explain:
+      "Net profit means the P&L's credit side beat its debit side — the balancing figure sits on the debit side and closes out as: Debit Profit & Loss A/c, Credit Capital A/c. A net loss travels the opposite way (Debit Capital, Credit P&L). Nominal accounts end the year at zero.",
+  },
+  {
+    id: "c12",
+    type: "mcq",
+    q: "Which arrangement is the LIQUIDITY order of a balance sheet?",
+    options: [
+      "Land → machinery → inventory → receivables → cash",
+      "Cash → receivables → inventory → machinery → land",
+      "Capital → long-term loans → creditors → overdraft",
+      "Random — the order is optional",
+    ],
+    answer: 1,
+    explain:
+      "Liquidity order: most convertible first — cash leads, land trails; current liabilities precede long-term. Permanency order is the mirror image (land first, capital first). Same sheet, two lenses — short-term lenders prefer liquidity order.",
+  },
+];
+
+/* ------------------------------------------------------------
+   GROUP — CONCEPTS & CONVENTIONS  (L5–L7: the eight concepts,
+             the four conventions, violation spotting)
+   ------------------------------------------------------------ */
+const CONCEPTS: FaExamQuestion[] = [
+  {
+    id: "k1",
+    type: "mcq",
+    q: "Land was purchased for ₹50,000. Years later the market reads ₹60,000, then ₹40,000. At what value does the land sit in the books — and which concept says so?",
+    options: [
+      "₹60,000 then ₹40,000 — money measurement",
+      "₹50,000 throughout — the cost concept",
+      "₹60,000 throughout — going concern",
+      "Whatever the owner declares — materiality",
+    ],
+    answer: 1,
+    explain:
+      "Cost concept: assets are recorded at their acquisition price, and that cost bases all subsequent accounting regardless of market swings. Advantage: objectivity. Limitation: historical cost cannot account for inflation.",
+  },
+  {
+    id: "k2",
+    type: "mcq",
+    q: "An order is placed in March; the goods are delivered in April. Under the realization concept, revenue belongs to…",
+    options: [
+      "March — the order date",
+      "April — when property in the goods passes to the buyer",
+      "Whichever month the cash arrives",
+      "Split across March and April",
+    ],
+    answer: 1,
+    explain:
+      "Realization: revenue is recognized when the sale is made — when property in the goods passes and the buyer becomes legally liable. Delivery, not order or payment, owns the revenue.",
+  },
+  {
+    id: "k3",
+    type: "mcq",
+    q: "Goods cost ₹1,00,000. Market price first rises to ₹1,40,000, then falls to ₹80,000. Inventory is valued at…",
+    options: [
+      "₹1,40,000 then ₹80,000 — market, always",
+      "₹1,00,000 then ₹1,00,000 — cost, always",
+      "₹1,00,000 then ₹80,000 — the lower of cost and market",
+      "₹1,20,000 — the average of the two",
+    ],
+    answer: 2,
+    explain:
+      "Conservatism: anticipate no profit, provide for all possible losses. Market above cost → the unrealized gain is ignored (₹1,00,000). Market below cost → the loss is recognized immediately (₹80,000). The same logic drives provisions for doubtful debts.",
+  },
+  {
+    id: "k4",
+    type: "mcq",
+    q: "Switching inventory valuation methods to inflate this year's profit violates which convention(s)?",
+    options: [
+      "Materiality only — the amounts are small",
+      "Consistency and conservatism — arbitrary changes must be disclosed, not smuggled",
+      "Full disclosure only, if the notes mention it",
+      "None — method choice is free",
+    ],
+    answer: 1,
+    explain:
+      "Consistency requires the same practices period to period; changes that affect profit must be disclosed with explanatory notes. An arbitrary switch that flatters profit also violates conservatism's playing-safe spirit. Legitimate improvements are allowed — but disclosed.",
+  },
+  {
+    id: "k5",
+    type: "mcq",
+    q: "Rounding figures to the nearest hundred for a management report, while keeping exact paise in each debtor's ledger, is justified by…",
+    options: [
+      "Consistency — the same rounding everywhere",
+      "Materiality — significance is contextual",
+      "Realization — only realized figures matter",
+      "Full disclosure — rounding is disclosed",
+    ],
+    answer: 1,
+    explain:
+      "Materiality: accountants attach importance to significant details and ignore insignificant ones — and significance depends on context. Every rupee is material to a debtor's account; a board report may round to hundreds. Permitted under the Companies Act.",
+  },
+  {
+    id: "k6",
+    type: "mcq",
+    q: "Reporting a pending lawsuit in the notes to accounts is which convention at work?",
+    options: [
+      "Conservatism — providing for the loss",
+      "Full disclosure — contingent liabilities must be disclosed",
+      "Materiality — lawsuits are always immaterial",
+      "Consistency — legal practice",
+    ],
+    answer: 1,
+    explain:
+      "Full disclosure: all material information of interest to proprietors, creditors and investors must be honestly presented — the Companies Act requires a true and fair view, and notes to accounts (contingent liabilities, investment values) are part of it.",
+  },
+  {
+    id: "k7",
+    type: "mcq",
+    q: "Hire purchase: ownership passes only at the final installment. How is revenue treated?",
+    options: [
+      "All revenue at the final payment — realization strictly",
+      "Revenue recorded progressively as installments fall due",
+      "No revenue until the item is repossessed",
+      "Revenue when the order is placed",
+    ],
+    answer: 1,
+    explain:
+      "A realization exception: waiting for the final payment would misstate every interim period, so sellers record revenue progressively as installments are received or become due. Same logic as long-term construction contracts (profit yearly on work certified).",
+  },
+  {
+    id: "k8",
+    type: "output",
+    q: "Under the replacement-cost lens: stock bought at ₹20/kg, replacement at ₹25/kg, sold at ₹30/kg. Split the ₹10 profit into operating profit and holding gain.",
+    code: "Selling price      = ₹30\nReplacement cost  = ₹25\nHistorical cost   = ₹20\n\nOperating profit  = 30 − 25 = ?\nHolding gain      = 25 − 20 = ?",
+    answerText: "₹5 operating + ₹5 holding",
+    explain:
+      "Operating profit = selling price − replacement cost = 30 − 25 = ₹5 (core business skill). Holding gain = replacement cost − historical cost = 25 − 20 = ₹5 (inflation while holding stock). The traditional lens shows the same ₹10 but calls it all operating — hiding the market's contribution.",
+  },
+];
+
+/* ------------------------------------------------------------
+   GROUP — THE CYCLE  (L16–L19: cash vs accrual, the matching
+             principle, adjusting entries, Vogue's six)
+   ------------------------------------------------------------ */
+const CYCLE: FaExamQuestion[] = [
+  {
+    id: "y1",
+    type: "mcq",
+    q: "₹1,000 is received on January 1 for twelve months of service. On January 31, how much revenue has the accrual basis earned?",
+    options: ["₹1,000 — cash is cash", "₹1,000/12 ≈ ₹83", "₹0 — accrual waits for cash", "₹500 — half the service"],
+    answer: 1,
+    explain:
+      "Accrual matches revenue to the service delivered: 1,000 × 1/12 ≈ ₹83 earned by January 31. The remaining ₹917 sits as unearned revenue — a liability. Cash basis would show all ₹1,000 on day one, which is exactly its flaw.",
+  },
+  {
+    id: "y2",
+    type: "mcq",
+    q: "A machine is built in December, shipped in March, and paid for in May. When is the revenue recognized?",
+    options: ["December — manufacturing", "March — ownership transfers", "May — cash received", "Spread across all three"],
+    answer: 1,
+    explain:
+      "Realization: revenue is recognized when goods are furnished and ownership passes — March. Manufacturing creates inventory, not revenue; cash collection is a separate event. Timing of payment is irrelevant.",
+  },
+  {
+    id: "y3",
+    type: "mcq",
+    q: "Which is NOT an advantage of the cash basis of accounting?",
+    options: [
+      "Simple and straightforward",
+      "Requires no adjusting entries",
+      "Provides an accurate, fair picture of business performance",
+      "Suits cash-heavy small businesses",
+    ],
+    answer: 2,
+    explain:
+      "The cash basis is simple, objective and adjustment-free — but it does NOT give a fair picture: it ignores matching, skips capital/revenue distinctions, allows profit manipulation through cash timing, and reports inconsistently. That is why commercial institutions use the accrual basis.",
+  },
+  {
+    id: "y4",
+    type: "mcq",
+    q: "Vogue prepaid ₹720 on June 6 for twelve months of insurance. The June 30 adjusting entry is…",
+    options: [
+      "Debit Prepaid Insurance ₹60; credit Insurance Expense ₹60",
+      "Debit Insurance Expense ₹60; credit Prepaid Insurance ₹60",
+      "Debit Insurance Expense ₹720; credit Cash ₹720",
+      "No entry until the policy expires",
+    ],
+    answer: 1,
+    explain:
+      "720 ÷ 12 = ₹60 consumed in June. The entry shifts the expired portion from asset to expense: Debit Insurance Expense 60, Credit Prepaid Insurance 60. Skipping it overstates assets and understates expenses.",
+  },
+  {
+    id: "y5",
+    type: "output",
+    q: "Office supplies account shows ₹3,700; the June 30 physical count finds ₹2,900. Give the adjusting entry amount.",
+    code: "Supplies (ledger)      = 3,700\nSupplies (counted)     = 2,900\n\nSupplies consumed      = ?",
+    answerText: "800",
+    explain:
+      "3,700 − 2,900 = ₹800 consumed. Entry: Debit Office Supplies Expense 800, Credit Office Supplies 800. The remaining ₹2,900 stays an asset. Only the consumed portion becomes an expense.",
+  },
+  {
+    id: "y6",
+    type: "output",
+    q: "An employee hired June 21 works 10 days by June 30 at a monthly salary of ₹1,500. What salary expense has accrued?",
+    code: "Daily rate = 1,500 ÷ 30 = 50\nDays worked = 10\n\nAccrued = ?",
+    answerText: "500",
+    explain:
+      "1,500 ÷ 30 × 10 = ₹500. Entry: Debit Salaries Expense 500, Credit Salaries Payable 500 — services received, cash not yet paid. Before the adjustment, liabilities AND expenses are both understated.",
+  },
+  {
+    id: "y7",
+    type: "mcq",
+    q: "Depreciation on a ₹3,000 machine with a 5-year life is booked via Accumulated Depreciation rather than the Equipment account. Why?",
+    options: [
+      "To make expenses look smaller",
+      "The contra-asset preserves the original cost while tracking value consumed",
+      "Accumulated depreciation is a liability account",
+      "Equipment accounts cannot be credited",
+    ],
+    answer: 1,
+    explain:
+      "3,000 ÷ 60 months = ₹50/month: Debit Depreciation Expense 50, Credit Accumulated Depreciation 50. The contra-asset keeps the equipment's original ₹3,000 visible on the balance sheet while the used-up value accumulates separately.",
+  },
+  {
+    id: "y8",
+    type: "mcq",
+    q: "Tech Mahindra received ₹9,682 million on a long-term contract but recognized only ₹2,005 million as revenue that year. The remaining ₹7,677 million is…",
+    options: [
+      "An immediate profit",
+      "Deferred revenue — a liability until the services are provided",
+      "An asset called unbilled revenue",
+      "A dividend to shareholders",
+    ],
+    answer: 1,
+    explain:
+      "Cash received before services are performed creates a liability — unearned (deferred) revenue. Only the ₹2,005 million value of services actually provided became revenue. The rest is recognized as the obligation is satisfied — Vogue's ₹900 entry at industrial scale.",
+  },
+];
+
+/* ------------------------------------------------------------
+   GROUP — CASH FLOW & ANALYSIS  (L23–L29: the fourth pillar,
+             the two methods, the six questions, the analysis)
+   ------------------------------------------------------------ */
+const CASHFLOW: FaExamQuestion[] = [
+  {
+    id: "w1",
+    type: "mcq",
+    q: "Which of these qualifies as a cash equivalent?",
+    options: [
+      "Equity shares of another company",
+      "A 1-year fixed deposit",
+      "A 2-month fixed deposit",
+      "A 1-year FD with 2 months remaining",
+    ],
+    answer: 2,
+    explain:
+      "Cash equivalents: short-term, highly liquid, readily convertible, minimal risk of value change — maturities around three months, counted from ACQUISITION date. Equity shares are too volatile; the 1-year FDs fail the maturity test regardless of time remaining. The 2-month FD passes.",
+  },
+  {
+    id: "w2",
+    type: "mcq",
+    q: "Interest received on investments and interest paid on loans belong, respectively, to…",
+    options: [
+      "Operating and operating",
+      "Investing and financing",
+      "Financing and investing",
+      "Operating and financing",
+    ],
+    answer: 1,
+    explain:
+      "Returns on investments made (interest and dividends RECEIVED) are investing inflows. The cost of financing (interest and dividends PAID) belongs to financing. Only the principal revenue-generating flows are operating.",
+  },
+  {
+    id: "w3",
+    type: "mcq",
+    q: "A company converts ₹50 lakh of debentures into equity shares. On the cash flow statement this appears…",
+    options: [
+      "As a financing inflow of ₹50 lakh",
+      "As both an inflow and an outflow",
+      "Nowhere — no cash moved",
+      "As an investing outflow",
+    ],
+    answer: 2,
+    explain:
+      "Debt-to-equity conversion is a balance-sheet transaction with zero cash movement. Only transactions involving actual cash appear on the statement — a recurring trap in both L23 and L26.",
+  },
+  {
+    id: "w4",
+    type: "mcq",
+    q: "In the indirect method, an INCREASE in trade receivables is…",
+    options: [
+      "Added — receivables are an asset",
+      "Deducted — credit sales were booked but cash not collected",
+      "Ignored — customers will pay eventually",
+      "Added only if sales grew",
+    ],
+    answer: 1,
+    explain:
+      "An increase in a current asset means cash is locked in: profit rose, cash did not. Deduct. Decrease in receivables (customers paid up) is added. For current liabilities the signs flip: increase added, decrease deducted.",
+  },
+  {
+    id: "w5",
+    type: "output",
+    q: "Jaws Photo Plus: net income ₹73,000; add depreciation ₹7,000; deduct gain on disposal ₹2,500; accounts receivable increased ₹4,000; accounts payable decreased ₹3,800. Compute net cash from operating activities.",
+    code: "73,000 + 7,000 − 2,500 − 4,000 − 3,800 = ?",
+    answerText: "69,700",
+    explain:
+      "73,000 + 7,000 = 80,000; − 2,500 (non-operating gain removed) = 77,500; − 4,000 (receivables up, cash locked) = 73,500; − 3,800 (payables paid down, cash left) = ₹69,700. Note: the payables decrease is DEDUCTED — some summaries mislabel it as an addition.",
+  },
+  {
+    id: "w6",
+    type: "output",
+    q: "Tax expense ₹50,000; opening tax payable ₹30,000; closing tax payable ₹50,000. Compute the income tax PAID.",
+    code: "Tax paid = expense + opening payable − closing payable\n        = 50,000 + 30,000 − 50,000 = ?",
+    answerText: "30,000",
+    explain:
+      "₹30,000 of tax was actually paid in cash. The ₹20,000 increase in the payable stays a liability and reappears as a working-capital addition — never as tax paid.",
+  },
+  {
+    id: "w7",
+    type: "mcq",
+    q: "Compass Company: net profit ₹11,41,000, operating cash flow ₹72,000, inventory up ₹58,000, receivables up ₹44,000. The first analytical verdict is…",
+    options: [
+      "The company is fraudulent",
+      "Poor quality of earnings — profit is trapped in working capital, not converted to cash",
+      "The depreciation method is too aggressive",
+      "Sales must have collapsed",
+    ],
+    answer: 1,
+    explain:
+      "A ₹10,69,000 gap between profit and operating cash is a quality-of-earnings question: inventory (+58,000) and receivables (+44,000) locked cash into operations, and expansion spending drained the rest. Not fraud — but the statement forces the question.",
+  },
+  {
+    id: "w8",
+    type: "mcq",
+    q: "Operating cash flow ₹72,000; interest paid ₹22,000. From the creditors' perspective this means…",
+    options: [
+      "Default is imminent — cover below 5×",
+      "Interest cover of 3.3× — operating cash covers interest over three times, low default risk",
+      "The company must issue more equity",
+      "Nothing — creditors only read the balance sheet",
+    ],
+    answer: 1,
+    explain:
+      "72,000 ÷ 22,000 = 3.3× interest cover: operating cash flows cover interest obligations more than three times — a strong protective shield with low default risk even under adverse conditions. The shareholders' lens is harsher: dividend sustainability.",
+  },
+  {
+    id: "w9",
+    type: "output",
+    q: "Pioneer Limited: operating +₹1,52,000; investing −₹1,50,000; financing −₹60,000; opening cash ₹2,00,000. Compute the closing cash balance.",
+    code: "1,52,000 − 1,50,000 − 60,000 = net change\nClosing = 2,00,000 + net change = ?",
+    answerText: "1,42,000",
+    explain:
+      "Net change = 1,52,000 − 1,50,000 − 60,000 = −58,000. Closing cash = 2,00,000 − 58,000 = ₹1,42,000 — which must reconcile exactly with the balance sheet. The statement closes when the check passes.",
+  },
+  {
+    id: "w10",
+    type: "mcq",
+    q: "Dr. Reddy's 2015-16: net profit fell 7.92%, but operating profit grew 9.23%. What reconciles the two stories?",
+    options: [
+      "A change in the depreciation method",
+      "A one-time ₹4,621 thousand foreign-exchange loss (Venezuela) — exceptional, non-recurring",
+      "A collapse in revenue from operations",
+      "A surge in income tax",
+    ],
+    answer: 1,
+    explain:
+      "Revenue grew 4.49%, expenses only 3.49% — core operations were strong. The entire headline decline came from an exceptional FX loss absent in 2015. Quality-of-earnings analysis separates operating performance from one-time events.",
+  },
+];
+
 export const FA_EXAM_BANKS: Record<FaExamGroup, FaExamBank> = {
   foundations: {
     group: "foundations",
-    title: "Foundations & Assumptions",
-    subtitle: "Why accounting exists \u00B7 the four measurement assumptions",
-    topics: "The five openings \u00B7 reporting entity \u00B7 going concern \u00B7 periodicity \u00B7 matching \u00B7 money measurement \u00B7 violation spotting",
-    questions: FOUNDATIONS,
+    title: "Orientation & the Case for Standards",
+    subtitle: "The language of business — and why it needs referees",
+    topics: "Course map · the four verbs · users & ICAI–MCA–SEBI · IFRS & Ind AS · the five openings · Soleris & Satyam",
+    questions: [...FOUNDATIONS, ...FOUNDATIONS_EXTRA],
+  },
+  concepts: {
+    group: "concepts",
+    title: "Concepts & Conventions",
+    subtitle: "The eight postulates — and the four customs that keep statements fair",
+    topics: "Eight concepts · cost · realization & its exceptions · conservatism dial · disclosure · consistency · materiality",
+    questions: CONCEPTS,
   },
   equation: {
     group: "equation",
     title: "Dual Aspect & The Equation",
-    subtitle: "Every rupee tells two stories \u2014 and the equation that keeps the score",
-    topics: "Dual aspect \u00B7 debit & credit rules \u00B7 assets, liabilities, equity \u00B7 equation workouts",
+    subtitle: "Every rupee tells two stories — and the equation that keeps the score",
+    topics: "Dual aspect · debit & credit rules · assets, liabilities, equity · equation workouts",
     questions: EQUATION,
   },
   recording: {
     group: "recording",
-    title: "Journal, Ledger & Statements",
-    subtitle: "From a day\u2019s transactions to a set of statements \u2014 the Vogue Company pipeline",
-    topics: "Journalising \u00B7 no-entry lessons \u00B7 T-accounts \u00B7 the five statements \u00B7 trial balance",
-    questions: RECORDING,
+    title: "Recording — Journal, Ledger & Trial",
+    subtitle: "Classification, posting, balancing — and the errors a trial balance cannot see",
+    topics: "Personal/real/nominal · journalizing · Anbu & Dinesh · balancing c/d–b/d · trial balance · suspense",
+    questions: [...RECORDING, ...RECORDING_EXTRA],
+  },
+  cycle: {
+    group: "cycle",
+    title: "The Cycle — Basis & Adjustments",
+    subtitle: "Cash vs accrual, the matching principle, and Vogue's six adjusting entries",
+    topics: "Cash vs accrual basis · matching · deferrals & accruals · Vogue's six entries · Tech Mahindra",
+    questions: CYCLE,
   },
   closing: {
     group: "closing",
-    title: "Adjustments & Final Accounts",
-    subtitle: "Deferrals, accruals and the road to gross profit",
-    topics: "Deferral vs accrual \u00B7 prepaid & unearned \u00B7 final accounts \u00B7 trading account \u00B7 gross profit",
-    questions: CLOSING,
+    title: "Final Accounts & The Statements",
+    subtitle: "Trading, P&L, closing entries, the balance sheet — and the fourth pillar",
+    topics: "Trading account · gross profit · closing entries · retained earnings · balance sheet orders · cash flow intro",
+    questions: [...CLOSING, ...CLOSING_EXTRA],
+  },
+  cashflow: {
+    group: "cashflow",
+    title: "Cash Flow & Analysis",
+    subtitle: "The two methods, the six questions — and profit is an opinion, cash is a fact",
+    topics: "Cash equivalents · three activities · indirect ladder · Jaws 69,700 · Compass 72,000 · Pioneer 1,42,000 · Dr. Reddy's",
+    questions: CASHFLOW,
   },
 };
 
-export const FA_EXAM_GROUPS: FaExamGroup[] = ["foundations", "equation", "recording", "closing"];
+export const FA_EXAM_GROUPS: FaExamGroup[] = [
+  "foundations",
+  "concepts",
+  "equation",
+  "recording",
+  "cycle",
+  "closing",
+  "cashflow",
+];
 export const FA_TOTAL_QUESTIONS = FA_EXAM_GROUPS.reduce((n, g) => n + FA_EXAM_BANKS[g].questions.length, 0);
