@@ -67,8 +67,9 @@ const OS_TABLE = [
   { os: "Windows 11", use: "Personal computers", kernel: "NT kernel", key: "Most widely used desktop OS; dominates enterprise" },
   { os: "macOS", use: "Apple desktops & laptops", kernel: "Unix-based (Darwin)", key: "Seamless Apple hardware–software integration" },
   { os: "Linux", use: "Servers, developer PCs, IoT", kernel: "Linux kernel", key: "Open source; runs ~96% of the world’s web servers" },
-  { os: "Android", use: "Most of the world’s phones", kernel: "Linux kernel", key: "Open, customizable mobile ecosystem" },
+  { os: "Android", use: "Most of the world’s phones", kernel: "Linux kernel", key: "72% global smartphone market share; open-source base" },
   { os: "iOS", use: "Apple phones & tablets", kernel: "XNU (Unix)", key: "Closed ecosystem; known for security and performance" },
+  { os: "Chrome OS", use: "Chromebooks", kernel: "Linux kernel", key: "Cloud-first; runs Android apps; everything is stored and accessed via the internet" },
 ];
 
 /* ---------- Utility software ---------- */
