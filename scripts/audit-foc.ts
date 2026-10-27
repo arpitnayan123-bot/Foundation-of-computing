@@ -4,8 +4,12 @@
  * rendered in the FoC reader (notes/Part1-10 + foc/FocParts1-9), mapped to
  * its lecture via foc/lectures.ts.
  *
+ * Runtime-agnostic: runs under bun AND node (node:fs only — no Bun globals),
+ * so `next build`'s type-check on Vercel stays green.
+ *
  * Output: JSON to stdout -> scripts/foc-audit.json
  */
+import { readFile, writeFile } from "node:fs/promises";
 import { FOC_LECTURES } from "../src/components/foc/lectures";
 
 const FILES = [
@@ -95,7 +99,7 @@ const KNOWN_MACHINES = new Set([
 const audits: ChapterAudit[] = [];
 
 for (const rel of FILES) {
-  const src = await Bun.file(rel).text();
+  const src = await readFile(rel, "utf8");
   const lines = src.split("\n");
 
   // find exported section components and their extents
@@ -164,5 +168,5 @@ for (const rel of FILES) {
 // summary + json out
 const missing = Object.keys(RENDER_MAP).filter((id) => !audits.some((a) => a.chapterId === id));
 console.error(`Chapters audited: ${audits.length}/36 · missing: ${missing.join(", ") || "none"}`);
-await Bun.write("scripts/foc-audit.json", JSON.stringify(audits, null, 2));
+await writeFile("scripts/foc-audit.json", JSON.stringify(audits, null, 2), "utf8");
 console.error("Wrote scripts/foc-audit.json");
