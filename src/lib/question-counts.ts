@@ -15,7 +15,7 @@
 
 export const QUESTION_COUNTS = {
   foc: 160,
-  atb: 30,
+  atb: 51,
   fa: 72,
   ebh: 66,
   stm: 62,
