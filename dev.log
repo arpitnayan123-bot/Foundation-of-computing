@@ -1,352 +1,83 @@
 ▲ Next.js 16.1.3 (Turbopack)
 - Local:         http://localhost:3000
-- Network:       http://21.0.17.108:3000
+- Network:       http://21.0.3.165:3000
 - Environments: .env
 
 ✓ Starting...
-✓ Ready in 717ms
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+✓ Ready in 612ms
 ○ Compiling / ...
- GET / 200 in 6.3s (compile: 6.1s, render: 228ms)
- GET / 200 in 69ms (compile: 7ms, render: 62ms)
- GET / 200 in 55ms (compile: 3ms, render: 52ms)
- GET / 200 in 47ms (compile: 3ms, render: 44ms)
- GET / 200 in 806ms (compile: 344ms, render: 462ms)
- GET /manifest.webmanifest 200 in 127ms (compile: 112ms, render: 15ms)
- GET / 200 in 143ms (compile: 5ms, render: 138ms)
-✓ Compiled in 266ms
- GET / 200 in 201ms (compile: 11ms, render: 190ms)
- GET / 200 in 150ms (compile: 13ms, render: 137ms)
- GET /manifest.webmanifest 200 in 24ms (compile: 11ms, render: 13ms)
- GET / 200 in 82ms (compile: 5ms, render: 77ms)
- GET / 200 in 58ms (compile: 4ms, render: 54ms)
- GET / 200 in 52ms (compile: 3ms, render: 49ms)
- GET / 200 in 65ms (compile: 4ms, render: 61ms)
+ GET / 200 in 3.6s (compile: 3.5s, render: 71ms)
+ GET / 200 in 10.8s (compile: 10.6s, render: 251ms)
+ GET / 200 in 59ms (compile: 4ms, render: 55ms)
+ GET / 200 in 49ms (compile: 4ms, render: 45ms)
+ GET / 200 in 231ms (compile: 8ms, render: 222ms)
+ GET /manifest.webmanifest 200 in 1085ms (compile: 1066ms, render: 19ms)
+ GET / 200 in 265ms (compile: 6ms, render: 259ms)
+ GET / 200 in 70ms (compile: 5ms, render: 65ms)
+ GET / 200 in 146ms (compile: 10ms, render: 136ms)
+ GET /manifest.webmanifest 200 in 8ms (compile: 4ms, render: 4ms)
+ GET /api 200 in 223ms (compile: 181ms, render: 42ms)
+ GET / 200 in 54ms (compile: 4ms, render: 51ms)
+ GET / 200 in 54ms (compile: 4ms, render: 50ms)
+ GET / 200 in 55ms (compile: 4ms, render: 51ms)
+ GET / 200 in 56ms (compile: 3ms, render: 53ms)
+ GET / 200 in 53ms (compile: 4ms, render: 49ms)
  GET / 200 in 54ms (compile: 3ms, render: 51ms)
- GET / 200 in 60ms (compile: 5ms, render: 55ms)
- GET / 200 in 62ms (compile: 5ms, render: 58ms)
-✓ Compiled in 178ms
-✓ Compiled in 114ms
- GET / 200 in 155ms (compile: 119ms, render: 36ms)
-✓ Compiled in 0ms
- GET / 200 in 183ms (compile: 5ms, render: 178ms)
-✓ Compiled in 1056ms
- GET / 200 in 64ms (compile: 5ms, render: 59ms)
- GET / 200 in 285ms (compile: 6ms, render: 279ms)
- GET /manifest.webmanifest 200 in 37ms (compile: 3ms, render: 34ms)
- GET / 200 in 114ms (compile: 8ms, render: 106ms)
- GET / 200 in 103ms (compile: 4ms, render: 99ms)
- GET / 200 in 66ms (compile: 4ms, render: 62ms)
- GET / 200 in 58ms (compile: 5ms, render: 53ms)
- GET / 200 in 127ms (compile: 4ms, render: 123ms)
- GET / 200 in 66ms (compile: 3ms, render: 62ms)
- GET / 200 in 55ms (compile: 5ms, render: 50ms)
- GET / 200 in 49ms (compile: 5ms, render: 44ms)
- GET / 200 in 58ms (compile: 6ms, render: 51ms)
- GET / 200 in 58ms (compile: 5ms, render: 53ms)
- GET / 200 in 48ms (compile: 3ms, render: 45ms)
-✓ Compiled in 1025ms
-✓ Compiled in 341ms
-✓ Compiled in 594ms
-✓ Compiled in 355ms
-✓ Compiled in 340ms
-✓ Compiled in 720ms
-✓ Compiled in 495ms
-✓ Compiled in 1474ms
-✓ Compiled in 1889ms
- GET / 200 in 620ms (compile: 180ms, render: 441ms)
- GET /manifest.webmanifest 200 in 18ms (compile: 4ms, render: 14ms)
- GET / 200 in 135ms (compile: 5ms, render: 130ms)
- GET / 200 in 61ms (compile: 4ms, render: 57ms)
- GET / 200 in 61ms (compile: 4ms, render: 57ms)
- GET / 200 in 57ms (compile: 3ms, render: 54ms)
- GET / 200 in 67ms (compile: 6ms, render: 62ms)
- GET / 200 in 64ms (compile: 5ms, render: 59ms)
- GET / 200 in 69ms (compile: 6ms, render: 63ms)
- GET / 200 in 62ms (compile: 3ms, render: 59ms)
- GET / 200 in 62ms (compile: 3ms, render: 58ms)
+ GET / 200 in 184ms (compile: 5ms, render: 179ms)
+ GET / 200 in 466ms (compile: 9ms, render: 457ms)
+ GET /manifest.webmanifest 200 in 66ms (compile: 15ms, render: 51ms)
+ GET / 200 in 177ms (compile: 6ms, render: 171ms)
+ GET / 200 in 55ms (compile: 4ms, render: 52ms)
+ GET / 200 in 59ms (compile: 3ms, render: 56ms)
+ GET / 200 in 46ms (compile: 4ms, render: 43ms)
+ GET / 200 in 68ms (compile: 3ms, render: 65ms)
+ GET / 200 in 56ms (compile: 5ms, render: 51ms)
+ GET / 200 in 53ms (compile: 3ms, render: 50ms)
+ GET / 200 in 53ms (compile: 4ms, render: 50ms)
+ GET / 200 in 61ms (compile: 5ms, render: 56ms)
+ GET / 200 in 53ms (compile: 3ms, render: 50ms)
+✓ Compiled in 321ms
+ GET / 200 in 56ms (compile: 5ms, render: 51ms)
+ GET / 200 in 55ms (compile: 4ms, render: 51ms)
+ GET / 200 in 66ms (compile: 5ms, render: 61ms)
+ GET / 200 in 57ms (compile: 6ms, render: 51ms)
+ GET / 200 in 56ms (compile: 5ms, render: 51ms)
  GET / 200 in 52ms (compile: 4ms, render: 48ms)
- GET / 200 in 60ms (compile: 4ms, render: 56ms)
- GET / 200 in 52ms (compile: 3ms, render: 49ms)
- GET /manifest.webmanifest 200 in 75ms (compile: 39ms, render: 36ms)
- GET / 200 in 461ms (compile: 6ms, render: 455ms)
- GET / 200 in 180ms (compile: 8ms, render: 172ms)
- GET / 200 in 117ms (compile: 6ms, render: 111ms)
- GET / 200 in 75ms (compile: 5ms, render: 70ms)
- GET / 200 in 62ms (compile: 4ms, render: 58ms)
- GET / 200 in 57ms (compile: 5ms, render: 52ms)
- GET / 200 in 73ms (compile: 3ms, render: 70ms)
- GET / 200 in 77ms (compile: 3ms, render: 74ms)
- GET / 200 in 76ms (compile: 5ms, render: 70ms)
- GET / 200 in 69ms (compile: 3ms, render: 66ms)
- GET / 200 in 70ms (compile: 6ms, render: 64ms)
-✓ Compiled in 576ms
- GET / 200 in 53ms (compile: 5ms, render: 49ms)
-✓ Compiled in 1995ms
- GET / 200 in 1053ms (compile: 224ms, render: 829ms)
- GET / 200 in 1105ms (compile: 366ms, render: 740ms)
- GET / 200 in 1080ms (compile: 317ms, render: 763ms)
- GET / 200 in 1069ms (compile: 287ms, render: 782ms)
- GET / 200 in 1010ms (compile: 794ms, render: 216ms)
- GET / 200 in 1015ms (compile: 817ms, render: 198ms)
- GET /manifest.webmanifest 200 in 28ms (compile: 11ms, render: 17ms)
-✓ Compiled in 0ms
- GET / 200 in 85ms (compile: 7ms, render: 78ms)
-✓ Compiled in 907ms
-⨯ ReferenceError: QUESTION_COUNTS is not defined
-    at module evaluation (src/components/atlas/subjects.ts:49:16)
-    at module evaluation (src/components/atlas/AtlasLanding.tsx:37:1)
-    at module evaluation (src/app/page.tsx:21:1)
-  47 |     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
-  48 |     chapters: 17,
-> 49 |     questions: QUESTION_COUNTS.foc,
-     |                ^
-  50 |     examWindows: 4,
-  51 |     accent: "#f59e0b",
-  52 |     accent2: "#ea580c", {
-  digest: '865890272'
-}
-✓ Compiled in 3ms
- GET / 500 in 1080ms (compile: 199ms, render: 881ms)
-⨯ ReferenceError: QUESTION_COUNTS is not defined
-    at module evaluation (src/components/atlas/subjects.ts:49:16)
-    at module evaluation (src/components/atlas/AtlasLanding.tsx:37:1)
-    at module evaluation (src/app/page.tsx:21:1)
-  47 |     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
-  48 |     chapters: 17,
-> 49 |     questions: QUESTION_COUNTS.foc,
-     |                ^
-  50 |     examWindows: 4,
-  51 |     accent: "#f59e0b",
-  52 |     accent2: "#ea580c", {
-  digest: '865890272'
-}
-⨯ ReferenceError: QUESTION_COUNTS is not defined
-    at module evaluation (src/components/atlas/subjects.ts:49:16)
-    at module evaluation (src/components/atlas/AtlasLanding.tsx:37:1)
-    at module evaluation (src/app/page.tsx:21:1)
-  47 |     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
-  48 |     chapters: 17,
-> 49 |     questions: QUESTION_COUNTS.foc,
-     |                ^
-  50 |     examWindows: 4,
-  51 |     accent: "#f59e0b",
-  52 |     accent2: "#ea580c", {
-  digest: '865890272'
-}
- GET / 500 in 820ms (compile: 4ms, render: 817ms)
-⨯ ReferenceError: QUESTION_COUNTS is not defined
-    at module evaluation (src/components/atlas/subjects.ts:49:16)
-    at module evaluation (src/components/atlas/AtlasLanding.tsx:37:1)
-    at module evaluation (src/app/page.tsx:21:1)
-  47 |     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
-  48 |     chapters: 17,
-> 49 |     questions: QUESTION_COUNTS.foc,
-     |                ^
-  50 |     examWindows: 4,
-  51 |     accent: "#f59e0b",
-  52 |     accent2: "#ea580c", {
-  digest: '865890272'
-}
- GET /manifest.webmanifest 200 in 10ms (compile: 5ms, render: 5ms)
- GET / 500 in 933ms (compile: 8ms, render: 925ms)
- GET / 500 in 534ms (compile: 10ms, render: 524ms)
- GET /manifest.webmanifest 200 in 5ms (compile: 1750µs, render: 3ms)
-⚠ Fast Refresh had to perform a full reload when ./src/components/atlas/AtlasLanding.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-✓ Compiled in 178ms
-⨯ ReferenceError: QUESTION_COUNTS is not defined
-    at module evaluation (src/components/atlas/subjects.ts:49:16)
-    at module evaluation (src/components/atlas/AtlasLanding.tsx:37:1)
-    at module evaluation (src/app/page.tsx:21:1)
-  47 |     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
-  48 |     chapters: 17,
-> 49 |     questions: QUESTION_COUNTS.foc,
-     |                ^
-  50 |     examWindows: 4,
-  51 |     accent: "#f59e0b",
-  52 |     accent2: "#ea580c", {
-  digest: '865890272'
-}
-⨯ ReferenceError: QUESTION_COUNTS is not defined
-    at module evaluation (src/components/atlas/subjects.ts:49:16)
-    at module evaluation (src/components/atlas/AtlasLanding.tsx:37:1)
-    at module evaluation (src/app/page.tsx:21:1)
-  47 |     topics: ["IPO & Four Pillars", "Data & DIKW", "Algorithms", "Hardware", "Python core", "Functions", "Classes & OOP"],
-  48 |     chapters: 17,
-> 49 |     questions: QUESTION_COUNTS.foc,
-     |                ^
-  50 |     examWindows: 4,
-  51 |     accent: "#f59e0b",
-  52 |     accent2: "#ea580c", {
-  digest: '865890272'
-}
- GET / 500 in 678ms (compile: 55ms, render: 622ms)
- GET / 500 in 280ms (compile: 41ms, render: 239ms)
- GET /manifest.webmanifest 200 in 12ms (compile: 7ms, render: 5ms)
- GET /manifest.webmanifest 200 in 16ms (compile: 2ms, render: 13ms)
-⚠ Cross origin request detected from preview-chat-d4723f4e-1d9c-4114-9a08-ee95c0825d13.space-z.ai to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
-Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
-⚠ Fast Refresh had to perform a full reload when ./src/components/atlas/subjects.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-✓ Compiled in 228ms
- GET / 200 in 881ms (compile: 106ms, render: 776ms)
- GET / 200 in 164ms (compile: 40ms, render: 124ms)
-⚠ Fast Refresh had to perform a full reload when ./src/components/atlas/subjects.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET /manifest.webmanifest 200 in 14ms (compile: 3ms, render: 12ms)
- GET / 200 in 418ms (compile: 14ms, render: 404ms)
- GET / 200 in 92ms (compile: 11ms, render: 81ms)
- GET / 200 in 69ms (compile: 4ms, render: 66ms)
-✓ Compiled in 341ms
-✓ Compiled in 188ms
- GET / 200 in 521ms (compile: 66ms, render: 455ms)
-✓ Compiled in 1474ms
- GET / 200 in 275ms (compile: 75ms, render: 200ms)
- GET / 200 in 85ms (compile: 7ms, render: 78ms)
-✓ Compiled in 240ms
- GET /manifest.webmanifest 200 in 20ms (compile: 8ms, render: 12ms)
- GET / 200 in 732ms (compile: 100ms, render: 632ms)
- GET / 200 in 97ms (compile: 4ms, render: 93ms)
- GET / 200 in 111ms (compile: 6ms, render: 105ms)
- GET / 200 in 72ms (compile: 10ms, render: 62ms)
- GET / 200 in 76ms (compile: 5ms, render: 71ms)
- GET / 200 in 104ms (compile: 6ms, render: 99ms)
- GET / 200 in 99ms (compile: 3ms, render: 95ms)
- GET /manifest.webmanifest 200 in 20ms (compile: 7ms, render: 14ms)
- GET / 200 in 109ms (compile: 3ms, render: 106ms)
- GET /manifest.webmanifest 200 in 11ms (compile: 6ms, render: 5ms)
- GET / 200 in 233ms (compile: 3ms, render: 230ms)
- GET / 200 in 140ms (compile: 5ms, render: 135ms)
- GET / 200 in 74ms (compile: 7ms, render: 67ms)
- GET / 200 in 82ms (compile: 4ms, render: 78ms)
- GET / 200 in 78ms (compile: 9ms, render: 69ms)
- GET / 200 in 129ms (compile: 25ms, render: 104ms)
- GET / 200 in 148ms (compile: 6ms, render: 143ms)
- GET / 200 in 100ms (compile: 4ms, render: 96ms)
- GET / 200 in 85ms (compile: 7ms, render: 78ms)
- GET / 200 in 64ms (compile: 6ms, render: 58ms)
- GET / 200 in 70ms (compile: 8ms, render: 62ms)
- GET / 200 in 110ms (compile: 6ms, render: 103ms)
- GET /manifest.webmanifest 200 in 9ms (compile: 4ms, render: 5ms)
- GET / 200 in 100ms (compile: 5ms, render: 95ms)
- GET / 200 in 122ms (compile: 5ms, render: 117ms)
- GET / 200 in 135ms (compile: 4ms, render: 131ms)
- GET /manifest.webmanifest 200 in 10ms (compile: 4ms, render: 6ms)
  GET / 200 in 54ms (compile: 3ms, render: 51ms)
- GET / 200 in 48ms (compile: 3ms, render: 44ms)
- GET / 200 in 48ms (compile: 5ms, render: 43ms)
- GET / 200 in 94ms (compile: 55ms, render: 39ms)
- GET / 200 in 19ms (compile: 4ms, render: 15ms)
- GET / 200 in 18ms (compile: 3ms, render: 15ms)
- GET / 200 in 22ms (compile: 3ms, render: 19ms)
- GET / 200 in 20ms (compile: 3ms, render: 16ms)
- GET / 200 in 24ms (compile: 4ms, render: 21ms)
- GET / 200 in 19ms (compile: 4ms, render: 16ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 16ms (compile: 3ms, render: 13ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 23ms (compile: 3ms, render: 20ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 18ms (compile: 4ms, render: 14ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 18ms (compile: 4ms, render: 15ms)
- GET / 200 in 22ms (compile: 3ms, render: 19ms)
- GET / 200 in 16ms (compile: 3ms, render: 13ms)
- GET / 200 in 16ms (compile: 3ms, render: 13ms)
- GET / 200 in 18ms (compile: 4ms, render: 14ms)
- GET / 200 in 23ms (compile: 3ms, render: 19ms)
- GET / 200 in 168ms (compile: 3ms, render: 164ms)
-✓ Compiled in 325ms
-✓ Compiled in 1374ms
-✓ Compiled in 1005ms
-✓ Compiled in 299ms
-✓ Compiled in 744ms
- GET / 200 in 210ms (compile: 53ms, render: 157ms)
- POST /api/ask 200 in 3.9s (compile: 563ms, render: 3.3s)
- POST /api/ask 200 in 2.8s (compile: 3ms, render: 2.8s)
- POST /api/ask 200 in 1214ms (compile: 2ms, render: 1212ms)
- GET /manifest.webmanifest 200 in 76ms (compile: 68ms, render: 7ms)
- GET / 200 in 606ms (compile: 4ms, render: 602ms)
- GET / 200 in 174ms (compile: 5ms, render: 170ms)
- POST /api/ask 200 in 6.0s (compile: 4ms, render: 6.0s)
- POST /api/generate-cards 200 in 6.0s (compile: 168ms, render: 5.8s)
- POST /api/generate-cards 200 in 2.9s (compile: 2ms, render: 2.9s)
- POST /api/ask 200 in 3.0s (compile: 3ms, render: 3.0s)
- GET / 200 in 50ms (compile: 4ms, render: 46ms)
- GET / 200 in 47ms (compile: 3ms, render: 44ms)
- GET / 200 in 53ms (compile: 4ms, render: 48ms)
- POST /api/ask 200 in 6.2s (compile: 2ms, render: 6.2s)
- POST /api/generate-cards 200 in 6.2s (compile: 2ms, render: 6.1s)
- GET / 200 in 52ms (compile: 4ms, render: 49ms)
- GET / 200 in 47ms (compile: 3ms, render: 44ms)
-✓ Compiled in 393ms
-✓ Compiled in 758ms
-✓ Compiled in 359ms
-✓ Compiled in 449ms
-✓ Compiled in 501ms
- GET / 200 in 92ms (compile: 52ms, render: 40ms)
- GET / 200 in 18ms (compile: 4ms, render: 14ms)
- GET / 200 in 18ms (compile: 3ms, render: 15ms)
- GET / 200 in 20ms (compile: 3ms, render: 17ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 23ms (compile: 3ms, render: 19ms)
- GET / 200 in 16ms (compile: 3ms, render: 13ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 16ms (compile: 3ms, render: 13ms)
- GET / 200 in 21ms (compile: 7ms, render: 13ms)
- GET / 200 in 17ms (compile: 3ms, render: 13ms)
- GET / 200 in 17ms (compile: 4ms, render: 14ms)
- GET / 200 in 18ms (compile: 3ms, render: 14ms)
- GET / 200 in 22ms (compile: 3ms, render: 19ms)
- GET / 200 in 16ms (compile: 3ms, render: 13ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 18ms (compile: 3ms, render: 15ms)
- GET / 200 in 23ms (compile: 3ms, render: 20ms)
- GET / 200 in 17ms (compile: 3ms, render: 13ms)
- GET / 200 in 20ms (compile: 3ms, render: 17ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 174ms (compile: 4ms, render: 170ms)
- GET / 200 in 51ms (compile: 3ms, render: 48ms)
- GET / 200 in 57ms (compile: 3ms, render: 54ms)
  GET / 200 in 52ms (compile: 3ms, render: 49ms)
-✓ Compiled in 331ms
-✓ Compiled in 379ms
- GET / 200 in 85ms (compile: 51ms, render: 35ms)
- GET / 200 in 19ms (compile: 4ms, render: 15ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 19ms (compile: 3ms, render: 16ms)
- GET / 200 in 23ms (compile: 3ms, render: 19ms)
- GET / 200 in 18ms (compile: 3ms, render: 15ms)
- GET / 200 in 18ms (compile: 3ms, render: 15ms)
- GET / 200 in 24ms (compile: 3ms, render: 21ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 21ms (compile: 3ms, render: 18ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 16ms (compile: 3ms, render: 13ms)
- GET / 200 in 18ms (compile: 3ms, render: 15ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 18ms (compile: 3ms, render: 15ms)
- GET / 200 in 27ms (compile: 3ms, render: 24ms)
- GET / 200 in 18ms (compile: 3ms, render: 15ms)
- GET / 200 in 19ms (compile: 3ms, render: 15ms)
- GET / 200 in 19ms (compile: 3ms, render: 16ms)
- GET / 200 in 17ms (compile: 3ms, render: 14ms)
- GET / 200 in 20ms (compile: 4ms, render: 16ms)
- GET / 200 in 25ms (compile: 3ms, render: 22ms)
-✓ Compiled in 394ms
-✓ Compiled in 319ms
-✓ Compiled in 668ms
-✓ Compiled in 778ms
-✓ Compiled in 232ms
- GET / 200 in 194ms (compile: 55ms, render: 139ms)
- GET /manifest.webmanifest 200 in 101ms (compile: 84ms, render: 17ms)
- GET / 200 in 551ms (compile: 5ms, render: 546ms)
- GET / 200 in 166ms (compile: 4ms, render: 162ms)
-✓ Compiled in 303ms
- GET / 200 in 62ms (compile: 7ms, render: 56ms)
- GET /manifest.webmanifest 200 in 34ms (compile: 3ms, render: 30ms)
- POST /api/ask 200 in 1949ms (compile: 354ms, render: 1595ms)
- POST /api/defend 200 in 875ms (compile: 167ms, render: 707ms)
- POST /api/case-strike 200 in 2.7s (compile: 165ms, render: 2.6s)
- POST /api/case-strike 200 in 3.1s (compile: 6ms, render: 3.1s)
- GET / 200 in 67ms (compile: 6ms, render: 60ms)
+ GET / 200 in 51ms (compile: 3ms, render: 48ms)
+ GET / 200 in 64ms (compile: 4ms, render: 60ms)
+ GET / 200 in 54ms (compile: 3ms, render: 51ms)
+ GET / 200 in 54ms (compile: 3ms, render: 51ms)
+✓ Compiled in 389ms
+ GET / 200 in 57ms (compile: 4ms, render: 53ms)
+ GET / 200 in 61ms (compile: 4ms, render: 56ms)
+✓ Compiled in 555ms
+✓ Compiled in 181ms
+ GET / 200 in 251ms (compile: 58ms, render: 193ms)
+ GET / 200 in 57ms (compile: 4ms, render: 52ms)
+✓ Compiled in 204ms
+ GET / 200 in 224ms (compile: 46ms, render: 178ms)
+✓ Compiled in 182ms
+ GET / 200 in 240ms (compile: 47ms, render: 194ms)
+ GET / 200 in 61ms (compile: 6ms, render: 54ms)
+ GET / 200 in 55ms (compile: 3ms, render: 51ms)
+ GET /manifest.webmanifest 200 in 27ms (compile: 7ms, render: 20ms)
+ GET / 200 in 576ms (compile: 4ms, render: 572ms)
+ GET / 200 in 195ms (compile: 6ms, render: 189ms)
+✓ Compiled in 300ms
+ GET / 200 in 64ms (compile: 9ms, render: 55ms)
+ GET /manifest.webmanifest 200 in 15ms (compile: 2ms, render: 12ms)
+ GET / 200 in 68ms (compile: 3ms, render: 65ms)
+ GET /manifest.webmanifest 200 in 21ms (compile: 17ms, render: 4ms)
+ GET /manifest.webmanifest 200 in 12ms (compile: 6ms, render: 6ms)
+ GET / 200 in 500ms (compile: 3ms, render: 497ms)
+ GET / 200 in 162ms (compile: 3ms, render: 158ms)
+ GET / 200 in 75ms (compile: 3ms, render: 72ms)
+ GET / 200 in 48ms (compile: 3ms, render: 45ms)
+ GET / 200 in 48ms (compile: 3ms, render: 44ms)
