@@ -259,6 +259,9 @@ print("\\nHello, " + formatted_name + "!")`}
             { q: <>Wrap make_album in a while loop that collects artist/title from the user until <code className="font-mono">&rsquo;q&rsquo;</code>.</> },
             { q: <>Rewrite get_formatted_name so the middle name is optional, then produce both <em>Arijit Singh</em> and <em>Lana Del Rey</em>.</> },
             { q: <>Combine get_formatted_name() with a while loop that quits on <code className="font-mono">&rsquo;q&rsquo;</code> at either prompt — what breaks if you delete the breaks?</> },
+            { q: <>Magicians: build a list of magician names and pass it to a show_magicians() function that prints each name.</> },
+            { q: <>make_great(): add &ldquo;the Great&rdquo; to each magician&rsquo;s name, modify the original list, then display it.</> },
+            { q: <>Preserve the original: call make_great() with a <em>copy</em> of the list — keep the original untouched and display both.</>, hint: "pass the list with a full-slice copy" },
           ]}
         />
       </Reveal>
