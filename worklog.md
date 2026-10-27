@@ -1298,3 +1298,22 @@ Stage Summary:
 - ATB real exam bank = 46 questions across 8 groups; landing QUESTION_COUNTS.atb=30 is stale (fix on completion)
 - section-counts: foc 33, atb 28, fa 33, ebh 31, stm 31, mktg 53 (=209); ATB count will need bumping after L5/L6 fill
 - Plan for PDF arrival: map PDF pages -> lectures, extract L5/L6 topics, build chapters in house style (rose accent #f43f5e, aura ambience, notes/ui primitives, Framer-Motion machines), wire into AtbApp + AtbParts10, update counts/README, browser-verify
+
+---
+Task ID: 2
+Agent: Z.ai Code (main)
+Task: Complete ATB shelf 02 against the official 28-lecture PDF (upload/Notes_261027_031708.pdf) — renumber to the deck's exact sequence and build every missing lecture.
+
+Work Log:
+- Mapped all 307 PDF pages → found 28 lectures; app had 25 (L5/L6 empty placeholders; PDF L3 folded away; PDF L4+L5 merged; L26/L27/L28 absent)
+- Rewrote atb/lectures.ts to the exact PDF sequence L1–L28 — every existing chapter preserved and re-mapped, zero content deleted
+- Built AtbParts10.tsx with 5 new chapters in house style: CourseMap (L3: assessment 40/60 machine, data types, BA bridge, misconceptions), Props2 (L5: four execution properties with valid/invalid twins, feasibility timeline, property clinic), SelectionSort (L26: animated pass-by-pass player + worked example + variants + bubble comparison table), InsertionSort (L27: dark section, 5-step strip, animated key-drop player, walkthrough, 4 use cases), Recap28 (L28: dark finale — Big O ladder with animated curves, four cost tables, five-search map)
+- Wired new sections into AtbApp SECTION_COMPONENTS + GROUPS nav
+- Added 6 exam questions (a7–a12) to the ALGO bank → 51 questions total across 8 windows
+- Updated section-counts (atb 28→33), QUESTION_COUNTS (30→51), README (shelf-02 row/body + global badges/totals)
+- Fixed missing Compass import (caught by browser verification), lint clean, dev log clean
+
+Stage Summary:
+- ATB now = 33 chapters / 28 lectures / 51 exam questions / 8 pen-paper windows — fully matching the PDF deck
+- Browser-verified: all 28 lectures in picker, L3/L5/L26/L27/L28 render, selection machine animates, exam window shows "Question 1 of 12", console clean in fresh session
+- Empty "Slot reserved" placeholders are gone; lectures 8·13·18·23 remain flagged live
