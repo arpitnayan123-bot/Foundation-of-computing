@@ -1279,3 +1279,22 @@ Stage Summary:
 - Repo HEAD now mirrors the full app: 6/6 shelves, 209 chapters, 453 questions, 37 pen-paper windows
 - FoC ships the complete 28+1-lecture deck: 33 sections, 160 questions, 6 windows, 111 Python blocks (89 preserved / 22 generated) — every lecture owns its matching code
 - Code ledger for the user's "how many codes" ask: 111 total — 63 in place, 26 re-homed, 22 newly generated (108 runnable live via Pyodide, 3 deliberate statics for traceback teaching)
+
+---
+Task ID: 1
+Agent: Z.ai Code (main)
+Task: Clone arpitnayan123-bot/Foundation-of-computing, preview it, and audit all 6 shelves for content completeness (prep for ATB completion from incoming lecture PDF).
+
+Work Log:
+- Cloned repo, moved it into /home/z/my-project (old scaffold backed up at /home/z/my-project-default-bak; upload/ mount preserved, PDFs copied into it)
+- bun install (829 pkgs), prisma generate, dev server started on :3000
+- Browser-verified landing + all 6 shelf routes render, zero console errors, /api 200
+- Audited lectures.ts / questions.ts / Parts files for every shelf
+- Cross-checked chapter ids (lectures.ts) vs rendered <Section> ids per shelf
+
+Stage Summary:
+- ONLY ATB has gaps: L5 & L6 are reserved placeholders ("summary not sent yet", chapters: []) between L4 Arrays and L7 Linked Lists; AtbApp shows a "Slot reserved" empty state
+- All other shelves (foc/fa/ebh/stm/mktg): zero empty slots, all chapter ids rendered
+- ATB real exam bank = 46 questions across 8 groups; landing QUESTION_COUNTS.atb=30 is stale (fix on completion)
+- section-counts: foc 33, atb 28, fa 33, ebh 31, stm 31, mktg 53 (=209); ATB count will need bumping after L5/L6 fill
+- Plan for PDF arrival: map PDF pages -> lectures, extract L5/L6 topics, build chapters in house style (rose accent #f43f5e, aura ambience, notes/ui primitives, Framer-Motion machines), wire into AtbApp + AtbParts10, update counts/README, browser-verify
