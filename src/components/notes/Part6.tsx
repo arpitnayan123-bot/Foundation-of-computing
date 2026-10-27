@@ -196,7 +196,7 @@ export function IfSection() {
             <span className="grad-text">if</span> statements — teaching code to decide
           </>
         }
-        lead="Programs feel smart because they make choices: show this if the user is logged in, charge full price unless you're a student. This chapter is a four-step first-read path — see the shape, ask the question, build the chain, then meet the classic traps. Each step has one diagram that says it all."
+        lead="Programs feel smart because they make choices: show this if the user is logged in, charge full price unless you're a student. The deck splits this chapter into three major topics — conditional tests, if statements, and using if statements with lists — and this session focuses exclusively on the conditional tests. Four-step first-read path: see the shape, ask the question, build the chain, then meet the classic traps."
       />
 
       {/* STEP 1 — the mental model */}
@@ -228,6 +228,32 @@ print("(this line is not indented — it always runs)")`}
         </div>
       </Reveal>
 
+      {/* The deck's practical introduction — the car-names demo (PDF Lecture 17) */}
+      <Reveal>
+        <div className="card-warm p-6 md:p-8">
+          <p className="text-[.95rem] leading-relaxed text-[#2b2014]">
+            The lecture opens with a <strong>car-names demo</strong>: display every car in
+            title case — except <strong>BMW</strong>, which must appear in ALL uppercase.
+            One loop, one conditional test, two different reactions. The key concept: the
+            <strong> indentation after the if and else keywords</strong> tells Python which
+            code block executes based on the test result.
+          </p>
+          <div className="mt-5">
+            <CodeBlock
+              title="cars.py — the lecture's opening example"
+              code={`cars = ['audi', 'bmw', 'ferrari', 'jaguar', 'tesla']
+for car in cars:
+    if car == 'bmw':
+        print(car.upper())    # test is True  → this indented block runs
+    else:
+        print(car.title())    # test is False → this indented block runs`}
+              output={"Audi\nBMW\nFerrari\nJaguar\nTesla"}
+              note="Every if statement has a conditional test at its heart — an expression evaluated as True or False. Python uses that true/false answer to decide whether the code following the if runs or is ignored. The else branch is Lecture 18's star; here it just completes the demo."
+            />
+          </div>
+        </div>
+      </Reveal>
+
       {/* STEP 2 — conditional tests */}
       <ReadStep n="2" title="Conditional tests — asking yes/no questions" sub="Every if begins with an expression that is True or False — master these six operators and the logic words" />
       <Reveal>
@@ -242,47 +268,69 @@ print("(this line is not indented — it always runs)")`}
           <div className="mt-5 grid gap-5 lg:grid-cols-2">
             <CodeBlock
               title="equality_tests.py"
-              code={`car = 'subaru'
+              code={`# Single = assigns a value; double == compares two values
+car = 'BMW'               # assignment
+print(car == 'BMW')       # comparison → True (values match)
+print(car == 'Audi')      # comparison → False
+
+# The exercise pattern: print a prediction, then the test
+car = 'subaru'
 print("Is car == 'subaru'? I predict True.")
 print(car == 'subaru')      # True
 
 print("\\nIs car == 'audi'? I predict False.")
 print(car == 'audi')        # False
 
-# Remember: = assigns, == asks "are these equal?"
-
-# Case matters — 'Audi' != 'audi'
+# Case matters — Python treats upper and lower as different: 'Audi' != 'audi'
 car = 'Audi'
 print(car == 'audi')              # False
-print(car.lower() == 'audi')      # True  (normalize first!)
+print(car.lower() == 'audi')      # True  — lower() affects only the comparison
+print(car)                        # Audi — the stored value is NOT changed
 
-# != checks inequality
+# Real world: websites lower() both sides when checking sign-ups, so
+# 'John', 'JOHN' and 'john' are ONE username — never three accounts.
+
+# != checks inequality — the exclamation point means "not"
 requested_topping = 'mushrooms'
 if requested_topping != 'anchovies':
     print("Hold the anchovies!")`}
-              output={"Is car == 'subaru'? I predict True.\nTrue\n\nIs car == 'audi'? I predict False.\nFalse\nFalse\nTrue\nHold the anchovies!"}
+              output={"True\nFalse\nIs car == 'subaru'? I predict True.\nTrue\n\nIs car == 'audi'? I predict False.\nFalse\nFalse\nTrue\nAudi\nHold the anchovies!"}
+              note="The equality operator returns True if the values on both sides match, False otherwise. case-sensitive comparisons trip up beginners: two values with different capitalization are simply not equal."
             />
             <CodeBlock
               title="numerical_and_logical.py"
-              code={`# Numerical comparisons
-age = 18
-print(age == 18)      # True
+              code={`# Numerical comparisons — age = 19 from the deck
+age = 19
 print(age < 21)       # True
 print(age >= 21)      # False
+print(age == 19)      # True
 
-# Multiple conditions
+# and / or — parentheses around each test = readability best practice
 age_0, age_1 = 22, 18
-print(age_0 >= 21 and age_1 >= 21)   # False — both must hold
-print(age_0 >= 21 or age_1 >= 21)    # True  — at least one
+print((age_0 >= 21) and (age_1 >= 21))   # False — BOTH tests must pass
+print((age_0 >= 21) or (age_1 >= 21))    # True  — at least one passes
 
-# Membership: in / not in
-banned = ['andrew', 'carolina', 'david']
-user = 'marie'
-print(user not in banned)   # True
+# in — does the value exist in the list?
+requested_toppings = ['mushrooms', 'onions', 'pineapple']
+print('mushrooms' in requested_toppings)   # True
+print('pepperoni' in requested_toppings)   # False
 
-# Boolean expressions — a name for a value that is True/False
+# not in — is the value absent? (forum banned-users check)
+banned_users = ['Andrew', 'Carolina', 'David']
+user = 'Mary'
+if user not in banned_users:
+    print("Mary, you can post a response")
+
+# Boolean expressions — another name for a conditional test.
+# True and False are Python keywords (capital first letter).
 game_active = True
-can_edit = False`}
+can_edit = False
+if game_active:
+    print("Game is running")    # runs — the flag is True
+if can_edit:
+    print("You can edit")       # ignored — the flag is False`}
+              output={"True\nFalse\nTrue\nFalse\nTrue\nTrue\nFalse\nMary, you can post a response\nGame is running"}
+              note="in shines for questions like: is this username already taken? is this city in our delivery list? is this topping available? not in is its mirror — presence vs absence. Booleans are the efficient way to track a program's state, like whether a game is active."
             />
           </div>
         </div>
@@ -291,10 +339,11 @@ can_edit = False`}
       {/* STEP 3 — pointer to the branches lecture */}
       <Reveal>
         <Callout kind="story" title="Where the questions go next">
-          You can now ask any yes/no question Python can answer. The next lecture builds the
-          roads: <strong>if-else, the elif ladder and independent ifs</strong> live in the
-          &ldquo;If, Elif, Else&rdquo; chapter of Lecture 18 — and the list-filtering patterns
-          (special items, empty guards, multiple lists) live in Lecture 20.
+          You can now ask any yes/no question Python can answer. The deck&apos;s roadmap for
+          this chapter: <strong>conditional tests (this lecture) → if statements (Lecture 18:
+          if-else, the elif ladder, independent ifs) → using if statements with lists
+          (Lecture 20: special items, empty guards, multiple lists)</strong>. Each sitting
+          builds directly on the one before.
         </Callout>
       </Reveal>
 
@@ -325,7 +374,7 @@ can_edit = False`}
           items={[
             { q: <>Series of conditional tests with printed predictions (car = 'subaru' pattern) — at least 10 tests evaluating to True and False.</> },
             { q: <>At least one True and one False for: string equality/inequality · lower() tests · numerical {'==, !=, >, <, >=, <='} · and / or · in a list · not in a list.</> },
-            { q: <>Banned users: check whether 'marie' can post — and whether 'david' can.</>, hint: "user not in banned_users" },
+            { q: <>Banned users: check whether 'Mary' can post a response — and whether 'David' can.</>, hint: "user not in banned_users" },
             { q: <>Booleans: track game_active and can_edit; write two if statements that behave differently from the same pattern.</> },
           ]}
         />
