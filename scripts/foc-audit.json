@@ -1,0 +1,1031 @@
+[
+  {
+    "lecture": "L4",
+    "lectureTitle": "Programming in the Age of AI",
+    "chapterId": "why",
+    "label": "Why code?",
+    "file": "notes/Part1.tsx",
+    "component": "WhySection",
+    "sectionHead": null,
+    "h3": [
+      "Feels amazing",
+      "The tower crumbles",
+      "The iceberg: vibe coding vs production reality",
+      "The LLM is the junior builder",
+      "Accountability stops with you",
+      "Use LLMs to speed up execution"
+    ],
+    "codeBlocks": [],
+    "machines": [
+      "Quote",
+      "Blocks",
+      "Scale",
+      "Timer",
+      "Landmark",
+      "Server",
+      "Cpu",
+      "Cloud",
+      "Search",
+      "Banknote",
+      "MapPin",
+      "PlayCircle"
+    ],
+    "quizzes": 0,
+    "callouts": 2,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L2",
+    "lectureTitle": "What Is Computing? The IPO Model",
+    "chapterId": "computing",
+    "label": "Computing",
+    "file": "notes/Part1.tsx",
+    "component": "ComputingSection",
+    "sectionHead": null,
+    "h3": [
+      "Computing did not start with computers",
+      "Input → Process → Output",
+      "Computing is everywhere — everyday computing",
+      "Computing @ Uber — IPO at city scale",
+      "The cost of bad computing — Knight Capital, 2012",
+      "Computing in non-tech industries"
+    ],
+    "codeBlocks": [],
+    "machines": [
+      "StepsFlow",
+      "Database",
+      "Workflow",
+      "MonitorSmartphone",
+      "TriangleAlert",
+      "Landmark",
+      "HeartPulse",
+      "ShoppingBag",
+      "Banknote",
+      "Cpu"
+    ],
+    "quizzes": 1,
+    "callouts": 1,
+    "tables": 1,
+    "stepsFlows": 1
+  },
+  {
+    "lecture": "L2",
+    "lectureTitle": "What Is Computing? The IPO Model",
+    "chapterId": "pillars",
+    "label": "4 Pillars",
+    "file": "notes/Part1.tsx",
+    "component": "PillarsSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [],
+    "machines": [],
+    "quizzes": 0,
+    "callouts": 1,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L2",
+    "lectureTitle": "What Is Computing? The IPO Model",
+    "chapterId": "data",
+    "label": "Data & DIKW",
+    "file": "notes/Part2.tsx",
+    "component": "DataSection",
+    "sectionHead": null,
+    "h3": [
+      "“38.5” — is that data?",
+      "What data actually is",
+      "Data → Information → Knowledge → Wisdom",
+      "Classifying data by format",
+      "Classifying data by time",
+      "Classifying data by nature",
+      "Classifying data by origin",
+      "Metadata: data about data",
+      "All four classifications, one table"
+    ],
+    "codeBlocks": [],
+    "machines": [
+      "Thermometer",
+      "KV",
+      "DikwPyramid",
+      "NetflixCase",
+      "StructureTabs",
+      "Info",
+      "Takeaways"
+    ],
+    "quizzes": 9,
+    "callouts": 2,
+    "tables": 2,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L5",
+    "lectureTitle": "Algorithms — Recipes a Machine Can Follow",
+    "chapterId": "algorithm",
+    "label": "Algorithms",
+    "file": "notes/Part3.tsx",
+    "component": "AlgorithmSection",
+    "sectionHead": null,
+    "h3": [
+      "Your first algorithm: making tea",
+      "A 9th-century Persian word on your Instagram feed",
+      "The Even / Odd algorithm",
+      "The five essential properties — F·D·I·O·E"
+    ],
+    "codeBlocks": [
+      "finiteness_trap.py — the infinite loop"
+    ],
+    "machines": [
+      "Coffee",
+      "Sparkles",
+      "EvenOddFlow",
+      "Keyboard",
+      "Mouse",
+      "Hand",
+      "Mic",
+      "Camera",
+      "Radar"
+    ],
+    "quizzes": 0,
+    "callouts": 0,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L6",
+    "lectureTitle": "Hardware — Silicon That Makes Ideas Run",
+    "chapterId": "hardware",
+    "label": "Hardware",
+    "file": "notes/Part3.tsx",
+    "component": "HardwareSection",
+    "sectionHead": null,
+    "h3": [
+      "Why hardware decided the AI revolution",
+      "Input devices — feeding data into the system",
+      "The CPU — the general-purpose brain",
+      "CPU vs GPU — two philosophies of power",
+      "Memory — where data lives while it’s being used",
+      "Output devices — results back to the world"
+    ],
+    "codeBlocks": [],
+    "machines": [
+      "Zap",
+      "Cpu",
+      "CpuViz",
+      "GpuViz",
+      "MemoryStick",
+      "Lock",
+      "HardDrive",
+      "ArrowRight",
+      "MonitorSmartphoneIcon",
+      "Printer",
+      "Volume2",
+      "Vibrate",
+      "Cog"
+    ],
+    "quizzes": 2,
+    "callouts": 3,
+    "tables": 1,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L7",
+    "lectureTitle": "Software — Telling the Hardware What to Do",
+    "chapterId": "software",
+    "label": "Software",
+    "file": "notes/Part4.tsx",
+    "component": "SoftwareSection",
+    "sectionHead": null,
+    "h3": [
+      "What an operating system does",
+      "The maintenance crew",
+      "What you actually touch every day",
+      "Where domains meet algorithms meet Python",
+      "Source code editor",
+      "IDE — Integrated Development Environment"
+    ],
+    "codeBlocks": [],
+    "machines": [
+      "Server",
+      "Wrench",
+      "AppWindow",
+      "Code2",
+      "Terminal",
+      "InterpCompiler",
+      "Cloud",
+      "Braces",
+      "Sparkles",
+      "Database",
+      "ArrowRight"
+    ],
+    "quizzes": 0,
+    "callouts": 1,
+    "tables": 2,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L8",
+    "lectureTitle": "Python, First Contact",
+    "chapterId": "python",
+    "label": "Python",
+    "file": "notes/Part4.tsx",
+    "component": "ProgrammingSection",
+    "sectionHead": null,
+    "h3": [
+      "Google Colaboratory — our laboratory in the cloud"
+    ],
+    "codeBlocks": [],
+    "machines": [
+      "StepsFlow",
+      "Workflow",
+      "Code2",
+      "MonitorSmartphone",
+      "Takeaways"
+    ],
+    "quizzes": 0,
+    "callouts": 0,
+    "tables": 0,
+    "stepsFlows": 1
+  },
+  {
+    "lecture": "L10",
+    "lectureTitle": "Numbers, Strings & Comments",
+    "chapterId": "basics",
+    "label": "Basics",
+    "file": "notes/Part5.tsx",
+    "component": "BasicsSection",
+    "sectionHead": null,
+    "h3": [
+      "Variables — labelled boxes for values",
+      "Strings — a series of characters",
+      "Numbers — keeping score of the world",
+      "Comments — notes in English, inside code",
+      "Poke the list — watch every method in action"
+    ],
+    "codeBlocks": [
+      "hello_world.py",
+      "avoiding_name_errors.py",
+      "strings_intro.py",
+      "changing_case_and_whitespace.py",
+      "try_arithmetic.py",
+      "favorite_number.py",
+      "float_precision.py — the 0.30000000000000004 surprise",
+      "type_conversion.py — str() rescues the TypeError",
+      "comments.py"
+    ],
+    "machines": [
+      "Type",
+      "MessageSquare",
+      "Hash",
+      "Sigma",
+      "Practice",
+      "Takeaways",
+      "Plus",
+      "CornerDownRight",
+      "Trash2",
+      "RotateCcw"
+    ],
+    "quizzes": 2,
+    "callouts": 1,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L11",
+    "lectureTitle": "Lists — the Workhorse Data Structure",
+    "chapterId": "lists",
+    "label": "Lists",
+    "file": "notes/Part5.tsx",
+    "component": "ListsSection",
+    "sectionHead": null,
+    "h3": [
+      "guest_list.py — invitations, edits and apologies"
+    ],
+    "codeBlocks": [
+      "bicycles.py",
+      "motorcycles.py — modify · add · remove",
+      "guest_list.py"
+    ],
+    "machines": [
+      "ListVisualizer",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 0,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L17",
+    "lectureTitle": "Conditional Tests",
+    "chapterId": "if",
+    "label": "If / Else",
+    "file": "notes/Part6.tsx",
+    "component": "IfSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "voting.py — the smallest useful decision",
+      "equality_tests.py",
+      "numerical_and_logical.py"
+    ],
+    "machines": [
+      "IfAnatomy",
+      "ReadStep",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 1,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L21",
+    "lectureTitle": "Dictionaries — Connecting Pieces of Information",
+    "chapterId": "dicts",
+    "label": "Dictionaries",
+    "file": "notes/Part6.tsx",
+    "component": "DictsSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "alien.py — add · modify · delete",
+      "get() — the safe lookup"
+    ],
+    "machines": [
+      "ListVsDict",
+      "ReadStep",
+      "DictViz",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 3,
+    "callouts": 1,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L25",
+    "lectureTitle": "Input & While Loops",
+    "chapterId": "while",
+    "label": "While loops",
+    "file": "notes/Part7.tsx",
+    "component": "WhileSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "greeter.py — clear prompts",
+      "rollercoaster.py — int() for numbers",
+      "counting.py — the while loop in action",
+      "the three moving parts — name them in every while you write"
+    ],
+    "machines": [
+      "InputJourney",
+      "ReadStep",
+      "WhileCycle",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 1,
+    "callouts": 2,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L27",
+    "lectureTitle": "Functions I — Define & Call",
+    "chapterId": "functions",
+    "label": "Functions",
+    "file": "notes/Part7.tsx",
+    "component": "FunctionsSection",
+    "sectionHead": null,
+    "h3": [
+      "Why functions matter"
+    ],
+    "codeBlocks": [
+      "greeter.py — your first function"
+    ],
+    "machines": [
+      "FunctionMachine",
+      "ReadStep",
+      "DefAnatomy",
+      "StepsFlow",
+      "Play",
+      "CornerDownRight",
+      "Cog",
+      "RotateCcw",
+      "Puzzle"
+    ],
+    "quizzes": 0,
+    "callouts": 2,
+    "tables": 0,
+    "stepsFlows": 1
+  },
+  {
+    "lecture": "L27",
+    "lectureTitle": "Functions I — Define & Call",
+    "chapterId": "args",
+    "label": "Arguments",
+    "file": "notes/Part8.tsx",
+    "component": "ArgsSection",
+    "sectionHead": null,
+    "h3": [
+      "The simplest function structure",
+      "Passing information — parameter vs argument",
+      "Positional arguments — order decides",
+      "Keyword arguments — name-value pairs",
+      "Default values — quiet fallbacks",
+      "Equivalent function calls",
+      "Avoiding argument errors"
+    ],
+    "codeBlocks": [
+      "greet.py — no information needed",
+      "greet.py — greeting by name",
+      "pets.py — describe any pet",
+      "pets.py — same function, keyword calls",
+      "courses.py — the BSMT helper",
+      "students.py — defaults go last",
+      "too few arguments",
+      "too many arguments"
+    ],
+    "machines": [
+      "Terminal",
+      "KeyRound",
+      "KV",
+      "ArgumentMatcher",
+      "Shuffle",
+      "AlertTriangle",
+      "Practice",
+      "Sparkles",
+      "InfinityIcon",
+      "Takeaways"
+    ],
+    "quizzes": 1,
+    "callouts": 5,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L28",
+    "lectureTitle": "Functions II — Return & Deliver",
+    "chapterId": "funcs2",
+    "label": "Funcs × Lists",
+    "file": "notes/Part9.tsx",
+    "component": "FuncsScaleSection",
+    "sectionHead": null,
+    "h3": [
+      "Passing a list to a function",
+      "Modifying a list in a function — the 3D printer",
+      "Preventing modification — pass a copy",
+      "Arbitrary arguments — *toppings",
+      "Mixing positional and arbitrary arguments",
+      "Arbitrary keyword arguments — **user_info",
+      "Putting it all together — parameter order",
+      "Storing functions in modules",
+      "Every way to import — one table",
+      "Why from pizza import * is discouraged"
+    ],
+    "codeBlocks": [
+      "users.py — greet everyone at once",
+      "printing_models.py — before: all in one block",
+      "printing_models.py — after: two functions, one job each",
+      "the slice notation trick",
+      "pizzas.py — the asterisk packs a tuple",
+      "pizzas.py — loop over the tuple",
+      "pizzas.py — size first, toppings last",
+      "profiles.py — build_profile",
+      "order.py — every parameter type in action",
+      "pizza.py — the module (a .py file)",
+      "making_pizzas.py — import the entire module",
+      "the silent overwrite — name collisions"
+    ],
+    "machines": [
+      "ListPlus",
+      "KV",
+      "Printer",
+      "StepsFlow",
+      "Package",
+      "Sparkles",
+      "ShieldCheck",
+      "Pizza",
+      "PizzaBuilder",
+      "SlidersHorizontal",
+      "UserCircle2",
+      "ProfileBuilder",
+      "FileCode2",
+      "Ban",
+      "Practice",
+      "InfinityIcon",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 8,
+    "tables": 1,
+    "stepsFlows": 1
+  },
+  {
+    "lecture": "L29",
+    "lectureTitle": "Classes — Ahead of the Deck",
+    "chapterId": "classes",
+    "label": "Classes",
+    "file": "notes/Part10.tsx",
+    "component": "ClassesSection",
+    "sectionHead": null,
+    "h3": [
+      "Creating and using a class — Dog",
+      "Making an instance — instantiation",
+      "Creating multiple instances",
+      "Working with classes and instances — Car",
+      "The three ways, in code",
+      "Inheritance — child classes",
+      "Child attributes, methods — and overriding",
+      "Instances as attributes — the Battery class",
+      "Importing classes",
+      "Import styles for classes",
+      "Importing a module into a module",
+      "The Python standard library — OrderedDict"
+    ],
+    "codeBlocks": [
+      "dog.py — 1. THE CLASS (Blueprint)",
+      "dog.py — 2. THE INSTANCES (Objects)",
+      "dogs.py — three dogs, one class",
+      "car.py — __init__ + get_descriptive_name()",
+      "car.py — a default value + read_odometer()",
+      "car.py — update_odometer with rollback protection",
+      "car.py — increment_odometer",
+      "electric_car.py — the child's __init__",
+      "electric_car.py — making it electric",
+      "overriding fill_gas_tank()",
+      "battery.py — its own class",
+      "electric_car.py — composition",
+      "car.py — a module with one class",
+      "my_car.py — from car import Car",
+      "one module, many related classes",
+      "my_electric_car.py — import one from the trio",
+      "multiple + entire module",
+      "from car import * — not recommended",
+      "car.py — only the Car class",
+      "electric_car.py — Battery + ElectricCar",
+      "my_cars.py — the main program",
+      "poll.py — remember the voting order"
+    ],
+    "machines": [
+      "Dog",
+      "KV",
+      "DogInstantiator",
+      "Car",
+      "OdometerLab",
+      "GitFork",
+      "Boxes",
+      "BatteryCharging",
+      "StepsFlow",
+      "Sparkles",
+      "Gauge",
+      "Network",
+      "Library",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 12,
+    "tables": 0,
+    "stepsFlows": 1
+  },
+  {
+    "lecture": "L1",
+    "lectureTitle": "Welcome to Foundations of Computing",
+    "chapterId": "course-map",
+    "label": "Course map",
+    "file": "foc/FocParts1.tsx",
+    "component": "CourseMapSection",
+    "sectionHead": null,
+    "h3": [
+      "From &ldquo;what is computing?&rdquo; to a working ML app",
+      "Four reasons this course speaks Python"
+    ],
+    "codeBlocks": [
+      "sentiment_teaser.py"
+    ],
+    "machines": [
+      "ObjectiveDeck",
+      "StepsFlow",
+      "Takeaways",
+      "Table2",
+      "FileJson",
+      "FileText",
+      "Check",
+      "Database"
+    ],
+    "quizzes": 2,
+    "callouts": 2,
+    "tables": 1,
+    "stepsFlows": 1
+  },
+  {
+    "lecture": "L3",
+    "lectureTitle": "Data, Classified",
+    "chapterId": "data-types",
+    "label": "Data types",
+    "file": "foc/FocParts1.tsx",
+    "component": "DataTypesSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "data_shapes.py"
+    ],
+    "machines": [
+      "ReadStep",
+      "FormatSwitcher",
+      "FileText",
+      "ImageIcon",
+      "Music",
+      "Video",
+      "Braces",
+      "TimeMachine",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 1,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L9",
+    "lectureTitle": "When Computing Meets the World",
+    "chapterId": "case-files",
+    "label": "Case files",
+    "file": "foc/FocParts2.tsx",
+    "component": "CaseFilesSection",
+    "sectionHead": null,
+    "h3": [
+      "Knight Capital — $440,000,000 in 45 minutes",
+      "Zara — planning six months ahead",
+      "The bank that stopped at &ldquo;information&rdquo;",
+      "Computing in non-traditional industries"
+    ],
+    "codeBlocks": [
+      "knight_capital.py — the arithmetic of disaster",
+      "zara_movers.py — fast vs slow sellers",
+      "loan_decision.py — information vs knowledge"
+    ],
+    "machines": [
+      "AlertTriangle",
+      "Shirt",
+      "Landmark",
+      "Sprout",
+      "Stethoscope",
+      "Clock",
+      "Layers",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 4,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L12",
+    "lectureTitle": "Putting Lists in Order",
+    "chapterId": "list-organize",
+    "label": "Organize",
+    "file": "foc/FocParts3.tsx",
+    "component": "ListOrganizeSection",
+    "sectionHead": null,
+    "h3": [
+      "sort() · sorted() · reverse() · len()"
+    ],
+    "codeBlocks": [
+      "cars.py — permanent vs temporary",
+      "index_bounds.py — the length/index handshake"
+    ],
+    "machines": [
+      "ReadStep",
+      "IndexErrorLab",
+      "Practice",
+      "Takeaways",
+      "Terminal",
+      "RotateCcw",
+      "AlertTriangle",
+      "Check"
+    ],
+    "quizzes": 2,
+    "callouts": 5,
+    "tables": 1,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L13",
+    "lectureTitle": "Loops & the Indentation Law",
+    "chapterId": "for-loops",
+    "label": "For loops",
+    "file": "foc/FocParts3.tsx",
+    "component": "ForLoopsSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "magicians.py"
+    ],
+    "machines": [
+      "ReadStep",
+      "IndentationLaw",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 2,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L14",
+    "lectureTitle": "Checkpoint — Quiz One",
+    "chapterId": "checkpoint-1",
+    "label": "Checkpoint 1",
+    "file": "foc/FocParts4.tsx",
+    "component": "Checkpoint1Section",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "quiz_rehearsal.py"
+    ],
+    "machines": [
+      "ClipboardList",
+      "Clock3",
+      "BookOpenCheck",
+      "ReadStep",
+      "RecapBoard",
+      "Takeaways"
+    ],
+    "quizzes": 0,
+    "callouts": 1,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L15",
+    "lectureTitle": "Numeric Lists, Ranges & Slices",
+    "chapterId": "numeric-lists",
+    "label": "Numeric lists",
+    "file": "foc/FocParts4.tsx",
+    "component": "NumericListsSection",
+    "sectionHead": null,
+    "h3": [
+      "range() — Python&rsquo;s number factory"
+    ],
+    "codeBlocks": [
+      "range_basics.py",
+      "squares.py — the same list, two ways",
+      "digits.py — the one-liner statistics kit",
+      "players.py — slicing",
+      "chunks.py — looping a slice"
+    ],
+    "machines": [
+      "ReadStep",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 5,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L16",
+    "lectureTitle": "Copies & Tuples",
+    "chapterId": "copies-tuples",
+    "label": "Copies & tuples",
+    "file": "foc/FocParts5.tsx",
+    "component": "CopiesTuplesSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "foods.py — copying lists",
+      "reference_problem.py — the bug, staged",
+      "dimensions.py",
+      "buffet.py — rewriting a tuple"
+    ],
+    "machines": [
+      "ReadStep",
+      "AliasVsCopy",
+      "KV",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 0,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L19",
+    "lectureTitle": "The Skills Lab",
+    "chapterId": "skills-lab",
+    "label": "Skills lab",
+    "file": "foc/FocParts5.tsx",
+    "component": "SkillsLabSection",
+    "sectionHead": null,
+    "h3": [
+      "Why fundamentals, when AI can write code?"
+    ],
+    "codeBlocks": [
+      "shipment_inventory.py — the full challenge"
+    ],
+    "machines": [
+      "Sparkles",
+      "ReadStep",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 3,
+    "tables": 1,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L18",
+    "lectureTitle": "If, Elif, Else",
+    "chapterId": "branches",
+    "label": "Branches",
+    "file": "foc/FocParts6.tsx",
+    "component": "BranchesSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "voting.py — if-else: two paths, always exactly one",
+      "alien_points.py — if-elif-else",
+      "amusement_park.py — the admission ladder",
+      "toppings.py — testing MULTIPLE conditions"
+    ],
+    "machines": [
+      "ReadStep",
+      "ChainWalk",
+      "IfElseChainViz",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 4,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L20",
+    "lectureTitle": "If × Lists",
+    "chapterId": "if-lists",
+    "label": "If × lists",
+    "file": "foc/FocParts6.tsx",
+    "component": "IfListsSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "special_items_and_empty.py",
+      "available_toppings.py — the availability check",
+      "unique_usernames.py — multiple lists"
+    ],
+    "machines": [
+      "ReadStep",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 3,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L22",
+    "lectureTitle": "Looping Through Dictionaries",
+    "chapterId": "dict-loops",
+    "label": "Dict loops",
+    "file": "foc/FocParts7.tsx",
+    "component": "DictLoopsSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "loop_all_pairs.py",
+      "loop_values_and_set.py"
+    ],
+    "machines": [
+      "DictLenses",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 3,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L23",
+    "lectureTitle": "Nesting — Structures Inside Structures",
+    "chapterId": "nesting",
+    "label": "Nesting",
+    "file": "foc/FocParts7.tsx",
+    "component": "NestingSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "a list of dictionaries",
+      "a list in a dictionary",
+      "a dictionary in a dictionary",
+      "aliens_30.py — generate, then modify"
+    ],
+    "machines": [
+      "NestSwitcher",
+      "ReadStep",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 3,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L24",
+    "lectureTitle": "The Records Lab",
+    "chapterId": "records-lab",
+    "label": "Records lab",
+    "file": "foc/FocParts8.tsx",
+    "component": "RecordsLabSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "student_records.py — the full pipeline",
+      "toolbox_recap.py"
+    ],
+    "machines": [
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 2,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L26",
+    "lectureTitle": "Flags, Break & Continue",
+    "chapterId": "loop-control",
+    "label": "Loop control",
+    "file": "foc/FocParts8.tsx",
+    "component": "LoopControlSection",
+    "sectionHead": null,
+    "h3": [],
+    "codeBlocks": [
+      "quit_flag_break_continue.py — three ways to stop",
+      "continue — skip one, keep the loop",
+      "sandwich_shop.py — moving between lists",
+      "mountain_poll.py — filling a dictionary",
+      "pet_purge.py — remove ALL instances"
+    ],
+    "machines": [
+      "ExitToolkit",
+      "ReadStep",
+      "Practice",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 2,
+    "tables": 0,
+    "stepsFlows": 0
+  },
+  {
+    "lecture": "L28",
+    "lectureTitle": "Functions II — Return & Deliver",
+    "chapterId": "returns",
+    "label": "Return values",
+    "file": "foc/FocParts9.tsx",
+    "component": "ReturnsSection",
+    "sectionHead": null,
+    "h3": [
+      "Returning a dictionary",
+      "Using a function with a while loop"
+    ],
+    "codeBlocks": [
+      "names.py — return, don't print",
+      "v1 — middle name required",
+      "v2 — middle name optional",
+      "people.py — minimal version",
+      "people.py — extended with an optional age",
+      "greeter.py — infinite loop! 🚨",
+      "greeter.py — with an exit"
+    ],
+    "machines": [
+      "ReadStep",
+      "KV",
+      "Layers",
+      "Repeat",
+      "Practice",
+      "CornerDownLeft",
+      "Takeaways"
+    ],
+    "quizzes": 2,
+    "callouts": 2,
+    "tables": 0,
+    "stepsFlows": 0
+  }
+]
