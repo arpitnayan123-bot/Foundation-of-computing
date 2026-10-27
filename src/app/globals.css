@@ -1584,4 +1584,52 @@ html.atlas-active :focus-visible,
   color: #6f5438;
 }
 
+/* ============================================================
+   QUIZ 2 — the war room (a separate wing, not a shelf).
+   Exam-red chrome for the shared engine + the landing CTA.
+   ============================================================ */
+
+/* the door-in CTA on the landing strip */
+.quiz2-cta {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  border: 1px solid rgba(255, 185, 175, 0.28);
+}
+.quiz2-cta:hover { background: linear-gradient(135deg, #dc2626, #991b1b); }
+
+/* the live pulse dot */
+.quiz2-pulse-dot {
+  animation: quiz2-pulse 1.6s ease-in-out infinite;
+}
+@keyframes quiz2-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+/* the full-mock card */
+.quiz2-mock-card {
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  background:
+    radial-gradient(120% 140% at 85% -10%, rgba(239, 68, 68, 0.22) 0%, transparent 55%),
+    linear-gradient(160deg, #240e0e 0%, #150a0c 60%, #0d0709 100%);
+  box-shadow: 0 30px 70px -34px rgba(239, 68, 68, 0.55);
+}
+.quiz2-mock-card:hover {
+  border-color: rgba(239, 68, 68, 0.6);
+}
+
+/* Quiz 2 — exam-red chrome for the shared ExamEngine */
+.quiz2-exam .exam-btn-primary {
+  background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff5f0;
+  border-color: transparent; box-shadow: 0 8px 18px -8px rgba(185, 28, 28, .7);
+}
+.quiz2-exam .exam-btn-primary:hover:not(:disabled) { background: linear-gradient(135deg, #dc2626, #991b1b); color: #fff; }
+.quiz2-exam .exam-dot-current { background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff5f0; border-color: transparent; }
+.quiz2-exam .exam-opt-letter { color: #b91c1c; }
+.quiz2-exam .exam-ta:focus { border-color: #e0705e; box-shadow: 0 0 0 3px rgba(239, 68, 68, .15); }
+.quiz2-exam .exam-opt:hover:not(:disabled) { border-color: #e0705e; background: #fdf0e3; }
+
+@media (prefers-reduced-motion: reduce) {
+  .quiz2-pulse-dot { animation: none; }
+}
+
 /* sigil rules v2 */
