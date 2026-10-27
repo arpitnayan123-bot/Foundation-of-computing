@@ -425,8 +425,10 @@ const PRIM_SEC = [
     def: "Data collected by someone else for a different purpose, which we reuse for our own analysis.",
     ex: [
       "NSSO (National Sample Survey Office) household-income data — collected by the government",
-      "SEBI stock-exchange transaction records (e.g. daily FPI investment trends)",
-      "WHO global health statistics",
+      "SEBI stock-exchange transaction records (e.g. daily FPI investment trends) · IRDAI insurance-regulator filings",
+      "WHO global health statistics · IMF macroeconomic data across countries",
+      "World Bank development indicators — the deck's credibility benchmark: far more reliable than an unknown private source",
+      "Bloomberg and Prolific databases · government census tables",
       "Wikipedia’s structured data (Wikidata) · AIDIS 2019 household-wealth tables",
     ],
     pros: "Large scale · already available · often free and authoritative",
