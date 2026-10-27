@@ -490,6 +490,25 @@ describe_student(student_name='Hardavi', course_name='Foundations of Computing')
               q: <>Call <code className="font-mono">describe_pet()</code> with no arguments on purpose. Read the TypeError out loud — which two names does Python ask for?</>,
               hint: "Descriptive parameter names are why the error is readable.",
             },
+            {
+              q: <>The deck's five assigned exercises — write each one, then call it:</>,
+            },
+            {
+              q: <><code className="font-mono">display_message()</code> — prints one sentence telling the chapter you are on (no parameters, one job).</>,
+              hint: "def display_message(): + a print of something like 'I am learning functions'.",
+            },
+            {
+              q: <><code className="font-mono">favorite_book(title)</code> — prints a message like <em>“One of my favorite books is Alice in Wonderland.”</em> Call it once with a real title.</>,
+              hint: "One parameter; the message concatenates or formats the title in.",
+            },
+            {
+              q: <><code className="font-mono">make_shirt(size, message)</code> — call it once with <strong>positional</strong> arguments and once with <strong>keyword</strong> arguments; then give it defaults: <code className="font-mono">size='large'</code>, <code className="font-mono">message='I love Python'</code>, and call it with no arguments plus one custom combo.</>,
+              hint: "Defaults make the no-argument call print a large 'I love Python' shirt.",
+            },
+            {
+              q: <><code className="font-mono">describe_city(city, country='India')</code> — call it for three cities, at least one with a non-default country.</>,
+              hint: "describe_city('Jodhpur'), describe_city('Reykjavik', country='Iceland')…",
+            },
           ]}
         />
       </Reveal>
