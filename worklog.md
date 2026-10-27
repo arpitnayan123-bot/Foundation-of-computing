@@ -1317,3 +1317,20 @@ Stage Summary:
 - ATB now = 33 chapters / 28 lectures / 51 exam questions / 8 pen-paper windows — fully matching the PDF deck
 - Browser-verified: all 28 lectures in picker, L3/L5/L26/L27/L28 render, selection machine animates, exam window shows "Question 1 of 12", console clean in fresh session
 - Empty "Slot reserved" placeholders are gone; lectures 8·13·18·23 remain flagged live
+
+---
+Task ID: 3
+Agent: Z.ai Code (main)
+Task: Commit all repo changes as granular, small commits authored by arpitnayan123@gmail.com and push with the user's PAT.
+
+Work Log:
+- Fetched origin: local main was 3 unpushed auto-sync commits (UUID-titled, authored "Z User <z@container>") bundling the entire ATB integration into one giant commit, plus a pending dev.log delta
+- Verified the PAT via GitHub API — login arpitnayan123-bot, push:true on Foundation-of-computing
+- Reset to origin/main (3357d76) and replayed everything as 10 granular commits with repo-local identity arpitnayan123-bot <arpitnayan123@gmail.com>
+- Commit order: dev.log housekeeping → worklog audit record → source-deck PDF → 28-lecture map (lectures.ts) → AtbParts10 machines → AtbApp rewiring → exam bank a7–a12 → derived counts → README → worklog integration record
+- Tree-parity check: git diff 91c5a76 main = only the 3 pending dev.log lines; zero content lost or duplicated
+- Appended this record; pushed main to origin with the PAT
+
+Stage Summary:
+- origin/main now carries the full ATB 28-lecture shelf as 11 granular commits, all authored arpitnayan123-bot <arpitnayan123@gmail.com>
+- History rewritten in place (old UUID commits remain only in local reflog); remote fast-forwarded, no force-push needed
