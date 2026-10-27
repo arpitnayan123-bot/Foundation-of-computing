@@ -271,6 +271,16 @@ while n != 0:      # stop when N is EXACTLY zero?
           note="Floating-point halving asymptotically approaches zero but never equals it. Contrast: stop when N < 1 — a condition that is guaranteed to become true. Termination conditions must be reachable."
         />
       </Reveal>
+
+      <Reveal className="mt-8">
+        <Callout dark kind="insight" title="The structures every algorithm is built from">
+          Three shapes cover most algorithms you will ever write: the <strong>while loop</strong>
+          (check the condition, then run), the <strong>do-while loop</strong> (run once, then check),
+          and the <strong>if-else statement</strong> (choose between two paths). They all obey the
+          same five properties above — and you'll meet each one in Python, starting with if-else in
+          Lecture 17 and while in Lecture 25.
+        </Callout>
+      </Reveal>
     </Section>
   );
 }
@@ -279,8 +289,8 @@ while n != 0:      # stop when N is EXACTLY zero?
    PILLAR 3 — HARDWARE
    ============================================================ */
 const SENSORS = [
-  { name: "Accelerometer", what: "Detects movement and orientation", use: "screen rotation, step counting" },
-  { name: "GPS", what: "Receives satellite signals to determine precise location", use: "Maps, Ola, Swiggy" },
+  { name: "Accelerometer", what: "Detects movement and orientation", use: "screen rotation (portrait to landscape), step counting (Google Fit, Strava)" },
+  { name: "GPS", what: "Receives satellite signals to determine precise location", use: "Maps, Uber, Ola, Swiggy, Zomato" },
   { name: "Gyroscope", what: "Detects rotational movement", use: "gaming, navigation, camera stabilization" },
   { name: "Fingerprint", what: "Captures biometric data", use: "authentication" },
   { name: "Barometer", what: "Measures air pressure", use: "altitude, weather apps" },
@@ -368,6 +378,16 @@ export function HardwareSection() {
             task into thousands of smaller, simpler tasks and solves them all{" "}
             <strong>simultaneously</strong>. That raw parallel horsepower is what built
             the foundations of modern AI.
+          </p>
+          <p className="mt-3 max-w-4xl text-[.95rem] leading-relaxed text-[#2b2014]">
+            The turnaround: AI research had been crawling along since the <strong>1990s</strong>,
+            starved of compute — researchers compensated by optimizing algorithms, not hardware.
+            Then in <strong>2012</strong>, scientists built <strong>AlexNet</strong>, a
+            computer-vision model trained on GPUs, and demonstrated to the world what parallel
+            hardware could do. Today every frontier model trains the same way: large language
+            models like <strong>ChatGPT</strong>, image generators like <strong>DALL-E</strong>,{" "}
+            <strong>Midjourney</strong> and <strong>Stable Diffusion</strong>, and video AI —
+            all of them GPU workloads.
           </p>
         </div>
       </Reveal>
