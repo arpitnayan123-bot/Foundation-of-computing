@@ -1334,3 +1334,237 @@ Work Log:
 Stage Summary:
 - origin/main now carries the full ATB 28-lecture shelf as 11 granular commits, all authored arpitnayan123-bot <arpitnayan123@gmail.com>
 - History rewritten in place (old UUID commits remain only in local reflog); remote fast-forwarded, no force-push needed
+
+---
+Task ID: 1
+Agent: Z.ai Code (main)
+Task: Clone https://github.com/arpitnayan123-bot/Foundation-of-computing and preview it
+
+Work Log:
+- Cloned repo to /home/z/Foundation-of-computing
+- Stopped existing dev server; replaced /home/z/my-project contents with repo code (kept sandbox .env, .git, .zscripts, skills, upload mount)
+- Copied 4 course PDFs into the upload/ mount
+- bun install (2 packages added), prisma generate + db:push (DB already in sync, db/custom.db shipped with repo)
+- Restarted dev server (port 3000), page compiled and returned 200
+- Agent Browser verification: landing hero, shelf navigation (hash routes), FoC subject page, Lecture 2 chapter page, exam picker modal, exam window (timer + 36-question navigator), instant answer feedback ("Correct." + model explanation, score 1/36), mobile viewport (iPhone 14), zero console/page errors
+
+Stage Summary:
+- The Atlas (IIT Jodhpur revision-notes app, 6 shelves / 223 chapters / 474 questions) is cloned, installed and running at http://localhost:3000
+- Hash routing: #/atlas landing, #/subject/<id> per subject; all verified interactive flows pass
+
+---
+Task ID: 2-d
+Agent: EBH Quiz-2 bank writer (general-purpose subagent)
+Task: Write the EBH Quiz-2 mock question bank — src/components/quiz2/questions-ebh.ts (single syllabus sliver: "Non-linear data structure", trees & graphs)
+
+Work Log:
+- Read worklog.md + quiz2-data.ts for the Quiz2Question shape; confirmed quiz2-banks.ts already imports EBH_QUIZ2_QUESTIONS from ./questions-ebh (file was missing — this task fills the slot)
+- Wrote questions-ebh.ts: 40 questions, ALL topic "nonlinear" — 34 mcq (4 options each) + 6 short (answerText model answers)
+- Coverage per spec: 4 linear-vs-non-linear, 7 tree vocabulary (root/leaf/edges/N−1/siblings/depth-vs-height + trace), 7 tree types (binary, complete-vs-full, BST insert trace + in-order-sorts, heap/priority queue, complete-tree trace, general-tree short), 7 graph fundamentals (G=(V,E), degree from adjacency list, adjacency, trees-stop-being-enough, every-tree-is-a-graph, handshake lemma 2×E, social-network short), 7 graph types (directed follows, in/out-degree trace, weighted, connected/disconnected trace, must-be-acyclic, connected-vs-complete trap, directed-vs-undirected short), 8 traversals (stack/queue pairing, BFS fewest-hops, BFS + DFS order traces, corrected misconception, job matching, DFS on adjacency list, DFS-vs-BFS short)
+- Business-flavoured stems throughout (org charts, courier networks, triage queues, delivery/follow graphs); every question carries a 1–3 sentence warm explain; ASCII trees/adjacency lists in code panels via \n; distractors target depth-vs-height, complete-vs-full, in-vs-out-degree, stack-vs-queue, connected-vs-complete
+- Answer indices spread 9/9/9/7 across options 0–3; all traces verified mentally (BST insert 45 → right child of 40; BFS 1,2,3,4,5,6; DFS A,B,D,E,C,F; DFS graph A,B,D,C; in-degree 3/out-degree 1; N−1 edges; handshake 2×7=14)
+- Verified with bun runtime import: 40 questions, 40 unique ids ebh2-nl-01…ebh2-nl-40, all topic "nonlinear", 34 mcq each with exactly 4 options + answer index 0–3, 6 shorts with answerText and no options, all explain present — ALL CHECKS PASS
+- Verified with strict tsc --noEmit: EBH_QUIZ2_QUESTIONS assignable to Quiz2Question[] — TSC PASS (temp file in /tmp only)
+
+Stage Summary:
+- New file: src/components/quiz2/questions-ebh.ts exporting EBH_QUIZ2_QUESTIONS (40 questions, topic "nonlinear") — drops straight into quiz2-banks.ts, which already references it
+- No other files touched: no dev server, no lint, no edits outside the one file
+
+---
+Task ID: 2-c
+Agent: FA quiz-bank writer (subagent)
+Task: Write the FA (Financial Accounting) Quiz-2 mock question bank — one file, src/components/quiz2/questions-fa.ts, 60 exam-style questions
+
+Work Log:
+- Read worklog.md, quiz2-data.ts (Quiz2Question shape + FA sliver ids) and fa/questions.ts + FaParts7/9/10 for the deck's own worked-case figures (Vogue's six entries, Jaws Photo Plus, Compass, Ajay, Cathay Pacific, Pioneer, Mira)
+- Wrote src/components/quiz2/questions-fa.ts: FA_QUIZ2_QUESTIONS, 60 questions typed against Quiz2Question, topic ids exactly matching the FA slivers (matching/adjusting/trading1/trading2/pandl/balancesheet/cashflow1/cashflow2/cashflow3)
+- Kept arithmetic integer-clean and built distractors from classic errors (forgotten closing stock, cash/accrual mixing, payables-decrease sign slip, credit-bought equipment in the cash statement)
+- Verification: tsc --noEmit (strict) clean; scripted checks — 60 total, per-topic counts exact, 48 mcq (all with 4 options + valid index), 7 output + 5 short (all with answerText), ids unique (fa2-*), no backticks; 14 independent arithmetic recomputations all pass and each numeric answer confirmed sitting in the correct slot (answerText or options[answer])
+- Answer-index spread 11/14/12/11 across options 0–3; no other file touched, no dev server run
+
+Stage Summary:
+- src/components/quiz2/questions-fa.ts created: 60-question FA Quiz-2 mock bank (matching 7 · adjusting 8 · trading1 7 · trading2 7 · pandl 7 · balancesheet 7 · cashflow1 6 · cashflow2 6 · cashflow3 5; types 48 mcq / 7 output / 5 short), export name wired to the existing quiz2-banks.ts import
+- Per-sliver drill windows and the full mock now have data as soon as the sibling banks (questions-foc/atb/ebh) land
+
+---
+Task ID: 2-a
+Agent: FoC Quiz-2 bank writer (subagent)
+Task: Write the FoC Quiz-2 mock question bank — src/components/quiz2/questions-foc.ts (54 questions covering the L17–L28 Python stretch)
+
+Work Log:
+- Read worklog.md, quiz2-data.ts (Quiz2Question shape), quiz2-banks.ts (how the bank is consumed), foc/lectures.ts (L17–L28 deck blurbs for terminology) and notes/questions.ts (house question style)
+- Wrote src/components/quiz2/questions-foc.ts — ONE new file, nothing else touched, no dev server, no lint
+- Coverage: topic "if" ×14 (== vs =, .lower(), and/or/not, in/not in, falsy empty list, elif ladder first-true-wins vs independent ifs, if × lists) · topic "dicts" ×14 (key–value CRUD, KeyError/.get(), .items()/.keys()/.values(), sorted(), set(), nesting) · topic "while" ×12 (input()→string, int(), % even/odd, flags, break, continue, moving items, removing all instances) · topic "functions" ×14 (def/docstring, params vs args, positional/keyword/defaults, return, returning dicts, optional args, [:] slice-copy, *args/**kwargs, modules)
+- Verified with Bun.Transpiler parse + dynamic import audit: 54 total, per-topic counts 14/14/12/14, type split 39 mcq / 11 output / 4 short, all mcqs have exactly 4 options with answer 0–3, all output/short have answerText, ids unique, spread of correct-option index 10/9/10/10
+- Executed all 26 trace-sensitive Python snippets (11 output questions + mcq snippets + error paths) under python3 — every printed result and exception (TypeError, ValueError, KeyError, SyntaxError) matches the written answerText/options exactly
+
+Stage Summary:
+- NEW: src/components/quiz2/questions-foc.ts exporting FOC_QUIZ2_QUESTIONS (Quiz2Question[]) — 54 verified questions, ids foc2-if-01…14, foc2-dict-01…14, foc2-while-01…12, foc2-fn-01…14
+- Bank is already wired: quiz2-banks.ts imports FOC_QUIZ2_QUESTIONS for the FoC Full Mock + per-sliver drills; Quiz2App drill windows will now show 14/14/12/14 per sliver
+- Next: other Quiz-2 banks (questions-atb / questions-fa / questions-ebh) still to be written by their owners
+
+---
+Task ID: 2-b
+Agent: general-purpose (sub agent)
+Task: Write the ATB (Algorithmic Thinking in Business) Quiz-2 mock question bank — one file, src/components/quiz2/questions-atb.ts
+
+Work Log:
+- Read worklog.md, quiz2-data.ts (Quiz2Question shape + atb sliver ids), quiz2-banks.ts (expects named export ATB_QUIZ2_QUESTIONS from ./questions-atb) and atb/questions.ts (house style)
+- Wrote src/components/quiz2/questions-atb.ts — 56 no-code questions (all logic/definitions/traces), exactly 7 topics keyed to sliver ids: treefund 10, treetypes 8, graphfund 8, graphtypes 8, traversals 8, hashing 7, blockchain 7
+- 50 mcq (4 options + answer index) / 6 short (answerText); every question has an explain; ids unique atb2-<topic>-NN; scenario stems + tiny ASCII traces (2 trees, road network, weighted map, digraph, adjacency list, mod-5 hash table) as the house signature
+- Mentally verified every trace: leaf count 5 + height 3 on the 9-node tree; in-order A B C D E F / pre-order D B A C E F / level-order D B E A C F (post-order given in explain); BST search 8→3→6 and insert 5 as left child of 6; degree of B = 3, Σdeg = 12 = 2×6 edges; cheapest A→D = 2+1+2 = 5; DFS A B D F C E vs BFS A B C D E F on the adjacency list; key%5 buckets (7,12→2; 3,18→3); weighted/degree/complete-tree distractors cross-checked
+- Programmatic verification with bun import (not lint, not dev server): total 56, mcq 50 / short 6, per-topic counts exact, all mcq options length 4 + valid answer index 0–3, shorts have answerText and no options, explain present on all 56, ids unique, answer-index spread 0:15 / 1:17 / 2:13 / 3:5 — ALL CHECKS PASS
+- Did not modify any other file; banks file already wires the export, so no wiring needed
+
+Stage Summary:
+- /home/z/my-project/src/components/quiz2/questions-atb.ts delivers the full ATB Quiz-2 bank: 56 questions across the 7 non-linear-structure slivers (L12–L20), exam-style with verified traces — the ATB subject's full mock + per-sliver drills in the war room are now powered
+
+---
+Task ID: 2 (main) + 2-a/2-b/2-c/2-d (parallel agents)
+Agent: Z.ai Code (main) + 4 content agents
+Task: Build "Quiz 2 — the war room": a separate Atlas wing (above "Pick a shelf") for the 4 Quiz-2 subjects (FoC/ATB/FA on 31 Oct, EBH on 1 Nov), with syllabus→lecture maps, readiness checklist, and full mock + per-sliver drill exam windows.
+
+Work Log:
+- Explored landing structure (AtlasLanding/page.tsx), lecture maps (foc/atb/fa/ebh lectures.ts), shared ExamEngine + exam-runtime, ledger/sm2, house question style
+- Built src/components/quiz2/: quiz2-data.ts (subjects, slivers, lecture ranges, quiz dates), use-quiz2.ts (drift-proof countdown, localStorage sliver checklist, ledger-backed mock stats), quiz2-banks.ts (full mock + drill banks), quiz2-theme.ts (exam-red ExamTheme), Quiz2Section.tsx (landing strip), Quiz2App.tsx (war room at #/quiz2[/<subjectId>])
+- 4 parallel agents wrote question banks: questions-foc.ts (54 Qs, python3-verified traces), questions-atb.ts (56 Qs, hand-verified traces), questions-fa.ts (60 Qs, script-verified arithmetic), questions-ebh.ts (40 Qs) — 210 questions total
+- Wired #/quiz2 route in page.tsx (dynamic import; viewKey includes quiz2 id so deep links remount); inserted Quiz2Section above the shelf section + red "Quiz 2" nav pill in AtlasLanding; added .quiz2-* exam-red chrome to globals.css
+- Fixed: rAF-deferred setState (lint react-hooks/set-state-in-effect), inline hash navigation (react-hooks/immutability), stats refresh epoch on exam close, deep-link remount key
+- Browser-verified: landing strip + countdown (3d17h to Sat), war room hero/tabs/sliver checklist (persists), FoC full mock (54 Qs, 45:00 countdown), drill (14 Qs, stopwatch), result report + verdict, ledger stats card ("Last mock 100% / best 100%"), FA room (60 Qs/50 min, L16–L29), EBH room (40 Qs/35 min, Sun 1 Nov), FA shelf untouched, mobile viewport clean; lint + tsc clean
+
+Stage Summary:
+- New route #/quiz2 (+ #/quiz2/<foc|atb|fa|ebh>) — "Quiz 2 — War Room": 4 subjects, 210 mock questions, full timed mocks (45/45/50/35 min) + 21 untimed sliver drills, lecture-mapped syllabus (FA L16–L29, FoC L17–L28, ATB L12–L20, EBH: non-linear data structures per user), readiness checklist persisted to localStorage, mock stats via shared ledger
+- EBH syllabus flag: user said "Non-linear data structure" (a DSA topic) for a history subject — built exactly as instructed; flagged to user for confirmation
+---
+Task ID: 3
+Agent: Z.ai Code (main)
+Task: Integrate the OFFICIAL Quiz 2 announcement (exact joining times, paper windows, question counts, marks, FA weightage) into the War Room; add an Exam-Simulation mode on the real clock; top the FoC bank up to the official 60-question paper size.
+
+Work Log:
+- Parsed the user's announcement: Sat 31 Oct — FoC joining 4:30 PM / paper 4:45–5:05 PM / 60 Q · 60 marks; ATB joining 5:10 PM / 5:25–5:45 PM / 40 Q · 40 marks; FA joining 5:45 PM / 6:00–6:30 PM / 40 Q · 40 marks · 30% of the final course grade; Sun 1 Nov — EBH joining 11:45 AM / 12:00–12:20 PM / 40 Q · 40 marks
+- quiz2-data.ts: added joining / window / startMin / officialQuestions / marks / weightage / mockMinutes per subject; `minutes` re-meant as the OFFICIAL clock (20/20/30/20); replaced quizDayMs with quizStartMs(dateISO, startMin) + nextQuizStart() (FoC 4:45 → ATB 5:25 → FA 6:00 → EBH Sun 12:00)
+- use-quiz2.ts: countdowns retargeted from quiz-day midnight to each paper's exact start; new useNextQuizCountdown() (hero clock auto-advances to the next un-started paper) + useSubjectCountdown()
+- quiz2-banks.ts: new quiz2SimBank — the official paper (officialQuestions sampled Fisher–Yates from the bank, official clock, 1 mark each); Full Mock now runs at the official pace (mockMinutes: 20/28/45/20)
+- Quiz2App.tsx: new ScheduleStrip ("The official schedule — as announced": joining, window, Qs/marks per paper, FA weightage badge); hero label "until FoC begins · Sat · 31 Oct, 4:45 – 5:05 PM"; subject header chips (joining / window / Qs·marks / weightage); Train Here now leads with the red "Exam Simulation · OFFICIAL FORMAT" card above the Full Mock; exam wiring frozen the bank at open time
+- Quiz2Section.tsx (landing strip): countdown + cards now carry the official slot line "joining X · paper Y · N Q · M marks" (+ FA 30% badge), new footer "Sat · FoC 4:45 · ATB 5:25 · FA 6:00 — Sun · EBH 12:00"
+- questions-foc.ts: +6 questions (foc2-if-15/16, dict-15, while-13/14, fn-15) → bank = 60, the exact official paper size; every snippet traced under python3 before writing (60 / Already listed+False / 0+False / 5 4 3 / 1 / large americano)
+- BUG FOUND & FIXED: quiz2SimBank ran at render time, so the 1-second countdown ticks re-shuffled the sampled paper under the open ExamEngine → TypeError (reading 'status') in states[q.id] when drawn ids left the states map. Fix: bank is built ONCE in openExam and frozen in useState (EngineBank | null), cleared on close
+- Verified with Bun import audit: 216 questions total (FoC 60, ATB 56, FA 60, EBH 40), 0 structural failures, per-topic counts correct, answer-index spread healthy; lint + tsc clean
+- Sandbox incident: dev server (PID 1133 from session boot) died mid-verification; tool-call-spawned restarts were reaped between calls (confirmed twice) — fixed with a double-fork orphan start `(setsid bun run dev … &)` which re-parents to init and survives
+- Agent Browser E2E (fresh sessions): landing hero + QUIZ 2 pill; war room hero countdown 4d 09h → FoC; official schedule strip (all 4 rows + FA badge); subject tabs with windows; FoC sim opened "60 questions · 20 min · the official paper — 60 marks, 1 each", 19:59 clock, answered Q1 (✓ 1/60 green feedback), palette jump to Q16 (new foc2-if-16), output-type reveal shows MODEL ANSWER match; FA deep link #/quiz2/fa → sim "40 Q · 30 min · 29:59", 10 s across countdown ticks with ZERO console errors (crash fix confirmed), answered → Finish → result report (1/40, 3%, type breakdown, review list) → close → clean; landing cards show official slot lines + FA 30% badge; iPhone 14 viewport: landing cards + war-room schedule strip stack cleanly, footer sticks
+- dev.log final state: all GET / 200, zero errors
+
+Stage Summary:
+- The War Room now runs the OFFICIAL Quiz 2 announcement end to end: exact schedule (Sat evening ×3, Sun noon ×1) with joining times and marks, countdowns aimed at each paper's real start, FA's 30% weightage surfaced everywhere it matters
+- New training ladder per subject: Exam Simulation (official count + official clock + random draw) → Full Mock (whole bank at official pace) → per-sliver drills (untimed); FoC bank now exactly 60 questions = the real paper
+- One real bug (sim bank reshuffled under a live exam) found via browser E2E and fixed by freezing the bank at open time
+---
+Task ID: 4
+Agent: Z.ai Code (main)
+Task: Quiz 2 FA syllabus correction — L16–L26 (not L16–L29); L27/L29 removed from Cash flow part 3
+
+Work Log:
+- Verified FA deck ground truth in src/components/fa/lectures.ts: L27 = "Reading Cash Flow for Financial Health", L28 = "Financial Statement Analysis", L29 = "Why They Matter"; L26 = "Indirect Method at Work" completes the syllabus arc
+- quiz2-data.ts (FA): range "L16 – L29" → "L16 – L26"; blurb dropped Hot Chocolate (L8, out of range); cashflow2 → "L25" with Jaws-only points; cashflow3 → "L26" with Compass ₹72,000 / Ajay ₹4,32,000→₹3,48,000 / working-capital-sign points
+- questions-fa.ts: header coverage comment updated; Ajay mcq fa2-cf2-05 moved into cashflow3 (renamed fa2-cf3-06); replaced 5 out-of-syllabus L27/L29 questions (diagnostics, interest cover 3.3×, dividend, Mira) with 5 new L26 questions — Compass working-capital drag ₹1,02,000 (mcq), Ajay full walk 4,32,000→3,48,000 (output), three-families classification (mcq), inventory-decrease sign (mcq), three-families essay (short)
+- Bank integrity: still 60 FA questions (cashflow2 5, cashflow3 6); lint clean; question ids not persisted anywhere (only topic keys used), so renames are safe
+- Agent Browser: #/quiz2 → FA prep room shows "SYLLABUS: L16 – L26", slivers Cash flow pt2 = L25 (5 drill Qs) / pt3 = L26 (6 drill Qs); drill session "FA Drill · Cash flow, part 3 · L26" opened, Q1 answered → "Correct.", Q2 Ajay output renders; zero console/page errors; FoC (L17–L28) untouched
+
+Stage Summary:
+- FA Quiz 2 syllabus now matches the official announcement: L16–L26, 9 slivers, cash flow parts = L23/L25/L26
+- L27–L29 explicitly excluded and noted in the bank header as deliberately untested
+- Mock bank remains 60 questions, all hand-checked; dev server healthy, no errors
+---
+Task ID: 4c
+Agent: general-purpose (FA bank)
+Task: Expand FA Quiz 2 bank 60 → 80
+
+Work Log:
+- Read worklog Task 4 note (FA syllabus corrected to L16–L26; L27–L29 deliberately untested) + quiz2-data.ts "fa" block (9 sliver ids) + questions-fa.ts in full
+- Grep-counted existing per-topic: matching 7, adjusting 8, trading1 7, trading2 7, pandl 7, balancesheet 7, cashflow1 6, cashflow2 5, cashflow3 6 (= 60); highest ids per sliver: match-07, adjust-08, tr1-07, tr2-07, pl-07, bs-07, cf1-06, cf2-05a, cf3-06
+- Re-read FA lecture anchors for L16–L26: FaParts7 (Basis/matching, Vogue adjusting lab), FaParts4 (adjusting, trading, six GP examples + ABC Traders), FaParts8 (P&L closing entries, retained earnings, balance sheet sorter/orders), FaParts9 (Cathay Pacific, cash-equivalents test, Jaws ladder, working-capital rules), FaParts10 (indirect ladder, Compass ₹72,000, Ajay ₹4,32,000 → ₹3,48,000, tax-paid formula)
+- Appended 20 new questions before the closing `];` under a new EXPANSION banner (+2/+2/+2/+2/+2/+2/+2/+3/+3 so every sliver lands in 7–10): ids fa2-match-08/09, fa2-adjust-09/10, fa2-tr1-08/09, fa2-tr2-08/09, fa2-pl-08/09, fa2-bs-08/09, fa2-cf1-07/08, fa2-cf2-06/07/08, fa2-cf3-07/08/09
+- New material anchored to deck cases and phrasing: realization, ₹24,000 advance split, ₹12,000 prepaid-insurance adjustment (L17's own example), supplies count ₹4,600/₹1,750, cost-or-NRV-lower rule, full COGS ladder with returns, T-format gross-loss side, T-format balancing figure, gross-loss P&L build, retained-earnings ladder, classification quartet, balance-sheet capital solve, cash-equivalents 3-month/acquisition test, three-activity closing-cash walk, indirect walk with all-additions signs (Nandan), negative-operating-cash reading, four working-capital rules, tax-paid formula, Compass-style five-line build, credit-purchase non-cash trap
+- Type mix of additions: 9 mcq · 9 output (with code panels) · 2 short (model answers); ₹ Indian digit grouping throughout; distractors = classic errors (cash-basis mixing, full-prepaid charge, forgotten closing stock, wrong c/d side, dividend-as-expense, sign slips on working capital, expense-booked-as-tax-paid)
+- Script-verified every computed figure (32 arithmetic checks) — caught and fixed one explain-figure slip (tr1-09 "83,000" → "93,000" for the drop-the-direct-expenses distractor); all answers/answers/answersTexts confirmed
+- Runtime validation via bun: 80 questions, 0 duplicate ids, all topics ∈ the 9 sliver ids, all mcq answers in range, all output/short carry answerText, no stray fields; file ends with exactly `];`; header count note updated 60 → 80; no existing questions touched; lint NOT run (concurrent agents)
+
+Stage Summary:
+- FA Quiz 2 mock bank: 60 → 80 questions. Final counts per sliver: matching 9 · adjusting 10 · trading1 9 · trading2 9 · pandl 9 · balancesheet 9 · cashflow1 8 · cashflow2 8 · cashflow3 9 (all within 7–10)
+- New ids: fa2-match-08–09, fa2-adjust-09–10, fa2-tr1-08–09, fa2-tr2-08–09, fa2-pl-08–09, fa2-bs-08–09, fa2-cf1-07–08, fa2-cf2-06–08, fa2-cf3-07–09 (fa2-cf2 skips 05, held by existing fa2-cf2-05a)
+- Syllabus held to L16–L26; zero L27–L29 content (no statement diagnostics, interest cover, Mira's shop, or statement-analysis questions)
+---
+Task ID: 4b
+Agent: general-purpose (ATB bank)
+Task: Expand ATB Quiz 2 bank 40 → 80
+
+Work Log:
+- Read worklog.md, quiz2-data.ts (atb sliver ids: treefund L12 · treetypes L14 · graphfund L15 · graphtypes L16 · traversals L17 · hashing L19 · blockchain L20) and questions-atb.ts end to end
+- Found the bank already at 56 questions (task from the original war-room build: treefund 10 · treetypes 8 · graphfund 8 · graphtypes 8 · traversals 8 · hashing 7 · blockchain 7) — so the delta to reach EXACTLY 80 is +24, balanced to 11–12 per sliver instead of the nominal +40
+- Read the deck sources to anchor every stem: atb/lectures.ts (L12–L20 map) + AtbParts5.tsx (trees, traversals, graphs, graphprops, dfsbfs) + AtbParts6.tsx (treetypes, hashing, blockchain)
+- Appended 24 new questions at the END of their own sliver blocks (never mixed into another topic): treefund +2, treetypes +4, graphfund +4, graphtypes +3, traversals +3, hashing +4, blockchain +4
+- New material is deck-verbatim or hand-verified trace: node height vs depth vs tree height (B → E → F = 2), post-order OUTPUT trace (D, F, E, B, C, A), full-vs-complete binary tree (tournament bracket), BST min/max rule + insert-45 trace, max-heap serve-next (82 at root, heap ≠ BST), V & E counting + degree-of-R trace (handshake check 10 = 2 × 5), the complete-family-tree two-parents proof, formal G = (V, E) short answer, out/in-degree trace (P out 2 · Q in 2), LinkedIn's mixed directed+undirected reading, cyclic vs acyclic (return flights/metro/org chart), graph "no designated root", fresh DFS trace M, N, P, R, O, Q + BFS OUTPUT M, N, O, P, Q, R on a new adjacency list (both traced by hand; distractor = the other traversal's order), fixed-length digest (PIN vs year of logs), key/index/value roles, mod-8 valet collision (9, 17, 25 → slot 1), mod-7 OUTPUT trace (8, 15, 22 → bucket 1; 30 → bucket 2), block header anatomy, genesis block prev = NULL, append-only rule, Merkle pair-hash construction (H1+H2, H3+H4 → root)
+- Type mix added: 20 mcq · 3 output · 1 short — bank now 70 mcq / 3 output / 7 short; output questions carry ASCII tree / bucket tables in `code` per the FA/FoC house pattern
+- Updated ONLY the header comment (56 → 80, per-sliver counts, one expansion note); zero existing questions touched; no other file modified
+- Did NOT run bun lint per instructions; verified instead with a bun import audit (80 total, 0 duplicate ids, all topics ∈ the 7 sliver ids, mcq ⇒ options+answer in range, output/short ⇒ answerText, explain on all) and a full `bunx tsc --noEmit` → 0 errors project-wide; file ends with exactly `];`
+
+Stage Summary:
+- src/components/quiz2/questions-atb.ts now totals EXACTLY 80 questions — per sliver: treefund 12 · treetypes 12 · graphfund 12 · graphtypes 11 · traversals 11 · hashing 11 · blockchain 11
+- New id ranges (no duplicates): atb2-treefund-11..12 · atb2-treetypes-09..12 · atb2-graphfund-09..12 · atb2-graphtypes-09..11 · atb2-traversals-09..11 · atb2-hashing-08..11 · atb2-blockchain-08..11
+---
+---
+Task ID: 4a
+Agent: general-purpose (FoC bank)
+Task: Expand FoC Quiz 2 bank 60 → 120
+
+Work Log:
+- Read worklog.md, quiz2-data.ts (sliver ids: if / dicts / while / functions), questions-foc.ts in full (existing 60), FOC_LECTURES map, then the deck sources for L17–L28 (notes/Part6–Part9 + FocParts6–9: Conditional Tests, Branches, If × Lists, Dictionaries, Dict loops, Nesting, Input & While, Loop control, Args, Returns, Funcs × Lists) to anchor every question in the deck's own code and variable names
+- Counted existing: if 16 · dicts 15 · while 14 · functions 15 (= 60); computed deltas to targets: +14 / +15 / +12 / +19
+- Appended 60 new question objects before the closing `];` in four banner-grouped waves (same comment style as existing slivers), ids continuing the scheme: foc2-if-17–30, foc2-dict-16–30, foc2-while-15–26, foc2-fn-16–34 — no id duplicated
+- Type mix kept at the file's proportions: 43 mcq · 13 output · 4 short added. Content: == vs =, case-insensitive one-sided-lower() trap, elif first-true-wins (ascending-bound bug), no-else NameError fall-through, falsy empty-list guard, in / not in, "18" == 18 False vs "18" >= 18 TypeError; KeyError vs .get() (with and without default), del on missing key, duplicate-key overwrite, set() vs sorted(set()), alien fleet [:3] promotion, dict-of-dicts info; input()-returns-string, % drills, zero-pass while, flag (mountain_poll), break on quit, pastrami purge + pop() drain, accumulator; def-time vs call-time, positional/keyword/default rules, defaults-last SyntaxError, missing-arg TypeError, optional middle name, returning dicts, return-ends-the-call, mutating list in function vs designs[:] copy, *args tuple (single-element trailing comma), **kwargs dict, import pizza / from pizza import
+- Updated ONLY the header comment (120 questions, per-sliver counts 30/30/26/34, mix 86/26/8); no existing question, quiz2-data.ts, or any other file modified
+- Validation without bun lint (as instructed): bun TS import parse clean; programmatic checks — total 120, topics 30/30/26/34, types 86/26/8, zero duplicate ids, contiguous per-sliver ranges, every mcq has exactly 4 options + in-range answer index, every output/short has answerText, every question has explain; executed all 13 new output snippets plus 15 further mcq snippets in python3 (fn-32 with a stubbed pizza module) — every trace matches the interpreter, error-type questions confirmed (NameError / KeyError 'speed' & 'points' / SyntaxError non-default-after-default / TypeError missing 'pet_name')
+
+Stage Summary:
+- src/components/quiz2/questions-foc.ts now exports exactly 120 questions: if 30 (foc2-if-01–30) · dicts 30 (foc2-dict-01–30) · while 26 (foc2-while-01–26) · functions 34 (foc2-fn-01–34); mix 86 mcq · 26 output · 8 short
+- New id range used: foc2-if-17–30 · foc2-dict-16–30 · foc2-while-15–26 · foc2-fn-16–34 (bank positions 61–120)
+- File ends with exactly `];`; header comment reflects the new totals; nothing else touched
+---
+Task ID: 4d
+Agent: general-purpose (EBH bank rebuild)
+Task: Rebuild EBH Quiz 2 bank — 80 history questions on L15–L23
+
+Work Log:
+- Read worklog + quiz2-data.ts EBH block (new slivers: factory / labour / empire / systems / taylor; old "nonlinear" retired) and confirmed the only "nonlinear" references in quiz2 lived inside questions-ebh.ts itself
+- Read the EBH deck ground truth end to end: lectures.ts L15–L23 blurbs + EbhParts4.tsx (steam-cottonopolis, labor-movement, empire), EbhParts5.tsx (water-frame), EbhParts6.tsx (labor-phase2, labor-phase3, econ-systems, systems-society), EbhParts7.tsx (management-taylor) — every name/date/act/figure traced to the deck (Arkwright 1769/1775/1785, 143→300 mills, Cromford 1771, Watt 1781, Cottonopolis 50+/43/108 mills & 20,000→3,00,000, Combination Acts 1799–1800, Luddites 1811–16, Frame Breaking Act 1812 + 17 executed 1813, Peterloo 1819, 1824 repeal 35 statutes/~500 yrs incl. Laborer's Act 1425, strike wave +80% coal, 1825 half-freedom, NAPL 1830 Doherty, GNCTU 1834 Owen, Tolpuddle 1797 Oaths Act→1836 pardon, Factory Act 1833, Ten Hours Act 1847, Public Health Act 1848, Chartists 1838–48, 1871; Jamestown 1607/EIC 1600/Plassey 1757/Navigation Act/£43.2m; Smith/laissez-faire/Owen/Marx & Engels + pros-cons-sector fit + Manchester/London + "Time is Money"; pin factory 1→18 ops, Taylor's 3 principles, Schmidt 12.5→47.5 t)
+- Rewrote questions-ebh.ts from scratch (old 40-question trees/graphs bank deleted): 80 questions, ids ebh2-<sliver>-<nn>, header banner documenting L15–L23 coverage, per-sliver counts and the retirement note (non-linear data structures belong to ATB)
+- Distribution: factory 16 · labour 24 · empire 10 · systems 18 · taylor 12; type mix 66 mcq + 10 short (crisp deck-worded model answers) + 4 output (code panels: Arkwright patent ledger timeline, Tolpuddle ledger timeline, systems×IR timeline, pig-iron before/after gauge)
+- Distractors = neighbouring deck facts (wrong act / wrong year / wrong person / wrong phase / wrong mill); £ and shillings kept where the deck uses them, no ₹
+- Rebalanced answer-index spread to 16/17/17/16 (was 41/18/6/1)
+- Audited with Bun: 80 questions, per-topic counts exact, unique ids, all topics valid vs quiz2-data slivers, mcq = 4 options + answer index, short/output have answerText, explain on every question — 0 structural errors
+- Standalone tsc (strict, noEmit) on questions-ebh.ts: clean; file ends with `];`; did NOT run bun lint per instructions (other agents editing concurrently)
+
+Stage Summary:
+- EBH Quiz 2 bank is now 80 verified history questions mirroring the syllabus exactly (L15–L23), powering Exam Simulation (40Q draw), Full Mock and per-sliver drills (factory/labour/empire/systems/taylor) via quiz2-banks.ts — no code changes needed elsewhere
+- Deck sources: EbhParts4/5/6/7.tsx chapters (water-frame, steam-cottonopolis, labor-movement, labor-phase2, empire, labor-phase3, econ-systems, systems-society, management-taylor) + lectures.ts
+- Old "nonlinear" bank fully retired; topic id no longer referenced anywhere in quiz2
+---
+Task ID: 5
+Agent: Z.ai Code (main) + 4 general-purpose subagents
+Task: Quiz 2 production pass — lecture audit (EBH L15–L23), thin landing countdown strip, one merged 2× official mock, bank expansion to 360 questions
+
+Work Log:
+- Lecture audit vs decks: FoC L17–L28 ✓ (if/dicts/while/functions all real), ATB L12–L20 ✓ (7 slivers, L13/L18 = LIVE recaps), FA L16–L26 ✓ (fixed in task 4), EBH was WRONG — "non-linear data structures" is ATB content; EBH L15–L23 = Industrial Revolution (Water Frame → Steam/Cottonopolis → Labour 3 phases → Empire → Systems → Taylor)
+- quiz2-data.ts: EBH block rewritten (range L15–L23, 5 slivers factory/labour/empire/systems/taylor); mockMinutes doubled everywhere (FoC 40, ATB 40, FA 60, EBH 40) — the mock now runs 2× the paper
+- quiz2-banks.ts: quiz2SimBank + quiz2FullBank merged into ONE quiz2MockBank (Fisher–Yates draw of officialQuestions×2 on the 2× clock) + quiz2MockCount helper
+- Subagents (parallel): 4a FoC 60→120 (30/30/26/34, outputs executed in python3); 4b ATB 56→80 (12/12/12/11/11/11/11, hand-traced DFS/BFS); 4c FA 60→80 (9/10/9/9/9/9/8/8/9, 32 arithmetic checks); 4d EBH rebuilt 0→80 history questions (16/24/10/18/12, sourced from EbhParts4–7)
+- Quiz2Section.tsx rewritten: thin one-row premium strip (Q2 sigil · live countdown · next-paper label · d/h/m/s · WAR ROOM pill → #/quiz2); all four subject cards removed from the landing
+- Quiz2App.tsx: single "The Official Mock — twice the paper" card (chips: 2×Qs · 2×min · 2×marks · instant model answers); ExamTarget = mock|drill; hero/footer copy updated; draftId quiz2-<id>-mock
+- Audits: tsc --noEmit clean; bun runtime audit → 360 total (120/80/80/80), 0 dup ids, 0 invalid topics, 0 malformed questions; eslint clean
+- Agent Browser E2E: strip renders on / (mobile 358×105 two-row wrap, desktop one row), old big block gone; #/quiz2 war room; FoC mock = "QUESTION 1 OF 120", 39:47 ticking, Q1 answered → "Correct."; EBH prep room = SYLLABUS: L15 – L23, factory drill Q1 of 16 answered → "Correct."; zero console/page errors; dev.log clean
+
+Stage Summary:
+- Landing shows ONLY the compact Quiz 2 countdown strip; full war room lives at #/quiz2
+- ONE mock mode per subject — twice the official paper (FoC 120Q/40min · ATB 80Q/40min · FA 80Q/60min · EBH 80Q/40min) + untimed sliver drills
+- 360 exam-predictable questions total, every answer verified; EBH syllabus corrected to L15–L23 history
+- Ready for launch; commit deferred until user hands over the BAT token
