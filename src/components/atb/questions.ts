@@ -471,9 +471,10 @@ const SEARCH: AtbExamQuestion[] = [
 ];
 
 /* ------------------------------------------------------------
-   GROUP 8 — ALGO  (Lectures 24–25 · shortest paths · Dijkstra ·
+   GROUP 8 — ALGO  (Lectures 24–28 · shortest paths · Dijkstra ·
                     A* · Bellman-Ford · Prim/Kruskal ·
-                    Floyd-Warshall · bubble sort)
+                    Floyd-Warshall · bubble, selection &
+                    insertion sort · the final overview)
    ------------------------------------------------------------ */
 const ALGO: AtbExamQuestion[] = [
   {
@@ -546,6 +547,77 @@ const ALGO: AtbExamQuestion[] = [
     explain:
       "The module's spine: sort, THEN search fast — sorting is the prerequisite for the efficient searches (binary, jump, exponential). Bubble sort's value is pedagogical: adjacent comparisons and swaps, largest element to the end each pass, n(n−1)/2 comparisons → O(n²), impractical for large datasets but the clearest possible first look at sorting.",
   },
+  {
+    id: "a7",
+    type: "mcq",
+    q: "Selection sort, classical form — what exactly happens in ONE pass, and how many swaps does the pass perform?",
+    options: [
+      "Adjacent pairs are compared and swapped wherever the left is larger — up to n−1 swaps",
+      "The minimum of the unsorted portion is found and swapped with the first unsorted slot — exactly ONE swap",
+      "The next element is inserted into its correct position among the already-sorted ones — zero swaps",
+      "The list is halved, each half is sorted recursively — O(log n) swaps",
+    ],
+    answer: 1,
+    explain:
+      "Selection = SELECT one element per pass: assume the first unsorted slot holds the minimum, sweep everything to its right, mark the true minimum, then perform exactly ONE swap. That single-swap-per-pass discipline is selection sort's advantage over bubble sort (which may swap up to n−1 times in a single pass) — though both remain O(n²).",
+  },
+  {
+    id: "a8",
+    type: "output",
+    q: "Run selection sort on [10, 5, 8, 4, 3, 2]. Write the array after Pass 2 — and state how many passes the sort needs in total.",
+    code: "ARRAY: [10, 5, 8, 4, 3, 2]\nCLASSICAL (MINIMUM) SELECTION SORT",
+    answerText:
+      "Pass 1: minimum of all six = 2; swap 2 ↔ 10 → [2, 5, 8, 4, 3, 10]\nPass 2: minimum from position 2 onward = 3; swap 3 ↔ 5 → [2, 3, 8, 4, 5, 10]\nTotal passes: n − 1 = 5 passes (the last element needs no swap).",
+    explain:
+      "Each pass finalises ONE slot: Pass 1 secures the 2, Pass 2 secures the 3. After Pass 2 the array reads [2, 3, 8, 4, 5, 10]. The pattern: n−1 passes for n elements, exactly one swap each — the array is fully sorted once only one unsorted element remains.",
+  },
+  {
+    id: "a9",
+    type: "mcq",
+    q: "Bidirectional selection sort finds the minimum AND maximum in a single pass. Why doesn't this halve the time complexity?",
+    options: [
+      "It does — bidirectional selection sort is O(n log n)",
+      "Passes halve, but total comparisons stay the same: every pass still sweeps from both ends to the middle",
+      "It only fails to improve because bidirectional sorts use extra memory",
+      "Bidirectional sort skips comparisons and guesses positions",
+    ],
+    answer: 1,
+    explain:
+      "The passes drop to half — but each pass must compare from BOTH ends toward the middle, so the total comparison count is unchanged. All variants of selection sort stay O(n²); the direction of the sweep changes the choreography, never the complexity class.",
+  },
+  {
+    id: "a10",
+    type: "output",
+    q: "Run insertion sort on [10, 5, 8, 4, 3, 2]. State what Pass 3 does — which element is the key, which elements move, and what the array looks like afterwards.",
+    code: "ARRAY after Pass 2: [5, 8, 10, 4, 3, 2]\nINSERTION SORT — MOVEMENT, NOT SWAPPING",
+    answerText:
+      "Pass 3: key = 4.\nElements larger than 4 move one position right: 10, 8 and 5 all shift.\n4 is inserted at the vacant front slot.\nResult: [4, 5, 8, 10, 3, 2]",
+    explain:
+      "Insertion sort picks the next key (4), compares it leftward through the sorted portion [5, 8, 10], moves every larger element one slot right, and drops the key into the gap. Movement — not swapping — is the signature: each larger element shifts exactly once, and the sorted portion simply grows by one.",
+  },
+  {
+    id: "a11",
+    type: "short",
+    q: "A company's product catalog is already sorted by price, and new products arrive one at a time. Which sort should maintain the ordering, and why — and name the other three scenarios where the same sort excels.",
+    answerText:
+      "Insertion sort. When a new product arrives, its key compares leftward through the sorted list only until it finds its slot — the rest of the list is untouched, so no full re-sort is needed.\nThe other three home-turf scenarios: (1) small lists in general, (2) partially sorted or nearly sorted data, (3) dynamic data that arrives sequentially and must stay sorted in real time.",
+    explain:
+      "Insertion sort's signature strength: inserting new elements into already-sorted lists. The new key slides into place with a short leftward comparison — bubble sort would churn the whole array each pass and selection sort would re-scan the entire unsorted portion. Its O(n²) complexity only bites on large RANDOM datasets — exactly the case this scenario avoids.",
+  },
+  {
+    id: "a12",
+    type: "mcq",
+    q: "Final overview — a linked-list insert into the MIDDLE is O(1), but inserting while SEARCHING for the spot is O(n). What separates the two?",
+    options: [
+      "The links update in 2–4 operations, but reaching the insertion point still requires a one-by-one traversal",
+      "Linked lists re-index every element after each insert",
+      "The O(n) comes from shifting elements right to open a gap",
+      "Both are O(1) — the search is free on linked lists",
+    ],
+    answer: 0,
+    explain:
+      "Pointer surgery itself costs 2–4 constant operations (that's the O(1)). But finding WHERE to insert means walking node by node — that traversal dominates and makes search-insert O(n). Shifting elements right is the ARRAY's tax, not the linked list's — that's the whole trade-off the module ends on.",
+  },
 ];
 
 /* ------------------------------------------------------------ */
@@ -603,8 +675,8 @@ export const ATB_EXAM_BANKS: Record<AtbExamGroup, AtbExamBank> = {
   algo: {
     group: "algo",
     title: "Paths & Sorting",
-    subtitle: "shortest paths · Dijkstra's algorithm · A* · Bellman-Ford · bubble sort",
-    topics: "Shortest paths · Dijkstra · A* · bubble sort",
+    subtitle: "shortest paths · Dijkstra's algorithm · A* · Bellman-Ford · bubble, selection & insertion sort",
+    topics: "Shortest paths · Dijkstra · A* · the three O(n²) sorts · the final overview",
     questions: ALGO,
   },
 };
