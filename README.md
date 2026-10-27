@@ -7,10 +7,11 @@
 **Visual revision notes for everything** — the B.S. in Management and Technology
 at **IIT Jodhpur**, rebuilt as living, animated notes you can watch, poke and revise from.
 
-[![shelves](https://img.shields.io/badge/shelves-5%2F6%20live-eab308?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
-[![chapters](https://img.shields.io/badge/chapters-223-f5c889?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
-[![questions](https://img.shields.io/badge/exam_questions-474-f59e0b?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
-[![windows](https://img.shields.io/badge/pen--paper_windows-39-d97706?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
+[![shelves](https://img.shields.io/badge/shelves-6%2F6%20live-eab308?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
+[![chapters](https://img.shields.io/badge/chapters-214-f5c889?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
+[![questions](https://img.shields.io/badge/exam_questions-819-f59e0b?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
+[![windows](https://img.shields.io/badge/pen--paper_windows-40-d97706?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
+[![quiz 2](https://img.shields.io/badge/quiz2_mock-360q·2×paper-c2410c?style=for-the-badge&labelColor=140d08)](#-quiz-2-the-war-room)
 
 [![next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
 [![typescript](https://img.shields.io/badge/TypeScript_5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://typescriptlang.org)
@@ -48,11 +49,11 @@ Six shelves live — every shelf is one subject, one accent, one ambience.
 | 01 | [Foundations of Computing](#shelf-01--foundations-of-computing-foc) | 🧭 | `#f59e0b` amber | 33 | 160 | 6 | 🟢 live |
 | 02 | [Algorithmic Thinking in Business](#shelf-02--algorithmic-thinking-in-business-atb) | 🛣️ | `#f43f5e` rose | 33 | 51 | 8 | 🟢 live |
 | 03 | [Financial Accounting](#shelf-03--financial-accounting-fa) | ⚖️ | `#10b981` emerald | 33 | 72 | 7 | 🟢 live |
-| 04 | [Economic & Business History](#shelf-04--economic--business-history-ebh) | 🏛️ | `#eab308` gold | 18 | 40 | 4 | 🟢 live |
+| 04 | [Economic & Business History](#shelf-04--economic--business-history-ebh) | 🏛️ | `#eab308` gold | 31 | 66 | 5 | 🟢 live |
 | 05 | [Statistics for Managers](#shelf-05--statistics-for-managers-stm) | Σ | `#8b5cf6` violet | 31 | 62 | 6 | 🟢 live |
-| 06 | [Principles of Marketing](#shelf-05--statistics-for-managers-stm) | 📣 | `#fb923c` ember | 53 | 48 | 8 | 🟢 live |
+| 06 | [Principles of Marketing](#shelf-06--principles-of-marketing-mktg) | 📣 | `#14b8a6` teal | 53 | 48 | 8 | 🟢 live |
 
-**Totals — 223 chapters · 474 exam questions · 39 pen-paper windows · 6/6 shelves live.**
+**Totals — 214 chapters · 459 pen-paper questions + 360 Quiz-2 questions (819 total) · 40 pen-paper windows · 6/6 shelves live.**
 
 ---
 
@@ -105,9 +106,13 @@ agrarian economies and the full guild ladder (apprentice → journeyman → mast
 master), Silk Road transport speedometers, the thread race between spinners and weavers,
 and **Manchester's mills counting themselves up** as the Industrial Revolution ignites.
 
-- **Topics** — Rules & players · License Raj · Agrarian & guilds · Trade routes · Industrial Revolution · Labor movement
-- **Exam bank** — 40 questions · 4 pen-paper windows
+- **Topics** — Rules & players · Agrarian & guilds · Industrial Revolution · Labor movement · Taylor & Fayol · World Wars · Indian business history
+- **Exam bank** — 66 questions · 5 pen-paper windows
 - **Signature machines** — the guild ladder, the Silk Road speedometer, the Cottonopolis counter
+
+> Rebuilt against the real syllabus: the deck's L15–L23 run — Water Frame → Steam →
+> Cottonopolis → the three labour phases → Empire → systems → Taylor — is chapter-for-chapter
+> history, not a generic timeline.
 
 ### Shelf 05 · Statistics for Managers (STM)
 
@@ -132,12 +137,19 @@ recipe and the SE shrink machine.
 - **Exam bank** — 62 questions · 6 pen-paper windows
 - **Signature machines** — the scale ladder, the outlier slider, the Venn lab, the Bayes bar, the confidence dial, the df-morph, the error courtroom, the E(x) shift machine, the Z lab, the Teddy service-level dial, the Marrian n-switcher, the SE shrink machine
 
-### Shelf 06 · Reserved
+### Shelf 06 · Principles of Marketing (MKTG)
 
-> The next PDF drops here.
+> Value is created at the exchange — the whole course, traded live.
 
-One shelf still waits — same mould, same soul, accent and sigil reserved. When the sixth
-course PDF arrives, it pours in exactly like the other five.
+Fifty-three chapters mirroring the Principles of Marketing deck lecture-for-lecture,
+under a teal `beacon` ambience: the four-beat definition of marketing, the cold-coffee
+P&L café **you run yourself**, the ten marketable entities, the eight demand states,
+STP and the positioning map, POD/POP, the consumer journey and the perception biases
+that bend it.
+
+- **Topics** — Value & exchange · ES/DS & loyalty · STP · Positioning & POD/POP · Consumer journey · Perception & biases
+- **Exam bank** — 48 questions · 8 pen-paper windows
+- **Signature machines** — the cold-coffee P&L café, the ten-entities wall, the demand-states board
 
 ---
 
@@ -151,15 +163,28 @@ Every shelf ships timed **pen-paper windows** — the exam, rehearsed honestly:
   **model explanation** written the way you'd want to write it on paper
 - 🧮 **A running score** and a results summary when the window closes
 
-**37 windows · 393 questions** across the six live shelves — sized to the real course
-weight (FoC carries 120; every other shelf 30–40).
+**40 windows · 459 questions** across the six live shelves — sized to the real course
+weight (FoC carries 160; every other shelf 48–72).
+
+## 🎯 Quiz 2 — The War Room
+
+The landing page carries a thin **live countdown strip** (sigil · days/hours/minutes/seconds ·
+next-paper label) that opens the full war room at `#/quiz2`:
+
+- 🧨 **One merged official mock per subject — twice the paper**: a fresh random draw of the
+  official question bank × 2 on 2× the official clock — FoC **120 Q · 40 min**, ATB **80 · 40**,
+  FA **80 · 60**, EBH **80 · 40**, 1 mark each, instant model answers
+- 🎯 **25 untimed sliver drills** — one slice per topic (factory · labour · empire · systems ·
+  taylor for EBH, and the matching slivers for every other subject)
+- 🗓 **Two exam days on the clock** — Oct 31 (FoC · ATB · FA) and Nov 1 (EBH)
+- 🧾 **360 exam-predictable questions**, every answer verified — executed in Python or hand-traced
 
 ## 🎨 The Design System
 
 One mould, six whispers. All shelves pour from the same parchment-on-ink system —
 cards of `#fffaf1` on a `#3e2c1d` structure — and each shelf owns exactly two things:
-an **accent** (amber, rose, emerald, gold, violet) and one minimal **ambience** animation
-(`sweep · aura · scan · spotlight · shimmer · drift`). Nothing blinks for attention;
+an **accent** (amber, rose, emerald, gold, violet, teal) and one minimal **ambience** animation
+(`sweep · aura · scan · spotlight · shimmer · beacon`). Nothing blinks for attention;
 everything moves with intent. The landing shelf is a morphism bento — glass, clay, neo,
 spotlight, holo and aurora cards frame the crazy-word title wall.
 
@@ -208,7 +233,9 @@ Adding a subject = **one entry in `subjects.ts` + one mount in `page.tsx`**. Not
 - [x] Shelf 03 — Financial Accounting (emerald)
 - [x] Shelf 04 — Economic & Business History (gold)
 - [x] Shelf 05 — Statistics for Managers (violet) · the 312-slide giant + L1–L27 lecture notes
-- [ ] Shelf 06 — reserved · awaiting the next PDF
+- [x] Shelf 06 — Principles of Marketing (teal) · the cold-coffee café + the demand-states board
+- [x] Quiz 2 war room — 2× official mocks (360 Q) · 25 sliver drills · live countdown strip
+- [x] PDF line-by-line verification pass — every lecture audited against its deck, gaps closed
 
 ---
 
