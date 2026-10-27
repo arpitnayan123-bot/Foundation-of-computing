@@ -32,6 +32,13 @@ import { AtbTreeTypesSection, AtbHashingSection, AtbBlockchainSection } from "@/
 import { AtbRecap8Section, AtbRecap13Section, AtbRecap18Section, AtbRecap23Section } from "@/components/atb/AtbParts7";
 import { AtbComplexitySection, AtbSearchSection } from "@/components/atb/AtbParts8";
 import { AtbDijkstraSection, AtbSortingSection } from "@/components/atb/AtbParts9";
+import {
+  AtbCourseMapSection,
+  AtbInsertionSortSection,
+  AtbProps2Section,
+  AtbRecap28Section,
+  AtbSelectionSortSection,
+} from "@/components/atb/AtbParts10";
 import { AtbExamWindow } from "@/components/atb/AtbExamWindow";
 import { ATB_EXAM_BANKS, ATB_EXAM_GROUPS, ATB_TOTAL_QUESTIONS, type AtbExamGroup } from "@/components/atb/questions";
 import { ATB_LECTURES, ATB_ALL_CHAPTER_IDS, ATB_DEFAULT_LECTURE, lectureById, lectureOfChapter, type AtbLecture } from "@/components/atb/lectures";
@@ -73,6 +80,7 @@ const GROUPS: {
       { id: "atm", label: "Decisions", desc: "The ATM machine — branching in action" },
       { id: "pseudocode", label: "Pseudocode", desc: "Functions, pseudocode and real code" },
       { id: "average", label: "Average, step-by-step", desc: "Memory boxes, data types & FIRST CLASS" },
+      { id: "coursemap", label: "Course map", desc: "Lecture 3 · assessment · objectives · the BA bridge" },
     ],
   },
   {
@@ -80,6 +88,7 @@ const GROUPS: {
     label: "Properties",
     items: [
       { id: "properties", label: "9 properties", desc: "What makes an algorithm a *good* algorithm" },
+      { id: "props2", label: "Execution properties", desc: "Lecture 5 · determinism · feasibility · generality in depth" },
       { id: "algotypes", label: "Algorithm types", desc: "Divide & conquer · greedy · dynamic programming" },
     ],
   },
@@ -138,6 +147,9 @@ const GROUPS: {
     items: [
       { id: "dijkstra", label: "Shortest paths", desc: "Lecture 24 · Dijkstra · A* · the variant family" },
       { id: "sorting", label: "Sorting", desc: "Lecture 25 · bubble sort · passes · O(n²)" },
+      { id: "selectionsort", label: "Selection sort", desc: "Lecture 26 · select & swap · one swap per pass" },
+      { id: "insertionsort", label: "Insertion sort", desc: "Lecture 27 · movement not swapping · nearly-sorted wins" },
+      { id: "recap28", label: "Final recap", desc: "Lecture 28 · Big O ladder · cost tables · five searches" },
     ],
   },
 ];
@@ -182,6 +194,11 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   search: <AtbSearchSection />,
   dijkstra: <AtbDijkstraSection />,
   sorting: <AtbSortingSection />,
+  coursemap: <AtbCourseMapSection />,
+  props2: <AtbProps2Section />,
+  selectionsort: <AtbSelectionSortSection />,
+  insertionsort: <AtbInsertionSortSection />,
+  recap28: <AtbRecap28Section />,
 };
 
 /* ============================================================
