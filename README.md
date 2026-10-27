@@ -8,9 +8,9 @@
 at **IIT Jodhpur**, rebuilt as living, animated notes you can watch, poke and revise from.
 
 [![shelves](https://img.shields.io/badge/shelves-5%2F6%20live-eab308?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
-[![chapters](https://img.shields.io/badge/chapters-209-f5c889?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
-[![questions](https://img.shields.io/badge/exam_questions-453-f59e0b?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
-[![windows](https://img.shields.io/badge/pen--paper_windows-37-d97706?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
+[![chapters](https://img.shields.io/badge/chapters-223-f5c889?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
+[![questions](https://img.shields.io/badge/exam_questions-474-f59e0b?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
+[![windows](https://img.shields.io/badge/pen--paper_windows-39-d97706?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
 
 [![next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
 [![typescript](https://img.shields.io/badge/TypeScript_5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://typescriptlang.org)
@@ -46,13 +46,13 @@ Six shelves live — every shelf is one subject, one accent, one ambience.
 | Shelf | Subject | Sigil | Accent | Chapters | Questions | Windows | Status |
 |:-----:|:--------|:-----:|:------:|:--------:|:---------:|:-------:|:------:|
 | 01 | [Foundations of Computing](#shelf-01--foundations-of-computing-foc) | 🧭 | `#f59e0b` amber | 33 | 160 | 6 | 🟢 live |
-| 02 | [Algorithmic Thinking in Business](#shelf-02--algorithmic-thinking-in-business-atb) | 🛣️ | `#f43f5e` rose | 19 | 30 | 6 | 🟢 live |
+| 02 | [Algorithmic Thinking in Business](#shelf-02--algorithmic-thinking-in-business-atb) | 🛣️ | `#f43f5e` rose | 33 | 51 | 8 | 🟢 live |
 | 03 | [Financial Accounting](#shelf-03--financial-accounting-fa) | ⚖️ | `#10b981` emerald | 33 | 72 | 7 | 🟢 live |
 | 04 | [Economic & Business History](#shelf-04--economic--business-history-ebh) | 🏛️ | `#eab308` gold | 18 | 40 | 4 | 🟢 live |
 | 05 | [Statistics for Managers](#shelf-05--statistics-for-managers-stm) | Σ | `#8b5cf6` violet | 31 | 62 | 6 | 🟢 live |
 | 06 | [Principles of Marketing](#shelf-05--statistics-for-managers-stm) | 📣 | `#fb923c` ember | 53 | 48 | 8 | 🟢 live |
 
-**Totals — 209 chapters · 453 exam questions · 37 pen-paper windows · 6/6 shelves live.**
+**Totals — 223 chapters · 474 exam questions · 39 pen-paper windows · 6/6 shelves live.**
 
 ---
 
@@ -74,13 +74,15 @@ running in the browser** so every code snippet is executable, not decorative.
 
 > Data structures & algorithms — no code, all logic.
 
-Nineteen chapters of pure computational thinking for managers: flowcharts that animate
+Thirty-three chapters mirroring the course deck lecture-for-lecture (all 28 lectures, L1–L28,
+in the deck's own order): flowcharts that animate
 their own branches, the nine-property wall, memory-box machines, stacks and queues that
-push and pop in front of you, and a **hash table you can poke** until a collision happens.
+push and pop in front of you, a **hash table you can poke** until a collision happens, and
+**all three O(n²) sorts — bubble, selection and insertion — racing on screen**, pass by pass.
 
-- **Topics** — Algorithms & flowcharts · 9 properties · Arrays & lists · Stacks & queues · Trees & graphs · Hashing & blockchain
-- **Exam bank** — 30 questions · 6 pen-paper windows
-- **Signature machines** — the flowchart runner, the stack & queue machines, the collision table
+- **Topics** — Course map & algorithms · 9 properties · Arrays & lists · Stacks & queues · Trees & graphs · Hashing & blockchain · Searching & the three sorts
+- **Exam bank** — 51 questions · 8 pen-paper windows
+- **Signature machines** — the flowchart runner, the stack & queue machines, the collision table, the selection & insertion sort players
 
 ### Shelf 03 · Financial Accounting (FA)
 
@@ -149,7 +151,7 @@ Every shelf ships timed **pen-paper windows** — the exam, rehearsed honestly:
   **model explanation** written the way you'd want to write it on paper
 - 🧮 **A running score** and a results summary when the window closes
 
-**35 windows · 372 questions** across the six live shelves — sized to the real course
+**37 windows · 393 questions** across the six live shelves — sized to the real course
 weight (FoC carries 120; every other shelf 30–40).
 
 ## 🎨 The Design System
