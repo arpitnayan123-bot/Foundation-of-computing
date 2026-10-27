@@ -142,7 +142,7 @@ print(age >= 18 or age > 15)        # ⑥ True or False?`}
       <Reveal className="mt-6">
         <Takeaways
           items={[
-            <>Quiz One: <strong>60 MCQs · 20 minutes · best 2 of 3 count</strong> (15% each).</>,
+            <>Quiz One: <strong>60 MCQs · 20 minutes · best of three quiz scores considered for the final evaluation</strong> (15% each).</>,
             <>Syllabus: all recorded lectures up to <strong>September 20th</strong>, including Working with Lists Part 2.</>,
             <>The final exam is <strong>offline pen-and-paper with code writing</strong> — practise writing code by hand.</>,
             <>The evaluation rewards <strong>interpretation, not memorization</strong>: trace the code, predict the output, explain the logic.</>,

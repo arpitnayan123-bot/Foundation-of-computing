@@ -148,6 +148,16 @@ for record in student_records:
         </div>
       </Reveal>
 
+      <Reveal className="mt-4">
+        <Callout kind="story" title="Course logistics straight from the deck">
+          One more quiz is scheduled for the <strong>end of October</strong> — and{" "}
+          <strong>no third quiz</strong>, so every assessment counts double. Assignments will ask
+          for <strong>both code and a detailed explanation</strong>; the descriptive questions come
+          primarily from the foundational topics, while the coding sections test how well you
+          interpret and trace programs like this one.
+        </Callout>
+      </Reveal>
+
       <Reveal className="mt-6">
         <p className="eyebrow mb-3">The toolbox this lab leaned on — all re-run, one page</p>
         <CodeBlock
