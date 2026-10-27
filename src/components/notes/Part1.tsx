@@ -354,7 +354,13 @@ export function WhySection() {
             </div>
             <h3 className="mt-3 font-bold">Accountability stops with you</h3>
             <p className="mt-1 text-[.88rem] text-muted-warm">
-              A broken age-checker or leaked API key in production is your failure, not the model’s.
+              A broken age-checker or leaked API key in production is your failure, not the model’s —
+              developers and managers stay legally and financially accountable even for AI-generated code.
+            </p>
+            <p className="mt-2 text-[.8rem] leading-relaxed text-muted-warm">
+              The deck names the regulators: <strong>RBI</strong> for banking, <strong>SEBI</strong> for
+              financial markets, <strong>IRDAI</strong> for insurance — heavy penalties for violations.
+              Real case: PTM faced bans for data-security mismanagement in its apps.
             </p>
           </div>
         </Reveal>
@@ -402,7 +408,7 @@ const TIMELINE = [
   {
     era: "Long before machines",
     icon: <Landmark className="h-5 w-5" />,
-    text: "Humans computed with abacuses, tables and mental arithmetic. The idea of computing is older than the machine itself.",
+    text: "Merchants ran addition and subtraction on the ancient abacus as early as 3000 BC. In the 1600s–1800s, sailors fixed their position at sea by working coordinates through pre-calculated navigation tables. Computing is a methodology, not a technology.",
   },
   {
     era: "World War II",
@@ -445,6 +451,12 @@ const EVERYDAY = [
     name: "YouTube recommendations",
     flow: "What you watched & skipped → compare with millions of users → predict your next video",
     detail: "Your watch-time signals are matched against massive behavioural datasets to forecast what will hold your attention next.",
+  },
+  {
+    icon: <Smartphone className="h-5 w-5" />,
+    name: "Autocorrect & autocomplete",
+    flow: "Typed letters & previous words → pattern match over millions of user sentences → suggested next word",
+    detail: "The keyboard's algorithm learned from millions of sentences to predict what you'll type next — machine learning sitting under your thumb.",
   },
 ];
 
@@ -551,17 +563,17 @@ export function ComputingSection() {
               steps={[
                 {
                   label: "INPUT",
-                  sub: "Collect raw data from the world",
+                  sub: "High-velocity, high-variety, high-volume data streams — text, audio, video, sensors — measured in zettabytes (10²¹ bytes)",
                   icon: <Database className="h-5 w-5" style={{ color: "#c2410c" }} />,
                 },
                 {
                   label: "PROCESS",
-                  sub: "Run it through well-defined steps / algorithms",
+                  sub: "Automated algorithms on cloud infrastructure execute logical steps billions of times per second — pushing computational cost toward zero",
                   icon: <Workflow className="h-5 w-5" style={{ color: "#c2410c" }} />,
                 },
                 {
                   label: "OUTPUT",
-                  sub: "Produce a useful, human-relevant result",
+                  sub: "Actionable insights and business decisions — translated into revenue growth or cost reduction",
                   icon: <MonitorSmartphone className="h-5 w-5" style={{ color: "#c2410c" }} />,
                 },
               ]}
@@ -633,8 +645,8 @@ export function ComputingSection() {
                 </tr>
                 <tr>
                   <td className="font-bold text-[#7c4a12]">Process</td>
-                  <td>Dynamic pricing algorithm, route optimization, matching engine</td>
-                  <td>Balances supply and demand in under 500 ms</td>
+                  <td>Dynamic pricing algorithm (surge fares when demand spikes — think rain hour), route optimization, and a matching engine that connects riders to drivers within a 500-metre radius</td>
+                  <td>Balances supply and demand in under 500 ms — surge pricing keeps cars on the road when they're needed most</td>
                 </tr>
                 <tr>
                   <td className="font-bold text-[#7c4a12]">Output</td>
