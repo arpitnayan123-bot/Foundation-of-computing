@@ -9,9 +9,8 @@ at **IIT Jodhpur**, rebuilt as living, animated notes you can watch, poke and re
 
 [![shelves](https://img.shields.io/badge/shelves-6%2F6%20live-eab308?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
 [![chapters](https://img.shields.io/badge/chapters-214-f5c889?style=for-the-badge&labelColor=140d08)](#-the-shelf-map)
-[![questions](https://img.shields.io/badge/exam_questions-819-f59e0b?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
+[![questions](https://img.shields.io/badge/exam_questions-459-f59e0b?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
 [![windows](https://img.shields.io/badge/pen--paper_windows-40-d97706?style=for-the-badge&labelColor=140d08)](#-pen-paper-exam-simulators)
-[![quiz 2](https://img.shields.io/badge/quiz2_mock-360q·2×paper-c2410c?style=for-the-badge&labelColor=140d08)](#-quiz-2-the-war-room)
 
 [![next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
 [![typescript](https://img.shields.io/badge/TypeScript_5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://typescriptlang.org)
@@ -53,7 +52,7 @@ Six shelves live — every shelf is one subject, one accent, one ambience.
 | 05 | [Statistics for Managers](#shelf-05--statistics-for-managers-stm) | Σ | `#8b5cf6` violet | 31 | 62 | 6 | 🟢 live |
 | 06 | [Principles of Marketing](#shelf-06--principles-of-marketing-mktg) | 📣 | `#14b8a6` teal | 53 | 48 | 8 | 🟢 live |
 
-**Totals — 214 chapters · 459 pen-paper questions + 360 Quiz-2 questions (819 total) · 40 pen-paper windows · 6/6 shelves live.**
+**Totals — 214 chapters · 459 pen-paper questions · 40 pen-paper windows · 6/6 shelves live.**
 
 ---
 
@@ -166,19 +165,6 @@ Every shelf ships timed **pen-paper windows** — the exam, rehearsed honestly:
 **40 windows · 459 questions** across the six live shelves — sized to the real course
 weight (FoC carries 160; every other shelf 48–72).
 
-## 🎯 Quiz 2 — The War Room
-
-The landing page carries a thin **live countdown strip** (sigil · days/hours/minutes/seconds ·
-next-paper label) that opens the full war room at `#/quiz2`:
-
-- 🧨 **One merged official mock per subject — twice the paper**: a fresh random draw of the
-  official question bank × 2 on 2× the official clock — FoC **120 Q · 40 min**, ATB **80 · 40**,
-  FA **80 · 60**, EBH **80 · 40**, 1 mark each, instant model answers
-- 🎯 **25 untimed sliver drills** — one slice per topic (factory · labour · empire · systems ·
-  taylor for EBH, and the matching slivers for every other subject)
-- 🗓 **Two exam days on the clock** — Oct 31 (FoC · ATB · FA) and Nov 1 (EBH)
-- 🧾 **360 exam-predictable questions**, every answer verified — executed in Python or hand-traced
-
 ## 🎨 The Design System
 
 One mould, six whispers. All shelves pour from the same parchment-on-ink system —
@@ -234,7 +220,6 @@ Adding a subject = **one entry in `subjects.ts` + one mount in `page.tsx`**. Not
 - [x] Shelf 04 — Economic & Business History (gold)
 - [x] Shelf 05 — Statistics for Managers (violet) · the 312-slide giant + L1–L27 lecture notes
 - [x] Shelf 06 — Principles of Marketing (teal) · the cold-coffee café + the demand-states board
-- [x] Quiz 2 war room — 2× official mocks (360 Q) · 25 sliver drills · live countdown strip
 - [x] PDF line-by-line verification pass — every lecture audited against its deck, gaps closed
 
 ---

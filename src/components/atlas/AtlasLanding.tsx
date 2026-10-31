@@ -24,7 +24,6 @@ import {
   useInView,
 } from "framer-motion";
 import {
-  AlarmClock,
   ArrowDown,
   ArrowUpRight,
   Command as CommandIcon,
@@ -40,7 +39,6 @@ import { SUBJECTS, type Subject, type SubjectAmbience } from "./subjects";
 import { dueCounts } from "@/lib/sm2";
 import { goalStatus } from "@/lib/goal";
 import Hero57 from "@/components/originkit/hero-57";
-import { Quiz2Section } from "@/components/quiz2/Quiz2Section";
 
 /* ---------------------------------------------- easing + reveal */
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -510,19 +508,6 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           <button
             type="button"
             onClick={() => {
-              window.location.hash = "#/quiz2";
-              window.scrollTo(0, 0);
-            }}
-            aria-label="Open the Quiz 2 war room — mock exams, syllabus maps and the countdown"
-            title="Quiz 2 war room — mocks, syllabus, countdown"
-            className="flex items-center gap-1.5 rounded-full border border-[#ef444455] bg-[#ef444414] px-2.5 py-1 font-mono text-[.6rem] font-bold uppercase tracking-[.14em] text-[#ffb4a8] transition hover:bg-[#ef44442e]"
-          >
-            <AlarmClock aria-hidden className="h-3 w-3" />
-            <span className="hidden sm:inline">Quiz 2</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => {
               window.location.hash = "#/cockpit";
               window.scrollTo(0, 0);
             }}
@@ -717,9 +702,6 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             ))}
           </div>
         </div>
-
-        {/* ------- quiz 2 — the war room (its own wing, above the shelf) ------- */}
-        <Quiz2Section />
 
         {/* ------- the shelf (one mould, six pours, two per row) ------- */}
         <section id="shelf" aria-label="The subject shelf" className="relative mx-auto w-full max-w-5xl scroll-mt-20 px-4 py-20 sm:px-6 md:py-28">

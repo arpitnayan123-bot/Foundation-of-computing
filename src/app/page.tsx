@@ -76,16 +76,11 @@ const CockpitView = dynamic(() => import("@/components/atlas/CockpitView").then(
   ssr: false,
   loading: () => <ShelfLoader />,
 });
-const Quiz2App = dynamic(() => import("@/components/quiz2/Quiz2App").then((m) => m.Quiz2App), {
-  ssr: false,
-  loading: () => <ShelfLoader />,
-});
 
 type View =
   | { name: "atlas" }
   | { name: "ledger" }
   | { name: "cockpit" }
-  | { name: "quiz2"; id?: string }
   | { name: "subject"; id: string };
 
 const SUBJECT_ROUTE = "#/subject/";
@@ -97,11 +92,6 @@ function parseRouteHash(hash: string): View | null {
   if (hash === "#/atlas") return { name: "atlas" };
   if (hash === "#/ledger") return { name: "ledger" };
   if (hash === "#/cockpit") return { name: "cockpit" };
-  if (hash === "#/quiz2") return { name: "quiz2" };
-  if (hash.startsWith("#/quiz2/")) {
-    // deep link straight into one subject's prep room
-    return { name: "quiz2", id: hash.slice("#/quiz2/".length) };
-  }
   if (hash.startsWith(SUBJECT_ROUTE)) {
     const id = hash.slice(SUBJECT_ROUTE.length);
     if (SUBJECT_IDS.includes(id)) return { name: "subject", id };
@@ -117,11 +107,7 @@ function currentView(): View {
 export default function Page() {
   const [view, setView] = useState<View>({ name: "atlas" });
   const viewKey =
-    view.name === "subject"
-      ? `subject-${view.id}`
-      : view.name === "quiz2"
-        ? `quiz2-${view.id ?? "all"}` // a deep link into another subject's prep room remounts
-        : view.name;
+    view.name === "subject" ? `subject-${view.id}` : view.name;
 
   useEffect(() => {
     // initial route sync — async so the first paint stays hydration-stable
@@ -178,9 +164,6 @@ export default function Page() {
             ) : view.name === "cockpit" ? (
               // the cockpit — today's flight plan + ask the atlas
               <CockpitView onExitAtlas={exitToAtlas} />
-            ) : view.name === "quiz2" ? (
-              // quiz 2 — the war room (a separate wing, not a shelf)
-              <Quiz2App initialSubject={view.id} onExitAtlas={exitToAtlas} />
             ) : view.id === "foc" ? (
               <FocApp onExitAtlas={exitToAtlas} />
             ) : view.id === "atb" ? (
