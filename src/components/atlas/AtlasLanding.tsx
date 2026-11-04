@@ -6,12 +6,12 @@
    Design language: a midnight gallery. Deep space canvas with
    film grain, aurora washes and ghost typography.
 
-   THE SHELF LAW: every subject box is poured from the SAME
-   mould — one dark frosted-glass build, one layout, one
-   minimal-premium feel, set two boxes side by side. The only
-   things a box may call its own: its sigil (icon + accent)
-   and one whisper of ambient motion (sweep / aura / scan /
-   spotlight / shimmer / drift).
+   THE SHELF LAW: each semester pours ONE shelf — a single
+   dark frosted-glass case, not loose boxes. Inside, the
+   subjects are LISTED as rows on the shelf; every row keeps
+   its own sigil (icon + accent) and wakes one whisper of
+   hover light. Semester 1 rides live; Semester 2 waits
+   below as an empty, reserved bay.
 
    The router in src/app/page.tsx mounts this view for "#/atlas"
    and delegates to a subject app for "#/subject/<id>".
@@ -152,8 +152,9 @@ function LockedBadge() {
 }
 
 /* ============================================================
-   THE AMBIENCE — six whispers of motion, one per box.
-   Everything else on the card is identical.
+   THE AMBIENCE — the whispers of motion, one per surface.
+   The shelf case takes the sweep; the reserved bay takes the
+   scan — the rest sleep until a future surface calls for them.
    ============================================================ */
 
 function Ambience({ kind, accent }: { kind: SubjectAmbience; accent: string }) {
@@ -235,12 +236,12 @@ function Ambience({ kind, accent }: { kind: SubjectAmbience; accent: string }) {
 }
 
 /* ============================================================
-   THE SUBJECT BOX — one mould, six pours.
-   Identical layout, identical chrome, identical motion
-   personality; only the sigil + the ambience whisper differ.
+   THE SHELF ROW — one mould, one row per subject. Every row
+   on the shelf shares the same anatomy: spine number, sigil,
+   title, one whisper of topics. Only the accent + icon differ.
    ============================================================ */
 
-interface CardProps {
+interface RowProps {
   subject: Subject;
   index: number;
   onEnter: (id: string) => void;
@@ -266,120 +267,124 @@ function DueBadge({ subjectId }: { subjectId: string }) {
   );
 }
 
-function SubjectCard({ subject, index, onEnter }: CardProps) {
-  const live = subject.status === "live";
-  const spotRef = useRef<HTMLElement | null>(null);
-  const setSpotRef = (el: HTMLElement | null) => {
-    spotRef.current = el;
-  };
+function ShelfRow({ subject, index, onEnter }: RowProps) {
+  return (
+    <motion.li
+      initial={{ opacity: 0, x: -22 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "0px 0px -30px 0px" }}
+      transition={{ duration: 0.65, delay: 0.055 * index, ease: EASE }}
+      className="relative"
+    >
+      <button
+        type="button"
+        onClick={() => onEnter(subject.id)}
+        aria-label={`Open ${subject.title} notes`}
+        className="group/row relative flex w-full items-center gap-3.5 px-5 py-4 text-left transition-colors duration-300 hover:bg-white/[.045] sm:gap-5 md:px-8 md:py-[1.1rem]"
+      >
+        {/* the spine lights up — a thin accent edge on hover */}
+        <span
+          aria-hidden
+          className="absolute left-0 top-1/2 h-[14%] w-[3px] -translate-y-1/2 rounded-r-full transition-all duration-300 group-hover/row:h-[62%]"
+          style={{ background: subject.accent, boxShadow: `0 0 14px ${subject.accent}80` }}
+        />
+        {/* a coal of light leaks from the spine on hover */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute left-3 top-1/2 h-12 w-44 -translate-y-1/2 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover/row:opacity-20"
+          style={{ background: subject.accent }}
+        />
 
-  /* cursor spotlight — wired only for the "spotlight" ambience */
-  const onSpotMove = (e: React.MouseEvent) => {
-    if (subject.ambience !== "spotlight") return;
-    const el = spotRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    el.style.setProperty("--my", `${e.clientY - r.top}px`);
-  };
+        {/* spine number */}
+        <span
+          className="w-8 shrink-0 font-mono text-[.74rem] font-black tracking-[.12em]"
+          style={{ color: subject.accent }}
+        >
+          {subject.shelf}
+        </span>
 
-  const inner = (
-    <>
-      <Ambience kind={subject.ambience} accent={subject.accent} />
-      {/* icon micro-motion — the sigil wakes on hover */}
+        {/* sigil */}
+        <span className="glass-chip flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-500 group-hover/row:scale-110 group-hover/row:-rotate-6 md:h-12 md:w-12">
+          <subject.icon className="h-5 w-5" style={{ color: subject.accent }} />
+        </span>
+
+        {/* title + one whisper of topics */}
+        <span className="min-w-0 flex-1">
+          <span className="block truncate font-display text-[1.04rem] font-black leading-tight text-[#f7ecdd] md:text-lg">
+            {subject.title}
+          </span>
+          <span className="mt-1 hidden truncate text-[.72rem] leading-snug text-[#8d7b63] sm:block">
+            {subject.topics.slice(0, 4).join(" · ")}
+          </span>
+        </span>
+
+        <DueBadge subjectId={subject.id} />
+
+        {/* enter */}
+        <span className="flex shrink-0 items-center gap-1.5 text-[.66rem] font-black uppercase tracking-[.16em] text-[#f5c889] transition-transform duration-300 group-hover/row:translate-x-1">
+          <span className="hidden sm:inline">enter</span>
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </span>
+      </button>
+    </motion.li>
+  );
+}
+
+/* ============================================================
+   THE SEMESTER SHELF — one glass case per semester. Sem 1's
+   case holds the six subjects, listed row by row on the shelf;
+   a golden plank grounds the case. One mould, one whisper of
+   sweep across the glass — the subjects light their own rows.
+   ============================================================ */
+
+function SemesterShelf({
+  subjects,
+  onEnter,
+}: {
+  subjects: Subject[];
+  onEnter: (id: string) => void;
+}) {
+  return (
+    <div className="card-glass group relative overflow-hidden rounded-[1.7rem]">
+      <span className="glass-gloss" aria-hidden />
+      {/* the shelf's one whisper — a sheet of light glides across the glass */}
+      <Ambience kind="sweep" accent="#f5c889" />
       <span
         aria-hidden
-        className="pointer-events-none absolute left-6 top-6 h-12 w-12 rounded-2xl opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-60 md:left-7"
-        style={{ background: subject.accent }}
-      />
+        className="text-ghost pointer-events-none absolute -right-3 -top-9 select-none font-display text-[7.5rem] font-black leading-none"
+      >
+        S1
+      </span>
 
-      <div className="relative flex items-start justify-between gap-3">
-        <span className="glass-chip flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
-          <subject.icon className="h-5 w-5" style={{ color: live ? subject.accent : `${subject.accent}cc` }} />
-        </span>
-        {live ? (
-          <span className="flex items-center gap-2">
-            <DueBadge subjectId={subject.id} />
-            <LiveBadge accent={subject.accent} />
-          </span>
-        ) : (
-          <LockedBadge />
-        )}
-      </div>
-
-      <div className="relative mt-6">
-        <ShelfTag color={live ? "#b49a78" : "#77685a"}>shelf {subject.shelf}</ShelfTag>
-        <h3
-          className={`mt-2 font-display text-2xl font-black leading-tight md:text-[1.55rem] ${
-            live ? "text-[#f7ecdd]" : "text-[#cfc0a8]"
-          }`}
-        >
-          {subject.title}
+      {/* shelf header */}
+      <div className="relative flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-white/[.08] px-5 py-5 md:px-8">
+        <h3 className="font-display text-lg font-black tracking-tight text-[#f7ecdd] md:text-xl">
+          Semester 1
         </h3>
+        <LiveBadge accent="#f59e0b" />
+        <span className="h-px min-w-10 flex-1 bg-white/[.07]" aria-hidden />
+        <span className="font-mono text-[.6rem] font-bold uppercase tracking-[.18em] text-[#8d7b63]">
+          {subjects.length} subjects · in session
+        </span>
       </div>
 
-      <div className="relative mt-4 flex flex-wrap gap-1.5">
-        {subject.topics.slice(0, live ? 5 : 1).map((t) => (
-          <span key={t} className="glass-chip rounded-full px-2.5 py-1 text-[.66rem] font-semibold text-[#ecdcc2]">
-            {t}
-          </span>
+      {/* the subjects, listed row by row */}
+      <ul className="relative divide-y divide-white/[.06]">
+        {subjects.map((s, i) => (
+          <ShelfRow key={s.id} subject={s} index={i} onEnter={onEnter} />
         ))}
-      </div>
+      </ul>
 
-      <div className="relative mt-auto flex items-center justify-end gap-3 border-t border-white/10 pt-4">
-        {live ? (
-          <>
-            <span className="flex shrink-0 items-center gap-1 text-[.68rem] font-black uppercase tracking-[.16em] text-[#f5c889] transition-transform duration-300 group-hover:translate-x-1">
-              enter <ArrowUpRight className="h-3.5 w-3.5" />
-            </span>
-          </>
-        ) : (
-          <>
-            <span className="font-mono text-[.62rem] uppercase tracking-[.18em] text-[#5d5142]">
-              awaiting syllabus — the pdf drops here
-            </span>
-            <span className="flex shrink-0 items-center gap-1 font-mono text-[.62rem] uppercase tracking-[.18em] text-[#6d5f4f]">
-              soon
-            </span>
-          </>
-        )}
-      </div>
-    </>
-  );
-
-  const shell =
-    "group card-glass relative flex h-full min-h-[16rem] w-full flex-col overflow-hidden rounded-[1.7rem] p-6 text-left md:p-7";
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 34, filter: "blur(8px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
-      transition={{ duration: 0.85, delay: 0.06 * index, ease: EASE }}
-      className="min-w-0"
-    >
-      {live ? (
-        <motion.button
-          ref={setSpotRef}
-          type="button"
-          onClick={() => onEnter(subject.id)}
-          aria-label={`Open ${subject.title} notes`}
-          onMouseMove={onSpotMove}
-          whileHover={{ y: -5 }}
-          whileTap={{ scale: 0.985 }}
-          transition={{ duration: 0.35, ease: EASE }}
-          className={shell}
-        >
-          <span className="glass-gloss" aria-hidden />
-          {inner}
-        </motion.button>
-      ) : (
-        <div ref={setSpotRef} onMouseMove={onSpotMove} className={shell} aria-label={`${subject.title} — awaiting syllabus`}>
-          <span className="glass-gloss" aria-hidden />
-          {inner}
-        </div>
-      )}
-    </motion.div>
+      {/* the plank — a golden hairline grounding the shelf */}
+      <div
+        aria-hidden
+        className="relative h-[3px] w-full"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, rgba(245,200,137,.45) 18%, rgba(234,88,12,.7) 50%, rgba(245,200,137,.45) 82%, transparent)",
+        }}
+      />
+    </div>
   );
 }
 
@@ -454,8 +459,9 @@ function AtlasSigil() {
 }
 
 /* ---------------------------------------------- semester bands
-   The shelf is grouped by semester: one band header per semester,
-   then its grid. Sem 1 rides live; Sem 2 waits reserved. */
+   The reserved band header — Semester 2's empty bay announces
+   itself above its panel. Semester 1 carries its header inside
+   the shelf case itself. */
 function SemesterBand({ n, note, live = false }: { n: 1 | 2; note: string; live?: boolean }) {
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -489,13 +495,13 @@ function ReservedSemesterPanel() {
           <Lock className="h-5 w-5" style={{ color: "#b49a78" }} />
         </span>
         <div className="min-w-0">
-          <ShelfTag>semester 2 · shelves reserved</ShelfTag>
+          <ShelfTag>semester 2 · shelf reserved</ShelfTag>
           <h3 className="mt-2 font-display text-xl font-black text-[#cfc0a8] md:text-2xl">
             Waiting for the Semester 2 syllabus.
           </h3>
           <p className="mt-2 max-w-xl text-[.9rem] leading-relaxed text-[#a89a86]">
-            The next band of shelves is poured from the same mould — the moment the
-            PDFs drop, they come alive right here. Same soul, new worlds.
+            The next shelf is poured from the same mould — the moment the
+            PDFs drop, its subjects come alive right here. Same soul, new worlds.
           </p>
         </div>
       </div>
@@ -571,7 +577,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           <GoalChip />
           <span
             className="flex items-center gap-1.5 whitespace-nowrap rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 py-1 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889]"
-            title={`Semester 1 — all ${liveCount} shelves live`}
+            title={`Semester 1 — all ${liveCount} subjects live`}
           >
             <span className="atlas-live-dot h-1.5 w-1.5 rounded-full bg-[#f59e0b]" />
             {liveCount}/{SUBJECTS.length} live
@@ -713,7 +719,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
                   boxShadow: "0 18px 44px -14px rgba(234,88,12,.65)",
                 }}
               >
-                Enter shelf 01 — Foundations
+                Open Foundations of Computing
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
               <button
@@ -733,7 +739,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               transition={{ delay: 1.1, duration: 0.9, ease: EASE }}
               className="mt-14 grid grid-cols-2 gap-x-10 gap-y-6 sm:gap-x-14"
             >
-              <Stat value={SUBJECTS.length} label="shelves" delay={0} />
+              <Stat value={SUBJECTS.length} label="subjects" delay={0} />
               <div className="flex flex-col items-center gap-1">
                 <span className="font-display text-3xl font-black tracking-tight text-[#f7ecdd] md:text-4xl">∞</span>
                 <span className="text-[.62rem] font-extrabold uppercase tracking-[.22em] text-[#8d7b63]">live code runs</span>
@@ -770,7 +776,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           </div>
         </div>
 
-        {/* ------- the shelf, grouped by semester — Sem 1 live, Sem 2 reserved ------- */}
+        {/* ------- the shelf, grouped by semester — Sem 1 on one shelf, Sem 2 empty ------- */}
         <section id="shelf" aria-label="The subject shelf" className="relative mx-auto w-full max-w-5xl scroll-mt-20 px-4 py-20 sm:px-6 md:py-28">
           <Rise className="mb-12 md:mb-16">
             <span className="flex items-center gap-2 text-[.7rem] font-extrabold uppercase tracking-[.24em] text-[#f5c889]">
@@ -778,26 +784,21 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               the shelf
             </span>
             <h2 className="mt-4 max-w-3xl font-display text-3xl font-black leading-tight text-[#f7ecdd] md:text-5xl">
-              Pick a shelf. <span className="atlas-sheen">Enter a world.</span>
+              One shelf. <span className="atlas-sheen">Six worlds.</span>
             </h2>
             <p className="mt-4 max-w-2xl text-[.95rem] leading-relaxed text-[#a89a86] md:text-base">
-              Semester 1 is live — six boxes, one mould, set two by two. Only the sigil
-              changes, and one whisper of motion. Same soul, every time. Semester 2 is
-              reserved below, waiting for its syllabus.
+              Semester 1 is live — one shelf, all six subjects listed on it, each row
+              lit by its own sigil. Same soul, every time. Semester 2 sits empty below,
+              waiting for its syllabus.
             </p>
           </Rise>
 
-          {/* ——— Semester 1 — the six live subjects ——— */}
-          <Rise className="mb-7">
-            <SemesterBand n={1} note="6 subjects · in session" live />
+          {/* ——— Semester 1 — one shelf, the six subjects listed ——— */}
+          <Rise>
+            <SemesterShelf subjects={SEMESTER_ONE} onEnter={onEnter} />
           </Rise>
-          <div className="grid gap-4 md:grid-cols-2 md:gap-5">
-            {SEMESTER_ONE.map((s, i) => (
-              <SubjectCard key={s.id} subject={s} index={i} onEnter={onEnter} />
-            ))}
-          </div>
 
-          {/* ——— Semester 2 — separate band, reserved ——— */}
+          {/* ——— Semester 2 — separate band, empty & reserved ——— */}
           <Rise className="mb-7 mt-16 md:mt-24">
             <SemesterBand n={2} note="awaiting the syllabus drop" />
           </Rise>

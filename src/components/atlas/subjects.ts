@@ -125,6 +125,8 @@ export const SUBJECTS: Subject[] = [
 export const LIVE_SUBJECTS = SUBJECTS.filter((s) => s.status === "live");
 export const SUBJECT_IDS = SUBJECTS.map((s) => s.id);
 
-/** shelves grouped per semester — the landing renders one band each */
+/** shelves grouped per semester — the landing pours Semester 1
+ *  as one shelf with every subject listed on it; Semester 2
+ *  waits below as an empty, reserved band */
 export const SEMESTER_ONE = SUBJECTS.filter((s) => s.semester === 1);
 export const SEMESTER_TWO = SUBJECTS.filter((s) => s.semester === 2);
