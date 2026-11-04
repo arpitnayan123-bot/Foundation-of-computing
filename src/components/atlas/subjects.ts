@@ -4,13 +4,17 @@ import { Compass, Landmark, Megaphone, Route, Scale, Sigma, type LucideIcon } fr
    THE ATLAS — subject registry.
    Every subject on the shelf is described here. A subject is
    either `live` (mounted by the Atlas router when clicked) or
-   `soon` (a reserved shelf waiting for its PDF to arrive).
+   `soon` (a reserved shelf waiting for its PDF to arrive), and
+   belongs to a `semester` — the landing groups the shelf by it.
 
    Adding a subject later = one new entry here + mounting its
    component in src/app/page.tsx. Nothing else changes.
    ============================================================ */
 
 export type SubjectStatus = "live" | "soon";
+
+/** the degree runs in semesters — the landing shelf groups by this */
+export type SemesterId = 1 | 2;
 
 /** every box is poured from the same mould — this is the one
  *  whisper of motion that makes each box its own (minimal,
@@ -31,6 +35,8 @@ export interface Subject {
   accent2: string;
   icon: LucideIcon;
   status: SubjectStatus;
+  /** which semester this shelf belongs to (Semester 1 = the six live ones) */
+  semester: SemesterId;
   /** the box's single minimal ambient animation */
   ambience: SubjectAmbience;
 }
@@ -46,6 +52,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#ea580c",
     icon: Compass,
     status: "live",
+    semester: 1,
     ambience: "sweep",
   },
   {
@@ -58,6 +65,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#be123c",
     icon: Route,
     status: "live",
+    semester: 1,
     ambience: "aura",
   },
   {
@@ -70,6 +78,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#047857",
     icon: Scale,
     status: "live",
+    semester: 1,
     ambience: "scan",
   },
   {
@@ -82,6 +91,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#854d0e",
     icon: Landmark,
     status: "live",
+    semester: 1,
     ambience: "spotlight",
   },
   {
@@ -94,6 +104,7 @@ export const SUBJECTS: Subject[] = [
     accent2: "#6d28d9",
     icon: Sigma,
     status: "live",
+    semester: 1,
     ambience: "shimmer",
   },
   {
@@ -106,9 +117,14 @@ export const SUBJECTS: Subject[] = [
     accent2: "#0f766e",
     icon: Megaphone,
     status: "live",
+    semester: 1,
     ambience: "beacon",
   },
 ];
 
 export const LIVE_SUBJECTS = SUBJECTS.filter((s) => s.status === "live");
 export const SUBJECT_IDS = SUBJECTS.map((s) => s.id);
+
+/** shelves grouped per semester — the landing renders one band each */
+export const SEMESTER_ONE = SUBJECTS.filter((s) => s.semester === 1);
+export const SEMESTER_TWO = SUBJECTS.filter((s) => s.semester === 2);

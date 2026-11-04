@@ -47,3 +47,27 @@
  GET / 200 in 670ms (compile: 162ms, render: 508ms)
  GET /manifest.webmanifest 200 in 23ms (compile: 8ms, render: 15ms)
  GET / 200 in 71ms (compile: 4ms, render: 67ms)
+ GET / 200 in 45ms (compile: 6ms, render: 38ms)
+ GET / 200 in 40ms (compile: 4ms, render: 36ms)
+ GET / 200 in 49ms (compile: 5ms, render: 44ms)
+ GET / 200 in 40ms (compile: 4ms, render: 37ms)
+ GET / 200 in 39ms (compile: 5ms, render: 33ms)
+ GET /manifest.webmanifest 200 in 7ms (compile: 2ms, render: 5ms)
+ GET / 200 in 46ms (compile: 4ms, render: 42ms)
+ POST /api/generate-cards 200 in 4.1s (compile: 225ms, render: 3.9s)
+ GET / 200 in 53ms (compile: 4ms, render: 49ms)
+ GET / 200 in 47ms (compile: 6ms, render: 41ms)
+ GET / 200 in 54ms (compile: 4ms, render: 50ms)
+ GET / 200 in 38ms (compile: 3ms, render: 35ms)
+ GET / 200 in 189ms (compile: 5ms, render: 184ms)
+ GET /manifest.webmanifest 200 in 60ms (compile: 43ms, render: 18ms)
+ GET / 200 in 164ms (compile: 7ms, render: 157ms)
+✓ Compiled in 457ms
+✓ Compiled in 331ms
+✓ Compiled in 364ms
+✓ Compiled in 1133ms
+ GET / 200 in 225ms (compile: 55ms, render: 170ms)
+ GET /manifest.webmanifest 200 in 8ms (compile: 6ms, render: 3ms)
+ GET / 200 in 155ms (compile: 20ms, render: 135ms)
+ GET / 200 in 136ms (compile: 4ms, render: 132ms)
+ GET /manifest.webmanifest 200 in 16ms (compile: 8ms, render: 9ms)

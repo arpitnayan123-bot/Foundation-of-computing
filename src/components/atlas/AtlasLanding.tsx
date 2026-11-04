@@ -35,7 +35,7 @@ import {
   Rocket,
   Waypoints,
 } from "lucide-react";
-import { SUBJECTS, type Subject, type SubjectAmbience } from "./subjects";
+import { SUBJECTS, SEMESTER_ONE, type Subject, type SubjectAmbience } from "./subjects";
 import { dueCounts } from "@/lib/sm2";
 import { goalStatus } from "@/lib/goal";
 import Hero57 from "@/components/originkit/hero-57";
@@ -453,6 +453,56 @@ function AtlasSigil() {
   );
 }
 
+/* ---------------------------------------------- semester bands
+   The shelf is grouped by semester: one band header per semester,
+   then its grid. Sem 1 rides live; Sem 2 waits reserved. */
+function SemesterBand({ n, note, live = false }: { n: 1 | 2; note: string; live?: boolean }) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <h3 className="font-display text-lg font-black tracking-tight text-[#f7ecdd] md:text-xl">
+        Semester {n}
+      </h3>
+      {live ? <LiveBadge accent="#f59e0b" /> : <LockedBadge />}
+      <span className="h-px min-w-10 flex-1 bg-white/[.07]" aria-hidden />
+      <span className="font-mono text-[.6rem] font-bold uppercase tracking-[.18em] text-[#8d7b63]">
+        {note}
+      </span>
+    </div>
+  );
+}
+
+/* the Semester 2 panel — one reserved bay in the same mould, honest
+   about waiting: no invented subjects, just the sonar sweep brewing */
+function ReservedSemesterPanel() {
+  return (
+    <div className="card-glass relative flex min-h-[10rem] w-full flex-col justify-center overflow-hidden rounded-[1.7rem] p-7 md:p-9">
+      <span className="glass-gloss" aria-hidden />
+      <Ambience kind="scan" accent="#f5c889" />
+      <span
+        aria-hidden
+        className="text-ghost pointer-events-none absolute -right-3 -top-8 select-none font-display text-[7.5rem] font-black leading-none"
+      >
+        S2
+      </span>
+      <div className="relative flex flex-wrap items-center gap-5">
+        <span className="glass-chip flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl">
+          <Lock className="h-5 w-5" style={{ color: "#b49a78" }} />
+        </span>
+        <div className="min-w-0">
+          <ShelfTag>semester 2 · shelves reserved</ShelfTag>
+          <h3 className="mt-2 font-display text-xl font-black text-[#cfc0a8] md:text-2xl">
+            Waiting for the Semester 2 syllabus.
+          </h3>
+          <p className="mt-2 max-w-xl text-[.9rem] leading-relaxed text-[#a89a86]">
+            The next band of shelves is poured from the same mould — the moment the
+            PDFs drop, they come alive right here. Same soul, new worlds.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ============================================================
    THE LANDING
    ============================================================ */
@@ -521,7 +571,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           <GoalChip />
           <span
             className="flex items-center gap-1.5 whitespace-nowrap rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 py-1 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889]"
-            title={`${liveCount} shelves live — ${SUBJECTS.length - liveCount} reserved`}
+            title={`Semester 1 — all ${liveCount} shelves live`}
           >
             <span className="atlas-live-dot h-1.5 w-1.5 rounded-full bg-[#f59e0b]" />
             {liveCount}/{SUBJECTS.length} live
@@ -720,7 +770,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           </div>
         </div>
 
-        {/* ------- the shelf (one mould, six pours, two per row) ------- */}
+        {/* ------- the shelf, grouped by semester — Sem 1 live, Sem 2 reserved ------- */}
         <section id="shelf" aria-label="The subject shelf" className="relative mx-auto w-full max-w-5xl scroll-mt-20 px-4 py-20 sm:px-6 md:py-28">
           <Rise className="mb-12 md:mb-16">
             <span className="flex items-center gap-2 text-[.7rem] font-extrabold uppercase tracking-[.24em] text-[#f5c889]">
@@ -731,16 +781,29 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               Pick a shelf. <span className="atlas-sheen">Enter a world.</span>
             </h2>
             <p className="mt-4 max-w-2xl text-[.95rem] leading-relaxed text-[#a89a86] md:text-base">
-              Six boxes, one mould — the same dark frosted build, set two by two. Only the
-              sigil changes, and one whisper of motion. Same soul, every time.
+              Semester 1 is live — six boxes, one mould, set two by two. Only the sigil
+              changes, and one whisper of motion. Same soul, every time. Semester 2 is
+              reserved below, waiting for its syllabus.
             </p>
           </Rise>
 
+          {/* ——— Semester 1 — the six live subjects ——— */}
+          <Rise className="mb-7">
+            <SemesterBand n={1} note="6 subjects · in session" live />
+          </Rise>
           <div className="grid gap-4 md:grid-cols-2 md:gap-5">
-            {SUBJECTS.map((s, i) => (
+            {SEMESTER_ONE.map((s, i) => (
               <SubjectCard key={s.id} subject={s} index={i} onEnter={onEnter} />
             ))}
           </div>
+
+          {/* ——— Semester 2 — separate band, reserved ——— */}
+          <Rise className="mb-7 mt-16 md:mt-24">
+            <SemesterBand n={2} note="awaiting the syllabus drop" />
+          </Rise>
+          <Rise>
+            <ReservedSemesterPanel />
+          </Rise>
         </section>
 
         {/* ------- why it hits different ------- */}
