@@ -174,3 +174,129 @@ Mini-services startup completed. Started 0 service(s).
 
 Next.js dev server is running in background (PID: 1198).
 Use 'kill 1198' to stop it.
+==========================================
+[2026-11-04 12:37:47] Starting: bun install
+==========================================
+[BUN] Installing dependencies...
+[0.02ms] ".env"
+bun install v1.3.14 (0d9b296a)
+
+Checked 848 installs across 917 packages (no changes) [22.00ms]
+==========================================
+[2026-11-04 12:37:47] Completed: bun install
+[LOG] Step: bun install | Duration: 0s
+==========================================
+
+==========================================
+[2026-11-04 12:37:47] Starting: bun run db:push
+==========================================
+[BUN] Setting up database...
+$ prisma db push --accept-data-loss
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Datasource "db": SQLite database "custom.db" at "file:/home/z/my-project/db/custom.db"
+
+The database is already in sync with the Prisma schema.
+
+Running generate... (Use --skip-generate to skip the generators)
+[2K[1A[2K[GRunning generate... - Prisma Client
+[2K[1A[2K[G✔ Generated Prisma Client (v6.19.2) to ./node_modules/@prisma/client in 54ms
+
+==========================================
+[2026-11-04 12:37:48] Completed: bun run db:push
+[LOG] Step: bun run db:push | Duration: 1s
+==========================================
+
+==========================================
+[2026-11-04 12:37:48] Starting: Starting Next.js dev server
+==========================================
+[BUN] Starting development server...
+==========================================
+$ next dev -p 3000 2>&1 | tee dev.log
+[2026-11-04 12:37:48] Completed: Starting Next.js dev server
+[LOG] Step: Starting Next.js dev server | Duration: 0s
+==========================================
+
+==========================================
+[2026-11-04 12:37:48] Starting: Waiting for Next.js dev server
+==========================================
+Waiting for Next.js dev server to be ready on localhost:3000...
+Attempt 1/60: Next.js dev server not ready yet, waiting...
+▲ Next.js 16.1.3 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://21.0.11.79:3000
+- Environments: .env
+
+✓ Starting...
+✓ Ready in 653ms
+○ Compiling / ...
+Attempt 2/60: Next.js dev server not ready yet, waiting...
+Next.js dev server is ready!
+ GET / 200 in 634ms (compile: 317ms, render: 317ms)
+==========================================
+ GET / 200 in 5.7s (compile: 5.4s, render: 283ms)
+[2026-11-04 12:37:56] Completed: Waiting for Next.js dev server
+[LOG] Step: Waiting for Next.js dev server | Duration: 8s
+==========================================
+
+==========================================
+[2026-11-04 12:37:56] Starting: Health check
+==========================================
+[BUN] Performing health check...
+[BUN] Health check passed
+ GET / 200 in 42ms (compile: 5ms, render: 38ms)
+==========================================
+[2026-11-04 12:37:56] Completed: Health check
+[LOG] Step: Health check | Duration: 0s
+==========================================
+
+==========================================
+[2026-11-04 12:37:56] Starting: Starting mini-services
+==========================================
+Found mini-services directory, scanning for sub-services...
+Mini-services startup completed. Started 0 service(s).
+==========================================
+ GET / 200 in 6.8s (compile: 6.5s, render: 362ms)
+[2026-11-04 12:37:56] Completed: Starting mini-services
+[LOG] Step: Starting mini-services | Duration: 0s
+==========================================
+
+Next.js dev server is running in background (PID: 3712).
+Use 'kill 3712' to stop it.
+ GET / 200 in 50ms (compile: 6ms, render: 44ms)
+ GET / 200 in 54ms (compile: 3ms, render: 51ms)
+ GET /manifest.webmanifest 200 in 141ms (compile: 127ms, render: 14ms)
+ GET / 200 in 150ms (compile: 35ms, render: 115ms)
+ GET / 200 in 184ms (compile: 15ms, render: 169ms)
+ GET /manifest.webmanifest 200 in 12ms (compile: 8ms, render: 5ms)
+ GET / 200 in 136ms (compile: 4ms, render: 131ms)
+ GET / 200 in 122ms (compile: 3ms, render: 118ms)
+ GET / 200 in 127ms (compile: 3ms, render: 124ms)
+ GET /manifest.webmanifest 200 in 14ms (compile: 4ms, render: 10ms)
+ GET / 200 in 34ms (compile: 4ms, render: 30ms)
+ GET / 200 in 39ms (compile: 5ms, render: 34ms)
+ GET / 200 in 44ms (compile: 3ms, render: 40ms)
+ GET / 200 in 40ms (compile: 5ms, render: 35ms)
+ GET / 200 in 110ms (compile: 5ms, render: 105ms)
+ GET /manifest.webmanifest 200 in 10ms (compile: 3ms, render: 7ms)
+ GET / 200 in 162ms (compile: 5ms, render: 157ms)
+✓ Compiled in 1157ms
+✓ Compiled in 1441ms
+ GET / 200 in 589ms (compile: 139ms, render: 450ms)
+ GET /manifest.webmanifest 200 in 26ms (compile: 16ms, render: 9ms)
+✓ Compiled in 798ms
+ GET / 200 in 494ms (compile: 101ms, render: 393ms)
+ GET /manifest.webmanifest 200 in 13ms (compile: 8ms, render: 5ms)
+✓ Compiled in 524ms
+ GET / 200 in 95ms (compile: 7ms, render: 88ms)
+ GET /manifest.webmanifest 200 in 27ms (compile: 12ms, render: 16ms)
+ GET / 200 in 160ms (compile: 11ms, render: 149ms)
+ GET /manifest.webmanifest 200 in 53ms (compile: 38ms, render: 15ms)
+✓ Compiled in 372ms
+✓ Compiled in 368ms
+ GET / 200 in 502ms (compile: 165ms, render: 337ms)
+ GET /manifest.webmanifest 200 in 15ms (compile: 10ms, render: 5ms)
+✓ Compiled in 971ms
+ GET / 200 in 670ms (compile: 162ms, render: 508ms)
+ GET /manifest.webmanifest 200 in 23ms (compile: 8ms, render: 15ms)
+ GET / 200 in 71ms (compile: 4ms, render: 67ms)

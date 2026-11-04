@@ -2,71 +2,38 @@
 // @ts-nocheck
 "use client";
 import type { ReactNode } from "react";
-import SunsetVelocity from "@/components/originkit/ui/hero-57/sunset-velocity";
+import GlobeScene from "@/components/originkit/ui/terra-dusk/globe-scene";
 
 /**
- * Originkit Hero 57 — "Sunset Velocity" — re-poured for THE ATLAS.
+ * Originkit Hero 57 — "Terra Dusk" — re-poured for THE ATLAS.
  *
- * DESIGN ONLY: the animated midnight-ember highway (canvas), the
- * light melts, the sun promoted to key light and the breathing bloom.
- * The section ships ZERO texts of its own. The app slots exactly one
- * thing over the scene — the THE ATLAS wordmark — through `children`;
- * every other line of copy lives BELOW the design, on the midnight
- * canvas, lit by the afterglow.
+ * DESIGN ONLY: the living Earth (WebGL) — real satellite imagery, a low
+ * ember sun, city lights waking on the night side, stars behind — plus
+ * the light melts and the breathing bloom. The section ships ZERO texts
+ * of its own. The app slots exactly one thing over the scene — the
+ * THE ATLAS wordmark — through `children`; every other line of copy
+ * lives BELOW the design, on the midnight canvas, lit by the afterglow.
  */
 export default function SunsetHero({ children }: { children?: ReactNode }) {
   return (
     <section className="hero">
-      {/* the living scene — ember dusk, gold sun, silhouetted turbines,
-          an Atlas-orange car running the amber lane into the dark.
-          Seated HIGH: the design rides the top of the page, horizon
-          burning just under the wordmark, machine owning the asphalt */}
+      {/* the living scene — the Earth at dusk, hung just under the
+          wordmark: the sigil + wordmark own the sky, the planet owns
+          the horizon below, and it melts into the midnight canvas */}
       <div className="hero-scene">
-        <SunsetVelocity
-          background="#070509"
-          skyTop="#150a06"
-          skyHorizon="#b34912"
-          sunColor="#ffd9a0"
-          carColor="#ea580c"
-          speed={55}
-          turbines={55}
-          advanced={{
-            sunX: 74,
-            sunY: 56,
-            sunSize: 105,
-            sunGlow: 60,
-            cloudColor: "#57200e",
-            cloudOpacity: 55,
-            rimColor: "#f5c889",
-            hazeColor: "#f6b48e",
-            hazeOpacity: 46,
-            turbineFar: "#6b2d12",
-            turbineMid: "#200b06",
-            turbineNear: "#0d0503",
-            fieldColor: "#150809",
-            roadColor: "#090306",
-            laneColor: "#f59e0b",
-            carRim: "#ffd9a0",
-            wheelBlur: 60,
-            seed: 7,
-            grain: 14,
-            vignette: 40,
-            hover: 45,
-          }}
-          style={{ minWidth: 0, minHeight: 0 }}
-        />
+        <GlobeScene />
       </div>
 
-      {/* seats the floating nav up top, melts the asphalt into the
-          midnight canvas the rest of the atlas lives on */}
+      {/* seats the floating nav up top, melts the planet's underside into
+          the midnight canvas (#070509) the rest of the atlas lives on */}
       <div className="hero-fade" />
 
-      {/* the sun, promoted to the scene's key light — a tight gold halo
-          plus a wide ember wash, screen-blended over the dusk */}
+      {/* the sun, promoted to the scene's key light — a soft ember wash
+          cradling the globe, screen-blended over the dusk */}
       <div className="hero-sunlight" aria-hidden />
 
       {/* soft ink seat behind the wordmark — THE ATLAS stays ink-clean
-          even where the dusk sky burns brightest */}
+          even where the planet's limb burns brightest */}
       <div className="hero-scrim" aria-hidden />
 
       {/* golden halo breathing behind the wordmark — the sun's light

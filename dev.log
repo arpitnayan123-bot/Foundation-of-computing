@@ -1,83 +1,49 @@
 ▲ Next.js 16.1.3 (Turbopack)
 - Local:         http://localhost:3000
-- Network:       http://21.0.3.165:3000
+- Network:       http://21.0.11.79:3000
 - Environments: .env
 
 ✓ Starting...
-Attention: Next.js now collects completely anonymous telemetry regarding usage.
-This information is used to shape Next.js' roadmap and prioritize features.
-You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-https://nextjs.org/telemetry
-
-✓ Ready in 612ms
+✓ Ready in 653ms
 ○ Compiling / ...
- GET / 200 in 3.6s (compile: 3.5s, render: 71ms)
- GET / 200 in 10.8s (compile: 10.6s, render: 251ms)
- GET / 200 in 59ms (compile: 4ms, render: 55ms)
- GET / 200 in 49ms (compile: 4ms, render: 45ms)
- GET / 200 in 231ms (compile: 8ms, render: 222ms)
- GET /manifest.webmanifest 200 in 1085ms (compile: 1066ms, render: 19ms)
- GET / 200 in 265ms (compile: 6ms, render: 259ms)
- GET / 200 in 70ms (compile: 5ms, render: 65ms)
- GET / 200 in 146ms (compile: 10ms, render: 136ms)
- GET /manifest.webmanifest 200 in 8ms (compile: 4ms, render: 4ms)
- GET /api 200 in 223ms (compile: 181ms, render: 42ms)
- GET / 200 in 54ms (compile: 4ms, render: 51ms)
- GET / 200 in 54ms (compile: 4ms, render: 50ms)
- GET / 200 in 55ms (compile: 4ms, render: 51ms)
- GET / 200 in 56ms (compile: 3ms, render: 53ms)
- GET / 200 in 53ms (compile: 4ms, render: 49ms)
+ GET / 200 in 634ms (compile: 317ms, render: 317ms)
+ GET / 200 in 5.7s (compile: 5.4s, render: 283ms)
+ GET / 200 in 42ms (compile: 5ms, render: 38ms)
+ GET / 200 in 6.8s (compile: 6.5s, render: 362ms)
+ GET / 200 in 50ms (compile: 6ms, render: 44ms)
  GET / 200 in 54ms (compile: 3ms, render: 51ms)
- GET / 200 in 184ms (compile: 5ms, render: 179ms)
- GET / 200 in 466ms (compile: 9ms, render: 457ms)
- GET /manifest.webmanifest 200 in 66ms (compile: 15ms, render: 51ms)
- GET / 200 in 177ms (compile: 6ms, render: 171ms)
- GET / 200 in 55ms (compile: 4ms, render: 52ms)
- GET / 200 in 59ms (compile: 3ms, render: 56ms)
- GET / 200 in 46ms (compile: 4ms, render: 43ms)
- GET / 200 in 68ms (compile: 3ms, render: 65ms)
- GET / 200 in 56ms (compile: 5ms, render: 51ms)
- GET / 200 in 53ms (compile: 3ms, render: 50ms)
- GET / 200 in 53ms (compile: 4ms, render: 50ms)
- GET / 200 in 61ms (compile: 5ms, render: 56ms)
- GET / 200 in 53ms (compile: 3ms, render: 50ms)
-✓ Compiled in 321ms
- GET / 200 in 56ms (compile: 5ms, render: 51ms)
- GET / 200 in 55ms (compile: 4ms, render: 51ms)
- GET / 200 in 66ms (compile: 5ms, render: 61ms)
- GET / 200 in 57ms (compile: 6ms, render: 51ms)
- GET / 200 in 56ms (compile: 5ms, render: 51ms)
- GET / 200 in 52ms (compile: 4ms, render: 48ms)
- GET / 200 in 54ms (compile: 3ms, render: 51ms)
- GET / 200 in 52ms (compile: 3ms, render: 49ms)
- GET / 200 in 51ms (compile: 3ms, render: 48ms)
- GET / 200 in 64ms (compile: 4ms, render: 60ms)
- GET / 200 in 54ms (compile: 3ms, render: 51ms)
- GET / 200 in 54ms (compile: 3ms, render: 51ms)
-✓ Compiled in 389ms
- GET / 200 in 57ms (compile: 4ms, render: 53ms)
- GET / 200 in 61ms (compile: 4ms, render: 56ms)
-✓ Compiled in 555ms
-✓ Compiled in 181ms
- GET / 200 in 251ms (compile: 58ms, render: 193ms)
- GET / 200 in 57ms (compile: 4ms, render: 52ms)
-✓ Compiled in 204ms
- GET / 200 in 224ms (compile: 46ms, render: 178ms)
-✓ Compiled in 182ms
- GET / 200 in 240ms (compile: 47ms, render: 194ms)
- GET / 200 in 61ms (compile: 6ms, render: 54ms)
- GET / 200 in 55ms (compile: 3ms, render: 51ms)
- GET /manifest.webmanifest 200 in 27ms (compile: 7ms, render: 20ms)
- GET / 200 in 576ms (compile: 4ms, render: 572ms)
- GET / 200 in 195ms (compile: 6ms, render: 189ms)
-✓ Compiled in 300ms
- GET / 200 in 64ms (compile: 9ms, render: 55ms)
- GET /manifest.webmanifest 200 in 15ms (compile: 2ms, render: 12ms)
- GET / 200 in 68ms (compile: 3ms, render: 65ms)
- GET /manifest.webmanifest 200 in 21ms (compile: 17ms, render: 4ms)
- GET /manifest.webmanifest 200 in 12ms (compile: 6ms, render: 6ms)
- GET / 200 in 500ms (compile: 3ms, render: 497ms)
- GET / 200 in 162ms (compile: 3ms, render: 158ms)
- GET / 200 in 75ms (compile: 3ms, render: 72ms)
- GET / 200 in 48ms (compile: 3ms, render: 45ms)
- GET / 200 in 48ms (compile: 3ms, render: 44ms)
+ GET /manifest.webmanifest 200 in 141ms (compile: 127ms, render: 14ms)
+ GET / 200 in 150ms (compile: 35ms, render: 115ms)
+ GET / 200 in 184ms (compile: 15ms, render: 169ms)
+ GET /manifest.webmanifest 200 in 12ms (compile: 8ms, render: 5ms)
+ GET / 200 in 136ms (compile: 4ms, render: 131ms)
+ GET / 200 in 122ms (compile: 3ms, render: 118ms)
+ GET / 200 in 127ms (compile: 3ms, render: 124ms)
+ GET /manifest.webmanifest 200 in 14ms (compile: 4ms, render: 10ms)
+ GET / 200 in 34ms (compile: 4ms, render: 30ms)
+ GET / 200 in 39ms (compile: 5ms, render: 34ms)
+ GET / 200 in 44ms (compile: 3ms, render: 40ms)
+ GET / 200 in 40ms (compile: 5ms, render: 35ms)
+ GET / 200 in 110ms (compile: 5ms, render: 105ms)
+ GET /manifest.webmanifest 200 in 10ms (compile: 3ms, render: 7ms)
+ GET / 200 in 162ms (compile: 5ms, render: 157ms)
+✓ Compiled in 1157ms
+✓ Compiled in 1441ms
+ GET / 200 in 589ms (compile: 139ms, render: 450ms)
+ GET /manifest.webmanifest 200 in 26ms (compile: 16ms, render: 9ms)
+✓ Compiled in 798ms
+ GET / 200 in 494ms (compile: 101ms, render: 393ms)
+ GET /manifest.webmanifest 200 in 13ms (compile: 8ms, render: 5ms)
+✓ Compiled in 524ms
+ GET / 200 in 95ms (compile: 7ms, render: 88ms)
+ GET /manifest.webmanifest 200 in 27ms (compile: 12ms, render: 16ms)
+ GET / 200 in 160ms (compile: 11ms, render: 149ms)
+ GET /manifest.webmanifest 200 in 53ms (compile: 38ms, render: 15ms)
+✓ Compiled in 372ms
+✓ Compiled in 368ms
+ GET / 200 in 502ms (compile: 165ms, render: 337ms)
+ GET /manifest.webmanifest 200 in 15ms (compile: 10ms, render: 5ms)
+✓ Compiled in 971ms
+ GET / 200 in 670ms (compile: 162ms, render: 508ms)
+ GET /manifest.webmanifest 200 in 23ms (compile: 8ms, render: 15ms)
+ GET / 200 in 71ms (compile: 4ms, render: 67ms)

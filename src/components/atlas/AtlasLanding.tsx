@@ -536,12 +536,12 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             {/* the sigil — the logo leads: 3D-animated, seated above everything */}
             <AtlasSigil />
 
-            {/* institution — rides the sky, directly above the wordmark */}
+            {/* eyebrow 1/2 — the institution, seated tight between sigil and type */}
             <motion.span
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.12, duration: 0.7, ease: EASE }}
-              className="mt-4 flex flex-wrap items-center justify-center gap-2 rounded-full border border-[#f5c889]/20 bg-[#0a0709]/55 px-4 py-1.5 text-[.64rem] font-extrabold uppercase tracking-[.24em] text-[#c9b99f] backdrop-blur-md sm:px-5"
+              className="mt-3.5 flex flex-wrap items-center justify-center gap-2 rounded-full border border-[#f5c889]/20 bg-[#0a0709]/55 px-4 py-1.5 text-[.62rem] font-extrabold uppercase tracking-[.22em] text-[#c9b99f] backdrop-blur-md sm:px-5"
             >
               <GraduationCap className="h-3.5 w-3.5 shrink-0" style={{ color: "#f5c889" }} />
               <span className="text-[#f7ecdd]">IIT Jodhpur</span>
@@ -550,14 +550,14 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             </motion.span>
 
             {/* wordmark — sun-kissed gradient fill, lit by the scene's key light.
-                Sized down a notch and seated tight: the sigil above owns the
-                opening beat now, the type stays compact at its edge */}
+                Minimized a step and seated clear of the planet's limb: sigil →
+                eyebrow → type → tagline, one clean top-down hierarchy */}
             <h1
               aria-label="The Atlas"
-              className="atlas-lit mt-5 font-display font-black leading-[.9] tracking-tight"
+              className="atlas-lit mt-3 font-display font-black leading-[.9] tracking-tight"
             >
               <span className="sr-only">The Atlas</span>
-              <span aria-hidden className="block whitespace-nowrap text-[11.5vw] sm:text-[10.5vw] lg:text-[8.25rem]">
+              <span aria-hidden className="block whitespace-nowrap text-[9.25vw] sm:text-[8.25vw] lg:text-[6.5rem]">
                 {"THE".split("").map((ch, i) => (
                   <motion.span
                     key={`a-${i}`}
@@ -590,6 +590,23 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
                 ))}
               </span>
             </h1>
+
+            {/* tagline 2/2 — the atlas' one-line promise, closing the head
+                lockup; poured as a frosted chip (same glass as the eyebrow)
+                so it stays readable over the planet's glare, with side
+                rules that fade in from sm up */}
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.85, duration: 0.8, ease: EASE }}
+              className="mt-5 flex items-center justify-center gap-3"
+            >
+              <span aria-hidden className="hidden h-px w-7 bg-gradient-to-r from-transparent to-[#f5c889]/60 sm:block" />
+              <span className="flex items-center rounded-full border border-white/10 bg-[#0a0709]/55 px-4 py-1.5 text-[.64rem] font-bold uppercase tracking-[.24em] text-[#e3d4bd] backdrop-blur-md sm:text-[.68rem] sm:tracking-[.28em]">
+                Visual revision notes for everything
+              </span>
+              <span aria-hidden className="hidden h-px w-7 bg-gradient-to-l from-transparent to-[#f5c889]/60 sm:block" />
+            </motion.p>
           </div>
         </Hero57>
 

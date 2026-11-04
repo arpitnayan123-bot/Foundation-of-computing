@@ -1,9 +1,9 @@
 /* ============================================================
-   Originkit Hero 57 — "Sunset Velocity" — ATLAS pour.
+   Originkit Hero 57 — "Terra Dusk" — ATLAS pour.
    Design-only stylesheet: scene plumbing, light melts and the
-   lighting rig. All typographic identity (fonts, sizes, colours)
-   belongs to the app's own content — nothing text-specific
-   lives here.
+   lighting rig around the living globe. All typographic identity
+   (fonts, sizes, colours) belongs to the app's own content —
+   nothing text-specific lives here.
    ============================================================ */
 
 .hero-57 {
@@ -11,15 +11,17 @@
   position: relative;
   isolation: isolate;
 }
+/* box-sizing only — margin:0 here used to zero out the app's Tailwind
+   mt-* utilities inside the overlay (same specificity, later cascade),
+   which silently collapsed the head's vertical rhythm */
 .hero-57,
 .hero-57 * {
   box-sizing: border-box;
-  margin: 0;
 }
 
 /* the hero is the SCENE itself now — tall enough to stage the full
-   dusk (wordmark in the sky, sun on the horizon, car on the asphalt)
-   then it melts into the midnight canvas where the copy waits below */
+   dusk (wordmark in the sky, planet on the horizon below) then it
+   melts into the midnight canvas where the copy waits below */
 .hero-57 .hero {
   position: relative;
   min-height: max(620px, 82svh);
@@ -27,21 +29,34 @@
   background: #070509;
 }
 
-/* the design rides HIGH — the whole dusk starts well below the very
-   top (sunk so the sigil + wordmark get clean sky above and the car
-   never climbs into the wordmark's air). The wordmark owns the sky,
-   the sun owns the horizon, the car owns the road, and every line of
-   copy waits BELOW the design */
+/* the design rides HIGH — the whole scene starts below the very top
+   (sunk so the sigil + wordmark get clean sky above and the planet
+   never climbs into the nav's air). The wordmark owns the sky, the
+   globe owns the horizon, and every line of copy waits BELOW */
 .hero-57 .hero-scene {
   position: absolute;
   inset: 0;
   top: clamp(3.5rem, 8.5svh, 5.5rem);
 }
 
+/* the globe's band — the share of the scene the planet itself lives
+   in. Seated below the wordmark's sky (the top ~28% stays celestial),
+   running down into the melt: the disc's underside dissolves into the
+   midnight canvas like a planet setting into ink. The disc is centred
+   in this band and sized to fit it (see GlobeScene), so it never
+   clips on any screen */
+.hero-57 .hero-globe-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 27%;
+  bottom: 1.5%;
+}
+
 /* instant dusk — a pixel-true still of the scene's own first frame,
    baked from the canvas painters themselves and server-rendered
-   behind it, so the dusk (and the car) greet the very first HTML
-   paint; the live canvas covers it the moment its first frame lands */
+   behind it, so the dusk greets the very first HTML paint; the live
+   canvas covers it the moment its first frame lands */
 .hero-57 .hero-still {
   position: absolute;
   inset: 0;
@@ -61,8 +76,8 @@
     visibility 0s linear 0.45s;
 }
 
-/* ember seat for the floating nav up top + full melt of the asphalt
-   into the midnight canvas (#070509) the copy block sits on */
+/* ember seat for the floating nav up top + full melt of the planet's
+   underside into the midnight canvas (#070509) the copy block sits on */
 .hero-57 .hero-fade {
   position: absolute;
   inset: 0;
@@ -73,17 +88,17 @@
     rgba(7, 5, 9, 0.78) 0%,
     rgba(7, 5, 9, 0.3) 12%,
     rgba(7, 5, 9, 0) 30%,
-    rgba(7, 5, 9, 0) 56%,
-    rgba(7, 5, 9, 0.34) 76%,
-    rgba(7, 5, 9, 0.88) 90%,
+    rgba(7, 5, 9, 0) 58%,
+    rgba(7, 5, 9, 0.28) 78%,
+    rgba(7, 5, 9, 0.82) 92%,
     #070509 100%
   );
 }
 
 /* THE LIGHT RIG — the sun promoted to key light:
-   a tight gold halo hugging the disc + a wide ember wash spilling
-   across the dusk, screen-blended so it only ever adds light.
-   (centres track the scene's sunk horizon) */
+   a soft ember glow cradling the globe + a wide warm wash spilling
+   across the sky, screen-blended so it only ever adds light.
+   (centres track the seated globe) */
 .hero-57 .hero-sunlight {
   position: absolute;
   inset: 0;
@@ -92,20 +107,20 @@
   mix-blend-mode: screen;
   background:
     radial-gradient(
-      30% 26% at 74% 58%,
-      rgba(255, 196, 124, 0.34) 0%,
-      rgba(255, 150, 70, 0.1) 55%,
-      rgba(255, 150, 70, 0) 78%
+      30% 26% at 50% 60%,
+      rgba(255, 176, 110, 0.26) 0%,
+      rgba(255, 140, 66, 0.08) 55%,
+      rgba(255, 140, 66, 0) 78%
     ),
     radial-gradient(
-      74% 48% at 74% 63%,
-      rgba(234, 88, 12, 0.17) 0%,
+      72% 46% at 50% 64%,
+      rgba(234, 88, 12, 0.14) 0%,
       rgba(234, 88, 12, 0) 72%
     );
 }
 
 /* soft ink seat behind the wordmark zone in the sky — the type
-   stays clean even against the brightest clouds */
+   stays clean even against the brightest limb */
 .hero-57 .hero-scrim {
   position: absolute;
   inset: 0;
@@ -120,7 +135,7 @@
 }
 
 /* the app's wordmark lands here; the layer itself is click-through so
-   the scene keeps drinking the pointer (parallax + press-to-rev) */
+   the scene keeps drinking the pointer (orbit + cursor sun) */
 .hero-57 .hero-overlay {
   position: absolute;
   inset: 0;
@@ -128,15 +143,15 @@
   display: grid;
   pointer-events: none;
 }
-/* top-seated: the sigil + wordmark float in the sky above the sun —
-   seated higher than the copy-over-scene era so the sigil leads */
+/* top-seated: the sigil + wordmark float in the sky above the planet —
+   the sigil leads, the wordmark burns under it */
 .hero-57 .hero-overlay-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  padding-top: clamp(5rem, 10svh, 6rem);
+  padding-top: clamp(4.25rem, 9svh, 5rem);
   pointer-events: none;
 }
 
@@ -145,9 +160,9 @@
 .hero-57 .atlas-bloom {
   position: absolute;
   left: 50%;
-  top: 27%;
-  width: min(44rem, 92vw);
-  height: 16rem;
+  top: 26%;
+  width: min(36rem, 80vw);
+  height: 13rem;
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 1;
@@ -188,18 +203,18 @@
   }
 }
 
-/* on narrow screens the scene fits by width, so widen its layer to
-   keep the world grand while the sigil + wordmark own the sky */
+/* on narrow screens the hero shortens and the globe's band drops a
+   touch lower, so the wordmark keeps its clean sky while the planet
+   stays grand — the disc sizes to the band, so it fits by width */
 @media (max-width: 900px) {
   .hero-57 .hero {
     min-height: max(520px, 68svh);
   }
   .hero-57 .hero-scene {
     top: clamp(2.5rem, 5.5svh, 3.75rem);
-    left: 50%;
-    right: auto;
-    width: 185%;
-    transform: translateX(-50%);
+  }
+  .hero-57 .hero-globe-band {
+    top: 30%;
   }
   .hero-57 .hero-overlay-inner {
     padding-top: clamp(4.25rem, 9svh, 5.5rem);

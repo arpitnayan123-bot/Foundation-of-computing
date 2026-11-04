@@ -1048,8 +1048,8 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
   animation: sigil-sway 8.5s ease-in-out infinite;
 }
 .atlas-sigil {
-  width: clamp(4rem, 9.5svh, 5.75rem);
-  height: clamp(4rem, 9.5svh, 5.75rem);
+  width: clamp(3.4rem, 8svh, 4.5rem);
+  height: clamp(3.4rem, 8svh, 4.5rem);
   border-radius: 24%;
   box-shadow:
     0 22px 48px -16px rgba(0, 0, 0, 0.85),
