@@ -59,3 +59,4 @@ tool-results/
 # the narrator — generated briefings + spoken bites (never commit)
 /db/narration-script/
 /db/narration-audio/
+.initial_snapshot.json

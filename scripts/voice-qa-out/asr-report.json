@@ -1,0 +1,70 @@
+[
+  {
+    "voice": "tongtong",
+    "volume": 1,
+    "bytes": 1065936,
+    "transcript": "Welcome to the foundation of computing. Computing is the art of turning a messy real world problem into a clear step by step solution that a machine can follow. In this lecture, we will meet the input process output model, the heartbeat of every program you will ever write."
+  },
+  {
+    "voice": "tongtong",
+    "volume": 1.6,
+    "bytes": 854736,
+    "transcript": "Welcome to the foundation of computing. Computing is the art of turning a messy real world problem into a clear step by step solution that a machine can follow. In this lecture, we will meet the input process output model, the heartbeat of every program you will ever write."
+  },
+  {
+    "voice": "xiaochen",
+    "volume": 1,
+    "bytes": 907536,
+    "transcript": "Welcome to the foundation of computing. Computing is the art of turning a messy real world problem into a clear step by step solution that a machine can follow. In this lecture, we will meet the input process output model, the heartbeat of every program you will ever write."
+  },
+  {
+    "voice": "xiaochen",
+    "volume": 1.6,
+    "bytes": 856656,
+    "transcript": "Welcome to the foundation of computing. Computing is the art of turning a messy, real world problem into a clear step by step solution that a machine can follow. In this lecture we will meet the input process output model, the heartbeat of every program you will ever write."
+  },
+  {
+    "voice": "chuichui",
+    "volume": 1,
+    "bytes": 918096,
+    "transcript": "Welcome to the foundation of computing. Computing is the art of turning a messy real world problem into a clear step by step solution that a machine can follow. In this lecture, we will meet the input process output model, the heartbeat of every program you will ever write."
+  },
+  {
+    "voice": "chuichui",
+    "volume": 1.6,
+    "bytes": 933456,
+    "transcript": "Welcome to the foundation of computing. Computing is the art of turning a messy real world problem into a clear step by step solution that a machine can follow. In this lecture, we will meet the input process output model, the heartbeat of every program you will ever write."
+  },
+  {
+    "voice": "luodo",
+    "volume": 1,
+    "bytes": 1496016,
+    "transcript": "(asr failed: API request failed with status 400: {\"error\":{\"code\":\"1214\",\"message\":\"transcriptions文件时长限制为0-30秒\"}})"
+  },
+  {
+    "voice": "luodo",
+    "volume": 1.6,
+    "bytes": 1682256,
+    "transcript": "(asr failed: API request failed with status 429: {\"error\":\"Too many requests, please try again later\"})"
+  },
+  {
+    "voice": "kazi",
+    "volume": 1,
+    "error": "API request failed with status 429: {\"error\":\"Too many requests, please try again later\"}"
+  },
+  {
+    "voice": "kazi",
+    "volume": 1.6,
+    "error": "API request failed with status 429: {\"error\":\"Too many requests, please try again later\"}"
+  },
+  {
+    "voice": "jam",
+    "volume": 1,
+    "error": "API request failed with status 429: {\"error\":\"Too many requests, please try again later\"}"
+  },
+  {
+    "voice": "jam",
+    "volume": 1.6,
+    "error": "API request failed with status 429: {\"error\":\"Too many requests, please try again later\"}"
+  }
+]
