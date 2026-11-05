@@ -33,11 +33,10 @@ export function sameOrigin(req: Request): NextResponse | null {
   /* Behind the preview gateway the server's own Host is the internal
      name (e.g. localhost:3000) while the browser's Origin is the public
      preview domain — a naive Host===Origin compare 403s every in-app
-     call (the radio's "could not compose the briefing" bug). So accept
-     the Origin when it matches ANY host the request chain claims:
-     the Host header, x-forwarded-host (proxies may send a chain), or
-     the request URL's own host — plus the platform's preview gateway
-     domain, which is where this app is actually served. */
+     call. So accept the Origin when it matches ANY host the request
+     chain claims: the Host header, x-forwarded-host (proxies may send
+     a chain), or the request URL's own host — plus the platform's
+     preview gateway domain, which is where this app is actually served. */
   const candidates = new Set<string>();
   const add = (h: string | null | undefined) => {
     const v = (h ?? "").split(",")[0].trim().toLowerCase();

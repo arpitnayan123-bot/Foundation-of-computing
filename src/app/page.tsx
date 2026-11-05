@@ -20,7 +20,6 @@ import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { AppBoundary } from "@/components/atlas/AppBoundary";
 import { AtlasLanding } from "@/components/atlas/AtlasLanding";
 import { CommandPalette } from "@/components/atlas/CommandPalette";
-import { RevisionRadio } from "@/components/atlas/RevisionRadio";
 import { SUBJECT_IDS } from "@/components/atlas/subjects";
 
 /* ============================================================
@@ -218,8 +217,6 @@ export default function Page() {
       <AppBoundary>
         {/* ⌘K palette — global, works on the landing and inside every shelf */}
         <CommandPalette />
-        {/* the revision radio — the atlas reads the current window aloud */}
-        <RevisionRadio />
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={viewKey}

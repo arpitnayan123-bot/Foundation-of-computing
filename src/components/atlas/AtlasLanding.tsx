@@ -701,8 +701,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             >
               This is not a notes site — it&apos;s your syllabus rebuilt as an experience:
               diagrams that move, machines you can poke, exams you can actually survive,
-              a host named Tara who explains every lecture out loud, and a real CPython
-              kernel living in this tab.{" "}
+              and a real CPython kernel living in this tab.{" "}
               <span className="text-[#f7ecdd]">Not PDFs. Atlas pages.</span>
             </motion.p>
 
@@ -760,7 +759,6 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
                   "diagrams that dance",
                   "machines you can poke",
                   "exams you can survive",
-                  "tara reads it out loud",
                   "zero pdf energy",
                   "built different",
                   "cpython 3.12 in your tab",
@@ -791,8 +789,8 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             </h2>
             <p className="mt-4 max-w-2xl text-[.95rem] leading-relaxed text-[#a89a86] md:text-base">
               Semester 1 is live — one glass shelf, six subjects, every row lit by its
-              own sigil and one tap away from explaining itself out loud. Semester 2
-              sits reserved below, waiting for its syllabus.
+              own sigil, one tap away from the notes. Semester 2 sits reserved below,
+              waiting for its syllabus.
             </p>
           </Rise>
 

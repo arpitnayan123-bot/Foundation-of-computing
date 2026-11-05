@@ -322,7 +322,7 @@ function WeatherCard() {
           </p>
           <p className="text-[.78rem] leading-relaxed text-[#a89a86]">
             {signal.code >= 61
-              ? "Rain outside — the radio and a warm chair will do nicely."
+              ? "Rain outside — a warm chair and one more chapter will do nicely."
               : "Good light for one more chapter before the day folds."}
           </p>
         </>
