@@ -46,6 +46,7 @@ import { EbhManagementTaylorSection, EbhIrImpactSection, EbhManagementFayolSecti
 import { EbhWorldWarsSection, EbhIndianBusinessSection } from "@/components/ebh/EbhParts8";
 import { EbhExamWindow } from "@/components/ebh/EbhExamWindow";
 import { EBH_EXAM_BANKS, EBH_EXAM_GROUPS, EBH_TOTAL_QUESTIONS, type EbhExamGroup } from "@/components/ebh/questions";
+import { ShelfQuickNav } from "@/components/atlas/ShelfQuickNav";
 import {
   EBH_LECTURES, EBH_ALL_CHAPTER_IDS, EBH_DEFAULT_LECTURE,
   lectureById, lectureOfChapter, type EbhLecture,
@@ -461,6 +462,7 @@ function TopNav({
 
           {/* right cluster — print + chapter index (small screens) */}
           <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
+            <ShelfQuickNav variant="nav" />
             <button
               type="button"
               onClick={() => window.print()}
@@ -526,6 +528,7 @@ function TopNav({
                 <X className="h-4.5 w-4.5" />
               </button>
             </div>
+            <ShelfQuickNav variant="menu" onAfter={() => setMobileOpen(false)} />
             <div className="flex-1 overflow-y-auto px-4 pb-10 pt-2">
               {GROUPS.map((group, gi) => (
                 <motion.div

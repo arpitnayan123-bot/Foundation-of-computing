@@ -41,6 +41,7 @@ import {
 } from "@/components/atb/AtbParts10";
 import { AtbExamWindow } from "@/components/atb/AtbExamWindow";
 import { ATB_EXAM_BANKS, ATB_EXAM_GROUPS, ATB_TOTAL_QUESTIONS, type AtbExamGroup } from "@/components/atb/questions";
+import { ShelfQuickNav } from "@/components/atlas/ShelfQuickNav";
 import { ATB_LECTURES, ATB_ALL_CHAPTER_IDS, ATB_DEFAULT_LECTURE, lectureById, lectureOfChapter, type AtbLecture } from "@/components/atb/lectures";
 
 /* ============================================================
@@ -504,6 +505,7 @@ function TopNav({
 
           {/* right cluster — chapter index (small screens) */}
           <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
+            <ShelfQuickNav variant="nav" />
             <button
               type="button"
               onClick={() => window.print()}
@@ -569,6 +571,7 @@ function TopNav({
                 <X className="h-4.5 w-4.5" />
               </button>
             </div>
+            <ShelfQuickNav variant="menu" onAfter={() => setMobileOpen(false)} />
             <div className="flex-1 overflow-y-auto px-4 pb-10 pt-2">
               {GROUPS.map((group, gi) => (
                 <motion.div

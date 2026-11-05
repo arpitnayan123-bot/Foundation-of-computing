@@ -23,7 +23,8 @@
    ============================================================ */
 
 import { NextResponse } from "next/server";
-import ZAI from "z-ai-web-dev-sdk";
+import { boundedChat } from "@/lib/model-call";
+import { rateLimit, sameOrigin } from "@/lib/api-guard";
 import corpus from "@/lib/search-corpus.json";
 import { CHAPTER_INDEX } from "@/lib/chapter-index";
 
@@ -76,6 +77,8 @@ function parseCards(raw: string, count: number): DraftCard[] {
 }
 
 export async function POST(req: Request) {
+  const guard = sameOrigin(req) ?? rateLimit(req, "cards", 15, 60_000);
+  if (guard) return guard;
   let body: unknown;
   try {
     body = await req.json();
@@ -149,12 +152,8 @@ export async function POST(req: Request) {
   ];
 
   try {
-    const zai = await ZAI.create();
-    const completion = (await zai.chat.completions.create({ messages })) as {
-      choices?: Array<{ message?: { content?: unknown } }>;
-    };
-    const content = completion?.choices?.[0]?.message?.content;
-    if (typeof content !== "string" || !content.trim()) {
+    const content = await boundedChat(messages);
+    if (!content) {
       return bad("The model returned an empty reply — try again later.", 502);
     }
     const cards = parseCards(content, n);

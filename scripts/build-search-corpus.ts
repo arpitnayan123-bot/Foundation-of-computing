@@ -53,6 +53,7 @@ import * as AtbParts6 from "../src/components/atb/AtbParts6";
 import * as AtbParts7 from "../src/components/atb/AtbParts7";
 import * as AtbParts8 from "../src/components/atb/AtbParts8";
 import * as AtbParts9 from "../src/components/atb/AtbParts9";
+import * as AtbParts10 from "../src/components/atb/AtbParts10";
 
 /* ---- FA — mirror FaApp's imports ---- */
 import * as FaParts1 from "../src/components/fa/FaParts1";
@@ -72,6 +73,10 @@ import * as EbhParts1 from "../src/components/ebh/EbhParts1";
 import * as EbhParts2 from "../src/components/ebh/EbhParts2";
 import * as EbhParts3 from "../src/components/ebh/EbhParts3";
 import * as EbhParts4 from "../src/components/ebh/EbhParts4";
+import * as EbhParts5 from "../src/components/ebh/EbhParts5";
+import * as EbhParts6 from "../src/components/ebh/EbhParts6";
+import * as EbhParts7 from "../src/components/ebh/EbhParts7";
+import * as EbhParts8 from "../src/components/ebh/EbhParts8";
 
 /* ---- STM — mirror StmApp's imports ---- */
 /* ---- MKTG — mirror MktgApp's imports ---- */
@@ -142,9 +147,9 @@ const MAX_QUESTION_CHARS = 1_600;
  *  grouped exactly the way each subject App composes them */
 const SHELF_PART_MODULES: Record<string, Record<string, unknown>[]> = {
   foc: [FocPart1, FocPart2, FocPart3, FocPart4, FocPart5, FocPart6, FocPart7, FocPart8, FocPart9, FocPart10, FocParts1, FocParts2, FocParts3, FocParts4, FocParts5, FocParts6, FocParts7, FocParts8, FocParts9],
-  atb: [AtbParts1, AtbParts2, AtbParts3, AtbParts4, AtbParts5, AtbParts6, AtbParts7, AtbParts8, AtbParts9],
+  atb: [AtbParts1, AtbParts2, AtbParts3, AtbParts4, AtbParts5, AtbParts6, AtbParts7, AtbParts8, AtbParts9, AtbParts10],
   fa: [FaParts1, FaParts2, FaParts3, FaParts4, FaParts5, FaParts6, FaParts7, FaParts8, FaParts9, FaParts10, FaParts11],
-  ebh: [EbhParts1, EbhParts2, EbhParts3, EbhParts4],
+  ebh: [EbhParts1, EbhParts2, EbhParts3, EbhParts4, EbhParts5, EbhParts6, EbhParts7, EbhParts8],
   stm: [StmParts1, StmParts2, StmParts3, StmParts4, StmParts5, StmParts6, StmParts7, StmParts8, StmParts9, StmParts10, StmParts11, StmParts12, StmParts13, StmParts14, StmParts15],
   mktg: [MktgParts1, MktgParts2, MktgParts3, MktgParts4],
 };

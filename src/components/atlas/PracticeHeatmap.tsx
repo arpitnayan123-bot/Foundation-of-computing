@@ -70,14 +70,14 @@ export function PracticeHeatmap({ hits }: { hits: Map<string, DayHit> }) {
         </span>
       </div>
       <div
-        className="mt-2.5 grid grid-flow-col grid-rows-7 gap-[3px]"
+        className="mt-2.5 grid grid-flow-col grid-rows-7 gap-[2px] sm:gap-[3px]"
         role="img"
         aria-label={`Practice heatmap: the last ${WEEKS} weeks, ${grid.active} active day${grid.active === 1 ? "" : "s"}`}
       >
         {grid.cells.map((c) => (
           <span
             key={c.key}
-            className={`h-3 w-3 rounded-[3px] ${c.today ? "ring-1 ring-white/30" : ""} ${c.future ? "opacity-0" : ""}`}
+            className={`h-2.5 w-2.5 rounded-[3px] sm:h-3 sm:w-3 ${c.today ? "ring-1 ring-white/30" : ""} ${c.future ? "opacity-0" : ""}`}
             style={{ background: tier(c.a) }}
             title={
               c.future

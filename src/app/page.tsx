@@ -14,12 +14,13 @@
    src/components/atlas/subjects.ts, then add a case below.
    ============================================================ */
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { AppBoundary } from "@/components/atlas/AppBoundary";
 import { AtlasLanding } from "@/components/atlas/AtlasLanding";
 import { CommandPalette } from "@/components/atlas/CommandPalette";
+import { RevisionRadio } from "@/components/atlas/RevisionRadio";
 import { SUBJECT_IDS } from "@/components/atlas/subjects";
 
 /* ============================================================
@@ -81,7 +82,8 @@ type View =
   | { name: "atlas" }
   | { name: "ledger" }
   | { name: "cockpit" }
-  | { name: "subject"; id: string };
+  | { name: "subject"; id: string }
+  | { name: "reserved"; id: string };
 
 const SUBJECT_ROUTE = "#/subject/";
 
@@ -95,6 +97,9 @@ function parseRouteHash(hash: string): View | null {
   if (hash.startsWith(SUBJECT_ROUTE)) {
     const id = hash.slice(SUBJECT_ROUTE.length);
     if (SUBJECT_IDS.includes(id)) return { name: "subject", id };
+    // a shelf deep-linked before its syllabus drops — show the honest
+    // reserved bay (with a way back) instead of silently bouncing home
+    return { name: "reserved", id };
   }
   return { name: "atlas" }; // unknown route → the shelf
 }
@@ -107,7 +112,72 @@ function currentView(): View {
 export default function Page() {
   const [view, setView] = useState<View>({ name: "atlas" });
   const viewKey =
-    view.name === "subject" ? `subject-${view.id}` : view.name;
+    view.name === "subject" || view.name === "reserved" ? `${view.name}-${view.id}` : view.name;
+
+  /* ---- the in-app trail + edge-swipe back (mobile) ----
+     A right-edge swipe walks the trail backwards — previous window,
+     exactly one gesture — and never exits the site. The trail only
+     records in-app hashes; a direct deep link falls home to the map. */
+  const trailRef = useRef<string[]>([]);
+  const swallowRef = useRef(false);
+
+  useEffect(() => {
+    trailRef.current.push(window.location.hash || "#/atlas");
+    const onHash = () => {
+      if (swallowRef.current) {
+        swallowRef.current = false;
+        return;
+      }
+      trailRef.current.push(window.location.hash || "#/atlas");
+      if (trailRef.current.length > 30) trailRef.current.shift();
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  useEffect(() => {
+    let sx = 0;
+    let sy = 0;
+    let t0 = 0;
+    let armed = false;
+    const onStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1) {
+        armed = false;
+        return;
+      }
+      const t = e.touches[0];
+      sx = t.clientX;
+      sy = t.clientY;
+      t0 = Date.now();
+      armed = sx <= 28; // the left edge arms the gesture
+    };
+    const onEnd = (e: TouchEvent) => {
+      if (!armed || e.changedTouches.length !== 1) return;
+      armed = false;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - sx;
+      const dy = t.clientY - sy;
+      if (dx < 90 || Math.abs(dy) > 80 || Date.now() - t0 > 800) return;
+      const trail = trailRef.current;
+      let target: string;
+      if (trail.length >= 2) {
+        trail.pop(); // the window we're leaving
+        const candidate = trail[trail.length - 1];
+        target = candidate === window.location.hash ? "#/atlas" : candidate;
+      } else {
+        target = "#/atlas"; // deep-linked straight in — the map is home
+      }
+      swallowRef.current = true; // the back-step must not re-enter the trail
+      window.location.hash = target;
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("touchstart", onStart, { passive: true });
+    window.addEventListener("touchend", onEnd, { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", onStart);
+      window.removeEventListener("touchend", onEnd);
+    };
+  }, []);
 
   useEffect(() => {
     // initial route sync — async so the first paint stays hydration-stable
@@ -148,6 +218,8 @@ export default function Page() {
       <AppBoundary>
         {/* ⌘K palette — global, works on the landing and inside every shelf */}
         <CommandPalette />
+        {/* the revision radio — the atlas reads the current window aloud */}
+        <RevisionRadio />
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={viewKey}
@@ -164,6 +236,9 @@ export default function Page() {
             ) : view.name === "cockpit" ? (
               // the cockpit — today's flight plan + ask the atlas
               <CockpitView onExitAtlas={exitToAtlas} />
+            ) : view.name === "reserved" ? (
+              // a shelf deep-linked before its syllabus dropped — honest bay
+              <AtlasFallback id={view.id} onBack={exitToAtlas} />
             ) : view.id === "foc" ? (
               <FocApp onExitAtlas={exitToAtlas} />
             ) : view.id === "atb" ? (
@@ -181,8 +256,8 @@ export default function Page() {
               // shelf 06 — Principles of Marketing, the sixth live subject
               <MktgApp onExitAtlas={exitToAtlas} />
             ) : (
-              // reserved shelf reached by URL — send the reader back to the map
-              <AtlasFallback id={view.id} onBack={exitToAtlas} />
+              // truly unroutable — send the reader back to the map
+              <AtlasFallback id={view.name} onBack={exitToAtlas} />
             )}
           </motion.div>
         </AnimatePresence>
@@ -195,10 +270,11 @@ function AtlasFallback({ id, onBack }: { id: string; onBack: () => void }) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-5 bg-[#070509] px-6 text-center">
       <p className="font-display text-2xl font-black text-[#f7ecdd] md:text-4xl">
-        Shelf <span className="atlas-sheen">{id.replace("shelf-", "")}</span> is still reserved.
+        Shelf <span className="atlas-sheen">{id.toUpperCase()}</span> is still reserved.
       </p>
       <p className="max-w-md text-[.92rem] leading-relaxed text-[#a89a86]">
         This subject hasn&apos;t been rebuilt for the atlas yet — its PDF hasn&apos;t dropped.
+        The bay is poured and waiting.
       </p>
       <button
         type="button"

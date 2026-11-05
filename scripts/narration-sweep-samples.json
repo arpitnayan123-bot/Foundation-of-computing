@@ -1,0 +1,38 @@
+[
+  {
+    "tag": "foc COURSE",
+    "words": 121,
+    "grounded": 1,
+    "script": "Welcome to Foundations of Computing! This course transforms you from a passive tech user into an active developer. You'll go from understanding computing basics to building your own machine learning app. The journey starts with computing fundamentals—what it is, how it thinks, and what it's made of. Then you'll dive into Python, the world's most popular programming language. Python reads like English, making it super accessible. Next, you'll learn to turn raw numbers into meaningful visual stories. Finally, you'll build a sentiment analysis tool that determines if reviews are positive or negative. By the end, you'll have created something real, just like the apps you use every day. Ready to start your coding adventure? Open the first lecture and let's begin!"
+  },
+  {
+    "tag": "foc L1",
+    "words": 128,
+    "grounded": 1,
+    "script": "Hey there! Welcome to Lecture 1 of Foundations of Computing — the start of your journey from tech user to developer. This course will transform how you see technology. By the end, you'll build apps like the ones you use daily. We've got four clear goals: computing basics, Python programming, data visualization, and a real-world sentiment analysis project. Python is our choice because it's the world's most popular language, powers AI, reads like English, and needs no advanced math. Here's a sneak peek: with just eight lines of code, you'll analyze if a review is positive or negative. You'll start with fundamentals like the IPO model and build up to that final project. Next lecture, we dive deeper into computing fundamentals. Get ready to think like a developer!"
+  },
+  {
+    "tag": "foc L2",
+    "words": 127,
+    "grounded": 3,
+    "script": "Hey there! Welcome to Lecture 2 of Foundations of Computing — What Is Computing? The IPO Model. So, computing isn't just about laptops and phones—it's been around for thousands of years, from abacus to human computers during WWII. The core idea? Every computing system follows one simple pattern: Input → Process → Output. Think of your favorite app—it's all about taking data, doing something with it, and giving you back a result. Now, computing rests on four pillars: decomposing problems, finding patterns, abstraction, and algorithms. And remember, data alone isn't useful—it becomes information, then knowledge, and finally wisdom. That's the DIKW ladder in action. Next up, we'll dive deeper into these pillars and see how they connect. Try spotting the IPO model in your daily apps—it's everywhere!"
+  },
+  {
+    "tag": "foc L3",
+    "words": 138,
+    "grounded": 1,
+    "script": "Hey there, welcome to Lecture 3 of Foundations of Computing — Data, Classified. So, data isn't just one big blob; it comes in different flavors, and knowing which one you're dealing with is crucial. First, by format: structured data sits neatly in rows and columns like Excel sheets, while unstructured data—think text or images—makes up about 80% of our data world. Then, across time: cross-sectional is a snapshot, panel tracks many subjects over periods, and time series follows one thing over time. Finally, by nature: quantitative is measurable, like height or weight, while qualitative is categorical, like colors or opinions. Why does this matter? Because you can't average blood types or calculate trends from a single snapshot. Get this classification right, and your analysis will actually make sense. Next up, we'll dive deeper into quantitative data types—stay tuned!"
+  },
+  {
+    "tag": "foc L4",
+    "words": 118,
+    "grounded": 1,
+    "script": "Hey there, welcome to Lecture 4 of Foundations of Computing — Programming in the Age of AI. So why learn to code when AI can vibe code everything? It's tempting, right? Day 1 feels amazing—fast shipping, quick demos, no overthinking. But by Day 30? The tower crumbles. Tech debt, bugs, exposed keys—vibe debugging becomes a horror story. The iceberg analogy hits hard: above water is the happy path demo; below is production reality with Kubernetes, Docker, auth, monitoring. AI's your junior builder, but you're the architect. You design, judge, and own it. Accountability stops with you. Next up, we'll dive into the evaluation scheme and explore why big tech companies rehired after AI layoffs. Keep building, keep learning!"
+  },
+  {
+    "tag": "foc L5",
+    "words": 131,
+    "grounded": 1,
+    "script": "Hey there! Welcome to Lecture 5 of Foundations of Computing — Algorithms, the Recipes Machines Follow. So what's an algorithm? Think of it as a super precise recipe that solves problems step by step. Like making tea: boil water, add leaves, wait, then add milk. Simple, right? But formal algorithms need five key properties. First, finiteness—they must end, no infinite loops. Second, definiteness—each step must be crystal clear. Third, input—what goes in. Fourth, output—what comes out. And fifth, effectiveness—each step must do something. Remember that odd/even check? It reads a number, decides if it's even or odd, and stops. That's the essence! Al-Khwarizmi, a 9th-century Persian mathematician, gave us this concept. Next up, we'll dive deeper into how these recipes power everything from sorting your feed to complex computations. Keep exploring!"
+  }
+]

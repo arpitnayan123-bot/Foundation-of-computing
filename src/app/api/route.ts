@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
-export async function GET() {
-  return NextResponse.json({ message: "Hello, world!" });
+/* the front door — a quiet health line. Reveals nothing about
+   internals; anything sensitive lives behind the guarded routes. */
+export function GET() {
+  return NextResponse.json({ ok: true, service: "the-atlas" });
 }

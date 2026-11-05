@@ -389,7 +389,9 @@ function TimeMachine() {
   const [mode, setMode] = useState<string>("panel");
   const subjects = ["Asha", "Bilal", "Chen", "Divya"];
   const periods = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
-  const cells: Record<string, TimeCell[]> = {
+  /* the sample is the DATA — draw it once and keep it: re-renders and
+     mode toggles must never re-roll the cross-section numbers */
+  const [cells] = useState<Record<string, TimeCell[]>>(() => ({
     cross: subjects.map((s) => ({ subject: s, periods: [72 + Math.floor(Math.random() * 20), null, null, null, null, null] })),
     panel: subjects.map((s, si) => ({
       subject: s,
@@ -399,7 +401,7 @@ function TimeMachine() {
       subject: s,
       periods: periods.map((_, pi) => 50 + pi * 6),
     })),
-  };
+  }));
   const shown = subjects.map((s, si) => ({
     subject: s,
     periods:

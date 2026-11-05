@@ -59,6 +59,7 @@ import {
 } from "@/components/mktg/MktgParts4";
 import { MktgExamWindow } from "@/components/mktg/MktgExamWindow";
 import { MKTG_EXAM_BANKS, MKTG_EXAM_GROUPS, MKTG_TOTAL_QUESTIONS, type MktgExamGroup } from "@/components/mktg/questions";
+import { ShelfQuickNav } from "@/components/atlas/ShelfQuickNav";
 import {
   MKTG_LECTURES, MKTG_ALL_CHAPTER_IDS, MKTG_DEFAULT_LECTURE, MKTG_GROUPS,
   lectureById, lectureOfChapter, type MktgLecture,
@@ -419,6 +420,7 @@ function TopNav({
 
           {/* right cluster */}
           <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
+            <ShelfQuickNav variant="nav" />
             <button
               type="button"
               onClick={() => window.print()}
@@ -484,6 +486,7 @@ function TopNav({
                 <X className="h-4.5 w-4.5" />
               </button>
             </div>
+            <ShelfQuickNav variant="menu" onAfter={() => setMobileOpen(false)} />
             <div className="flex-1 overflow-y-auto px-4 pb-10 pt-2">
               {MKTG_GROUPS.map((group, gi) => (
                 <motion.div

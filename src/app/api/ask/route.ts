@@ -26,7 +26,8 @@
 
 import { NextResponse } from "next/server";
 import MiniSearch from "minisearch";
-import ZAI from "z-ai-web-dev-sdk";
+import { rateLimit, sameOrigin } from "@/lib/api-guard";
+import { boundedChat } from "@/lib/model-call";
 import corpus from "@/lib/search-corpus.json";
 
 export const dynamic = "force-dynamic";
@@ -90,6 +91,8 @@ function retrieve(question: string): CorpusChapter[] {
 }
 
 export async function POST(req: Request) {
+  const guard = sameOrigin(req) ?? rateLimit(req, "ask", 20, 60_000);
+  if (guard) return guard;
   let body: unknown;
   try {
     body = await req.json();
@@ -178,12 +181,8 @@ export async function POST(req: Request) {
   ];
 
   try {
-    const zai = await ZAI.create();
-    const completion = (await zai.chat.completions.create({ messages })) as {
-      choices?: Array<{ message?: { content?: unknown } }>;
-    };
-    const content = completion?.choices?.[0]?.message?.content;
-    if (typeof content !== "string" || !content.trim()) {
+    const content = await boundedChat(messages);
+    if (!content) {
       return bad("The tutor drew a blank — try again in a moment.", 502);
     }
     return NextResponse.json({

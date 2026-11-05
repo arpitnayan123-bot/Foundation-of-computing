@@ -1012,6 +1012,38 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
 .atlas-live-dot { animation: pulseGlow 2.4s ease-in-out infinite; }
 
 /* ============================================================
+   THE REVISION RADIO — chrome. The radio mark itself (equalizer,
+   status strip) animates in GearHost.tsx via framer-motion; the
+   keyframes here carry only the orb's orbit badge and the
+   composing ping.
+   ============================================================ */
+@keyframes radioOrbit { to { transform: rotate(360deg); } }
+@keyframes radioRing {
+  0% { transform: scale(.82); opacity: .55; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+.radio-badge-orbit { animation: radioOrbit 16s linear infinite; transform-box: fill-box; transform-origin: center; }
+.radio-ring-ping { animation: radioRing 1.7s ease-out infinite; }
+
+/* the collapsed orb — a tilted stage card, not a round dot */
+.gear-orb-btn {
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(245,158,11,.10), transparent 55%),
+    linear-gradient(165deg, rgba(16,10,20,.96), rgba(22,12,7,.97));
+  backdrop-filter: blur(14px);
+  transform: perspective(30rem) rotateY(-7deg);
+  transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;
+}
+.gear-orb-btn:hover {
+  transform: perspective(30rem) rotateY(0deg) scale(1.05);
+  box-shadow: 0 22px 60px -18px rgba(0,0,0,.95);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gear-orb-btn { transform: none; }
+  .radio-badge-orbit, .radio-ring-ping { animation: none; }
+}
+
+/* ============================================================
    THE ATLAS SIGIL — the logo, staged in 3D above the wordmark.
    The first thing the eye meets: a floating badge swaying in
    perspective space under a breathing gold aura, its ground
@@ -1585,3 +1617,75 @@ html.atlas-active :focus-visible,
 }
 
 /* sigil rules v2 */
+
+/* ============================================================
+   PRINT — every window prints as a clean paper cheat sheet.
+   The shelf chrome (navs, fabs, ambience) never prints; the
+   midnight canvas dissolves to paper; wide tables reflow to
+   the sheet instead of clipping. The Print buttons in every
+   shelf TopNav hand the reader a real revision sheet now.
+   ============================================================ */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  /* chrome never prints — navs (TopNavs, pill navs), radios,
+     ambience, ghost type. NOTE: <header>/<footer> are NOT hidden —
+     chapter title blocks use them and must print. */
+  nav,
+  [data-print="hide"],
+  .atlas-bg,
+  .atlas-noise,
+  .atlas-vignette,
+  .atlas-grid,
+  .marquee-track,
+  .glass-sweep,
+  .amb-scan,
+  .amb-shimmer,
+  .glass-gloss,
+  .text-ghost {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+  }
+
+  * {
+    color: #1c1917 !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    border-color: #d6d3d1 !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* wide scrolls reflow to the sheet instead of clipping */
+  [class*="overflow-x"] {
+    overflow: visible !important;
+  }
+  [class*="min-w-"] {
+    min-width: 0 !important;
+  }
+
+  /* keep cards and machines from splitting mid-thought */
+  section,
+  article,
+  .card-glass {
+    break-inside: avoid-page;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  /* sticky/fixed positioning is meaningless on paper */
+  .fixed,
+  .sticky {
+    position: static !important;
+  }
+}

@@ -55,3 +55,7 @@ server.log
 # scratch from local sessions
 tool-results/
 /Foundation-of-computing
+
+# the narrator — generated briefings + spoken bites (never commit)
+/db/narration-script/
+/db/narration-audio/

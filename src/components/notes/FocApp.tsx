@@ -62,6 +62,7 @@ import { PyReadyToast } from "@/components/notes/ui";
 import { PythonLab } from "@/components/notes/Playground";
 import { ExamWindow } from "@/components/notes/ExamWindow";
 import { EXAM_BANKS, EXAM_GROUPS, TOTAL_QUESTIONS, type ExamGroup } from "@/components/notes/questions";
+import { ShelfQuickNav } from "@/components/atlas/ShelfQuickNav";
 
 /* shelf 01 palette — deep ember & gold on ivory paper */
 const EMBER = "#c2410c";
@@ -503,6 +504,7 @@ function TopNav({
 
           {/* right cluster — Python Lab (replaces the old LIVE PYTHON chip) */}
           <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
+            <ShelfQuickNav variant="nav" />
             <button
               type="button"
               onClick={() => window.print()}
@@ -592,6 +594,7 @@ function TopNav({
                 <X className="h-4.5 w-4.5" />
               </button>
             </div>
+            <ShelfQuickNav variant="menu" onAfter={() => setMobileOpen(false)} />
             <div className="flex-1 overflow-y-auto px-4 pb-10 pt-2">
               {GROUPS.map((group, gi) => (
                 <motion.div
