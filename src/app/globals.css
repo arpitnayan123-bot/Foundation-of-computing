@@ -547,6 +547,8 @@ details.drill .drill-body { padding: .4rem 1.1rem 1rem; }
 .nav-link {
   white-space: nowrap; font-size: .78rem; font-weight: 600; color: #5d4a35;
   padding: .4rem .8rem; border-radius: 999px;
+  /* thumb floor — the chip strip is the primary chapter nav on phones */
+  min-height: 2.25rem; display: inline-flex; align-items: center;
   background: rgba(255, 255, 255, .42);
   border: 1px solid rgba(255, 255, 255, .55);
   transition: all .25s;

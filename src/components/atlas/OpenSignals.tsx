@@ -73,7 +73,7 @@ function NameTag({ label, href }: { label: string; href: string }) {
 }
 
 const cardClass =
-  "flex h-full flex-col gap-2.5 rounded-[1.25rem] border border-white/10 bg-black/70 p-5 transition-colors duration-500 hover:border-white/20";
+  "flex h-full min-w-0 flex-col gap-2.5 break-words rounded-[1.25rem] border border-white/10 bg-black/70 p-5 transition-colors duration-500 hover:border-white/20";
 
 const tagline =
   "text-[.56rem] font-black uppercase tracking-[.22em] text-[#8d7b63]";

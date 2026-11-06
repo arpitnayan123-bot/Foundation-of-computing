@@ -646,7 +646,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
             type="button"
             onClick={onExitAtlas}
             aria-label="Back to the atlas"
-            className="flex h-8 items-center gap-1.5 rounded-full border border-white/10 bg-white/[.05] px-3 text-[.68rem] font-black uppercase tracking-[.16em] text-[#e9d7bf] transition hover:bg-white/[.12]"
+            className="relative flex min-h-[44px] items-center gap-1.5 rounded-full border border-white/10 bg-white/[.05] px-3 text-[.68rem] font-black uppercase tracking-[.16em] text-[#e9d7bf] transition hover:bg-white/[.12]"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             Atlas
@@ -657,7 +657,7 @@ export function LedgerView({ onExitAtlas }: { onExitAtlas: () => void }) {
               type="button"
               onClick={() => openReview("all")}
               aria-label={`Review all ${dueEverywhere} due cards across every shelf`}
-              className="ml-auto flex cursor-pointer items-center gap-1.5 rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 py-1 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889] transition hover:bg-[#f59e0b2a]"
+              className="relative ml-auto flex min-h-[44px] cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 font-mono text-[.58rem] font-bold uppercase tracking-[.16em] text-[#f5c889] transition hover:bg-[#f59e0b2a]"
             >
               <Sparkles className="h-3 w-3" />
               {dueEverywhere} due

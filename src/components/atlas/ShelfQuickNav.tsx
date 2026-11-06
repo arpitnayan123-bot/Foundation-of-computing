@@ -29,7 +29,7 @@ function go(hash: string) {
    already speak (back · brand · print · lab · menu), so the new
    doors read as natives, not guests */
 const NAV_BTN =
-  "flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c]";
+  "relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c]";
 
 export function ShelfQuickNav({
   variant,
