@@ -113,6 +113,8 @@ type AskMode = "answer" | "socratic";
 
 export function CockpitView({ onExitAtlas }: { onExitAtlas: () => void }) {
   const [plan, setPlan] = useState<FlightPlan | null>(null);
+  const [planError, setPlanError] = useState(false);
+  const [planSlow, setPlanSlow] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [asking, setAsking] = useState(false);
@@ -130,10 +132,33 @@ export function CockpitView({ onExitAtlas }: { onExitAtlas: () => void }) {
   messagesRef.current = messages;
   const logRef = useRef<HTMLDivElement>(null);
 
-  /* the plan is built from localStorage — read it after first paint */
+  /* the plan is built from localStorage — read it after first paint.
+     Three guards so the plan can never hang on "Reading the ledger…":
+     a timeout rides shotgun in case rAF sleeps (hidden iframe/tab),
+     a throw becomes an honest error state, and a slow read surfaces
+     a retry instead of an indefinite spinner. */
   useEffect(() => {
-    const raf = requestAnimationFrame(() => setPlan(buildFlightPlan()));
-    return () => cancelAnimationFrame(raf);
+    let done = false;
+    let slow: number | undefined;
+    const build = () => {
+      if (done) return;
+      done = true;
+      if (slow !== undefined) window.clearTimeout(slow);
+      try {
+        setPlan(buildFlightPlan());
+      } catch {
+        setPlanError(true);
+      }
+    };
+    const raf = requestAnimationFrame(build);
+    const t = window.setTimeout(build, 300);
+    slow = window.setTimeout(() => setPlanSlow(true), 2500);
+    return () => {
+      done = true;
+      cancelAnimationFrame(raf);
+      window.clearTimeout(t);
+      if (slow !== undefined) window.clearTimeout(slow);
+    };
   }, []);
 
   /* keep the transcript pinned to the newest line */
@@ -143,7 +168,13 @@ export function CockpitView({ onExitAtlas }: { onExitAtlas: () => void }) {
   }, [messages, asking]);
 
   const rebuildPlan = useCallback(() => {
-    setPlan(buildFlightPlan());
+    setPlanError(false);
+    setPlanSlow(false);
+    try {
+      setPlan(buildFlightPlan());
+    } catch {
+      setPlanError(true);
+    }
   }, []);
 
   /* ---- ask the tutor ---- */
@@ -273,25 +304,25 @@ export function CockpitView({ onExitAtlas }: { onExitAtlas: () => void }) {
             type="button"
             onClick={onExitAtlas}
             aria-label="Back to the atlas"
-            className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[.05] px-3 py-1.5 font-mono text-[.6rem] font-bold uppercase tracking-[.16em] text-[#cbb89a] transition hover:bg-white/[.12] hover:text-[#f5c889]"
+            className="flex min-h-[44px] items-center gap-1.5 rounded-full border border-white/10 bg-white/[.05] px-3 py-1.5 font-mono text-[.6rem] font-bold uppercase tracking-[.16em] text-[#cbb89a] transition hover:bg-white/[.12] hover:text-[#f5c889]"
           >
             <ArrowLeft aria-hidden className="h-3 w-3" />
             Atlas
           </button>
           <div className="min-w-0">
-            <h1 className="font-display text-lg font-black leading-tight text-[#f7ecdd] sm:text-xl">The Cockpit</h1>
+            <h1 className="truncate font-display text-lg font-black leading-tight text-[#f7ecdd] sm:text-xl">The Cockpit</h1>
             <p className="font-mono text-[.56rem] uppercase tracking-[.22em] text-[#a89a86]">{dateLine}</p>
           </div>
-          <div className="ml-auto flex items-center gap-1.5 font-mono text-[.58rem] font-bold uppercase tracking-[.1em]">
+          <div className="ml-auto flex shrink-0 items-center gap-1.5 font-mono text-[.58rem] font-bold uppercase tracking-[.1em]">
             <span
-              className="flex items-center gap-1 rounded-full border border-[#e4674a40] bg-[#e4674a14] px-2.5 py-1 text-[#e4674a]"
+              className="hidden items-center gap-1 whitespace-nowrap rounded-full border border-[#e4674a40] bg-[#e4674a14] px-2.5 py-1 text-[#e4674a] min-[380px]:flex"
               title="Practice streak"
             >
               <Flame aria-hidden className="h-3 w-3" />
               {plan ? `${plan.stats.streak}d` : "—"}
             </span>
             <span
-              className="rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-2.5 py-1 text-[#f5c889]"
+              className="whitespace-nowrap rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-2.5 py-1 text-[#f5c889]"
               title="Cards due for spaced review"
             >
               {plan ? `${plan.stats.due} due` : "— due"}
@@ -318,7 +349,13 @@ export function CockpitView({ onExitAtlas }: { onExitAtlas: () => void }) {
                 Three moves. One sitting.
               </h2>
               <p className="mt-1 text-[.84rem] text-[#a89a86]" aria-live="polite">
-                {plan ? plan.brief : "Reading the ledger…"}
+                {planError
+                  ? "The ledger wouldn't open just now — nothing is lost, give it another go."
+                  : plan
+                    ? plan.brief
+                    : planSlow
+                      ? "Still reading the ledger…"
+                      : "Reading the ledger…"}
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -341,17 +378,34 @@ export function CockpitView({ onExitAtlas }: { onExitAtlas: () => void }) {
           </div>
 
           <ol className="space-y-3">
-            {plan
-              ? plan.steps.map((step, i) => (
-                  <PlanStep key={`${step.kind}-${i}`} step={step} index={i} />
-                ))
-              : [0, 1, 2].map((i) => (
-                  <li
-                    key={i}
-                    className="h-[104px] animate-pulse rounded-2xl border border-white/[.07] bg-white/[.03]"
-                    aria-hidden
-                  />
-                ))}
+            {plan ? (
+              plan.steps.map((step, i) => (
+                <PlanStep key={`${step.kind}-${i}`} step={step} index={i} />
+              ))
+            ) : planError ? (
+              <li className="rounded-2xl border border-[#e4674a40] bg-[#e4674a0d] p-5 text-center">
+                <p className="font-display text-base font-black text-[#e9a08d]">The ledger wouldn&apos;t open.</p>
+                <p className="mt-1 text-[.82rem] leading-relaxed text-[#a89a86]">
+                  Your progress lives in this browser and nothing is lost — the flight plan just couldn&apos;t be computed.
+                </p>
+                <button
+                  type="button"
+                  onClick={rebuildPlan}
+                  className="mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-full border border-[#e4674a55] bg-[#e4674a14] px-5 font-mono text-[.62rem] font-black uppercase tracking-[.16em] text-[#e9a08d] transition hover:bg-[#e4674a2b] sm:w-auto sm:self-center"
+                >
+                  <RefreshCw aria-hidden className="h-3.5 w-3.5" />
+                  Retry the ledger
+                </button>
+              </li>
+            ) : (
+              [0, 1, 2].map((i) => (
+                <li
+                  key={i}
+                  className="h-[104px] animate-pulse rounded-2xl border border-white/[.07] bg-white/[.03]"
+                  aria-hidden
+                />
+              ))
+            )}
           </ol>
 
           <p className="mt-3 flex items-center gap-1.5 text-[.72rem] text-[#a89a86]/80">
@@ -590,11 +644,21 @@ function PlanStep({ step, index }: { step: FlightStep; index: number }) {
             {step.title}
           </p>
           <p className="mt-1 text-[.82rem] leading-relaxed text-[#a89a86]">{step.note}</p>
+          {/* mobile — the action rides under the note at full width;
+              inline it would crush the text column to a sliver */}
+          <button
+            type="button"
+            onClick={() => runFlightAction(step.action)}
+            className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-full border px-4 text-[.62rem] font-black uppercase tracking-[.12em] transition hover:bg-white/[.1] sm:hidden"
+            style={{ borderColor: `${step.accent}55`, color: step.accent, backgroundColor: `${step.accent}10` }}
+          >
+            {actionLabel(step.action)}
+          </button>
         </div>
         <button
           type="button"
           onClick={() => runFlightAction(step.action)}
-          className="shrink-0 self-center rounded-full border px-3.5 py-2 text-[.62rem] font-black uppercase tracking-[.12em] transition hover:bg-white/[.1] sm:px-4"
+          className="hidden shrink-0 self-center rounded-full border px-4 py-2.5 text-[.62rem] font-black uppercase tracking-[.12em] transition hover:bg-white/[.1] sm:block"
           style={{ borderColor: `${step.accent}55`, color: step.accent, backgroundColor: `${step.accent}10` }}
         >
           {actionLabel(step.action)}
