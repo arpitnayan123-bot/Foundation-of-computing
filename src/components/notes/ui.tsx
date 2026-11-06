@@ -780,9 +780,9 @@ export function StepsFlow({
     <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
       {steps.map((s, i) => (
         <React.Fragment key={i}>
-          <div className="ipo-node card-warm flex flex-1 items-center gap-3 p-4">
+          <div className="ipo-node card-warm flex min-w-0 flex-1 items-center gap-3 p-4">
             {s.icon}
-            <div>
+            <div className="min-w-0">
               <p className="sf-label font-bold text-[#3e2c1d]">{s.label}</p>
               {s.sub ? <p className="text-[.78rem] text-muted-warm">{s.sub}</p> : null}
             </div>

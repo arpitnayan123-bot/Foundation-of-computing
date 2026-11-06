@@ -94,19 +94,19 @@ function ObjectiveDeck() {
             }`}
             whileHover={{ y: -3 }}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <span
                 className="flex h-11 w-11 items-center justify-center rounded-xl"
                 style={{ background: "#f7ecdc" }}
               >
                 {o.icon}
               </span>
-              <div>
+              <div className="min-w-0">
                 <p className="font-bold leading-tight text-[#3e2c1d]">{o.title}</p>
                 <p className="text-[.8rem] text-muted-warm">{o.sub}</p>
               </div>
               <span
-                className="ml-auto rounded-full px-2.5 py-1 text-[.68rem] font-black uppercase tracking-[.14em]"
+                className="ml-auto shrink-0 rounded-full px-2.5 py-1 text-[.68rem] font-black uppercase tracking-[.14em]"
                 style={{ background: "#f7ecdc", color: "#b45309" }}
               >
                 {isOpen ? "hide" : `objective ${i + 1}`}
