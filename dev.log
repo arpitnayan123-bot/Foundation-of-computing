@@ -1,6 +1,6 @@
 ▲ Next.js 16.1.3 (Turbopack)
 - Local:         http://localhost:3000
-- Network:       http://21.0.9.211:3000
+- Network:       http://21.0.7.182:3000
 - Environments: .env
 
 ✓ Starting...
@@ -9,19 +9,25 @@ This information is used to shape Next.js' roadmap and prioritize features.
 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
 https://nextjs.org/telemetry
 
-✓ Ready in 688ms
+✓ Ready in 671ms
 ○ Compiling / ...
- GET / 200 in 4.1s (compile: 3.9s, render: 279ms)
- POST /api/narrate/tts 404 in 575ms (compile: 515ms, render: 60ms)
- POST /api/narrate/script 404 in 56ms (compile: 4ms, render: 52ms)
- GET / 200 in 43ms (compile: 4ms, render: 39ms)
- GET / 200 in 48ms (compile: 4ms, render: 44ms)
- GET / 200 in 119ms (compile: 5ms, render: 114ms)
- GET /manifest.webmanifest 200 in 2.9s (compile: 2.8s, render: 76ms)
- GET / 200 in 490ms (compile: 30ms, render: 460ms)
- GET / 200 in 240ms (compile: 5ms, render: 235ms)
- GET /manifest.webmanifest 200 in 36ms (compile: 17ms, render: 19ms)
- GET / 200 in 207ms (compile: 5ms, render: 202ms)
- GET /manifest.webmanifest 200 in 20ms (compile: 6ms, render: 14ms)
- GET / 200 in 553ms (compile: 4ms, render: 549ms)
- GET / 200 in 182ms (compile: 3ms, render: 179ms)
+ GET / 200 in 734ms (compile: 597ms, render: 137ms)
+ GET / 200 in 1217ms (compile: 797ms, render: 420ms)
+ GET / 200 in 10.5s (compile: 10.1s, render: 361ms)
+ GET / 200 in 32ms (compile: 4ms, render: 28ms)
+ GET / 200 in 57ms (compile: 3ms, render: 53ms)
+ GET / 200 in 35ms (compile: 3ms, render: 32ms)
+ GET / 200 in 61ms (compile: 3ms, render: 57ms)
+ GET / 200 in 223ms (compile: 36ms, render: 187ms)
+ GET / 200 in 72ms (compile: 8ms, render: 64ms)
+ GET / 200 in 52ms (compile: 3ms, render: 49ms)
+✓ Compiled in 239ms
+ GET / 200 in 108ms (compile: 26ms, render: 82ms)
+ GET / 200 in 486ms (compile: 6ms, render: 479ms)
+ GET /manifest.webmanifest 200 in 1395ms (compile: 1380ms, render: 15ms)
+ GET / 200 in 211ms (compile: 4ms, render: 206ms)
+ GET / 200 in 47ms (compile: 4ms, render: 43ms)
+ GET / 200 in 40ms (compile: 3ms, render: 37ms)
+ GET / 200 in 63ms (compile: 6ms, render: 57ms)
+ GET / 200 in 51ms (compile: 4ms, render: 46ms)
+ GET / 200 in 49ms (compile: 4ms, render: 45ms)
