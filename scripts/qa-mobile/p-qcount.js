@@ -1,0 +1,1 @@
+(() => { const btns = [...document.querySelectorAll('button')].filter(b => (b.getBoundingClientRect().height > 0) && /^(option|answer|[a-d]\))/i.test(b.textContent.trim())); return String(btns.length); })()

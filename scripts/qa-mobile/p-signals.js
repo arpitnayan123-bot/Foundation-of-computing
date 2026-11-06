@@ -1,0 +1,1 @@
+(() => { const t = document.body.innerText; const names = ['Wikipedia','DummyJSON','Open-Meteo','Frankfurter','JokeAPI','Advice','ISS','Feed']; let live = 0; for (const n of names) if (new RegExp(n, 'i').test(t)) live++; return String(live) + '/8'; })()
