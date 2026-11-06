@@ -31,6 +31,7 @@ import {
   Printer,
   X,
 } from "lucide-react";
+import { scrollToId } from "@/lib/utils";
 import { useSectionProgress } from "@/lib/use-section-progress";
 import { jumpTo, useOpenSection } from "@/lib/use-open-section";
 import { loadProgress } from "@/lib/progress";
@@ -332,25 +333,22 @@ function TopNav({
             onClick={onExitAtlas}
             title="Back to The Atlas — the subject shelf"
             aria-label="Back to The Atlas"
-            className="flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3 text-[.64rem] font-extrabold uppercase tracking-[.14em] text-[#8a5f30] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/85 hover:text-[#c2410c]"
+            className="relative flex h-10 shrink-0 items-center gap-1.5 rounded-full after:absolute after:-inset-y-0.5 after:-inset-x-1 after:rounded-full after:content-[''] border border-white/70 bg-white/60 px-3 text-[.64rem] font-extrabold uppercase tracking-[.14em] text-[#8a5f30] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/85 hover:text-[#c2410c]"
           >
             <Map className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Atlas</span>
           </button>
 
           {/* brand — quiet glass chip, Apple-quiet rather than loud gradient */}
-          <a
-            href="#top"
-            className="flex shrink-0 items-center gap-2 rounded-full border border-white/70 bg-white/60 py-1.5 pl-2 pr-3.5 shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/80"
-          >
+          <button type="button" aria-label="Scroll back to the top of these notes" onClick={() => scrollToId("top")} className="relative flex h-10 shrink-0 items-center gap-2 rounded-full border border-white/70 bg-white/60 pl-2 pr-3.5 after:absolute after:-inset-y-0.5 after:-inset-x-1 after:rounded-full after:content-[''] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/80 cursor-pointer">
             <span
               className="flex h-6 w-6 items-center justify-center rounded-full text-white"
               style={{ background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})`, boxShadow: "0 4px 10px -3px rgba(194,65,12,.55)" }}
             >
               <Compass className="h-3.5 w-3.5" />
             </span>
-            <span className="text-sm font-black tracking-tight text-[#3e2c1d]">FoC Notes</span>
-          </a>
+            <span className="hidden min-[380px]:inline text-sm font-black tracking-tight text-[#3e2c1d]">FoC Notes</span>
+          </button>
 
           {/* desktop — grouped chapter menu (all four groups, Python Core
               included). Opens at lg: below that the bar would overflow once
@@ -510,7 +508,7 @@ function TopNav({
               onClick={() => window.print()}
               title="Print these notes"
               aria-label="Print these notes"
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c]"
+              className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c]"
             >
               <Printer className="h-4 w-4" />
             </button>
@@ -534,7 +532,7 @@ function TopNav({
               type="button"
               onClick={onOpenLab}
               aria-label="Open the Python Lab"
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#8a5f30] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] lg:hidden"
+              className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] border border-white/70 bg-white/60 text-[#8a5f30] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] lg:hidden"
             >
               <FlaskConical className="h-4 w-4" />
             </button>
@@ -543,7 +541,7 @@ function TopNav({
               onClick={() => setMobileOpen(true)}
               aria-label="Open the chapter index"
               aria-expanded={mobileOpen}
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] lg:hidden"
+              className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] lg:hidden"
             >
               <Menu className="h-4.5 w-4.5" />
             </button>
@@ -589,7 +587,7 @@ function TopNav({
                 type="button"
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close the chapter index"
-                className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#ffe9c9]"
+                className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] border border-white/15 bg-white/10 text-[#ffe9c9]"
               >
                 <X className="h-4.5 w-4.5" />
               </button>
@@ -779,7 +777,7 @@ function PracticeHub({
                     aria-label={`Open the exam window — ${bank.title}`}
                   >
                     <span
-                      className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md"
+                      className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] text-white shadow-md"
                       style={{ background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})` }}
                     >
                       <PenLine className="h-4 w-4" />
