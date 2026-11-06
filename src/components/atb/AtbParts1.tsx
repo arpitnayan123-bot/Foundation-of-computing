@@ -28,6 +28,7 @@ import {
   Type,
   Workflow,
 } from "lucide-react";
+import { scrollToId } from "@/lib/utils";
 import { ATB_LECTURES } from "@/components/atb/lectures";
 import {
   Callout,
@@ -331,9 +332,9 @@ export function AtbHero({
       </div>
 
       <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
-        <a href="#notes-top" aria-label="Scroll to the lecture notes" className="anim-bob rounded-full border border-[#ecd9bd] bg-[#fffdf9]/80 p-3 text-[#c2410c]">
+        <button type="button" onClick={() => scrollToId("notes-top")} aria-label="Scroll to the lecture notes" className="anim-bob rounded-full border border-[#ecd9bd] bg-[#fffdf9]/80 p-3 text-[#c2410c] cursor-pointer">
           <ArrowDown className="h-5 w-5" />
-        </a>
+        </button>
       </div>
     </header>
   );

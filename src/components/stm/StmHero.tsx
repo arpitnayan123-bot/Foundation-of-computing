@@ -14,6 +14,7 @@
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Check, PenLine, Search, Sigma } from "lucide-react";
+import { scrollToId } from "@/lib/utils";
 import { STM_LECTURES } from "@/components/stm/lectures";
 import { Reveal } from "@/components/notes/ui";
 
@@ -239,9 +240,9 @@ export function StmHero({
       </div>
 
       <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
-        <a href="#notes-top" aria-label="Scroll to the lecture notes" className="anim-bob rounded-full border border-[#e6e0f2] bg-[#f9f7fc]/80 p-3 text-[#6d28d9]">
+        <button type="button" aria-label="Scroll to the lecture notes" onClick={() => scrollToId("notes-top")}  className="anim-bob rounded-full border border-[#e6e0f2] bg-[#f9f7fc]/80 p-3 text-[#6d28d9] cursor-pointer">
           <ArrowDown className="h-5 w-5" />
-        </a>
+        </button>
       </div>
     </header>
   );

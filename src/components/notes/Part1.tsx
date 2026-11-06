@@ -27,6 +27,7 @@ import {
   FlaskConical,
   Timer,
 } from "lucide-react";
+import { scrollToId } from "@/lib/utils";
 import { Reveal, Section, SectionHead, Callout, Quiz, StepsFlow, Pill } from "./ui";
 
 /* ============================================================
@@ -146,22 +147,12 @@ export function Hero({ onOpenLab }: { onOpenLab: () => void }) {
 
         <Reveal delay={480}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#why"
-              className="rounded-full px-7 py-3.5 text-sm font-bold text-white shadow-lg transition hover:scale-[1.03]"
-              style={{
-                background: "linear-gradient(135deg,#ea580c,#c2410c)",
-                boxShadow: "0 14px 30px -12px rgba(194,65,12,.55)",
-              }}
-            >
+            <button type="button" aria-label="Scroll to content" onClick={() => scrollToId("why")} className="rounded-full px-7 py-3.5 text-sm font-bold text-white shadow-lg transition hover:scale-[1.03]" style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)", boxShadow: "0 14px 30px -12px rgba(194,65,12,.55)", }} cursor-pointer>
               Start the journey
-            </a>
-            <a
-              href="#pillars"
-              className="rounded-full border border-[#e5c79d] bg-[#fffdf9] px-7 py-3.5 text-sm font-bold text-[#7c4a12] transition hover:bg-[#fdf1e0]"
-            >
+            </button>
+            <button type="button" aria-label="Jump to the Four Pillars" onClick={() => scrollToId("pillars")} className="rounded-full border border-[#e5c79d] bg-[#fffdf9] px-7 py-3.5 text-sm font-bold text-[#7c4a12] transition hover:bg-[#fdf1e0] cursor-pointer">
               Jump to the Four Pillars
-            </a>
+            </button>
           </div>
         </Reveal>
 
@@ -177,13 +168,9 @@ export function Hero({ onOpenLab }: { onOpenLab: () => void }) {
           the CTA buttons once they wrapped on small screens; and the bob
           keyframes own the transform, so -translate-x-1/2 can't live here) */}
       <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
-        <a
-          href="#why"
-          aria-label="Scroll to content"
-          className="anim-bob rounded-full border border-[#ecd9bd] bg-[#fffdf9]/80 p-3 text-[#c2410c]"
-        >
+        <button type="button" aria-label="Scroll to content" onClick={() => scrollToId("why")}  className="anim-bob rounded-full border border-[#ecd9bd] bg-[#fffdf9]/80 p-3 text-[#c2410c] cursor-pointer">
           <ArrowDown className="h-5 w-5" />
-        </a>
+        </button>
       </div>
     </header>
   );

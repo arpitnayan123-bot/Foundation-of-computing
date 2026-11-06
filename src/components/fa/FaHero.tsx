@@ -13,6 +13,7 @@
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Check, PenLine, Scale, Search } from "lucide-react";
+import { scrollToId } from "@/lib/utils";
 import { FA_LECTURES } from "@/components/fa/lectures";
 import { Reveal } from "@/components/notes/ui";
 
@@ -261,9 +262,9 @@ export function FaHero({
       </div>
 
       <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
-        <a href="#notes-top" aria-label="Scroll to the lecture notes" className="anim-bob rounded-full border border-[#dbeae2] bg-[#f9fcfa]/80 p-3 text-[#059669]">
+        <button type="button" onClick={() => scrollToId("notes-top")} aria-label="Scroll to the lecture notes" className="anim-bob rounded-full border border-[#dbeae2] bg-[#f9fcfa]/80 p-3 text-[#059669] cursor-pointer">
           <ArrowDown className="h-5 w-5" />
-        </a>
+        </button>
       </div>
     </header>
   );

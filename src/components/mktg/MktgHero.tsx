@@ -13,6 +13,7 @@
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Check, Megaphone, PenLine, Search } from "lucide-react";
+import { scrollToId } from "@/lib/utils";
 import { MKTG_LECTURES } from "@/components/mktg/lectures";
 import { Reveal } from "@/components/notes/ui";
 
@@ -237,9 +238,9 @@ export function MktgHero({
       </div>
 
       <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
-        <a href="#notes-top" aria-label="Scroll to the lecture notes" className="anim-bob rounded-full border border-[#dbeae5] bg-[#fdfcfa]/80 p-3 text-[#0f766e]">
+        <button type="button" onClick={() => scrollToId("notes-top")} aria-label="Scroll to the lecture notes" className="anim-bob rounded-full border border-[#dbeae5] bg-[#fdfcfa]/80 p-3 text-[#0f766e] cursor-pointer">
           <ArrowDown className="h-5 w-5" />
-        </a>
+        </button>
       </div>
     </header>
   );

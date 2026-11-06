@@ -13,6 +13,7 @@
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Check, Landmark, PenLine, Search } from "lucide-react";
+import { scrollToId } from "@/lib/utils";
 import { EBH_LECTURES } from "@/components/ebh/lectures";
 import { Reveal } from "@/components/notes/ui";
 import type { ClarityStatus } from "@/lib/clarity";
@@ -299,9 +300,9 @@ export function EbhHero({
       </div>
 
       <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
-        <a href="#notes-top" aria-label="Scroll to the lecture notes" className="anim-bob rounded-full border border-[#e8e0cd] bg-[#fdfbf4]/80 p-3 text-[#a16207]">
+        <button type="button" onClick={() => scrollToId("notes-top")} aria-label="Scroll to the lecture notes" className="anim-bob rounded-full border border-[#e8e0cd] bg-[#fdfbf4]/80 p-3 text-[#a16207] cursor-pointer">
           <ArrowDown className="h-5 w-5" />
-        </a>
+        </button>
       </div>
     </header>
   );

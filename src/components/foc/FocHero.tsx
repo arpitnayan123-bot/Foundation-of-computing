@@ -15,6 +15,7 @@
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Check, Compass, FlaskConical, PenLine, Search } from "lucide-react";
+import { scrollToId } from "@/lib/utils";
 import { FOC_LECTURES } from "@/components/foc/lectures";
 import { Reveal } from "@/components/notes/ui";
 
@@ -212,9 +213,9 @@ export function FocHero({
       </div>
 
       <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
-        <a href="#notes-top" aria-label="Scroll to the lecture notes" className="anim-bob rounded-full border border-[#ecd9bd] bg-[#fdf9f3]/80 p-3 text-[#c2410c]">
+        <button type="button" onClick={() => scrollToId("notes-top")} aria-label="Scroll to the lecture notes" className="anim-bob rounded-full border border-[#ecd9bd] bg-[#fdf9f3]/80 p-3 text-[#c2410c] cursor-pointer">
           <ArrowDown className="h-5 w-5" />
-        </a>
+        </button>
       </div>
     </header>
   );
