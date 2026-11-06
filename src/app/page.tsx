@@ -20,7 +20,7 @@ import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { AppBoundary } from "@/components/atlas/AppBoundary";
 import { AtlasLanding } from "@/components/atlas/AtlasLanding";
 import { CommandPalette } from "@/components/atlas/CommandPalette";
-import { SUBJECT_IDS } from "@/components/atlas/subjects";
+import { parseRouteHash, viewFromLocation, type View } from "@/lib/atlas-router";
 
 /* ============================================================
    Code-split shelves — each subject app is a heavy, self-contained
@@ -77,36 +77,6 @@ const CockpitView = dynamic(() => import("@/components/atlas/CockpitView").then(
   loading: () => <ShelfLoader />,
 });
 
-type View =
-  | { name: "atlas" }
-  | { name: "ledger" }
-  | { name: "cockpit" }
-  | { name: "subject"; id: string }
-  | { name: "reserved"; id: string };
-
-const SUBJECT_ROUTE = "#/subject/";
-
-function parseRouteHash(hash: string): View | null {
-  // only route-style hashes (#/…) drive the view; bare anchors (#why)
-  // belong to the subject's own scroll navigation and are ignored.
-  if (!hash.startsWith("#/")) return null;
-  if (hash === "#/atlas") return { name: "atlas" };
-  if (hash === "#/ledger") return { name: "ledger" };
-  if (hash === "#/cockpit") return { name: "cockpit" };
-  if (hash.startsWith(SUBJECT_ROUTE)) {
-    const id = hash.slice(SUBJECT_ROUTE.length);
-    if (SUBJECT_IDS.includes(id)) return { name: "subject", id };
-    // a shelf deep-linked before its syllabus drops — show the honest
-    // reserved bay (with a way back) instead of silently bouncing home
-    return { name: "reserved", id };
-  }
-  return { name: "atlas" }; // unknown route → the shelf
-}
-
-function currentView(): View {
-  if (typeof window === "undefined") return { name: "atlas" };
-  return parseRouteHash(window.location.hash) ?? { name: "atlas" };
-}
 
 export default function Page() {
   const [view, setView] = useState<View>({ name: "atlas" });
@@ -179,15 +149,27 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
-    // initial route sync — async so the first paint stays hydration-stable
-    const raf = requestAnimationFrame(() => setView(currentView()));
+    // initial route sync — async so the first paint stays hydration-stable.
+    // rAF can be throttled in a hidden tab/iframe, so a short timeout
+    // rides shotgun: whichever fires first wins, and a deep link can
+    // never leave the reader stranded on the landing.
+    let done = false;
+    const sync = () => {
+      if (done) return;
+      done = true;
+      setView(viewFromLocation());
+    };
+    const raf = requestAnimationFrame(sync);
+    const t = window.setTimeout(sync, 150);
     const onHash = () => {
       const next = parseRouteHash(window.location.hash);
       if (next) setView(next); // null = bare anchor → leave the view alone
     };
     window.addEventListener("hashchange", onHash);
     return () => {
+      done = true;
       cancelAnimationFrame(raf);
+      window.clearTimeout(t);
       window.removeEventListener("hashchange", onHash);
     };
   }, []);
