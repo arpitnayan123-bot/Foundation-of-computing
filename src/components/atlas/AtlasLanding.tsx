@@ -39,6 +39,7 @@ import { SUBJECTS, SEMESTER_ONE, type Subject, type SubjectAmbience } from "./su
 import { OpenSignals } from "./OpenSignals";
 import { dueCounts } from "@/lib/sm2";
 import { goalStatus } from "@/lib/goal";
+import { scrollToId } from "@/lib/utils";
 import Hero57 from "@/components/originkit/hero-57";
 
 /* ---------------------------------------------- easing + reveal */
@@ -96,12 +97,31 @@ function Stat({
   const [n, setN] = useState(0);
 
   useEffect(() => {
-    if (!inView) return;
+    // reduced motion — no theatre, the true figure at once
+    if (
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      const raf = requestAnimationFrame(() => setN(value));
+      return () => cancelAnimationFrame(raf);
+    }
+    if (!inView) {
+      // the count-up waits to be seen — but it must never leave
+      // "0" on the table: if IntersectionObserver never fires
+      // (hidden iframe, throttled tab, exotic embed), the real
+      // value snaps in after a beat. Correct data beats a
+      // clever animation that never ran.
+      const t = window.setTimeout(() => setN(value), 3000);
+      return () => window.clearTimeout(t);
+    }
     const controls = animate(0, value, {
       duration: 1.5,
       delay,
       ease: EASE,
       onUpdate: (v) => setN(Math.round(v)),
+      // the last easing frame can land a hair under the target —
+      // always pin the final tick to the true value
+      onComplete: () => setN(value),
     });
     return () => controls.stop();
   }, [inView, value, delay]);
@@ -415,7 +435,7 @@ function GoalChip() {
       }}
       aria-label={`Daily goal: ${goal.done} of ${goal.target} answers today — open the ledger`}
       title={`Daily goal — ${goal.done}/${goal.target} answers today`}
-      className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[.05] px-2.5 py-1 font-mono text-[.6rem] font-bold tracking-wide text-[#cbb89a] transition hover:bg-white/[.12] hover:text-[#f5c889]"
+      className="relative flex h-10 items-center gap-1.5 rounded-full border border-white/10 bg-white/[.05] px-3 font-mono text-[.6rem] font-bold tracking-wide text-[#cbb89a] transition hover:bg-white/[.12] hover:text-[#f5c889] after:absolute after:-inset-x-1.5 after:-inset-y-0.5 after:rounded-full after:content-['']"
     >
       <svg viewBox="0 0 18 18" className="h-3.5 w-3.5 -rotate-90" aria-hidden>
         <circle cx="9" cy="9" r={R} fill="none" stroke="#ffffff1c" strokeWidth="2.4" />
@@ -518,9 +538,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
   const liveSubjects = SUBJECTS.filter((s) => s.status === "live");
   const liveCount = liveSubjects.length;
 
-  const scrollToShelf = () => {
-    document.getElementById("shelf")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  const scrollToShelf = () => scrollToId("shelf");
 
   return (
     <div className="atlas-root">
@@ -557,7 +575,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             onClick={() => window.dispatchEvent(new CustomEvent("atlas:cmdk"))}
             aria-label="Open the command palette (Command K)"
             title="Command palette — ⌘K"
-            className="ml-auto flex items-center gap-1 rounded-full border border-white/10 bg-white/[.05] px-2.5 py-1 font-mono text-[.6rem] font-bold tracking-wide text-[#cbb89a] transition hover:bg-white/[.12] hover:text-[#f5c889]"
+            className="relative ml-auto flex h-10 items-center gap-1 rounded-full border border-white/10 bg-white/[.05] px-3 font-mono text-[.6rem] font-bold tracking-wide text-[#cbb89a] transition hover:bg-white/[.12] hover:text-[#f5c889] after:absolute after:-inset-x-1.5 after:-inset-y-0.5 after:rounded-full after:content-['']"
           >
             <CommandIcon aria-hidden className="h-3 w-3" />
             K
@@ -570,7 +588,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             }}
             aria-label="Open the Cockpit — today's flight plan and ask the atlas"
             title="The Cockpit — today's flight plan + ask the atlas"
-            className="flex items-center gap-1.5 rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-2.5 py-1 font-mono text-[.6rem] font-bold uppercase tracking-[.14em] text-[#f5c889] transition hover:bg-[#f59e0b2e]"
+            className="relative flex h-10 items-center gap-1.5 rounded-full border border-[#f59e0b40] bg-[#f59e0b14] px-3 font-mono text-[.6rem] font-bold uppercase tracking-[.14em] text-[#f5c889] transition hover:bg-[#f59e0b2e] after:absolute after:-inset-x-1.5 after:-inset-y-0.5 after:rounded-full after:content-['']"
           >
             <Rocket aria-hidden className="h-3 w-3" />
             <span className="hidden sm:inline">Cockpit</span>
@@ -664,6 +682,9 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               </span>
               <span aria-hidden className="hidden h-px w-7 bg-gradient-to-l from-transparent to-[#f5c889]/60 sm:block" />
             </motion.p>
+
+            {/* the primary doors live below the scene, on whole black —
+                the globe stays pure: light, horizon and type only. */}
           </div>
         </Hero57>
 
