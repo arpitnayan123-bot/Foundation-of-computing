@@ -28,21 +28,23 @@ import {
   SectionHead,
   Takeaways,
 } from "@/components/notes/ui";
+import { CompPipeline, SliceRuler } from "@/components/foc/FocViz";
 
 /* ============================================================
    LECTURE 14 — #checkpoint-1
    ============================================================ */
 
 const RECAP_STATIONS = [
-  { n: "L2", t: "IPO + pillars + DIKW", d: "input → process → output; four pillars; 38.5 becomes a diagnosis; Netflix pauses at 42:15" },
+  { n: "L2", t: "IPO + pillars + DIKW", d: "input → process → output; six everyday IPO examples; computing vs computer; 38.5 becomes a diagnosis" },
   { n: "L3", t: "Data, classified", d: "structured vs the 80% unstructured flood; snapshot, panel, time series; quant vs qual" },
-  { n: "L4", t: "Programming in the AI age", d: "vibe coding's Day-30 collapse; 10·30·60 evaluation; enterprise IPO at zettabyte scale" },
-  { n: "L5", t: "Algorithms", d: "five properties — finiteness, definiteness, input, output, effectiveness; the odd/even recipe" },
-  { n: "L6", t: "Hardware", d: "sensors → CPU/GPU → RAM/ROM/storage → output; AlexNet proved GPUs change everything" },
-  { n: "L7", t: "Software", d: "OS, utilities, apps; interpreter line-by-line vs compiler all-at-once" },
-  { n: "L8", t: "Python, first contact", d: "Colab, .ipynb, the naming law, NameError tracebacks, string methods" },
+  { n: "L4", t: "Programming in the AI age", d: "vibe coding's risks; enterprise IPO at zettabyte scale; the cloud (AWS, GCP, Azure)" },
+  { n: "L5", t: "Origin data + Algorithms", d: "primary vs secondary, metadata — then the five properties and the odd/even flowchart" },
+  { n: "L6", t: "Hardware & system software", d: "sensors → CPU/GPU → RAM/ROM/storage → output; the Mac Mini M4 packs CPU + GPU cores in one compact, efficient desktop; then the OS, utilities and productivity apps" },
+  { n: "L7", t: "Software & Python", d: "application software; editor vs IDE; interpreter line-by-line vs compiler all-at-once; Guido van Rossum, 1991" },
+  { n: "L8", t: "Python, first contact", d: "Colab and the .ipynb notebook, the seven naming rules, NameError tracebacks, string methods, methods vs functions" },
   { n: "L9", t: "Case files", d: "Knight Capital's 45 minutes; Zara's six months; redlining's missing climb" },
-  { n: "L10–L13", t: "Your first Python", d: "numbers & comments · lists · organizing · loops and the indentation law" },
+  { n: "L10", t: "Numbers & comments", d: "arithmetic and BODMAS, the 0.30000000000000004 surprise, str() conversion, # comments" },
+  { n: "L11–L13", t: "Your first lists", d: "lists · organizing (sort/sorted/reverse/len) · loops and the indentation law" },
 ];
 
 function RecapBoard() {
@@ -84,6 +86,7 @@ export function Checkpoint1Section() {
         lead="Half the foundations, one guided lap. This is the deck's own consolidation lecture: the syllabus for Quiz One, the exam format, and a predict-the-output drill that is exactly the kind of question the paper asks."
       />
 
+      <ReadStep n="1" title="The format & the stakes" sub="60 MCQs · 20 minutes · the whole foundations lap so far" />
       <Reveal>
         <div className="grid gap-5 md:grid-cols-3">
           <div className="card-warm p-5">
@@ -98,8 +101,8 @@ export function Checkpoint1Section() {
           </div>
           <div className="card-warm p-5">
             <BookOpenCheck className="h-5 w-5" style={{ color: "#c2410c" }} />
-            <p className="mt-2 text-2xl font-black text-[#3e2c1d]">Best 2 of 3</p>
-            <p className="text-[.85rem] text-muted-warm">quizzes: 15% each — one bad day never defines you</p>
+            <p className="mt-2 text-2xl font-black text-[#3e2c1d]">Best of three</p>
+            <p className="text-[.85rem] text-muted-warm">the best quiz score counts — one bad day never defines you</p>
           </div>
         </div>
       </Reveal>
@@ -107,15 +110,61 @@ export function Checkpoint1Section() {
       <Reveal className="mt-6">
         <Callout kind="insight" title="Syllabus & stakes">
           Everything recorded up to <strong>September 20th — including &ldquo;Working with Lists Part 2&rdquo;</strong>.
-          The evaluation scheme: class participation 10% · quizzes 30% · final exam 60%, held{" "}
-          <strong>offline, pen and paper</strong> — with real Python code writing, so practise writing code by hand,
-          not just reading it.
+          The evaluation scheme at this point in the course: class participation 10% · quizzes 30% (best of three
+          recorded, 15% each) · final exam 60%, held <strong>offline, pen and paper</strong> — with real Python code
+          writing, so practise writing code by hand, not just reading it.
         </Callout>
       </Reveal>
+      <Reveal className="mt-3">
+        <p className="text-[.72rem] font-semibold leading-relaxed text-[#a08568]">
+          Note: Lecture 34 later finalizes the assessment — 40% quizzes with the best score of the two actually
+          conducted, 60% final exam, and no participation weightage. See the final word before the end term.
+        </p>
+      </Reveal>
 
-      <ReadStep n="2" title="The lap — everything so far in nine cards" sub="Skim each station; if one feels foggy, jump back to that lecture before Saturday" />
+      <ReadStep n="2" title="The lap — everything so far in ten cards" sub="Skim each station; if one feels foggy, jump back to that lecture before Saturday" />
       <Reveal>
         <RecapBoard />
+      </Reveal>
+
+      <Reveal className="mt-6">
+        <div className="card-warm p-6">
+          <p className="eyebrow">The details Quiz One loves</p>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <div className="rounded-xl border border-[#f3e2c8] bg-[#fffaf1] p-4">
+              <p className="font-bold text-[#3e2c1d]">Quant vs qual — context decides</p>
+              <p className="mt-1 text-[.82rem] leading-relaxed text-muted-warm">
+                Discrete counts (number of students = 102); continuous ranges (height 100–190 cm, temperature).
+                Square feet of a house and its price are <strong>continuous quantitative</strong> because they fall
+                within specific ranges — classification depends on context, not just the numbers.
+              </p>
+            </div>
+            <div className="rounded-xl border border-[#f3e2c8] bg-[#fffaf1] p-4">
+              <p className="font-bold text-[#3e2c1d]">Primary vs secondary — credibility decides</p>
+              <p className="mt-1 text-[.82rem] leading-relaxed text-muted-warm">
+                Primary: collected by you or your team for the analysis (surveys, Google Forms, sensors,
+                interviews). Secondary: World Bank, IMF, NSSO, Wikipedia, stock-exchange data — World Bank data is
+                more reliable than unknown private sources. Metadata is data about data (the library catalog, not
+                the books).
+              </p>
+            </div>
+            <div className="rounded-xl border border-[#f3e2c8] bg-[#fffaf1] p-4">
+              <p className="font-bold text-[#3e2c1d]">Interpreter vs compiler</p>
+              <p className="mt-1 text-[.82rem] leading-relaxed text-muted-warm">
+                Interpreter (Python): translates line by line at runtime, errors appear progressively. Compiler
+                (C, C++): translates the whole program before execution — no output until every error is fixed.
+              </p>
+            </div>
+            <div className="rounded-xl border border-[#f3e2c8] bg-[#fffaf1] p-4">
+              <p className="font-bold text-[#3e2c1d]">Methods, nested</p>
+              <p className="mt-1 text-[.82rem] leading-relaxed text-muted-warm">
+                Dot notation runs the method on the variable: <code className="font-mono-warm">name.title()</code>.
+                Functions nest inside functions — <code className="font-mono-warm">print(name.title())</code>
+                converts first, prints second. Variables are case-sensitive; spelling matters.
+              </p>
+            </div>
+          </div>
+        </div>
       </Reveal>
 
       <ReadStep n="3" title="Predict the output — the quiz, rehearsed" sub="Cover the output panel, write your prediction on paper, then run the block" />
@@ -142,7 +191,7 @@ print(age >= 18 or age > 15)        # ⑥ True or False?`}
       <Reveal className="mt-6">
         <Takeaways
           items={[
-            <>Quiz One: <strong>60 MCQs · 20 minutes · best of three quiz scores considered for the final evaluation</strong> (15% each).</>,
+            <>Quiz One: <strong>60 MCQs · 20 minutes · the best quiz score counts toward the final evaluation</strong> (the deck's initial scheme was best of three at 15% each; Lecture 34 finalizes it).</>,
             <>Syllabus: all recorded lectures up to <strong>September 20th</strong>, including Working with Lists Part 2.</>,
             <>The final exam is <strong>offline pen-and-paper with code writing</strong> — practise writing code by hand.</>,
             <>The evaluation rewards <strong>interpretation, not memorization</strong>: trace the code, predict the output, explain the logic.</>,
@@ -246,6 +295,10 @@ print(squares)`}
         </div>
       </Reveal>
 
+      <Reveal className="mt-6">
+        <CompPipeline />
+      </Reveal>
+
       <ReadStep dark n="3" title="Simple statistics — min, max, sum" sub="Three functions that answer three questions every dataset gets asked" />
       <Reveal>
         <CodeBlock
@@ -291,6 +344,10 @@ for player in players[:3]:
             note="Looping through a slice processes a PORTION of a list — chunks of a dataset, one page of results at a time — without ever touching the original."
           />
         </div>
+      </Reveal>
+
+      <Reveal className="mt-6">
+        <SliceRuler />
       </Reveal>
 
       <Reveal className="mt-6">

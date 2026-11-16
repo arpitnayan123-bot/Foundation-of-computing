@@ -17,6 +17,7 @@
 
 import React from "react";
 import { ChainWalk, IfElseChainViz } from "@/components/notes/Part6";
+import { FlowTracer, MatchingLanes } from "@/components/foc/FocViz";
 import {
   Callout,
   CodeBlock,
@@ -168,6 +169,10 @@ print("\\nFinished making your pizza!")`}
         </div>
       </Reveal>
 
+      <Reveal className="mt-6">
+        <FlowTracer />
+      </Reveal>
+
       <div className="mt-8 grid gap-5 md:grid-cols-2">
         <Reveal>
           <Quiz
@@ -261,7 +266,7 @@ if requested_toppings:            # empty list is False!
         print(f"Adding {topping}.")
 else:
     print("Are you sure you want a plain pizza?")`}
-              output={"Adding mushrooms.\nSorry, we are out of green peppers right now.\nAdding extra cheese.\n\nAre you sure you want a plain pizza?"}
+              output={"Adding mushrooms.\nSorry, we are out of green peppers right now.\nAdding extra cheese.\nAre you sure you want a plain pizza?"}
             />
             <div className="grid content-start gap-4">
               <Callout dark kind="insight" title="A list name is a truth test">
@@ -313,6 +318,10 @@ for new_user in new_users:
             note="Real systems compare case-insensitively: if 'John' exists, 'JOHN' must be rejected too — that's why we lower() both sides before comparing."
           />
         </div>
+      </Reveal>
+
+      <Reveal className="mt-6">
+        <MatchingLanes />
       </Reveal>
 
       <Reveal className="mt-6">

@@ -18,6 +18,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ExitToolkit } from "@/components/notes/Part7";
+import { PipelineViz, WhileTracer } from "@/components/foc/FocViz";
 import {
   Award,
   Filter,
@@ -131,6 +132,10 @@ for record in student_records:
           output={"after filter : [['Alice', [75, 88, 92]], ['Bob', [65, 70, 72]], ['Charlie', [88, 90, 95]], ['David', [78, 82, 85]]]\n['Alice', [75, 88, 92, 'distinction']]\n['Bob', [65, 70, 72]]\n['Charlie', [88, 90, 95, 'distinction']]\n['David', [78, 82, 85]]\n['Zoya', [91, 84, 88]]"}
           note="Trace it: Eve averages 50 → filtered out. Alice (92) and Charlie (95) hit 90+ → distinction. Zoya lands at the front via insert(0, …). The sort's lambda x: x[0] says 'rank by element 0 of each record' — the name."
         />
+      </Reveal>
+
+      <Reveal className="mt-6">
+        <PipelineViz preset="records" />
       </Reveal>
 
       <Reveal className="mt-6">
@@ -384,6 +389,10 @@ print(pets)   # cats: gone. All of them.`}
             </Callout>
           </div>
         </div>
+      </Reveal>
+
+      <Reveal className="mt-6">
+        <WhileTracer />
       </Reveal>
 
       <div className="mt-8 grid gap-5 md:grid-cols-2">

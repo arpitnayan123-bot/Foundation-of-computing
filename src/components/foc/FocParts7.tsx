@@ -99,7 +99,7 @@ for language in set(favorite_languages.values()):
 if 'erin' not in favorite_languages.keys():
     print("Erin, please take our poll!")`}
               output={"Languages chosen:\nPython\nC\nRust\nPython\n\nThe following languages have been chosen:\nC\nPython\nRust\nErin, please take our poll!"}
-              note="A set is a collection in which each item must be unique — a list wrapped in set() loses duplicates."
+              note="A set is a collection in which each item must be unique — a list wrapped in set() loses duplicates. One honest caveat: the order of a set's output is the machine's choice, not yours — the values above could print in any order from run to run. Sets guarantee uniqueness, never sequence."
             />
           </div>
         </div>

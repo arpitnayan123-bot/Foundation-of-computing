@@ -15,9 +15,8 @@
    the PDF, runnable.
    ============================================================ */
 
-import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Link2, Scissors, Sparkles } from "lucide-react";
+import React from "react";
+import { Sparkles } from "lucide-react";
 import {
   Callout,
   CodeBlock,
@@ -30,73 +29,11 @@ import {
   SectionHead,
   Takeaways,
 } from "@/components/notes/ui";
+import { MemoryBoxes, PipelineViz } from "@/components/foc/FocViz";
 
 /* ============================================================
    LECTURE 16 — #copies-tuples
    ============================================================ */
-
-/* The machine: same append, two link modes, two different worlds */
-function AliasVsCopy() {
-  const [mode, setMode] = useState<"copy" | "alias">("copy");
-  const copy = ["pizza", "falafel", "carrot cake", "ice cream"];
-  const alias = ["pizza", "falafel", "carrot cake", "ice cream", "cannoli"];
-  const shown = mode === "copy" ? copy : alias;
-  return (
-    <div className="rounded-2xl p-5" style={{ background: "#fbf3e3", border: "1px dashed #e5c79d" }}>
-      <div className="flex flex-wrap gap-2">
-        {(
-          [
-            { key: "copy", label: "friend_foods = my_foods[:]", icon: <Scissors className="h-3.5 w-3.5" />, good: true },
-            { key: "alias", label: "friend_foods = my_foods", icon: <Link2 className="h-3.5 w-3.5" />, good: false },
-          ] as const
-        ).map((m) => (
-          <button
-            key={m.key}
-            onClick={() => setMode(m.key)}
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono-warm text-[.78rem] font-bold transition-all"
-            style={
-              mode === m.key
-                ? {
-                    background: m.good ? "#7c9a3e" : "#8c2f2f",
-                    color: "#fff7ec",
-                    boxShadow: "0 8px 18px -8px rgba(140,47,47,.5)",
-                  }
-                : { background: "#fff", color: "#8a4508", border: "1px solid #e5c79d" }
-            }
-          >
-            {m.icon}
-            {m.label}
-          </button>
-        ))}
-      </div>
-      <p className="mt-3 text-[.86rem] text-[#2b2014]">
-        Story: <strong>cannoli</strong> was appended to <em>my_foods</em>, <strong>ice cream</strong> to{" "}
-        <em>friend_foods</em>. Then <strong>cannoli</strong> again — to whichever list the variable points at:
-      </p>
-      <div className="mt-3 flex flex-wrap gap-2">
-        <AnimatePresence mode="popLayout">
-          {shown.map((f) => (
-            <motion.span
-              layout
-              key={f}
-              initial={{ scale: 0.6, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="rounded-lg px-3 py-1.5 font-mono-warm text-[.78rem] font-bold"
-              style={{ background: "#fff", border: "1px solid #e0b98a", color: "#2b2014" }}
-            >
-              {f}
-            </motion.span>
-          ))}
-        </AnimatePresence>
-      </div>
-      <p className="mt-3 text-[.85rem] font-bold" style={{ color: mode === "copy" ? "#4d6b1f" : "#8c2f2f" }}>
-        {mode === "copy"
-          ? "✓ Two SEPARATE lists — each kept its own items. my_foods still ends with cannoli, friend_foods with ice cream."
-          : "✗ ONE list, two names — cannoli appended through friend_foods lands in my_foods too. The ice cream has vanished from this view because you are looking at my_foods through a second label."}
-      </p>
-    </div>
-  );
-}
 
 export function CopiesTuplesSection() {
   return (
@@ -114,7 +51,7 @@ export function CopiesTuplesSection() {
 
       <ReadStep dark n="1" title="The slice that copies — and the assignment that doesn't" sub="Same words, nearly: my_foods[:] versus my_foods — two utterly different universes" />
       <Reveal>
-        <AliasVsCopy />
+        <MemoryBoxes />
       </Reveal>
 
       <Reveal className="mt-6">
@@ -137,6 +74,7 @@ print(friend_foods)
 alias = my_foods    # two names, ONE list
 alias.append('sprouts')
 print(my_foods)     # sprouts appears here too!`}
+            output={"['pizza', 'falafel', 'carrot cake', 'cannoli']\n['pizza', 'falafel', 'carrot cake', 'ice cream']\n['pizza', 'falafel', 'carrot cake', 'cannoli', 'sprouts']"}
             note="Omitting the slice (my_foods[:] vs my_foods) is one of the most common beginner bugs. Always copy with [:]."
           />
           <CodeBlock
@@ -195,6 +133,7 @@ menu = ('rice', 'dal', 'biryani', 'halwa', 'lassi')
 print("\\nRevised menu:")
 for food in menu:
     print(food)`}
+              output={"rice\ndal\npaneer\nsalad\ncurd\n\nRevised menu:\nrice\ndal\nbiryani\nhalwa\nlassi"}
               note="Assigning a NEW tuple to the same variable is legal — mutating the existing one is not."
             />
           </div>
@@ -271,6 +210,7 @@ const SHIPMENT_STEPS = [
   { n: 5, call: "allocated_device = starting_inventory.pop(1)", why: "pop INDEX 1 and keep the value" },
   { n: 6, call: 'starting_inventory.append("rack_mount")', why: "grow at the end" },
   { n: 7, call: "del starting_inventory[2]", why: "delete by index — value unrecoverable" },
+  { n: 8, call: 'print("final", …) · print("allocated", …)', why: "print the final inventory and the stored device — output verification" },
 ];
 
 export function SkillsLabSection() {
@@ -312,11 +252,11 @@ export function SkillsLabSection() {
         </div>
       </Reveal>
 
-      <ReadStep n="2" title="The shipment inventory challenge" sub="Seven moves on one list — every removal method you own, in one program" />
+      <ReadStep n="2" title="The shipment inventory challenge" sub="Eight moves on one list — every removal method you own, in one program" />
       <Reveal>
         <div className="card-warm p-6 md:p-8">
           <p className="text-[.92rem] leading-relaxed text-[#2b2014]">
-            A hardware shipment just arrived. The deck assigns six operations — read each step, predict
+            A hardware shipment just arrived. The deck assigns eight steps — read each step, predict
             the list after it, <em>then</em> run the block and check yourself:
           </p>
           <div className="mt-4 overflow-x-auto">
@@ -350,11 +290,15 @@ del starting_inventory[2]                      # 7 — delete by index
 
 print("final         :", starting_inventory)
 print("allocated     :", allocated_device)`}
-              output={"start         : ['router', 'switch', 'firewall', 'server', 'cable']\nfinal         : ['fiber_optic', 'firewall', 'rack_mount']\nallocated     : 'switch'"}
-              note="Trace it by hand first: remove 'server' → [router, switch, firewall, cable] → insert 'fiber_optic' at 0 → [fiber_optic, router, switch, firewall, cable] → replace last → pop(1) takes 'switch' → append 'rack_mount' → del index 2 (the 'firewall'). If your prediction matches the run, you OWN this chapter."
+              output={"start         : ['router', 'switch', 'firewall', 'server', 'cable']\nfinal         : ['fiber_optic', 'switch', 'USB_hub', 'rack_mount']\nallocated     : router"}
+              note="Trace it by hand first: remove 'server' → [router, switch, firewall, cable] → insert 'fiber_optic' at 0 → [fiber_optic, router, switch, firewall, cable] → replace last: 'cable' becomes 'USB_hub' → pop(1) takes 'router' → [fiber_optic, switch, firewall, USB_hub] → append 'rack_mount' → del index 2 (the 'firewall') → final: [fiber_optic, switch, USB_hub, rack_mount], allocated: router. If your prediction matches the run, you OWN this chapter."
             />
           </div>
         </div>
+      </Reveal>
+
+      <Reveal className="mt-6">
+        <PipelineViz preset="shipment" />
       </Reveal>
 
       <Reveal className="mt-6">

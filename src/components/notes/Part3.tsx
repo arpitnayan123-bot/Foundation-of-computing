@@ -2,7 +2,6 @@
 
 import React from "react";
 import {
-  Workflow,
   Coffee,
   Code2,
   Cpu,
@@ -20,12 +19,12 @@ import {
   Volume2,
   Vibrate,
   Cog,
-  Gauge,
-  Layers3,
+  Repeat,
+  RotateCcw,
   Sparkles,
   ArrowRight,
 } from "lucide-react";
-import { Reveal, Section, SectionHead, Callout, Quiz, CodeBlock } from "./ui";
+import { Reveal, Section, SectionHead, Callout, Quiz, CodeBlock, ReadStep } from "./ui";
 
 /* ============================================================
    PILLAR 2 — ALGORITHM
@@ -68,8 +67,26 @@ const PROPS = [
   },
 ];
 
+/* Lecture 05 — the three common algorithmic structures, in PDF order. */
+const STRUCTURES = [
+  {
+    icon: <RotateCcw className="h-5 w-5" />,
+    name: "Do-While Loop",
+    desc: "Executes the code block first, THEN checks the condition — the body always runs at least once.",
+  },
+  {
+    icon: <Code2 className="h-5 w-5" />,
+    name: "If-Else Statement",
+    desc: "Executes different code based on a condition — one path when it holds, another when it does not.",
+  },
+  {
+    icon: <Repeat className="h-5 w-5" />,
+    name: "While Loop",
+    desc: "Checks the condition BEFORE executing — if it is false at the start, the body never runs.",
+  },
+];
+
 function EvenOddFlow() {
-  const box = "rx";
   return (
     <svg viewBox="0 0 560 430" className="mx-auto w-full max-w-xl" role="img" aria-label="Even or odd algorithm flowchart">
       <defs>
@@ -87,20 +104,20 @@ function EvenOddFlow() {
       <line x1="280" y1="128" x2="280" y2="160" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#ah)" />
       {/* decision */}
       <path d="M280 162 L390 205 L280 248 L170 205 Z" fill="#b45309" />
-      <text x="280" y="200" textAnchor="middle" fill="#fff7ec" fontSize="12" fontWeight="700">N mod 2 = 0?</text>
-      <text x="280" y="216" textAnchor="middle" fill="#fde8cf" fontSize="9">is the remainder zero?</text>
+      <text x="280" y="200" textAnchor="middle" fill="#fff7ec" fontSize="12" fontWeight="700">Divide n by 2</text>
+      <text x="280" y="216" textAnchor="middle" fill="#fde8cf" fontSize="9">check the remainder — is it 0?</text>
       {/* yes branch */}
       <line x1="170" y1="205" x2="105" y2="205" stroke="#c99a5b" strokeWidth="2" />
       <line x1="105" y1="205" x2="105" y2="268" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#ah)" />
       <text x="128" y="196" fill="#f5c889" fontSize="11" fontWeight="700">YES</text>
       <path d="M40 272 L170 272 L154 312 L24 312 Z" fill="#7c9a3e" />
-      <text x="97" y="296" textAnchor="middle" fill="#fff7ec" fontSize="12" fontWeight="700">Print “Even”</text>
+      <text x="97" y="296" textAnchor="middle" fill="#fff7ec" fontSize="12" fontWeight="700">Print “even”</text>
       {/* no branch */}
       <line x1="390" y1="205" x2="455" y2="205" stroke="#c99a5b" strokeWidth="2" />
       <line x1="455" y1="205" x2="455" y2="268" stroke="#c99a5b" strokeWidth="2" markerEnd="url(#ah)" />
       <text x="412" y="196" fill="#f5c889" fontSize="11" fontWeight="700">NO</text>
       <path d="M390 272 L520 272 L504 312 L374 312 Z" fill="#be4a4a" />
-      <text x="447" y="296" textAnchor="middle" fill="#fff7ec" fontSize="12" fontWeight="700">Print “Odd”</text>
+      <text x="447" y="296" textAnchor="middle" fill="#fff7ec" fontSize="12" fontWeight="700">Print “odd”</text>
       {/* merge */}
       <line x1="97" y1="312" x2="97" y2="352" stroke="#c99a5b" strokeWidth="2" />
       <line x1="447" y1="312" x2="447" y2="352" stroke="#c99a5b" strokeWidth="2" />
@@ -119,44 +136,43 @@ export function AlgorithmSection() {
     <Section id="algorithm" dark>
       <SectionHead
         dark
-        eyebrow="Pillar 2 · The intellectual core"
+        eyebrow="Lecture 05 · pillar 2 — algorithms"
         title={
           <>
             <span className="grad-text">Algorithm</span> — the method for solving a problem
           </>
         }
-        lead="An algorithm is the intellectual core of computing. Understanding algorithms deeply is the foundation of becoming a good programmer — the hardware just runs them fast."
+        lead="An algorithm is the intellectual core of computing — a finite, unambiguous, step-by-step procedure for solving a well-defined problem. Understanding algorithms deeply is the foundation of becoming a good programmer; the hardware just runs them fast."
       />
 
-      {/* tea */}
+      {/* warm-up — the tea recipe, kept compact (not part of the lecture PDF) */}
+      <Reveal>
+        <div className="card-warm p-5">
+          <div className="flex flex-wrap items-center gap-2">
+            <span
+              className="flex items-center gap-2 rounded-lg px-2.5 py-1 text-[.8rem] font-bold"
+              style={{ background: "rgba(245,158,11,.18)", color: "#f5c889" }}
+            >
+              <Coffee className="h-4 w-4" />
+              Warm-up — making tea
+            </span>
+            {["Boil water", "Add tea leaves", "Wait 3 minutes", "Add milk and sugar", "Pour and serve"].map((s, i) => (
+              <span key={s} className="chip">
+                {i + 1}. {s}
+              </span>
+            ))}
+          </div>
+          <p className="mt-2.5 text-[.8rem] leading-relaxed text-[#cbb392]">
+            Everyday life is full of algorithms — you’ve been writing them all along. The
+            recipe is ordered and repeatable; now make the idea precise.
+          </p>
+        </div>
+      </Reveal>
+
+      {/* 1 — definition + history */}
+      <ReadStep dark n="1" title="The formal definition" sub="Finite · unambiguous · step-by-step — and completely independent of computers" />
       <div className="grid gap-5 lg:grid-cols-2">
         <Reveal>
-          <div className="card-warm h-full p-7">
-            <div className="flex items-center gap-3">
-              <Coffee className="h-6 w-6" style={{ color: "#f5c889" }} />
-              <h3 className="text-xl font-bold">Your first algorithm: making tea</h3>
-            </div>
-            <ol className="mt-4 grid gap-2">
-              {["Boil water", "Add tea leaves", "Wait 3 minutes", "Add milk and sugar", "Pour and serve"].map(
-                (s, i) => (
-                  <li key={s} className="flex items-center gap-3">
-                    <span
-                      className="flex h-7 w-7 items-center justify-center rounded-full text-[.72rem] font-bold"
-                      style={{ background: "rgba(245,158,11,.18)", color: "#f5c889" }}
-                    >
-                      {i + 1}
-                    </span>
-                    <span className="text-[.92rem] text-[#e9d7bf]">{s}</span>
-                  </li>
-                )
-              )}
-            </ol>
-            <p className="mt-4 text-[.85rem] leading-relaxed text-[#cbb392]">
-              Everyday life is full of algorithms — you’ve been writing them all along.
-            </p>
-          </div>
-        </Reveal>
-        <Reveal delay={120}>
           <div className="card-warm h-full p-7">
             <p className="eyebrow" style={{ color: "#f5c889" }}>Formal definition</p>
             <p className="mt-3 text-[1.05rem] leading-relaxed text-[#e9d7bf]">
@@ -173,34 +189,36 @@ export function AlgorithmSection() {
             </div>
           </div>
         </Reveal>
+        <Reveal delay={120}>
+          <div className="card-warm h-full p-7">
+            <div className="flex items-center gap-3">
+              <Sparkles className="h-5 w-5" style={{ color: "#f5c889" }} />
+              <h3 className="text-xl font-bold">A 9th-century Persian word on your Instagram feed</h3>
+            </div>
+            <p className="mt-3 text-[.92rem] leading-relaxed text-[#e9d7bf]">
+              The word <strong>algorithm</strong> derives from{" "}
+              <strong>Muhammad ibn Musa Al-Qarizmi</strong>, a 9th-century Persian
+              mathematician whose work on arithmetic and algebra introduced systematic
+              problem-solving methods to the world. The word <strong>algebra</strong> also
+              originates from the title of his book. His methods are the reason your feed is
+              sorted at all.
+            </p>
+            <p className="mt-3 text-[.86rem] leading-relaxed text-[#cbb392]">
+              Algorithms existed long before modern computers — during World War II, women
+              “computers” calculated artillery trajectories by hand. And quality has always
+              mattered more than muscle: a well-optimized algorithm works even with less
+              computing power — exactly how 1990s AI researchers made progress on limited
+              hardware.
+            </p>
+          </div>
+        </Reveal>
       </div>
 
-      {/* history */}
-      <Reveal className="mt-10">
-        <div className="card-warm p-6 md:p-8">
-          <div className="flex items-center gap-3">
-            <Sparkles className="h-5 w-5" style={{ color: "#f5c889" }} />
-            <h3 className="text-xl font-bold">A 9th-century Persian word on your Instagram feed</h3>
-          </div>
-          <p className="mt-3 max-w-4xl text-[.95rem] leading-relaxed text-[#e9d7bf]">
-            The word <strong>algorithm</strong> comes from{" "}
-            <strong>Muhammad ibn Musa al-Khwarizmi</strong>, a 9th-century Persian
-            mathematician whose work on arithmetic and algebra introduced systematic
-            problem-solving methods to the world. The word <strong>algebra</strong> also
-            comes from the title of his book. His methods are the reason your feed is
-            sorted at all.
-          </p>
-        </div>
-      </Reveal>
-
-      {/* flowchart */}
-      <Reveal className="mt-10">
+      {/* 2 — flowchart */}
+      <ReadStep dark n="2" title="The Even / Odd algorithm — drawn as a flowchart" sub="The lecture’s six steps, rendered in the four universal flowchart shapes" />
+      <Reveal>
         <div className="card-warm p-6 md:p-8">
           <p className="eyebrow" style={{ color: "#f5c889" }}>Flowchart anatomy</p>
-          <h3 className="mt-2 text-2xl font-bold">The Even / Odd algorithm</h3>
-          <p className="mt-2 text-[.9rem] text-[#cbb392]">
-            Four shapes cover almost every flowchart you will ever draw:
-          </p>
           <div className="mt-3 flex flex-wrap gap-2">
             {[
               ["Oval", "start / stop"],
@@ -213,21 +231,36 @@ export function AlgorithmSection() {
               </span>
             ))}
           </div>
-          <div className="mt-6 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.05)" }}>
-            <EvenOddFlow />
+          <div className="mt-6 grid items-center gap-8 lg:grid-cols-2">
+            <ol className="grid gap-2">
+              {[
+                "Start",
+                "Read number n",
+                "Divide n by 2 and check the remainder",
+                "If remainder = 0 → print “even”",
+                "If remainder ≠ 0 → print “odd”",
+                "End",
+              ].map((s, i) => (
+                <li key={s} className="flex items-center gap-3">
+                  <span
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[.72rem] font-bold"
+                    style={{ background: "linear-gradient(135deg,#f59e0b,#c2410c)", color: "#fff7ec" }}
+                  >
+                    {i + 1}
+                  </span>
+                  <span className="text-[.9rem] text-[#e9d7bf]">{s}</span>
+                </li>
+              ))}
+            </ol>
+            <div className="rounded-2xl p-4" style={{ background: "rgba(255,236,210,.05)" }}>
+              <EvenOddFlow />
+            </div>
           </div>
         </div>
       </Reveal>
 
-      {/* 5 properties */}
-      <Reveal className="mt-12">
-        <h3 className="text-2xl font-bold">
-          The five essential properties — <span className="grad-text">F·D·I·O·E</span>
-        </h3>
-        <p className="mt-2 max-w-3xl text-[.92rem] text-[#cbb392]">
-          Miss any one of these and it is not an algorithm — it is a hope.
-        </p>
-      </Reveal>
+      {/* 3 — the five properties */}
+      <ReadStep dark n="3" title="The five essential properties — F·D·I·O·E" sub="Miss any one of these and it is not an algorithm — it is a hope" />
       <div className="mt-6 grid gap-5">
         {PROPS.map((p, i) => (
           <Reveal key={p.n} delay={i * 60}>
@@ -264,21 +297,41 @@ export function AlgorithmSection() {
 n = 8
 while n != 0:      # stop when N is EXACTLY zero?
     n = n / 2      # 8 → 4 → 2 → 1 → 0.5 → 0.25 → ...
-    print(n)       # never equals exactly 0!
+    print(n)       # practically never equals exactly 0
 
-# Violates Finiteness: Stop is never reached.`}
-          output={"4.0\n2.0\n1.0\n0.5\n0.25\n0.125\n... (runs forever)"}
-          note="Floating-point halving asymptotically approaches zero but never equals it. Contrast: stop when N < 1 — a condition that is guaranteed to become true. Termination conditions must be reachable."
+# Violates Finiteness: Stop is never reached (in practice).`}
+          output={"4.0\n2.0\n1.0\n0.5\n0.25\n0.125\n... (practically never stops)"}
+          note="Floating-point halving asymptotically approaches zero and practically never reaches it — and in some runtimes the float eventually underflows to exactly 0.0 (real CPython does, after over a thousand halvings). The lesson stands: make termination conditions reachable. Contrast: stop when N < 1 — a condition that is guaranteed to become true."
         />
       </Reveal>
 
+      {/* 4 — structures */}
+      <ReadStep dark n="4" title="Common algorithmic structures" sub="Three shapes cover most algorithms you will ever write — and you will code all of them in Python" />
+      <div className="mt-6 grid gap-5 md:grid-cols-3">
+        {STRUCTURES.map((s, i) => (
+          <Reveal key={s.name} delay={i * 80}>
+            <div className="card-warm h-full p-5">
+              <div className="flex items-center gap-3">
+                <span
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+                  style={{ background: "linear-gradient(135deg,#f59e0b,#c2410c)", color: "#fff7ec" }}
+                >
+                  {s.icon}
+                </span>
+                <h4 className="text-lg font-bold">{s.name}</h4>
+              </div>
+              <p className="mt-3 text-[.88rem] leading-relaxed text-[#e9d7bf]">{s.desc}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
       <Reveal className="mt-8">
-        <Callout dark kind="insight" title="The structures every algorithm is built from">
-          Three shapes cover most algorithms you will ever write: the <strong>while loop</strong>
-          (check the condition, then run), the <strong>do-while loop</strong> (run once, then check),
-          and the <strong>if-else statement</strong> (choose between two paths). They all obey the
-          same five properties above — and you'll meet each one in Python, starting with if-else in
-          Lecture 17 and while in Lecture 25.
+        <Callout dark kind="insight" title="Same foundations, Python ahead">
+          All three structures follow the same foundational principles — and obey the same five
+          properties above. They are covered in detail during the Python lessons: the{" "}
+          <strong>if-else statement</strong> in Lecture 17 and the <strong>while loop</strong> in
+          Lecture 25.
         </Callout>
       </Reveal>
     </Section>
@@ -351,7 +404,7 @@ export function HardwareSection() {
   return (
     <Section id="hardware">
       <SectionHead
-        eyebrow="Pillar 3 · The physical foundation"
+        eyebrow="Lecture 06 · pillar 3 — hardware"
         title={
           <>
             <span className="grad-text">Hardware</span> — silicon that makes ideas run
@@ -507,9 +560,11 @@ export function HardwareSection() {
             </div>
           </div>
           <Callout kind="insight" title="CUDA + Python = GPU power for everyone">
-            NVIDIA’s CUDA platform and Python libraries like <strong>PyTorch</strong> and{" "}
-            <strong>TensorFlow</strong> let programmers write GPU-accelerated code in
-            Python — the same language you will learn in these notes.
+            <strong>NVIDIA</strong> leads GPU development through its{" "}
+            <strong>CUDA (Compute Unified Device Architecture)</strong> platform — and Python
+            libraries like <strong>PyTorch (Meta)</strong> and <strong>TensorFlow (Google)</strong>{" "}
+            let programmers write GPU-accelerated code in Python — the same language you will
+            learn in these notes.
           </Callout>
         </div>
       </Reveal>
@@ -564,6 +619,35 @@ export function HardwareSection() {
           </div>
         </Reveal>
       </div>
+
+      {/* Memory hierarchy — Lecture 06 key concepts: speed vs permanence */}
+      <Reveal className="mt-6">
+        <div className="card-warm p-5 md:p-6">
+          <p className="eyebrow">Memory hierarchy — speed vs. permanence</p>
+          <div className="mt-4 flex flex-col items-stretch gap-3 md:flex-row md:items-center">
+            {[
+              { t: "CPU registers", s: "fastest & most temporary", g: "linear-gradient(135deg,#f59e0b,#c2410c)", fg: "#fff7ec" },
+              { t: "RAM", s: "very fast · temporary", g: "linear-gradient(135deg,#f3c377,#ea8a3c)", fg: "#3e2c1d" },
+              { t: "ROM", s: "very fast · permanent", g: "linear-gradient(135deg,#ecd3a4,#d5ad64)", fg: "#3e2c1d" },
+              { t: "Secondary storage (SSD / HDD)", s: "slower · permanent", g: "linear-gradient(135deg,#dcc69f,#b69c74)", fg: "#2f2013" },
+            ].map((h, i, arr) => (
+              <React.Fragment key={h.t}>
+                <div className="flex-1 rounded-xl p-3 text-center" style={{ background: h.g, color: h.fg }}>
+                  <p className="text-[.86rem] font-bold">{h.t}</p>
+                  <p className="text-[.7rem] opacity-80">{h.s}</p>
+                </div>
+                {i < arr.length - 1 ? (
+                  <ArrowRight className="mx-auto hidden h-5 w-5 shrink-0 text-[#c2410c] md:block" />
+                ) : null}
+              </React.Fragment>
+            ))}
+          </div>
+          <p className="mt-3 text-[.8rem] leading-relaxed text-muted-warm">
+            Speed falls and permanence rises as you move right. Your Python variables live in RAM
+            while the program runs; your .py files live in secondary storage.
+          </p>
+        </div>
+      </Reveal>
 
       <Reveal className="mt-6">
         <div className="card-warm p-5 md:p-6">

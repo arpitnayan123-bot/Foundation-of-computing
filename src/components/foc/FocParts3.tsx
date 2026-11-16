@@ -53,6 +53,7 @@ export function ListOrganizeSection() {
         lead="Data rarely arrives sorted. Python gives you four tools — two that rearrange forever, two that only look. The difference between them is the difference between a tidy program and a mysterious bug."
       />
 
+      <ReadStep n="1" title="The four calls, side by side" sub="sort() · sorted() · reverse() · len() — two rearrange forever, two only look" />
       <Reveal>
         <div className="card-warm p-6 md:p-8">
           <p className="eyebrow">The four calls, side by side</p>
@@ -343,6 +344,7 @@ export function ForLoopsSection() {
         lead="Printing 250 values means 250 print statements — until the for loop. One line walks the whole list for you, and whitespace stops being a style choice: in Python, indentation IS the grammar."
       />
 
+      <ReadStep dark n="1" title="Looping through an entire list" sub="The for loop walks every item — one line replaces 250 print statements" />
       <Reveal>
         <div className="card-warm p-6 md:p-8">
           <p className="mb-5 text-[.92rem] leading-relaxed text-[#e9d7bf]">
@@ -441,7 +443,7 @@ print("Thank you, everyone. That was a great magic show!")  # runs once, after t
           items={[
             <><strong>for item in list:</strong> runs the indented body once per item — the loop ends automatically.</>,
             <>Indentation (4 spaces) is <strong>syntax, not style</strong>: it decides what is inside the loop and what is not.</>,
-            <>Four classic errors: <strong>missing indent · escaped body line · unexpected indent · missing colon</strong> — two crash, two misbehave.</>,
+            <>Four classic errors: <strong>missing indent · escaped body line · unexpected indent · missing colon</strong> — three crash, one misbehaves.</>,
             <>Unindented lines after the loop run <strong>exactly once</strong>, when the loop completes.</>,
           ]}
         />

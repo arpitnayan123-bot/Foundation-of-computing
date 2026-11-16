@@ -16,12 +16,32 @@ import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Check, Compass, FlaskConical, PenLine, Search } from "lucide-react";
 import { scrollToId } from "@/lib/utils";
-import { FOC_LECTURES } from "@/components/foc/lectures";
+import { FOC_LECTURES, type FocLecture } from "@/components/foc/focLectures";
 import { Reveal } from "@/components/notes/ui";
 
 const EMBER = "#c2410c";
 const EMBER_BRIGHT = "#ea580c";
 const GOLD = "#b45309";
+
+/* the Lecture-34 marks map — a quiet pill on every picker row */
+function RowExamPill({ lecture }: { lecture: FocLecture }) {
+  const quiz = lecture.examStatus === "quiz-only";
+  return (
+    <span
+      title={quiz
+        ? "Part of the foundations track — assessed by the quizzes, excluded from the 60-mark end term (Lecture 34)"
+        : "End-term syllabus — 100% of the 60-mark paper comes from this track (Lecture 34)"}
+      className="shrink-0 rounded-full px-1.5 py-0.5 text-[.5rem] font-black uppercase tracking-[.1em]"
+      style={
+        quiz
+          ? { background: "rgba(160,133,104,.14)", color: "#a08568" }
+          : { background: "rgba(245,158,11,.16)", color: "#b45309" }
+      }
+    >
+      {quiz ? "quiz" : "end-term"}
+    </span>
+  );
+}
 
 export function FocHero({
   activeId,
@@ -149,7 +169,7 @@ export function FocHero({
                         type="button"
                         onClick={() => onSelect(l.id)}
                         aria-pressed={isActive}
-                        title={l.title}
+                        title={`${l.code} · ${l.title} — ${l.blurb}`}
                         className={`group flex w-full items-center gap-2.5 rounded-xl border px-2.5 py-2 text-left transition-all duration-200 ${
                           isActive
                             ? "border-[#c2410c] bg-white shadow-[0_16px_40px_-18px_rgba(194,65,12,.45)] ring-2 ring-[#ea580c]/25"
@@ -164,11 +184,12 @@ export function FocHero({
                               : { background: "#f7ecdc", color: EMBER }
                           }
                         >
-                          {l.n ?? "·"}
+                          {l.n}
                         </span>
                         <span className={`min-w-0 flex-1 truncate text-[.86rem] font-bold leading-tight ${isActive ? "text-[#c2410c]" : "text-[#3e2c1d]"}`}>
                           {l.title}
                         </span>
+                        <RowExamPill lecture={l} />
                         {allRead ? (
                           <Check className="h-3.5 w-3.5 shrink-0" style={{ color: "#8fae5d" }} aria-label="Every chapter read" />
                         ) : null}

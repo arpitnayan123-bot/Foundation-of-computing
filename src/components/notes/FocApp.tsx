@@ -29,6 +29,7 @@ import {
   Menu,
   PenLine,
   Printer,
+  ScrollText,
   X,
 } from "lucide-react";
 import { scrollToId } from "@/lib/utils";
@@ -37,9 +38,10 @@ import { jumpTo, useOpenSection } from "@/lib/use-open-section";
 import { loadProgress } from "@/lib/progress";
 import { FocHero } from "@/components/foc/FocHero";
 import {
-  FOC_LECTURES, FOC_ALL_CHAPTER_IDS, FOC_DEFAULT_LECTURE,
-  lectureById, lectureOfChapter, type FocLecture,
-} from "@/components/foc/lectures";
+  FOC_LECTURES, FOC_GROUPS, FOC_ALL_CHAPTER_IDS, FOC_DEFAULT_LECTURE,
+  lectureById, lectureOfChapter, lectureByLooseId,
+  type FocExamStatus, type FocLecture,
+} from "@/components/foc/focLectures";
 import { WhySection, ComputingSection, PillarsSection } from "@/components/notes/Part1";
 import { DataSection } from "@/components/notes/Part2";
 import { AlgorithmSection, HardwareSection } from "@/components/notes/Part3";
@@ -48,8 +50,7 @@ import { BasicsSection, ListsSection } from "@/components/notes/Part5";
 import { IfSection, DictsSection } from "@/components/notes/Part6";
 import { WhileSection, FunctionsSection } from "@/components/notes/Part7";
 import { ArgsSection } from "@/components/notes/Part8";
-import { FuncsScaleSection } from "@/components/notes/Part9";
-import { ClassesSection } from "@/components/notes/Part10";
+import { OopIntroSection, OopInheritSection, OopImportsSection } from "@/components/notes/Part10";
 import { CourseMapSection, DataTypesSection } from "@/components/foc/FocParts1";
 import { CaseFilesSection } from "@/components/foc/FocParts2";
 import { ListOrganizeSection, ForLoopsSection } from "@/components/foc/FocParts3";
@@ -59,10 +60,16 @@ import { BranchesSection, IfListsSection } from "@/components/foc/FocParts6";
 import { DictLoopsSection, NestingSection } from "@/components/foc/FocParts7";
 import { RecordsLabSection, LoopControlSection } from "@/components/foc/FocParts8";
 import { ReturnsSection } from "@/components/foc/FocParts9";
+import { DataOriginSection, SystemSoftwareSection } from "@/components/foc/FocParts10";
+import { NumbersSection } from "@/components/foc/FocParts11";
+import { QuestionTypesSection } from "@/components/foc/FocParts12";
+import { Funcs3Section } from "@/components/foc/FocParts13";
+import { FinalExamSection } from "@/components/foc/FocParts17";
 import { PyReadyToast } from "@/components/notes/ui";
 import { PythonLab } from "@/components/notes/Playground";
 import { ExamWindow } from "@/components/notes/ExamWindow";
 import { EXAM_BANKS, EXAM_GROUPS, TOTAL_QUESTIONS, type ExamGroup } from "@/components/notes/questions";
+import { ENDTERM_MOCK_META, ENDTERM_MOCK_QUESTIONS } from "@/components/foc/endterm-mock";
 import { ShelfQuickNav } from "@/components/atlas/ShelfQuickNav";
 
 /* shelf 01 palette — deep ember & gold on ivory paper */
@@ -73,85 +80,24 @@ const GOLD_LITE = "#f5c889";
 const EMBER_DARK = "linear-gradient(165deg,#241608 0%,#33200e 55%,#3e2c1d 100%)";
 
 /* ============================================================
-   Structured chapter map — the top bar is organised into
-   six groups that follow the deck's arc. Each group owns
-   a "Test my knowledge" exam window (see questions.ts).
+   Structured chapter map — DERIVED from the FocLectures registry
+   (src/components/foc/focLectures.ts). The top bar is organised
+   into six groups that follow the deck's arc; each group owns a
+   "Test my knowledge" exam window (see questions.ts). The group
+   ids double as the ExamGroup keys, so nav and exam banks can
+   never drift apart.
    ============================================================ */
-const GROUPS: {
+type NavGroup = {
   id: ExamGroup;
   label: string;
   items: { id: string; label: string; desc: string }[];
-}[] = [
-  {
-    id: "foundations",
-    label: "Orientation",
-    items: [
-      { id: "course-map", label: "Course map", desc: "Four objectives · why Python · the finale" },
-      { id: "computing", label: "Computing", desc: "Input → process → output, everywhere" },
-      { id: "pillars", label: "4 Pillars", desc: "Decompose · patterns · abstraction · algorithms" },
-      { id: "data", label: "Data & DIKW", desc: "Data → information → knowledge → wisdom" },
-      { id: "data-types", label: "Data types", desc: "Structured · temporal · quant vs qual" },
-    ],
-  },
-  {
-    id: "pillars",
-    label: "Pillars & Cases",
-    items: [
-      { id: "why", label: "Why code?", desc: "What programming actually unlocks" },
-      { id: "algorithm", label: "Algorithms", desc: "Recipes a machine can follow" },
-      { id: "hardware", label: "Hardware", desc: "CPU, memory, sensors & I/O" },
-      { id: "software", label: "Software", desc: "OS, apps, compilers & interpreters" },
-      { id: "python", label: "Python", desc: "Meet the language" },
-      { id: "case-files", label: "Case files", desc: "Knight Capital · Netflix · Zara · redlining" },
-    ],
-  },
-  {
-    id: "pycore",
-    label: "Python Core",
-    items: [
-      { id: "basics", label: "Basics", desc: "Variables, strings, numbers, comments" },
-      { id: "lists", label: "Lists", desc: "Ordered collections, indexing, add & remove" },
-      { id: "list-organize", label: "Organize", desc: "sort · sorted · reverse · len · index errors" },
-      { id: "for-loops", label: "For loops", desc: "Loop a list · the indentation law" },
-      { id: "checkpoint-1", label: "Checkpoint 1", desc: "Recap · quiz format · predict the output" },
-      { id: "numeric-lists", label: "Numeric lists", desc: "range · comprehensions · statistics · slices" },
-      { id: "copies-tuples", label: "Copies & tuples", desc: "Copy vs reference · immutable tuples" },
-    ],
-  },
-  {
-    id: "decisions",
-    label: "Decisions & Data",
-    items: [
-      { id: "if", label: "If / Else", desc: "Decisions, comparisons, logic" },
-      { id: "branches", label: "Branches", desc: "if-else · elif ladders · independent ifs" },
-      { id: "skills-lab", label: "Skills lab", desc: "Recap · the shipment inventory challenge" },
-      { id: "if-lists", label: "If × lists", desc: "Special items · empty checks · multiple lists" },
-      { id: "dicts", label: "Dictionaries", desc: "Key–value pairs & the safe lookup" },
-      { id: "dict-loops", label: "Dict loops", desc: "items · keys · sorted · values · sets" },
-      { id: "nesting", label: "Nesting", desc: "List of dicts · dict of lists · dict of dicts" },
-      { id: "records-lab", label: "Records lab", desc: "Filter · reward · insert · sort" },
-    ],
-  },
-  {
-    id: "loops",
-    label: "Loops",
-    items: [
-      { id: "while", label: "While loops", desc: "Repeat until the job is done" },
-      { id: "loop-control", label: "Loop control", desc: "Flags · break · continue · while with data" },
-    ],
-  },
-  {
-    id: "pro",
-    label: "Functions & OOP",
-    items: [
-      { id: "functions", label: "Functions", desc: "Define, call, reuse — first steps" },
-      { id: "args", label: "Arguments", desc: "Positional, keyword, defaults & errors" },
-      { id: "returns", label: "Return values", desc: "return · optional args · dict builders" },
-      { id: "funcs2", label: "Funcs × Lists", desc: "Passing lists, *args, **kwargs, modules" },
-      { id: "classes", label: "Classes", desc: "Objects, __init__, inheritance" },
-    ],
-  },
-];
+};
+
+const GROUPS: NavGroup[] = FOC_GROUPS.map((g) => ({
+  id: g.id as ExamGroup,
+  label: g.label,
+  items: g.items,
+}));
 
 const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
 
@@ -163,6 +109,7 @@ function groupOf(id: string): string | null {
 /* ============================================================
    The chapter component, keyed by section id — the lecture
    reader renders exactly the slice the chosen lecture owns.
+   All 34 lectures → 40 chapters, every one wired.
    ============================================================ */
 const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   "course-map": <CourseMapSection />,
@@ -171,12 +118,15 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   data: <DataSection />,
   "data-types": <DataTypesSection />,
   why: <WhySection />,
+  "data-origin": <DataOriginSection />,
   algorithm: <AlgorithmSection />,
   hardware: <HardwareSection />,
+  "system-software": <SystemSoftwareSection />,
   software: <SoftwareSection />,
   python: <ProgrammingSection />,
   "case-files": <CaseFilesSection />,
   basics: <BasicsSection />,
+  numbers: <NumbersSection />,
   lists: <ListsSection />,
   "list-organize": <ListOrganizeSection />,
   "for-loops": <ForLoopsSection />,
@@ -196,8 +146,12 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   functions: <FunctionsSection />,
   args: <ArgsSection />,
   returns: <ReturnsSection />,
-  funcs2: <FuncsScaleSection />,
-  classes: <ClassesSection />,
+  "question-types": <QuestionTypesSection />,
+  funcs3: <Funcs3Section />,
+  "oop-intro": <OopIntroSection />,
+  "oop-inherit": <OopInheritSection />,
+  "oop-imports": <OopImportsSection />,
+  "final-exam": <FinalExamSection />,
 };
 
 /* ============================================================
@@ -685,10 +639,12 @@ function PracticeHub({
   open,
   onClose,
   onOpenExam,
+  onOpenMock,
 }: {
   open: boolean;
   onClose: () => void;
   onOpenExam: (g: ExamGroup) => void;
+  onOpenMock: () => void;
 }) {
   const hubRef = useDialogA11y<HTMLDivElement>(open);
 
@@ -751,7 +707,7 @@ function PracticeHub({
                   checking.
                 </p>
                 <p className="mt-2 text-[.64rem] font-black uppercase tracking-[.18em] text-[#a5876a]">
-                  {TOTAL_QUESTIONS} questions · {EXAM_GROUPS.length} windows
+                  {TOTAL_QUESTIONS} questions · {EXAM_GROUPS.length} windows · 1 official mock
                 </p>
               </div>
               <button
@@ -764,7 +720,47 @@ function PracticeHub({
               </button>
             </div>
 
-            {/* the four exam windows */}
+            {/* the official L34 mock — full-width featured card */}
+            <div className="px-6 sm:px-8">
+              <button
+                type="button"
+                onClick={onOpenMock}
+                className="group flex w-full items-center gap-4 rounded-2xl border p-5 text-left transition-all duration-200 hover:-translate-y-0.5"
+                style={{
+                  borderColor: "rgba(245,158,11,.4)",
+                  background: "linear-gradient(120deg,rgba(245,158,11,.14),rgba(234,88,12,.08) 60%,transparent)",
+                }}
+                aria-label="Open the official 60-mark end-term mock in the Lecture 34 format"
+              >
+                <span
+                  className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-white shadow-md"
+                  style={{ background: "linear-gradient(135deg,#f59e0b,#c2410c)" }}
+                >
+                  <ScrollText className="h-5 w-5" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="flex flex-wrap items-center gap-2">
+                    <span className="text-[1.02rem] font-extrabold text-[#f5c889]">{ENDTERM_MOCK_META.title}</span>
+                    <span
+                      className="rounded-full px-2 py-0.5 text-[.56rem] font-black uppercase tracking-[.14em]"
+                      style={{ background: "rgba(245,158,11,.2)", color: "#f5c889" }}
+                    >
+                      Lecture 34 format
+                    </span>
+                  </span>
+                  <span className="mt-1 block text-[.76rem] leading-snug text-[#e0cbaa]">
+                    {ENDTERM_MOCK_META.subtitle} — 20 short answers (max 3 sentences, 2 marks each)
+                    plus 5 exact-output predictions (4 marks each, all-or-nothing), drawn 100% from
+                    the end-term Python syllabus.
+                  </span>
+                </span>
+                <span className="shrink-0 text-[.66rem] font-black uppercase tracking-[.16em] text-[#c99a63] transition-colors group-hover:text-[#f5c889]">
+                  Sit the paper · {ENDTERM_MOCK_META.totalMarks} marks →
+                </span>
+              </button>
+            </div>
+
+            {/* the six exam windows */}
             <div className="grid gap-3 px-6 pb-7 pt-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
               {EXAM_GROUPS.map((g) => {
                 const bank = EXAM_BANKS[g];
@@ -799,8 +795,40 @@ function PracticeHub({
 }
 
 /* ============================================================
+   ExamStatusPill — "where do the marks live?" per Lecture 34.
+   ============================================================ */
+function ExamStatusPill({ status, dark = false }: { status: FocExamStatus; dark?: boolean }) {
+  const quiz = status === "quiz-only";
+  return (
+    <span
+      title={quiz
+        ? "Foundations track — already assessed by the quizzes, excluded from the 60-mark end term (Lecture 34)"
+        : "End-term syllabus — 100% of the 60-mark paper comes from this track (Lecture 34)"}
+      className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[.58rem] font-extrabold uppercase tracking-[.14em]"
+      style={
+        quiz
+          ? {
+              borderColor: dark ? "rgba(255,255,255,.18)" : "#e4c9a4",
+              background: dark ? "rgba(255,255,255,.06)" : "#fbf3e4",
+              color: dark ? "#c9b08e" : "#8a5a06",
+            }
+          : {
+              borderColor: "rgba(245,158,11,.45)",
+              background: dark ? "rgba(245,158,11,.12)" : "rgba(245,158,11,.14)",
+              color: dark ? "#f5c889" : "#92400e",
+            }
+      }
+    >
+      <span className="h-1.5 w-1.5 rounded-full" style={{ background: quiz ? "#a08568" : "#f59e0b" }} aria-hidden />
+      {quiz ? "Quiz only · excluded from end-term (L34)" : "End-term syllabus (L34)"}
+    </span>
+  );
+}
+
+/* ============================================================
    FocLectureHead — the "Foundations of Computing Lecture N"
-   hero band. Compact: the number, the name, the chapter jumps.
+   hero band. Compact: the number, the name, the part, the
+   exam status, and the chapter jumps.
    ============================================================ */
 function FocLectureHead({ lecture }: { lecture: FocLecture }) {
   return (
@@ -825,16 +853,21 @@ function FocLectureHead({ lecture }: { lecture: FocLecture }) {
           <p className="flex flex-wrap items-center gap-1.5 text-[.56rem] font-extrabold uppercase tracking-[.22em] text-[#c99a63]">
             <Compass className="h-3 w-3" style={{ color: "#f59e0b" }} />
             Foundations of Computing
+            <span className="text-[#8d7b63]">·</span>
+            <span>Part {lecture.part} · {lecture.partLabel}</span>
           </p>
-          <h2 className="mt-1 text-xl font-black leading-tight text-[#ffe9c9] sm:text-2xl">
-            Lecture {lecture.n}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: `linear-gradient(120deg,${GOLD_LITE},${GOLD})` }}
-            >
-              {" "}· {lecture.title}
-            </span>
-          </h2>
+          <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-2">
+            <h2 className="text-xl font-black leading-tight text-[#ffe9c9] sm:text-2xl">
+              Lecture {lecture.n}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: `linear-gradient(120deg,${GOLD_LITE},${GOLD})` }}
+              >
+                {" "}· {lecture.title}
+              </span>
+            </h2>
+            <ExamStatusPill status={lecture.examStatus} dark />
+          </div>
           {lecture.chapters.length > 0 ? (
             <div className="mt-2.5 flex flex-wrap gap-1.5">
               {lecture.chapters.map((c) => (
@@ -905,7 +938,7 @@ function LecturePager({ current, onJump }: { current: FocLecture; onJump: (id: s
           </button>
         ) : (
           <span className="rounded-2xl border border-dashed border-[#e8dcc0] p-4 text-center text-[.78rem] font-bold leading-snug text-[#a08568]">
-            End of the sequence — Lecture 28 closes the recorded deck, and Classes waits just beyond it. Revise, then retake the windows.
+            End of the sequence — Lecture 34 closes the course with the final exam guidelines. Revise, then retake the windows.
           </span>
         )}
       </div>
@@ -915,21 +948,54 @@ function LecturePager({ current, onJump }: { current: FocLecture; onJump: (id: s
 
 /* ============================================================
    FocApp — the composed subject page: a lecture reader.
+
+   Lecture-level deep links: #/subject/foc/l14 opens the shelf
+   straight on lecture 14, and every selection rewrites the hash
+   (history-replace, so the browser back button keeps working)
+   — refresh-safe and shareable, never kicked back to L01.
    ============================================================ */
-export function FocApp({ onExitAtlas }: { onExitAtlas: () => void }) {
-  const [lectureId, setLectureId] = useState<string>(FOC_DEFAULT_LECTURE);
+export function FocApp({ onExitAtlas, initialLecture }: { onExitAtlas: () => void; initialLecture?: string }) {
+  const [lectureId, setLectureId] = useState<string>(() => {
+    const fromHash = initialLecture ? lectureByLooseId(initialLecture) : null;
+    return fromHash?.id ?? FOC_DEFAULT_LECTURE;
+  });
   const [examGroup, setExamGroup] = useState<ExamGroup | null>(null);
+  const [mockOpen, setMockOpen] = useState(false);
   const [hubOpen, setHubOpen] = useState(false);
   const lectureIdRef = useRef(lectureId);
   useEffect(() => {
     lectureIdRef.current = lectureId;
   }, [lectureId]);
 
+  /* live hash sync — a pasted/edited URL mid-session switches
+     lectures without a remount (and never loops on its own writes) */
+  useEffect(() => {
+    const onHash = () => {
+      const h = window.location.hash;
+      if (!h.startsWith("#/subject/foc/")) return;
+      const tail = h.slice("#/subject/foc/".length).replace(/\/+$/, "");
+      const target = lectureByLooseId(tail);
+      if (target && target.id !== lectureIdRef.current) setLectureId(target.id);
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
   const lecture = lectureById(lectureId) ?? FOC_LECTURES[0];
   const seen = useSeenDisplay(lecture);
 
   const selectLecture = useCallback((id: string) => {
     setLectureId(id);
+    /* keep the address bar shareable — replace (not push) so the
+       trail and the back button stay about views, not scroll steps */
+    try {
+      const target = `#/subject/foc/${id}`;
+      if (window.location.hash !== target) {
+        window.history.replaceState(null, "", target);
+      }
+    } catch {
+      /* history blocked (sandboxed iframe) — the shelf still works */
+    }
     requestAnimationFrame(() =>
       requestAnimationFrame(() => {
         const el = document.getElementById("notes-top");
@@ -966,6 +1032,7 @@ export function FocApp({ onExitAtlas }: { onExitAtlas: () => void }) {
   useOpenSection("foc", goToChapter);
 
   const openExam = useCallback((g: ExamGroup) => setExamGroup(g), []);
+  const openMock = useCallback(() => setMockOpen(true), []);
   const openHub = useCallback(() => setHubOpen(true), []);
 
   /* the ⌘K palette may have left a lab handoff flag before this
@@ -1027,8 +1094,19 @@ export function FocApp({ onExitAtlas }: { onExitAtlas: () => void }) {
       </main>
       <PyReadyToast />
       <PythonLab open={labOpen} onClose={() => setLabOpen(false)} />
-      <PracticeHub open={hubOpen} onClose={() => setHubOpen(false)} onOpenExam={openExam} />
+      <PracticeHub open={hubOpen} onClose={() => setHubOpen(false)} onOpenExam={openExam} onOpenMock={openMock} />
       {examGroup ? <ExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
+      {mockOpen ? (
+        <ExamWindow
+          group="pro"
+          mockBank={{
+            title: ENDTERM_MOCK_META.title,
+            subtitle: ENDTERM_MOCK_META.subtitle,
+            questions: ENDTERM_MOCK_QUESTIONS,
+          }}
+          onClose={() => setMockOpen(false)}
+        />
+      ) : null}
     </div>
   );
 }

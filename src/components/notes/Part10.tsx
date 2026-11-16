@@ -13,12 +13,17 @@ import {
   RotateCcw,
   Gauge,
   Sparkles,
-  AlertTriangle,
+  Check,
+  X,
+  Dices,
+  Home,
+  PencilRuler,
 } from "lucide-react";
 import {
   Reveal,
   Section,
   SectionHead,
+  ReadStep,
   Callout,
   Quiz,
   CodeBlock,
@@ -298,22 +303,97 @@ function OdometerLab() {
 }
 
 /* ============================================================
-   PART 10 — CLASSES (object-oriented programming)
+   Access matrix rows — Lecture 32, "who can call whose methods"
    ============================================================ */
-export function ClassesSection() {
+type AccessRow = { who: string; what: string; ok: boolean; why: string };
+
+const ACCESS_ROWS: AccessRow[] = [
+  { who: "Parent instance", what: "parent methods", ok: true, why: "born with them — Car defines get_descriptive_name()" },
+  { who: "Parent instance", what: "child methods", ok: false, why: "AttributeError — a plain Car instance has no describe_battery()" },
+  { who: "Child instance", what: "parent methods", ok: true, why: "inherited — ElectricCar automatically gained everything from Car" },
+  { who: "Child instance", what: "child methods", ok: true, why: "its own — describe_battery() lives on ElectricCar" },
+];
+
+/* ============================================================
+   PART 10 · LECTURE 31 — INTRODUCTION TO CLASSES IN OOP
+   ============================================================ */
+export function OopIntroSection() {
   return (
-    <Section id="classes">
+    <Section id="oop-intro">
       <SectionHead
-        eyebrow="Python · classes · object-oriented programming"
+        eyebrow="Lecture 31 · classes & objects"
         title={
           <>
-            Classes — <span className="grad-text">blueprints for objects</span>
+            <span className="grad-text">Introduction to classes</span> in object-oriented programming
           </>
         }
-        lead="You've used dictionaries and lists to hold information — now you'll design your own. A class defines what a thing is and what it can do; every object made from it is an instance with its own data. This is object-oriented programming, and it scales from pet dogs to real software."
+        lead="Object-oriented programming is one of the most effective approaches to writing software — and it starts with one image: a class is an architectural blueprint, an instance is the actual house built from it, with its own paint, occupants and address. One blueprint, many houses. Today the Dog and Car classes make that real."
       />
 
-      {/* 1 — Dog class */}
+      {/* STEP 1 — OOP overview + the blueprint analogy */}
+      <ReadStep n="1" title="Objects from blueprints — the OOP mental model" sub="Class = the architectural drawing · instance = the actual house" />
+      <Reveal>
+        <div className="card-warm p-6 md:p-8">
+          <p className="text-[.95rem] leading-relaxed text-[#2b2014]">
+            <strong>Object-Oriented Programming (OOP)</strong> is one of the most effective approaches to writing
+            software, and <strong>classes</strong> are what enable it: a class defines the general behavior and
+            characteristics that a whole category of objects can share. Making an individual object from a class is
+            called <strong>instantiation</strong> — every instance automatically carries the class's general
+            behavior while staying free to have unique traits of its own.
+          </p>
+
+          <div className="mt-6 grid items-stretch gap-3 lg:grid-cols-[1fr_auto_1fr]">
+            <div className="rounded-2xl border-2 border-[#e8cfa5] bg-gradient-to-b from-[#fffaf1] to-[#fdeed6] p-5">
+              <div className="flex items-center gap-2">
+                <PencilRuler className="h-6 w-6" style={{ color: "#b45309" }} />
+                <p className="font-mono text-[.9rem] font-black text-[#3e2c1d]">the blueprint</p>
+              </div>
+              <p className="mt-1 text-[.7rem] font-bold uppercase tracking-widest text-[#8a5a10]">
+                class · general characteristics
+              </p>
+              <p className="mt-2 text-[.82rem] leading-relaxed text-muted-warm">
+                An architectural drawing defines what <em>every</em> house has —{" "}
+                <strong>bedrooms · kitchen · garage</strong>. Nothing physical yet: just the plan that every future
+                house will follow.
+              </p>
+            </div>
+            <svg viewBox="0 0 60 24" className="mx-auto h-6 w-14 self-center lg:h-8 lg:w-20" aria-hidden>
+              <path d="M2 12 H50" className="flow-arrow-line" stroke="#c2410c" strokeWidth="2.5" fill="none" />
+              <path d="M46 5 L56 12 L46 19" stroke="#c2410c" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <div className="grid content-start gap-3">
+              {[
+                { paint: "ivory white", people: "the Sharmas", place: "Jodhpur" },
+                { paint: "sea green", people: "the Iyers", place: "Pune" },
+              ].map((h) => (
+                <div key={h.place} className="rounded-2xl border-2 border-[#e8cfa5] bg-gradient-to-b from-[#fdeed6] to-[#fbd9a8] p-4">
+                  <div className="flex items-center gap-2">
+                    <Home className="h-5 w-5" style={{ color: "#c2410c" }} />
+                    <p className="font-mono text-[.82rem] font-black text-[#3e2c1d]">the actual house</p>
+                  </div>
+                  <p className="mt-1 text-[.8rem] leading-relaxed text-[#6f5438]">
+                    built from that one blueprint · <strong>{h.paint}</strong> paint ·{" "}
+                    <strong>{h.people}</strong> live here · located in <strong>{h.place}</strong>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="mt-3 text-center text-[.8rem] font-semibold text-muted-warm">
+            From a single blueprint, multiple distinct instances — each with different properties. Classes work
+            exactly the same way.
+          </p>
+
+          <div className="mt-5 grid gap-3">
+            <KV k="class" v="Defines the general behavior and characteristics that a whole category of objects can share." />
+            <KV k="instance" v="An object built from the class — it automatically has the general behavior, plus unique traits of its own." />
+            <KV k="instantiation" v="The act of making an individual object from a class — one class, as many instances as you need." />
+          </div>
+        </div>
+      </Reveal>
+
+      {/* STEP 2 — creating and using a class: Dog */}
+      <ReadStep n="2" title="Creating and using a class — Dog" sub="The class keyword · capitalized names · __init__ runs automatically · self arrives on its own" />
       <Reveal>
         <div className="card-warm p-6 md:p-8">
           <div className="flex items-center gap-3">
@@ -357,16 +437,51 @@ export function ClassesSection() {
               <KV k="attributes" v="Variables prefixed with self (self.name, self.age) are available to every method in the class and accessible through any instance. self.name = name attaches the value to the instance being created." />
             </div>
           </div>
-          <Callout kind="story" title="Scale it up">
-            If this class were part of a computer game, sit() and roll_over() would contain code to{" "}
-            <strong>animate</strong> a dog. If it controlled a robot, they would <strong>direct movements</strong>{" "}
-            that make a dog-robot sit and roll over. Same structure — bigger consequences.
-          </Callout>
+
+          {/* the naming dance */}
+          <div className="mt-6 max-w-3xl rounded-2xl border border-[#f3e2c8] bg-[#fffaf1] p-5">
+            <p className="text-[.72rem] font-extrabold uppercase tracking-[.18em] text-[#8a5a10]">
+              the naming dance
+            </p>
+            <p className="mt-2 text-[.88rem] leading-relaxed text-[#2b2014]">
+              The <strong>parameter</strong> is <code className="font-mono text-[.8rem]">name</code>, the{" "}
+              <strong>attribute</strong> is <code className="font-mono text-[.8rem]">self.name</code>, and the{" "}
+              <strong>argument</strong> you pass is <code className="font-mono text-[.8rem]">'willie'</code>.
+              When you call <code className="font-mono text-[.8rem]">Dog()</code>, you provide values only for
+              name and age — self arrives automatically.
+            </p>
+          </div>
+
+          {/* understanding the self parameter */}
+          <div className="mt-8">
+            <h3 className="text-xl font-bold">
+              Understanding the <span className="grad-text">self parameter</span>
+            </h3>
+            <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
+              <strong>self</strong> is required as the first parameter in <em>every</em> method definition inside a
+              class, and it represents <strong>the instance itself</strong> — through it, a method reaches that
+              specific instance's attributes and methods. Python passes it automatically whenever a method is
+              called, so you never supply an argument for it. Any variable prefixed with <strong>self</strong>{" "}
+              (self.name, self.age) becomes an attribute — accessible throughout the class and from outside via
+              instances — and each instance gets its own independent copy.
+            </p>
+            <div className="mt-5">
+              <StepsFlow
+                steps={[
+                  { label: "my_dog.sit()", sub: "you call the method on one instance", icon: <MousePointerClick className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+                  { label: "my_dog → self", sub: "Python passes the instance automatically — no argument from you", icon: <Dog className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+                  { label: "self.name → 'willie'", sub: "the attribute read belongs to THIS instance", icon: <Sparkles className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+                  { label: "'Willie is now sitting.'", sub: "printed with that instance's own data", icon: <Boxes className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+                ]}
+              />
+            </div>
+          </div>
         </div>
       </Reveal>
 
-      {/* 2 — making an instance */}
-      <Reveal className="mt-8">
+      {/* STEP 3 — making an instance */}
+      <ReadStep n="3" title="Making an instance — instantiation" sub="Dog('willie', 6) runs __init__ and hands back a real object · then make several" />
+      <Reveal>
         <div className="card-warm p-6 md:p-8">
           <h3 className="text-2xl font-bold">
             Making an instance — <span className="grad-text">instantiation</span>
@@ -396,33 +511,24 @@ my_dog.roll_over()`}
               note="Dot notation reaches attributes (my_dog.name) and calls methods (my_dog.sit())."
             />
             <div className="grid content-start gap-3">
-              <div className="rounded-2xl border border-[#f3e2c8] bg-[#fffaf1] p-5">
-                <p className="text-[.72rem] font-extrabold uppercase tracking-[.18em] text-[#8a5a10]">
-                  the naming dance
-                </p>
-                <p className="mt-2 text-[.88rem] leading-relaxed text-[#2b2014]">
-                  The <strong>parameter</strong> is <code className="font-mono text-[.8rem]">name</code>, the{" "}
-                  <strong>attribute</strong> is <code className="font-mono text-[.8rem]">self.name</code>, and the{" "}
-                  <strong>argument</strong> you pass is <code className="font-mono text-[.8rem]">'willie'</code>.
-                  When you call <code className="font-mono text-[.8rem]">Dog()</code>, you provide values only for
-                  name and age — self arrives automatically.
-                </p>
-              </div>
               <Callout kind="insight" title="Why __init__ needs no return">
                 __init__() has no explicit return statement, but Python <strong>automatically returns an
                 instance</strong> representing this dog — that's what lands in my_dog.
               </Callout>
+              <div className="rounded-xl border border-[#f3e2c8] bg-[#fffaf1] px-4 py-3 text-[.86rem] leading-relaxed text-[#2b2014]">
+                Attributes are reached without parentheses — <strong>my_dog.name</strong>,{" "}
+                <strong>my_dog.age</strong>. Methods are called with them — <strong>my_dog.sit()</strong>,{" "}
+                <strong>my_dog.roll_over()</strong>. Same dot, two very different jobs.
+              </div>
             </div>
           </div>
         </div>
       </Reveal>
 
-      {/* 3 — dog instantiator */}
       <Reveal className="mt-8">
         <DogInstantiator />
       </Reveal>
 
-      {/* 4 — multiple instances */}
       <Reveal className="mt-8">
         <div className="card-warm p-6 md:p-8">
           <h3 className="text-2xl font-bold">Creating multiple instances</h3>
@@ -462,8 +568,9 @@ t_dog.sit()`}
         </div>
       </Reveal>
 
-      {/* 5 — Car class */}
-      <Reveal className="mt-8">
+      {/* STEP 4 — the Car class */}
+      <ReadStep n="4" title="Working with classes and instances — the Car class" sub="get_descriptive_name() returns a value · methods vs functions · attributes vs methods" />
+      <Reveal>
         <div className="card-warm p-6 md:p-8">
           <div className="flex items-center gap-3">
             <Car className="h-6 w-6" style={{ color: "#c2410c" }} />
@@ -493,10 +600,129 @@ print(my_new_car.get_descriptive_name())`}
               output={"2016 Audi A4"}
               note="__init__() takes self first, then make, model, year — and stores each in attributes. get_descriptive_name() combines them via self.make, self.model, self.year so we never print attributes one by one."
             />
-            <div className="grid content-start gap-4">
-              <CodeBlock
-                title="car.py — a default value + read_odometer()"
-                code={`class Car():
+            <div className="grid content-start gap-3">
+              <KV k="methods vs functions" v="Methods are functions defined within a class — called through an instance (instance_name.method_name()), and every method must include self as its first parameter." />
+              <KV k="attributes vs methods" v="Attributes are variables stored within an instance, prefixed with self — they hold the data. Methods are the actions or behaviors. Attributes store information; methods define what instances can do with it." />
+              <KV k="return" v="Unlike sit() which prints directly, get_descriptive_name() uses return to send '2016 Audi A4' back — print() then does the displaying." />
+              <Callout kind="story" title="Scale it up">
+                If this class were part of a computer game, sit() and roll_over() would contain code to{" "}
+                <strong>animate</strong> a dog. If it controlled a robot, they would <strong>direct movements</strong>{" "}
+                that make a dog-robot sit and roll over. Same structure — bigger consequences.
+              </Callout>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* quiz */}
+      <Reveal className="mt-10">
+        <div className="grid gap-4 md:grid-cols-2">
+          <Quiz
+            q="You write my_dog = Dog('willie', 6). What happens to self?"
+            options={[
+              "You must pass my_dog in as self yourself",
+              "Python passes it automatically — self points at the instance being created, and 'willie' and 6 fill name and age",
+              "self is optional and can be dropped from __init__()",
+              "self receives the string 'willie'; age is never stored",
+            ]}
+            answer={1}
+            explain="You only supply arguments for name and age — Python passes self automatically. self.name = name attaches the value to the instance being created, which is why every instance carries its own independent copy of the attributes."
+            source="Classes I · the self parameter"
+          />
+          <Quiz
+            q="get_descriptive_name() is different from sit() because it…"
+            options={[
+              "takes extra parameters beyond self",
+              "returns a formatted value instead of printing — print(my_new_car.get_descriptive_name()) displays '2016 Audi A4'",
+              "works without self, since it only reads attributes",
+              "runs automatically every time a Car instance is created",
+            ]}
+            answer={1}
+            explain="Methods can send values back with return — get_descriptive_name() returns the formatted string and print() does the displaying. The automatic runner is __init__(), and even it needs no explicit return: Python hands back the fresh instance itself."
+            source="Classes I · methods & return"
+          />
+        </div>
+      </Reveal>
+
+      {/* practice — the three Lecture 31 exercises */}
+      <Reveal className="mt-8">
+        <Practice
+          title="Practice — Lecture 31 exercises"
+          items={[
+            {
+              q: <>Create a <code className="font-mono">Restaurant</code> class with two attributes — <code className="font-mono">name</code> and <code className="font-mono">cuisine_type</code> — set in <code className="font-mono">__init__</code>, plus two methods: <code className="font-mono">describe_restaurant()</code> and <code className="font-mono">open_restaurant()</code>. Make one instance and call both methods.</>,
+              hint: "describe prints the name and cuisine; open prints that the restaurant is open.",
+            },
+            {
+              q: <>Now make <strong>three different instances</strong> of <code className="font-mono">Restaurant</code> and call <code className="font-mono">describe_restaurant()</code> for each one.</>,
+              hint: "One class, three calls — each instance carries its own name and cuisine_type.",
+            },
+            {
+              q: <>Build a <code className="font-mono">User</code> class with <code className="font-mono">first_name</code>, <code className="font-mono">last_name</code> and a few other profile attributes, plus <code className="font-mono">describe_user()</code> and <code className="font-mono">greet_user()</code>. Create several users and call both methods for each.</>,
+              hint: "greet_user() can print a simple personalized 'Hello' — every instance greets with its own names.",
+            },
+          ]}
+        />
+      </Reveal>
+
+      {/* takeaways */}
+      <Reveal className="mt-8">
+        <div style={{ display: "flex", alignItems: "center", gap: ".5rem", marginBottom: "1rem" }}>
+          <Sparkles className="h-5 w-5" style={{ color: "#c2410c" }} />
+          <span className="text-sm font-black uppercase tracking-[.2em] text-[#8a5a10]">
+            Lecture 31 mastered — you're writing object-oriented Python
+          </span>
+        </div>
+        <Takeaways
+          items={[
+            <>A <strong>class</strong> is a blueprint; an <strong>instance</strong> is the house built from it — creating one is <strong>instantiation</strong>.</>,
+            <>Class names are <strong>capitalized</strong> by convention; the docstring says what the class does; the parentheses are empty when starting from scratch.</>,
+            <><strong>__init__()</strong> runs automatically on every new instance; <strong>self</strong> arrives automatically and must come first in every method definition.</>,
+            <>Any variable prefixed with <strong>self.</strong> becomes an attribute — reachable from every method and through any instance, each with an independent copy.</>,
+            <>Attributes hold data; methods are the actions — always called through an instance (<code className="font-mono">instance_name.method_name()</code>).</>,
+            <><code className="font-mono">get_descriptive_name()</code> <strong>returns</strong> a value; __init__() needs no explicit return — Python hands back the fresh instance.</>,
+            <>Multiple instances from one class stay independent — even with identical values, each is its own object in memory.</>,
+            <>The same structure scales: games <strong>animate</strong> the sitting dog, robots <strong>direct</strong> it — bigger consequences, identical code shape.</>,
+          ]}
+        />
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ============================================================
+   PART 10 · LECTURE 32 — CLASSES, ATTRIBUTE MODIFICATION
+   & INHERITANCE
+   ============================================================ */
+export function OopInheritSection() {
+  return (
+    <Section id="oop-inherit" dark>
+      <SectionHead
+        dark
+        eyebrow="Lecture 32 · attributes & inheritance"
+        title={
+          <>
+            Classes, <span className="grad-text">attribute modification & inheritance</span>
+          </>
+        }
+        lead="Every attribute needs an initial value — defaults live in __init__'s body. Then the three ways to change one: directly, through a validating method, or by incrementing. Finally the family tree: inheritance, super(), overriding, and instances as attributes."
+      />
+
+      {/* STEP 1 — default values + OdometerLab + the three ways */}
+      <ReadStep dark n="1" title="Setting default values — and the three ways to modify an attribute" sub="odometer_reading = 0 in __init__ · direct · method · increment" />
+      <Reveal>
+        <div className="card-warm p-6 md:p-8">
+          <h3 className="text-2xl font-bold">Setting default values</h3>
+          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
+            Every attribute in a class needs an initial value — even 0 or an empty string. Default values can be
+            specified <strong>directly in __init__'s body</strong>, without becoming parameters: every instance
+            then starts with the same consistent value. The odometer of a new car is the classic case —{" "}
+            <strong>any car instance starts at zero miles</strong>.
+          </p>
+          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+            <CodeBlock
+              title="car.py — a default value + read_odometer()"
+              code={`class Car():
     def __init__(self, make, model, year):
         """Initialize attributes to describe a car."""
         self.make = make
@@ -511,27 +737,39 @@ print(my_new_car.get_descriptive_name())`}
 my_new_car = Car('audi', 'a4', 2016)
 print(my_new_car.get_descriptive_name() + '\\n')
 my_new_car.read_odometer()`}
-                output={"2016 Audi A4\n\nThis car has 0 miles on it."}
-              />
+              output={"2016 Audi A4\n\nThis car has 0 miles on it."}
+            />
+            <div className="grid content-start gap-3">
               <Callout kind="why" title="Every attribute needs an initial value">
                 Every attribute in a class needs an initial value — even 0 or an empty string. Set it directly in{" "}
                 <strong>__init__()'s body</strong> and you don't need a parameter for it: every new car starts at 0
                 miles.
               </Callout>
+              <div className="rounded-xl border border-[#f3e2c8] bg-[#fffaf1] px-4 py-3 text-[.86rem] leading-relaxed text-[#2b2014]">
+                <strong>odometer_reading</strong> is a default, not a parameter: Car('audi', 'a4', 2016) still takes
+                exactly three arguments, yet every instance arrives with <code className="font-mono text-[.8rem]">odometer_reading = 0</code>{" "}
+                already set.
+              </div>
             </div>
           </div>
         </div>
       </Reveal>
 
-      {/* 6 — odometer lab */}
       <Reveal className="mt-8">
         <OdometerLab />
       </Reveal>
 
-      {/* 7 — three ways code */}
       <Reveal className="mt-8">
         <div className="card-warm p-6 md:p-8">
           <h3 className="text-2xl font-bold">The three ways, in code</h3>
+          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
+            The lab above played all three: <strong>directly</strong> via{" "}
+            <code className="font-mono text-[.8rem]">instance.attribute = value</code> — quick, but with no
+            validation; through <code className="font-mono text-[.8rem]">update_odometer()</code> — a method that
+            can check the new value and refuse a rollback; and{" "}
+            <code className="font-mono text-[.8rem]">increment_odometer()</code> — which adds to the existing value
+            with <code className="font-mono text-[.8rem]">+=</code> instead of replacing it.
+          </p>
           <div className="mt-5 grid gap-5 lg:grid-cols-2">
             <CodeBlock
               title="car.py — update_odometer with rollback protection"
@@ -584,8 +822,9 @@ my_used_car.read_odometer()`}
         </div>
       </Reveal>
 
-      {/* 8 — inheritance */}
-      <Reveal className="mt-8">
+      {/* STEP 2 — inheritance */}
+      <ReadStep dark n="2" title="Inheritance — parent and child classes" sub="class ChildClass(ParentClass): · the child automatically gains everything" />
+      <Reveal>
         <div className="card-warm p-6 md:p-8">
           <div className="flex items-center gap-3">
             <GitFork className="h-6 w-6" style={{ color: "#c2410c" }} />
@@ -620,6 +859,10 @@ my_used_car.read_odometer()`}
             </div>
           </div>
 
+          <div className="mt-4 rounded-xl border border-[#4a3020] bg-[#2b1b10] px-4 py-3 text-center font-mono text-[.86rem] font-bold text-[#ffd28a]">
+            class ChildClass(ParentClass):&nbsp;&nbsp;# the child gains everything — automatically
+          </div>
+
           <div className="mt-6 grid gap-5 lg:grid-cols-2">
             <CodeBlock
               title="electric_car.py — the child's __init__"
@@ -651,8 +894,9 @@ print(my_tesla.get_descriptive_name())`}
         </div>
       </Reveal>
 
-      {/* 9 — child additions + override */}
-      <Reveal className="mt-8">
+      {/* STEP 3 — child additions, overriding, composition */}
+      <ReadStep dark n="3" title="Child attributes, overriding — and instances as attributes" sub="battery_size · describe_battery() · fill_gas_tank() wins · the Battery class" />
+      <Reveal>
         <div className="card-warm p-6 md:p-8">
           <h3 className="text-2xl font-bold">
             Child attributes, methods — and <span className="grad-text">overriding</span>
@@ -719,7 +963,6 @@ my_byd.fill_gas_tank()`}
         </div>
       </Reveal>
 
-      {/* 10 — instances as attributes */}
       <Reveal className="mt-8">
         <div className="card-warm p-6 md:p-8">
           <div className="flex items-center gap-3">
@@ -793,11 +1036,163 @@ my_tata.battery.get_range()`}
             get_range() — <strong>without cluttering ElectricCar</strong>. The dotted chain reads like a sentence:
             my car's battery's range.
           </Callout>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { t: "Focused", d: "Each class stays small and manageable — one job per class." },
+              { t: "Maintainable", d: "Separated code is easier to understand and to change." },
+              { t: "Reusable", d: "Battery works in other contexts — scooters, drones, power grids." },
+              { t: "Simpler", d: "A large class becomes smaller, specialized classes working together." },
+            ].map((b) => (
+              <div key={b.t} className="rounded-2xl border border-[#f3e2c8] bg-[#fffaf1] p-4">
+                <p className="text-[.8rem] font-extrabold uppercase tracking-[.14em] text-[#c2410c]">{b.t}</p>
+                <p className="mt-1 text-[.82rem] leading-relaxed text-[#2b2014]">{b.d}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </Reveal>
 
-      {/* 11 — importing classes */}
+      {/* STEP 4 — key principles + the access matrix */}
+      <ReadStep dark n="4" title="Key inheritance principles + the access matrix" sub="Who can call whose methods — the four-cell rule" />
+      <Reveal>
+        <div className="card-warm p-6 md:p-8">
+          <p className="text-[.95rem] leading-relaxed text-[#2b2014]">
+            Two principles decide everything: <strong>an instance of a child class can access all methods and
+            attributes from the parent class</strong>, but <strong>an instance of a parent class cannot access
+            methods or attributes specific to the child class</strong>. The design rule follows directly — general
+            code and behavior that could apply to <em>any</em> instance belongs in the parent class; child classes
+            keep only the code and behavior specific to their specialized purpose.
+          </p>
+
+          <div
+            className="mt-6 overflow-hidden rounded-2xl border border-[#4a3020]"
+            style={{ background: "linear-gradient(180deg,#332214,#2b1b10)" }}
+            role="table"
+            aria-label="The inheritance access matrix — who can call whose methods"
+          >
+            <div className="border-b border-[#4a3020] px-5 py-3">
+              <p className="text-[.62rem] font-bold uppercase tracking-[.22em] text-[#b98d5f]">
+                the access matrix — four combinations, one rule
+              </p>
+            </div>
+            <div>
+              {ACCESS_ROWS.map((r, i) => (
+                <div
+                  key={r.who + r.what}
+                  role="row"
+                  className={`flex flex-col gap-2 px-5 py-3.5 sm:flex-row sm:items-center sm:gap-4 ${i < ACCESS_ROWS.length - 1 ? "border-b border-[#4a3020]" : ""}`}
+                >
+                  <p className="w-40 shrink-0 font-mono text-[.82rem] font-bold text-[#ffd28a]" role="cell">
+                    {r.who}
+                  </p>
+                  <svg viewBox="0 0 32 12" className="hidden h-3 w-8 shrink-0 sm:block" aria-hidden>
+                    <path d="M1 6 H24" stroke="#b98d5f" strokeWidth="2" fill="none" />
+                    <path d="M21 2 L27 6 L21 10" stroke="#b98d5f" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <p className="w-44 shrink-0 font-mono text-[.82rem] font-bold text-[#f5e6cd]" role="cell">
+                    {r.what}
+                  </p>
+                  <span
+                    className="inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1 text-[.72rem] font-extrabold uppercase tracking-wider"
+                    style={{
+                      background: r.ok ? "rgba(143,174,93,.16)" : "rgba(228,103,74,.16)",
+                      color: r.ok ? "#a9c97a" : "#e4674a",
+                      border: `1px solid ${r.ok ? "rgba(143,174,93,.4)" : "rgba(228,103,74,.45)"}`,
+                    }}
+                    role="cell"
+                  >
+                    {r.ok ? <Check className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}
+                    {r.ok ? "works" : "AttributeError"}
+                  </span>
+                  <p className="text-[.74rem] leading-relaxed text-[#b99a75] sm:ml-auto sm:text-right" role="cell">
+                    {r.why}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="border-t border-[#4a3020] bg-[rgba(255,220,170,.04)] px-5 py-3 text-[.8rem] leading-relaxed text-[#d9b88c]">
+              General behavior lives in the parent — specialized code lives in the child.
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* quiz */}
+      <Reveal className="mt-10">
+        <div className="grid gap-4 md:grid-cols-2">
+          <Quiz
+            q="What exactly does super().__init__(make, model, year) do inside ElectricCar.__init__()?"
+            options={[
+              "Creates a second, independent Car instance",
+              "Calls the parent Car's __init__() so the child instance receives all parent attributes",
+              "Renames the ElectricCar class to Car",
+              "Copies the Car class source code into ElectricCar",
+            ]}
+            answer={1}
+            explain="Python's first task with a child instance is assigning the parent's attributes — super().__init__() delegates that to Car. super() = superclass (parent), and it must be called before adding child-specific attributes."
+            source="Classes II · inheritance"
+          />
+          <Quiz
+            q="my_maruti = Car('swift', 'XLI', 2018) — what happens with my_maruti.describe_battery()?"
+            options={[
+              "It prints 'This car has a 70-kWh battery.' — all cars have batteries",
+              "It prints nothing — Car has a silent battery attribute",
+              "AttributeError — describe_battery() is defined on ElectricCar, and Car instances don't have it",
+              "It works only if my_maruti is electric",
+            ]}
+            answer={2}
+            explain="battery_size and describe_battery() belong to the child class only — they're associated with ElectricCar instances, never with plain Car instances. (And over in the Battery composition version, it's my_tesla.battery.describe_battery() — through the battery attribute.)"
+            source="Classes II · child-only members"
+          />
+        </div>
+      </Reveal>
+
+      {/* takeaways */}
       <Reveal className="mt-8">
+        <div style={{ display: "flex", alignItems: "center", gap: ".5rem", marginBottom: "1rem" }}>
+          <Sparkles className="h-5 w-5" style={{ color: "#f5c889" }} />
+          <span className="text-sm font-black uppercase tracking-[.2em] text-[#f5c889]">
+            Lecture 32 mastered — attributes, inheritance & composition
+          </span>
+        </div>
+        <Takeaways
+          dark
+          items={[
+            <>Every attribute needs an initial value — set defaults directly in __init__'s body (<code className="font-mono">odometer_reading = 0</code>), no parameter required.</>,
+            <>Change an attribute <strong>three ways</strong>: directly (no guard), through a method that validates ("You can't roll back an odometer!"), or increment via <code className="font-mono">+=</code>.</>,
+            <>Inheritance: <code className="font-mono">class Child(Parent):</code> — the child automatically gains every parent attribute and method.</>,
+            <><code className="font-mono">super().__init__(make, model, year)</code> calls the parent's __init__ so the child instance receives all parent attributes.</>,
+            <>Child-only attributes and methods belong to child instances only — <code className="font-mono">my_maruti.describe_battery()</code> is an AttributeError.</>,
+            <>Override by redefining the name in the child — Python disregards the parent's version and uses yours.</>,
+            <>When a class grows too detailed, split it — a <strong>Battery instance as an attribute</strong> keeps ElectricCar clean (<code className="font-mono">my_tesla.battery.get_range()</code>): focused, maintainable, reusable, simpler.</>,
+            <>The access matrix: child → parent methods works; parent → child methods is an AttributeError. General behavior in the parent, specialized code in the child.</>,
+          ]}
+        />
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ============================================================
+   PART 10 · LECTURE 33 — IMPORTING CLASSES, MODULES &
+   THE PYTHON STANDARD LIBRARY
+   ============================================================ */
+export function OopImportsSection() {
+  return (
+    <Section id="oop-imports">
+      <SectionHead
+        eyebrow="Lecture 33 · modules & the standard library"
+        title={
+          <>
+            Importing classes, <span className="grad-text">modules & the Python standard library</span>
+          </>
+        }
+        lead="Classes move out of the main program and into modules — then back in again, exactly as needed: one class, several, the whole module, or (almost) never import *. Modules import modules, and the standard library ships free classes with every Python installation."
+      />
+
+      {/* STEP 1 — a single class + storing several in one module */}
+      <ReadStep n="1" title="Importing a single class — and storing several in one module" sub="from car import Car · related classes live together" />
+      <Reveal>
         <div className="card-warm p-6 md:p-8">
           <div className="flex items-center gap-3">
             <Network className="h-6 w-6" style={{ color: "#c2410c" }} />
@@ -919,8 +1314,9 @@ my_tesla.battery.get_range()`}
         </div>
       </Reveal>
 
-      {/* 12 — import styles for classes */}
-      <Reveal className="mt-8">
+      {/* STEP 2 — import styles */}
+      <ReadStep n="2" title="Import styles — multiple, whole module, and the one to avoid" sub="Commas · dot notation · import * and its two problems" />
+      <Reveal>
         <div className="card-warm p-6 md:p-8">
           <h3 className="text-2xl font-bold">Import styles for classes</h3>
           <div className="mt-5 grid gap-5 lg:grid-cols-2">
@@ -945,7 +1341,7 @@ print(my_beetle.get_descriptive_name())
 my_tesla = car.ElectricCar('tesla', 'roadster', 2016)
 print(my_tesla.get_descriptive_name())`}
               output={"2016 Volkswagen Beetle\n2016 Tesla Roadster\n2016 Volkswagen Beetle\n2016 Tesla Roadster"}
-              note="module_name.class_name is simple, readable, and immune to naming conflicts with the current file."
+              note="module_name.class_name is simple, readable, and immune to naming conflicts with the current file — the recommended approach when importing many classes from a module."
             />
             <div className="grid content-start gap-4">
               <CodeBlock
@@ -979,8 +1375,9 @@ print(my_beetle.get_descriptive_name())`}
         </div>
       </Reveal>
 
-      {/* 13 — module into module */}
-      <Reveal className="mt-8">
+      {/* STEP 3 — module into module */}
+      <ReadStep n="3" title="Importing a module into a module" sub="electric_car.py needs its parent — declare the dependency" />
+      <Reveal>
         <div className="card-warm p-6 md:p-8">
           <h3 className="text-2xl font-bold">Importing a module into a module</h3>
           <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
@@ -1071,8 +1468,9 @@ print(my_tesla.get_descriptive_name())`}
         </div>
       </Reveal>
 
-      {/* 14 — standard library */}
-      <Reveal className="mt-8">
+      {/* STEP 4 — the standard library: OrderedDict + randint */}
+      <ReadStep n="4" title="The Python standard library" sub="Ships with every installation · OrderedDict keeps order · randint rolls dice" />
+      <Reveal>
         <div className="card-warm p-6 md:p-8">
           <div className="flex items-center gap-3">
             <Library className="h-6 w-6" style={{ color: "#c2410c" }} />
@@ -1115,76 +1513,99 @@ for name, language in favorite_languages.items():
         </div>
       </Reveal>
 
+      <Reveal className="mt-8">
+        <div className="card-warm p-6 md:p-8">
+          <div className="flex items-center gap-3">
+            <Dices className="h-6 w-6" style={{ color: "#c2410c" }} />
+            <h3 className="text-2xl font-bold">
+              Another freebie — <span className="grad-text">from random import randint</span>
+            </h3>
+          </div>
+          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
+            Same move, different module: <strong>random</strong> also ships with every Python installation, and its{" "}
+            <strong>randint()</strong> function returns a random number between the two endpoints you give it —{" "}
+            <code className="font-mono text-[.8rem]">randint(1, 6)</code> lands anywhere from 1 to 6, both
+            included. That's a die. Applications like dice rollers are one import away.
+          </p>
+          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+            <CodeBlock
+              title="dice_roller.py — roll a six-sided die, five times"
+              runnable={true}
+              code={`from random import randint
+
+# randint(1, 6) → a random integer between 1 and 6,
+# endpoints included. Every call is a fresh roll.
+for roll_num in range(5):
+    roll = randint(1, 6)
+    print("You rolled a " + str(roll) + ".")
+
+print("\\nSame die, five throws — all different. Run again!")`}
+              output={"You rolled a 4.\nYou rolled a 1.\nYou rolled a 6.\nYou rolled a 3.\nYou rolled a 5.\n\nSame die, five throws — all different. Run again!"}
+              note="randint is random — every run is different, and that's the point. An example run printed 'You rolled a 4.' — yours will differ. Press Run to roll the die live in your browser."
+            />
+            <div className="grid content-start gap-3">
+              <KV k="from random import randint" v="The random module ships with Python — one import line and randint() is yours, exactly like OrderedDict." />
+              <KV k="randint(1, 6)" v="Returns a random number between 1 and 6, both endpoints included — a single call models one honest die roll." />
+              <Callout kind="insight" title="Honest output">
+                This block is <strong>runnable and nondeterministic</strong>: the recorded output is one honest
+                example run — yours will differ. Dice rollers, password pickers, card shuffles: all of them stand
+                on randint.
+              </Callout>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
       {/* quiz */}
       <Reveal className="mt-10">
         <div className="grid gap-4 md:grid-cols-2">
           <Quiz
-            q="What exactly does super().__init__(make, model, year) do inside ElectricCar.__init__()?"
+            q="After `import car`, how do you make a beetle — and why is this style recommended when a module holds many classes?"
             options={[
-              "Creates a second, independent Car instance",
-              "Calls the parent Car's __init__() so the child instance receives all parent attributes",
-              "Renames the ElectricCar class to Car",
-              "Copies the Car class source code into ElectricCar",
+              "car.Car('volkswagen', 'beetle', 2016) — module_name.class_name keeps the source explicit and avoids naming conflicts",
+              "Car('volkswagen', 'beetle', 2016) — importing a module puts its classes directly in scope",
+              "from car.Car('volkswagen', 'beetle', 2016) — modules import instances",
+              "beetle = car('volkswagen', 'beetle', 2016) — modules are callable",
             ]}
-            answer={1}
-            explain="Python's first task with a child instance is assigning the parent's attributes — super().__init__() delegates that to Car. super() = superclass (parent), and it must be called before adding child-specific attributes."
-            source="Classes · inheritance"
+            answer={0}
+            explain="import car puts the module in scope, not its classes — every instantiation reads car.Car(...), so anyone reading the line knows exactly where the class came from. With many classes, that explicitness beats dozens of separate from-imports."
+            source="Classes III · import styles"
           />
           <Quiz
-            q="my_maruti = Car('swift', 'XLI', 2018) — what happens with my_maruti.describe_battery()?"
+            q="from random import randint — what exactly does randint(1, 6) hand back?"
             options={[
-              "It prints 'This car has a 70-kWh battery.' — all cars have batteries",
-              "It prints nothing — Car has a silent battery attribute",
-              "AttributeError — describe_battery() is defined on ElectricCar, and Car instances don't have it",
-              "It works only if my_maruti is electric",
+              "A random float between 0 and 1",
+              "A random integer from 1 to 5 — the upper limit is exclusive",
+              "A random integer between 1 and 6, both endpoints included — a six-sided die",
+              "The same number on every run, seeded at import",
             ]}
             answer={2}
-            explain="battery_size and describe_battery() belong to the child class only — they're associated with ElectricCar instances, never with plain Car instances. (And over in the Battery composition version, it's my_tesla.battery.describe_battery() — through the battery attribute.)"
-            source="Classes · child attributes"
+            explain="Both endpoints count: randint(1, 6) can return 1, 2, 3, 4, 5 or 6 — which is why a single call models one honest die roll. Run dice_roller.py twice and the two outputs will disagree; that's the point."
+            source="Classes III · standard library"
           />
         </div>
       </Reveal>
 
-      {/* practice */}
+      {/* practice — the four Lecture 33 exercises */}
       <Reveal className="mt-8">
         <Practice
-          title="Practice — think in objects"
+          title="Practice — Lecture 33 exercises"
           items={[
             {
-              q: <>Build <code className="font-mono">Dog</code> exactly as shown (name, age, sit, roll_over), then create <code className="font-mono">my_dog</code>, <code className="font-mono">your_dog</code>, and a third dog with <em>identical</em> values to your first. Prove they're separate.</>,
-              hint: "Change one dog's attribute; the other is untouched.",
+              q: <>Store the <code className="font-mono">Restaurant</code> class from Lecture 31 in its own module, then create a separate file that imports it and makes an instance.</>,
+              hint: "restaurant.py holds the class; my_restaurant.py starts with from restaurant import Restaurant.",
             },
             {
-              q: <>Add <code className="font-mono">odometer_reading = 0</code> to Car's __init__ body — why is there no <code className="font-mono">odometer</code> parameter?</>,
-              hint: "Defaults live in the body; every instance starts at 0.",
+              q: <>Store <code className="font-mono">User</code>, <code className="font-mono">Privileges</code> and <code className="font-mono">Admin</code> classes in a single module, import them, and demonstrate each class's functionality.</>,
+              hint: "One module, three related classes — import several at once with commas.",
             },
             {
-              q: <>Set <code className="font-mono">my_new_car.odometer_reading = 23</code> directly, then replicate the result using <code className="font-mono">update_odometer()</code>. Which way lets you add a safety check?</>,
-              hint: "Only the method can inspect and reject a rollback.",
+              q: <>Now split them: <code className="font-mono">User</code> in one module, <code className="font-mono">Privileges</code> and <code className="font-mono">Admin</code> in another. Which import lines does each file need?</>,
+              hint: "Admin uses Privileges — that module imports its own dependency, module into module.",
             },
             {
-              q: <>Roll a reading of 20 back to 18 and read the message. Then increment from 23,500 by 100 like the used Subaru.</>,
-              hint: "mileage >= reading → accept; else refuse.",
-            },
-            {
-              q: <>Write <code className="font-mono">ElectricCar(Car)</code> with <code className="font-mono">super().__init__(make, model, year)</code>, then add <code className="font-mono">battery_size = 70</code> and <code className="font-mono">describe_battery()</code>. Why does <code className="font-mono">my_maruti.describe_battery()</code> crash?</>,
-              hint: "Child-only members don't exist on parent instances.",
-            },
-            {
-              q: <>Override <code className="font-mono">fill_gas_tank()</code> in ElectricCar. Before the override, what did my_byd.fill_gas_tank() print — and why?</>,
-              hint: "Same name in the child → Python disregards the parent's version.",
-            },
-            {
-              q: <>Extract Battery into its own class (default size 70), give it <code className="font-mono">get_range()</code> (70→240 mi, 85→270 mi), and store <code className="font-mono">self.battery = Battery(85)</code> in ElectricCar. Print the TATA Tiago's name, battery, and range.</>,
-              hint: "Chain the dots: my_tata.battery.get_range().",
-            },
-            {
-              q: <>Split Car into <code className="font-mono">car.py</code> and Battery+ElectricCar into <code className="font-mono">electric_car.py</code>. Which import line does electric_car.py need, and what breaks without it?</>,
-              hint: "from car import Car — super() needs the parent.",
-            },
-            {
-              q: <>Use <code className="font-mono">OrderedDict()</code> to record the favorite-languages poll, then loop it. What guarantees the output order?</>,
-              hint: "OrderedDict remembers insertion order; plain dicts don't promise it here.",
+              q: <>Create a <code className="font-mono">Die</code> class with a <code className="font-mono">sides</code> attribute (default 6) and a <code className="font-mono">roll_die()</code> method that prints a random number from 1 to the side count. Roll 6-, 10- and 20-sided dice ten times each.</>,
+              hint: "randint(1, self.sides) inside the method — the random module does the rolling.",
             },
           ]}
         />
@@ -1195,21 +1616,18 @@ for name, language in favorite_languages.items():
         <div style={{ display: "flex", alignItems: "center", gap: ".5rem", marginBottom: "1rem" }}>
           <Sparkles className="h-5 w-5" style={{ color: "#c2410c" }} />
           <span className="text-sm font-black uppercase tracking-[.2em] text-[#8a5a10]">
-            Classes mastered — you're writing object-oriented Python
+            Lecture 33 mastered — classes travel by module
           </span>
         </div>
         <Takeaways
           items={[
-            <>A <strong>class</strong> is a blueprint; an <strong>instance</strong> is a specific object in memory. Creating one = <strong>instantiation</strong>.</>,
-            <><strong>__init__()</strong> runs automatically on every new instance; <strong>self</strong> is passed automatically and must come first.</>,
-            <>Variables prefixed with <strong>self.</strong> are attributes — reachable from every method and every instance.</>,
-            <>Instances are independent, even with identical values — each holds its own data at its own spot.</>,
-            <>Give attributes default values in __init__'s body (odometer_reading = 0) — no parameter needed.</>,
-            <>Change attributes <strong>three ways</strong>: directly, set via a method, increment via a method — methods can guard the data ("You can't roll back an odometer!").</>,
-            <>Inheritance: child gets everything from the parent via <strong>super().__init__()</strong>, adds its own members, and can <strong>override</strong> any parent method by redefining the name.</>,
-            <>When a class grows too detailed, split it — a <strong>Battery instance as an attribute</strong> keeps ElectricCar clean (my_tesla.battery.get_range()).</>,
-            <>Classes live in modules too: import one, many, the whole module (dots!), or — never — <strong>import *</strong>. Modules can import modules.</>,
-            <>The <strong>standard library</strong> ships with Python: <code className="font-mono">from collections import OrderedDict</code> keeps insertion order. Same pattern you already know.</>,
+            <>Store classes in modules and <code className="font-mono">from module_name import ClassName</code> — the main program stays clean and readable.</>,
+            <>Related classes live together — Car, Battery and ElectricCar all belong in car.py.</>,
+            <>Import several classes with commas, or import the whole module and write <code className="font-mono">car.Car()</code> — explicit source, no naming conflicts.</>,
+            <><strong>import *</strong> hides your inventory and invites name collisions — know it, don't ship it.</>,
+            <>Modules import modules: electric_car.py declares <code className="font-mono">from car import Car</code> — dependencies explicit, files small.</>,
+            <>The <strong>standard library</strong> ships with every Python install: <code className="font-mono">from collections import OrderedDict</code> keeps insertion order.</>,
+            <><code className="font-mono">from random import randint</code> — randint(1, 6) rolls a die. Import, instantiate, use: the same pattern you learned with Dog.</>,
           ]}
         />
       </Reveal>

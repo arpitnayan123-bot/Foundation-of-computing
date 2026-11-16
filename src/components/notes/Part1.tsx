@@ -1,191 +1,54 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import {
-  ArrowDown,
-  ArrowRight,
+  Banknote,
+  Blocks,
+  BrainCircuit,
+  Cloud,
+  Compass,
   Cpu,
   Database,
-  Workflow,
-  MonitorSmartphone,
-  Quote,
-  Search,
-  Smartphone,
-  MapPin,
-  PlayCircle,
-  Cloud,
-  Banknote,
-  HeartPulse,
-  ShoppingBag,
+  GraduationCap,
   Landmark,
-  Server,
+  MapPin,
+  MonitorSmartphone,
+  PlayCircle,
+  Quote,
   Scale,
-  BrainCircuit,
-  TriangleAlert,
-  BookOpenCheck,
-  Blocks,
-  FlaskConical,
+  Search,
+  Server,
+  Smartphone,
+  SpellCheck,
   Timer,
+  TriangleAlert,
+  Workflow,
 } from "lucide-react";
-import { scrollToId } from "@/lib/utils";
-import { Reveal, Section, SectionHead, Callout, Quiz, StepsFlow, Pill } from "./ui";
+import { jumpTo } from "@/lib/use-open-section";
+import { lectureOfChapter } from "@/components/foc/focLectures";
+import { Reveal, Section, SectionHead, Callout, Quiz, StepsFlow, Pill, KV, Takeaways } from "./ui";
 
 /* ============================================================
-   HERO
+   LECTURE 04 — WHY LEARN PROGRAMMING
+   The vibe-coding reality check, the enterprise IPO model,
+   the cloud — and the honest answer to the LLM question.
    ============================================================ */
-const HERO_BITS = [
-  { t: "0101", top: "12%", left: "6%", s: "1.4rem", d: "0s" },
-  { t: "1100", top: "26%", left: "88%", s: "1.1rem", d: "1.2s" },
-  { t: "10", top: "68%", left: "4%", s: "1.2rem", d: "0.6s" },
-  { t: "0110", top: "80%", left: "78%", s: "1.5rem", d: "1.8s" },
-  { t: "101", top: "42%", left: "94%", s: "0.9rem", d: "2.4s" },
-  { t: "0011", top: "8%", left: "48%", s: "1rem", d: "3s" },
-  { t: "01", top: "58%", left: "16%", s: "1rem", d: "2s" },
-];
-
-export function Hero({ onOpenLab }: { onOpenLab: () => void }) {
-  const typed = '>>> print("Hello, Foundations of Computing")';
-  return (
-    <header
-      id="top"
-      className="relative flex min-h-[94vh] flex-col items-center justify-center overflow-hidden px-4 pb-28 sm:pb-16"
-    >
-      {/* ambient blobs — kept STATIC on purpose: animating huge blur-3xl
-          surfaces repaints giant areas every frame and was the main lag source */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div
-          className="absolute -left-24 top-16 h-80 w-80 rounded-full blur-3xl"
-          style={{ background: "rgba(245,158,11,.18)" }}
-        />
-        <div
-          className="absolute -right-16 bottom-24 h-96 w-96 rounded-full blur-3xl"
-          style={{ background: "rgba(194,65,12,.14)" }}
-        />
-        <div
-          className="absolute left-1/3 top-1/2 h-64 w-64 rounded-full blur-3xl"
-          style={{ background: "rgba(217,119,6,.12)" }}
-        />
-        {HERO_BITS.map((b, i) => (
-          <span
-            key={i}
-            className="binary-bit"
-            style={{ top: b.top, left: b.left, fontSize: b.s, opacity: 0.9 }}
-          >
-            {b.t}
-          </span>
-        ))}
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <Reveal>
-          <span className="chip mx-auto">
-            <BookOpenCheck className="h-3.5 w-3.5" />
-            Complete Visual Revision Companion
-          </span>
-        </Reveal>
-        <Reveal delay={120}>
-          <h1 className="mt-6 text-5xl font-black leading-[1.05] tracking-tight md:text-7xl">
-            <span className="grad-text">Foundations of</span>
-            <br />
-            <span className="grad-text">Computing</span>
-          </h1>
-        </Reveal>
-        <Reveal delay={240}>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-warm">
-            Every concept of the course — the IPO model, the Four Pillars, data in all
-            its forms, algorithms, hardware, software — and the full Python journey,
-            distilled into one warm, living page with animated diagrams and interactive
-            quizzes.
-          </p>
-        </Reveal>
-
-        {/* Python Lab — premium glass CTA under the headline. Clicking it
-            opens the Colab-style lab overlay (real CPython, run from the
-            hero) — the very first thing a learner can touch. */}
-        <Reveal delay={300}>
-          <div className="mt-7 flex justify-center">
-            <button
-              type="button"
-              onClick={onOpenLab}
-              title="Open the Python Lab — a Colab-style notebook where you can run your own code"
-              className="glass-cta group"
-            >
-              <span className="glass-cta-icon">
-                <FlaskConical className="h-3.5 w-3.5" strokeWidth={2.4} />
-              </span>
-              Python Lab
-              <ArrowRight
-                className="h-4 w-4 text-[#c2410c] transition-transform duration-300 group-hover:translate-x-1"
-                strokeWidth={2.4}
-              />
-            </button>
-          </div>
-        </Reveal>
-
-        {/* terminal */}
-        <Reveal delay={360}>
-          <div className="code-shell mx-auto mt-10 max-w-xl text-left">
-            <div className="code-bar">
-              <span className="code-dot" style={{ background: "#e4674a" }} />
-              <span className="code-dot" style={{ background: "#e8a13c" }} />
-              <span className="code-dot" style={{ background: "#8fae5d" }} />
-              <span className="code-title ml-2">python — first_steps.py</span>
-            </div>
-            <pre className="code-body">
-              <span className="text-[#efe0cb]">
-                <span className="type-line" style={{ width: `${typed.length}ch`, animation: "none", borderRight: "2px solid #f5a623" }}>
-                  {typed}
-                </span>
-              </span>
-            </pre>
-            <div className="code-out">
-              <span className="out-label">OUTPUT</span>
-              Hello, Foundations of Computing
-            </div>
-          </div>
-        </Reveal>
-
-        <Reveal delay={480}>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <button type="button" aria-label="Scroll to content" onClick={() => scrollToId("why")} className="rounded-full px-7 py-3.5 text-sm font-bold text-white shadow-lg transition hover:scale-[1.03]" style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)", boxShadow: "0 14px 30px -12px rgba(194,65,12,.55)", }} cursor-pointer>
-              Start the journey
-            </button>
-            <button type="button" aria-label="Jump to the Four Pillars" onClick={() => scrollToId("pillars")} className="rounded-full border border-[#e5c79d] bg-[#fffdf9] px-7 py-3.5 text-sm font-bold text-[#7c4a12] transition hover:bg-[#fdf1e0] cursor-pointer">
-              Jump to the Four Pillars
-            </button>
-          </div>
-        </Reveal>
-
-        <Reveal delay={560}>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-[.72rem]">
-            <span className="chip">IPO · Data · Algorithms · Hardware · Software · Python</span>
-          </div>
-        </Reveal>
-      </div>
-
-      {/* scroll hint — full-width flex wrapper guarantees true horizontal
-          centering at every viewport (a bare `absolute` anchor drifted into
-          the CTA buttons once they wrapped on small screens; and the bob
-          keyframes own the transform, so -translate-x-1/2 can't live here) */}
-      <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
-        <button type="button" aria-label="Scroll to content" onClick={() => scrollToId("why")}  className="anim-bob rounded-full border border-[#ecd9bd] bg-[#fffdf9]/80 p-3 text-[#c2410c] cursor-pointer">
-          <ArrowDown className="h-5 w-5" />
-        </button>
-      </div>
-    </header>
-  );
-}
-
-/* ============================================================
-   WHY LEARN PROGRAMMING — the vibe-coding reality check
-   ============================================================ */
-const VIBE_DANGERS = [
-  "No auth",
-  "Tech debt",
-  "Token limits",
-  "Spaghetti code",
-  "Bugs everywhere",
-  "Exposed API keys",
+const VIBE_RISKS = [
+  {
+    name: "Debugging complexity",
+    desc: "Code generation is easy — identifying and fixing errors becomes extremely hard without programming knowledge.",
+  },
+  {
+    name: "Token costs",
+    desc: "Each interaction with LLMs consumes expensive tokens; repeated requests for AI assistance exhaust budgets quickly.",
+  },
+  {
+    name: "Code quality issues",
+    desc: "Spaghetti code, security vulnerabilities, non-existent (hallucinated) library imports, logical errors in complex applications.",
+  },
+  {
+    name: "Production failures",
+    desc: "When AI-generated scripts fail in live production, developers without programming knowledge cannot troubleshoot the issues.",
+  },
 ];
 
 const PROD_STACK = [
@@ -199,18 +62,58 @@ export function WhySection() {
   return (
     <Section id="why">
       <SectionHead
-        eyebrow="The honest question"
+        eyebrow="Lecture 04 · programming in the age of AI"
         title={
           <>
             Why learn programming when I can{" "}
             <span className="grad-text">vibe code</span> everything with LLMs?
           </>
         }
-        lead="A fair question for 2025 — and the course answers it head-on. AI coding assistants like Codex (OpenAI), Claude Code and Gemini Code Assist can write impressive code from plain English. But what happens on Day 30?"
+        lead="A fair question for 2025 — and Lecture 04 answers it head-on. AI coding assistants like Codex (OpenAI), Claude Code and Gemini Code Assist can write impressive code from plain English. But what happens on Day 30?"
       />
 
+      {/* Instructor + evaluation scheme */}
+      <div className="grid gap-5 lg:grid-cols-2">
+        <Reveal>
+          <div className="card-warm h-full p-6">
+            <div className="flex items-center gap-3">
+              <span
+                className="flex h-12 w-12 items-center justify-center rounded-2xl"
+                style={{ background: "linear-gradient(135deg,#fde8cf,#fbcf9f)" }}
+              >
+                <GraduationCap className="h-6 w-6" style={{ color: "#c2410c" }} />
+              </span>
+              <div>
+                <p className="eyebrow">Your instructor</p>
+                <h3 className="mt-1 text-xl font-bold">Dr. Raman Pathak</h3>
+              </div>
+            </div>
+            <p className="mt-4 text-[.92rem] leading-relaxed text-[#2b2014]">
+              PhD in <strong>Information Systems Management</strong> from{" "}
+              <strong>IIT Kanpur</strong> — expertise spanning technology and management,
+              including <strong>AI adoption in the BFSI sector</strong> (Banking, Finance,
+              Securities and Insurance).
+            </p>
+          </div>
+        </Reveal>
+        <Reveal delay={120}>
+          <div className="card-warm h-full p-6">
+            <p className="eyebrow">Evaluation scheme — as announced in this lecture</p>
+            <div className="mt-3 grid gap-2">
+              <KV k="Participation" v="10% — assignments submitted after lectures" />
+              <KV k="Quizzes" v="Best 2 of 3 recorded · 15% each (30% total)" />
+              <KV k="Final exam" v="60% · offline mode" />
+              <KV k="Platform" v="Python on Google Colab — a cloud-based IDE, no local installation" />
+            </div>
+            <p className="mt-3 text-[.75rem] italic text-muted-warm">
+              Lecture 34 supersedes this scheme — see the final word.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+
       {/* Karpathy quote */}
-      <Reveal>
+      <Reveal className="mt-10">
         <div className="card-warm relative mx-auto max-w-3xl p-7">
           <Quote className="absolute -top-4 left-6 h-8 w-8" style={{ color: "#e8b878" }} />
           <p className="text-lg italic leading-relaxed text-[#2b2014]">
@@ -244,21 +147,16 @@ export function WhySection() {
             <span className="chip" style={{ background: "#fbe9e4", color: "#9c3a3a", borderColor: "#eec0b3" }}>
               Day 30 of vibe coding
             </span>
-            <h3 className="mt-3 text-xl font-bold">The tower crumbles</h3>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {VIBE_DANGERS.map((d, i) => (
-                <span
-                  key={d}
-                  className="ice-tag rounded-lg px-2.5 py-1 text-[.74rem] font-bold"
-                  style={{
-                    background: "#fbe9e4",
-                    color: "#9c3a3a",
-                    border: "1px solid #eec0b3",
-                    animationDelay: `${i * 0.4}s`,
-                  }}
-                >
-                  {d}
-                </span>
+            <h3 className="mt-3 flex items-center gap-2 text-xl font-bold">
+              <TriangleAlert className="h-5 w-5" style={{ color: "#be4a4a" }} />
+              The tower crumbles
+            </h3>
+            <div className="mt-3 grid gap-2.5">
+              {VIBE_RISKS.map((r) => (
+                <div key={r.name} className="rounded-xl bg-[#fffdf9] p-3" style={{ border: "1px solid #eec0b3" }}>
+                  <p className="text-[.85rem] font-bold text-[#9c3a3a]">{r.name}</p>
+                  <p className="mt-0.5 text-[.8rem] leading-relaxed text-[#2b2014]">{r.desc}</p>
+                </div>
               ))}
             </div>
             <p className="mt-3 text-[.9rem] leading-relaxed text-muted-warm">
@@ -347,7 +245,7 @@ export function WhySection() {
             <p className="mt-2 text-[.8rem] leading-relaxed text-muted-warm">
               The deck names the regulators: <strong>RBI</strong> for banking, <strong>SEBI</strong> for
               financial markets, <strong>IRDAI</strong> for insurance — heavy penalties for violations.
-              Real case: PTM faced bans for data-security mismanagement in its apps.
+              Real case: <strong>Paytm (PTM)</strong> faced bans for data-security mismanagement in its apps.
             </p>
           </div>
         </Reveal>
@@ -368,82 +266,311 @@ export function WhySection() {
         </Reveal>
       </div>
 
-      {/* Industry proof */}
-      <div className="mt-10 grid gap-5 md:grid-cols-2">
-        <Reveal>
-          <Callout kind="story" title="Proof from industry">
-            <strong>Forbes:</strong> Ford hired 350 engineers after its AI-first attempt
-            failed — human engineering value is rising, not falling, in the AI era.
-          </Callout>
-        </Reveal>
-        <Reveal delay={120}>
-          <Callout kind="story" title="The AI talent war">
-            <strong>Business Standard:</strong> Google is re-hiring former engineers amid
-            the global AI talent war, while rivals poach DeepMind staff with $100M offers.
-            Deep understanding is the scarcest skill.
-          </Callout>
-        </Reveal>
-      </div>
+      {/* The current reality of LLM capabilities */}
+      <Reveal className="mt-10">
+        <div className="card-warm p-6 md:p-8">
+          <div className="flex items-center gap-3">
+            <BrainCircuit className="h-6 w-6" style={{ color: "#c2410c" }} />
+            <h3 className="text-2xl font-bold">The current reality of LLM capabilities</h3>
+          </div>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            <div
+              className="rounded-xl p-4"
+              style={{ background: "rgba(124,154,62,.12)", border: "1px solid rgba(124,154,62,.3)" }}
+            >
+              <p className="font-bold" style={{ color: "#647d2e" }}>Where LLMs excel</p>
+              <ul className="mt-2 grid gap-1.5 text-[.87rem] text-[#2b2014]">
+                <li>• Generating <strong>simple code</strong></li>
+                <li>• About <strong>80% of prototype work</strong></li>
+              </ul>
+            </div>
+            <div
+              className="rounded-xl p-4"
+              style={{ background: "rgba(190,74,74,.12)", border: "1px solid rgba(190,74,74,.3)" }}
+            >
+              <p className="font-bold" style={{ color: "#be4a4a" }}>Where LLMs struggle</p>
+              <ul className="mt-2 grid gap-1.5 text-[.87rem] text-[#2b2014]">
+                <li>• <strong>Complex programming</strong></li>
+                <li>• <strong>Architecture design</strong></li>
+                <li>• Integration with <strong>legacy systems</strong></li>
+              </ul>
+            </div>
+          </div>
+          <p className="mt-4 max-w-4xl text-[.92rem] leading-relaxed text-[#2b2014]">
+            Recent industry trends show <strong>Google, Meta and OpenAI actively rehiring engineers</strong>{" "}
+            after the initial AI-driven layoffs — tokens are expensive, and human expertise remains
+            irreplaceable. Programming knowledge is essential for the <strong>next 10+ years</strong>:
+            AI is a <strong>powerful assistant, not a replacement</strong>.
+          </p>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <Callout kind="story" title="Proof from industry">
+              <strong>Forbes:</strong> Ford hired 350 engineers after its AI-first attempt
+              failed — human engineering value is rising, not falling, in the AI era.
+            </Callout>
+            <Callout kind="story" title="The AI talent war">
+              <strong>Business Standard:</strong> Google is re-hiring former engineers amid
+              the global AI talent war, while rivals poach DeepMind staff with $100M offers.
+              Deep understanding is the scarcest skill.
+            </Callout>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* The enterprise IPO model */}
+      <Reveal className="mt-12">
+        <div className="card-warm p-7 md:p-9">
+          <p className="eyebrow">The same IPO skeleton — updated for our era</p>
+          <h3 className="mt-2 text-2xl font-bold md:text-3xl">The enterprise IPO model</h3>
+          <p className="mt-2 max-w-3xl text-[.95rem] text-muted-warm">
+            Input → Process → Output never changed — what changed is the scale of every stage.
+          </p>
+          <div className="mt-7 grid gap-5 lg:grid-cols-2">
+            <div className="rounded-2xl p-5" style={{ background: "#fffdf9", border: "1px solid #f0e2c8" }}>
+              <p className="eyebrow">Traditional IPO — 30 years ago</p>
+              <div className="mt-4 flex flex-wrap items-center gap-2 text-[.85rem] font-bold text-[#7c4a12]">
+                <span className="rounded-lg bg-[#fbf3e3] px-3 py-1.5">Input · keyboard</span>
+                <span aria-hidden>→</span>
+                <span className="rounded-lg bg-[#fbf3e3] px-3 py-1.5">Process · CPU</span>
+                <span aria-hidden>→</span>
+                <span className="rounded-lg bg-[#fbf3e3] px-3 py-1.5">Output · screen</span>
+              </div>
+              <p className="mt-3 text-[.85rem] leading-relaxed text-muted-warm">
+                The user provides input via the keyboard, the CPU processes the data, the
+                output appears on the screen. One user, one machine, one pipeline.
+              </p>
+            </div>
+            <div
+              className="rounded-2xl p-5"
+              style={{ background: "linear-gradient(160deg,#fff8ec,#fdeed6)", border: "1px solid #f0d9ba" }}
+            >
+              <p className="eyebrow">Enterprise IPO — the current era</p>
+              <ul className="mt-4 grid gap-2 text-[.86rem] leading-relaxed text-[#2b2014]">
+                <li>
+                  • <strong>Input:</strong> high-velocity, high-variety, high-volume data streams —
+                  real-time sensor data, structured and unstructured, in multiple formats
+                  (text, audio, video, sensor readings) — measured in <strong>zettabytes (10²¹ bytes)</strong>
+                </li>
+                <li>
+                  • <strong>Process:</strong> automated algorithms on cloud infrastructure execute
+                  logical steps <strong>billions of times per second</strong> — computational cost near zero
+                </li>
+                <li>
+                  • <strong>Output:</strong> actionable insights and business decisions, translated
+                  into <strong>revenue growth or cost reduction</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* Real-world IPO examples at enterprise scale */}
+      <Reveal className="mt-10">
+        <div className="card-warm overflow-hidden">
+          <div className="px-6 pt-6 md:px-8">
+            <p className="eyebrow">IPO at enterprise scale — six systems you use daily</p>
+            <h3 className="mt-2 text-2xl font-bold">Real-world computing examples</h3>
+            <p className="mt-2 max-w-3xl text-[.92rem] text-muted-warm">
+              Every one of them is the same Input → Process → Output pipeline — with a business
+              impact riding on the output.
+            </p>
+          </div>
+          <div className="mt-5 overflow-x-auto px-4 pb-6 md:px-8">
+            <table className="warm-table min-w-[880px]">
+              <thead>
+                <tr>
+                  <th>System</th>
+                  <th>Input</th>
+                  <th>Process</th>
+                  <th>Output</th>
+                  <th>Business impact</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="font-bold text-[#7c4a12]">Weather forecasting</td>
+                  <td>Billions of live data points every hour — wind speed, precipitation, humidity — from global satellite networks and ground stations</td>
+                  <td>Physics-based and AI computer models analyzing the data streams</td>
+                  <td>Local weather forecasts for the coming days</td>
+                  <td>Critical for agriculture, logistics and disaster management</td>
+                </tr>
+                <tr>
+                  <td className="font-bold text-[#7c4a12]">Search engines (Google / Gemini)</td>
+                  <td>User search query</td>
+                  <td>Algorithm mapping query relevance across billions of indexed web pages</td>
+                  <td>Most relevant web results, ranked by relevance</td>
+                  <td>Advertising revenue and user engagement</td>
+                </tr>
+                <tr>
+                  <td className="font-bold text-[#7c4a12]">UPI</td>
+                  <td>User PIN and transaction amount</td>
+                  <td>Request routed payer bank → NPCI server → payee bank, with multiple authentication checkpoints</td>
+                  <td>Transaction-completion notification to both parties</td>
+                  <td>Digital payment ecosystem at scale — completed within 3–4 seconds</td>
+                </tr>
+                <tr>
+                  <td className="font-bold text-[#7c4a12]">Google Maps</td>
+                  <td>Satellite data, GPS signals, real-time traffic conditions, current road status</td>
+                  <td>Route-optimization algorithms considering multiple variables</td>
+                  <td>Optimal routes displayed on device screens</td>
+                  <td>Navigation services and location-based advertising</td>
+                </tr>
+                <tr>
+                  <td className="font-bold text-[#7c4a12]">Recommendation engines (Amazon / YouTube)</td>
+                  <td>Browsing history, purchase data, viewing patterns</td>
+                  <td>Users clustered into segments; probability-based prediction models</td>
+                  <td>Personalized product or video recommendations</td>
+                  <td>Increased user engagement and sales conversion</td>
+                </tr>
+                <tr>
+                  <td className="font-bold text-[#7c4a12]">Uber</td>
+                  <td>Driver GPS locations (sensor data), user ride requests, local traffic API, weather information, real-time demand metrics</td>
+                  <td>Dynamic pricing algorithm (surge fares when demand spikes — think rain hour), route optimization, matching engine connecting riders to drivers within a 500-metre radius</td>
+                  <td>Driver dispatch with precise ETA, dynamic price quote on the rider’s screen, transaction execution</td>
+                  <td>Maximizes platform yield and operational efficiency — surge pricing balances supply and demand</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* The role of cloud computing */}
+      <Reveal className="mt-10">
+        <div className="card-warm p-6 md:p-8">
+          <div className="flex items-center gap-3">
+            <Cloud className="h-6 w-6" style={{ color: "#c2410c" }} />
+            <h3 className="text-2xl font-bold">The role of cloud computing</h3>
+          </div>
+          <p className="mt-3 max-w-4xl text-[.95rem] leading-relaxed text-[#2b2014]">
+            Traditional computing required expensive <strong>on-premise server infrastructure</strong>.
+            Cloud providers — <strong>AWS</strong>, <strong>Google Cloud Platform</strong>,{" "}
+            <strong>Microsoft Azure</strong> — deliver computing power over the internet, enabling:
+          </p>
+          <ul className="mt-4 grid gap-2 text-[.9rem] text-[#2b2014] md:grid-cols-2">
+            <li>• Processing of massive data streams globally</li>
+            <li>• Scalability to billions of simultaneous requests</li>
+            <li>• Dramatic reduction in infrastructure costs</li>
+            <li>• Real-time data processing and response delivery</li>
+          </ul>
+        </div>
+      </Reveal>
+
+      {/* Quizzes */}
+      <Reveal className="mt-10">
+        <div className="grid gap-5 md:grid-cols-2">
+          <Quiz
+            source="From the lecture"
+            q="Your AI-generated script worked on Day 1 but now fails in live production — and nobody on the team can tell why. Which vibe-coding risk is this?"
+            options={[
+              "Token costs — the LLM ran out of tokens",
+              "Production failures — when AI scripts fail in live production, developers without programming knowledge cannot troubleshoot them",
+              "Non-existent library imports",
+              "The model is offline for maintenance",
+            ]}
+            answer={1}
+            explain="This is the fourth risk the lecture names. Code generation is easy; production is not. Without programming knowledge, live failures cannot be troubleshot — debugging complexity, token burn and code-quality issues all funnel into the same lesson."
+          />
+          <Quiz
+            source="From the lecture"
+            q="Which sentence best describes the ENTERPRISE IPO model of today — versus the traditional model of 30 years ago?"
+            options={[
+              "Keyboard input → CPU processes → output on screen — unchanged, just faster now",
+              "Zettabyte-scale streams of text, audio, video and sensor data → automated algorithms on cloud infrastructure executing logical steps billions of times per second → insights translated into revenue growth or cost reduction",
+              "Input is now optional — LLMs generate their own data",
+              "The model only applies to social-media companies",
+            ]}
+            answer={1}
+            explain="Traditional IPO: keyboard → CPU → screen. Enterprise IPO: high-velocity/high-variety/high-volume data streams measured in zettabytes (10²¹ bytes), cloud algorithms executing billions of steps per second at near-zero computational cost, and output measured in business impact."
+          />
+        </div>
+      </Reveal>
+
+      <Reveal className="mt-8">
+        <Takeaways
+          items={[
+            <>Programming knowledge remains essential despite AI — it enables <strong>code auditing, debugging and professional accountability</strong>.</>,
+            <>The four vibe-coding risks: <strong>debugging complexity, token costs, code quality issues and production failures</strong>.</>,
+            <>Computing means solving problems through <strong>defined logical steps</strong> — whether performed by humans or machines.</>,
+            <>The <strong>enterprise IPO model</strong> runs on cloud infrastructure: zettabyte-scale inputs, billions of steps per second, output measured in business impact.</>,
+            <>AI is a <strong>powerful assistant, not a replacement</strong> — architecture, design and system oversight still need human expertise.</>,
+          ]}
+        />
+      </Reveal>
     </Section>
   );
 }
 
 /* ============================================================
-   WHAT IS COMPUTING
+   LECTURE 02 — WHAT IS COMPUTING
+   Definitions, history, the IPO model and the six everyday
+   IPO pipelines — plus the computing-vs-computer distinction.
    ============================================================ */
 const TIMELINE = [
   {
-    era: "Long before machines",
+    era: "Ancient Abacus · 3000 BC",
     icon: <Landmark className="h-5 w-5" />,
-    text: "Merchants ran addition and subtraction on the ancient abacus as early as 3000 BC. In the 1600s–1800s, sailors fixed their position at sea by working coordinates through pre-calculated navigation tables. Computing is a methodology, not a technology.",
+    text: "Merchants ran addition and subtraction on the ancient abacus — demonstrating that computing existed before electronic machines, as a methodology rather than a technology.",
   },
   {
-    era: "World War II",
+    era: "Navigation Tables · 1600s–1800s",
+    icon: <Compass className="h-5 w-5" />,
+    text: "Sailors fixed their position at sea by processing coordinates through pre-calculated mathematical tables — computing on paper, centuries before silicon.",
+  },
+  {
+    era: "Human Computers · World War II",
     icon: <Server className="h-5 w-5" />,
-    text: "Teams of people — mostly women — sat at desks doing complex arithmetic to calculate artillery trajectories. They were literally called ‘computers’. The job title came before the machine.",
+    text: "Women performed complex arithmetic calculations to determine artillery trajectories — and their job title was literally “computers”. The term referred to humans before it referred to machines.",
   },
   {
     era: "The machine era",
     icon: <Cpu className="h-5 w-5" />,
     text: "Room-sized electronic computers took over the arithmetic — same human idea of step-by-step calculation, executed at machine speed.",
   },
-  {
-    era: "The cloud era",
-    icon: <Cloud className="h-5 w-5" />,
-    text: "Today, computing is rented by the second from AWS, Microsoft Azure and Google Cloud — computation as a utility, like electricity.",
-  },
 ];
 
-const EVERYDAY = [
+const IPO_EXAMPLES = [
+  {
+    icon: <Smartphone className="h-5 w-5" />,
+    name: "Smartphone applications",
+    input: "User touches and swipes on the screen — e.g. selecting food items in a delivery app",
+    process: "App logic executes based on user actions — adding items to cart, processing payments",
+    output: "Visual feedback appears on the screen for each action",
+  },
   {
     icon: <Search className="h-5 w-5" />,
-    name: "Search engines",
-    flow: "Query → rank millions of pages → show results",
-    detail: "In the fraction of a second after you press Enter, an algorithm scores the entire indexed web and orders it by relevance.",
+    name: "Google Search",
+    input: "Natural language query typed into the search bar",
+    process: "An algorithm searches billions of web pages in milliseconds, ranking them by keyword relevance, page speed, mobile friendliness and domain trustworthiness",
+    output: "Ranked search results displayed on the screen",
   },
   {
     icon: <Banknote className="h-5 w-5" />,
     name: "UPI payments",
-    flow: "Verify identity → debit → credit → confirm",
-    detail: "Your app talks to the payer PSP, which forwards to the NPCI UPI switch, which routes to banks — debiting the remitter and crediting the payee, all in seconds.",
+    input: "Amount to transfer and the UPI PIN",
+    process: "Bank verifies identity, checks account balance, debits the sender’s account, credits the receiver’s account",
+    output: "Confirmation notifications sent to both parties",
   },
   {
     icon: <MapPin className="h-5 w-5" />,
     name: "Google Maps",
-    flow: "Location data → routing algorithm → directions",
-    detail: "Live traffic from millions of devices is crunched into the fastest route, re-computed continuously as you drive.",
+    input: "Current location and destination address",
+    process: "A shortest-path algorithm evaluates hundreds of possible routes, considering current traffic, roadblocks and other factors",
+    output: "Recommended route displayed with estimated travel time",
   },
   {
     icon: <PlayCircle className="h-5 w-5" />,
-    name: "YouTube recommendations",
-    flow: "What you watched & skipped → compare with millions of users → predict your next video",
-    detail: "Your watch-time signals are matched against massive behavioural datasets to forecast what will hold your attention next.",
+    name: "YouTube recommendation engine",
+    input: "Video watched, watch duration, sections skipped",
+    process: "The algorithm compares user behaviour with millions of other users globally, identifying viewing patterns — a machine-learning process",
+    output: "Personalized video recommendations related to the user’s interests",
   },
   {
-    icon: <Smartphone className="h-5 w-5" />,
-    name: "Autocorrect & autocomplete",
-    flow: "Typed letters & previous words → pattern match over millions of user sentences → suggested next word",
-    detail: "The keyboard's algorithm learned from millions of sentences to predict what you'll type next — machine learning sitting under your thumb.",
+    icon: <SpellCheck className="h-5 w-5" />,
+    name: "Smartphone autocorrect",
+    input: "Letters and words typed by the user",
+    process: "The algorithm analyzes typed letters and previous words, predicting the next word from patterns learned from millions of user sentences",
+    output: "Suggested next word for user selection",
   },
 ];
 
@@ -451,7 +578,7 @@ export function ComputingSection() {
   return (
     <Section id="computing">
       <SectionHead
-        eyebrow="Introduction to computing"
+        eyebrow="Lecture 02 · what is computing"
         title={
           <>
             What exactly <span className="grad-text">is</span> computing?
@@ -536,13 +663,14 @@ export function ComputingSection() {
       {/* IPO model */}
       <Reveal className="mt-14">
         <div className="card-warm p-7 md:p-9">
-          <p className="eyebrow">The enterprise IPO model</p>
+          <p className="eyebrow">The IPO model — foundation of all computing</p>
           <h3 className="mt-2 text-2xl font-bold md:text-3xl">
             Input → Process → Output
           </h3>
           <p className="mt-2 max-w-3xl text-[.95rem] text-muted-warm">
-            The simplest — and most powerful — mental model in this course. Every
-            computing system, from a calculator to Uber, is an IPO pipeline.
+            The fundamental principle underlying every computing process. It applies
+            universally — from a simple calculator to artificial intelligence — and it appears
+            in every digital application and device you touch.
           </p>
 
           <div className="mt-8">
@@ -550,198 +678,179 @@ export function ComputingSection() {
               steps={[
                 {
                   label: "INPUT",
-                  sub: "High-velocity, high-variety, high-volume data streams — text, audio, video, sensors — measured in zettabytes (10²¹ bytes)",
+                  sub: "Raw data or information provided to the system",
                   icon: <Database className="h-5 w-5" style={{ color: "#c2410c" }} />,
                 },
                 {
                   label: "PROCESS",
-                  sub: "Automated algorithms on cloud infrastructure execute logical steps billions of times per second — pushing computational cost toward zero",
+                  sub: "The execution of algorithms and logical operations on the input",
                   icon: <Workflow className="h-5 w-5" style={{ color: "#c2410c" }} />,
                 },
                 {
                   label: "OUTPUT",
-                  sub: "Actionable insights and business decisions — translated into revenue growth or cost reduction",
+                  sub: "The meaningful result produced after processing",
                   icon: <MonitorSmartphone className="h-5 w-5" style={{ color: "#c2410c" }} />,
                 },
               ]}
             />
           </div>
-
-          <Callout kind="why" title="Walkthrough — a weather forecast">
-            <strong>Input:</strong> billions of live data points every hour from global
-            networks — satellites, ground stations, sensors.{" "}
-            <strong>Process:</strong> that data runs through massive physics and AI
-            models. <strong>Output:</strong> a local forecast on your phone — “41°,
-            partly sunny, Wednesday”. Same IPO skeleton as everything else.
-          </Callout>
         </div>
       </Reveal>
 
-      {/* Everyday computing */}
+      {/* Six real-world IPO examples */}
       <Reveal className="mt-12">
         <h3 className="text-2xl font-bold">
-          Computing is everywhere — <span className="grad-text">everyday computing</span>
+          Real-world examples of the <span className="grad-text">IPO model</span>
         </h3>
+        <p className="mt-2 max-w-3xl text-[.92rem] text-muted-warm">
+          Six systems you already use today — each one is the same three-stage pipeline.
+        </p>
       </Reveal>
-      <div className="mt-6 grid gap-5 sm:grid-cols-2">
-        {EVERYDAY.map((e, i) => (
-          <Reveal key={e.name} delay={i * 90}>
-            <div className="card-warm lift h-full p-6">
+      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {IPO_EXAMPLES.map((e, i) => (
+          <Reveal key={e.name} delay={i * 80}>
+            <div className="card-warm lift h-full p-5">
               <div className="flex items-center gap-3">
                 <span
-                  className="flex h-10 w-10 items-center justify-center rounded-xl"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
                   style={{ background: "linear-gradient(135deg,#fde8cf,#fbcf9f)" }}
                 >
                   {e.icon}
                 </span>
-                <h4 className="text-lg font-bold">{e.name}</h4>
+                <h4 className="text-[.95rem] font-bold leading-snug">{e.name}</h4>
               </div>
-              <p className="mt-3 rounded-lg bg-[#fbf3e3] px-3 py-2 text-[.85rem] font-semibold text-[#7c4a12]">
-                {e.flow}
-              </p>
-              <p className="mt-3 text-[.88rem] leading-relaxed text-[#2b2014]">{e.detail}</p>
+              <div className="mt-3 grid gap-1.5 text-[.8rem] leading-relaxed text-[#2b2014]">
+                <p className="rounded-lg bg-[#fbf3e3] px-2.5 py-1.5">
+                  <strong className="text-[#a0410a]">Input:</strong> {e.input}
+                </p>
+                <p className="rounded-lg bg-[#fbf3e3] px-2.5 py-1.5">
+                  <strong className="text-[#a0410a]">Process:</strong> {e.process}
+                </p>
+                <p className="rounded-lg bg-[#fbf3e3] px-2.5 py-1.5">
+                  <strong className="text-[#a0410a]">Output:</strong> {e.output}
+                </p>
+              </div>
             </div>
           </Reveal>
         ))}
       </div>
 
-      {/* Uber table */}
-      <Reveal className="mt-12">
-        <div className="card-warm overflow-hidden">
-          <div className="px-6 pt-6 md:px-8">
-            <p className="eyebrow">Case study</p>
-            <h3 className="mt-2 text-2xl font-bold">Computing @ Uber — IPO at city scale</h3>
-            <p className="mt-2 max-w-3xl text-[.92rem] text-muted-warm">
-              A single ride request sets off a full IPO cycle — in under half a second.
-            </p>
-          </div>
-          <div className="mt-5 overflow-x-auto px-4 pb-6 md:px-8">
-            <table className="warm-table min-w-[720px]">
-              <thead>
-                <tr>
-                  <th>IPO stage</th>
-                  <th>Raw technical component</th>
-                  <th>Business value realized</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="font-bold text-[#7c4a12]">Input</td>
-                  <td>Driver GPS, rider requests, local traffic API, weather data, historical demand</td>
-                  <td>Captures live market conditions across a city</td>
-                </tr>
-                <tr>
-                  <td className="font-bold text-[#7c4a12]">Process</td>
-                  <td>Dynamic pricing algorithm (surge fares when demand spikes — think rain hour), route optimization, and a matching engine that connects riders to drivers within a 500-metre radius</td>
-                  <td>Balances supply and demand in under 500 ms — surge pricing keeps cars on the road when they're needed most</td>
-                </tr>
-                <tr>
-                  <td className="font-bold text-[#7c4a12]">Output</td>
-                  <td>Driver dispatch, precise ETA, dynamic price quote on the rider’s screen</td>
-                  <td>Executes the transaction, maximizes platform yield</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </Reveal>
-
-      {/* Knight Capital */}
-      <Reveal className="mt-12">
-        <div
-          className="card-warm p-7 md:p-9"
-          style={{ background: "linear-gradient(150deg,#fff7f0,#fdeade)", borderColor: "#eec0b3" }}
-        >
-          <div className="flex items-center gap-3">
-            <TriangleAlert className="h-6 w-6" style={{ color: "#be4a4a" }} />
-            <h3 className="text-2xl font-bold">The cost of bad computing — Knight Capital, 2012</h3>
-          </div>
-          <p className="mt-3 max-w-3xl text-[.95rem] leading-relaxed text-[#2b2014]">
-            A major American trading firm deployed a new algorithm to trade stocks.
-            The algorithm was flawed. In <strong>45 minutes</strong>, it lost{" "}
-            <strong className="term">$440 million</strong> — almost destroying the company.
-          </p>
-          <div className="mt-5 grid gap-4 md:grid-cols-2">
-            <div className="rounded-xl bg-[#fffdf9] p-4" style={{ border: "1px dashed #e5c79d" }}>
-              <p className="text-[.78rem] font-extrabold uppercase tracking-[.16em] text-[#8a5a10]">
-                Think deeper — from the course
-              </p>
-              <p className="mt-2 text-[.9rem] text-[#2b2014]">
-                If you were the manager explaining to the CEO how $440M vanished in 45
-                minutes, <em>what would you say caused it?</em> Flawed logic left live,
-                no kill-switch, untested deployment, no safeguards.
-              </p>
-            </div>
-            <div className="rounded-xl bg-[#fffdf9] p-4" style={{ border: "1px dashed #e5c79d" }}>
-              <p className="text-[.78rem] font-extrabold uppercase tracking-[.16em] text-[#8a5a10]">
-                The lesson
-              </p>
-              <p className="mt-2 text-[.9rem] text-[#2b2014]">
-                Computing is not just “making it run” — it must be{" "}
-                <strong>tested, verified and controlled</strong>. Bad computing has a
-                price, and sometimes that price is the company itself.
-              </p>
-            </div>
-          </div>
-        </div>
-      </Reveal>
-
-      {/* Non tech */}
-      <Reveal className="mt-12">
+      {/* Computing vs Computer */}
+      <Reveal className="mt-14">
         <h3 className="text-2xl font-bold">
-          Computing in <span className="grad-text">non-tech</span> industries
+          Computing vs. Computer — <span className="grad-text">a critical distinction</span>
         </h3>
+        <p className="mt-2 max-w-3xl text-[.92rem] text-muted-warm">
+          The lecture draws a line the exam rewards: one is an idea, the other is the machine
+          that runs the idea fast.
+        </p>
       </Reveal>
-      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          {
-            icon: <Landmark className="h-5 w-5" />,
-            name: "AgroStar & DeHaat",
-            text: "Agritech — soil sensor data, satellite imagery and historical weather patterns drive farming advice. Seeds to market, powered by computing.",
-          },
-          {
-            icon: <HeartPulse className="h-5 w-5" />,
-            name: "Pisces 12-channel ECG",
-            text: "Healthcare — the heart’s electrical activity is measured hundreds of times per second to detect atrial fibrillation and heart block.",
-          },
-          {
-            icon: <ShoppingBag className="h-5 w-5" />,
-            name: "Zara",
-            text: "Fashion retail — tracks which designs are selling fast and which are not. Its competitive advantage is literally built on computing.",
-          },
-          {
-            icon: <Banknote className="h-5 w-5" />,
-            name: "Banking",
-            text: "Every account, transaction, credit check and fraud alert is a computing pipeline running the IPO model on financial data.",
-          },
-        ].map((c, i) => (
-          <Reveal key={c.name} delay={i * 80}>
-            <div className="card-warm lift h-full p-5">
+      <div className="mt-6 grid gap-5 md:grid-cols-2">
+        <Reveal>
+          <div className="card-warm h-full p-6">
+            <div className="flex items-center gap-3">
               <span
                 className="flex h-10 w-10 items-center justify-center rounded-xl"
                 style={{ background: "linear-gradient(135deg,#fde8cf,#fbcf9f)" }}
               >
-                {c.icon}
+                <Workflow className="h-5 w-5" style={{ color: "#c2410c" }} />
               </span>
-              <h4 className="mt-3 font-bold">{c.name}</h4>
-              <p className="mt-1 text-[.85rem] leading-relaxed text-muted-warm">{c.text}</p>
+              <h4 className="text-lg font-bold">Computing</h4>
             </div>
-          </Reveal>
-        ))}
+            <p className="mt-3 text-[.92rem] leading-relaxed text-[#2b2014]">
+              The <strong>abstract intellectual concept</strong> of problem-solving through
+              defined, step-by-step procedures.
+            </p>
+            <ul className="mt-3 grid gap-1.5 text-[.86rem] text-[#2b2014]">
+              <li>• Existed for <strong>thousands of years</strong> before electronic computers were invented</li>
+              <li>• Can be performed with <strong>pen and paper, an abacus, or any computational tool</strong></li>
+              <li>• The intelligence comes from the <strong>humans who design the algorithms</strong></li>
+            </ul>
+          </div>
+        </Reveal>
+        <Reveal delay={120}>
+          <div className="card-warm h-full p-6">
+            <div className="flex items-center gap-3">
+              <span
+                className="flex h-10 w-10 items-center justify-center rounded-xl"
+                style={{ background: "linear-gradient(135deg,#fde8cf,#fbcf9f)" }}
+              >
+                <Cpu className="h-5 w-5" style={{ color: "#c2410c" }} />
+              </span>
+              <h4 className="text-lg font-bold">Computer</h4>
+            </div>
+            <p className="mt-3 text-[.92rem] leading-relaxed text-[#2b2014]">
+              The <strong>physical electronic tool</strong> that executes computing processes
+              with speed and precision.
+            </p>
+            <ul className="mt-3 grid gap-1.5 text-[.86rem] text-[#2b2014]">
+              <li>• A <strong>fast executor</strong> of computing processes — not a thinker</li>
+              <li>• The problem-solving methodology still comes from the humans who design the algorithms</li>
+              <li>• Just one possible executor — computing also runs on pen and paper, or an abacus</li>
+            </ul>
+          </div>
+        </Reveal>
       </div>
+      <Reveal className="mt-5">
+        <Callout kind="warn" title="Exam tip — from the lecture">
+          When asked to define computing, <strong>avoid mentioning computers</strong> — focus on
+          the <strong>process and methodology</strong>. Computing predates machines by millennia;
+          the computer is just its fastest executor.
+        </Callout>
+      </Reveal>
+
+      {/* Four pillars pointer */}
+      <Reveal className="mt-10">
+        <div className="card-warm flex flex-col gap-3 p-5 sm:flex-row sm:items-center">
+          <span className="chip shrink-0">Up next</span>
+          <p className="text-[.92rem] leading-relaxed text-[#2b2014]">
+            All computing processes depend equally on <strong>four essential pillars</strong> —{" "}
+            <strong>data</strong>, <strong>algorithms</strong>, <strong>hardware</strong> and{" "}
+            <strong>software</strong>. The failure of any single pillar causes the entire
+            computing process to fail. The pillars overview is the next chapter.
+          </p>
+        </div>
+      </Reveal>
+
+      {/* Quizzes */}
+      <Reveal className="mt-8">
+        <div className="grid gap-5 md:grid-cols-2">
+          <Quiz
+            source="From the lecture"
+            q="In a food-delivery app, tapping “add to cart” and paying runs the app logic — which IPO stage is that?"
+            options={[
+              "Input — the tap is the data entering the system",
+              "Process — the app logic executes: cart updates, payment is processed",
+              "Output — the screen feedback",
+              "Storage — the cart is saved for later",
+            ]}
+            answer={1}
+            explain="Input is the touch or swipe itself; PROCESS is the app logic executing (adding to cart, processing payments); output is the visual feedback for each action. Every app you use is this same IPO pipeline."
+          />
+          <Quiz
+            source="From the lecture"
+            q="Which answer defines COMPUTING the way this course wants it defined in the exam?"
+            options={[
+              "Computing is what a computer does — you can’t define one without the other",
+              "Computing is the abstract problem-solving process through defined step-by-step procedures — the computer is just the fast executor",
+              "Computing is the physical electronic tool that executes processes with speed and precision",
+              "Computing is another word for programming",
+            ]}
+            answer={1}
+            explain="Computing existed for thousands of years before electronic computers — pen and paper, an abacus. The intelligence comes from the humans who design the algorithms; the computer is the physical tool that executes them fast. In the exam, define computing WITHOUT mentioning computers — focus on process and methodology."
+          />
+        </div>
+      </Reveal>
 
       <Reveal className="mt-8">
-        <Quiz
-          source="From the course discussion"
-          q="In Zara’s approach, which step of the IPO model is most critical for their competitive advantage — and what type of data are they using?"
-          options={[
-            "Input — customer photos from Instagram",
-            "Process — analysing which designs are selling fast vs. not",
-            "Output — printing price tags faster",
-            "Input — employee attendance records",
+        <Takeaways
+          items={[
+            <>Computing is about <strong>solving problems through well-defined steps</strong>, not about machines — it predates computers by millennia.</>,
+            <>The <strong>IPO model — Input → Process → Output — is universal</strong>: smartphone apps, search, UPI, maps, recommendations, autocorrect.</>,
+            <>Computing is the <strong>method</strong>; the computer is the <strong>machine that executes it fast</strong>. In the exam, define computing without mentioning computers.</>,
+            <>Four pillars carry every computing process — <strong>data, algorithm, hardware, software</strong>. Lose any one and the process collapses.</>,
+            <>Data must be <strong>contextualized</strong> to become meaningful information: “38.5” is raw data; “patient’s temperature is 38.5°C” is information.</>,
           ]}
-          answer={1}
-          explain="Zara’s edge lives in the PROCESS step — rapidly analysing sales data to decide what to produce next. The data is sales/behavioural data captured in real time, feeding the decision engine that keeps them ahead of trends."
         />
       </Reveal>
     </Section>
@@ -786,6 +895,22 @@ const PILLARS = [
   },
 ];
 
+/* Chapter jump — the four cards deep-link to their pillar chapters.
+   Same contract the ⌘K palette uses (src/lib/use-open-section.ts):
+   if the chapter is already mounted, jumpTo scrolls and flashes it;
+   otherwise dispatch the live "atlas:open-section" event with the
+   section id as detail — FocApp's useOpenSection("foc") listener makes
+   the chapter exist (switching lecture slices if needed) and scrolls. */
+function jumpToPillar(id: string): void {
+  if (!lectureOfChapter(id)) return;
+  const el = document.getElementById(id);
+  if (el) {
+    jumpTo(el);
+    return;
+  }
+  window.dispatchEvent(new CustomEvent("atlas:open-section", { detail: id }));
+}
+
 export function PillarsSection() {
   return (
     <Section id="pillars" dark>
@@ -803,7 +928,12 @@ export function PillarsSection() {
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {PILLARS.map((p, i) => (
           <Reveal key={p.id} delay={i * 100}>
-            <a href={`#${p.id}`} className="block h-full">
+            <button
+              type="button"
+              onClick={() => jumpToPillar(p.id)}
+              aria-label={`Open the ${p.name} chapter`}
+              className="block h-full w-full cursor-pointer text-left"
+            >
               <div className="card-warm lift h-full p-6 text-center">
                 <span
                   className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl"
@@ -817,7 +947,7 @@ export function PillarsSection() {
                 <h3 className="mt-1 text-2xl font-bold">{p.name}</h3>
                 <p className="mt-2 text-[.86rem] leading-relaxed text-[#cbb392]">{p.line}</p>
               </div>
-            </a>
+            </button>
           </Reveal>
         ))}
       </div>
