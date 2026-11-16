@@ -162,6 +162,12 @@ for record in student_records:
           interpret and trace programs like this one.
         </Callout>
       </Reveal>
+      <Reveal className="mt-3">
+        <p className="text-[.72rem] font-semibold leading-relaxed text-[#a08568]">
+          Note: Lecture 34 finalizes the scheme — the two quizzes actually conducted count 40% with the
+          best score, the final exam 60%. See the final word before the end term.
+        </p>
+      </Reveal>
 
       <Reveal className="mt-6">
         <p className="eyebrow mb-3">The toolbox this lab leaned on — all re-run, one page</p>

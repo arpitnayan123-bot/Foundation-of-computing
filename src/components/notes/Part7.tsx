@@ -198,6 +198,7 @@ else:
     print(f"{number} is not a multiple of 10.")
 print(4 % 3)   # 1  (odd/even check uses % 2)`}
               output={"How old are you? 21\nYou are old enough to vote!\nEnter a number: 40\n40 is a multiple of 10.\n1"}
+              note="int('21') works; int('21.5') raises a ValueError — int() only accepts whole-number text. Decimals need float() instead."
             />
           </div>
         </div>

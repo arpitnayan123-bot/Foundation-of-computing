@@ -307,8 +307,8 @@ print(age == 19)      # True
 
 # and / or — parentheses around each test = readability best practice
 age_0, age_1 = 22, 18
-print((age_0 >= 21) and (age_1 >= 21))   # False — BOTH tests must pass
-print((age_0 >= 21) or (age_1 >= 21))    # True  — at least one passes
+print((age_0 >= 21) and (age_1 >= 21))   # True and False = False — BOTH tests must pass
+print((age_0 >= 21) or (age_1 >= 21))    # True or False = True — at least one passes
 
 # in — does the value exist in the list?
 requested_toppings = ['mushrooms', 'onions', 'pineapple']
@@ -664,18 +664,6 @@ print(speed)`}
             options={["It is hidden until needed", "It is permanently removed — unrecoverable", "Its value becomes None", "A KeyError is raised"]}
             answer={1}
             explain="del permanently removes the key-value pair; a later lookup of 'points' would raise KeyError (that's what get() protects against)."
-          />
-        </Reveal>
-      </div>
-
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
-        <Reveal>
-          <Quiz
-            source="Concept check"
-            q="What does alien_0.get('points', 0) do if 'points' is missing?"
-            options={["Crashes with KeyError", "Returns None", "Returns 0 instead of crashing", "Adds the key with value 0"]}
-            answer={2}
-            explain="get() looks up the key and returns your provided default (0) when it’s absent — graceful handling instead of a KeyError."
           />
         </Reveal>
       </div>
