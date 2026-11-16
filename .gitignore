@@ -51,5 +51,6 @@ prompt
 
 server.log
 # Skills directory
-/skills/tool-results/
+/skills
+tool-results/
 agent-ctx/
