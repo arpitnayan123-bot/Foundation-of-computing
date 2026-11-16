@@ -1,0 +1,18 @@
+// Cross-device sync — one 6-char code parks one backup payload.
+// The payload is a full Atlas backup JSON string (validated by
+// lib/backup.ts before it is ever stored here).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model SyncBlob {
+  code      String   @id
+  payload   String
+  updatedAt DateTime @updatedAt
+}

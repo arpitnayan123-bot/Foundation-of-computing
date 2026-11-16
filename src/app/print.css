@@ -1,0 +1,162 @@
+/* ============================================================
+   THE ATLAS — print stylesheet (imported from layout.tsx).
+
+   Screens keep the dusk; paper gets ink. Rules are CSS-only —
+   no component is restructured for print:
+
+     · chrome off        — nav bars, ⌘K palette, exam/drill/mock/
+                           review/lab dialogs, toasts
+     · scenery off       — hero canvas & still, ambient blobs,
+                           gloss sweeps, marquee, glow layers
+     · light paper theme — white background, near-black ink,
+                           code panels and dark sections flipped
+     · nothing hidden    — scroll reveals forced visible and
+                           collapsed <details> drills expanded
+     · nothing torn      — section cards and tables never split
+                           across pages
+   ============================================================ */
+
+@media print {
+  @page {
+    margin: 14mm 12mm;
+  }
+
+  /* ---------- 1 · chrome off ---------- */
+  nav,
+  [role="dialog"],
+  .cmdk-overlay,
+  .cmdk-dialog,
+  .fixed[role="status"] {
+    display: none !important;
+  }
+
+  /* ---------- 2 · scenery off ---------- */
+  canvas,
+  .atlas-bg,
+  .hero-still,
+  .amb-breathe,
+  .amb-scan,
+  .glass-sweep,
+  .glass-gloss,
+  .ember-line,
+  .text-ghost,
+  .load-bar,
+  .marquee-track,
+  .binary-bit,
+  .lab-aurora,
+  .lab-aurora-a,
+  .lab-aurora-b,
+  .warm-canvas::before {
+    display: none !important;
+  }
+
+  /* ---------- 3 · light paper theme ---------- */
+  html,
+  body {
+    background: #ffffff !important;
+    color: #1c1917 !important;
+  }
+
+  * {
+    animation: none !important;
+    transition: none !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  img,
+  svg {
+    max-width: 100% !important;
+  }
+
+  a {
+    text-shadow: none !important;
+  }
+
+  .warm-canvas,
+  .page-wrap {
+    background: #ffffff !important;
+  }
+
+  /* dark sections flip to ink-on-paper (their hardcoded light-on-dark
+     text follows via the descendant rule) */
+  .section-dark {
+    background: #ffffff !important;
+  }
+  .section-dark :is(h1, h2, h3, h4, h5, h6, p, li, td, th, figcaption, blockquote, dt, dd, strong, em) {
+    color: #1c1917 !important;
+  }
+  .section-dark .text-muted-warm,
+  .section-dark .quiz-q,
+  .section-dark .sf-label {
+    color: #44403c !important;
+  }
+  .section-dark .card-warm {
+    background: #faf7f2 !important;
+    border-color: #e7e0d2 !important;
+  }
+
+  /* code panels: dark IDE → quiet paper */
+  .code-shell,
+  .code-body,
+  .code-out,
+  .live-term {
+    background: #faf7f2 !important;
+    color: #292524 !important;
+    border-color: #e7e0d2 !important;
+  }
+  .code-title,
+  .code-out .out-label,
+  .live-term-foot,
+  .live-term-bar {
+    color: #57534e !important;
+  }
+  .live-term-body,
+  .live-term-body .tb-err {
+    color: #292524 !important;
+  }
+  .tk-k { color: #9a3412 !important; }
+  .tk-s { color: #3f6212 !important; }
+  .tk-n { color: #92400e !important; }
+  .tk-c { color: #78716c !important; }
+  .tk-b { color: #a16207 !important; }
+  .tk-d { color: #166534 !important; }
+
+  /* ---------- 4 · nothing hidden on paper ---------- */
+
+  /* scroll-triggered reveals must not print as blank space */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* collapsed drills (self-check practice) expand fully */
+  details > *:not(summary) {
+    display: block !important;
+  }
+  details summary {
+    list-style: none;
+  }
+
+  /* ---------- 5 · keep blocks whole ---------- */
+  section[id],
+  .card-warm,
+  .code-shell,
+  details.drill,
+  .warm-table,
+  .quiz-opt,
+  .ipo-node,
+  .dikw-layer {
+    break-inside: avoid;
+  }
+
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  tr,
+  figcaption {
+    break-inside: avoid;
+  }
+}
