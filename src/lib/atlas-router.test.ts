@@ -32,6 +32,18 @@ describe("parseRouteHash", () => {
 
   test("unknown subject ids get the honest reserved bay", () => {
     expect(parseRouteHash("#/subject/xyz", IDS)).toEqual({ name: "reserved", id: "xyz" });
+    // an unknown shelf with an inner tail still lands in the bay,
+    // under its base id
+    expect(parseRouteHash("#/subject/xyz/l9", IDS)).toEqual({ name: "reserved", id: "xyz" });
+  });
+
+  test("subject deep links with an inner tail resolve to the shelf + tail", () => {
+    expect(parseRouteHash("#/subject/foc/l14", IDS)).toEqual({ name: "subject", id: "foc", lecture: "l14" });
+    expect(parseRouteHash("#/subject/foc/L01", IDS)).toEqual({ name: "subject", id: "foc", lecture: "l01" });
+    expect(parseRouteHash("#/subject/foc/l14/", IDS)).toEqual({ name: "subject", id: "foc", lecture: "l14" });
+    expect(parseRouteHash("#/subject/stm/whatever", IDS)).toEqual({ name: "subject", id: "stm", lecture: "whatever" });
+    // a bare subject still carries no lecture field
+    expect(parseRouteHash("#/subject/foc", IDS)).toEqual({ name: "subject", id: "foc" });
   });
 
   test("unknown routes fall home to the shelf, never a dead end", () => {

@@ -7,13 +7,15 @@
    view; src/app/page.tsx consumes it, and the unit tests in
    atlas-router.test.ts pin its contract.
 
-     #/atlas          → the dark landing (subject shelf)
-     #/ledger         → the ledger (progress · review · forge)
-     #/cockpit        → the cockpit (flight plan + ask the atlas)
-     #/subject/<id>   → a subject's revision app
-     #<anchor>        → in-page anchors inside a view (null —
-                        the current view stays on stage)
-     anything else    → the landing (never a dead end)
+     #/atlas                → the dark landing (subject shelf)
+     #/ledger               → the ledger (progress · review · forge)
+     #/cockpit              → the cockpit (flight plan + ask the atlas)
+     #/subject/<id>         → a subject's revision app
+     #/subject/<id>/<tail>  → a subject with an in-shelf deep link
+                              (e.g. #/subject/foc/l14 → FoC, lecture 14)
+     #<anchor>              → in-page anchors inside a view (null —
+                              the current view stays on stage)
+     anything else          → the landing (never a dead end)
 
    Subject ids are normalized (trimmed, lowercased) so deep
    links like #/subject/FOC land on the same shelf as clicks.
@@ -25,7 +27,7 @@ export type View =
   | { name: "atlas" }
   | { name: "ledger" }
   | { name: "cockpit" }
-  | { name: "subject"; id: string }
+  | { name: "subject"; id: string; lecture?: string }
   | { name: "reserved"; id: string };
 
 /** the live shelf ids — kept in sync with subjects.ts by the
@@ -43,14 +45,20 @@ export function parseRouteHash(hash: string, subjectIds: readonly string[] = SUB
   if (hash.startsWith(SUBJECT_ROUTE)) {
     // normalize: decode, trim, lowercase — deep links are typed
     // by humans and pasted from address bars
-    let id = hash.slice(SUBJECT_ROUTE.length);
+    let tail = hash.slice(SUBJECT_ROUTE.length);
     try {
-      id = decodeURIComponent(id);
+      tail = decodeURIComponent(tail);
     } catch {
       /* malformed escape — keep the raw tail */
     }
-    id = id.trim().toLowerCase().replace(/\/+$/, "");
-    if (subjectIds.includes(id)) return { name: "subject", id };
+    tail = tail.trim().toLowerCase().replace(/\/+$/, "");
+    // split "foc/l14" → subject "foc" + optional in-shelf tail ("l14")
+    const slash = tail.indexOf("/");
+    const id = (slash === -1 ? tail : tail.slice(0, slash)).trim();
+    const inner = slash === -1 ? "" : tail.slice(slash + 1).trim();
+    if (subjectIds.includes(id)) {
+      return inner ? { name: "subject", id, lecture: inner } : { name: "subject", id };
+    }
     // a shelf deep-linked before its syllabus drops — show the
     // honest reserved bay (with a way back) instead of silently
     // bouncing home

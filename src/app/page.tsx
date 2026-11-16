@@ -219,7 +219,9 @@ export default function Page() {
               // a shelf deep-linked before its syllabus dropped — honest bay
               <AtlasFallback id={view.id} onBack={exitToAtlas} />
             ) : view.id === "foc" ? (
-              <FocApp onExitAtlas={exitToAtlas} />
+              // shelf 01 — FoC accepts an in-shelf lecture deep link
+              // (#/subject/foc/l14) for shareable, refresh-safe lectures
+              <FocApp onExitAtlas={exitToAtlas} initialLecture={view.lecture} />
             ) : view.id === "atb" ? (
               <AtbApp onExitAtlas={exitToAtlas} />
             ) : view.id === "fa" ? (
