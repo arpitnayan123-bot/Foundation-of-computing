@@ -1,0 +1,1035 @@
+     1→"use client";
+     2→
+     3→/* ============================================================
+     4→   FocApp — "Foundations of Computing", shelf 01 of THE ATLAS.
+     5→
+     6→   Mounted by the Atlas router (src/app/page.tsx); `onExitAtlas`
+     7→   returns the reader to the Atlas landing page. A LECTURE
+     8→   READER: the hero holds the 29-lecture sequence, each lecture
+     9→   opens with a "Foundations of Computing Lecture N" band, and
+    10→   all pen-paper practice lives behind the "Test my knowledge"
+    11→   hub so the reading surface stays clean. The subject's unique
+    12→   Python Lab (live CPython 3.12) stays wired end to end.
+    13→   ============================================================ */
+    14→
+    15→import { PartBoundary } from "@/components/notes/PartBoundary";
+    16→import { useDialogA11y } from "@/components/notes/exam-runtime";
+    17→
+    18→import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+    19→import { AnimatePresence, motion } from "framer-motion";
+    20→import {
+    21→  ArrowLeft,
+    22→  ArrowRight,
+    23→  BookOpenText,
+    24→  Check,
+    25→  ChevronDown,
+    26→  Compass,
+    27→  FlaskConical,
+    28→  Map,
+    29→  Menu,
+    30→  PenLine,
+    31→  Printer,
+    32→  X,
+    33→} from "lucide-react";
+    34→import { scrollToId } from "@/lib/utils";
+    35→import { useSectionProgress } from "@/lib/use-section-progress";
+    36→import { jumpTo, useOpenSection } from "@/lib/use-open-section";
+    37→import { loadProgress } from "@/lib/progress";
+    38→import { FocHero } from "@/components/foc/FocHero";
+    39→import {
+    40→  FOC_LECTURES, FOC_ALL_CHAPTER_IDS, FOC_DEFAULT_LECTURE,
+    41→  lectureById, lectureOfChapter, type FocLecture,
+    42→} from "@/components/foc/lectures";
+    43→import { WhySection, ComputingSection, PillarsSection } from "@/components/notes/Part1";
+    44→import { DataSection } from "@/components/notes/Part2";
+    45→import { AlgorithmSection, HardwareSection } from "@/components/notes/Part3";
+    46→import { SoftwareSection, ProgrammingSection } from "@/components/notes/Part4";
+    47→import { BasicsSection, ListsSection } from "@/components/notes/Part5";
+    48→import { IfSection, DictsSection } from "@/components/notes/Part6";
+    49→import { WhileSection, FunctionsSection } from "@/components/notes/Part7";
+    50→import { ArgsSection } from "@/components/notes/Part8";
+    51→import { FuncsScaleSection } from "@/components/notes/Part9";
+    52→import { ClassesSection } from "@/components/notes/Part10";
+    53→import { CourseMapSection, DataTypesSection } from "@/components/foc/FocParts1";
+    54→import { CaseFilesSection } from "@/components/foc/FocParts2";
+    55→import { ListOrganizeSection, ForLoopsSection } from "@/components/foc/FocParts3";
+    56→import { Checkpoint1Section, NumericListsSection } from "@/components/foc/FocParts4";
+    57→import { CopiesTuplesSection, SkillsLabSection } from "@/components/foc/FocParts5";
+    58→import { BranchesSection, IfListsSection } from "@/components/foc/FocParts6";
+    59→import { DictLoopsSection, NestingSection } from "@/components/foc/FocParts7";
+    60→import { RecordsLabSection, LoopControlSection } from "@/components/foc/FocParts8";
+    61→import { ReturnsSection } from "@/components/foc/FocParts9";
+    62→import { PyReadyToast } from "@/components/notes/ui";
+    63→import { PythonLab } from "@/components/notes/Playground";
+    64→import { ExamWindow } from "@/components/notes/ExamWindow";
+    65→import { EXAM_BANKS, EXAM_GROUPS, TOTAL_QUESTIONS, type ExamGroup } from "@/components/notes/questions";
+    66→import { ShelfQuickNav } from "@/components/atlas/ShelfQuickNav";
+    67→
+    68→/* shelf 01 palette — deep ember & gold on ivory paper */
+    69→const EMBER = "#c2410c";
+    70→const EMBER_BRIGHT = "#ea580c";
+    71→const GOLD = "#b45309";
+    72→const GOLD_LITE = "#f5c889";
+    73→const EMBER_DARK = "linear-gradient(165deg,#241608 0%,#33200e 55%,#3e2c1d 100%)";
+    74→
+    75→/* ============================================================
+    76→   Structured chapter map — the top bar is organised into
+    77→   six groups that follow the deck's arc. Each group owns
+    78→   a "Test my knowledge" exam window (see questions.ts).
+    79→   ============================================================ */
+    80→const GROUPS: {
+    81→  id: ExamGroup;
+    82→  label: string;
+    83→  items: { id: string; label: string; desc: string }[];
+    84→}[] = [
+    85→  {
+    86→    id: "foundations",
+    87→    label: "Orientation",
+    88→    items: [
+    89→      { id: "course-map", label: "Course map", desc: "Four objectives · why Python · the finale" },
+    90→      { id: "computing", label: "Computing", desc: "Input → process → output, everywhere" },
+    91→      { id: "pillars", label: "4 Pillars", desc: "Decompose · patterns · abstraction · algorithms" },
+    92→      { id: "data", label: "Data & DIKW", desc: "Data → information → knowledge → wisdom" },
+    93→      { id: "data-types", label: "Data types", desc: "Structured · temporal · quant vs qual" },
+    94→    ],
+    95→  },
+    96→  {
+    97→    id: "pillars",
+    98→    label: "Pillars & Cases",
+    99→    items: [
+   100→      { id: "why", label: "Why code?", desc: "What programming actually unlocks" },
+   101→      { id: "algorithm", label: "Algorithms", desc: "Recipes a machine can follow" },
+   102→      { id: "hardware", label: "Hardware", desc: "CPU, memory, sensors & I/O" },
+   103→      { id: "software", label: "Software", desc: "OS, apps, compilers & interpreters" },
+   104→      { id: "python", label: "Python", desc: "Meet the language" },
+   105→      { id: "case-files", label: "Case files", desc: "Knight Capital · Netflix · Zara · redlining" },
+   106→    ],
+   107→  },
+   108→  {
+   109→    id: "pycore",
+   110→    label: "Python Core",
+   111→    items: [
+   112→      { id: "basics", label: "Basics", desc: "Variables, strings, numbers, comments" },
+   113→      { id: "lists", label: "Lists", desc: "Ordered collections, indexing, add & remove" },
+   114→      { id: "list-organize", label: "Organize", desc: "sort · sorted · reverse · len · index errors" },
+   115→      { id: "for-loops", label: "For loops", desc: "Loop a list · the indentation law" },
+   116→      { id: "checkpoint-1", label: "Checkpoint 1", desc: "Recap · quiz format · predict the output" },
+   117→      { id: "numeric-lists", label: "Numeric lists", desc: "range · comprehensions · statistics · slices" },
+   118→      { id: "copies-tuples", label: "Copies & tuples", desc: "Copy vs reference · immutable tuples" },
+   119→    ],
+   120→  },
+   121→  {
+   122→    id: "decisions",
+   123→    label: "Decisions & Data",
+   124→    items: [
+   125→      { id: "if", label: "If / Else", desc: "Decisions, comparisons, logic" },
+   126→      { id: "branches", label: "Branches", desc: "if-else · elif ladders · independent ifs" },
+   127→      { id: "skills-lab", label: "Skills lab", desc: "Recap · the shipment inventory challenge" },
+   128→      { id: "if-lists", label: "If × lists", desc: "Special items · empty checks · multiple lists" },
+   129→      { id: "dicts", label: "Dictionaries", desc: "Key–value pairs & the safe lookup" },
+   130→      { id: "dict-loops", label: "Dict loops", desc: "items · keys · sorted · values · sets" },
+   131→      { id: "nesting", label: "Nesting", desc: "List of dicts · dict of lists · dict of dicts" },
+   132→      { id: "records-lab", label: "Records lab", desc: "Filter · reward · insert · sort" },
+   133→    ],
+   134→  },
+   135→  {
+   136→    id: "loops",
+   137→    label: "Loops",
+   138→    items: [
+   139→      { id: "while", label: "While loops", desc: "Repeat until the job is done" },
+   140→      { id: "loop-control", label: "Loop control", desc: "Flags · break · continue · while with data" },
+   141→    ],
+   142→  },
+   143→  {
+   144→    id: "pro",
+   145→    label: "Functions & OOP",
+   146→    items: [
+   147→      { id: "functions", label: "Functions", desc: "Define, call, reuse — first steps" },
+   148→      { id: "args", label: "Arguments", desc: "Positional, keyword, defaults & errors" },
+   149→      { id: "returns", label: "Return values", desc: "return · optional args · dict builders" },
+   150→      { id: "funcs2", label: "Funcs × Lists", desc: "Passing lists, *args, **kwargs, modules" },
+   151→      { id: "classes", label: "Classes", desc: "Objects, __init__, inheritance" },
+   152→    ],
+   153→  },
+   154→];
+   155→
+   156→const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
+   157→
+   158→function groupOf(id: string): string | null {
+   159→  for (const g of GROUPS) if (g.items.some((i) => i.id === id)) return g.id;
+   160→  return null;
+   161→}
+   162→
+   163→/* ============================================================
+   164→   The chapter component, keyed by section id — the lecture
+   165→   reader renders exactly the slice the chosen lecture owns.
+   166→   ============================================================ */
+   167→const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
+   168→  "course-map": <CourseMapSection />,
+   169→  computing: <ComputingSection />,
+   170→  pillars: <PillarsSection />,
+   171→  data: <DataSection />,
+   172→  "data-types": <DataTypesSection />,
+   173→  why: <WhySection />,
+   174→  algorithm: <AlgorithmSection />,
+   175→  hardware: <HardwareSection />,
+   176→  software: <SoftwareSection />,
+   177→  python: <ProgrammingSection />,
+   178→  "case-files": <CaseFilesSection />,
+   179→  basics: <BasicsSection />,
+   180→  lists: <ListsSection />,
+   181→  "list-organize": <ListOrganizeSection />,
+   182→  "for-loops": <ForLoopsSection />,
+   183→  "checkpoint-1": <Checkpoint1Section />,
+   184→  "numeric-lists": <NumericListsSection />,
+   185→  "copies-tuples": <CopiesTuplesSection />,
+   186→  if: <IfSection />,
+   187→  branches: <BranchesSection />,
+   188→  "skills-lab": <SkillsLabSection />,
+   189→  "if-lists": <IfListsSection />,
+   190→  dicts: <DictsSection />,
+   191→  "dict-loops": <DictLoopsSection />,
+   192→  nesting: <NestingSection />,
+   193→  "records-lab": <RecordsLabSection />,
+   194→  while: <WhileSection />,
+   195→  "loop-control": <LoopControlSection />,
+   196→  functions: <FunctionsSection />,
+   197→  args: <ArgsSection />,
+   198→  returns: <ReturnsSection />,
+   199→  funcs2: <FuncsScaleSection />,
+   200→  classes: <ClassesSection />,
+   201→};
+   202→
+   203→/* ============================================================
+   204→   useSeenDisplay — the read-checkmark data for every menu.
+   205→   Marking is per-lecture; display spans the whole shelf.
+   206→   ============================================================ */
+   207→function useSeenDisplay(lecture: FocLecture): ReadonlySet<string> {
+   208→  const ids = useMemo(() => lecture.chapters.map((c) => c.id), [lecture]);
+   209→  const live = useSectionProgress("foc", ids);
+   210→  const persisted = useMemo(() => {
+   211→    try {
+   212→      return new Set(Object.keys(loadProgress().foc ?? {}));
+   213→    } catch {
+   214→      return new Set<string>();
+   215→    }
+   216→  }, []);
+   217→  return useMemo(() => new Set<string>([...persisted, ...live]), [persisted, live]);
+   218→}
+   219→
+   220→/* ============================================================
+   221→   TopNav — structured chapter menu + Python Lab button +
+   222→   a "Test my knowledge" launcher inside every chapter group.
+   223→
+   224→   PERF: the progress bar is written straight to the DOM
+   225→   through a ref inside a requestAnimationFrame, and React state
+   226→   updates only when the active section actually CHANGES.
+   227→
+   228→   Chapter links never jump as plain anchors — they call
+   229→   onJumpChapter so a cross-lecture jump switches the lecture
+   230→   first, then scrolls to the freshly-rendered section.
+   231→   ============================================================ */
+   232→function TopNav({
+   233→  onOpenLab,
+   234→  onOpenExam,
+   235→  onExitAtlas,
+   236→  onJumpChapter,
+   237→  seen,
+   238→}: {
+   239→  onOpenLab: () => void;
+   240→  onOpenExam: (g: ExamGroup) => void;
+   241→  onExitAtlas: () => void;
+   242→  onJumpChapter: (chapterId: string) => void;
+   243→  seen: ReadonlySet<string>;
+   244→}) {
+   245→  const [active, setActive] = useState<string>("");
+   246→  const [openGroup, setOpenGroup] = useState<string | null>(null);
+   247→  const [mobileOpen, setMobileOpen] = useState(false);
+   248→  const mobileRef = useDialogA11y<HTMLDivElement>(mobileOpen);
+   249→  const [pyReady, setPyReady] = useState(false);
+   250→  const navRef = useRef<HTMLElement>(null);
+   251→  const progressRef = useRef<HTMLDivElement>(null);
+   252→  const activeRef = useRef("");
+   253→
+   254→  useEffect(() => {
+   255→    let ticking = false;
+   256→    const update = () => {
+   257→      ticking = false;
+   258→      const doc = document.documentElement;
+   259→      const total = doc.scrollHeight - doc.clientHeight;
+   260→      const pct = total > 0 ? (doc.scrollTop / total) * 100 : 0;
+   261→      if (progressRef.current) progressRef.current.style.width = `${pct}%`;
+   262→
+   263→      // scroll-spy: only touch React state when the section changes
+   264→      const probe = window.innerHeight * 0.32;
+   265→      let current = "";
+   266→      for (const item of FLAT_ITEMS) {
+   267→        const el = document.getElementById(item.id);
+   268→        if (el && el.getBoundingClientRect().top <= probe) current = item.id;
+   269→      }
+   270→      if (current !== activeRef.current) {
+   271→        activeRef.current = current;
+   272→        setActive(current);
+   273→      }
+   274→    };
+   275→    const onScroll = () => {
+   276→      if (!ticking) {
+   277→        ticking = true;
+   278→        requestAnimationFrame(update);
+   279→      }
+   280→    };
+   281→    update();
+   282→    window.addEventListener("scroll", onScroll, { passive: true });
+   283→    window.addEventListener("resize", onScroll);
+   284→    return () => {
+   285→      window.removeEventListener("scroll", onScroll);
+   286→      window.removeEventListener("resize", onScroll);
+   287→    };
+   288→  }, []);
+   289→
+   290→  // shared Python runtime status
+   291→  useEffect(() => {
+   292→    const onReady = () => setPyReady(true);
+   293→    window.addEventListener("foc-py-ready", onReady);
+   294→    return () => window.removeEventListener("foc-py-ready", onReady);
+   295→  }, []);
+   296→
+   297→  // close dropdown on outside click / Escape
+   298→  useEffect(() => {
+   299→    const onDown = (e: MouseEvent) => {
+   300→      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenGroup(null);
+   301→    };
+   302→    const onKey = (e: KeyboardEvent) => {
+   303→      if (e.key === "Escape") {
+   304→        setOpenGroup(null);
+   305→        setMobileOpen(false);
+   306→      }
+   307→    };
+   308→    document.addEventListener("mousedown", onDown);
+   309→    document.addEventListener("keydown", onKey);
+   310→    return () => {
+   311→      document.removeEventListener("mousedown", onDown);
+   312→      document.removeEventListener("keydown", onKey);
+   313→    };
+   314→  }, []);
+   315→
+   316→  // lock body scroll while the mobile index is open
+   317→  useEffect(() => {
+   318→    document.body.style.overflow = mobileOpen ? "hidden" : "";
+   319→    return () => {
+   320→      document.body.style.overflow = "";
+   321→    };
+   322→  }, [mobileOpen]);
+   323→
+   324→  const activeGroup = active ? groupOf(active) : null;
+   325→
+   326→  return (
+   327→    <nav ref={navRef} aria-label="Chapters" className="fixed inset-x-0 top-0 z-50">
+   328→      <div className="nav-shell">
+   329→        <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-3 sm:px-5">
+   330→          {/* back to The Atlas — the shelf this subject lives on */}
+   331→          <button
+   332→            type="button"
+   333→            onClick={onExitAtlas}
+   334→            title="Back to The Atlas — the subject shelf"
+   335→            aria-label="Back to The Atlas"
+   336→            className="relative flex h-10 shrink-0 items-center gap-1.5 rounded-full after:absolute after:-inset-y-0.5 after:-inset-x-1 after:rounded-full after:content-[''] border border-white/70 bg-white/60 px-3 text-[.64rem] font-extrabold uppercase tracking-[.14em] text-[#8a5f30] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/85 hover:text-[#c2410c]"
+   337→          >
+   338→            <Map className="h-3.5 w-3.5" />
+   339→            <span className="hidden sm:inline">Atlas</span>
+   340→          </button>
+   341→
+   342→          {/* brand — quiet glass chip, Apple-quiet rather than loud gradient */}
+   343→          <button type="button" aria-label="Scroll back to the top of these notes" onClick={() => scrollToId("top")} className="relative flex h-10 shrink-0 items-center gap-2 rounded-full border border-white/70 bg-white/60 pl-2 pr-3.5 after:absolute after:-inset-y-0.5 after:-inset-x-1 after:rounded-full after:content-[''] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35)] backdrop-blur-md transition-colors duration-200 hover:bg-white/80 cursor-pointer">
+   344→            <span
+   345→              className="flex h-6 w-6 items-center justify-center rounded-full text-white"
+   346→              style={{ background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})`, boxShadow: "0 4px 10px -3px rgba(194,65,12,.55)" }}
+   347→            >
+   348→              <Compass className="h-3.5 w-3.5" />
+   349→            </span>
+   350→            <span className="hidden min-[380px]:inline text-sm font-black tracking-tight text-[#3e2c1d]">FoC Notes</span>
+   351→          </button>
+   352→
+   353→          {/* desktop — grouped chapter menu (all four groups, Python Core
+   354→              included). Opens at lg: below that the bar would overflow once
+   355→              the Python Core group is shown, so narrower screens get the
+   356→              scrolling chip strip + the full-screen index instead. */}
+   357→          <div className="ml-2 hidden flex-1 items-center gap-1 lg:flex">
+   358→            {GROUPS.map((group) => {
+   359→              const isActive = activeGroup === group.id;
+   360→              const open = openGroup === group.id;
+   361→              return (
+   362→                <div
+   363→                  key={group.id}
+   364→                  className="relative"
+   365→                  onMouseEnter={() => setOpenGroup(group.id)}
+   366→                  onMouseLeave={() => setOpenGroup((g) => (g === group.id ? null : g))}
+   367→                >
+   368→                  <button
+   369→                    type="button"
+   370→                    aria-expanded={open}
+   371→                    aria-haspopup="true"
+   372→                    onClick={() => setOpenGroup(group.id)}
+   373→                    onFocus={() => setOpenGroup(group.id)}
+   374→                    className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[.78rem] font-semibold tracking-wide transition-all duration-200 ${
+   375→                      isActive || open
+   376→                        ? "bg-white/80 text-[#c2410c] shadow-[0_4px_16px_-8px_rgba(70,42,15,.4),inset_0_1px_0_rgba(255,255,255,.9)]"
+   377→                        : "text-[#6b563d] hover:bg-white/55 hover:text-[#3e2c1d] hover:shadow-[inset_0_1px_0_rgba(255,255,255,.9)]"
+   378→                    }`}
+   379→                  >
+   380→                    {group.label}
+   381→                    <span className="text-[.58rem] font-extrabold opacity-45">{String(group.items.length).padStart(2, "0")}</span>
+   382→                    <ChevronDown className={`h-3 w-3 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+   383→                  </button>
+   384→
+   385→                  <AnimatePresence>
+   386→                    {open ? (
+   387→                      <motion.div
+   388→                        key={`${group.id}-panel`}
+   389→                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+   390→                        animate={{ opacity: 1, y: 0, scale: 1 }}
+   391→                        exit={{ opacity: 0, y: 6, scale: 0.98 }}
+   392→                        transition={{ duration: 0.16, ease: "easeOut" }}
+   393→                        className="absolute left-1/2 top-full z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 pt-2"
+   394→                      >
+   395→                        <div
+   396→                          className="overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-1.5 backdrop-blur-2xl"
+   397→                          style={{
+   398→                            WebkitBackdropFilter: "blur(28px) saturate(170%)",
+   399→                            backdropFilter: "blur(28px) saturate(170%)",
+   400→                            boxShadow: "0 24px 70px -18px rgba(50,30,10,.4), inset 0 1px 0 rgba(255,255,255,.85)",
+   401→                          }}
+   402→                        >
+   403→                          <p className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 text-[.58rem] font-extrabold uppercase tracking-[.22em] text-[#b08b5c]">
+   404→                            <BookOpenText className="h-3 w-3" />
+   405→                            {group.label}
+   406→                          <span className="ml-auto font-mono tracking-[.08em] opacity-90">
+   407→                            {group.items.filter((it) => seen.has(it.id)).length}/{group.items.length} read
+   408→                          </span>
+   409→                          </p>
+   410→                          {group.items.map((item, i) => {
+   411→                            const isActiveItem = active === item.id;
+   412→                            return (
+   413→                              <a
+   414→                                key={item.id}
+   415→                                href={`#${item.id}`}
+   416→                                onClick={(e) => {
+   417→                                  e.preventDefault();
+   418→                                  setOpenGroup(null);
+   419→                                  onJumpChapter(item.id);
+   420→                                }}
+   421→                                className={`group flex items-start gap-3 rounded-xl px-3 py-2 transition-colors duration-150 ${
+   422→                                  isActiveItem ? "bg-[#ea580c]/[.08]" : "hover:bg-[#3e2c1d]/[.05]"
+   423→                                }`}
+   424→                              >
+   425→                                <span
+   426→                                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[.58rem] font-black ${
+   427→                                    isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#b08b5c]"
+   428→                                  }`}
+   429→                                  style={isActiveItem ? { background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})` } : undefined}
+   430→                                >
+   431→                                  {String(i + 1).padStart(2, "0")}
+   432→                                </span>
+   433→                                <span className="min-w-0">
+   434→                                  <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#c2410c]" : "text-[#3e2c1d]"}`}>
+   435→                                    {item.label}
+   436→                                  </span>
+   437→                                </span>
+   438→                                {isActiveItem ? (
+   439→                                <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: EMBER }} />
+   440→                              ) : seen.has(item.id) ? (
+   441→                                <Check className="ml-auto mt-1 h-3.5 w-3.5 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
+   442→                              ) : null}
+   443→                              </a>
+   444→                            );
+   445→                          })}
+   446→
+   447→                          {/* Test my knowledge — opens the exam window for this group */}
+   448→                          <div className="mt-1 border-t border-[#f0e2c8] p-1.5">
+   449→                            <button
+   450→                              type="button"
+   451→                              onClick={() => {
+   452→                                setOpenGroup(null);
+   453→                                onOpenExam(group.id);
+   454→                              }}
+   455→                              className="group/exam flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors duration-150 hover:bg-[#3e2c1d]/[.05]"
+   456→                            >
+   457→                              <span
+   458→                                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+   459→                                style={{ background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})` }}
+   460→                              >
+   461→                                <PenLine className="h-3.5 w-3.5" />
+   462→                              </span>
+   463→                              <span className="min-w-0">
+   464→                                <span className="block text-[.84rem] font-extrabold leading-tight text-[#c2410c]">
+   465→                                  Test my knowledge
+   466→                                </span>
+   467→                                <span className="mt-0.5 block text-[.68rem] leading-snug text-[#a08568]">
+   468→                                  {EXAM_BANKS[group.id].questions.length} exam-style questions · pen-paper mode
+   469→                                </span>
+   470→                              </span>
+   471→                              <span className="ml-auto shrink-0 text-[.58rem] font-black uppercase tracking-[.14em] text-[#b08b5c] transition-colors group-hover/exam:text-[#c2410c]">
+   472→                                open →
+   473→                              </span>
+   474→                            </button>
+   475→                          </div>
+   476→                        </div>
+   477→                      </motion.div>
+   478→                    ) : null}
+   479→                  </AnimatePresence>
+   480→                </div>
+   481→              );
+   482→            })}
+   483→          </div>
+   484→
+   485→          {/* below lg — quick chips (horizontal scroll) covering every
+   486→              chapter, Python Core included */}
+   487→          <div className="scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+   488→            {FLAT_ITEMS.map((item) => (
+   489→              <a
+   490→                key={item.id}
+   491→                href={`#${item.id}`}
+   492→                onClick={(e) => {
+   493→                  e.preventDefault();
+   494→                  onJumpChapter(item.id);
+   495→                }}
+   496→                className={`nav-link ${active === item.id ? "active" : ""}`}
+   497→              >
+   498→                {item.label}
+   499→              </a>
+   500→            ))}
+   501→          </div>
+   502→
+   503→          {/* right cluster — Python Lab (replaces the old LIVE PYTHON chip) */}
+   504→          <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
+   505→            <ShelfQuickNav variant="nav" />
+   506→            <button
+   507→              type="button"
+   508→              onClick={() => window.print()}
+   509→              title="Print these notes"
+   510→              aria-label="Print these notes"
+   511→              className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c]"
+   512→            >
+   513→              <Printer className="h-4 w-4" />
+   514→            </button>
+   515→            <button
+   516→              type="button"
+   517→              onClick={onOpenLab}
+   518→              title="Open the Python Lab — a Colab-style notebook where you can run your own code"
+   519→              className="hidden items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3.5 py-1.5 text-[.66rem] font-extrabold uppercase tracking-[.14em] text-[#8a5f30] shadow-[0_4px_16px_-8px_rgba(70,42,15,.35),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-md transition-all duration-200 hover:bg-white/85 hover:text-[#c2410c] sm:flex"
+   520→            >
+   521→              <FlaskConical className="h-3.5 w-3.5" />
+   522→              Python Lab
+   523→              <span
+   524→                className={`h-1.5 w-1.5 rounded-full ${pyReady ? "" : "opacity-60"}`}
+   525→                style={{
+   526→                  background: pyReady ? "#6f9e3f" : "#d6bd97",
+   527→                  boxShadow: pyReady ? "0 0 0 3px rgba(143,174,93,.25)" : undefined,
+   528→                }}
+   529→              />
+   530→            </button>
+   531→            <button
+   532→              type="button"
+   533→              onClick={onOpenLab}
+   534→              aria-label="Open the Python Lab"
+   535→              className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] border border-white/70 bg-white/60 text-[#8a5f30] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] lg:hidden"
+   536→            >
+   537→              <FlaskConical className="h-4 w-4" />
+   538→            </button>
+   539→            <button
+   540→              type="button"
+   541→              onClick={() => setMobileOpen(true)}
+   542→              aria-label="Open the chapter index"
+   543→              aria-expanded={mobileOpen}
+   544→              className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#c2410c] lg:hidden"
+   545→            >
+   546→              <Menu className="h-4.5 w-4.5" />
+   547→            </button>
+   548→          </div>
+   549→        </div>
+   550→      </div>
+   551→
+   552→      {/* reading progress — width written directly via ref (no re-renders) */}
+   553→      <div className="h-[3px] w-full bg-[#3e2c1d]/10">
+   554→        <div
+   555→          ref={progressRef}
+   556→          className="h-full"
+   557→          style={{ width: "0%", background: `linear-gradient(90deg,#f59e0b,${EMBER_BRIGHT},${EMBER})` }}
+   558→        />
+   559→      </div>
+   560→
+   561→      {/* mobile — full-screen structured index */}
+   562→      <AnimatePresence>
+   563→        {mobileOpen ? (
+   564→          <motion.div
+   565→            ref={mobileRef}
+   566→            tabIndex={-1}
+   567→            key="mobile-index"
+   568→            initial={{ opacity: 0 }}
+   569→            animate={{ opacity: 1 }}
+   570→            exit={{ opacity: 0 }}
+   571→            transition={{ duration: 0.18 }}
+   572→            className="fixed inset-0 z-[60] flex flex-col outline-none"
+   573→            style={{ background: EMBER_DARK }}
+   574→            role="dialog"
+   575→            aria-modal="true"
+   576→            aria-label="Chapter index"
+   577→          >
+   578→            <div className="flex h-14 shrink-0 items-center justify-between px-4">
+   579→              <span className="flex items-center gap-2 text-sm font-black tracking-tight text-[#ffe9c9]">
+   580→                <Compass className="h-4 w-4" style={{ color: "#f59e0b" }} />
+   581→                Chapter index
+   582→              <span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[.55rem] font-bold text-[#e9d7bf]">
+   583→                {seen.size}/{FOC_ALL_CHAPTER_IDS.length} read
+   584→              </span>
+   585→              </span>
+   586→              <button
+   587→                type="button"
+   588→                onClick={() => setMobileOpen(false)}
+   589→                aria-label="Close the chapter index"
+   590→                className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] border border-white/15 bg-white/10 text-[#ffe9c9]"
+   591→              >
+   592→                <X className="h-4.5 w-4.5" />
+   593→              </button>
+   594→            </div>
+   595→            <ShelfQuickNav variant="menu" onAfter={() => setMobileOpen(false)} />
+   596→            <div className="flex-1 overflow-y-auto px-4 pb-10 pt-2">
+   597→              {GROUPS.map((group, gi) => (
+   598→                <motion.div
+   599→                  key={group.id}
+   600→                  initial={{ opacity: 0, y: 14 }}
+   601→                  animate={{ opacity: 1, y: 0 }}
+   602→                  transition={{ delay: 0.05 + gi * 0.06, duration: 0.25 }}
+   603→                  className="mb-5"
+   604→                >
+   605→                  <p className="mb-2 flex items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.24em] text-[#c99a63]">
+   606→                    <span className="h-px w-5" style={{ background: `linear-gradient(90deg,${EMBER_BRIGHT},transparent)` }} />
+   607→                    {group.label}
+   608→                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-[.55rem] text-[#e9d7bf]">{group.items.filter((it) => seen.has(it.id)).length}/{group.items.length}</span>
+   609→                  </p>
+   610→                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.04]">
+   611→                    {group.items.map((item, i) => {
+   612→                      const isActiveItem = active === item.id;
+   613→                      return (
+   614→                        <a
+   615→                          key={item.id}
+   616→                          href={`#${item.id}`}
+   617→                          onClick={(e) => {
+   618→                            e.preventDefault();
+   619→                            setMobileOpen(false);
+   620→                            onJumpChapter(item.id);
+   621→                          }}
+   622→                          className={`flex items-center gap-3 px-4 py-3 transition-colors active:bg-white/10 ${
+   623→                            i < group.items.length - 1 ? "border-b border-white/[.06]" : ""
+   624→                          } ${isActiveItem ? "bg-white/[.08]" : ""}`}
+   625→                        >
+   626→                          <span
+   627→                            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[.6rem] font-black"
+   628→                            style={
+   629→                              isActiveItem
+   630→                                ? { background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})`, color: "#fff7ec" }
+   631→                                : { background: "rgba(255,220,170,.1)", color: "#c99a63" }
+   632→                            }
+   633→                          >
+   634→                            {String(i + 1).padStart(2, "0")}
+   635→                          </span>
+   636→                          <span className="min-w-0 flex-1">
+   637→                            <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#f5c889]" : "text-[#f0e2c8]"}`}>
+   638→                              {item.label}
+   639→                            </span>
+   640→                          </span>
+   641→                          {isActiveItem ? (
+   642→                            <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#f59e0b" }} />
+   643→                          ) : seen.has(item.id) ? (
+   644→                            <Check className="h-4 w-4 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
+   645→                          ) : null}
+   646→                        </a>
+   647→                      );
+   648→                    })}
+   649→
+   650→                    {/* Test my knowledge — per group */}
+   651→                    <button
+   652→                      type="button"
+   653→                      onClick={() => {
+   654→                        setMobileOpen(false);
+   655→                        onOpenExam(group.id);
+   656→                      }}
+   657→                      className="flex w-full items-center gap-2.5 border-t border-white/[.08] px-4 py-3 text-left transition-colors active:bg-white/10"
+   658→                    >
+   659→                      <span
+   660→                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+   661→                        style={{ background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})` }}
+   662→                      >
+   663→                        <PenLine className="h-3.5 w-3.5" />
+   664→                      </span>
+   665→                      <span className="text-[.88rem] font-extrabold text-[#f5c889]">Test my knowledge</span>
+   666→                      <span className="ml-auto text-[.6rem] font-black uppercase tracking-[.14em] text-[#c99a63]">
+   667→                        {EXAM_BANKS[group.id].questions.length} Qs →
+   668→                      </span>
+   669→                    </button>
+   670→                  </div>
+   671→                </motion.div>
+   672→              ))}
+   673→            </div>
+   674→          </motion.div>
+   675→        ) : null}
+   676→      </AnimatePresence>
+   677→    </nav>
+   678→  );
+   679→}
+   680→
+   681→/* ============================================================
+   682→   PracticeHub — the ONE home of pen-paper practice.
+   683→   ============================================================ */
+   684→function PracticeHub({
+   685→  open,
+   686→  onClose,
+   687→  onOpenExam,
+   688→}: {
+   689→  open: boolean;
+   690→  onClose: () => void;
+   691→  onOpenExam: (g: ExamGroup) => void;
+   692→}) {
+   693→  const hubRef = useDialogA11y<HTMLDivElement>(open);
+   694→
+   695→  useEffect(() => {
+   696→    if (!open) return;
+   697→    document.body.style.overflow = "hidden";
+   698→    const onKey = (e: KeyboardEvent) => {
+   699→      if (e.key === "Escape") onClose();
+   700→    };
+   701→    document.addEventListener("keydown", onKey);
+   702→    return () => {
+   703→      document.body.style.overflow = "";
+   704→      document.removeEventListener("keydown", onKey);
+   705→    };
+   706→  }, [open, onClose]);
+   707→
+   708→  return (
+   709→    <AnimatePresence>
+   710→      {open ? (
+   711→        <motion.div
+   712→          ref={hubRef}
+   713→          tabIndex={-1}
+   714→          key="practice-hub"
+   715→          initial={{ opacity: 0 }}
+   716→          animate={{ opacity: 1 }}
+   717→          exit={{ opacity: 0 }}
+   718→          transition={{ duration: 0.18 }}
+   719→          className="fixed inset-0 z-[65] overflow-y-auto outline-none"
+   720→          style={{
+   721→            background: "rgba(26,15,6,.82)",
+   722→            WebkitBackdropFilter: "blur(12px) saturate(140%)",
+   723→            backdropFilter: "blur(12px) saturate(140%)",
+   724→          }}
+   725→          role="dialog"
+   726→          aria-modal="true"
+   727→          aria-label="Test my knowledge — pen-paper practice"
+   728→          onClick={(e) => {
+   729→            if (e.target === e.currentTarget) onClose();
+   730→          }}
+   731→        >
+   732→          <div
+   733→            className="mx-auto my-6 w-[min(66rem,calc(100vw-1.5rem))] overflow-hidden rounded-3xl border border-white/10 sm:my-10"
+   734→            style={{
+   735→              background: EMBER_DARK,
+   736→              boxShadow: "0 48px 140px -32px rgba(0,0,0,.65)",
+   737→            }}
+   738→          >
+   739→            {/* header */}
+   740→            <div className="flex items-start justify-between gap-4 px-6 pt-6 sm:px-8">
+   741→              <div>
+   742→                <p className="flex items-center gap-2 text-[.6rem] font-extrabold uppercase tracking-[.24em] text-[#c99a63]">
+   743→                  <span className="h-px w-5" style={{ background: `linear-gradient(90deg,${EMBER_BRIGHT},transparent)` }} />
+   744→                  Pen-paper practice
+   745→                </p>
+   746→                <h2 className="mt-1.5 text-2xl font-black tracking-tight text-[#ffe9c9] sm:text-3xl">Test my knowledge</h2>
+   747→                <p className="mt-2 max-w-2xl text-[.88rem] leading-relaxed text-[#e0cbaa]">
+   748→                  Every chapter group opens its own exam window: write-the-output,
+   749→                  trace-the-code, definitions and small programs — write on real paper
+   750→                  first, then mark yourself against the model answers with instant
+   751→                  checking.
+   752→                </p>
+   753→                <p className="mt-2 text-[.64rem] font-black uppercase tracking-[.18em] text-[#a5876a]">
+   754→                  {TOTAL_QUESTIONS} questions · {EXAM_GROUPS.length} windows
+   755→                </p>
+   756→              </div>
+   757→              <button
+   758→                type="button"
+   759→                onClick={onClose}
+   760→                aria-label="Close the practice hub"
+   761→                className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[#ffe9c9] transition-colors hover:bg-white/20"
+   762→              >
+   763→                <X className="h-4.5 w-4.5" />
+   764→              </button>
+   765→            </div>
+   766→
+   767→            {/* the four exam windows */}
+   768→            <div className="grid gap-3 px-6 pb-7 pt-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
+   769→              {EXAM_GROUPS.map((g) => {
+   770→                const bank = EXAM_BANKS[g];
+   771→                return (
+   772→                  <button
+   773→                    key={g}
+   774→                    type="button"
+   775→                    onClick={() => onOpenExam(g)}
+   776→                    className="group flex flex-col items-start rounded-2xl border border-white/10 bg-white/[.05] p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[.09]"
+   777→                    aria-label={`Open the exam window — ${bank.title}`}
+   778→                  >
+   779→                    <span
+   780→                      className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] text-white shadow-md"
+   781→                      style={{ background: `linear-gradient(135deg,${EMBER_BRIGHT},${EMBER})` }}
+   782→                    >
+   783→                      <PenLine className="h-4 w-4" />
+   784→                    </span>
+   785→                    <span className="mt-3 text-[.98rem] font-extrabold leading-tight text-[#f5c889]">{bank.title}</span>
+   786→                    <span className="mt-1 text-[.76rem] leading-snug text-[#e0cbaa]">{bank.topics}</span>
+   787→                    <span className="mt-3 text-[.66rem] font-black uppercase tracking-[.16em] text-[#c99a63] transition-colors group-hover:text-[#f5c889]">
+   788→                      Test my knowledge · {bank.questions.length} Qs →
+   789→                    </span>
+   790→                  </button>
+   791→                );
+   792→              })}
+   793→            </div>
+   794→          </div>
+   795→        </motion.div>
+   796→      ) : null}
+   797→    </AnimatePresence>
+   798→  );
+   799→}
+   800→
+   801→/* ============================================================
+   802→   FocLectureHead — the "Foundations of Computing Lecture N"
+   803→   hero band. Compact: the number, the name, the chapter jumps.
+   804→   ============================================================ */
+   805→function FocLectureHead({ lecture }: { lecture: FocLecture }) {
+   806→  return (
+   807→    <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
+   808→      <div
+   809→        className="relative overflow-hidden rounded-2xl p-4 sm:p-5"
+   810→        style={{ background: EMBER_DARK, boxShadow: "0 20px 50px -26px rgba(36,22,8,.5)" }}
+   811→      >
+   812→        {/* ambient rings */}
+   813→        <svg aria-hidden viewBox="0 0 600 200" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full opacity-40">
+   814→          {[70, 120, 170].map((r, i) => (
+   815→            <motion.circle
+   816→              key={r} cx={540} cy={100} r={r} fill="none" stroke={i === 2 ? GOLD_LITE : EMBER_BRIGHT} strokeWidth={1.4}
+   817→              style={{ transformBox: "fill-box", transformOrigin: "center" }}
+   818→              animate={{ opacity: [0.12, 0.4, 0.12], scale: [1, 1.05, 1] }}
+   819→              transition={{ duration: 4.5, repeat: Infinity, delay: i * 0.8 }}
+   820→            />
+   821→          ))}
+   822→        </svg>
+   823→
+   824→        <div className="relative">
+   825→          <p className="flex flex-wrap items-center gap-1.5 text-[.56rem] font-extrabold uppercase tracking-[.22em] text-[#c99a63]">
+   826→            <Compass className="h-3 w-3" style={{ color: "#f59e0b" }} />
+   827→            Foundations of Computing
+   828→          </p>
+   829→          <h2 className="mt-1 text-xl font-black leading-tight text-[#ffe9c9] sm:text-2xl">
+   830→            Lecture {lecture.n}
+   831→            <span
+   832→              className="bg-clip-text text-transparent"
+   833→              style={{ backgroundImage: `linear-gradient(120deg,${GOLD_LITE},${GOLD})` }}
+   834→            >
+   835→              {" "}· {lecture.title}
+   836→            </span>
+   837→          </h2>
+   838→          {lecture.chapters.length > 0 ? (
+   839→            <div className="mt-2.5 flex flex-wrap gap-1.5">
+   840→              {lecture.chapters.map((c) => (
+   841→                <a
+   842→                  key={c.id}
+   843→                  href={`#${c.id}`}
+   844→                  onClick={(e) => {
+   845→                    e.preventDefault();
+   846→                    const el = document.getElementById(c.id);
+   847→                    if (el) jumpTo(el);
+   848→                  }}
+   849→                  className="rounded-full border border-white/15 bg-white/[.07] px-2.5 py-1 text-[.62rem] font-extrabold text-[#f0e2c8] transition-colors hover:border-[#ea580c]/40 hover:bg-white/[.12] hover:text-[#f5c889]"
+   850→                >
+   851→                  {c.label} ↓
+   852→                </a>
+   853→              ))}
+   854→            </div>
+   855→          ) : null}
+   856→        </div>
+   857→      </div>
+   858→    </div>
+   859→  );
+   860→}
+   861→
+   862→/* ============================================================
+   863→   LecturePager — prev/next lecture cards closing every lecture.
+   864→   ============================================================ */
+   865→function LecturePager({ current, onJump }: { current: FocLecture; onJump: (id: string) => void }) {
+   866→  const idx = FOC_LECTURES.findIndex((l) => l.id === current.id);
+   867→  const prev = idx > 0 ? FOC_LECTURES[idx - 1] : null;
+   868→  const next = idx < FOC_LECTURES.length - 1 ? FOC_LECTURES[idx + 1] : null;
+   869→
+   870→  return (
+   871→    <nav aria-label="Lecture sequence" className="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6">
+   872→      <div className="grid gap-3 sm:grid-cols-2">
+   873→        {prev ? (
+   874→          <button
+   875→            type="button"
+   876→            onClick={() => onJump(prev.id)}
+   877→            className="card-warm lift group flex min-w-0 items-center gap-3 p-4 text-left"
+   878→            aria-label={`Previous: ${prev.code} — ${prev.title}`}
+   879→          >
+   880→            <ArrowLeft className="h-4 w-4 shrink-0 text-[#c2410c] transition-transform duration-200 group-hover:-translate-x-1" />
+   881→            <span className="min-w-0">
+   882→              <span className="block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#b45309]">
+   883→                Previous · {prev.code}
+   884→              </span>
+   885→              <span className="mt-0.5 block truncate text-[.92rem] font-extrabold text-[#3e2c1d]">{prev.title}</span>
+   886→            </span>
+   887→          </button>
+   888→        ) : (
+   889→          <span aria-hidden className="hidden sm:block" />
+   890→        )}
+   891→        {next ? (
+   892→          <button
+   893→            type="button"
+   894→            onClick={() => onJump(next.id)}
+   895→            className="card-warm lift group flex min-w-0 items-center justify-end gap-3 p-4 text-right"
+   896→            aria-label={`Next: ${next.code} — ${next.title}`}
+   897→          >
+   898→            <span className="min-w-0">
+   899→              <span className="block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#b45309]">
+   900→                Next · {next.code}
+   901→              </span>
+   902→              <span className="mt-0.5 block truncate text-[.92rem] font-extrabold text-[#3e2c1d]">{next.title}</span>
+   903→            </span>
+   904→            <ArrowRight className="h-4 w-4 shrink-0 text-[#c2410c] transition-transform duration-200 group-hover:translate-x-1" />
+   905→          </button>
+   906→        ) : (
+   907→          <span className="rounded-2xl border border-dashed border-[#e8dcc0] p-4 text-center text-[.78rem] font-bold leading-snug text-[#a08568]">
+   908→            End of the sequence — Lecture 28 closes the recorded deck, and Classes waits just beyond it. Revise, then retake the windows.
+   909→          </span>
+   910→        )}
+   911→      </div>
+   912→    </nav>
+   913→  );
+   914→}
+   915→
+   916→/* ============================================================
+   917→   FocApp — the composed subject page: a lecture reader.
+   918→   ============================================================ */
+   919→export function FocApp({ onExitAtlas }: { onExitAtlas: () => void }) {
+   920→  const [lectureId, setLectureId] = useState<string>(FOC_DEFAULT_LECTURE);
+   921→  const [examGroup, setExamGroup] = useState<ExamGroup | null>(null);
+   922→  const [hubOpen, setHubOpen] = useState(false);
+   923→  const lectureIdRef = useRef(lectureId);
+   924→  useEffect(() => {
+   925→    lectureIdRef.current = lectureId;
+   926→  }, [lectureId]);
+   927→
+   928→  const lecture = lectureById(lectureId) ?? FOC_LECTURES[0];
+   929→  const seen = useSeenDisplay(lecture);
+   930→
+   931→  const selectLecture = useCallback((id: string) => {
+   932→    setLectureId(id);
+   933→    requestAnimationFrame(() =>
+   934→      requestAnimationFrame(() => {
+   935→        const el = document.getElementById("notes-top");
+   936→        if (!el) return;
+   937→        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+   938→        el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+   939→      })
+   940→    );
+   941→  }, []);
+   942→
+   943→  const goToChapter = useCallback((chapterId: string) => {
+   944→    const target = lectureOfChapter(chapterId);
+   945→    if (!target) return;
+   946→    const scrollWhenReady = () => {
+   947→      let frames = 0;
+   948→      const tick = () => {
+   949→        const el = document.getElementById(chapterId);
+   950→        if (el) {
+   951→          jumpTo(el);
+   952→          return;
+   953→        }
+   954→        if (++frames < 240) requestAnimationFrame(tick);
+   955→      };
+   956→      requestAnimationFrame(tick);
+   957→    };
+   958→    if (lectureIdRef.current === target.id) {
+   959→      scrollWhenReady();
+   960→      return;
+   961→    }
+   962→    setLectureId(target.id);
+   963→    requestAnimationFrame(() => requestAnimationFrame(scrollWhenReady));
+   964→  }, []);
+   965→
+   966→  useOpenSection("foc", goToChapter);
+   967→
+   968→  const openExam = useCallback((g: ExamGroup) => setExamGroup(g), []);
+   969→  const openHub = useCallback(() => setHubOpen(true), []);
+   970→
+   971→  /* the ⌘K palette may have left a lab handoff flag before this
+   972→     app mounted — read it once at init (client-only component) */
+   973→  const [labOpen, setLabOpen] = useState(() => {
+   974→    try {
+   975→      if (sessionStorage.getItem("atlas:open-lab") === "1") {
+   976→        sessionStorage.removeItem("atlas:open-lab");
+   977→        return true;
+   978→      }
+   979→    } catch {
+   980→      /* private mode — flag unreadable, start closed */
+   981→    }
+   982→    return false;
+   983→  });
+   984→  const openLab = useCallback(() => setLabOpen(true), []);
+   985→
+   986→  /* once FoC is on stage the palette just broadcasts this event */
+   987→  useEffect(() => {
+   988→    const onOpenLab = () => setLabOpen(true);
+   989→    window.addEventListener("atlas:open-lab", onOpenLab);
+   990→    return () => window.removeEventListener("atlas:open-lab", onOpenLab);
+   991→  }, []);
+   992→
+   993→  return (
+   994→    // id="top" — the brand chip links to #top; without a real element here the
+   995→    // client-side router swallows the fragment and the page never scrolls back
+   996→    <div id="top" className="page-wrap warm-canvas">
+   997→      <TopNav onOpenLab={openLab} onOpenExam={openExam} onExitAtlas={onExitAtlas} onJumpChapter={goToChapter} seen={seen} />
+   998→      <main className="pt-14">
+   999→        <PartBoundary label="Hero">
+  1000→          <FocHero
+  1001→            activeId={lectureId}
+  1002→            onSelect={selectLecture}
+  1003→            onPractice={openHub}
+  1004→            onOpenLab={openLab}
+  1005→            seen={seen}
+  1006→          />
+  1007→        </PartBoundary>
+  1008→
+  1009→        {/* the notes start here */}
+  1010→        <div id="notes-top" aria-hidden className="relative scroll-mt-16" />
+  1011→
+  1012→        <PartBoundary key={lecture.id} label={`Lecture ${lecture.code} — ${lecture.title}`}>
+  1013→          <motion.div
+  1014→            initial={{ opacity: 0, y: 18 }}
+  1015→            animate={{ opacity: 1, y: 0 }}
+  1016→            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+  1017→          >
+  1018→            <FocLectureHead lecture={lecture} />
+  1019→            {lecture.chapters.map((c) => (
+  1020→              <PartBoundary key={c.id} label={c.label}>
+  1021→                {SECTION_COMPONENTS[c.id]}
+  1022→              </PartBoundary>
+  1023→            ))}
+  1024→            <LecturePager current={lecture} onJump={selectLecture} />
+  1025→          </motion.div>
+  1026→        </PartBoundary>
+  1027→      </main>
+  1028→      <PyReadyToast />
+  1029→      <PythonLab open={labOpen} onClose={() => setLabOpen(false)} />
+  1030→      <PracticeHub open={hubOpen} onClose={() => setHubOpen(false)} onOpenExam={openExam} />
+  1031→      {examGroup ? <ExamWindow group={examGroup} onClose={() => setExamGroup(null)} /> : null}
+  1032→    </div>
+  1033→  );
+  1034→}
+  1035→
