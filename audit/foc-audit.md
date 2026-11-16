@@ -76,3 +76,52 @@ Day 1/30 iceberg · 350 engineers (Ford) · $100M DeepMind offers · 3000 BC aba
 ## 6. What L30–34 will need (pattern checklist for the merge)
 
 Each new lecture needs: (1) a row in `lectures.ts` (id l30–l34, code L30–L34, title, blurb, chapters with ids); (2) section components registered in SECTION_COMPONENTS + a GROUPS slot; (3) chapter band eyebrow "Lecture N · ..."; (4) ReadStep steps starting at n="1"; (5) runnable CodeBlocks with verified outputs; (6) Quiz ×2 + Practice + Takeaways furniture; (7) any diagram/workflow as SVG or StepsFlow; (8) exam-bank additions in questions.ts; (9) search corpus (`src/lib/search-corpus.json`) + section-counts/question-counts libs regenerated; (10) PRO bank OOP questions (r10–r15, r26–r28, r30) suggest L30–34 = classes/OOP continuation, modules, files/exceptions or similar — confirm against PDF.
+
+---
+
+# MERGE COMPLETE — 2026-11-17
+
+The 34-lecture PDF is fully merged. Registry: `src/components/foc/focLectures.ts` (34 lectures, 40 chapters).
+All lectures click-verified in the browser in strict 1→34 order; deep links `#/subject/foc/lNN` verified (l14);
+pillar jump buttons verified (L02 → hardware); L34 60-mark mock verified (25 questions, timer, jump grid);
+all 8 FocViz diagrams verified rendering; landing cleanup verified; tsc clean; `next build --webpack` clean;
+bun router tests 21/21; 9 local git commits (27c3438..816c600).
+
+## 34-Lecture Verification Table
+
+| L | Title (official) | Status | Chapter(s) | Widget / diagram | Exam tag |
+|---|---|---|---|---|---|
+| 01 | Welcome to Foundations of Computing | MATCHED | course-map | ObjectiveDeck, journey StepsFlow, sentiment teaser | quiz-only |
+| 02 | Introduction to Foundations of Computing and Programming | MATCHED+UPGRADED | computing, pillars, data | history timeline, 6 IPO example cards, computing-vs-computer, DikwPyramid + clinical strip, pillar jump buttons | quiz-only |
+| 03 | Understanding Data: Classification and Organization | MATCHED | data-types | FormatSwitcher, 80% band, TimeMachine, quant/qual cards | quiz-only |
+| 04 | Introduction to Computing and Programming Foundations | MATCHED | why | Day-1/30 iceberg, evaluation cards, enterprise IPO, 6-row IPO table, cloud | quiz-only |
+| 05 | Data Classification and Introduction to Algorithms | SPLIT | data-origin (NEW), algorithm | adv/disadv cards, metadata cards, EvenOddFlow | quiz-only |
+| 06 | Hardware: The Physical Foundation of Computing | SPLIT | hardware, system-software (NEW) | CpuViz/GpuViz, sensor table, OS grid, memory hierarchy strip | quiz-only |
+| 07 | Overview of Application Software and Programming Fundamentals | MATCHED | software, python | InterpCompiler tabs, 5-step StepsFlow, Colab 7 features | quiz-only |
+| 08 | Introduction to Python Programming Foundations | RE-HOMED (was L10 chapter) | basics | Colab setup cards, 7 naming rules, method table, methods-vs-functions | final-exam |
+| 09 | Overview of Computing Models and Data Classification | EXPANDED | case-files | Uber StepsFlow, 5 cases, DIKW+Netflix grid, storage table | quiz-only |
+| 10 | Variables, Numbers, Strings, Comments, and Lists | SPLIT (numbers NEW; variables → L08) | numbers (NEW) | arithmetic, float precision, str() conversion, lists teaser | final-exam |
+| 11 | Introduction to Lists in Python | MATCHED | lists | ListVisualizer, deletion-method guide, 4 guest exercises | final-exam |
+| 12 | Organizing a List | MATCHED | list-organize | four-calls table, IndexErrorLab | final-exam |
+| 13 | Working with Lists: Looping and Indentation Management | MATCHED+FIXED | for-loops | IndentationLaw (4 errors; "three crash, one misbehaves") | final-exam |
+| 14 | Overview of Computing Fundamentals and Python Programming Introduction | MATCHED+EXPANDED | checkpoint-1 | RecapBoard (10 stations, Mac Mini M4) + detail cards | final-exam |
+| 15 | Foundations of Python Programming: Working with Lists | MATCHED+DIAGRAM | numeric-lists | SliceRuler (NEW) + CompPipeline (NEW) | final-exam |
+| 16 | Working with Lists and Tuples | MATCHED+DIAGRAM | copies-tuples | MemoryBoxes (NEW) | final-exam |
+| 17 | Introduction to Conditional Tests | MATCHED+FIXED | if | IfAnatomy SVG, truth-table comment (True and False = False) | final-exam |
+| 18 | Foundations of Computing: If Statements | MATCHED+DIAGRAM | branches | ChainWalk, IfElseChainViz, FlowTracer (NEW) | final-exam |
+| 19 | Introduction to Python Programming Fundamentals | MATCHED+FIXED | skills-lab | 8-step shipment table + PipelineViz (NEW); verified output fix | final-exam |
+| 20 | Using If Statements with Lists | MATCHED+DIAGRAM | if-lists | MatchingLanes (NEW) | final-exam |
+| 21 | Introduction to Dictionaries in Python | MATCHED+FIXED | dicts | ListVsDict, DictViz; duplicate quiz removed | final-exam |
+| 22 | Looping Through a Dictionary in Python | MATCHED+NOTED | dict-loops | DictLenses; set() order-honesty note | final-exam |
+| 23 | Nesting in Dictionaries | MATCHED | nesting | NestSwitcher (3 tabs) | final-exam |
+| 24 | Python Lists: Operations, Control Flow, and Data Manipulation | MATCHED | records-lab | LAB_OPS grid + PipelineViz records (NEW) | final-exam |
+| 25 | User Input and While Loops | MATCHED+NOTED | while | InputJourney, WhileCycle; ValueError note | final-exam |
+| 26 | User Input and While Loops (control) | MATCHED+DIAGRAM | loop-control | ExitToolkit + WhileTracer (NEW) | final-exam |
+| 27 | Introduction to Functions in Python | MATCHED | functions, args | FunctionMachine, DefAnatomy, ArgumentMatcher | final-exam |
+| 28 | Second Lecture on Functions: Return Values, Optional Arguments, and List Management | REBUILT (funcs2 absorbed; stale banner removed) | returns | CallStackFlow (NEW), 3D-printer StepsFlow | final-exam |
+| 29 | Type of Questions in the Final Examination | ADDED | question-types (NEW) | AnswerShapeLadder SVG + "see Lecture 34" banner | final-exam |
+| 30 | Functions: Passing Arguments, Modules, and Imports | ADDED (moved from old L28) | funcs3 (NEW) | PizzaBuilder, ProfileBuilder, import-styles table | final-exam |
+| 31 | Introduction to Classes in Object-Oriented Programming | SPLIT (from old classes) | oop-intro (NEW) | blueprint visual, DogInstantiator, self StepsFlow | final-exam |
+| 32 | Classes and Inheritance | SPLIT | oop-inherit (NEW) | OdometerLab, inheritance diagram, 4-row access matrix | final-exam |
+| 33 | Last Session: Classes and Importing | SPLIT+COMPLETED | oop-imports (NEW) | module wiring, OrderedDict poll, randint dice (Die exercise added) | final-exam |
+| 34 | Course Assessment and Examination Guidelines | ADDED | final-exam (NEW) | BellCurve, PaperShape SVG, excluded-vs-included syllabus map | final-exam |
