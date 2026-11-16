@@ -30,13 +30,11 @@ import {
   FlaskConical,
   GraduationCap,
   Lock,
-  Map as MapIcon,
   PenLine,
   Rocket,
   Waypoints,
 } from "lucide-react";
 import { SUBJECTS, SEMESTER_ONE, type Subject, type SubjectAmbience } from "./subjects";
-import { OpenSignals } from "./OpenSignals";
 import { dueCounts } from "@/lib/sm2";
 import { goalStatus } from "@/lib/goal";
 import { scrollToId } from "@/lib/utils";
@@ -829,9 +827,6 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           </Rise>
         </section>
 
-        {/* ------- open signals — free public APIs, credited ------- */}
-        <OpenSignals />
-
         {/* ------- why it hits different ------- */}
         <section aria-label="Why it hits different" className="relative border-t border-white/[.06]">
           <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 md:py-24">
@@ -915,27 +910,6 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           </Rise>
         </section>
       </main>
-
-      {/* ------- footer — the atlas signs itself ------- */}
-      <footer className="mt-auto border-t border-white/[.06] bg-black">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-3.5 px-4 py-10 text-center sm:px-6">
-          <div className="flex items-center gap-3">
-            <span
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-[#070509]"
-              style={{ background: "linear-gradient(135deg,#f5c889,#ea580c)" }}
-            >
-              <MapIcon className="h-4 w-4" strokeWidth={2.4} />
-            </span>
-            <p className="font-display text-[.95rem] font-black text-[#f7ecdd]">The Atlas</p>
-          </div>
-          <p className="text-[1.02rem] font-black tracking-wide text-[#f7ecdd]">
-            created by <span className="text-[#f5c889]">Arpit Nayan</span>
-          </p>
-          <p className="sig-colo text-center">
-            next.js · react · tailwind · framer-motion · pyodide — mmxxvi
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

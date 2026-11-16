@@ -1,25 +1,34 @@
 "use client";
 
 /* ============================================================
-   OPEN SIGNALS — the landing's live strip, powered by free,
-   key-less public APIs, every one of them live-tested before
-   it earned a card (status 200 + open CORS, from the same
-   network the app ships on):
+   OPEN SIGNALS — the landing's live strip.
 
-     · Wikipedia REST API        → concept of the day
+   Safety-first policy (revised): the two text cards that once
+   rode unfiltered public feeds now draw from CURATED LOCAL
+   POOLS that rotate once a day:
+
+     · Concept of the day → a syllabus-aligned deck written in
+       clean Unicode math (μ, σ², P(A|B)) — Wikipedia's /page/summary
+       strips LaTeX/MathML, which used to leave blank-gapped
+       sentences like "the parameter  is the mean".
+     · A line to carry → a hand-picked pool of inspiring computing,
+       management and learning quotes with clean attribution —
+       DummyJSON's random endpoint once served a Friedrich Nietzsche
+       quote about suicide on an exam-revision homepage.
+
+   Still live and key-less, every one live-tested (status 200 +
+   open CORS) before it earned a card:
+
      · Wikipedia On-This-Day API → the day in history
-     · DummyJSON                 → a line to carry (quote)
      · Open-Meteo                → revision weather over Jodhpur
      · Frankfurter (ECB data)    → the rupee today
-     · JokeAPI v2                → the study break
+     · JokeAPI v2 (safe-mode)    → the study break
      · Advice Slip               → one nudge from the wire
      · WheretheISS.at            → the night shift overhead
 
-   Each card wears a small name-tag crediting the API it runs
-   on — free stuff, credited, as the public-apis catalogue
-   intends. Every fetch is abortable and fails quiet: if the
-   internet hiccups, the card shows an honest "resting" line
-   and never breaks the page it sits on.
+   Every fetch is abortable and fails quiet: if the internet
+   hiccups, the card shows an honest "resting" line and never
+   breaks the page it sits on.
    ============================================================ */
 
 import React, { useEffect, useState } from "react";
@@ -105,61 +114,111 @@ function SignalCard({
 }
 
 /* --------------------------------------------------------------- */
-/* signal 01 — concept of the day (Wikipedia REST API)              */
+/* signal 01 — concept of the day (curated, syllabus-aligned deck)  */
+/* Wikipedia's summary API strips LaTeX/MathML, which used to leave  */
+/* sentences like "the parameter  is the mean" — so the shelf now   */
+/* writes its own definitions in clean Unicode math.                */
 /* --------------------------------------------------------------- */
 
-const CONCEPTS = [
-  "Algorithm",
-  "Double-entry bookkeeping system",
-  "Supply and demand",
-  "Compound interest",
-  "Marketing mix",
-  "Normal distribution",
-  "Opportunity cost",
-  "Flowchart",
-  "Gross domestic product",
-  "Consumer behaviour",
-  "Balance sheet",
-  "Game theory",
-  "Operating system",
-  "Demand curve",
-  "Marginal utility",
-  "Cash flow",
+const CONCEPTS: { title: string; extract: string; where: string }[] = [
+  {
+    title: "The IPO Model",
+    extract: "Every computing process is Input → Process → Output: raw data goes in, well-defined steps act on it, a useful result comes out. Your phone, UPI and Google Search all run the same loop.",
+    where: "Foundations of Computing · Lecture 02",
+  },
+  {
+    title: "The DIKW Ladder",
+    extract: "Data → Information → Knowledge → Wisdom. Raw 38.5 gains context (a fever), pattern (four-day trend) and finally judgement (the doctor's prescription). Climbing the ladder is the whole point of computing.",
+    where: "Foundations of Computing · Lecture 02",
+  },
+  {
+    title: "Normal Distribution",
+    extract: "The bell curve is fully described by two numbers — the mean μ (where it centres) and the standard deviation σ (how wide it spreads). About 68% of observations fall within μ ± σ.",
+    where: "Statistics for Managers",
+  },
+  {
+    title: "Standard Deviation",
+    extract: "σ measures how far observations typically sit from their mean μ. A small σ hugs the mean; a large σ spreads out. It is the yardstick of consistency — and of risk.",
+    where: "Statistics for Managers",
+  },
+  {
+    title: "Conditional Probability",
+    extract: "P(A|B) is the probability of A given that B has happened — the probability updated by evidence. Bayes' rule rearranges it: P(A|B) = P(B|A)·P(A) ⁄ P(B).",
+    where: "Statistics for Managers",
+  },
+  {
+    title: "Correlation ≠ Causation",
+    extract: "A correlation coefficient r between −1 and 1 measures association, never cause. Ice-cream sales and drownings rise together — summer drives both. Always ask what third variable might be moving the pair.",
+    where: "Statistics · Case files",
+  },
+  {
+    title: "Time Series",
+    extract: "One subject, many time points: y₁, y₂, …, yₜ observed in sequence. Order matters — recent values usually carry more predictive weight than older ones. Stock prices and ECG traces live here.",
+    where: "Statistics · Data types",
+  },
+  {
+    title: "Compound Interest",
+    extract: "A = P(1 + r/n)ⁿᵗ — interest earns interest. At 8% compounded annually, ₹10,000 doubles in about 9 years (the Rule of 72: 72 ⁄ rate ≈ years to double).",
+    where: "Financial Accounting",
+  },
+  {
+    title: "The Accounting Equation",
+    extract: "Assets = Liabilities + Equity. Every transaction touches two sides — the double-entry system that has balanced books since 1494, and why every debit needs a credit.",
+    where: "Financial Accounting",
+  },
+  {
+    title: "Break-Even Point",
+    extract: "Break-even quantity = Fixed costs ⁄ (Price − Variable cost per unit). Below it you lose on every sale's share of rent; above it, every extra unit contributes profit.",
+    where: "Accounting · Marketing",
+  },
+  {
+    title: "Opportunity Cost",
+    extract: "The value of the best alternative you gave up. Two hours of revision cost two hours of anything else — economics is the study of choosing with open eyes.",
+    where: "Economic & Business History",
+  },
+  {
+    title: "Supply & Demand",
+    extract: "Where the demand curve slopes down and the supply curve slopes up, their crossing sets the market price. Shift either curve — and watch equilibrium move.",
+    where: "Economics · Marketing",
+  },
+  {
+    title: "The Marketing Mix — 4Ps",
+    extract: "Product, Price, Place, Promotion: the four levers every marketing plan pulls. Change one and the other three must answer — a price cut with no promotion is a secret.",
+    where: "Principles of Marketing",
+  },
+  {
+    title: "Market Segmentation",
+    extract: "One market, many minds: segment by geography, demography, psychography and behaviour, then target the segment you can serve best. Mass marketing aims everywhere and hits nowhere.",
+    where: "Principles of Marketing",
+  },
+  {
+    title: "Algorithms",
+    extract: "A finite, unambiguous, step-by-step procedure — five properties to remember: finiteness, definiteness, input, output, effectiveness. The word rides on the name of 9th-century mathematician al-Khwārizmī.",
+    where: "Foundations of Computing · Lecture 05",
+  },
+  {
+    title: "Python Dictionaries",
+    extract: "Key–value pairs in curly braces: alien_0['color'] reads like English because the label IS the meaning. Lists answer 'which position?' — dictionaries answer 'which label?'.",
+    where: "Foundations of Computing · Lecture 21",
+  },
+  {
+    title: "Big-O Thinking",
+    extract: "Doubling the data should not double your pain twice over. Linear search checks n items; binary search checks log₂ n — a million items in about 20 steps. Algorithm quality beats hardware power.",
+    where: "Algorithms · Case files",
+  },
 ];
 
 function ConceptCard() {
-  const [signal, setSignal] = useState<{ title: string; extract: string } | null>(null);
-  const [dead, setDead] = useState(false);
-
-  useEffect(() => {
-    /* one concept a day — everyone on the shelf sees the same one */
-    const day = Math.floor(Date.now() / 86_400_000);
-    const title = CONCEPTS[day % CONCEPTS.length];
-    let alive = true;
-    void (async () => {
-      const d = await getJson<{
-        title: string;
-        extract?: string;
-      }>(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}?redirect=true`);
-      if (!alive) return;
-      if (d?.extract) setSignal({ title: d.title, extract: d.extract });
-      else setDead(true);
-    })();
-    return () => {
-      alive = false;
-    };
-  }, []);
+  /* one concept a day — everyone on the shelf sees the same one,
+     and it never depends on the network being up */
+  const day = Math.floor(Date.now() / 86_400_000);
+  const concept = CONCEPTS[day % CONCEPTS.length];
 
   return (
-    <SignalCard tag="concept of the day" icon={BookMarked} credit={{ label: "Wikipedia API", href: "https://en.wikipedia.org/api/rest_v1/" }}>
-      {signal ? (
-        <>
-          <p className="font-display text-[1rem] font-black leading-snug text-[#f7ecdd]">{signal.title}</p>
-          <p className="line-clamp-3 text-[.78rem] leading-relaxed text-[#a89a86]">{signal.extract}</p>
-        </>
-      ) : (
-        <p className={restClass}>{dead ? "The archive is resting right now." : "Reaching the archive…"}</p>
-      )}
+    <SignalCard tag="concept of the day" icon={BookMarked} credit={{ label: "The Atlas syllabus deck", href: "#/atlas" }}>
+      <p className="font-display text-[1rem] font-black leading-snug text-[#f7ecdd]">{concept.title}</p>
+      <p className="line-clamp-4 text-[.78rem] leading-relaxed text-[#a89a86]">{concept.extract}</p>
+      <p className="text-[.6rem] font-bold uppercase tracking-[.14em] text-[#8d7b63]">{concept.where}</p>
     </SignalCard>
   );
 }
@@ -218,55 +277,48 @@ function OnThisDayCard() {
 }
 
 /* --------------------------------------------------------------- */
-/* signal 03 — a line to carry (DummyJSON quotes)                   */
+/* signal 03 — a line to carry (curated local pool, no wire)        */
+/* The random-quote APIs couldn't promise a classroom-safe voice —  */
+/* one fetch once served a Nietzsche line about suicide on an exam  */
+/* homepage. The shelf now carries its own hand-picked pool.        */
 /* --------------------------------------------------------------- */
 
-/* the wire occasionally hands over raw-title-cased text —
-   "Don'T" → "Don't", so the card reads typeset, not machine-fed */
-function polishQuote(q: string): string {
-  return q.replace(/([a-z])'([A-Z])/g, (_m, a, b) => `${a}'${b.toLowerCase()}`).trim();
-}
-
-/* a college desk deserves a considerate voice — if the wire hands
-   over one of the few voices the shelf would rather not quote, it
-   quietly draws again (once; the wire is wide enough) */
-const AUTHOR_REROLL = /cosby|fritzl|weinstein|epstein/i;
+const QUOTES: { quote: string; author: string }[] = [
+  { quote: "Programs must be written for people to read, and only incidentally for machines to execute.", author: "Harold Abelson" },
+  { quote: "The best way to predict the future is to invent it.", author: "Alan Kay" },
+  { quote: "Simplicity is prerequisite for reliability.", author: "Edsger W. Dijkstra" },
+  { quote: "The most dangerous phrase in the language is: 'We've always done it this way.'", author: "Grace Hopper" },
+  { quote: "Talk is cheap. Show me the code.", author: "Linus Torvalds" },
+  { quote: "What I cannot create, I do not understand.", author: "Richard Feynman" },
+  { quote: "Controlling complexity is the essence of computer programming.", author: "Brian Kernighan" },
+  { quote: "We can only see a short distance ahead, but we can see plenty there that needs to be done.", author: "Alan Turing" },
+  { quote: "That brain of mine is something more than merely mortal.", author: "Ada Lovelace" },
+  { quote: "Nothing in life is to be feared, it is only to be understood.", author: "Marie Curie" },
+  { quote: "What gets measured gets managed.", author: "Peter Drucker" },
+  { quote: "Efficiency is doing the thing right; effectiveness is doing the right thing.", author: "Peter Drucker" },
+  { quote: "It always seems impossible until it's done.", author: "Nelson Mandela" },
+  { quote: "Dream is not that which you see while sleeping, it is something that does not let you sleep.", author: "A. P. J. Abdul Kalam" },
+  { quote: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Will Durant" },
+  { quote: "The man who moves a mountain begins by carrying away small stones.", author: "Confucius" },
+  { quote: "Luck is what happens when preparation meets opportunity.", author: "Seneca" },
+  { quote: "The Web does not just connect machines, it connects people.", author: "Tim Berners-Lee" },
+  { quote: "First, solve the problem. Then, write the code.", author: "John Johnson" },
+  { quote: "Experience is the name everyone gives to their mistakes.", author: "Oscar Wilde" },
+];
 
 function QuoteCard() {
-  const [signal, setSignal] = useState<{ quote: string; author: string } | null>(null);
-  const [dead, setDead] = useState(false);
-
-  useEffect(() => {
-    let alive = true;
-    void (async () => {
-      const pull = () =>
-        getJson<{ quote?: string; author?: string }>("https://dummyjson.com/quotes/random");
-      let d = await pull();
-      if (d?.author && AUTHOR_REROLL.test(d.author)) d = await pull();
-      if (!alive) return;
-      if (d?.quote && d?.author)
-        setSignal({ quote: polishQuote(d.quote), author: d.author });
-      else setDead(true);
-    })();
-    return () => {
-      alive = false;
-    };
-  }, []);
+  /* one line a day, stable for everyone — seeded by the date */
+  const day = Math.floor(Date.now() / 86_400_000);
+  const pick = QUOTES[day % QUOTES.length];
 
   return (
-    <SignalCard tag="a line to carry" icon={Quote} credit={{ label: "DummyJSON", href: "https://dummyjson.com/docs/quotes" }}>
-      {signal ? (
-        <>
-          <p className="line-clamp-3 text-[.82rem] leading-relaxed text-[#e9d7bf]">
-            &ldquo;{signal.quote}&rdquo;
-          </p>
-          <p className="text-[.64rem] font-bold uppercase tracking-[.14em] text-[#8d7b63]">
-            — {signal.author}
-          </p>
-        </>
-      ) : (
-        <p className={restClass}>{dead ? "The wire is quiet right now." : "Listening for a line…"}</p>
-      )}
+    <SignalCard tag="a line to carry" icon={Quote} credit={{ label: "The Atlas quote desk", href: "#/atlas" }}>
+      <p className="line-clamp-3 text-[.82rem] leading-relaxed text-[#e9d7bf]">
+        &ldquo;{pick.quote}&rdquo;
+      </p>
+      <p className="text-[.64rem] font-bold uppercase tracking-[.14em] text-[#8d7b63]">
+        — {pick.author}
+      </p>
     </SignalCard>
   );
 }
