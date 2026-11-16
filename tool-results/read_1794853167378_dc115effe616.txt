@@ -1,0 +1,857 @@
+     1→"use client";
+     2→
+     3→import React, { useState } from "react";
+     4→import {
+     5→  ListPlus,
+     6→  Printer,
+     7→  ShieldCheck,
+     8→  Pizza,
+     9→  UserCircle2,
+    10→  SlidersHorizontal,
+    11→  FileCode2,
+    12→  Ban,
+    13→  RotateCcw,
+    14→  MousePointerClick,
+    15→  Sparkles,
+    16→  Infinity as InfinityIcon,
+    17→  Package,
+    18→} from "lucide-react";
+    19→import {
+    20→  Reveal,
+    21→  Section,
+    22→  SectionHead,
+    23→  Callout,
+    24→  Quiz,
+    25→  CodeBlock,
+    26→  Practice,
+    27→  Takeaways,
+    28→  StepsFlow,
+    29→  KV,
+    30→} from "./ui";
+    31→
+    32→/* Virtual pizza.py module — injected into the Python runtime before the
+    33→   import demos run, so `import pizza` works exactly like in the notebook. */
+    34→const PIZZA_MODULE = `def make_pizza(size, *toppings):
+    35→    """Summarize the pizza we are about to make."""
+    36→    print("\\nMaking a " + str(size) +
+    37→        "-inch pizza with the following toppings:")
+    38→    for topping in toppings:
+    39→        print("- " + topping)
+    40→
+    41→def greet(name):
+    42→    return f"Hello, {name}! Your Pizza is ready."`;
+    43→
+    44→/* Hidden setup for the slice-notation demo — the visible snippet only shows
+    45→   the call; the two printing functions come from the previous step. */
+    46→const PRINT_MODELS_PRE = `def print_models(unprinted_designs, completed_models):
+    47→    """Simulate printing each design, until none are left."""
+    48→    while unprinted_designs:
+    49→        current_design = unprinted_designs.pop()
+    50→        print("Printing model: " + current_design)
+    51→        completed_models.append(current_design)
+    52→
+    53→def show_completed_models(completed_models):
+    54→    """Show all the models that were printed."""
+    55→    print("\\nThe following models have been printed:")
+    56→    for completed_model in completed_models:
+    57→        print(completed_model)`;
+    58→
+    59→/* ============================================================
+    60→   PizzaBuilder — interactive *args packing
+    61→   ============================================================ */
+    62→const TOPPINGS = ["pepperoni", "mushrooms", "green peppers", "extra cheese"];
+    63→
+    64→function PizzaBuilder() {
+    65→  const [picked, setPicked] = useState<string[]>(["pepperoni"]);
+    66→  const toggle = (t: string) =>
+    67→    setPicked((p) => (p.includes(t) ? p.filter((x) => x !== t) : [...p, t]));
+    68→
+    69→  return (
+    70→    <div className="overflow-hidden rounded-2xl border border-[rgba(255,214,160,.18)] bg-[rgba(255,236,210,.05)] p-6 md:p-8">
+    71→      <div className="flex items-center gap-2">
+    72→        <Pizza className="h-5 w-5" style={{ color: "#f5c889" }} />
+    73→        <h3 className="text-lg font-bold text-[#f7ead6]">
+    74→          Try it: pack toppings into a <span className="grad-text">tuple</span>
+    75→        </h3>
+    76→      </div>
+    77→      <p className="mt-1 text-[.88rem] text-[#cbb392]">
+    78→        Click toppings — Python packs every one you send into the single tuple <code className="font-mono">toppings</code>.
+    79→        Same definition handles one topping or four.
+    80→      </p>
+    81→
+    82→      <div className="mt-4 flex flex-wrap gap-2">
+    83→        {TOPPINGS.map((t) => (
+    84→          <button
+    85→            key={t}
+    86→            onClick={() => toggle(t)}
+    87→            className={`rounded-full px-4 py-1.5 text-[.8rem] font-bold transition-all duration-200 ${
+    88→              picked.includes(t)
+    89→                ? "text-white shadow-md"
+    90→                : "border border-[rgba(245,158,11,.3)] bg-transparent text-[#cbb392] hover:border-[#f5c889]"
+    91→            }`}
+    92→            style={picked.includes(t) ? { background: "linear-gradient(135deg,#ea580c,#c2410c)" } : undefined}
+    93→            aria-pressed={picked.includes(t)}
+    94→          >
+    95→            {t}
+    96→          </button>
+    97→        ))}
+    98→        <button
+    99→          onClick={() => setPicked([])}
+   100→          className="flex items-center gap-1.5 rounded-full border border-[rgba(245,158,11,.3)] px-3 py-1.5 text-[.78rem] font-bold text-[#cbb392] transition-colors hover:border-[#f5c889]"
+   101→        >
+   102→          <RotateCcw className="h-3.5 w-3.5" /> reset
+   103→        </button>
+   104→      </div>
+   105→
+   106→      <div className="mt-5 grid gap-4 md:grid-cols-2">
+   107→        <div className="rounded-xl border border-[rgba(245,158,11,.18)] bg-[rgba(43,27,16,.7)] p-4">
+   108→          <p className="text-[.62rem] font-bold uppercase tracking-[.2em] text-[#b98d5f]">the call & the tuple</p>
+   109→          <p className="mt-2 font-mono text-[.82rem] leading-relaxed text-[#efe0cb]">
+   110→            make_pizza(<span className="tk-n">16</span>,{" "}
+   111→            {picked.length === 0 ? (
+   112→              <em className="text-[#c9a97e]">…click a topping</em>
+   113→            ) : (
+   114→              picked.map((t, i) => (
+   115→                <React.Fragment key={t}>
+   116→                  {i > 0 ? ", " : null}
+   117→                  <span key={t} className="anim-pop inline-block rounded bg-[rgba(255,200,120,.14)] px-1 text-[#e9c46a]">
+   118→                    '{t}'
+   119→                  </span>
+   120→                </React.Fragment>
+   121→              ))
+   122→            )}
+   123→            )
+   124→          </p>
+   125→          <p className="mt-3 font-mono text-[.78rem] text-[#9fe0b5]">
+   126→            toppings = ({picked.map((t) => `'${t}'`).join(", ")})
+   127→          </p>
+   128→          <p className="mt-1 text-[.72rem] italic text-[#c9a97e]">
+   129→            the * packs all of them into one tuple — even a single value
+   130→          </p>
+   131→        </div>
+   132→        <div className="rounded-xl border border-[rgba(245,158,11,.18)] bg-[rgba(43,27,16,.7)] p-4">
+   133→          <p className="text-[.62rem] font-bold uppercase tracking-[.2em] text-[#b98d5f]">output</p>
+   134→          <p className="mt-2 font-mono text-[.82rem] leading-relaxed text-[#efe0cb]">
+   135→            Making a 16-inch pizza with the following toppings:
+   136→          </p>
+   137→          {picked.length === 0 ? (
+   138→            <p className="mt-1 font-mono text-[.8rem] text-[#c9a97e]">(a pizza with nothing on it… bold choice)</p>
+   139→          ) : (
+   140→            picked.map((t) => (
+   141→              <p key={t} className="anim-pop mt-1 font-mono text-[.82rem] text-[#e9c46a]">
+   142→                - {t}
+   143→              </p>
+   144→            ))
+   145→          )}
+   146→        </div>
+   147→      </div>
+   148→    </div>
+   149→  );
+   150→}
+   151→
+   152→/* ============================================================
+   153→   ProfileBuilder — interactive **kwargs packing
+   154→   ============================================================ */
+   155→const PROFILE_KEYS = [
+   156→  { k: "location", v: "princeton" },
+   157→  { k: "field", v: "physics" },
+   158→];
+   159→
+   160→function ProfileBuilder() {
+   161→  const [picked, setPicked] = useState<string[]>(["location"]);
+   162→  const toggle = (k: string) =>
+   163→    setPicked((p) => (p.includes(k) ? p.filter((x) => x !== k) : [...p, k]));
+   164→
+   165→  return (
+   166→    <div className="overflow-hidden rounded-2xl border border-[rgba(255,214,160,.18)] bg-[rgba(255,236,210,.05)] p-6 md:p-8">
+   167→      <div className="flex items-center gap-2">
+   168→        <UserCircle2 className="h-5 w-5" style={{ color: "#f5c889" }} />
+   169→        <h3 className="text-lg font-bold text-[#f7ead6]">
+   170→          Try it: pack key-value pairs into a <span className="grad-text">dictionary</span>
+   171→        </h3>
+   172→      </div>
+   173→      <p className="mt-1 text-[.88rem] text-[#cbb392]">
+   174→        **user_info creates an empty dictionary and packs whatever name-value pairs the call provides.
+   175→      </p>
+   176→
+   177→      <div className="mt-4 flex flex-wrap gap-2">
+   178→        {PROFILE_KEYS.map((p) => (
+   179→          <button
+   180→            key={p.k}
+   181→            onClick={() => toggle(p.k)}
+   182→            className={`rounded-full px-4 py-1.5 font-mono text-[.78rem] font-bold transition-all duration-200 ${
+   183→              picked.includes(p.k)
+   184→                ? "text-white shadow-md"
+   185→                : "border border-[rgba(245,158,11,.3)] bg-transparent text-[#cbb392] hover:border-[#f5c889]"
+   186→            }`}
+   187→            style={picked.includes(p.k) ? { background: "linear-gradient(135deg,#ea580c,#c2410c)" } : undefined}
+   188→            aria-pressed={picked.includes(p.k)}
+   189→          >
+   190→            {p.k}='{p.v}'
+   191→          </button>
+   192→        ))}
+   193→      </div>
+   194→
+   195→      <div className="mt-5 grid gap-4 md:grid-cols-2">
+   196→        <div className="rounded-xl border border-[rgba(245,158,11,.18)] bg-[rgba(43,27,16,.7)] p-4">
+   197→          <p className="text-[.62rem] font-bold uppercase tracking-[.2em] text-[#b98d5f]">**user_info receives</p>
+   198→          <p className="mt-2 font-mono text-[.82rem] leading-relaxed text-[#9fe0b5]">
+   199→            user_info = {"{"}
+   200→            {picked.map((k) => {
+   201→              const pair = PROFILE_KEYS.find((x) => x.k === k)!;
+   202→              return ` '${pair.k}': '${pair.v}',`;
+   203→            }).join("").replace(/,$/, "")}
+   204→            {" }"}
+   205→          </p>
+   206→          <p className="mt-2 text-[.72rem] italic text-[#c9a97e]">
+   207→            double asterisk → empty dict → pairs packed in
+   208→          </p>
+   209→        </div>
+   210→        <div className="rounded-xl border border-[rgba(245,158,11,.18)] bg-[rgba(43,27,16,.7)] p-4">
+   211→          <p className="text-[.62rem] font-bold uppercase tracking-[.2em] text-[#b98d5f]">returned profile</p>
+   212→          <p className="mt-2 font-mono text-[.8rem] leading-relaxed text-[#e9c46a]">
+   213→            {"{"}'first_name': 'albert', 'last_name': 'einstein'
+   214→            {picked.map((k) => {
+   215→              const pair = PROFILE_KEYS.find((x) => x.k === k)!;
+   216→              return `, '${pair.k}': '${pair.v}'`;
+   217→            })}
+   218→            {"}"}
+   219→          </p>
+   220→        </div>
+   221→      </div>
+   222→    </div>
+   223→  );
+   224→}
+   225→
+   226→/* ============================================================
+   227→   PART 9 — FUNCTIONS II  (lists, *args, **kwargs, modules)
+   228→   ============================================================ */
+   229→export function FuncsScaleSection() {
+   230→  return (
+   231→    <Section id="funcs2" dark>
+   232→      <SectionHead
+   233→        dark
+   234→        eyebrow="Python · functions · the full chapter — part 2"
+   235→        title={
+   236→          <>
+   237→            Functions at <span className="grad-text">scale</span>
+   238→          </>
+   239→        }
+   240→        lead="Now the power moves: hand whole lists to functions (and protect them), accept any number of arguments with *args, absorb any key-value pairs with **kwargs — then move everything into modules and import it back."
+   241→      />
+   242→
+   243→      {/* 1 — passing a list */}
+   244→      <Reveal>
+   245→        <div className="card-warm p-6 md:p-8">
+   246→          <div className="flex items-center gap-3">
+   247→            <ListPlus className="h-6 w-6" style={{ color: "#f5c889" }} />
+   248→            <h3 className="text-2xl font-bold">Passing a list to a function</h3>
+   249→          </div>
+   250→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#cbb392]">
+   251→            Whether it's a list of names, numbers, or more complex objects like dictionaries — passing a list gives
+   252→            the function <strong>direct access to its contents</strong>.
+   253→          </p>
+   254→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   255→            <CodeBlock
+   256→              title="users.py — greet everyone at once"
+   257→              code={`def greet_users(names):
+   258→    """Print a simple greeting to each user in the list.""" # docstring
+   259→    for name in names:
+   260→        msg = "Hello, " + name.title() + "!"
+   261→        print(msg)
+   262→
+   263→usernames = ['priyanka', 'unnati', 'anaaya'] # function call
+   264→greet_users(usernames)`}
+   265→              output={"Hello, Priyanka!\nHello, Unnati!\nHello, Anaaya!"}
+   266→              note="We define greet_users() to expect a list of names, which it stores in the parameter names — then loop through and greet each user."
+   267→            />
+   268→            <div className="grid content-start gap-3">
+   269→              <Callout dark kind="insight" title="Why this is useful">
+   270→                One call handles an entire roster. Pass a list of anything — names, numbers, dictionaries — and the
+   271→                function works through it with the tools you already know (for loops, indexing, methods).
+   272→              </Callout>
+   273→              <KV k="parameter" v="names — holds whatever list the caller sends" />
+   274→              <KV k="inside" v="the function treats it exactly like any other list: loop it, index it, modify it" />
+   275→            </div>
+   276→          </div>
+   277→        </div>
+   278→      </Reveal>
+   279→
+   280→      {/* 2 — modifying a list */}
+   281→      <Reveal className="mt-8">
+   282→        <div className="card-warm p-6 md:p-8">
+   283→          <div className="flex items-center gap-3">
+   284→            <Printer className="h-6 w-6" style={{ color: "#f5c889" }} />
+   285→            <h3 className="text-2xl font-bold">Modifying a list in a function — the 3D printer</h3>
+   286→          </div>
+   287→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#cbb392]">
+   288→            When we pass a list to a function, the function <strong>can modify it</strong> — and changes made inside
+   289→            the function's body are <strong>permanent</strong>. That's a feature: efficient even with large amounts
+   290→            of data. Picture a company that 3D-prints user-submitted designs: designs to print live in one list,
+   291→            finished prints move to another.
+   292→          </p>
+   293→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   294→            <CodeBlock
+   295→              title="printing_models.py — before: all in one block"
+   296→              code={`# Start with some designs that need to be printed.
+   297→unprinted_designs = ['iphone case', 'robot pendant', 'dodecahedron']
+   298→completed_models = []
+   299→
+   300→# Simulate printing each design, until none are left.
+   301→# Move each design to completed_models after printing.
+   302→while unprinted_designs:
+   303→    current_design = unprinted_designs.pop()
+   304→    # Simulate creating a 3D print from the design.
+   305→    print("Printing model: " + current_design)
+   306→    completed_models.append(current_design)
+   307→
+   308→# Display all completed models.
+   309→print("\\nThe following models have been printed:")
+   310→for completed_model in completed_models:
+   311→    print(completed_model)`}
+   312→              note="It works — but printing logic and display logic are tangled together in the main program."
+   313→            />
+   314→            <CodeBlock
+   315→              title="printing_models.py — after: two functions, one job each"
+   316→              code={`def print_models(unprinted_designs, completed_models):
+   317→    """
+   318→    Simulate printing each design, until none are left.
+   319→    Move each design to completed_models after printing.
+   320→    """
+   321→    while unprinted_designs:
+   322→        current_design = unprinted_designs.pop()
+   323→
+   324→        # Simulate creating a 3D print from the design.
+   325→        print("Printing model: " + current_design)
+   326→        completed_models.append(current_design)
+   327→
+   328→def show_completed_models(completed_models):
+   329→    """Show all the models that were printed."""
+   330→    print("\\nThe following models have been printed:")
+   331→    for completed_model in completed_models:
+   332→        print(completed_model)
+   333→
+   334→unprinted_designs = ['iphone case', 'robot pendant', 'dodecahedron']
+   335→completed_models = []
+   336→print_models(unprinted_designs, completed_models)
+   337→show_completed_models(completed_models)
+   338→unprinted_designs   # → [] — permanently emptied!`}
+   339→              note="Most of the code doesn't change — we're just making it more efficient."
+   340→            />
+   341→          </div>
+   342→
+   343→          <div className="mt-6">
+   344→            <StepsFlow
+   345→              steps={[
+   346→                { label: "unprinted_designs", sub: "the to-do list", icon: <Package className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+   347→                { label: "print_models()", sub: "pop → print → append", icon: <Printer className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+   348→                { label: "completed_models", sub: "the done list", icon: <Sparkles className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+   349→                { label: "show_completed_models()", sub: "summarize the prints", icon: <ListPlus className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+   350→              ]}
+   351→            />
+   352→          </div>
+   353→
+   354→          <div className="mt-6 grid gap-4 md:grid-cols-2">
+   355→            <Callout dark kind="why" title="Why the reorganized program wins">
+   356→              It's <strong>easier to extend and maintain</strong>. Need more designs later? Call{" "}
+   357→              <code className="font-mono">print_models()</code> again. Printing logic needs a change? Edit it{" "}
+   358→              <strong>once</strong> and the change applies everywhere the function is called — far more efficient
+   359→              than updating code in several places.
+   360→            </Callout>
+   361→            <Callout dark kind="insight" title="One function, one job">
+   362→              Every function should have <strong>one specific job</strong>: the first prints each design, the second
+   363→              displays results. If a function is doing too many different tasks, split it into two — you can always
+   364→              call a function from another function, which helps break complex work into a series of steps.
+   365→            </Callout>
+   366→          </div>
+   367→        </div>
+   368→      </Reveal>
+   369→
+   370→      {/* 3 — slice copy */}
+   371→      <Reveal className="mt-8">
+   372→        <div className="card-warm p-6 md:p-8">
+   373→          <div className="flex items-center gap-3">
+   374→            <ShieldCheck className="h-6 w-6" style={{ color: "#f5c889" }} />
+   375→            <h3 className="text-2xl font-bold">Preventing modification — pass a copy</h3>
+   376→          </div>
+   377→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#cbb392]">
+   378→            Suppose that after printing all the designs, you want to <strong>keep the original list for your
+   379→            records</strong>. But we moved every design name out of unprinted_designs — the list is now empty and
+   380→            that empty list is the only version we have. The original is gone. The fix: pass the function a
+   381→            <strong> copy</strong> — changes then affect only the copy, leaving the original intact.
+   382→          </p>
+   383→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   384→            <CodeBlock
+   385→              title="the slice notation trick"
+   386→              pre={PRINT_MODELS_PRE}
+   387→              code={`unprinted_designs = ['ferrari', 'honda', 'ford']
+   388→completed_models = []
+   389→
+   390→print_models(unprinted_designs[:], completed_models) # passing a copy of the original list
+   391→show_completed_models(completed_models)
+   392→
+   393→unprinted_designs   # → ['ferrari', 'honda', 'ford'] — still intact!`}
+   394→              output={["Printing model: ford", "Printing model: honda", "Printing model: ferrari", "", "The following models have been printed:", "ford", "honda", "ferrari"].join("\n")}
+   395→              note="The slice [:] notation — print_models(unprinted_designs[:]) — sends a duplicate. The function empties the duplicate; the original survives."
+   396→            />
+   397→            <div className="grid content-start gap-3">
+   398→              <KV k="list_name[:]" v="a full-copy slice — the function can rampage through the copy while the original stays untouched" />
+   399→              <Callout dark kind="warn" title="Use copies for a reason">
+   400→                Passing a copy costs time and memory, so pass the original unless you have a specific reason to
+   401→                keep it — reserve the <code className="font-mono">[:]</code> copy for exactly this situation.
+   402→              </Callout>
+   403→            </div>
+   404→          </div>
+   405→        </div>
+   406→      </Reveal>
+   407→
+   408→      {/* 4 — arbitrary args */}
+   409→      <Reveal className="mt-8">
+   410→        <div className="card-warm p-6 md:p-8">
+   411→          <div className="flex items-center gap-3">
+   412→            <Pizza className="h-6 w-6" style={{ color: "#f5c889" }} />
+   413→            <h3 className="text-2xl font-bold">
+   414→              Arbitrary arguments — <span className="grad-text">*toppings</span>
+   415→            </h3>
+   416→          </div>
+   417→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#cbb392]">
+   418→            Sometimes you won't know in advance how many arguments a function needs to accept — a pizza builder
+   419→            can't know how many toppings a person wants. Python lets a function collect an
+   420→            <strong> arbitrary number of arguments</strong> from the calling statement.
+   421→          </p>
+   422→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   423→            <CodeBlock
+   424→              title="pizzas.py — the asterisk packs a tuple"
+   425→              code={`def make_pizza(*toppings):
+   426→    """Print the list of toppings that have been requested."""
+   427→    print(toppings)
+   428→
+   429→make_pizza('pepperoni')
+   430→make_pizza('mushrooms', 'green peppers', 'extra cheese')`}
+   431→              output={"('pepperoni',)\n('mushrooms', 'green peppers', 'extra cheese')"}
+   432→              note="The asterisk tells Python: make an empty tuple called toppings and pack whatever values arrive into it. Even one value arrives inside a tuple — both calls are treated the same way."
+   433→            />
+   434→            <CodeBlock
+   435→              title="pizzas.py — loop over the tuple"
+   436→              code={`def make_pizza(*toppings):
+   437→    """Summarize the pizza we are about to make."""
+   438→    print("\\nMaking a pizza with the following toppings:")
+   439→    for topping in toppings:
+   440→        print("- " + topping)
+   441→
+   442→make_pizza('pepperoni')
+   443→make_pizza('mushrooms', 'green peppers', 'extra cheese')`}
+   444→              output={"Making a pizza with the following toppings:\n- pepperoni\n\nMaking a pizza with the following toppings:\n- mushrooms\n- green peppers\n- extra cheese"}
+   445→            />
+   446→          </div>
+   447→        </div>
+   448→      </Reveal>
+   449→
+   450→      {/* 5 — pizza builder */}
+   451→      <Reveal className="mt-8">
+   452→        <PizzaBuilder />
+   453→      </Reveal>
+   454→
+   455→      {/* 6 — mixing positional + arbitrary */}
+   456→      <Reveal className="mt-8">
+   457→        <div className="card-warm p-6 md:p-8">
+   458→          <div className="flex items-center gap-3">
+   459→            <SlidersHorizontal className="h-6 w-6" style={{ color: "#f5c889" }} />
+   460→            <h3 className="text-2xl font-bold">Mixing positional and arbitrary arguments</h3>
+   461→          </div>
+   462→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#cbb392]">
+   463→            The parameter that accepts an arbitrary number of arguments must be placed <strong>last</strong> in the
+   464→            definition — Python matches positional and keyword arguments first, then collects any remaining
+   465→            arguments into the final parameter. If the function needs a pizza size, size comes before *toppings.
+   466→          </p>
+   467→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   468→            <CodeBlock
+   469→              title="pizzas.py — size first, toppings last"
+   470→              code={`def make_pizza(size, *toppings):
+   471→    """Summarize the pizza we are about to make."""
+   472→    print("\\nMaking a " + str(size) +
+   473→        "-inch pizza with the following toppings:")
+   474→    for topping in toppings:
+   475→        print("- " + topping)
+   476→
+   477→make_pizza(16, 'pepperoni')
+   478→make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')`}
+   479→              output={"Making a 16-inch pizza with the following toppings:\n- pepperoni\n\nMaking a 12-inch pizza with the following toppings:\n- mushrooms\n- green peppers\n- extra cheese"}
+   480→            />
+   481→            <div className="grid content-start gap-3">
+   482→              <Callout dark kind="insight" title="How Python routes the call">
+   483→                The first value received goes into <strong>size</strong>. All remaining values are stored in the
+   484→                tuple <strong>toppings</strong>. Calls write the size argument first, then as many toppings as
+   485→                needed.
+   486→              </Callout>
+   487→              <div className="rounded-xl border border-[rgba(245,158,11,.22)] bg-[rgba(43,27,16,.6)] p-4 font-mono text-[.8rem] text-[#efe0cb]">
+   488→                <span className="tk-n">16</span> → size · <span className="text-[#e9c46a]">'pepperoni'</span> → toppings[0]
+   489→              </div>
+   490→            </div>
+   491→          </div>
+   492→        </div>
+   493→      </Reveal>
+   494→
+   495→      {/* 7 — **kwargs */}
+   496→      <Reveal className="mt-8">
+   497→        <div className="card-warm p-6 md:p-8">
+   498→          <div className="flex items-center gap-3">
+   499→            <UserCircle2 className="h-6 w-6" style={{ color: "#f5c889" }} />
+   500→            <h3 className="text-2xl font-bold">
+   501→              Arbitrary keyword arguments — <span className="grad-text">**user_info</span>
+   502→            </h3>
+   503→          </div>
+   504→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#cbb392]">
+   505→            Now you want to accept an arbitrary number of arguments, but you <em>also</em> don't know what
+   506→            <em> kind</em> of information will be passed. Write functions that accept as many
+   507→            <strong> key-value pairs</strong> as the call provides — perfect for building user profiles when you're
+   508→            not sure what information you'll receive.
+   509→          </p>
+   510→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   511→            <CodeBlock
+   512→              title="profiles.py — build_profile"
+   513→              code={`def build_profile(first, last, **user_info):
+   514→    """Build a dictionary containing everything we know about a user."""
+   515→    profile = {}
+   516→    profile['first_name'] = first
+   517→    profile['last_name'] = last
+   518→    for key, value in user_info.items():
+   519→        profile[key] = value
+   520→    return profile
+   521→
+   522→user_profile = build_profile('albert', 'einstein',
+   523→                             location='princeton',
+   524→                             field='physics')
+   525→print(user_profile)`}
+   526→              output={"{'first_name': 'albert', 'last_name': 'einstein', 'location': 'princeton', 'field': 'physics'}"}
+   527→              note="The double asterisks create an empty dictionary called user_info and pack the name-value pairs into it — then you access them exactly like any dictionary."
+   528→            />
+   529→            <div className="grid content-start gap-3">
+   530→              <KV k="*toppings" v="empty TUPLE — packs any number of positional values" />
+   531→              <KV k="**user_info" v="empty DICTIONARY — packs any number of name-value pairs" />
+   532→              <p className="text-[.88rem] leading-relaxed text-[#cbb392]">
+   533→                Inside build_profile(): make an empty <code className="font-mono">profile</code> dict, always add
+   534→                first and last name (we'll always receive both), loop through{" "}
+   535→                <code className="font-mono">user_info.items()</code> adding each pair, then{" "}
+   536→                <code className="font-mono">return</code> the profile to the call line.
+   537→              </p>
+   538→            </div>
+   539→          </div>
+   540→        </div>
+   541→      </Reveal>
+   542→
+   543→      {/* 8 — profile builder */}
+   544→      <Reveal className="mt-8">
+   545→        <ProfileBuilder />
+   546→      </Reveal>
+   547→
+   548→      {/* 9 — full parameter order */}
+   549→      <Reveal className="mt-8">
+   550→        <div className="card-warm p-6 md:p-8">
+   551→          <div className="flex items-center gap-3">
+   552→            <SlidersHorizontal className="h-6 w-6" style={{ color: "#f5c889" }} />
+   553→            <h3 className="text-2xl font-bold">
+   554→              Putting it all together — <span className="grad-text">parameter order</span>
+   555→            </h3>
+   556→          </div>
+   557→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#cbb392]">
+   558→            One definition can use every kind of parameter — but Python enforces a strict order:
+   559→          </p>
+   560→          <div className="mt-4 overflow-x-auto">
+   561→            <div className="flex min-w-max items-center gap-1.5 rounded-xl border border-[rgba(245,158,11,.22)] bg-[rgba(43,27,16,.6)] p-3 font-mono text-[.78rem] md:text-[.84rem]">
+   562→              {[
+   563→                { t: "positional", s: "no default" },
+   564→                { t: "positional_default=0", s: "with default" },
+   565→                { t: "*args", s: "arbitrary positional" },
+   566→                { t: "kw_only=100", s: "keyword-only" },
+   567→                { t: "**kwargs", s: "arbitrary keyword — ALWAYS last" },
+   568→              ].map((p, i) => (
+   569→                <React.Fragment key={p.t}>
+   570→                  {i > 0 ? <span className="text-[#c98d4e]">, </span> : null}
+   571→                  <span
+   572→                    className="anim-pop rounded-lg px-2 py-1"
+   573→                    style={{
+   574→                      background: "rgba(255,200,120,.12)",
+   575→                      border: "1px solid rgba(245,158,11,.25)",
+   576→                      animationDelay: `${i * 0.12}s`,
+   577→                    }}
+   578→                  >
+   579→                    <span className="text-[#ffd28a]">{p.t}</span>
+   580→                    <span className="ml-1.5 hidden text-[.62rem] uppercase tracking-wide text-[#c98d4e] md:inline">{p.s}</span>
+   581→                  </span>
+   582→                </React.Fragment>
+   583→              ))}
+   584→            </div>
+   585→          </div>
+   586→          <div className="mt-5">
+   587→            <CodeBlock
+   588→              title="order.py — every parameter type in action"
+   589→              code={`def process_data(a, b=2, *args, c=10, **kwargs):
+   590→    print(f"a      = {a}")
+   591→    print(f"b      = {b}")
+   592→    print(f"args   = {args}")
+   593→    print(f"c      = {c}")
+   594→    print(f"kwargs = {kwargs}")
+   595→
+   596→# Test 1: Using default values
+   597→process_data(1)
+   598→# a=1, b=2, args=(), c=10, kwargs={}
+   599→
+   600→print("-" * 20)
+   601→
+   602→# Test 2: Overriding defaults and passing extra arguments
+   603→process_data(10, 20, 30, 40, c=99, user="Admin", debug=True)
+   604→# a=10, b=20, args=(30, 40), c=99, kwargs={'user': 'Admin', 'debug': True}`}
+   605→              output={"a      = 1\nb      = 2\nargs   = ()\nc      = 10\nkwargs = {}\n--------------------\na      = 10\nb      = 20\nargs   = (30, 40)\nc      = 99\nkwargs = {'user': 'Admin', 'debug': True}"}
+   606→              note="Trace test 2: 10→a, 20→b, leftover 30 and 40→args tuple, c=99 by name, the rest→kwargs dict. One call, all five parameter types routed correctly."
+   607→            />
+   608→          </div>
+   609→        </div>
+   610→      </Reveal>
+   611→
+   612→      {/* 10 — modules */}
+   613→      <Reveal className="mt-8">
+   614→        <div className="card-warm p-6 md:p-8">
+   615→          <div className="flex items-center gap-3">
+   616→            <FileCode2 className="h-6 w-6" style={{ color: "#f5c889" }} />
+   617→            <h3 className="text-2xl font-bold">Storing functions in modules</h3>
+   618→          </div>
+   619→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-[#cbb392]">
+   620→            Functions separate blocks of code from the main program — descriptive names make the main program much
+   621→            easier to follow. Go further: store functions in a separate file called a{" "}
+   622→            <strong>module</strong> and import it. An <strong>import statement</strong> makes the code in a module
+   623→            available in the currently running program. This hides code details so you focus on higher-level logic,
+   624→            lets you reuse functions across programs, share files without sharing the whole program — and use
+   625→            libraries written by other programmers.
+   626→          </p>
+   627→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   628→            <CodeBlock
+   629→              title="pizza.py — the module (a .py file)"
+   630→              code={`%%writefile pizza.py   # notebook magic: save this cell as a file
+   631→def make_pizza(size, *toppings):
+   632→    """Summarize the pizza we are about to make."""
+   633→    print("\\nMaking a " + str(size) +
+   634→        "-inch pizza with the following toppings:")
+   635→    for topping in toppings:
+   636→        print("- " + topping)
+   637→
+   638→def greet(name):
+   639→    return f"Hello, {name}! Your Pizza is ready."`}
+   640→              note="A module is a file ending in .py that contains the code you want to import into your program."
+   641→            />
+   642→            <CodeBlock
+   643→              title="making_pizzas.py — import the entire module"
+   644→              files={{ "pizza.py": PIZZA_MODULE }}
+   645→              code={`import pizza
+   646→
+   647→pizza.make_pizza(16, 'pepperoni')
+   648→print(pizza.greet("Aditya"))
+   649→
+   650→pizza.make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
+   651→pizza.greet('Utkarsh')`}
+   652→              output={"Making a 16-inch pizza with the following toppings:\n- pepperoni\nHello, Aditya! Your Pizza is ready.\n\nMaking a 12-inch pizza with the following toppings:\n- mushrooms\n- green peppers\n- extra cheese"}
+   653→              note="import pizza opens pizza.py and copies all its functions into this program. Call them as module_name.function_name — the dot keeps origins obvious."
+   654→            />
+   655→          </div>
+   656→        </div>
+   657→      </Reveal>
+   658→
+   659→      {/* 11 — import styles */}
+   660→      <Reveal className="mt-8">
+   661→        <div className="card-warm p-6 md:p-8">
+   662→          <h3 className="text-2xl font-bold">Every way to import — one table</h3>
+   663→          <div className="mt-5 overflow-x-auto">
+   664→            <table className="warm-table min-w-[720px]">
+   665→              <thead>
+   666→                <tr>
+   667→                  <th>Style</th>
+   668→                  <th>Call syntax</th>
+   669→                  <th>What you get</th>
+   670→                  <th>Verdict</th>
+   671→                </tr>
+   672→              </thead>
+   673→              <tbody>
+   674→                <tr>
+   675→                  <td className="font-mono text-[.8rem] font-bold text-[#3e2c1d]">import pizza</td>
+   676→                  <td className="font-mono text-[.8rem]">pizza.make_pizza(12, 'cheese') · pizza.greet('Aditya')</td>
+   677→                  <td>Every function, reached through the dot</td>
+   678→                  <td className="font-semibold text-[#44621d]">✅ clear origins</td>
+   679→                </tr>
+   680→                <tr>
+   681→                  <td className="font-mono text-[.8rem] font-bold text-[#3e2c1d]">from pizza import make_pizza</td>
+   682→                  <td className="font-mono text-[.8rem]">make_pizza(16, 'pepperoni')</td>
+   683→                  <td>One specific function, called by name</td>
+   684→                  <td className="font-semibold text-[#44621d]">✅ precise</td>
+   685→                </tr>
+   686→                <tr>
+   687→                  <td className="font-mono text-[.8rem] font-bold text-[#3e2c1d]">from pizza import make_pizza, greet</td>
+   688→                  <td className="font-mono text-[.8rem]">make_pizza(...) · greet(...)</td>
+   689→                  <td>Several specific functions — separate names with commas; no dot notation needed (<span className="font-mono text-[.78rem]">make_pizza(16, 'pepperoni')</span> · <span className="font-mono text-[.78rem]">print(greet('Aditya'))</span> · <span className="font-mono text-[.78rem]">greet('Naina')</span>)</td>
+   690→                  <td className="font-semibold text-[#44621d]">✅ still explicit</td>
+   691→                </tr>
+   692→                <tr>
+   693→                  <td className="font-mono text-[.8rem] font-bold text-[#3e2c1d]">from pizza import make_pizza as mp</td>
+   694→                  <td className="font-mono text-[.8rem]">mp(16, 'pepperoni')</td>
+   695→                  <td>Function alias — a nickname via <strong>as</strong>, avoiding conflicts or long names</td>
+   696→                  <td className="font-semibold text-[#44621d]">✅ handy</td>
+   697→                </tr>
+   698→                <tr>
+   699→                  <td className="font-mono text-[.8rem] font-bold text-[#3e2c1d]">import pizza as p</td>
+   700→                  <td className="font-mono text-[.8rem]">p.make_pizza(16, 'pepperoni')</td>
+   701→                  <td>Module alias — p.make_pizza() beats pizza.make_pizza() for speed; attention shifts to descriptive function names</td>
+   702→                  <td className="font-semibold text-[#44621d]">✅ common</td>
+   703→                </tr>
+   704→                <tr>
+   705→                  <td className="font-mono text-[.8rem] font-bold text-[#3e2c1d]">from pizza import *</td>
+   706→                  <td className="font-mono text-[.8rem]">make_pizza(12, 'cheese') · greet('Aditya') — no prefix</td>
+   707→                  <td>Every function copied in silently</td>
+   708→                  <td className="font-semibold text-[#8c2f2f]">⚠️ discouraged</td>
+   709→                </tr>
+   710→              </tbody>
+   711→            </table>
+   712→          </div>
+   713→          <p className="mt-3 text-[.82rem] text-[#cbb392]">
+   714→            <strong>import pizza</strong> makes every function available (via dots) — but with{" "}
+   715→            <strong>from pizza import make_pizza</strong> you've explicitly imported it, so you call it by name
+   716→            directly.
+   717→          </p>
+   718→        </div>
+   719→      </Reveal>
+   720→
+   721→      {/* 12 — why import * is bad */}
+   722→      <Reveal className="mt-8">
+   723→        <div className="card-warm p-6 md:p-8">
+   724→          <div className="flex items-center gap-3">
+   725→            <Ban className="h-6 w-6" style={{ color: "#f5c889" }} />
+   726→            <h3 className="text-2xl font-bold">Why <span className="grad-text">from pizza import *</span> is discouraged</h3>
+   727→          </div>
+   728→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   729→            <CodeBlock
+   730→              title="the silent overwrite — name collisions"
+   731→              files={{ "pizza.py": PIZZA_MODULE }}
+   732→              code={`def greet(name):  # different greet function in the main file
+   733→    return f"Welcome home, {name}!"
+   734→
+   735→from pizza import *  # This silently OVERWRITES your local greet()!
+   736→
+   737→greet("Neha")   # Outputs: "Hello, Neha! Your Pizza is ready."
+   738→
+   739→#pizza.greet("Neha")  # ← the dot would have kept yours safe`}
+   740→              output={"Hello, Neha! Your Pizza is ready."}
+   741→              note="Reason 1 — name collisions: if your main file already has greet(), importing with * silently overwrites it without warning. You expected 'Welcome home, Neha!' — you got pizza."
+   742→            />
+   743→            <div className="grid content-start gap-4">
+   744→              <Callout dark kind="warn" title="Reason 2 — unclear code origin">
+   745→                When someone reads your code (or you re-read it months later), a standalone{" "}
+   746→                <code className="font-mono">greet('person')</code> makes it hard to tell where greet() came from —
+   747→                built into Python? Defined in this file? Imported from a module?{" "}
+   748→                <code className="font-mono">pizza.greet()</code> makes the origin immediately obvious.
+   749→              </Callout>
+   750→              <Callout dark kind="insight" title="The best approach">
+   751→                Import the <strong>specific functions</strong> you need, or import the <strong>entire module</strong>{" "}
+   752→                and use dot notation. That leads to clear code that's easy to read and understand.
+   753→              </Callout>
+   754→              <Callout dark kind="story" title="Notebook tip — reload after edits">
+   755→                In a notebook, if you edit a module file you've already imported, Python won't notice. Force a
+   756→                refresh: <code className="font-mono">import importlib</code> then{" "}
+   757→                <code className="font-mono">importlib.reload(pizza)</code>.
+   758→              </Callout>
+   759→            </div>
+   760→          </div>
+   761→        </div>
+   762→      </Reveal>
+   763→
+   764→      {/* quiz */}
+   765→      <Reveal className="mt-10">
+   766→        <div className="grid gap-4 md:grid-cols-2">
+   767→          <Quiz
+   768→            q="In def make_pizza(size, *toppings): why must *toppings come last?"
+   769→            options={[
+   770→              "Tuples can only be created at the end of a function",
+   771→              "Python matches positional and keyword arguments first, then collects the leftovers into the final parameter",
+   772→              "size would otherwise become a tuple",
+   773→              "It's just a style convention with no effect",
+   774→            ]}
+   775→            answer={1}
+   776→            explain="Python fills size first, then packs every remaining value into the toppings tuple. If *toppings came earlier, size would never receive its value."
+   777→            source="Functions · arbitrary arguments"
+   778→          />
+   779→          <Quiz
+   780→            q="Your main file defines greet() to say 'Welcome home'. Then runs: from pizza import * (pizza.py also has greet()). What does greet('Neha') print?"
+   781→            options={[
+   782→              "'Welcome home, Neha!' — your version always wins",
+   783→              "'Hello, Neha! Your Pizza is ready.' — the import silently overwrote your greet()",
+   784→              "A SyntaxError — two functions can't share a name",
+   785→              "Nothing — Python asks which one you meant",
+   786→            ]}
+   787→            answer={1}
+   788→            explain="That's reason #1 to avoid import *: silent name collisions. The imported function overwrites your local one with no warning — and reason #2 is that call origins become unreadable."
+   789→            source="Functions · import styles"
+   790→          />
+   791→        </div>
+   792→      </Reveal>
+   793→
+   794→      {/* practice */}
+   795→      <Reveal className="mt-8">
+   796→        <Practice
+   797→          title="Practice — scale your functions up"
+   798→          items={[
+   799→            {
+   800→              q: <>Write <code className="font-mono">greet_users(names)</code> and greet <code className="font-mono">['priyanka', 'unnati', 'anaaya']</code> in one call.</>,
+   801→              hint: "Loop over the parameter like any list.",
+   802→            },
+   803→            {
+   804→              q: <>Split the 3D-printer program into <code className="font-mono">print_models()</code> and <code className="font-mono">show_completed_models()</code>. After running, print <code className="font-mono">unprinted_designs</code> — what is it, and why?</>,
+   805→              hint: "pop() inside the function permanently removes items.",
+   806→            },
+   807→            {
+   808→              q: <>Re-run the printer with <code className="font-mono">unprinted_designs[:]</code> instead. Now what's in the original list?</>,
+   809→              hint: "The slice sent a copy — the original is untouched.",
+   810→            },
+   811→            {
+   812→              q: <>Build <code className="font-mono">make_pizza(size, *toppings)</code>. Order a 16-inch with one topping and a 12-inch with three.</>,
+   813→              hint: "First value → size; the rest → the toppings tuple.",
+   814→            },
+   815→            {
+   816→              q: <>Write <code className="font-mono">build_profile(first, last, **user_info)</code> and create albert einstein with location and field. Then add a third key of your own.</>,
+   817→              hint: "Loop user_info.items() into the profile dict.",
+   818→            },
+   819→            {
+   820→              q: <>Save <code className="font-mono">make_pizza</code> into <code className="font-mono">pizza.py</code> with <code className="font-mono">%%writefile</code>, then import it four ways: whole module, specific function, function alias <code className="font-mono">mp</code>, module alias <code className="font-mono">p</code>.</>,
+   821→              hint: "import pizza · from pizza import make_pizza · as mp · import pizza as p",
+   822→            },
+   823→            {
+   824→              q: <>Predict <code className="font-mono">process_data(10, 20, 30, 40, c=99, user='Admin', debug=True)</code> on paper — every parameter — then verify.</>,
+   825→              hint: "Positionals fill a and b, leftovers pack args, c arrives by name, the rest lands in kwargs.",
+   826→            },
+   827→          ]}
+   828→        />
+   829→      </Reveal>
+   830→
+   831→      {/* takeaways */}
+   832→      <Reveal className="mt-8">
+   833→        <div style={{ display: "flex", alignItems: "center", gap: ".5rem", marginBottom: "1rem" }}>
+   834→          <Sparkles className="h-5 w-5" style={{ color: "#f5c889" }} />
+   835→          <span className="text-sm font-black uppercase tracking-[.2em] text-[#c98d4e]">
+   836→            Part 2 of the function story — scale mastered
+   837→          </span>
+   838→          <InfinityIcon className="h-4 w-4 text-[#c98d4e]" />
+   839→        </div>
+   840→        <Takeaways
+   841→          dark
+   842→          items={[
+   843→            <>Functions get <strong>direct access</strong> to any list you pass — loop it, index it, modify it.</>,
+   844→            <>List changes made inside a function are <strong>permanent</strong> — the 3D-printer pattern moves items from to-do to done.</>,
+   845→            <>Give every function <strong>one specific job</strong>; split a doing-too-much function in two, and call functions from functions.</>,
+   846→            <>Protect an original list by passing <strong>list_name[:]</strong> — a copy — but only when you truly need it.</>,
+   847→            <><strong>*args</strong> packs extra values into a tuple (even one value); it must come <strong>last</strong> after normal parameters.</>,
+   848→            <><strong>**kwargs</strong> packs name-value pairs into a dictionary — build profiles you can't fully predict.</>,
+   849→            <>Full parameter order: <strong>positional → default → *args → keyword-only → **kwargs</strong>.</>,
+   850→            <>Modules (.py files) + import statements = hidden details, reusable functions, shareable code. Prefer specific imports or whole-module dots over <strong>import *</strong>.</>,
+   851→          ]}
+   852→        />
+   853→      </Reveal>
+   854→    </Section>
+   855→  );
+   856→}
+   857→

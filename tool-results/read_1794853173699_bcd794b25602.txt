@@ -1,0 +1,836 @@
+     1→"use client";
+     2→
+     3→import React, { useEffect, useState } from "react";
+     4→import {
+     5→  ArrowDown,
+     6→  ArrowRight,
+     7→  Cpu,
+     8→  Database,
+     9→  Workflow,
+    10→  MonitorSmartphone,
+    11→  Quote,
+    12→  Search,
+    13→  Smartphone,
+    14→  MapPin,
+    15→  PlayCircle,
+    16→  Cloud,
+    17→  Banknote,
+    18→  HeartPulse,
+    19→  ShoppingBag,
+    20→  Landmark,
+    21→  Server,
+    22→  Scale,
+    23→  BrainCircuit,
+    24→  TriangleAlert,
+    25→  BookOpenCheck,
+    26→  Blocks,
+    27→  FlaskConical,
+    28→  Timer,
+    29→} from "lucide-react";
+    30→import { scrollToId } from "@/lib/utils";
+    31→import { Reveal, Section, SectionHead, Callout, Quiz, StepsFlow, Pill } from "./ui";
+    32→
+    33→/* ============================================================
+    34→   HERO
+    35→   ============================================================ */
+    36→const HERO_BITS = [
+    37→  { t: "0101", top: "12%", left: "6%", s: "1.4rem", d: "0s" },
+    38→  { t: "1100", top: "26%", left: "88%", s: "1.1rem", d: "1.2s" },
+    39→  { t: "10", top: "68%", left: "4%", s: "1.2rem", d: "0.6s" },
+    40→  { t: "0110", top: "80%", left: "78%", s: "1.5rem", d: "1.8s" },
+    41→  { t: "101", top: "42%", left: "94%", s: "0.9rem", d: "2.4s" },
+    42→  { t: "0011", top: "8%", left: "48%", s: "1rem", d: "3s" },
+    43→  { t: "01", top: "58%", left: "16%", s: "1rem", d: "2s" },
+    44→];
+    45→
+    46→export function Hero({ onOpenLab }: { onOpenLab: () => void }) {
+    47→  const typed = '>>> print("Hello, Foundations of Computing")';
+    48→  return (
+    49→    <header
+    50→      id="top"
+    51→      className="relative flex min-h-[94vh] flex-col items-center justify-center overflow-hidden px-4 pb-28 sm:pb-16"
+    52→    >
+    53→      {/* ambient blobs — kept STATIC on purpose: animating huge blur-3xl
+    54→          surfaces repaints giant areas every frame and was the main lag source */}
+    55→      <div aria-hidden className="pointer-events-none absolute inset-0">
+    56→        <div
+    57→          className="absolute -left-24 top-16 h-80 w-80 rounded-full blur-3xl"
+    58→          style={{ background: "rgba(245,158,11,.18)" }}
+    59→        />
+    60→        <div
+    61→          className="absolute -right-16 bottom-24 h-96 w-96 rounded-full blur-3xl"
+    62→          style={{ background: "rgba(194,65,12,.14)" }}
+    63→        />
+    64→        <div
+    65→          className="absolute left-1/3 top-1/2 h-64 w-64 rounded-full blur-3xl"
+    66→          style={{ background: "rgba(217,119,6,.12)" }}
+    67→        />
+    68→        {HERO_BITS.map((b, i) => (
+    69→          <span
+    70→            key={i}
+    71→            className="binary-bit"
+    72→            style={{ top: b.top, left: b.left, fontSize: b.s, opacity: 0.9 }}
+    73→          >
+    74→            {b.t}
+    75→          </span>
+    76→        ))}
+    77→      </div>
+    78→
+    79→      <div className="relative z-10 mx-auto max-w-4xl text-center">
+    80→        <Reveal>
+    81→          <span className="chip mx-auto">
+    82→            <BookOpenCheck className="h-3.5 w-3.5" />
+    83→            Complete Visual Revision Companion
+    84→          </span>
+    85→        </Reveal>
+    86→        <Reveal delay={120}>
+    87→          <h1 className="mt-6 text-5xl font-black leading-[1.05] tracking-tight md:text-7xl">
+    88→            <span className="grad-text">Foundations of</span>
+    89→            <br />
+    90→            <span className="grad-text">Computing</span>
+    91→          </h1>
+    92→        </Reveal>
+    93→        <Reveal delay={240}>
+    94→          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-warm">
+    95→            Every concept of the course — the IPO model, the Four Pillars, data in all
+    96→            its forms, algorithms, hardware, software — and the full Python journey,
+    97→            distilled into one warm, living page with animated diagrams and interactive
+    98→            quizzes.
+    99→          </p>
+   100→        </Reveal>
+   101→
+   102→        {/* Python Lab — premium glass CTA under the headline. Clicking it
+   103→            opens the Colab-style lab overlay (real CPython, run from the
+   104→            hero) — the very first thing a learner can touch. */}
+   105→        <Reveal delay={300}>
+   106→          <div className="mt-7 flex justify-center">
+   107→            <button
+   108→              type="button"
+   109→              onClick={onOpenLab}
+   110→              title="Open the Python Lab — a Colab-style notebook where you can run your own code"
+   111→              className="glass-cta group"
+   112→            >
+   113→              <span className="glass-cta-icon">
+   114→                <FlaskConical className="h-3.5 w-3.5" strokeWidth={2.4} />
+   115→              </span>
+   116→              Python Lab
+   117→              <ArrowRight
+   118→                className="h-4 w-4 text-[#c2410c] transition-transform duration-300 group-hover:translate-x-1"
+   119→                strokeWidth={2.4}
+   120→              />
+   121→            </button>
+   122→          </div>
+   123→        </Reveal>
+   124→
+   125→        {/* terminal */}
+   126→        <Reveal delay={360}>
+   127→          <div className="code-shell mx-auto mt-10 max-w-xl text-left">
+   128→            <div className="code-bar">
+   129→              <span className="code-dot" style={{ background: "#e4674a" }} />
+   130→              <span className="code-dot" style={{ background: "#e8a13c" }} />
+   131→              <span className="code-dot" style={{ background: "#8fae5d" }} />
+   132→              <span className="code-title ml-2">python — first_steps.py</span>
+   133→            </div>
+   134→            <pre className="code-body">
+   135→              <span className="text-[#efe0cb]">
+   136→                <span className="type-line" style={{ width: `${typed.length}ch`, animation: "none", borderRight: "2px solid #f5a623" }}>
+   137→                  {typed}
+   138→                </span>
+   139→              </span>
+   140→            </pre>
+   141→            <div className="code-out">
+   142→              <span className="out-label">OUTPUT</span>
+   143→              Hello, Foundations of Computing
+   144→            </div>
+   145→          </div>
+   146→        </Reveal>
+   147→
+   148→        <Reveal delay={480}>
+   149→          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+   150→            <button type="button" aria-label="Scroll to content" onClick={() => scrollToId("why")} className="rounded-full px-7 py-3.5 text-sm font-bold text-white shadow-lg transition hover:scale-[1.03]" style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)", boxShadow: "0 14px 30px -12px rgba(194,65,12,.55)", }} cursor-pointer>
+   151→              Start the journey
+   152→            </button>
+   153→            <button type="button" aria-label="Jump to the Four Pillars" onClick={() => scrollToId("pillars")} className="rounded-full border border-[#e5c79d] bg-[#fffdf9] px-7 py-3.5 text-sm font-bold text-[#7c4a12] transition hover:bg-[#fdf1e0] cursor-pointer">
+   154→              Jump to the Four Pillars
+   155→            </button>
+   156→          </div>
+   157→        </Reveal>
+   158→
+   159→        <Reveal delay={560}>
+   160→          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-[.72rem]">
+   161→            <span className="chip">IPO · Data · Algorithms · Hardware · Software · Python</span>
+   162→          </div>
+   163→        </Reveal>
+   164→      </div>
+   165→
+   166→      {/* scroll hint — full-width flex wrapper guarantees true horizontal
+   167→          centering at every viewport (a bare `absolute` anchor drifted into
+   168→          the CTA buttons once they wrapped on small screens; and the bob
+   169→          keyframes own the transform, so -translate-x-1/2 can't live here) */}
+   170→      <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
+   171→        <button type="button" aria-label="Scroll to content" onClick={() => scrollToId("why")}  className="anim-bob rounded-full border border-[#ecd9bd] bg-[#fffdf9]/80 p-3 text-[#c2410c] cursor-pointer">
+   172→          <ArrowDown className="h-5 w-5" />
+   173→        </button>
+   174→      </div>
+   175→    </header>
+   176→  );
+   177→}
+   178→
+   179→/* ============================================================
+   180→   WHY LEARN PROGRAMMING — the vibe-coding reality check
+   181→   ============================================================ */
+   182→const VIBE_DANGERS = [
+   183→  "No auth",
+   184→  "Tech debt",
+   185→  "Token limits",
+   186→  "Spaghetti code",
+   187→  "Bugs everywhere",
+   188→  "Exposed API keys",
+   189→];
+   190→
+   191→const PROD_STACK = [
+   192→  "Kubernetes", "Docker", "CI/CD", "Databases", "Encryption", "Firewalls",
+   193→  "WebSockets", "Caching", "Load balancers", "Rate limiting", "Sharding",
+   194→  "Queues (Kafka/RabbitMQ)", "Logging", "Auth & identity", "Monitoring",
+   195→  "Backups", "Deployments", "Testing", "Version control", "Availability",
+   196→];
+   197→
+   198→export function WhySection() {
+   199→  return (
+   200→    <Section id="why">
+   201→      <SectionHead
+   202→        eyebrow="The honest question"
+   203→        title={
+   204→          <>
+   205→            Why learn programming when I can{" "}
+   206→            <span className="grad-text">vibe code</span> everything with LLMs?
+   207→          </>
+   208→        }
+   209→        lead="A fair question for 2025 — and the course answers it head-on. AI coding assistants like Codex (OpenAI), Claude Code and Gemini Code Assist can write impressive code from plain English. But what happens on Day 30?"
+   210→      />
+   211→
+   212→      {/* Karpathy quote */}
+   213→      <Reveal>
+   214→        <div className="card-warm relative mx-auto max-w-3xl p-7">
+   215→          <Quote className="absolute -top-4 left-6 h-8 w-8" style={{ color: "#e8b878" }} />
+   216→          <p className="text-lg italic leading-relaxed text-[#2b2014]">
+   217→            “There’s a new kind of coding I call ‘vibe coding’, where you fully give in
+   218→            to the vibes, embrace exponentials, and forget that the code even exists.
+   219→            It’s possible because the LLMs are getting too good.”
+   220→          </p>
+   221→          <p className="mt-4 text-sm font-bold text-[#8a4508]">
+   222→            — Andrej Karpathy, Feb 2025 · former AI Director at Tesla & co-founder of
+   223→            OpenAI, who coined the term: prompting AI with plain-language instructions
+   224→            instead of traditional programming syntax.
+   225→          </p>
+   226→        </div>
+   227→      </Reveal>
+   228→
+   229→      {/* Day 1 vs Day 30 */}
+   230→      <div className="mt-10 grid gap-5 md:grid-cols-2">
+   231→        <Reveal>
+   232→          <div className="card-warm lift h-full p-6">
+   233→            <span className="chip">Day 1 of vibe coding</span>
+   234→            <h3 className="mt-3 text-xl font-bold">Feels amazing</h3>
+   235→            <ul className="mt-3 space-y-2 text-[.92rem] text-[#2b2014]">
+   236→              <li>• Ship fast, build ideas, look good, feel productive</li>
+   237→              <li>• Happy path only, minimal setup, just enough code</li>
+   238→              <li>• No overthinking — a demo is ready in hours</li>
+   239→            </ul>
+   240→          </div>
+   241→        </Reveal>
+   242→        <Reveal delay={120}>
+   243→          <div className="card-warm lift h-full p-6">
+   244→            <span className="chip" style={{ background: "#fbe9e4", color: "#9c3a3a", borderColor: "#eec0b3" }}>
+   245→              Day 30 of vibe coding
+   246→            </span>
+   247→            <h3 className="mt-3 text-xl font-bold">The tower crumbles</h3>
+   248→            <div className="mt-3 flex flex-wrap gap-2">
+   249→              {VIBE_DANGERS.map((d, i) => (
+   250→                <span
+   251→                  key={d}
+   252→                  className="ice-tag rounded-lg px-2.5 py-1 text-[.74rem] font-bold"
+   253→                  style={{
+   254→                    background: "#fbe9e4",
+   255→                    color: "#9c3a3a",
+   256→                    border: "1px solid #eec0b3",
+   257→                    animationDelay: `${i * 0.4}s`,
+   258→                  }}
+   259→                >
+   260→                  {d}
+   261→                </span>
+   262→              ))}
+   263→            </div>
+   264→            <p className="mt-3 text-[.9rem] leading-relaxed text-muted-warm">
+   265→              Vibe coding is fun. <strong>Vibe debugging</strong> is the horror story —
+   266→              when you don’t understand the code, you can’t fix it either.
+   267→            </p>
+   268→          </div>
+   269→        </Reveal>
+   270→      </div>
+   271→
+   272→      {/* Iceberg */}
+   273→      <Reveal className="mt-10">
+   274→        <div className="card-warm overflow-hidden p-6 md:p-8">
+   275→          <h3 className="text-center text-2xl font-bold">
+   276→            The iceberg: vibe coding vs <span className="grad-text">production reality</span>
+   277→          </h3>
+   278→          <p className="mx-auto mt-2 max-w-2xl text-center text-[.92rem] text-muted-warm">
+   279→            The gap between a prototype and a production-ready app is enormous — and it
+   280→            is filled with <strong>structural programming knowledge</strong>. The waterline below is where real engineers live.
+   281→          </p>
+   282→
+   283→          {/* waterline above */}
+   284→          <div className="mt-8 rounded-2xl border border-[#f3e2c8] bg-gradient-to-b from-[#fff8ec] to-[#fdeed6] p-6">
+   285→            <p className="text-center text-[.74rem] font-extrabold uppercase tracking-[.2em] text-[#8a5a10]">
+   286→              above the surface — what the demo shows
+   287→            </p>
+   288→            <div className="mt-4 flex flex-wrap justify-center gap-2">
+   289→              {["Working demo", "Looks good", "Happy path", "Quick prototype"].map((t) => (
+   290→                <Pill key={t}>{t}</Pill>
+   291→              ))}
+   292→            </div>
+   293→          </div>
+   294→
+   295→          {/* waterline */}
+   296→          <div className="h-2 w-full rounded-full" style={{ background: "linear-gradient(90deg,#f6d7a8,#c2410c,#f6d7a8)" }} />
+   297→
+   298→          {/* below */}
+   299→          <div className="rounded-b-2xl p-6" style={{ background: "linear-gradient(180deg,#f9e9d2,#f3dcbc)" }}>
+   300→            <p className="text-center text-[.74rem] font-extrabold uppercase tracking-[.2em] text-[#8a5a22]">
+   301→              below the surface — what production demands
+   302→            </p>
+   303→            <div className="mt-4 flex flex-wrap justify-center gap-2">
+   304→              {PROD_STACK.map((t, i) => (
+   305→                <span
+   306→                  key={t}
+   307→                  className="ice-tag rounded-lg bg-[#fffdf9] px-2.5 py-1 text-[.74rem] font-semibold text-[#7c4a12] shadow-sm"
+   308→                  style={{ border: "1px solid #ecd9bd", animationDelay: `${(i % 8) * 0.5}s` }}
+   309→                >
+   310→                  {t}
+   311→                </span>
+   312→              ))}
+   313→            </div>
+   314→          </div>
+   315→        </div>
+   316→      </Reveal>
+   317→
+   318→      {/* Architect principle */}
+   319→      <div className="mt-10 grid gap-5 md:grid-cols-3">
+   320→        <Reveal>
+   321→          <div className="card-warm lift h-full p-6 text-center">
+   322→            <div
+   323→              className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl"
+   324→              style={{ background: "linear-gradient(135deg,#fde8cf,#fbcf9f)" }}
+   325→            >
+   326→              <Blocks className="h-6 w-6" style={{ color: "#c2410c" }} />
+   327→            </div>
+   328→            <h3 className="mt-3 font-bold">The LLM is the junior builder</h3>
+   329→            <p className="mt-1 text-[.88rem] text-muted-warm">
+   330→              You are the architect. AI writes code, but you must design, judge and own it.
+   331→            </p>
+   332→          </div>
+   333→        </Reveal>
+   334→        <Reveal delay={100}>
+   335→          <div className="card-warm lift h-full p-6 text-center">
+   336→            <div
+   337→              className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl"
+   338→              style={{ background: "linear-gradient(135deg,#fde8cf,#fbcf9f)" }}
+   339→            >
+   340→              <Scale className="h-6 w-6" style={{ color: "#c2410c" }} />
+   341→            </div>
+   342→            <h3 className="mt-3 font-bold">Accountability stops with you</h3>
+   343→            <p className="mt-1 text-[.88rem] text-muted-warm">
+   344→              A broken age-checker or leaked API key in production is your failure, not the model’s —
+   345→              developers and managers stay legally and financially accountable even for AI-generated code.
+   346→            </p>
+   347→            <p className="mt-2 text-[.8rem] leading-relaxed text-muted-warm">
+   348→              The deck names the regulators: <strong>RBI</strong> for banking, <strong>SEBI</strong> for
+   349→              financial markets, <strong>IRDAI</strong> for insurance — heavy penalties for violations.
+   350→              Real case: PTM faced bans for data-security mismanagement in its apps.
+   351→            </p>
+   352→          </div>
+   353→        </Reveal>
+   354→        <Reveal delay={200}>
+   355→          <div className="card-warm lift h-full p-6 text-center">
+   356→            <div
+   357→              className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl"
+   358→              style={{ background: "linear-gradient(135deg,#fde8cf,#fbcf9f)" }}
+   359→            >
+   360→              <Timer className="h-6 w-6" style={{ color: "#c2410c" }} />
+   361→            </div>
+   362→            <h3 className="mt-3 font-bold">Use LLMs to speed up execution</h3>
+   363→            <p className="mt-1 text-[.88rem] text-muted-warm">
+   364→              Engineers who understand code ship the “vibe-coded slop” properly — clean
+   365→              logic, not thousands of nested-ifs.
+   366→            </p>
+   367→          </div>
+   368→        </Reveal>
+   369→      </div>
+   370→
+   371→      {/* Industry proof */}
+   372→      <div className="mt-10 grid gap-5 md:grid-cols-2">
+   373→        <Reveal>
+   374→          <Callout kind="story" title="Proof from industry">
+   375→            <strong>Forbes:</strong> Ford hired 350 engineers after its AI-first attempt
+   376→            failed — human engineering value is rising, not falling, in the AI era.
+   377→          </Callout>
+   378→        </Reveal>
+   379→        <Reveal delay={120}>
+   380→          <Callout kind="story" title="The AI talent war">
+   381→            <strong>Business Standard:</strong> Google is re-hiring former engineers amid
+   382→            the global AI talent war, while rivals poach DeepMind staff with $100M offers.
+   383→            Deep understanding is the scarcest skill.
+   384→          </Callout>
+   385→        </Reveal>
+   386→      </div>
+   387→    </Section>
+   388→  );
+   389→}
+   390→
+   391→/* ============================================================
+   392→   WHAT IS COMPUTING
+   393→   ============================================================ */
+   394→const TIMELINE = [
+   395→  {
+   396→    era: "Long before machines",
+   397→    icon: <Landmark className="h-5 w-5" />,
+   398→    text: "Merchants ran addition and subtraction on the ancient abacus as early as 3000 BC. In the 1600s–1800s, sailors fixed their position at sea by working coordinates through pre-calculated navigation tables. Computing is a methodology, not a technology.",
+   399→  },
+   400→  {
+   401→    era: "World War II",
+   402→    icon: <Server className="h-5 w-5" />,
+   403→    text: "Teams of people — mostly women — sat at desks doing complex arithmetic to calculate artillery trajectories. They were literally called ‘computers’. The job title came before the machine.",
+   404→  },
+   405→  {
+   406→    era: "The machine era",
+   407→    icon: <Cpu className="h-5 w-5" />,
+   408→    text: "Room-sized electronic computers took over the arithmetic — same human idea of step-by-step calculation, executed at machine speed.",
+   409→  },
+   410→  {
+   411→    era: "The cloud era",
+   412→    icon: <Cloud className="h-5 w-5" />,
+   413→    text: "Today, computing is rented by the second from AWS, Microsoft Azure and Google Cloud — computation as a utility, like electricity.",
+   414→  },
+   415→];
+   416→
+   417→const EVERYDAY = [
+   418→  {
+   419→    icon: <Search className="h-5 w-5" />,
+   420→    name: "Search engines",
+   421→    flow: "Query → rank millions of pages → show results",
+   422→    detail: "In the fraction of a second after you press Enter, an algorithm scores the entire indexed web and orders it by relevance.",
+   423→  },
+   424→  {
+   425→    icon: <Banknote className="h-5 w-5" />,
+   426→    name: "UPI payments",
+   427→    flow: "Verify identity → debit → credit → confirm",
+   428→    detail: "Your app talks to the payer PSP, which forwards to the NPCI UPI switch, which routes to banks — debiting the remitter and crediting the payee, all in seconds.",
+   429→  },
+   430→  {
+   431→    icon: <MapPin className="h-5 w-5" />,
+   432→    name: "Google Maps",
+   433→    flow: "Location data → routing algorithm → directions",
+   434→    detail: "Live traffic from millions of devices is crunched into the fastest route, re-computed continuously as you drive.",
+   435→  },
+   436→  {
+   437→    icon: <PlayCircle className="h-5 w-5" />,
+   438→    name: "YouTube recommendations",
+   439→    flow: "What you watched & skipped → compare with millions of users → predict your next video",
+   440→    detail: "Your watch-time signals are matched against massive behavioural datasets to forecast what will hold your attention next.",
+   441→  },
+   442→  {
+   443→    icon: <Smartphone className="h-5 w-5" />,
+   444→    name: "Autocorrect & autocomplete",
+   445→    flow: "Typed letters & previous words → pattern match over millions of user sentences → suggested next word",
+   446→    detail: "The keyboard's algorithm learned from millions of sentences to predict what you'll type next — machine learning sitting under your thumb.",
+   447→  },
+   448→];
+   449→
+   450→export function ComputingSection() {
+   451→  return (
+   452→    <Section id="computing">
+   453→      <SectionHead
+   454→        eyebrow="Introduction to computing"
+   455→        title={
+   456→          <>
+   457→            What exactly <span className="grad-text">is</span> computing?
+   458→          </>
+   459→        }
+   460→        lead="Before touching a single line of code, we build the mental model that everything else in this course sits on top of."
+   461→      />
+   462→
+   463→      {/* Definitions */}
+   464→      <div className="grid gap-5 lg:grid-cols-2">
+   465→        <Reveal>
+   466→          <div className="card-warm h-full p-7">
+   467→            <p className="eyebrow">Working definition</p>
+   468→            <p className="mt-3 text-lg leading-relaxed">
+   469→              <strong className="term">Computing</strong> is the process of using{" "}
+   470→              <strong>well-defined steps</strong> to solve problems by{" "}
+   471→              <strong>collecting information</strong>, <strong>processing it</strong>, and
+   472→              producing a <strong>useful result</strong>.
+   473→            </p>
+   474→            <p className="mt-4 text-[.92rem] leading-relaxed text-muted-warm">
+   475→              Notice: no mention of screens, keyboards or silicon. Computing is a{" "}
+   476→              <em>process</em> — the machine is just its fastest executor.
+   477→            </p>
+   478→          </div>
+   479→        </Reveal>
+   480→        <Reveal delay={120}>
+   481→          <div className="card-warm h-full p-7" style={{ background: "linear-gradient(150deg,#fffaf0,#fdeed6)" }}>
+   482→            <p className="eyebrow">The formal definition</p>
+   483→            <p className="mt-3 text-lg italic leading-relaxed text-[#2b2014]">
+   484→              “Computing is any goal-oriented activity requiring, benefiting from, or
+   485→              creating computers.”
+   486→            </p>
+   487→            <p className="mt-4 text-sm font-bold text-[#8a4508]">
+   488→              — ACM (Association for Computing Machinery)
+   489→            </p>
+   490→            <p className="mt-3 text-[.9rem] leading-relaxed text-muted-warm">
+   491→              Every example you’ll meet in this course obeys one deep pattern:
+   492→            </p>
+   493→            <p className="mt-2 rounded-xl bg-[#fffdf9] p-3 text-center text-[.95rem] font-bold text-[#7c4a12]" style={{ border: "1px dashed #e5c79d" }}>
+   494→              a defined set of instructions → acting on data → to produce a result
+   495→            </p>
+   496→          </div>
+   497→        </Reveal>
+   498→      </div>
+   499→
+   500→      {/* Timeline */}
+   501→      <Reveal className="mt-12">
+   502→        <h3 className="text-2xl font-bold">Computing did not start with computers</h3>
+   503→      </Reveal>
+   504→      <div className="relative mt-6">
+   505→        <div
+   506→          aria-hidden
+   507→          className="absolute left-6 top-0 h-full w-[2px] md:left-1/2"
+   508→          style={{ background: "linear-gradient(180deg,#f3dcbc,#c2410c,#f3dcbc)" }}
+   509→        />
+   510→        <div className="grid gap-6">
+   511→          {TIMELINE.map((t, i) => (
+   512→            <Reveal key={t.era} delay={i * 90}>
+   513→              <div
+   514→                className={`relative flex flex-col gap-3 pl-16 md:w-1/2 ${
+   515→                  i % 2 === 0 ? "md:pl-0 md:pr-12" : "md:ml-auto md:pl-12"
+   516→                }`}
+   517→              >
+   518→                <span
+   519→                  className={`absolute top-5 flex h-12 w-12 items-center justify-center rounded-full border-4 border-[#fdf6ee] text-white shadow-lg ${
+   520→                    i % 2 === 0 ? "left-0 md:-right-6 md:left-auto" : "left-0"
+   521→                  }`}
+   522→                  style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)" }}
+   523→                >
+   524→                  {t.icon}
+   525→                </span>
+   526→                <div className="card-warm lift p-5">
+   527→                  <h4 className="font-bold text-[#7c4a12]">{t.era}</h4>
+   528→                  <p className="mt-1 text-[.92rem] leading-relaxed text-[#2b2014]">{t.text}</p>
+   529→                </div>
+   530→              </div>
+   531→            </Reveal>
+   532→          ))}
+   533→        </div>
+   534→      </div>
+   535→
+   536→      {/* IPO model */}
+   537→      <Reveal className="mt-14">
+   538→        <div className="card-warm p-7 md:p-9">
+   539→          <p className="eyebrow">The enterprise IPO model</p>
+   540→          <h3 className="mt-2 text-2xl font-bold md:text-3xl">
+   541→            Input → Process → Output
+   542→          </h3>
+   543→          <p className="mt-2 max-w-3xl text-[.95rem] text-muted-warm">
+   544→            The simplest — and most powerful — mental model in this course. Every
+   545→            computing system, from a calculator to Uber, is an IPO pipeline.
+   546→          </p>
+   547→
+   548→          <div className="mt-8">
+   549→            <StepsFlow
+   550→              steps={[
+   551→                {
+   552→                  label: "INPUT",
+   553→                  sub: "High-velocity, high-variety, high-volume data streams — text, audio, video, sensors — measured in zettabytes (10²¹ bytes)",
+   554→                  icon: <Database className="h-5 w-5" style={{ color: "#c2410c" }} />,
+   555→                },
+   556→                {
+   557→                  label: "PROCESS",
+   558→                  sub: "Automated algorithms on cloud infrastructure execute logical steps billions of times per second — pushing computational cost toward zero",
+   559→                  icon: <Workflow className="h-5 w-5" style={{ color: "#c2410c" }} />,
+   560→                },
+   561→                {
+   562→                  label: "OUTPUT",
+   563→                  sub: "Actionable insights and business decisions — translated into revenue growth or cost reduction",
+   564→                  icon: <MonitorSmartphone className="h-5 w-5" style={{ color: "#c2410c" }} />,
+   565→                },
+   566→              ]}
+   567→            />
+   568→          </div>
+   569→
+   570→          <Callout kind="why" title="Walkthrough — a weather forecast">
+   571→            <strong>Input:</strong> billions of live data points every hour from global
+   572→            networks — satellites, ground stations, sensors.{" "}
+   573→            <strong>Process:</strong> that data runs through massive physics and AI
+   574→            models. <strong>Output:</strong> a local forecast on your phone — “41°,
+   575→            partly sunny, Wednesday”. Same IPO skeleton as everything else.
+   576→          </Callout>
+   577→        </div>
+   578→      </Reveal>
+   579→
+   580→      {/* Everyday computing */}
+   581→      <Reveal className="mt-12">
+   582→        <h3 className="text-2xl font-bold">
+   583→          Computing is everywhere — <span className="grad-text">everyday computing</span>
+   584→        </h3>
+   585→      </Reveal>
+   586→      <div className="mt-6 grid gap-5 sm:grid-cols-2">
+   587→        {EVERYDAY.map((e, i) => (
+   588→          <Reveal key={e.name} delay={i * 90}>
+   589→            <div className="card-warm lift h-full p-6">
+   590→              <div className="flex items-center gap-3">
+   591→                <span
+   592→                  className="flex h-10 w-10 items-center justify-center rounded-xl"
+   593→                  style={{ background: "linear-gradient(135deg,#fde8cf,#fbcf9f)" }}
+   594→                >
+   595→                  {e.icon}
+   596→                </span>
+   597→                <h4 className="text-lg font-bold">{e.name}</h4>
+   598→              </div>
+   599→              <p className="mt-3 rounded-lg bg-[#fbf3e3] px-3 py-2 text-[.85rem] font-semibold text-[#7c4a12]">
+   600→                {e.flow}
+   601→              </p>
+   602→              <p className="mt-3 text-[.88rem] leading-relaxed text-[#2b2014]">{e.detail}</p>
+   603→            </div>
+   604→          </Reveal>
+   605→        ))}
+   606→      </div>
+   607→
+   608→      {/* Uber table */}
+   609→      <Reveal className="mt-12">
+   610→        <div className="card-warm overflow-hidden">
+   611→          <div className="px-6 pt-6 md:px-8">
+   612→            <p className="eyebrow">Case study</p>
+   613→            <h3 className="mt-2 text-2xl font-bold">Computing @ Uber — IPO at city scale</h3>
+   614→            <p className="mt-2 max-w-3xl text-[.92rem] text-muted-warm">
+   615→              A single ride request sets off a full IPO cycle — in under half a second.
+   616→            </p>
+   617→          </div>
+   618→          <div className="mt-5 overflow-x-auto px-4 pb-6 md:px-8">
+   619→            <table className="warm-table min-w-[720px]">
+   620→              <thead>
+   621→                <tr>
+   622→                  <th>IPO stage</th>
+   623→                  <th>Raw technical component</th>
+   624→                  <th>Business value realized</th>
+   625→                </tr>
+   626→              </thead>
+   627→              <tbody>
+   628→                <tr>
+   629→                  <td className="font-bold text-[#7c4a12]">Input</td>
+   630→                  <td>Driver GPS, rider requests, local traffic API, weather data, historical demand</td>
+   631→                  <td>Captures live market conditions across a city</td>
+   632→                </tr>
+   633→                <tr>
+   634→                  <td className="font-bold text-[#7c4a12]">Process</td>
+   635→                  <td>Dynamic pricing algorithm (surge fares when demand spikes — think rain hour), route optimization, and a matching engine that connects riders to drivers within a 500-metre radius</td>
+   636→                  <td>Balances supply and demand in under 500 ms — surge pricing keeps cars on the road when they're needed most</td>
+   637→                </tr>
+   638→                <tr>
+   639→                  <td className="font-bold text-[#7c4a12]">Output</td>
+   640→                  <td>Driver dispatch, precise ETA, dynamic price quote on the rider’s screen</td>
+   641→                  <td>Executes the transaction, maximizes platform yield</td>
+   642→                </tr>
+   643→              </tbody>
+   644→            </table>
+   645→          </div>
+   646→        </div>
+   647→      </Reveal>
+   648→
+   649→      {/* Knight Capital */}
+   650→      <Reveal className="mt-12">
+   651→        <div
+   652→          className="card-warm p-7 md:p-9"
+   653→          style={{ background: "linear-gradient(150deg,#fff7f0,#fdeade)", borderColor: "#eec0b3" }}
+   654→        >
+   655→          <div className="flex items-center gap-3">
+   656→            <TriangleAlert className="h-6 w-6" style={{ color: "#be4a4a" }} />
+   657→            <h3 className="text-2xl font-bold">The cost of bad computing — Knight Capital, 2012</h3>
+   658→          </div>
+   659→          <p className="mt-3 max-w-3xl text-[.95rem] leading-relaxed text-[#2b2014]">
+   660→            A major American trading firm deployed a new algorithm to trade stocks.
+   661→            The algorithm was flawed. In <strong>45 minutes</strong>, it lost{" "}
+   662→            <strong className="term">$440 million</strong> — almost destroying the company.
+   663→          </p>
+   664→          <div className="mt-5 grid gap-4 md:grid-cols-2">
+   665→            <div className="rounded-xl bg-[#fffdf9] p-4" style={{ border: "1px dashed #e5c79d" }}>
+   666→              <p className="text-[.78rem] font-extrabold uppercase tracking-[.16em] text-[#8a5a10]">
+   667→                Think deeper — from the course
+   668→              </p>
+   669→              <p className="mt-2 text-[.9rem] text-[#2b2014]">
+   670→                If you were the manager explaining to the CEO how $440M vanished in 45
+   671→                minutes, <em>what would you say caused it?</em> Flawed logic left live,
+   672→                no kill-switch, untested deployment, no safeguards.
+   673→              </p>
+   674→            </div>
+   675→            <div className="rounded-xl bg-[#fffdf9] p-4" style={{ border: "1px dashed #e5c79d" }}>
+   676→              <p className="text-[.78rem] font-extrabold uppercase tracking-[.16em] text-[#8a5a10]">
+   677→                The lesson
+   678→              </p>
+   679→              <p className="mt-2 text-[.9rem] text-[#2b2014]">
+   680→                Computing is not just “making it run” — it must be{" "}
+   681→                <strong>tested, verified and controlled</strong>. Bad computing has a
+   682→                price, and sometimes that price is the company itself.
+   683→              </p>
+   684→            </div>
+   685→          </div>
+   686→        </div>
+   687→      </Reveal>
+   688→
+   689→      {/* Non tech */}
+   690→      <Reveal className="mt-12">
+   691→        <h3 className="text-2xl font-bold">
+   692→          Computing in <span className="grad-text">non-tech</span> industries
+   693→        </h3>
+   694→      </Reveal>
+   695→      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+   696→        {[
+   697→          {
+   698→            icon: <Landmark className="h-5 w-5" />,
+   699→            name: "AgroStar & DeHaat",
+   700→            text: "Agritech — soil sensor data, satellite imagery and historical weather patterns drive farming advice. Seeds to market, powered by computing.",
+   701→          },
+   702→          {
+   703→            icon: <HeartPulse className="h-5 w-5" />,
+   704→            name: "Pisces 12-channel ECG",
+   705→            text: "Healthcare — the heart’s electrical activity is measured hundreds of times per second to detect atrial fibrillation and heart block.",
+   706→          },
+   707→          {
+   708→            icon: <ShoppingBag className="h-5 w-5" />,
+   709→            name: "Zara",
+   710→            text: "Fashion retail — tracks which designs are selling fast and which are not. Its competitive advantage is literally built on computing.",
+   711→          },
+   712→          {
+   713→            icon: <Banknote className="h-5 w-5" />,
+   714→            name: "Banking",
+   715→            text: "Every account, transaction, credit check and fraud alert is a computing pipeline running the IPO model on financial data.",
+   716→          },
+   717→        ].map((c, i) => (
+   718→          <Reveal key={c.name} delay={i * 80}>
+   719→            <div className="card-warm lift h-full p-5">
+   720→              <span
+   721→                className="flex h-10 w-10 items-center justify-center rounded-xl"
+   722→                style={{ background: "linear-gradient(135deg,#fde8cf,#fbcf9f)" }}
+   723→              >
+   724→                {c.icon}
+   725→              </span>
+   726→              <h4 className="mt-3 font-bold">{c.name}</h4>
+   727→              <p className="mt-1 text-[.85rem] leading-relaxed text-muted-warm">{c.text}</p>
+   728→            </div>
+   729→          </Reveal>
+   730→        ))}
+   731→      </div>
+   732→
+   733→      <Reveal className="mt-8">
+   734→        <Quiz
+   735→          source="From the course discussion"
+   736→          q="In Zara’s approach, which step of the IPO model is most critical for their competitive advantage — and what type of data are they using?"
+   737→          options={[
+   738→            "Input — customer photos from Instagram",
+   739→            "Process — analysing which designs are selling fast vs. not",
+   740→            "Output — printing price tags faster",
+   741→            "Input — employee attendance records",
+   742→          ]}
+   743→          answer={1}
+   744→          explain="Zara’s edge lives in the PROCESS step — rapidly analysing sales data to decide what to produce next. The data is sales/behavioural data captured in real time, feeding the decision engine that keeps them ahead of trends."
+   745→        />
+   746→      </Reveal>
+   747→    </Section>
+   748→  );
+   749→}
+   750→
+   751→/* ============================================================
+   752→   FOUR PILLARS OVERVIEW
+   753→   ============================================================ */
+   754→const PILLARS = [
+   755→  {
+   756→    id: "data",
+   757→    icon: <Database className="h-7 w-7" />,
+   758→    n: "Pillar 1",
+   759→    name: "Data",
+   760→    line: "The raw material — facts and figures that everything acts upon.",
+   761→    hue: "linear-gradient(135deg,#fde8cf,#fbcf9f)",
+   762→  },
+   763→  {
+   764→    id: "algorithm",
+   765→    icon: <Workflow className="h-7 w-7" />,
+   766→    n: "Pillar 2",
+   767→    name: "Algorithm",
+   768→    line: "The intellectual core — the method for solving a problem.",
+   769→    hue: "linear-gradient(135deg,#fce7d4,#f9c79a)",
+   770→  },
+   771→  {
+   772→    id: "hardware",
+   773→    icon: <Cpu className="h-7 w-7" />,
+   774→    n: "Pillar 3",
+   775→    name: "Hardware",
+   776→    line: "The physical foundation — silicon that actually runs the steps.",
+   777→    hue: "linear-gradient(135deg,#f9e4d0,#f6bd8e)",
+   778→  },
+   779→  {
+   780→    id: "software",
+   781→    icon: <MonitorSmartphone className="h-7 w-7" />,
+   782→    n: "Pillar 4",
+   783→    name: "Software",
+   784→    line: "The instructions — what tells the hardware what to do.",
+   785→    hue: "linear-gradient(135deg,#f7dfc8,#f2b283)",
+   786→  },
+   787→];
+   788→
+   789→export function PillarsSection() {
+   790→  return (
+   791→    <Section id="pillars" dark>
+   792→      <SectionHead
+   793→        dark
+   794→        eyebrow="The big picture"
+   795→        title={
+   796→          <>
+   797→            What constitutes computing?{" "}
+   798→            <span className="grad-text">The Four Pillars</span>
+   799→          </>
+   800→        }
+   801→        lead="Everything in this course — and everything in computing — rests on four pillars. Each pillar gets its own deep-dive section in these notes."
+   802→      />
+   803→      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+   804→        {PILLARS.map((p, i) => (
+   805→          <Reveal key={p.id} delay={i * 100}>
+   806→            <a href={`#${p.id}`} className="block h-full">
+   807→              <div className="card-warm lift h-full p-6 text-center">
+   808→                <span
+   809→                  className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl"
+   810→                  style={{ background: p.hue, color: "#8a3d10" }}
+   811→                >
+   812→                  {p.icon}
+   813→                </span>
+   814→                <p className="mt-4 text-[.7rem] font-extrabold uppercase tracking-[.22em] text-[#e8b878]">
+   815→                  {p.n}
+   816→                </p>
+   817→                <h3 className="mt-1 text-2xl font-bold">{p.name}</h3>
+   818→                <p className="mt-2 text-[.86rem] leading-relaxed text-[#cbb392]">{p.line}</p>
+   819→              </div>
+   820→            </a>
+   821→          </Reveal>
+   822→        ))}
+   823→      </div>
+   824→      <Reveal className="mt-10">
+   825→        <Callout dark kind="insight" title="How the pillars connect">
+   826→          Data flows <strong>into</strong> algorithms, algorithms are executed{" "}
+   827→          <strong>by</strong> hardware, and software <strong>orchestrates</strong> the
+   828→          whole dance. Remove any pillar and computing collapses. In Python later on,
+   829→          you’ll write all four: data in variables, algorithms in your logic, hardware
+   830→          executing it, and your program as the software.
+   831→        </Callout>
+   832→      </Reveal>
+   833→    </Section>
+   834→  );
+   835→}
+   836→

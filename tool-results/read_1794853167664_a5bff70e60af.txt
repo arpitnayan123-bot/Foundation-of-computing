@@ -1,0 +1,1219 @@
+     1→"use client";
+     2→
+     3→import React, { useState } from "react";
+     4→import {
+     5→  Dog,
+     6→  Car,
+     7→  BatteryCharging,
+     8→  GitFork,
+     9→  Boxes,
+    10→  Network,
+    11→  Library,
+    12→  MousePointerClick,
+    13→  RotateCcw,
+    14→  Gauge,
+    15→  Sparkles,
+    16→  AlertTriangle,
+    17→} from "lucide-react";
+    18→import {
+    19→  Reveal,
+    20→  Section,
+    21→  SectionHead,
+    22→  Callout,
+    23→  Quiz,
+    24→  CodeBlock,
+    25→  Practice,
+    26→  Takeaways,
+    27→  KV,
+    28→  Pill,
+    29→  StepsFlow,
+    30→} from "./ui";
+    31→
+    32→/* ============================================================
+    33→   Virtual modules & hidden setups for the LIVE Python runner.
+    34→   Import demos get `files` (real .py modules written into the
+    35→   runtime), illustration snippets get `pre` (hidden definitions
+    36→   from the previous step) so every Run produces the real output.
+    37→   ============================================================ */
+    38→const DOG_PRE = `class Dog():
+    39→    """A simple attempt to model a dog."""
+    40→    def __init__(self, name, age):
+    41→        self.name = name
+    42→        self.age = age
+    43→
+    44→    def sit(self):
+    45→        print(self.name.title() + " is now sitting.")
+    46→
+    47→    def roll_over(self):
+    48→        print(self.name.title() + " rolled over!")`;
+    49→
+    50→const CAR_MODULE = `class Car():
+    51→    def __init__(self, make, model, year):
+    52→        self.make = make
+    53→        self.model = model
+    54→        self.year = year
+    55→        self.odometer_reading = 0
+    56→
+    57→    def get_descriptive_name(self):
+    58→        long_name = str(self.year) + ' ' + self.make + ' ' + self.model
+    59→        return long_name.title()
+    60→
+    61→    def read_odometer(self):
+    62→        print("This car has " + str(self.odometer_reading) + " miles on it.")
+    63→
+    64→    def update_odometer(self, mileage):
+    65→        if mileage >= self.odometer_reading:
+    66→            self.odometer_reading = mileage
+    67→        else:
+    68→            print("You can't roll back an odometer!")
+    69→
+    70→    def increment_odometer(self, miles):
+    71→        self.odometer_reading += miles`;
+    72→
+    73→const BATTERY_PRE = `class Battery():
+    74→    def __init__(self, battery_size=70):
+    75→        self.battery_size = battery_size
+    76→
+    77→    def describe_battery(self):
+    78→        print("This car has a " + str(self.battery_size) + "-kWh battery.")
+    79→
+    80→    def get_range(self):
+    81→        if self.battery_size == 70:
+    82→            range = 240
+    83→        elif self.battery_size == 85:
+    84→            range = 270
+    85→        message = "This car can go approximately " + str(range)
+    86→        message += " miles on a full charge."
+    87→        print(message)`;
+    88→
+    89→const COMPOSE_PRE = CAR_MODULE + "\n\n" + BATTERY_PRE;
+    90→
+    91→const CAR_TRIO_MODULE =
+    92→  CAR_MODULE +
+    93→  "\n\n" +
+    94→  BATTERY_PRE +
+    95→  `
+    96→
+    97→class ElectricCar(Car):
+    98→    """Represent aspects of a car, specific to electric vehicles."""
+    99→    def __init__(self, make, model, year):
+   100→        super().__init__(make, model, year)
+   101→        self.battery = Battery()`;
+   102→
+   103→const ELECTRIC_CAR_MODULE =
+   104→  "from car import Car  # ElectricCar needs its parent\n\n" +
+   105→  BATTERY_PRE +
+   106→  `
+   107→
+   108→class ElectricCar(Car):
+   109→    """Represent aspects of a car, specific to electric vehicles."""
+   110→    def __init__(self, make, model, year):
+   111→        super().__init__(make, model, year)
+   112→        self.battery = Battery()`;
+   113→
+   114→/* ============================================================
+   115→   DogInstantiator — class → independent instances
+   116→   ============================================================ */
+   117→type DogInst = { varName: string; name: string; age: number };
+   118→
+   119→function DogInstantiator() {
+   120→  const [dogs, setDogs] = useState<DogInst[]>([]);
+   121→  const actions: { label: string; d: DogInst }[] = [
+   122→    { label: "my_dog  = Dog('willie', 6)", d: { varName: "my_dog", name: "willie", age: 6 } },
+   123→    { label: "your_dog = Dog('lucy', 3)", d: { varName: "your_dog", name: "lucy", age: 3 } },
+   124→    { label: "t_dog   = Dog('willie', 6)  ← same values!", d: { varName: "t_dog", name: "willie", age: 6 } },
+   125→  ];
+   126→
+   127→  return (
+   128→    <div className="card-warm overflow-hidden p-6 md:p-8">
+   129→      <div className="flex items-center gap-2">
+   130→        <MousePointerClick className="h-5 w-5" style={{ color: "#c2410c" }} />
+   131→        <h3 className="text-lg font-bold">
+   132→          Try it: one blueprint, <span className="grad-text">independent instances</span>
+   133→        </h3>
+   134→      </div>
+   135→      <p className="mt-1 text-[.88rem] text-muted-warm">
+   136→        Each call to Dog() runs __init__() and returns a brand-new object. Watch the third dog: same name, same age
+   137→        — still a completely separate instance.
+   138→      </p>
+   139→
+   140→      <div className="mt-4 flex flex-wrap gap-2">
+   141→        {actions.map((a) => (
+   142→          <button
+   143→            key={a.d.varName}
+   144→            onClick={() => setDogs((ds) => (ds.length >= 4 ? ds : [...ds, a.d]))}
+   145→            className="rounded-full px-4 py-1.5 font-mono text-[.76rem] font-bold text-white shadow-sm transition-transform duration-150 hover:scale-[1.03]"
+   146→            style={{ background: "linear-gradient(135deg,#ea580c,#c2410c)" }}
+   147→          >
+   148→            {a.label}
+   149→          </button>
+   150→        ))}
+   151→        <button
+   152→          onClick={() => setDogs([])}
+   153→          className="flex items-center gap-1.5 rounded-full border border-[#ecd9bd] px-3 py-1.5 text-[.78rem] font-bold text-[#8a6a44] transition-colors hover:border-[#e0a45e]"
+   154→        >
+   155→          <RotateCcw className="h-3.5 w-3.5" /> reset
+   156→        </button>
+   157→      </div>
+   158→
+   159→      <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+   160→        {dogs.length === 0 ? (
+   161→          <p className="col-span-full rounded-xl border border-dashed border-[#e4d3b4] bg-[#fffaf1] px-4 py-6 text-center text-[.84rem] text-muted-warm">
+   162→            No instances yet — the blueprint exists, but no dogs have been made. Click a call above.
+   163→          </p>
+   164→        ) : (
+   165→          dogs.map((d, i) => (
+   166→            <div
+   167→              key={d.varName + i}
+   168→              className="anim-pop rounded-2xl border border-[#ecd9bd] bg-gradient-to-b from-[#fffaf1] to-[#fdeed6] p-4"
+   169→              style={{ animationDelay: `${i * 0.1}s` }}
+   170→            >
+   171→              <p className="font-mono text-[.72rem] font-bold text-[#b45309]">{d.varName}</p>
+   172→              <div className="mt-1 flex items-center gap-2">
+   173→                <Dog className="h-5 w-5" style={{ color: "#c2410c" }} />
+   174→                <p className="font-mono text-[.82rem] font-bold text-[#3e2c1d]">
+   175→                  name='{d.name}' · age={d.age}
+   176→                </p>
+   177→              </div>
+   178→              <p className="mt-2 font-mono text-[.72rem] leading-relaxed text-[#6f5438]">
+   179→                {d.varName}.sit() →<br />
+   180→                <span className="text-[#2b2014]">{d.name.charAt(0).toUpperCase() + d.name.slice(1)} is now sitting.</span>
+   181→              </p>
+   182→            </div>
+   183→          ))
+   184→        )}
+   185→      </div>
+   186→    </div>
+   187→  );
+   188→}
+   189→
+   190→/* ============================================================
+   191→   OdometerLab — modify attributes three ways
+   192→   ============================================================ */
+   193→function OdometerLab() {
+   194→  const [reading, setReading] = useState(0);
+   195→  const [log, setLog] = useState<string[]>(["__init__() → odometer_reading = 0"]);
+   196→
+   197→  const push = (msg: string) => setLog((l) => [msg, ...l].slice(0, 5));
+   198→
+   199→  const direct = () => {
+   200→    setReading(23);
+   201→    push("my_new_car.odometer_reading = 23   → read_odometer(): 'This car has 23 miles on it.'");
+   202→  };
+   203→  const update = (v: number) => {
+   204→    if (v >= reading) {
+   205→      setReading(v);
+   206→      push(`update_odometer(${v}) → mileage >= reading → set → 'This car has ${v} miles on it.'`);
+   207→    } else {
+   208→      push(`update_odometer(${v}) → ⚠ "You can't roll back an odometer!"`);
+   209→    }
+   210→  };
+   211→  const increment = (m: number) => {
+   212→    setReading((r) => r + m);
+   213→    push(`increment_odometer(${m}) → reading += ${m} → now ${reading + m} miles`);
+   214→  };
+   215→
+   216→  const rejected = log[0]?.includes("roll back");
+   217→
+   218→  return (
+   219→    <div className="card-warm overflow-hidden p-6 md:p-8">
+   220→      <div className="flex items-center gap-2">
+   221→        <Gauge className="h-5 w-5" style={{ color: "#c2410c" }} />
+   222→        <h3 className="text-lg font-bold">
+   223→          Try it: three ways to change <span className="grad-text">odometer_reading</span>
+   224→        </h3>
+   225→      </div>
+   226→
+   227→      <div className="mt-5 grid gap-5 lg:grid-cols-5">
+   228→        {/* dashboard */}
+   229→        <div className="lg:col-span-2">
+   230→          <div className="rounded-2xl border border-[#4a3020] bg-gradient-to-b from-[#332214] to-[#2b1b10] p-5 text-center">
+   231→            <p className="text-[.62rem] font-bold uppercase tracking-[.22em] text-[#b98d5f]">
+   232→              my_new_car · read_odometer()
+   233→            </p>
+   234→            <p
+   235→              key={reading + (rejected ? "-r" : "")}
+   236→              className={`anim-pop mt-2 font-mono text-4xl font-black ${rejected ? "anim-shake" : ""}`}
+   237→              style={{ color: rejected ? "#e4674a" : "#ffd28a" }}
+   238→            >
+   239→              {reading}
+   240→            </p>
+   241→            <p className="mt-1 font-mono text-[.72rem] text-[#8c2f2f]">miles</p>
+   242→          </div>
+   243→          <div className="mt-3 h-32 overflow-y-auto rounded-xl border border-[#f3e2c8] bg-[#fffaf1] p-3 font-mono text-[.68rem] leading-relaxed text-[#2b2014]">
+   244→            {log.map((l, i) => (
+   245→              <p key={i} className={`border-b border-[#f3e2c8] py-1 last:border-0 ${i === 0 ? "anim-pop font-semibold text-[#b45309]" : "opacity-70"}`}>
+   246→                {l}
+   247→              </p>
+   248→            ))}
+   249→          </div>
+   250→        </div>
+   251→
+   252→        {/* controls */}
+   253→        <div className="grid content-start gap-2.5 lg:col-span-3">
+   254→          {[
+   255→            {
+   256→              label: "1 · Directly:  my_new_car.odometer_reading = 23",
+   257→              hint: "dot notation reaches the attribute and sets it — quick, but no safety net",
+   258→              fn: direct,
+   259→            },
+   260→            {
+   261→              label: "2 · Method:  update_odometer(42)",
+   262→              hint: "sets the value through the car's own logic",
+   263→              fn: () => update(42),
+   264→            },
+   265→            {
+   266→              label: "3 · Try rollback:  update_odometer(18)",
+   267→              hint: "mileage < reading → the method refuses",
+   268→              fn: () => update(18),
+   269→            },
+   270→            {
+   271→              label: "4 · Increment:  increment_odometer(100)",
+   272→              hint: "adds miles to the current reading — the used-car move",
+   273→              fn: () => increment(100),
+   274→            },
+   275→          ].map((b) => (
+   276→            <button
+   277→              key={b.label}
+   278→              onClick={b.fn}
+   279→              className="group rounded-xl border border-[#ecd9bd] bg-[#fffaf1] px-4 py-2.5 text-left transition-all duration-200 hover:border-[#e0a45e] hover:shadow-md"
+   280→            >
+   281→              <p className="font-mono text-[.78rem] font-bold text-[#b45309]">{b.label}</p>
+   282→              <p className="text-[.74rem] text-muted-warm">{b.hint}</p>
+   283→            </button>
+   284→          ))}
+   285→          <button
+   286→            onClick={() => {
+   287→              setReading(0);
+   288→              push("fresh instance → __init__() resets odometer_reading to 0");
+   289→            }}
+   290→            className="flex items-center justify-center gap-1.5 rounded-xl border border-[#ecd9bd] px-3 py-2 text-[.78rem] font-bold text-[#8a6a44] transition-colors hover:border-[#e0a45e]"
+   291→          >
+   292→            <RotateCcw className="h-3.5 w-3.5" /> buy a new car (reset to 0)
+   293→          </button>
+   294→        </div>
+   295→      </div>
+   296→    </div>
+   297→  );
+   298→}
+   299→
+   300→/* ============================================================
+   301→   PART 10 — CLASSES (object-oriented programming)
+   302→   ============================================================ */
+   303→export function ClassesSection() {
+   304→  return (
+   305→    <Section id="classes">
+   306→      <SectionHead
+   307→        eyebrow="Python · classes · object-oriented programming"
+   308→        title={
+   309→          <>
+   310→            Classes — <span className="grad-text">blueprints for objects</span>
+   311→          </>
+   312→        }
+   313→        lead="You've used dictionaries and lists to hold information — now you'll design your own. A class defines what a thing is and what it can do; every object made from it is an instance with its own data. This is object-oriented programming, and it scales from pet dogs to real software."
+   314→      />
+   315→
+   316→      {/* 1 — Dog class */}
+   317→      <Reveal>
+   318→        <div className="card-warm p-6 md:p-8">
+   319→          <div className="flex items-center gap-3">
+   320→            <Dog className="h-6 w-6" style={{ color: "#c2410c" }} />
+   321→            <h3 className="text-2xl font-bold">Creating and using a class — Dog</h3>
+   322→          </div>
+   323→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
+   324→            Write a class representing <em>any</em> dog — not one dog in particular. What do we know about most pet
+   325→            dogs? They all have a <strong>name</strong> and an <strong>age</strong>, and most dogs{" "}
+   326→            <strong>sit</strong> and <strong>roll over</strong>. Those two pieces of information (data) and two
+   327→            behaviors (methods) go in the class because they're common to most dogs. The class tells Python how to
+   328→            make an object representing a dog.
+   329→          </p>
+   330→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   331→            <CodeBlock
+   332→              title="dog.py — 1. THE CLASS (Blueprint)"
+   333→              code={`class Dog():
+   334→    """A simple attempt to model a dog."""
+   335→
+   336→    def __init__(self, name, age):  # Initializing values
+   337→        """Initialize name and age attributes."""
+   338→        self.name = name
+   339→        self.age = age
+   340→        # __init__() has no explicit return — Python
+   341→        # automatically returns an instance representing this dog.
+   342→
+   343→    def sit(self):
+   344→        """Simulate a dog sitting in response to a command."""
+   345→        print(self.name.title() + " is now sitting.")
+   346→
+   347→    def roll_over(self):
+   348→        """Simulate rolling over in response to a command."""
+   349→        print(self.name.title() + " rolled over!")`}
+   350→            />
+   351→            <div className="grid content-start gap-3">
+   352→              <KV k="convention" v="By convention, capitalized names refer to classes in Python — Dog, not dog." />
+   353→              <KV k="empty ( )" v="The parentheses in the class definition are empty because we're creating this class from scratch. The docstring describes what the class does." />
+   354→              <KV k="__init__()" v="A special method Python runs automatically whenever we create a new instance. Two leading + two trailing underscores prevent conflicts with your own method names." />
+   355→              <KV k="method" v="A function that's part of a class. Everything you know about functions applies — the only difference (for now) is how we call them." />
+   356→              <KV k="self" v="Required in the method definition, first in the parameter list. Python passes it automatically — a reference to the instance itself, giving it access to the class's attributes and methods." />
+   357→              <KV k="attributes" v="Variables prefixed with self (self.name, self.age) are available to every method in the class and accessible through any instance. self.name = name attaches the value to the instance being created." />
+   358→            </div>
+   359→          </div>
+   360→          <Callout kind="story" title="Scale it up">
+   361→            If this class were part of a computer game, sit() and roll_over() would contain code to{" "}
+   362→            <strong>animate</strong> a dog. If it controlled a robot, they would <strong>direct movements</strong>{" "}
+   363→            that make a dog-robot sit and roll over. Same structure — bigger consequences.
+   364→          </Callout>
+   365→        </div>
+   366→      </Reveal>
+   367→
+   368→      {/* 2 — making an instance */}
+   369→      <Reveal className="mt-8">
+   370→        <div className="card-warm p-6 md:p-8">
+   371→          <h3 className="text-2xl font-bold">
+   372→            Making an instance — <span className="grad-text">instantiation</span>
+   373→          </h3>
+   374→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
+   375→            A class defines the structure and behavior (the <strong>template</strong>); an instance is the physical
+   376→            object holding data in <strong>memory</strong>. Creating one from a class is called{" "}
+   377→            <strong>instantiation</strong>.
+   378→          </p>
+   379→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   380→            <CodeBlock
+   381→              title="dog.py — 2. THE INSTANCES (Objects)"
+   382→              pre={DOG_PRE}
+   383→              code={`my_dog = Dog('willie', 6)
+   384→# Python reads this line → calls __init__() in Dog
+   385→# with arguments 'willie' and 6 → sets name and age
+   386→# → automatically RETURNS an instance → stored in my_dog
+   387→
+   388→# Accessing instance attributes
+   389→print("My dog's name is " + my_dog.name.title() + ".")
+   390→print("My dog is " + str(my_dog.age) + " years old. \\n")
+   391→
+   392→# Calling instance methods
+   393→my_dog.sit()
+   394→my_dog.roll_over()`}
+   395→              output={"My dog's name is Willie.\nMy dog is 6 years old.\n\nWillie is now sitting.\nWillie rolled over!"}
+   396→              note="Dot notation reaches attributes (my_dog.name) and calls methods (my_dog.sit())."
+   397→            />
+   398→            <div className="grid content-start gap-3">
+   399→              <div className="rounded-2xl border border-[#f3e2c8] bg-[#fffaf1] p-5">
+   400→                <p className="text-[.72rem] font-extrabold uppercase tracking-[.18em] text-[#8a5a10]">
+   401→                  the naming dance
+   402→                </p>
+   403→                <p className="mt-2 text-[.88rem] leading-relaxed text-[#2b2014]">
+   404→                  The <strong>parameter</strong> is <code className="font-mono text-[.8rem]">name</code>, the{" "}
+   405→                  <strong>attribute</strong> is <code className="font-mono text-[.8rem]">self.name</code>, and the{" "}
+   406→                  <strong>argument</strong> you pass is <code className="font-mono text-[.8rem]">'willie'</code>.
+   407→                  When you call <code className="font-mono text-[.8rem]">Dog()</code>, you provide values only for
+   408→                  name and age — self arrives automatically.
+   409→                </p>
+   410→              </div>
+   411→              <Callout kind="insight" title="Why __init__ needs no return">
+   412→                __init__() has no explicit return statement, but Python <strong>automatically returns an
+   413→                instance</strong> representing this dog — that's what lands in my_dog.
+   414→              </Callout>
+   415→            </div>
+   416→          </div>
+   417→        </div>
+   418→      </Reveal>
+   419→
+   420→      {/* 3 — dog instantiator */}
+   421→      <Reveal className="mt-8">
+   422→        <DogInstantiator />
+   423→      </Reveal>
+   424→
+   425→      {/* 4 — multiple instances */}
+   426→      <Reveal className="mt-8">
+   427→        <div className="card-warm p-6 md:p-8">
+   428→          <h3 className="text-2xl font-bold">Creating multiple instances</h3>
+   429→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   430→            <CodeBlock
+   431→              title="dogs.py — three dogs, one class"
+   432→              pre={DOG_PRE}
+   433→              code={`my_dog = Dog('willie', 6)
+   434→your_dog = Dog('lucy', 3)
+   435→t_dog = Dog('willie', 6)   # same values as my_dog!
+   436→
+   437→print("My dog's name is " + my_dog.name.title() + ".")
+   438→print("My dog is " + str(my_dog.age) + " years old.")
+   439→my_dog.sit()
+   440→
+   441→print("\\nYour dog's name is " + your_dog.name.title() + ".")
+   442→print("Your dog is " + str(your_dog.age) + " years old.")
+   443→your_dog.sit()
+   444→your_dog.roll_over()
+   445→
+   446→t_dog.sit()`}
+   447→              output={"My dog's name is Willie.\nMy dog is 6 years old.\nWillie is now sitting.\n\nYour dog's name is Lucy.\nYour dog is 3 years old.\nLucy is now sitting.\nLucy rolled over!\nWillie is now sitting."}
+   448→            />
+   449→            <div className="grid content-start gap-3">
+   450→              <Callout kind="insight" title="Separate lives">
+   451→                Even if we used the <strong>same name and age</strong> for the second dog, Python would still create
+   452→                a <strong>separate instance</strong>. We can make as many instances as we need — as long as each has
+   453→                a unique variable name, or occupies a unique spot in a list or dictionary.
+   454→              </Callout>
+   455→              <div className="rounded-xl border border-[#f3e2c8] bg-[#fffaf1] px-4 py-3 text-[.86rem] leading-relaxed text-[#2b2014]">
+   456→                <strong>my_dog.sit()</strong> prints Willie sitting; <strong>your_dog.sit()</strong> prints Lucy
+   457→                sitting. Each instance carries its own attributes — methods read <em>that instance's</em>{" "}
+   458→                <code className="font-mono text-[.8rem]">self</code>.
+   459→              </div>
+   460→            </div>
+   461→          </div>
+   462→        </div>
+   463→      </Reveal>
+   464→
+   465→      {/* 5 — Car class */}
+   466→      <Reveal className="mt-8">
+   467→        <div className="card-warm p-6 md:p-8">
+   468→          <div className="flex items-center gap-3">
+   469→            <Car className="h-6 w-6" style={{ color: "#c2410c" }} />
+   470→            <h3 className="text-2xl font-bold">Working with classes and instances — Car</h3>
+   471→          </div>
+   472→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
+   473→            A class storing the kind of car we're working with, plus a method that summarizes it.
+   474→          </p>
+   475→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   476→            <CodeBlock
+   477→              title="car.py — __init__ + get_descriptive_name()"
+   478→              code={`class Car():
+   479→    """A simple attempt to represent a car."""
+   480→    def __init__(self, make, model, year):
+   481→        """Initialize attributes to describe a car."""
+   482→        self.make = make
+   483→        self.model = model
+   484→        self.year = year
+   485→
+   486→    def get_descriptive_name(self):
+   487→        """Return a neatly formatted descriptive name."""
+   488→        long_name = str(self.year) + ' ' + self.make + ' ' + self.model
+   489→        return long_name.title()
+   490→
+   491→my_new_car = Car('audi', 'a4', 2016) # creating an instance
+   492→print(my_new_car.get_descriptive_name())`}
+   493→              output={"2016 Audi A4"}
+   494→              note="__init__() takes self first, then make, model, year — and stores each in attributes. get_descriptive_name() combines them via self.make, self.model, self.year so we never print attributes one by one."
+   495→            />
+   496→            <div className="grid content-start gap-4">
+   497→              <CodeBlock
+   498→                title="car.py — a default value + read_odometer()"
+   499→                code={`class Car():
+   500→    def __init__(self, make, model, year):
+   501→        """Initialize attributes to describe a car."""
+   502→        self.make = make
+   503→        self.model = model
+   504→        self.year = year
+   505→        self.odometer_reading = 0   # default, not a parameter
+   506→
+   507→    def read_odometer(self):
+   508→        """Print a statement showing the car's mileage."""
+   509→        print("This car has " + str(self.odometer_reading) + " miles on it.")
+   510→
+   511→my_new_car = Car('audi', 'a4', 2016)
+   512→print(my_new_car.get_descriptive_name() + '\\n')
+   513→my_new_car.read_odometer()`}
+   514→                output={"2016 Audi A4\n\nThis car has 0 miles on it."}
+   515→              />
+   516→              <Callout kind="why" title="Every attribute needs an initial value">
+   517→                Every attribute in a class needs an initial value — even 0 or an empty string. Set it directly in{" "}
+   518→                <strong>__init__()'s body</strong> and you don't need a parameter for it: every new car starts at 0
+   519→                miles.
+   520→              </Callout>
+   521→            </div>
+   522→          </div>
+   523→        </div>
+   524→      </Reveal>
+   525→
+   526→      {/* 6 — odometer lab */}
+   527→      <Reveal className="mt-8">
+   528→        <OdometerLab />
+   529→      </Reveal>
+   530→
+   531→      {/* 7 — three ways code */}
+   532→      <Reveal className="mt-8">
+   533→        <div className="card-warm p-6 md:p-8">
+   534→          <h3 className="text-2xl font-bold">The three ways, in code</h3>
+   535→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   536→            <CodeBlock
+   537→              title="car.py — update_odometer with rollback protection"
+   538→              pre={CAR_MODULE}
+   539→              code={`def update_odometer(self, mileage):
+   540→    """
+   541→    Set the odometer reading to the given value.
+   542→    Reject the change if it attempts to roll the odometer back.
+   543→    """
+   544→    if mileage >= self.odometer_reading:
+   545→        self.odometer_reading = mileage
+   546→    else:
+   547→        print("You can't roll back an odometer!")
+   548→
+   549→# --- driving it ---
+   550→my_new_car1 = Car('audi', 'a4', 2016)
+   551→my_new_car1.update_odometer(20)   # set to 20
+   552→my_new_car1.read_odometer()
+   553→
+   554→my_new_car1.update_odometer(18)   # 18 < 20 → rejected!
+   555→my_new_car1.read_odometer()
+   556→
+   557→my_new_car1.update_odometer(25)   # 25 >= 20 → accepted
+   558→my_new_car1.read_odometer()`}
+   559→              output={"This car has 20 miles on it.\nYou can't roll back an odometer!\nThis car has 20 miles on it.\nThis car has 25 miles on it."}
+   560→              note="Now update_odometer() checks that the new reading makes sense before modifying the attribute — a method can guard its own data."
+   561→            />
+   562→            <CodeBlock
+   563→              title="car.py — increment_odometer"
+   564→              pre={CAR_MODULE}
+   565→              code={`def increment_odometer(self, miles):
+   566→    """Add the given amount to the odometer reading."""
+   567→    self.odometer_reading += miles
+   568→
+   569→# --- the used-car story ---
+   570→my_used_car = Car('subaru', 'outback', 2013)
+   571→print(my_used_car.get_descriptive_name())
+   572→
+   573→my_used_car.update_odometer(23500)
+   574→my_used_car.read_odometer()
+   575→
+   576→# We buy it and put 100 miles on it
+   577→# between buying and registering:
+   578→my_used_car.increment_odometer(100)
+   579→my_used_car.read_odometer()`}
+   580→              output={"2013 Subaru Outback\nThis car has 23500 miles on it.\nThis car has 23600 miles on it."}
+   581→              note="Increment rather than set — add a certain amount to the existing value instead of replacing it."
+   582→            />
+   583→          </div>
+   584→        </div>
+   585→      </Reveal>
+   586→
+   587→      {/* 8 — inheritance */}
+   588→      <Reveal className="mt-8">
+   589→        <div className="card-warm p-6 md:p-8">
+   590→          <div className="flex items-center gap-3">
+   591→            <GitFork className="h-6 w-6" style={{ color: "#c2410c" }} />
+   592→            <h3 className="text-2xl font-bold">
+   593→              Inheritance — <span className="grad-text">child classes</span>
+   594→            </h3>
+   595→          </div>
+   596→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
+   597→            You don't always have to start from scratch. If the class you're writing is a specialized version of
+   598→            another, use <strong>inheritance</strong>: the new class automatically takes on all attributes and
+   599→            methods of the original. The original is the <strong>parent class</strong>; the new one is the{" "}
+   600→            <strong>child class</strong> — it inherits everything and is free to add its own attributes and methods.
+   601→          </p>
+   602→
+   603→          {/* diagram */}
+   604→          <div className="mt-6 grid items-center gap-3 md:grid-cols-[1fr_auto_1fr]">
+   605→            <div className="rounded-2xl border-2 border-[#e8cfa5] bg-gradient-to-b from-[#fffaf1] to-[#fdeed6] p-5 text-center">
+   606→              <Car className="mx-auto h-7 w-7" style={{ color: "#b45309" }} />
+   607→              <p className="mt-1 font-mono text-[.9rem] font-black text-[#3e2c1d]">Car</p>
+   608→              <p className="text-[.7rem] font-bold uppercase tracking-widest text-[#8a5a10]">parent / superclass</p>
+   609→              <p className="mt-2 text-[.78rem] leading-relaxed text-muted-warm">make · model · year<br />get_descriptive_name()</p>
+   610→            </div>
+   611→            <svg viewBox="0 0 60 24" className="mx-auto h-6 w-14 md:h-8 md:w-20" aria-hidden>
+   612→              <path d="M2 12 H50" className="flow-arrow-line" stroke="#c2410c" strokeWidth="2.5" fill="none" />
+   613→              <path d="M46 5 L56 12 L46 19" stroke="#c2410c" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+   614→            </svg>
+   615→            <div className="rounded-2xl border-2 border-[#e8cfa5] bg-gradient-to-b from-[#fdeed6] to-[#fbd9a8] p-5 text-center">
+   616→              <Boxes className="mx-auto h-7 w-7" style={{ color: "#c2410c" }} />
+   617→              <p className="mt-1 font-mono text-[.9rem] font-black text-[#3e2c1d]">ElectricCar(Car)</p>
+   618→              <p className="text-[.7rem] font-bold uppercase tracking-widest text-[#8a5a10]">child / subclass</p>
+   619→              <p className="mt-2 text-[.78rem] leading-relaxed text-muted-warm">inherits everything<br />+ battery-specific code</p>
+   620→            </div>
+   621→          </div>
+   622→
+   623→          <div className="mt-6 grid gap-5 lg:grid-cols-2">
+   624→            <CodeBlock
+   625→              title="electric_car.py — the child's __init__"
+   626→              pre={CAR_MODULE}
+   627→              code={`class ElectricCar(Car):
+   628→    """Represent aspects of a car, specific to electric vehicles."""
+   629→
+   630→    def __init__(self, make, model, year):
+   631→        """Initialize attributes of the parent class."""
+   632→        super().__init__(make, model, year)
+   633→
+   634→my_tesla = ElectricCar('tesla', 'model s', 2016)
+   635→print(my_tesla.get_descriptive_name())`}
+   636→              output={"2016 Tesla Model S"}
+   637→              note="Parent class must appear before the child in the file, and its name goes in the child's parentheses. super() is the special function connecting parent and child — super().__init__(make, model, year) calls Car's __init__, giving an ElectricCar instance all parent attributes."
+   638→            />
+   639→            <div className="grid content-start gap-3">
+   640→              <Callout kind="insight" title="super = superclass">
+   641→                The name super comes from the convention of calling the parent class a{" "}
+   642→                <strong>superclass</strong> and the child a <strong>subclass</strong>.
+   643→              </Callout>
+   644→              <Callout kind="story" title="Testing the wiring">
+   645→                We test inheritance by creating an electric car with the same information a regular car needs. The
+   646→                call runs ElectricCar.__init__(), which invokes Car's __init__(). Aside from __init__(), nothing
+   647→                electric-specific exists yet — we're just confirming the Car behaviors arrived.
+   648→              </Callout>
+   649→            </div>
+   650→          </div>
+   651→        </div>
+   652→      </Reveal>
+   653→
+   654→      {/* 9 — child additions + override */}
+   655→      <Reveal className="mt-8">
+   656→        <div className="card-warm p-6 md:p-8">
+   657→          <h3 className="text-2xl font-bold">
+   658→            Child attributes, methods — and <span className="grad-text">overriding</span>
+   659→          </h3>
+   660→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   661→            <CodeBlock
+   662→              title="electric_car.py — making it electric"
+   663→              pre={CAR_MODULE}
+   664→              code={`class ElectricCar(Car):
+   665→    """Represent aspects of a car, specific to electric vehicles."""
+   666→    def __init__(self, make, model, year):
+   667→        """
+   668→        Initialize attributes of the parent class.
+   669→        Then initialize attributes specific to an electric car.
+   670→        """
+   671→        super().__init__(make, model, year)
+   672→        self.battery_size = 70        # child-only attribute
+   673→
+   674→    def describe_battery(self):        # child-only method
+   675→        """Print a statement describing the battery size."""
+   676→        print("This car has a " + str(self.battery_size) + "-kWh battery.")
+   677→
+   678→my_tesla = ElectricCar('tesla', 'model s', 2016)
+   679→print(my_tesla.get_descriptive_name())  # from Car ✓
+   680→my_tesla.describe_battery()             # from ElectricCar ✓
+   681→
+   682→my_maruti = Car('swift', 'XLI', 2018)
+   683→print(my_maruti.get_descriptive_name())
+   684→# my_maruti.describe_battery()  # ← Car has no battery! AttributeError`}
+   685→              output={"2016 Tesla Model S\nThis car has a 70-kWh battery.\n2018 Swift Xli"}
+   686→              note="battery_size belongs to every ElectricCar instance — and to no Car instance. my_maruti can't describe_battery(): plain cars don't have one."
+   687→            />
+   688→            <div className="grid content-start gap-4">
+   689→              <CodeBlock
+   690→                title="overriding fill_gas_tank()"
+   691→                runnable={false}
+   692→                code={`# In Car:
+   693→def fill_gas_tank(self):
+   694→    """Filling the gas tank of a car"""
+   695→    print("Filling the gas tank!")
+   696→
+   697→# In ElectricCar — same name, new behavior:
+   698→def fill_gas_tank(self):
+   699→    """Electric cars don't have gas tanks."""
+   700→    print("This car doesn't need a gas tank!")
+   701→
+   702→my_byd = ElectricCar('BYD', 'Seal', 2026)
+   703→my_byd.fill_gas_tank()`}
+   704→                output={"This car doesn't need a gas tank!"}
+   705→              />
+   706→              <Callout kind="insight" title="Override = same name, child wins">
+   707→                Define a method in the child with the <strong>same name</strong> as the parent's — Python
+   708→                disregards the parent version and only uses the child's. (In the notebook the override was
+   709→                commented out — so my_byd.fill_gas_tank() printed "Filling the gas tank!", the inherited behavior.
+   710→                Uncomment it and the child answers instead.) Override any parent method that doesn't fit what
+   711→                you're modeling.
+   712→              </Callout>
+   713→              <Callout kind="why" title="Where should a method live?">
+   714→                Anything that could belong to <strong>any car</strong> goes in <strong>Car</strong> — then every
+   715→                user of Car gets it, and ElectricCar holds only what's specific to electric vehicles.
+   716→              </Callout>
+   717→            </div>
+   718→          </div>
+   719→        </div>
+   720→      </Reveal>
+   721→
+   722→      {/* 10 — instances as attributes */}
+   723→      <Reveal className="mt-8">
+   724→        <div className="card-warm p-6 md:p-8">
+   725→          <div className="flex items-center gap-3">
+   726→            <BatteryCharging className="h-6 w-6" style={{ color: "#c2410c" }} />
+   727→            <h3 className="text-2xl font-bold">Instances as attributes — the Battery class</h3>
+   728→          </div>
+   729→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
+   730→            Modeling the real world, your class keeps growing — more attributes, more methods, longer files. When
+   731→            you notice a chunk of detail clustering around one part (the battery), <strong>break the large class
+   732→            into smaller classes that work together</strong>: move battery code into its own{" "}
+   733→            <strong>Battery</strong> class, then use a Battery <em>instance</em> as an attribute of ElectricCar.
+   734→          </p>
+   735→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   736→            <CodeBlock
+   737→              title="battery.py — its own class"
+   738→              code={`class Battery():
+   739→    """A simple attempt to model a battery for an electric car."""
+   740→
+   741→    def __init__(self, battery_size=70):
+   742→        """Initialize the battery's attributes."""
+   743→        self.battery_size = battery_size
+   744→
+   745→    def describe_battery(self):
+   746→        """Print a statement describing the battery size."""
+   747→        print("This car has a " + str(self.battery_size) + "-kWh battery.")
+   748→
+   749→    def get_range(self):
+   750→        """Print a statement about the range this battery provides."""
+   751→        if self.battery_size == 70:
+   752→            range = 240
+   753→        elif self.battery_size == 85:
+   754→            range = 270
+   755→        message = "This car can go approximately " + str(range)
+   756→        message += " miles on a full charge."
+   757→        print(message)`}
+   758→              note="Battery inherits from nothing — it's its own class. battery_size=70 is an optional parameter (a default again!)."
+   759→            />
+   760→            <CodeBlock
+   761→              title="electric_car.py — composition"
+   762→              pre={COMPOSE_PRE}
+   763→              code={`class ElectricCar(Car):
+   764→    """Represent aspects of a car, specific to electric vehicles."""
+   765→    def __init__(self, make, model, year):
+   766→        """
+   767→        Initialize attributes of the parent class.
+   768→        Then initialize attributes specific to an electric car.
+   769→        """
+   770→        super().__init__(make, model, year)
+   771→        self.battery = Battery(85)   # an INSTANCE as an attribute
+   772→
+   773→my_tata = ElectricCar('TATA', 'Tiago', 2026)
+   774→print(my_tata.get_descriptive_name()) # attribute of the Car class ✓
+   775→my_tata.battery.describe_battery()    # Battery instance as attribute ✓
+   776→my_tata.battery.get_range()`}
+   777→              output={"2026 Tata Tiago\nThis car has a 85-kWh battery.\nThis car can go approximately 270 miles on a full charge."}
+   778→              note="Every ElectricCar now gets a Battery instance created automatically in __init__. Reading the battery means working through the car's battery attribute — my_tata.battery.describe_battery()."
+   779→            />
+   780→          </div>
+   781→          <div className="mt-6">
+   782→            <StepsFlow
+   783→              steps={[
+   784→                { label: "my_tata", sub: "ElectricCar instance", icon: <Car className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+   785→                { label: ".battery", sub: "Battery instance stored as attribute", icon: <BatteryCharging className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+   786→                { label: ".describe_battery()", sub: "85-kWh battery", icon: <Sparkles className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+   787→                { label: ".get_range()", sub: "≈ 270 miles on a full charge", icon: <Gauge className="h-5 w-5" style={{ color: "#c2410c" }} /> },
+   788→              ]}
+   789→            />
+   790→          </div>
+   791→          <Callout kind="insight" title="Why bother?">
+   792→            Now we can describe the battery in as much detail as we want — new attributes, new methods like
+   793→            get_range() — <strong>without cluttering ElectricCar</strong>. The dotted chain reads like a sentence:
+   794→            my car's battery's range.
+   795→          </Callout>
+   796→        </div>
+   797→      </Reveal>
+   798→
+   799→      {/* 11 — importing classes */}
+   800→      <Reveal className="mt-8">
+   801→        <div className="card-warm p-6 md:p-8">
+   802→          <div className="flex items-center gap-3">
+   803→            <Network className="h-6 w-6" style={{ color: "#c2410c" }} />
+   804→            <h3 className="text-2xl font-bold">Importing classes</h3>
+   805→          </div>
+   806→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
+   807→            As functionality grows, files get long even with proper inheritance. Python lets you store classes in
+   808→            modules and import the ones you need — keeping files uncluttered, in keeping with Python's overall
+   809→            philosophy.
+   810→          </p>
+   811→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   812→            <CodeBlock
+   813→              title="car.py — a module with one class"
+   814→              code={`%%writefile car.py
+   815→
+   816→class Car():
+   817→    def __init__(self, make, model, year):
+   818→        """Initialize attributes to describe a car."""
+   819→        self.make = make
+   820→        self.model = model
+   821→        self.year = year
+   822→        self.odometer_reading = 0
+   823→
+   824→    def get_descriptive_name(self):
+   825→        long_name = str(self.year) + ' ' + self.make + ' ' + self.model
+   826→        return long_name.title()
+   827→
+   828→    def read_odometer(self):
+   829→        print("This car has " + str(self.odometer_reading) + " miles on it.")
+   830→
+   831→    def update_odometer(self, mileage):
+   832→        """
+   833→        Set the odometer reading to the given value.
+   834→        Reject the change if it attempts to roll the odometer back.
+   835→        """
+   836→        if mileage >= self.odometer_reading:
+   837→            self.odometer_reading = mileage
+   838→        else:
+   839→            print("You can't roll back an odometer!")
+   840→
+   841→    def increment_odometer(self, miles):
+   842→        """Add the given amount to the odometer reading."""
+   843→        self.odometer_reading += miles`}
+   844→              note="Importing a single class. Any program using this module takes a more specific filename, like my_car.py."
+   845→            />
+   846→            <div className="grid content-start gap-4">
+   847→              <CodeBlock
+   848→                title="my_car.py — from car import Car"
+   849→                files={{ "car.py": CAR_MODULE }}
+   850→                code={`from car import Car  # open the car module, import the class Car
+   851→
+   852→my_new_car = Car('audi', 'a4', 2016)
+   853→print(my_new_car.get_descriptive_name())
+   854→
+   855→my_new_car.odometer_reading = 23  # set directly, as usual
+   856→my_new_car.read_odometer()`}
+   857→                output={"2016 Audi A4\nThis car has 23 miles on it."}
+   858→              />
+   859→              <Callout kind="why" title="Why importing classes is effective">
+   860→                Picture how long my_car.py would be with the entire class inside. Move the class to a module,
+   861→                import it — same functionality, but the main program stays clean and readable. Once the classes
+   862→                work, leave those files alone and focus on higher-level logic.
+   863→              </Callout>
+   864→            </div>
+   865→          </div>
+   866→
+   867→          <div className="mt-6 grid gap-5 lg:grid-cols-2">
+   868→            <CodeBlock
+   869→              title="one module, many related classes"
+   870→              code={`%%writefile car.py
+   871→# Module car.py — writing three classes: Car, Battery, ElectricCar
+   872→class Car():
+   873→    ...   # (the full Car class from above)
+   874→
+   875→class Battery():
+   876→    """A simple attempt to model a battery for an electric car."""
+   877→    def __init__(self, battery_size=70):
+   878→        self.battery_size = battery_size
+   879→    def describe_battery(self):
+   880→        print("This car has a " + str(self.battery_size) + "-kWh battery.")
+   881→    def get_range(self):
+   882→        if self.battery_size == 70:
+   883→            range = 240
+   884→        elif self.battery_size == 85:
+   885→            range = 270
+   886→        message = "This car can go approximately " + str(range)
+   887→        message += " miles on a full charge."
+   888→        print(message)
+   889→
+   890→class ElectricCar(Car):
+   891→    """Represent aspects of a car, specific to electric vehicles."""
+   892→    def __init__(self, make, model, year):
+   893→        super().__init__(make, model, year)
+   894→        self.battery = Battery()`}
+   895→              note="Store as many classes as you need in a single module — each class in a module should be related in some way. Battery and ElectricCar both help represent cars, so they join Car in car.py."
+   896→            />
+   897→            <div className="grid content-start gap-4">
+   898→              <CodeBlock
+   899→                title="my_electric_car.py — import one from the trio"
+   900→                files={{ "car.py": CAR_TRIO_MODULE }}
+   901→                code={`import importlib
+   902→import car
+   903→importlib.reload(car)  # force Python to reload the updated module
+   904→
+   905→from car import ElectricCar
+   906→
+   907→my_tesla = ElectricCar('tesla', 'model s', 2016)
+   908→print(my_tesla.get_descriptive_name())
+   909→my_tesla.battery.describe_battery()
+   910→my_tesla.battery.get_range()`}
+   911→                output={"2016 Tesla Model S\nThis car has a 70-kWh battery.\nThis car can go approximately 240 miles on a full charge."}
+   912→              />
+   913→              <Callout dark kind="story" title="Notebook habit">
+   914→                After rewriting car.py in a notebook, <code className="font-mono">importlib.reload(car)</code> makes
+   915→                Python pick up the changes — a Colab-specific step the notebook runs before importing.
+   916→              </Callout>
+   917→            </div>
+   918→          </div>
+   919→        </div>
+   920→      </Reveal>
+   921→
+   922→      {/* 12 — import styles for classes */}
+   923→      <Reveal className="mt-8">
+   924→        <div className="card-warm p-6 md:p-8">
+   925→          <h3 className="text-2xl font-bold">Import styles for classes</h3>
+   926→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   927→            <CodeBlock
+   928→              title="multiple + entire module"
+   929→              files={{ "car.py": CAR_TRIO_MODULE }}
+   930→              code={`# Import multiple classes — separate with commas:
+   931→from car import Car, ElectricCar
+   932→
+   933→my_beetle = Car('volkswagen', 'beetle', 2016)
+   934→print(my_beetle.get_descriptive_name())
+   935→
+   936→my_tesla = ElectricCar('tesla', 'roadster', 2016)
+   937→print(my_tesla.get_descriptive_name())
+   938→
+   939→# Import an entire module — dot notation:
+   940→import car
+   941→
+   942→my_beetle = car.Car('volkswagen', 'beetle', 2016)
+   943→print(my_beetle.get_descriptive_name())
+   944→
+   945→my_tesla = car.ElectricCar('tesla', 'roadster', 2016)
+   946→print(my_tesla.get_descriptive_name())`}
+   947→              output={"2016 Volkswagen Beetle\n2016 Tesla Roadster\n2016 Volkswagen Beetle\n2016 Tesla Roadster"}
+   948→              note="module_name.class_name is simple, readable, and immune to naming conflicts with the current file."
+   949→            />
+   950→            <div className="grid content-start gap-4">
+   951→              <CodeBlock
+   952→                title="from car import * — not recommended"
+   953→                files={{ "car.py": CAR_MODULE }}
+   954→                code={`from car import *
+   955→
+   956→my_beetle = Car('volkswagen', 'beetle', 2016)
+   957→print(my_beetle.get_descriptive_name())`}
+   958→                output={"2016 Volkswagen Beetle"}
+   959→                note="Every class copied in — works, but read why the notebook warns against it."
+   960→              />
+   961→              <div className="rounded-2xl border border-[#ecd9bd] bg-[#fffaf1] p-4 text-[.86rem] leading-relaxed text-[#2b2014]">
+   962→                <p className="font-bold text-[#3e2c1d]">Two reasons to avoid it:</p>
+   963→                <p className="mt-2">
+   964→                  <strong>1 · Unclear inventory</strong> — reading the import statements should reveal which
+   965→                  classes a program uses; with <code className="font-mono text-[.8rem]">*</code> it's unclear what
+   966→                  you're using from the module.
+   967→                </p>
+   968→                <p className="mt-2">
+   969→                  <strong>2 · Name collisions</strong> — accidentally importing a class with the same name as
+   970→                  another in the file creates hard-to-diagnose errors.
+   971→                </p>
+   972→                <p className="mt-2">
+   973→                  You'll still see it in other people's code — know it, don't ship it. If you need many classes,
+   974→                  <strong> import the whole module and use module_name.class_name</strong>.
+   975→                </p>
+   976→              </div>
+   977→            </div>
+   978→          </div>
+   979→        </div>
+   980→      </Reveal>
+   981→
+   982→      {/* 13 — module into module */}
+   983→      <Reveal className="mt-8">
+   984→        <div className="card-warm p-6 md:p-8">
+   985→          <h3 className="text-2xl font-bold">Importing a module into a module</h3>
+   986→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
+   987→            Sometimes you'll want to spread classes across several modules — keep any one file from growing too
+   988→            large, avoid storing unrelated classes together. A class in one module may depend on a class in
+   989→            another: just import the required class <em>into</em> that module.
+   990→          </p>
+   991→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   992→            <CodeBlock
+   993→              title="car.py — only the Car class"
+   994→              code={`%%writefile car.py
+   995→
+   996→class Car():
+   997→    def __init__(self, make, model, year):
+   998→        self.make = make
+   999→        self.model = model
+  1000→        self.year = year
+  1001→        self.odometer_reading = 0
+  1002→
+  1003→    def get_descriptive_name(self):
+  1004→        long_name = str(self.year) + ' ' + self.make + ' ' + self.model
+  1005→        return long_name.title()
+  1006→
+  1007→    def read_odometer(self):
+  1008→        print("This car has " + str(self.odometer_reading) + " miles on it.")
+  1009→
+  1010→    def update_odometer(self, mileage):
+  1011→        if mileage >= self.odometer_reading:
+  1012→            self.odometer_reading = mileage
+  1013→        else:
+  1014→            print("You can't roll back an odometer!")
+  1015→
+  1016→    def increment_odometer(self, miles):
+  1017→        self.odometer_reading += miles`}
+  1018→            />
+  1019→            <CodeBlock
+  1020→              title="electric_car.py — Battery + ElectricCar"
+  1021→              code={`%%writefile electric_car.py
+  1022→
+  1023→from car import Car  # ElectricCar needs its parent — import Car INTO the module
+  1024→
+  1025→class Battery():
+  1026→    """A simple attempt to model a battery for an electric car."""
+  1027→    def __init__(self, battery_size=70):
+  1028→        self.battery_size = battery_size
+  1029→    def describe_battery(self):
+  1030→        print("This car has a " + str(self.battery_size) + "-kWh battery.")
+  1031→    def get_range(self):
+  1032→        if self.battery_size == 70:
+  1033→            range = 240
+  1034→        elif self.battery_size == 85:
+  1035→            range = 270
+  1036→        message = "This car can go approximately " + str(range)
+  1037→        message += " miles on a full charge."
+  1038→        print(message)
+  1039→
+  1040→class ElectricCar(Car):
+  1041→    """Represent aspects of a car, specific to electric vehicles."""
+  1042→    def __init__(self, make, model, year):
+  1043→        super().__init__(make, model, year)
+  1044→        self.battery = Battery()`}
+  1045→            />
+  1046→          </div>
+  1047→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+  1048→            <CodeBlock
+  1049→              title="my_cars.py — the main program"
+  1050→              files={{ "car.py": CAR_MODULE, "electric_car.py": ELECTRIC_CAR_MODULE }}
+  1051→              code={`from car import Car
+  1052→from electric_car import ElectricCar
+  1053→
+  1054→my_beetle = Car('volkswagen', 'beetle', 2016)
+  1055→print(my_beetle.get_descriptive_name())
+  1056→
+  1057→my_tesla = ElectricCar('tesla', 'roadster', 2016)
+  1058→print(my_tesla.get_descriptive_name())`}
+  1059→              output={"2016 Volkswagen Beetle\n2016 Tesla Roadster"}
+  1060→              note="The ElectricCar class needs access to its parent class Car, so we import Car directly into the electric_car module. Forget that line and Python raises an error the moment you try to make an ElectricCar instance."
+  1061→            />
+  1062→            <div className="grid content-start gap-3">
+  1063→              <div className="rounded-xl border border-[#f3e2c8] bg-[#fffaf1] px-4 py-3 text-[.86rem] leading-relaxed text-[#2b2014]">
+  1064→                <strong>module → module imports</strong> are invisible from the main program:{" "}
+  1065→                <code className="font-mono text-[.8rem]">electric_car.py</code> quietly pulls in{" "}
+  1066→                <code className="font-mono text-[.8rem]">Car</code> so that <code className="font-mono text-[.8rem]">super().__init__()</code>{" "}
+  1067→                works. Each module stays small and focused.
+  1068→              </div>
+  1069→            </div>
+  1070→          </div>
+  1071→        </div>
+  1072→      </Reveal>
+  1073→
+  1074→      {/* 14 — standard library */}
+  1075→      <Reveal className="mt-8">
+  1076→        <div className="card-warm p-6 md:p-8">
+  1077→          <div className="flex items-center gap-3">
+  1078→            <Library className="h-6 w-6" style={{ color: "#c2410c" }} />
+  1079→            <h3 className="text-2xl font-bold">The Python standard library — OrderedDict</h3>
+  1080→          </div>
+  1081→          <p className="mt-2 max-w-3xl text-[.92rem] leading-relaxed text-muted-warm">
+  1082→            The standard library is a set of modules <strong>included with every Python installation</strong>. Use
+  1083→            any function or class in it with a simple import at the top of your file. Regular dictionaries connect
+  1084→            pieces of information but don't track the order you add pairs in — the{" "}
+  1085→            <strong>OrderedDict</strong> class from the <strong>collections</strong> module keeps insertion order.
+  1086→          </p>
+  1087→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+  1088→            <CodeBlock
+  1089→              title="poll.py — remember the voting order"
+  1090→              code={`from collections import OrderedDict
+  1091→
+  1092→favorite_languages = OrderedDict() # making an instance of the class
+  1093→
+  1094→favorite_languages['jen'] = 'python'
+  1095→favorite_languages['sarah'] = 'c'
+  1096→favorite_languages['edward'] = 'ruby'
+  1097→favorite_languages['phil'] = 'python'
+  1098→
+  1099→for name, language in favorite_languages.items():
+  1100→    print(name.title() + "'s favorite language is " +
+  1101→        language.title() + ".")`}
+  1102→              output={"Jen's favorite language is Python.\nSarah's favorite language is C.\nEdward's favorite language is Ruby.\nPhil's favorite language is Python."}
+  1103→              note="Notice there are no curly brackets — OrderedDict() creates the empty ordered dictionary for us. Add pairs one at a time; the loop always returns responses in the order they were added."
+  1104→            />
+  1105→            <div className="grid content-start gap-3">
+  1106→              <KV k="what it is" v="A set of modules included with every Python installation — free superpowers, one import away." />
+  1107→              <KV k="OrderedDict()" v="Behaves almost exactly like a dictionary, except it keeps track of the order in which key-value pairs are added — here, the order people answered the poll." />
+  1108→              <Callout kind="insight" title="The pattern repeats">
+  1109→                You already know this move: <strong>import a class, make an instance, use it</strong> — the exact
+  1110→                flow you learned with Dog and Car now applies to classes other programmers wrote. That's the whole
+  1111→                point of OOP.
+  1112→              </Callout>
+  1113→            </div>
+  1114→          </div>
+  1115→        </div>
+  1116→      </Reveal>
+  1117→
+  1118→      {/* quiz */}
+  1119→      <Reveal className="mt-10">
+  1120→        <div className="grid gap-4 md:grid-cols-2">
+  1121→          <Quiz
+  1122→            q="What exactly does super().__init__(make, model, year) do inside ElectricCar.__init__()?"
+  1123→            options={[
+  1124→              "Creates a second, independent Car instance",
+  1125→              "Calls the parent Car's __init__() so the child instance receives all parent attributes",
+  1126→              "Renames the ElectricCar class to Car",
+  1127→              "Copies the Car class source code into ElectricCar",
+  1128→            ]}
+  1129→            answer={1}
+  1130→            explain="Python's first task with a child instance is assigning the parent's attributes — super().__init__() delegates that to Car. super() = superclass (parent), and it must be called before adding child-specific attributes."
+  1131→            source="Classes · inheritance"
+  1132→          />
+  1133→          <Quiz
+  1134→            q="my_maruti = Car('swift', 'XLI', 2018) — what happens with my_maruti.describe_battery()?"
+  1135→            options={[
+  1136→              "It prints 'This car has a 70-kWh battery.' — all cars have batteries",
+  1137→              "It prints nothing — Car has a silent battery attribute",
+  1138→              "AttributeError — describe_battery() is defined on ElectricCar, and Car instances don't have it",
+  1139→              "It works only if my_maruti is electric",
+  1140→            ]}
+  1141→            answer={2}
+  1142→            explain="battery_size and describe_battery() belong to the child class only — they're associated with ElectricCar instances, never with plain Car instances. (And over in the Battery composition version, it's my_tesla.battery.describe_battery() — through the battery attribute.)"
+  1143→            source="Classes · child attributes"
+  1144→          />
+  1145→        </div>
+  1146→      </Reveal>
+  1147→
+  1148→      {/* practice */}
+  1149→      <Reveal className="mt-8">
+  1150→        <Practice
+  1151→          title="Practice — think in objects"
+  1152→          items={[
+  1153→            {
+  1154→              q: <>Build <code className="font-mono">Dog</code> exactly as shown (name, age, sit, roll_over), then create <code className="font-mono">my_dog</code>, <code className="font-mono">your_dog</code>, and a third dog with <em>identical</em> values to your first. Prove they're separate.</>,
+  1155→              hint: "Change one dog's attribute; the other is untouched.",
+  1156→            },
+  1157→            {
+  1158→              q: <>Add <code className="font-mono">odometer_reading = 0</code> to Car's __init__ body — why is there no <code className="font-mono">odometer</code> parameter?</>,
+  1159→              hint: "Defaults live in the body; every instance starts at 0.",
+  1160→            },
+  1161→            {
+  1162→              q: <>Set <code className="font-mono">my_new_car.odometer_reading = 23</code> directly, then replicate the result using <code className="font-mono">update_odometer()</code>. Which way lets you add a safety check?</>,
+  1163→              hint: "Only the method can inspect and reject a rollback.",
+  1164→            },
+  1165→            {
+  1166→              q: <>Roll a reading of 20 back to 18 and read the message. Then increment from 23,500 by 100 like the used Subaru.</>,
+  1167→              hint: "mileage >= reading → accept; else refuse.",
+  1168→            },
+  1169→            {
+  1170→              q: <>Write <code className="font-mono">ElectricCar(Car)</code> with <code className="font-mono">super().__init__(make, model, year)</code>, then add <code className="font-mono">battery_size = 70</code> and <code className="font-mono">describe_battery()</code>. Why does <code className="font-mono">my_maruti.describe_battery()</code> crash?</>,
+  1171→              hint: "Child-only members don't exist on parent instances.",
+  1172→            },
+  1173→            {
+  1174→              q: <>Override <code className="font-mono">fill_gas_tank()</code> in ElectricCar. Before the override, what did my_byd.fill_gas_tank() print — and why?</>,
+  1175→              hint: "Same name in the child → Python disregards the parent's version.",
+  1176→            },
+  1177→            {
+  1178→              q: <>Extract Battery into its own class (default size 70), give it <code className="font-mono">get_range()</code> (70→240 mi, 85→270 mi), and store <code className="font-mono">self.battery = Battery(85)</code> in ElectricCar. Print the TATA Tiago's name, battery, and range.</>,
+  1179→              hint: "Chain the dots: my_tata.battery.get_range().",
+  1180→            },
+  1181→            {
+  1182→              q: <>Split Car into <code className="font-mono">car.py</code> and Battery+ElectricCar into <code className="font-mono">electric_car.py</code>. Which import line does electric_car.py need, and what breaks without it?</>,
+  1183→              hint: "from car import Car — super() needs the parent.",
+  1184→            },
+  1185→            {
+  1186→              q: <>Use <code className="font-mono">OrderedDict()</code> to record the favorite-languages poll, then loop it. What guarantees the output order?</>,
+  1187→              hint: "OrderedDict remembers insertion order; plain dicts don't promise it here.",
+  1188→            },
+  1189→          ]}
+  1190→        />
+  1191→      </Reveal>
+  1192→
+  1193→      {/* takeaways */}
+  1194→      <Reveal className="mt-8">
+  1195→        <div style={{ display: "flex", alignItems: "center", gap: ".5rem", marginBottom: "1rem" }}>
+  1196→          <Sparkles className="h-5 w-5" style={{ color: "#c2410c" }} />
+  1197→          <span className="text-sm font-black uppercase tracking-[.2em] text-[#8a5a10]">
+  1198→            Classes mastered — you're writing object-oriented Python
+  1199→          </span>
+  1200→        </div>
+  1201→        <Takeaways
+  1202→          items={[
+  1203→            <>A <strong>class</strong> is a blueprint; an <strong>instance</strong> is a specific object in memory. Creating one = <strong>instantiation</strong>.</>,
+  1204→            <><strong>__init__()</strong> runs automatically on every new instance; <strong>self</strong> is passed automatically and must come first.</>,
+  1205→            <>Variables prefixed with <strong>self.</strong> are attributes — reachable from every method and every instance.</>,
+  1206→            <>Instances are independent, even with identical values — each holds its own data at its own spot.</>,
+  1207→            <>Give attributes default values in __init__'s body (odometer_reading = 0) — no parameter needed.</>,
+  1208→            <>Change attributes <strong>three ways</strong>: directly, set via a method, increment via a method — methods can guard the data ("You can't roll back an odometer!").</>,
+  1209→            <>Inheritance: child gets everything from the parent via <strong>super().__init__()</strong>, adds its own members, and can <strong>override</strong> any parent method by redefining the name.</>,
+  1210→            <>When a class grows too detailed, split it — a <strong>Battery instance as an attribute</strong> keeps ElectricCar clean (my_tesla.battery.get_range()).</>,
+  1211→            <>Classes live in modules too: import one, many, the whole module (dots!), or — never — <strong>import *</strong>. Modules can import modules.</>,
+  1212→            <>The <strong>standard library</strong> ships with Python: <code className="font-mono">from collections import OrderedDict</code> keeps insertion order. Same pattern you already know.</>,
+  1213→          ]}
+  1214→        />
+  1215→      </Reveal>
+  1216→    </Section>
+  1217→  );
+  1218→}
+  1219→

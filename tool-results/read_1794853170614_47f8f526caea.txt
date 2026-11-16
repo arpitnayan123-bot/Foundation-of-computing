@@ -1,0 +1,706 @@
+     1→"use client";
+     2→
+     3→import React, { useState } from "react";
+     4→import {
+     5→  Repeat,
+     6→  Boxes,
+     7→} from "lucide-react";
+     8→import { Reveal, Section, SectionHead, Callout, Quiz, CodeBlock, Practice, Takeaways, ReadStep } from "./ui";
+     9→
+    10→/* Hidden setup — these loop demos continue the poll dictionary from the
+    11→   previous step; the runner recreates it so the Run matches the page.
+    12→   (Shared with FocParts7 — the dict-loops section reuses it.) */
+    13→export const POLL_PRE = `favorite_languages = {
+    14→    'jen': 'python',
+    15→    'sarah': 'c',
+    16→    'edward': 'rust',
+    17→    'phil': 'python',
+    18→    }`;
+    19→
+    20→/* ---------- If section ---------- */
+    21→const TEST_OPS = [
+    22→  { op: "==", read: "is equal to" },
+    23→  { op: "!=", read: "is not equal to" },
+    24→  { op: ">", read: "greater than" },
+    25→  { op: "<", read: "less than" },
+    26→  { op: ">=", read: "greater than or equal to" },
+    27→  { op: "<=", read: "less than or equal to" },
+    28→];
+    29→
+    30→/* Anatomy of an if statement — every part of the syntax, labeled. */
+    31→function IfAnatomy() {
+    32→  const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
+    33→  return (
+    34→    <svg viewBox="0 0 780 320" className="mx-auto w-full max-w-3xl" role="img" aria-label="Anatomy of an if statement">
+    35→      {/* code panel */}
+    36→      <rect x="24" y="20" width="356" height="212" rx="14" fill="#2b1b10" />
+    37→      <circle cx="48" cy="42" r="4.5" fill="#be4a4a" />
+    38→      <circle cx="64" cy="42" r="4.5" fill="#d97706" />
+    39→      <circle cx="80" cy="42" r="4.5" fill="#7c9a3e" />
+    40→
+    41→      <text x="46" y="82" fontFamily={mono} fontSize="13.5" fill="#e9d7bf">age = 19</text>
+    42→      <text x="46" y="116" fontFamily={mono} fontSize="13.5">
+    43→        <tspan fill="#fb923c" fontWeight="800">if</tspan>
+    44→        <tspan fill="#f5deb0"> age &gt;= 18</tspan>
+    45→        <tspan fill="#e4674a" fontWeight="800">:</tspan>
+    46→      </text>
+    47→      {/* indent guide next to the body line */}
+    48→      <rect x="46" y="132" width="5" height="20" rx="2.5" fill="#7c9a3e" />
+    49→      <text x="62" y="148" fontFamily={mono} fontSize="13.5" fill="#a3c76d">print(&quot;Old enough to vote!&quot;)</text>
+    50→      <text x="46" y="180" fontFamily={mono} fontSize="13.5" fill="#9a8168">print(&quot;This line always runs.&quot;)</text>
+    51→      <text x="46" y="212" fontFamily={mono} fontSize="11" fill="#6b5238"># ← not indented, so it is OUTSIDE the if</text>
+    52→
+    53→      {/* legend */}
+    54→      {[
+    55→        { c: "#fb923c", t: "the keyword if — announces a decision" },
+    56→        { c: "#f5deb0", t: "the condition — a question answered True or False" },
+    57→        { c: "#e4674a", t: "the colon — “an indented block follows”" },
+    58→        { c: "#a3c76d", t: "the body — 4-space indent = inside the if" },
+    59→        { c: "#9a8168", t: "no indent = outside — runs every time" },
+    60→      ].map((r, i) => (
+    61→        <g key={r.t}>
+    62→          <circle cx="420" cy={46 + i * 34} r="5.5" fill={r.c} />
+    63→          <text x="436" y={50 + i * 34} fontSize="12.5" fill="#2b2014">{r.t}</text>
+    64→        </g>
+    65→      ))}
+    66→
+    67→      {/* outcomes */}
+    68→      <rect x="24" y="252" width="356" height="52" rx="12" fill="#eef3e2" stroke="#b9cc8f" />
+    69→      <text x="44" y="273" fontSize="12" fontWeight="800" fill="#4d6b1f">condition True</text>
+    70→      <text x="44" y="291" fontSize="12" fill="#4d6b1f">→ the indented body runs</text>
+    71→      <rect x="400" y="252" width="356" height="52" rx="12" fill="#fdeeea" stroke="#f0c1b4" />
+    72→      <text x="420" y="273" fontSize="12" fontWeight="800" fill="#a13636">condition False</text>
+    73→      <text x="420" y="291" fontSize="12" fill="#a13636">→ body skipped — Python moves on</text>
+    74→    </svg>
+    75→  );
+    76→}
+    77→
+    78→/* How Python walks an if-elif-else chain — classic True/False flowchart.
+    79→   (Shared with FocParts6 — the branches section imports it.) */
+    80→export function ChainWalk() {
+    81→  const rows = [
+    82→    { cy: 112, test: "age < 2 ?", hit: "baby", y: 94 },
+    83→    { cy: 224, test: "age < 4 ?", hit: "toddler", y: 206 },
+    84→    { cy: 336, test: "age < 13 ?", hit: "kid", y: 318 },
+    85→  ];
+    86→  return (
+    87→    <svg viewBox="0 0 620 470" className="mx-auto w-full max-w-xl" role="img" aria-label="How Python walks an if-elif-else chain">
+    88→      <defs>
+    89→        <marker id="cw-arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    90→          <path d="M0,0 L7,3 L0,6 Z" fill="#8a5a22" />
+    91→        </marker>
+    92→      </defs>
+    93→
+    94→      {/* start */}
+    95→      <rect x="146" y="14" width="150" height="38" rx="10" fill="#3e2c1d" />
+    96→      <text x="221" y="38" textAnchor="middle" fontSize="12" fontWeight="700" fill="#fff7ec">start · age = 15</text>
+    97→      <path d="M221 52 L221 72" stroke="#8a5a22" strokeWidth="2" fill="none" markerEnd="url(#cw-arr)" />
+    98→
+    99→      {rows.map((r, i) => (
+   100→        <g key={r.test}>
+   101→          {/* diamond */}
+   102→          <path d={`M221 ${r.cy - 40} L321 ${r.cy} L221 ${r.cy + 40} L121 ${r.cy} Z`} fill="#c2410c" />
+   103→          <text x="221" y={r.cy + 4} textAnchor="middle" fontSize="12" fontWeight="800" fill="#fff7ec">{r.test}</text>
+   104→          {/* True branch */}
+   105→          <path d={`M321 ${r.cy} L381 ${r.cy}`} stroke="#7c9a3e" strokeWidth="2" fill="none" markerEnd="url(#cw-arr)" />
+   106→          <text x="338" y={r.cy - 8} fontSize="10.5" fontWeight="800" fill="#5c7a2a">True</text>
+   107→          <rect x="385" y={r.cy - 19} width="140" height="38" rx="10" fill="#7c9a3e" />
+   108→          <text x="455" y={r.cy + 5} textAnchor="middle" fontSize="12" fontWeight="700" fill="#fff7ec">{r.hit}</text>
+   109→          {/* False path down */}
+   110→          {i < rows.length - 1 ? (
+   111→            <>
+   112→              <path d={`M221 ${r.cy + 40} L221 ${r.cy + 72}`} stroke="#8a5a22" strokeWidth="2" fill="none" markerEnd="url(#cw-arr)" />
+   113→              <text x="233" y={r.cy + 62} fontSize="10.5" fontWeight="800" fill="#a13636">False</text>
+   114→            </>
+   115→          ) : null}
+   116→        </g>
+   117→      ))}
+   118→
+   119→      {/* else */}
+   120→      <path d="M221 376 L221 398" stroke="#8a5a22" strokeWidth="2" fill="none" markerEnd="url(#cw-arr)" />
+   121→      <text x="233" y="392" fontSize="10.5" fontWeight="800" fill="#a13636">False</text>
+   122→      <rect x="146" y="402" width="150" height="38" rx="10" fill="#3e2c1d" />
+   123→      <text x="221" y="426" textAnchor="middle" fontSize="12" fontWeight="700" fill="#f5c889">else → teenager</text>
+   124→
+   125→      {/* the walkthrough note for age = 15 */}
+   126→      <rect x="385" y="402" width="200" height="38" rx="10" fill="#fbf3e3" stroke="#e5c79d" />
+   127→      <text x="485" y="417" textAnchor="middle" fontSize="10" fill="#7a5b39">age 15: all three False</text>
+   128→      <text x="485" y="431" textAnchor="middle" fontSize="10" fontWeight="700" fill="#8a4508">→ else catches it</text>
+   129→
+   130→      <text x="310" y="465" textAnchor="middle" fontSize="11" fill="#7a5b39">
+   131→        check top → bottom · first True wins and runs · everything after is skipped
+   132→      </text>
+   133→    </svg>
+   134→  );
+   135→}
+   136→
+   137→export function IfElseChainViz() {
+   138→  return (
+   139→    <svg viewBox="0 0 640 250" className="mx-auto w-full max-w-2xl" role="img" aria-label="if-elif-else chain">
+   140→      <defs>
+   141→        <marker id="ah2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+   142→          <path d="M0,0 L7,3 L0,6 Z" fill="#8a5a22" />
+   143→        </marker>
+   144→      </defs>
+   145→      {[
+   146→        { x: 80, label: "if age < 2:", body: "baby", fill: "#7c9a3e", y: 20 },
+   147→        { x: 250, label: "elif age < 4:", body: "toddler", fill: "#d97706", y: 20 },
+   148→        { x: 420, label: "elif age < 13:", body: "kid", fill: "#ea580c", y: 20 },
+   149→        { x: 560, label: "else:", body: "…", fill: "#3e2c1d", y: 20 },
+   150→      ].map((n, i, arr) => (
+   151→        <React.Fragment key={n.label}>
+   152→          <path d={`M${n.x} ${n.y} L${n.x + 92} ${n.y} L${n.x + 76} ${n.y + 44} L${n.x - 16} ${n.y + 44} Z`} fill={n.fill} />
+   153→          <text x={n.x + 38} y={n.y + 17} textAnchor="middle" fontSize="9.5" fontWeight="700" fill="#fff7ec">
+   154→            {n.label}
+   155→          </text>
+   156→          <text x={n.x + 38} y={n.y + 33} textAnchor="middle" fontSize="9" fill="#fde8cf">
+   157→            {n.body}
+   158→          </text>
+   159→          {i < arr.length - 1 ? (
+   160→            <path d={`M${n.x + 88} ${n.y + 22} L${n.x + 130} ${n.y + 22} L${n.x + 130} ${n.y + 70} L${arr[i + 1].x - 24} ${n.y + 70} L${arr[i + 1].x - 24} ${n.y + 44}`} stroke="#8a5a22" strokeWidth="1.6" fill="none" strokeDasharray="4 4" markerEnd="url(#ah2)" />
+   161→          ) : null}
+   162→        </React.Fragment>
+   163→      ))}
+   164→      <text x="320" y="130" textAnchor="middle" fontSize="10" fill="#7a5b39">
+   165→        conditions checked top → bottom · the FIRST True branch wins · the rest are skipped
+   166→      </text>
+   167→      <text x="320" y="150" textAnchor="middle" fontSize="10" fill="#7a5b39">
+   168→        an elif only runs when everything above it was False
+   169→      </text>
+   170→      {/* stage of life strip */}
+   171→      {[
+   172→        ["0–1", "baby", "#7c9a3e"],
+   173→        ["2–3", "toddler", "#d97706"],
+   174→        ["4–12", "kid", "#ea580c"],
+   175→        ["13–19", "teenager", "#b45309"],
+   176→        ["20–64", "adult", "#8a5a22"],
+   177→        ["65+", "elder", "#3e2c1d"],
+   178→      ].map(([a, b, c], i) => (
+   179→        <g key={a}>
+   180→          <rect x={20 + i * 100} y="185" width="96" height="40" rx="8" fill={c as string} />
+   181→          <text x={68 + i * 100} y="202" textAnchor="middle" fontSize="9.5" fontWeight="700" fill="#fff7ec">{a} yrs</text>
+   182→          <text x={68 + i * 100} y="216" textAnchor="middle" fontSize="9.5" fill="#fde8cf">{b}</text>
+   183→        </g>
+   184→      ))}
+   185→    </svg>
+   186→  );
+   187→}
+   188→
+   189→export function IfSection() {
+   190→  return (
+   191→    <Section id="if">
+   192→      <SectionHead
+   193→        eyebrow="Python · chapter 3"
+   194→        title={
+   195→          <>
+   196→            <span className="grad-text">if</span> statements — teaching code to decide
+   197→          </>
+   198→        }
+   199→        lead="Programs feel smart because they make choices: show this if the user is logged in, charge full price unless you're a student. The deck splits this chapter into three major topics — conditional tests, if statements, and using if statements with lists — and this session focuses exclusively on the conditional tests. Four-step first-read path: see the shape, ask the question, build the chain, then meet the classic traps."
+   200→      />
+   201→
+   202→      {/* STEP 1 — the mental model */}
+   203→      <Reveal>
+   204→        <div className="card-warm p-6 md:p-8">
+   205→          <p className="text-[.95rem] leading-relaxed text-[#2b2014]">
+   206→            Think of an <strong>if statement as a fork in the road</strong>. Python walks up to it,
+   207→            asks exactly one yes/no question (the <em>condition</em>), and takes one path only —
+   208→            <strong> True</strong> steps into the indented body, <strong>False</strong> skips straight past it. That is
+   209→            the entire idea. Everything else in this chapter is just progressively better ways of
+   210→            asking that one question. Here is every piece of the syntax on one diagram:
+   211→          </p>
+   212→          <div className="mt-5 rounded-2xl p-4" style={{ background: "#fbf3e3", border: "1px dashed #e5c79d" }}>
+   213→            <IfAnatomy />
+   214→          </div>
+   215→          <div className="mt-5">
+   216→            <CodeBlock
+   217→              title="voting.py — the smallest useful decision"
+   218→              code={`age = 19
+   219→if age >= 18:
+   220→    print("You are old enough to vote!")
+   221→    print("Have you registered yet?")
+   222→
+   223→print("(this line is not indented — it always runs)")`}
+   224→              output={"You are old enough to vote!\nHave you registered yet?\n(this line is not indented — it always runs)"}
+   225→              note="The condition age >= 18 is True, so both indented lines run. Set age = 17 and Python silently skips them — no error, it just takes the other path. Indentation IS the structure: 4 spaces say 'I belong to the if'."
+   226→            />
+   227→          </div>
+   228→        </div>
+   229→      </Reveal>
+   230→
+   231→      {/* The deck's practical introduction — the car-names demo (PDF Lecture 17) */}
+   232→      <Reveal>
+   233→        <div className="card-warm p-6 md:p-8">
+   234→          <p className="text-[.95rem] leading-relaxed text-[#2b2014]">
+   235→            The lecture opens with a <strong>car-names demo</strong>: display every car in
+   236→            title case — except <strong>BMW</strong>, which must appear in ALL uppercase.
+   237→            One loop, one conditional test, two different reactions. The key concept: the
+   238→            <strong> indentation after the if and else keywords</strong> tells Python which
+   239→            code block executes based on the test result.
+   240→          </p>
+   241→          <div className="mt-5">
+   242→            <CodeBlock
+   243→              title="cars.py — the lecture's opening example"
+   244→              code={`cars = ['audi', 'bmw', 'ferrari', 'jaguar', 'tesla']
+   245→for car in cars:
+   246→    if car == 'bmw':
+   247→        print(car.upper())    # test is True  → this indented block runs
+   248→    else:
+   249→        print(car.title())    # test is False → this indented block runs`}
+   250→              output={"Audi\nBMW\nFerrari\nJaguar\nTesla"}
+   251→              note="Every if statement has a conditional test at its heart — an expression evaluated as True or False. Python uses that true/false answer to decide whether the code following the if runs or is ignored. The else branch is Lecture 18's star; here it just completes the demo."
+   252→            />
+   253→          </div>
+   254→        </div>
+   255→      </Reveal>
+   256→
+   257→      {/* STEP 2 — conditional tests */}
+   258→      <ReadStep n="2" title="Conditional tests — asking yes/no questions" sub="Every if begins with an expression that is True or False — master these six operators and the logic words" />
+   259→      <Reveal>
+   260→        <div className="card-warm p-6 md:p-8">
+   261→          <div className="flex flex-wrap gap-2">
+   262→            {TEST_OPS.map((o) => (
+   263→              <span key={o.op} className="chip">
+   264→                <code className="font-mono-warm font-bold">{o.op}</code> {o.read}
+   265→              </span>
+   266→            ))}
+   267→          </div>
+   268→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   269→            <CodeBlock
+   270→              title="equality_tests.py"
+   271→              code={`# Single = assigns a value; double == compares two values
+   272→car = 'BMW'               # assignment
+   273→print(car == 'BMW')       # comparison → True (values match)
+   274→print(car == 'Audi')      # comparison → False
+   275→
+   276→# The exercise pattern: print a prediction, then the test
+   277→car = 'subaru'
+   278→print("Is car == 'subaru'? I predict True.")
+   279→print(car == 'subaru')      # True
+   280→
+   281→print("\\nIs car == 'audi'? I predict False.")
+   282→print(car == 'audi')        # False
+   283→
+   284→# Case matters — Python treats upper and lower as different: 'Audi' != 'audi'
+   285→car = 'Audi'
+   286→print(car == 'audi')              # False
+   287→print(car.lower() == 'audi')      # True  — lower() affects only the comparison
+   288→print(car)                        # Audi — the stored value is NOT changed
+   289→
+   290→# Real world: websites lower() both sides when checking sign-ups, so
+   291→# 'John', 'JOHN' and 'john' are ONE username — never three accounts.
+   292→
+   293→# != checks inequality — the exclamation point means "not"
+   294→requested_topping = 'mushrooms'
+   295→if requested_topping != 'anchovies':
+   296→    print("Hold the anchovies!")`}
+   297→              output={"True\nFalse\nIs car == 'subaru'? I predict True.\nTrue\n\nIs car == 'audi'? I predict False.\nFalse\nFalse\nTrue\nAudi\nHold the anchovies!"}
+   298→              note="The equality operator returns True if the values on both sides match, False otherwise. case-sensitive comparisons trip up beginners: two values with different capitalization are simply not equal."
+   299→            />
+   300→            <CodeBlock
+   301→              title="numerical_and_logical.py"
+   302→              code={`# Numerical comparisons — age = 19 from the deck
+   303→age = 19
+   304→print(age < 21)       # True
+   305→print(age >= 21)      # False
+   306→print(age == 19)      # True
+   307→
+   308→# and / or — parentheses around each test = readability best practice
+   309→age_0, age_1 = 22, 18
+   310→print((age_0 >= 21) and (age_1 >= 21))   # False — BOTH tests must pass
+   311→print((age_0 >= 21) or (age_1 >= 21))    # True  — at least one passes
+   312→
+   313→# in — does the value exist in the list?
+   314→requested_toppings = ['mushrooms', 'onions', 'pineapple']
+   315→print('mushrooms' in requested_toppings)   # True
+   316→print('pepperoni' in requested_toppings)   # False
+   317→
+   318→# not in — is the value absent? (forum banned-users check)
+   319→banned_users = ['Andrew', 'Carolina', 'David']
+   320→user = 'Mary'
+   321→if user not in banned_users:
+   322→    print("Mary, you can post a response")
+   323→
+   324→# Boolean expressions — another name for a conditional test.
+   325→# True and False are Python keywords (capital first letter).
+   326→game_active = True
+   327→can_edit = False
+   328→if game_active:
+   329→    print("Game is running")    # runs — the flag is True
+   330→if can_edit:
+   331→    print("You can edit")       # ignored — the flag is False`}
+   332→              output={"True\nFalse\nTrue\nFalse\nTrue\nTrue\nFalse\nMary, you can post a response\nGame is running"}
+   333→              note="in shines for questions like: is this username already taken? is this city in our delivery list? is this topping available? not in is its mirror — presence vs absence. Booleans are the efficient way to track a program's state, like whether a game is active."
+   334→            />
+   335→          </div>
+   336→        </div>
+   337→      </Reveal>
+   338→
+   339→      {/* STEP 3 — pointer to the branches lecture */}
+   340→      <Reveal>
+   341→        <Callout kind="story" title="Where the questions go next">
+   342→          You can now ask any yes/no question Python can answer. The deck&apos;s roadmap for
+   343→          this chapter: <strong>conditional tests (this lecture) → if statements (Lecture 18:
+   344→          if-else, the elif ladder, independent ifs) → using if statements with lists
+   345→          (Lecture 20: special items, empty guards, multiple lists)</strong>. Each sitting
+   346→          builds directly on the one before.
+   347→        </Callout>
+   348→      </Reveal>
+   349→
+   350→      <div className="mt-8 grid gap-5 md:grid-cols-2">
+   351→        <Reveal>
+   352→          <Quiz
+   353→            source="Concept check"
+   354→            q="What does car.lower() == 'audi' return if car = 'Audi'?"
+   355→            options={["False — lower() changes car permanently", "True — lower() normalizes just for this comparison", "TypeError", "It depends on the locale"]}
+   356→            answer={1}
+   357→            explain=".lower() does NOT change the stored value — it returns a lowercase copy used only in this comparison. print(car) would still show 'Audi'."
+   358→          />
+   359→        </Reveal>
+   360→        <Reveal delay={100}>
+   361→          <Quiz
+   362→            source="Concept check"
+   363→            q="(age_0 >= 21) or (age_1 >= 21) with age_0 = 22, age_1 = 18 evaluates to…"
+   364→            options={["False — one of them failed", "True — or needs at least one pass", "Error — you cannot combine tests", "True only if both pass"]}
+   365→            answer={1}
+   366→            explain="or passes when EITHER test passes: True or False → True. and would have demanded both."
+   367→          />
+   368→        </Reveal>
+   369→      </div>
+   370→
+   371→      <Reveal className="mt-6">
+   372→        <Practice
+   373→          title="Try It Yourself — conditional-test drills"
+   374→          items={[
+   375→            { q: <>Series of conditional tests with printed predictions (car = 'subaru' pattern) — at least 10 tests evaluating to True and False.</> },
+   376→            { q: <>At least one True and one False for: string equality/inequality · lower() tests · numerical {'==, !=, >, <, >=, <='} · and / or · in a list · not in a list.</> },
+   377→            { q: <>Banned users: check whether 'Mary' can post a response — and whether 'David' can.</>, hint: "user not in banned_users" },
+   378→            { q: <>Booleans: track game_active and can_edit; write two if statements that behave differently from the same pattern.</> },
+   379→          ]}
+   380→        />
+   381→      </Reveal>
+   382→
+   383→      <Reveal className="mt-6">
+   384→        <Takeaways
+   385→          items={[
+   386→            <>Conditional tests always evaluate to <strong>True or False</strong>; <strong>= assigns, == compares</strong>; normalize case with <strong>lower()</strong>.</>,
+   387→            <><strong>and</strong> requires both, <strong>or</strong> requires one; <strong>in / not in</strong> test membership; booleans like <code className="font-mono-warm">game_active</code> name your states.</>,
+   388→            <>These tests are the <strong>heart of every if statement</strong> — the branches they drive live in Lecture 18.</>,
+   389→          ]}
+   390→        />
+   391→      </Reveal>
+   392→    </Section>
+   393→  );
+   394→}
+   395→
+   396→/* ============================================================
+   397→   DICTIONARIES
+   398→   ============================================================ */
+   399→
+   400→/* The core mental model — same data as a list (by position) and
+   401→   as a dictionary (by label). Wrapped in a light panel so the
+   402→   warm palette reads well on the dark section. */
+   403→function ListVsDict() {
+   404→  const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
+   405→  return (
+   406→    <svg viewBox="0 0 780 300" className="mx-auto w-full max-w-3xl" role="img" aria-label="A list finds things by position, a dictionary by label">
+   407→      {/* ---------- left: list ---------- */}
+   408→      <text x="195" y="34" textAnchor="middle" fontSize="14" fontWeight="800" fill="#8a4508">a LIST — numbered shelf</text>
+   409→      {["'green'", "5", "'slow'"].map((v, i) => (
+   410→        <g key={v}>
+   411→          <text x={72 + i * 108} y="68" textAnchor="middle" fontSize="11" fontWeight="700" fill="#a13636">{`[0]`.replace("0", String(i))}</text>
+   412→          <rect x={40 + i * 108} y="78" width="90" height="46" rx="10" fill="#fff" stroke="#e0b98a" strokeWidth="1.5" />
+   413→          <text x={85 + i * 108} y="106" textAnchor="middle" fontFamily={mono} fontSize="12.5" fill="#2b2014">{v}</text>
+   414→        </g>
+   415→      ))}
+   416→      <text x="195" y="162" textAnchor="middle" fontFamily={mono} fontSize="12.5" fill="#8a4508">list[0] → 'green'</text>
+   417→      <text x="195" y="188" textAnchor="middle" fontSize="11.5" fill="#7a5b39">you must REMEMBER what position 0,</text>
+   418→      <text x="195" y="204" textAnchor="middle" fontSize="11.5" fill="#7a5b39">1, 2 … mean. Positions say nothing.</text>
+   419→
+   420→      {/* divider */}
+   421→      <path d="M390 20 L390 275" stroke="#e5c79d" strokeWidth="1.5" strokeDasharray="5 6" />
+   422→
+   423→      {/* ---------- right: dictionary ---------- */}
+   424→      <text x="585" y="34" textAnchor="middle" fontSize="14" fontWeight="800" fill="#8a4508">a DICTIONARY — labeled drawers</text>
+   425→      {[
+   426→        { k: "'color'", v: "'green'" },
+   427→        { k: "'points'", v: "5" },
+   428→        { k: "'speed'", v: "'slow'" },
+   429→      ].map((p, i) => (
+   430→        <g key={p.k}>
+   431→          <rect x={430 + i * 108} y="52" width="94" height="32" rx="8" fill="#8a4508" />
+   432→          <text x={477 + i * 108} y="73" textAnchor="middle" fontFamily={mono} fontSize="11.5" fontWeight="700" fill="#fde8cf">{p.k}</text>
+   433→          <path d={`M${477 + i * 108} 88 L${477 + i * 108} 106`} stroke="#8a5a22" strokeWidth="1.6" fill="none" markerEnd="url(#lvd-a)" />
+   434→          <rect x={430 + i * 108} y="110" width="94" height="46" rx="10" fill="#fff" stroke="#e0b98a" strokeWidth="1.5" />
+   435→          <text x={477 + i * 108} y="138" textAnchor="middle" fontFamily={mono} fontSize="12.5" fill="#2b2014">{p.v}</text>
+   436→        </g>
+   437→      ))}
+   438→      <text x="585" y="196" textAnchor="middle" fontFamily={mono} fontSize="12.5" fill="#8a4508">alien['color'] → 'green'</text>
+   439→      <text x="585" y="222" textAnchor="middle" fontSize="11.5" fill="#7a5b39">the label IS the meaning — color is a</text>
+   440→      <text x="585" y="238" textAnchor="middle" fontSize="11.5" fill="#7a5b39">color, points are points. Reads like English.</text>
+   441→
+   442→      {/* caption */}
+   443→      <rect x="60" y="256" width="660" height="36" rx="10" fill="#fbf3e3" stroke="#e5c79d" />
+   444→      <text x="390" y="279" textAnchor="middle" fontSize="12.5" fontWeight="700" fill="#7a4a10">
+   445→        same data, two shapes — lists answer “which position?”, dictionaries answer “which label?”
+   446→      </text>
+   447→
+   448→      <defs>
+   449→        <marker id="lvd-a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+   450→          <path d="M0,0 L7,3 L0,6 Z" fill="#8a5a22" />
+   451→        </marker>
+   452→      </defs>
+   453→    </svg>
+   454→  );
+   455→}
+   456→
+   457→/* The three loop lenses — .items() / .keys() / .values()
+   458→   (Shared with FocParts7 — the dict-loops section imports it.) */
+   459→export function DictLenses() {
+   460→  const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
+   461→  const lenses = [
+   462→    {
+   463→      method: ".items()",
+   464→      gives: "key AND value, together",
+   465→      code: "for name, lang in d.items():",
+   466→      out: ["jen → python", "sarah → c"],
+   467→      fill: "#c2410c",
+   468→    },
+   469→    {
+   470→      method: ".keys()",
+   471→      gives: "just the labels (the default)",
+   472→      code: "for name in d.keys():",
+   473→      out: ["jen", "sarah"],
+   474→      fill: "#d97706",
+   475→    },
+   476→    {
+   477→      method: ".values()",
+   478→      gives: "just the answers",
+   479→      code: "for lang in d.values():",
+   480→      out: ["python", "c"],
+   481→      fill: "#7c9a3e",
+   482→    },
+   483→  ];
+   484→  return (
+   485→    <svg viewBox="0 0 780 236" className="mx-auto w-full max-w-3xl" role="img" aria-label="Three ways to loop through a dictionary">
+   486→      {/* source dict */}
+   487→      <rect x="24" y="22" width="470" height="42" rx="10" fill="#2b1b10" />
+   488→      <text x="42" y="48" fontFamily={mono} fontSize="12" fill="#e9d7bf">d = {'{'}&apos;jen&apos;: &apos;python&apos;, &apos;sarah&apos;: &apos;c&apos;{'}'}</text>
+   489→      <text x="516" y="48" fontSize="11.5" fill="#7a5b39">← one dictionary,</text>
+   490→      <text x="516" y="62" fontSize="11.5" fill="#7a5b39">three ways to walk it</text>
+   491→
+   492→      {lenses.map((l, i) => (
+   493→        <g key={l.method} transform={`translate(${24 + i * 252}, 86)`}>
+   494→          <rect x="0" y="0" width="228" height="132" rx="14" fill="#fff" stroke="#e5c79d" strokeWidth="1.5" />
+   495→          <rect x="0" y="0" width="228" height="34" rx="14" fill={l.fill} />
+   496→          <rect x="0" y="18" width="228" height="16" fill={l.fill} />
+   497→          <text x="114" y="23" textAnchor="middle" fontFamily={mono} fontSize="13" fontWeight="800" fill="#fff7ec">{l.method}</text>
+   498→          <text x="114" y="56" textAnchor="middle" fontSize="11" fontWeight="700" fill="#7a5b39">{l.gives}</text>
+   499→          <text x="114" y="80" textAnchor="middle" fontFamily={mono} fontSize="10.5" fill="#8a4508">{l.code}</text>
+   500→          {l.out.map((o, j) => (
+   501→            <text key={o} x="114" y={102 + j * 17} textAnchor="middle" fontFamily={mono} fontSize="10.5" fill="#2b2014">{o}</text>
+   502→          ))}
+   503→        </g>
+   504→      ))}
+   505→
+   506→      <text x="390" y="232" textAnchor="middle" fontSize="11.5" fill="#7a5b39">
+   507→        .items() when you need both · .keys() to check membership · .values() to read the answers (wrap in set() to dedupe)
+   508→      </text>
+   509→    </svg>
+   510→  );
+   511→}
+   512→
+   513→function DictViz() {
+   514→  const pairs = [
+   515→    { k: "color", v: "'green'" },
+   516→    { k: "points", v: "5" },
+   517→    { k: "x_position", v: "0" },
+   518→    { k: "y_position", v: "25" },
+   519→    { k: "speed", v: "'medium'" },
+   520→  ];
+   521→  const [hover, setHover] = useState<number | null>(null);
+   522→  return (
+   523→    <div className="rounded-2xl p-5" style={{ background: "#fbf3e3", border: "1px dashed #e5c79d" }}>
+   524→      <div className="flex flex-wrap items-center gap-3">
+   525→        <span className="font-mono-warm text-[.82rem] font-bold text-[#8a4508]">alien_0&nbsp;=&nbsp;{"{"}</span>
+   526→        {pairs.map((p, i) => (
+   527→          <button
+   528→            key={p.k}
+   529→            onMouseEnter={() => setHover(i)}
+   530→            onMouseLeave={() => setHover(null)}
+   531→            className="lv-item rounded-lg px-2.5 py-1.5 font-mono-warm text-[.78rem] font-bold"
+   532→            style={hover === i ? { transform: "translateY(-4px)", boxShadow: "0 10px 18px -10px rgba(194,65,12,.6)" } : undefined}
+   533→          >
+   534→            <span style={{ color: "#8a3d10" }}>'{p.k}'</span>
+   535→            <span className="mx-1 text-[#be4a4a]">:</span>
+   536→            {p.v}
+   537→          </button>
+   538→        ))}
+   539→        <span className="font-mono-warm text-[.82rem] font-bold text-[#8a4508]">{"}"}</span>
+   540→      </div>
+   541→      <p className="mt-3 font-mono-warm text-[.8rem] text-[#7c4a12]">
+   542→        {hover === null
+   543→          ? "# hover a key-value pair — a dictionary maps KEYS to VALUES, not positions"
+   544→          : `# alien_0['${pairs[hover].k}'] → ${pairs[hover].v}   (instant lookup, no index needed)`}
+   545→      </p>
+   546→    </div>
+   547→  );
+   548→}
+   549→
+   550→export function DictsSection() {
+   551→  return (
+   552→    <Section id="dicts" dark>
+   553→      <SectionHead
+   554→        dark
+   555→        eyebrow="Python · chapter 4"
+   556→        title={
+   557→          <>
+   558→            <span className="grad-text">Dictionaries</span> — connecting pieces of information
+   559→          </>
+   560→        }
+   561→        lead="You already know lists — but list[0] forces you to memorise what position 0 means. A dictionary replaces positions with labels: alien_0['color'] reads like English. One structure that models users, games, glossaries, entire databases. Four steps and it clicks."
+   562→      />
+   563→
+   564→      {/* STEP 1 — mental model */}
+   565→      <Reveal>
+   566→        <div className="card-warm p-6 md:p-8">
+   567→          <p className="text-[.95rem] leading-relaxed text-[#e9d7bf]">
+   568→            The one idea before any syntax: <strong>a list finds things by position, a dictionary
+   569→            finds things by label</strong>. Same data, two very different shapes — and the shape on the
+   570→            right is the one that scales to real programs, because “which label?” is a question
+   571→            you can actually answer while writing code:
+   572→          </p>
+   573→          <div className="mt-5 rounded-2xl p-4" style={{ background: "#fbf3e3", border: "1px dashed #e5c79d" }}>
+   574→            <ListVsDict />
+   575→          </div>
+   576→        </div>
+   577→      </Reveal>
+   578→
+   579→      {/* STEP 2 — build & manage */}
+   580→      <ReadStep dark n="2" title="Build it — create · read · add · modify · delete" sub="A dictionary starts empty or full, and every pair can be added, changed or removed at any time" />
+   581→      <Reveal>
+   582→        <DictViz />
+   583→      </Reveal>
+   584→
+   585→      <Reveal className="mt-6">
+   586→        <div className="grid gap-5 lg:grid-cols-2">
+   587→          <CodeBlock
+   588→            title="alien.py — add · modify · delete"
+   589→            code={`alien_0 = {'color': 'green', 'points': 5}
+   590→print(alien_0['color'])   # green
+   591→print(alien_0['points'])  # 5
+   592→
+   593→# ADD new key-value pairs at any time
+   594→alien_0['x_position'] = 0
+   595→alien_0['y_position'] = 25
+   596→
+   597→# Start with an empty dictionary and fill it
+   598→alien = {}
+   599→alien['color'] = 'green'
+   600→alien['points'] = 5
+   601→
+   602→# MODIFY a value
+   603→alien_0['color'] = 'yellow'
+   604→
+   605→# DELETE a pair
+   606→del alien_0['points']
+   607→
+   608→# A dictionary of similar objects (one key → one value per person)
+   609→favorite_languages = {
+   610→    'jen': 'python',
+   611→    'sarah': 'c',
+   612→    'edward': 'rust',
+   613→    'phil': 'python',
+   614→}
+   615→language = favorite_languages['sarah'].title()
+   616→print(f"Sarah's favorite language is {language}.")`}
+   617→              output={"green\n5\n\nSarah's favorite language is C."}
+   618→          />
+   619→          <CodeBlock
+   620→            title="get() — the safe lookup"
+   621→            code={`alien_0 = {'color': 'green', 'speed': 'slow'}
+   622→
+   623→# This CRASHES if the key is missing:
+   624→# print(alien_0['points'])   → KeyError
+   625→
+   626→# get() returns a default instead:
+   627→point_value = alien_0.get('points', 'No point value assigned.')
+   628→print(point_value)
+   629→
+   630→# get() with no default returns None
+   631→# (None means "the absence of a value")
+   632→speed = alien_0.get('speed')
+   633→print(speed)`}
+   634→              output={"No point value assigned.\nslow"}
+   635→              note="get() is the difference between a program that crashes on missing data and one that handles it gracefully."
+   636→          />
+   637→        </div>
+   638→      </Reveal>
+   639→
+   640→      {/* STEP 3 — pointer to the dict-loops & nesting lectures */}
+   641→      <Reveal>
+   642→        <Callout kind="story" title="Where dictionaries go next">
+   643→          You can build, read, modify and delete pairs. Next: <strong>loop through them three
+   644→          ways</strong> (.items() / .keys() / .values()) in Lecture 22 — and then{" "}
+   645→          <strong>nest</strong> dictionaries inside lists inside dictionaries in Lecture 23,
+   646→          where fleets of aliens and user databases get built.
+   647→        </Callout>
+   648→      </Reveal>
+   649→
+   650→      <div className="mt-8 grid gap-5 md:grid-cols-2">
+   651→        <Reveal>
+   652→          <Quiz
+   653→            source="Concept check"
+   654→            q="What does alien_0.get('points', 0) do if 'points' is missing?"
+   655→            options={["Crashes with KeyError", "Returns None", "Returns 0 instead of crashing", "Adds the key with value 0"]}
+   656→            answer={2}
+   657→            explain="get() looks up the key and returns your provided default (0) when it’s absent — graceful handling instead of a KeyError."
+   658→          />
+   659→        </Reveal>
+   660→        <Reveal delay={100}>
+   661→          <Quiz
+   662→            source="Concept check"
+   663→            q="del alien_0['points'] — what happens to the pair?"
+   664→            options={["It is hidden until needed", "It is permanently removed — unrecoverable", "Its value becomes None", "A KeyError is raised"]}
+   665→            answer={1}
+   666→            explain="del permanently removes the key-value pair; a later lookup of 'points' would raise KeyError (that's what get() protects against)."
+   667→          />
+   668→        </Reveal>
+   669→      </div>
+   670→
+   671→      <div className="mt-8 grid gap-5 md:grid-cols-2">
+   672→        <Reveal>
+   673→          <Quiz
+   674→            source="Concept check"
+   675→            q="What does alien_0.get('points', 0) do if 'points' is missing?"
+   676→            options={["Crashes with KeyError", "Returns None", "Returns 0 instead of crashing", "Adds the key with value 0"]}
+   677→            answer={2}
+   678→            explain="get() looks up the key and returns your provided default (0) when it’s absent — graceful handling instead of a KeyError."
+   679→          />
+   680→        </Reveal>
+   681→      </div>
+   682→
+   683→      <Reveal className="mt-6">
+   684→        <Practice
+   685→          title="Try It Yourself — dictionary drills"
+   686→          items={[
+   687→            { q: <>Person: store first_name, last_name, age, city in a dictionary; print each piece of information.</> },
+   688→            { q: <>Favorite numbers: five people as keys, a number each as values; print each pair (poll real friends!).</> },
+   689→            { q: <>Glossary: five programming words as keys, meanings as values; print each word and meaning neatly separated with \\n.</> },
+   690→          ]}
+   691→        />
+   692→      </Reveal>
+   693→
+   694→      <Reveal className="mt-6">
+   695→        <Takeaways
+   696→          dark
+   697→          items={[
+   698→            <>Dictionaries store <strong>key-value pairs</strong>; access by key, add/modify anytime, delete with <strong>del</strong>, build from <strong>empty {"{}"}</strong>.</>,
+   699→            <><strong>get(key, default)</strong> avoids KeyError; dictionaries of similar objects map one value per key (favorite languages, favorite numbers).</>,
+   700→          ]}
+   701→        />
+   702→      </Reveal>
+   703→    </Section>
+   704→  );
+   705→}
+   706→

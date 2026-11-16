@@ -1,0 +1,627 @@
+     1→"use client";
+     2→
+     3→import React, { useState } from "react";
+     4→import {
+     5→  Type,
+     6→  Hash,
+     7→  MessageSquare,
+     8→  ListOrdered,
+     9→  RotateCcw,
+    10→  Plus,
+    11→  CornerDownRight,
+    12→  Trash2,
+    13→  Sigma,
+    14→} from "lucide-react";
+    15→import { Reveal, Section, SectionHead, Callout, Quiz, CodeBlock, Practice, Takeaways } from "./ui";
+    16→
+    17→/* ============================================================
+    18→   PYTHON BASICS
+    19→   ============================================================ */
+    20→const KEYWORDS = [
+    21→  "False","None","True","and","as","assert","break","class","continue","def","del",
+    22→  "elif","else","except","finally","for","from","global","if","import","in","is",
+    23→  "lambda","nonlocal","not","or","pass","raise","return","try","while","with","yield",
+    24→];
+    25→
+    26→export function BasicsSection() {
+    27→  return (
+    28→    <Section id="basics">
+    29→      <SectionHead
+    30→        eyebrow="Python · chapter 1"
+    31→        title={
+    32→          <>
+    33→            Variables, strings, numbers & <span className="grad-text">comments</span>
+    34→          </>
+    35→        }
+    36→        lead="Four small ideas that every program in history is built from. Master these and the rest of Python becomes vocabulary, not mystery."
+    37→      />
+    38→
+    39→      {/* Variables */}
+    40→      <Reveal>
+    41→        <div className="card-warm p-6 md:p-8">
+    42→          <div className="flex items-center gap-3">
+    43→            <Type className="h-6 w-6" style={{ color: "#c2410c" }} />
+    44→            <h3 className="text-2xl font-bold">Variables — labelled boxes for values</h3>
+    45→          </div>
+    46→          <p className="mt-3 max-w-4xl text-[.92rem] leading-relaxed text-[#2b2014]">
+    47→            A variable is a name that refers to a value. We <strong>assign</strong> with
+    48→            a single <span className="font-mono-warm font-bold">=</span>, and the value
+    49→            lives in RAM (Pillar 3!) while the program runs.
+    50→          </p>
+    51→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+    52→            <CodeBlock
+    53→              title="hello_world.py"
+    54→              code={`message = "Hello Python world!"
+    55→print(message)
+    56→
+    57→# Reassign — the same name, a new value
+    58→message = "Hello Python Crash Course world!"
+    59→print(message)`}
+    60→              output={"Hello Python world!\nHello Python Crash Course world!"}
+    61→              note="Variables can change value at any time — that’s why they’re called variable."
+    62→            />
+    63→            <div>
+    64→              <p className="text-[.8rem] font-extrabold uppercase tracking-[.16em] text-[#8a5a10]">
+    65→                Naming rules — break these and Python errors
+    66→              </p>
+    67→              <ul className="mt-2 grid gap-1.5 text-[.88rem] text-[#2b2014]">
+    68→                <li>• Only <strong>letters, numbers and underscores</strong></li>
+    69→                <li>• Can start with a letter or underscore — <strong>never a number</strong> (<code className="font-mono-warm">message_1</code> ✓, <code className="font-mono-warm">1_message</code> ✗)</li>
+    70→                <li>• <strong>Spaces are not allowed</strong> — use underscores (<code className="font-mono-warm">greeting_message</code> ✓, <code className="font-mono-warm">greeting message</code> ✗)</li>
+    71→                <li>• Never use <strong>Python keywords</strong> or function names like <code className="font-mono-warm">print</code></li>
+    72→              </ul>
+    73→              <p className="mt-3 text-[.8rem] font-extrabold uppercase tracking-[.16em] text-[#8a5a10]">
+    74→                Naming guidelines — style, not law
+    75→              </p>
+    76→              <ul className="mt-2 grid gap-1.5 text-[.88rem] text-[#2b2014]">
+    77→                <li>• Short but descriptive: <code className="font-mono-warm">name</code> beats <code className="font-mono-warm">n</code>; <code className="font-mono-warm">student_name</code> beats <code className="font-mono-warm">s_n</code>; <code className="font-mono-warm">name_length</code> beats <code className="font-mono-warm">length_of_persons_name</code></li>
+    78→                <li>• Beware lowercase <strong>l</strong> and uppercase <strong>O</strong> — they look like <strong>1</strong> and <strong>0</strong></li>
+    79→                <li>• Use <strong>lowercase</strong> variable names — uppercase won’t error, but it’s the convention</li>
+    80→              </ul>
+    81→            </div>
+    82→          </div>
+    83→
+    84→          <div className="mt-6">
+    85→            <p className="text-[.8rem] font-extrabold uppercase tracking-[.16em] text-[#8a5a10]">
+    86→              The 35 Python keywords — reserved forever, error if used as names
+    87→            </p>
+    88→            <div className="mt-3 flex flex-wrap gap-1.5">
+    89→              {KEYWORDS.map((k) => (
+    90→                <code
+    91→                  key={k}
+    92→                  className="rounded-md px-2 py-1 font-mono-warm text-[.74rem] font-bold"
+    93→                  style={{ background: "#fbf3e3", color: "#8a4508", border: "1px solid #f0d9ba" }}
+    94→                >
+    95→                  {k}
+    96→                </code>
+    97→              ))}
+    98→            </div>
+    99→          </div>
+   100→        </div>
+   101→      </Reveal>
+   102→
+   103→      {/* Name error */}
+   104→      <Reveal className="mt-6">
+   105→        <CodeBlock
+   106→          title="avoiding_name_errors.py"
+   107→          code={`message = "Hello Python Crash Course reader!"
+   108→print(mesage)   # typo — the name doesn't exist`}
+   109→          output={"NameError: name 'mesage' is not defined"}
+   110→          note={
+   111→            <>
+   112→              A <strong>NameError</strong> usually means one of three things: the
+   113→              variable was never assigned, we misspelled it when using it, or we
+   114→              misspelled it when assigning. Python executes top to bottom — a variable
+   115→              must exist <em>before</em> the line that uses it.
+   116→            </>
+   117→          }
+   118→        />
+   119→      </Reveal>
+   120→
+   121→      {/* Strings */}
+   122→      <Reveal className="mt-12">
+   123→        <div className="card-warm p-6 md:p-8">
+   124→          <div className="flex items-center gap-3">
+   125→            <MessageSquare className="h-6 w-6" style={{ color: "#c2410c" }} />
+   126→            <h3 className="text-2xl font-bold">Strings — a series of characters</h3>
+   127→          </div>
+   128→          <p className="mt-3 max-w-4xl text-[.92rem] leading-relaxed text-[#2b2014]">
+   129→            A string is simply a series of characters. <strong>Anything inside quotes
+   130→            is a string</strong> in Python — and you may use <strong>single or double
+   131→            quotes</strong>. That flexibility lets quotes and apostrophes live inside
+   132→            your strings.
+   133→          </p>
+   134→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   135→            <CodeBlock
+   136→              title="strings_intro.py"
+   137→              code={`"This is a string."
+   138→'This is also a string.'
+   139→
+   140→# Flexibility in action:
+   141→'I told my friend, "Python is my favorite language!"'
+   142→
+   143→"The language 'Python' is named after Monty Python, not the snake."
+   144→
+   145→"One of Python's strengths is its diverse and supportive community."`}
+   146→            />
+   147→            <CodeBlock
+   148→              title="changing_case_and_whitespace.py"
+   149→              code={`name = "ada lovelace"
+   150→
+   151→print(name.title())    # Each Word Capitalized
+   152→print(name.upper())    # ALL CAPS
+   153→print(name.upper().lower())  # back to lowercase
+   154→
+   155→# Whitespace: tabs and newlines
+   156→print("Python")
+   157→print("\\tPython")        # tab indent
+   158→print("Languages:\\nPython\\nC\\nJavaScript")
+   159→
+   160→# Stripping whitespace
+   161→fav = "  python  "
+   162→print(fav.lstrip())   # strip left
+   163→print(fav.rstrip())   # strip right
+   164→print(fav.strip())    # strip both`}
+   165→              output={"Ada Lovelace\nADA LOVELACE\nada lovelace\n\nLanguages:\nPython\nC\nJavaScript\npython    \n  python\npython"}
+   166→            />
+   167→          </div>
+   168→          <Callout kind="insight" title="Pro combo — f-strings">
+   169→            To weave variables into strings, put an <code className="font-mono-warm">f</code> before
+   170→            the quote: <code className="font-mono-warm">f"Hello, {`{first_name}`}!"</code> — Python
+   171→            replaces the braces with the value. You’ll use this constantly.
+   172→          </Callout>
+   173→        </div>
+   174→      </Reveal>
+   175→
+   176→      {/* Numbers */}
+   177→      <Reveal className="mt-6">
+   178→        <div className="card-warm p-6 md:p-8">
+   179→          <div className="flex items-center gap-3">
+   180→            <Hash className="h-6 w-6" style={{ color: "#c2410c" }} />
+   181→            <h3 className="text-2xl font-bold">Numbers — keeping score of the world</h3>
+   182→          </div>
+   183→          <p className="mt-3 max-w-4xl text-[.92rem] leading-relaxed text-[#2b2014]">
+   184→            Numbers are used often in programming — to keep score in games, represent
+   185→            data in visualizations, store information in web applications. Python
+   186→            treats numbers in several ways depending on use: <strong>integers</strong>{" "}
+   187→            (whole numbers) and <strong>floats</strong> (any number with a decimal point).
+   188→          </p>
+   189→          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+   190→            <CodeBlock
+   191→              title="try_arithmetic.py"
+   192→              code={`print(5 + 3)   # addition        → 8
+   193→print(10 - 2)  # subtraction     → 8
+   194→print(2 * 4)   # multiplication  → 8
+   195→print(16 / 2)  # division        → 8.0 (a float!)
+   196→
+   197→# Integers vs floats
+   198→print(2 + 3)      # 5      (int)
+   199→print(3 / 2)      # 1.5    (float)
+   200→print(1_000_000)  # underscores make big numbers readable → 1000000`}
+   201→            />
+   202→            <CodeBlock
+   203→              title="favorite_number.py"
+   204→              code={`favorite_number = 7
+   205→message = f"My favorite number is {favorite_number}."
+   206→print(message)`}
+   207→              output={"My favorite number is 7."}
+   208→            />
+   209→          </div>
+   210→        </div>
+   211→      </Reveal>
+   212→
+   213→      <Reveal className="mt-6">
+   214→        <div className="card-warm p-6 md:p-8">
+   215→          <div className="grid gap-5 lg:grid-cols-2">
+   216→            <CodeBlock
+   217→              title="float_precision.py — the 0.30000000000000004 surprise"
+   218→              code={`print(0.2 + 0.1)          # expect 0.3?
+   219→print(0.2 + 0.1 == 0.3)   # False!
+   220→
+   221→# Every language has this quirk: computers store
+   222→# decimals in BINARY, and 0.1 has no exact binary
+   223→# form. Harmless for most apps — and fixable for
+   224→# display:
+   225→result = 0.2 + 0.1
+   226→print(f"{result:.2f}")    # two decimal places`}
+   227→              output={"0.30000000000000004\nFalse\n0.30"}
+   228→              note="A float is any number with a decimal point. The precision anomaly appears in ALL programming languages — generally of little concern, but now you can recognize it instead of fearing it."
+   229→            />
+   230→            <CodeBlock
+   231→              title="type_conversion.py — str() rescues the TypeError"
+   232→              code={`age = 23
+   233→# message = "happy " + age + "rd birthday"   # TypeError!
+   234→# Python refuses: + joins strings OR adds numbers,
+   235→# never both.
+   236→
+   237→message = "happy " + str(age) + "rd birthday"
+   238→print(message)
+   239→
+   240→# The number stays a number for maths elsewhere:
+   241→print(age + 1, "next year")`}
+   242→              output={"happy 23rd birthday\n24 next year"}
+   243→              note="str() converts the integer to a string for the concatenation while preserving the numeric variable for calculations — exactly why the deck prefers it over typing quotes around the number."
+   244→            />
+   245→          </div>
+   246→        </div>
+   247→      </Reveal>
+   248→
+   249→      {/* Comments */}
+   250→      <Reveal className="mt-6">
+   251→        <div className="card-warm p-6 md:p-8">
+   252→          <div className="flex items-center gap-3">
+   253→            <Sigma className="h-6 w-6" style={{ color: "#c2410c" }} />
+   254→            <h3 className="text-2xl font-bold">Comments — notes in English, inside code</h3>
+   255→          </div>
+   256→          <p className="mt-3 max-w-4xl text-[.92rem] leading-relaxed text-[#2b2014]">
+   257→            Comments are an extremely useful feature in most programming languages. As
+   258→            programs become longer and more complicated, we should add notes that
+   259→            describe the overall approach to the problem we’re solving. A comment lets
+   260→            us write notes in English within our programs — Python ignores everything
+   261→            after the <code className="font-mono-warm font-bold">#</code>.
+   262→          </p>
+   263→          <CodeBlock
+   264→            className="mt-5"
+   265→            title="comments.py"
+   266→            code={`# Say hello to everyone.
+   267→print("Hello Python people!")
+   268→
+   269→# The hash (#) starts a comment — Python ignores the rest of the line.
+   270→# Write comments for the WHY, not the what: the code already says what it does.`}
+   271→          />
+   272→        </div>
+   273→      </Reveal>
+   274→
+   275→<div className="mt-8 grid gap-5 md:grid-cols-2">
+   276→        <Reveal>
+   277→          <Quiz
+   278→            source="Concept check"
+   279→            q="Which variable name is legal but badly styled?"
+   280→            options={["1_message", "greeting message", "student_name", "print"]}
+   281→            answer={2}
+   282→            explain="student_name is legal and well styled. 1_message (starts with a number) and 'greeting message' (space) cause SyntaxErrors; print shadows a built-in function."
+   283→          />
+   284→        </Reveal>
+   285→        <Reveal delay={100}>
+   286→          <Quiz
+   287→            source="Concept check"
+   288→            q={'print("Languages:\\nPython") — what does the \\n do?'}
+   289→            options={["Prints a backslash and n", "Inserts a newline character", "Comments out the rest", "Converts to uppercase"]}
+   290→            answer={1}
+   291→            explain="\\n is the newline escape — it moves output to the next line. \\t inserts a tab. Both are 'whitespace' characters you can strip later with lstrip/rstrip/strip."
+   292→          />
+   293→        </Reveal>
+   294→      </div>
+   295→
+   296→      <Reveal className="mt-6">
+   297→        <Practice
+   298→          title="Try It Yourself — basics drills"
+   299→          items={[
+   300→            { q: <>Store a message in a variable, print it. Then change the value to a new message and print again.</>, hint: "two print() calls, one variable reassigned" },
+   301→            { q: <>Store a person’s name and print: “Hello Eric, would you like to learn some Python today?”</>, hint: "f-string with the name variable" },
+   302→            { q: <>Print a person’s name in lowercase, uppercase and titlecase.</>, hint: ".lower() .upper() .title()" },
+   303→            { q: <>Print a famous quote with its quotation marks: Albert Einstein once said, “A person who never made a mistake never tried anything new.”</>, hint: "mix single and double quotes" },
+   304→            { q: <>Repeat with the name in a variable famous_person and the message in a variable message.</>, hint: "compose, then print the message" },
+   305→            { q: <>Store a name with whitespace: use “\\t” and “\\n” at least once. Print it raw, then with lstrip(), rstrip() and strip().</> },
+   306→            { q: <>Write addition, subtraction, multiplication and division that each result in 8 — four print() lines like print(5 + 3).</> },
+   307→            { q: <>Store your favorite number; use an f-string to reveal it in a message.</> },
+   308→            { q: <>Choose two of your programs and add at least one comment describing what each does.</> },
+   309→          ]}
+   310→        />
+   311→      </Reveal>
+   312→
+   313→      <Reveal className="mt-6">
+   314→        <Takeaways
+   315→          items={[
+   316→            <>Variables are <strong>named references to values</strong>; naming has hard rules (letters/numbers/underscores, no leading digit, no keywords) and style guidelines (lowercase, descriptive, avoid l/O).</>,
+   317→            <>Strings accept <strong>single or double quotes</strong>; <strong>.title()/.upper()/.lower()</strong> change case; <strong>\\t and \\n</strong> add whitespace; <strong>strip()</strong> removes it.</>,
+   318→            <>Integers and <strong>floats</strong> power arithmetic; <strong>underscores</strong> make big numbers readable.</>,
+   319→            <><code className="font-mono-warm">#</code> comments explain the <em>why</em>; <strong>f-strings</strong> fuse variables into text.</>,
+   320→          ]}
+   321→        />
+   322→      </Reveal>
+   323→    </Section>
+   324→  );
+   325→}
+   326→
+   327→/* ============================================================
+   328→   LISTS
+   329→   ============================================================ */
+   330→function ListVisualizer() {
+   331→  const [items, setItems] = useState<{ id: number; v: string }[]>([
+   332→    { id: 1, v: "trek" },
+   333→    { id: 2, v: "cannondale" },
+   334→    { id: 3, v: "redline" },
+   335→    { id: 4, v: "specialized" },
+   336→  ]);
+   337→  const [msg, setMsg] = useState("bicycles[0] → 'trek'  · indexes start at 0");
+   338→  const nextId = React.useRef(5);
+   339→
+   340→  const push = (v: string, note: string) => {
+   341→    setItems((xs) => [...xs, { id: nextId.current++, v }]);
+   342→    setMsg(note);
+   343→  };
+   344→  const reset = () => {
+   345→    setItems([
+   346→      { id: 1, v: "trek" },
+   347→      { id: 2, v: "cannondale" },
+   348→      { id: 3, v: "redline" },
+   349→      { id: 4, v: "specialized" },
+   350→    ]);
+   351→    setMsg("bicycles = ['trek', 'cannondale', 'redline', 'specialized']");
+   352→  };
+   353→
+   354→  const btn =
+   355→    "rounded-full px-3.5 py-2 text-[.76rem] font-bold transition hover:scale-105 disabled:opacity-40";
+   356→  const btnStyle = { background: "linear-gradient(135deg,#fde8cf,#fbcf9f)", color: "#7c3a06", border: "1px solid #eec495" };
+   357→
+   358→  return (
+   359→    <div className="card-warm p-6 md:p-7">
+   360→      <p className="eyebrow">Live playground</p>
+   361→      <h3 className="mt-2 text-xl font-bold">Poke the list — watch every method in action</h3>
+   362→      <div className="mt-5 flex min-h-[76px] flex-wrap items-center gap-2 rounded-2xl p-4" style={{ background: "#fbf3e3", border: "1px dashed #e5c79d" }}>
+   363→        <span className="font-mono-warm text-[.8rem] font-bold text-[#8a4508]">bicycles&nbsp;=&nbsp;[</span>
+   364→        {items.map((it, i) => (
+   365→          <span key={it.id} className="lv-item rounded-lg px-3 py-1.5 font-mono-warm text-[.8rem] font-bold">
+   366→            <span className="mr-1.5 rounded bg-white/60 px-1 text-[.62rem] text-[#8a4508]">{i}</span>
+   367→            '{it.v}'
+   368→          </span>
+   369→        ))}
+   370→        <span className="font-mono-warm text-[.8rem] font-bold text-[#8a4508]">]</span>
+   371→        {items.length === 0 ? (
+   372→          <span className="font-mono-warm text-[.8rem] text-[#be4a4a]">[] — empty list (falsy!)</span>
+   373→        ) : null}
+   374→      </div>
+   375→      <p className="mt-3 rounded-xl px-4 py-2 font-mono-warm text-[.8rem]" style={{ background: "#2b1b10", color: "#ffd9a3" }}>
+   376→        # {msg}
+   377→      </p>
+   378→      <div className="mt-4 flex flex-wrap gap-2">
+   379→        <button className={btn} style={btnStyle} onClick={() => push("huffy", "bicycles.append('huffy') → added at the END")}>
+   380→          <Plus className="mr-1 inline h-3.5 w-3.5" /> append('huffy')
+   381→        </button>
+   382→        <button
+   383→          className={btn}
+   384→          style={btnStyle}
+   385→          onClick={() => {
+   386→            setItems((xs) => {
+   387→              if (!xs.length) { setMsg("list is empty — insert still works!"); const c = [...xs, { id: nextId.current++, v: "yamaha" }]; return c; }
+   388→              const c = [...xs];
+   389→              c.splice(1, 0, { id: nextId.current++, v: "yamaha" });
+   390→              return c;
+   391→            });
+   392→            setMsg("bicycles.insert(1, 'yamaha') → inserted at index 1, everything after shifts right");
+   393→          }}
+   394→        >
+   395→          <CornerDownRight className="mr-1 inline h-3.5 w-3.5" /> insert(1, 'yamaha')
+   396→        </button>
+   397→        <button
+   398→          className={btn}
+   399→          style={btnStyle}
+   400→          onClick={() => {
+   401→            setItems((xs) => {
+   402→              if (!xs.length) { setMsg("del needs an index — the list is empty"); return xs; }
+   403→              const c = [...xs];
+   404→              c.splice(0, 1);
+   405→              setMsg("del bicycles[0] → deleted the item at index 0");
+   406→              return c;
+   407→            });
+   408→          }}
+   409→        >
+   410→          <Trash2 className="mr-1 inline h-3.5 w-3.5" /> del bicycles[0]
+   411→        </button>
+   412→        <button
+   413→          className={btn}
+   414→          style={btnStyle}
+   415→          onClick={() => {
+   416→            setItems((xs) => {
+   417→              if (!xs.length) { setMsg("pop() on an empty list → IndexError"); return xs; }
+   418→              const c = [...xs];
+   419→              const last = c[c.length - 1];
+   420→              setMsg(`popped = bicycles.pop() → removed '${last.v}' (last item) — pop RETURNS the value`);
+   421→              c.pop();
+   422→              return c;
+   423→            });
+   424→          }}
+   425→        >
+   426→          pop()
+   427→        </button>
+   428→        <button
+   429→          className={btn}
+   430→          style={btnStyle}
+   431→          onClick={() => {
+   432→            setItems((xs) => {
+   433→              const c = [...xs];
+   434→              const idx = c.findIndex((x) => x.v === "redline");
+   435→              if (idx === -1) { setMsg("bicycles.remove('redline') → ValueError: not in list (it was already removed)"); return xs; }
+   436→              setMsg("bicycles.remove('redline') → removes by VALUE, but only the FIRST occurrence");
+   437→              c.splice(idx, 1);
+   438→              return c;
+   439→            });
+   440→          }}
+   441→        >
+   442→          remove('redline')
+   443→        </button>
+   444→        <button
+   445→          className={btn}
+   446→          style={btnStyle}
+   447→          onClick={() => {
+   448→            setItems((xs) => {
+   449→              const c = [...xs].sort((a, b) => a.v.localeCompare(b.v));
+   450→              setMsg("bicycles.sort() → sorted alphabetically, PERMANENTLY");
+   451→              return c;
+   452→            });
+   453→          }}
+   454→        >
+   455→          sort()
+   456→        </button>
+   457→        <button
+   458→          className={btn}
+   459→          style={btnStyle}
+   460→          onClick={() => {
+   461→            setItems((xs) => {
+   462→              const c = [...xs].reverse();
+   463→              setMsg("bicycles.reverse() → order flipped, PERMANENTLY");
+   464→              return c;
+   465→            });
+   466→          }}
+   467→        >
+   468→          reverse()
+   469→        </button>
+   470→        <button className={btn} style={{ ...btnStyle, background: "#2b1b10", color: "#ffd9a3", border: "1px solid #4a3020" }} onClick={reset}>
+   471→          <RotateCcw className="mr-1 inline h-3.5 w-3.5" /> reset
+   472→        </button>
+   473→      </div>
+   474→    </div>
+   475→  );
+   476→}
+   477→
+   478→export function ListsSection() {
+   479→  return (
+   480→    <Section id="lists" dark>
+   481→      <SectionHead
+   482→        dark
+   483→        eyebrow="Python · chapter 2"
+   484→        title={
+   485→          <>
+   486→            <span className="grad-text">Lists</span> — and working with them like a pro
+   487→          </>
+   488→        }
+   489→        lead="A list is an ordered collection of items in square brackets — the workhorse data structure of Python. You’ll access, modify, add, remove, sort, slice, loop over and finally protect data with tuples."
+   490→      />
+   491→
+   492→      {/* What is a list + access */}
+   493→      <div className="grid gap-5 lg:grid-cols-2">
+   494→        <Reveal>
+   495→          <CodeBlock
+   496→            title="bicycles.py"
+   497→            code={`bicycles = ['trek', 'cannondale', 'redline', 'specialized']
+   498→
+   499→print(bicycles)          # the whole list
+   500→print(bicycles[0])       # first element
+   501→print(bicycles[0].title())
+   502→
+   503→# Index positions START AT 0, not 1!
+   504→print(bicycles[1])   # 2nd item
+   505→print(bicycles[3])   # 4th item
+   506→print(bicycles[-1])  # last item — negative indexes count backwards`}
+   507→              output={"\n['trek', 'cannondale', 'redline', 'specialized']\ntrek\nTrek\ncannondale\nspecialized\nspecialized"}
+   508→              note={'Using individual values: f"My first bicycle was a {bicycles[0].title()}."'}
+   509→          />
+   510→        </Reveal>
+   511→        <Reveal delay={120}>
+   512→          <CodeBlock
+   513→            title="motorcycles.py — modify · add · remove"
+   514→            code={`motorcycles = ['honda', 'yamaha', 'suzuki']
+   515→
+   516→# MODIFY — assign by index
+   517→motorcycles[0] = 'ducati'
+   518→
+   519→# ADD
+   520→motorcycles.append('honda')       # to the end
+   521→motorcycles.insert(0, 'ducati')   # at any index
+   522→
+   523→# REMOVE — three ways
+   524→del motorcycles[0]                # by index
+   525→popped = motorcycles.pop()        # removes & RETURNS last
+   526→first = motorcycles.pop(0)        # pops any index
+   527→too_expensive = 'yamaha'
+   528→motorcycles.remove(too_expensive) # by VALUE (first match only)`}
+   529→              note="remove() deletes only the first occurrence — loop it to remove all. pop() is perfect when you want to use the removed value (like popping the most recent player from a roster)."
+   530→          />
+   531→        </Reveal>
+   532→      </div>
+   533→
+   534→      <Reveal className="mt-8">
+   535→        <ListVisualizer />
+   536→      </Reveal>
+   537→
+   538→
+   539→
+   540→
+   541→
+   542→
+   543→            <Reveal className="mt-8">
+   544→        <div className="card-warm p-6 md:p-8">
+   545→          <p className="eyebrow">The deck&rsquo;s dinner-party drill</p>
+   546→          <h3 className="mt-2 text-2xl font-bold">guest_list.py — invitations, edits and apologies</h3>
+   547→          <p className="mt-2 max-w-4xl text-[.9rem] text-[#e9d7bf]">
+   548→            The classic exercise that touches every operation: invite three guests, one declines —
+   549→            replace them, find a bigger table — insert a guest mid-list, append one to the end, then
+   550→            cut the list down with pop.
+   551→          </p>
+   552→          <div className="mt-5">
+   553→            <CodeBlock
+   554→              dark
+   555→              title="guest_list.py"
+   556→              code={`guests = ['ida', 'leo', 'asma']
+   557→for g in guests:
+   558→    print(f"{g.title()}, please come to dinner.")
+   559→
+   560→print("\nSadly, asma can't make it.")
+   561→guests[guests.index('asma')] = 'amir'      # replace by index
+   562→for g in guests:
+   563→    print(f"{g.title()}, please come to dinner.")
+   564→
+   565→print("\nBigger table found!")
+   566→guests.insert(1, 'kabir')                  # middle
+   567→guests.append('tara')                      # end
+   568→for g in guests:
+   569→    print(f"{g.title()}, please come to dinner.")
+   570→
+   571→print("\nOnly two seats now.")
+   572→while len(guests) > 2:
+   573→    sorry = guests.pop()
+   574→    print(f"Sorry, {sorry.title()} — no room this time.")
+   575→for g in guests:
+   576→    print(f"{g.title()}, you're still invited.")`}
+   577→              output={"Ida, please come to dinner.\nLeo, please come to dinner.\nAsma, please come to dinner.\n\nSadly, asma can't make it.\nIda, please come to dinner.\nLeo, please come to dinner.\nAmir, please come to dinner.\n\nBigger table found!\nIda, please come to dinner.\nKabir, please come to dinner.\nLeo, please come to dinner.\nAmir, please come to dinner.\nTara, please come to dinner.\n\nOnly two seats now.\nSorry, Tara — no room this time.\nSorry, Amir — no room this time.\nSorry, Kabir — no room this time.\nIda, you're still invited.\nLeo, you're still invited."}
+   578→              note="Replace via index assignment, grow with insert/append, shrink with pop — the whole Lecture-11 toolkit in one storyline. This is also the deck's assigned homework: personalize every name."
+   579→            />
+   580→          </div>
+   581→        </div>
+   582→      </Reveal><div className="mt-8 grid gap-5 md:grid-cols-2">
+   583→        <Reveal>
+   584→          <Quiz
+   585→            source="Concept check"
+   586→            q="What does bicycles[1] return for ['trek', 'cannondale', 'redline', 'specialized']?"
+   587→            options={["'trek'", "'cannondale'", "'redline'", "IndexError"]}
+   588→            answer={1}
+   589→            explain="Index positions start at 0, so index 1 is the SECOND element: 'cannondale'. Index -1 would give the last item."
+   590→          />
+   591→        </Reveal>
+   592→        <Reveal delay={100}>
+   593→          <Quiz
+   594→            source="Concept check"
+   595→            q="Which removal method returns the removed value so you can keep using it?"
+   596→            options={["del motorcycles[0]", "motorcycles.remove('ducati')", "popped = motorcycles.pop()", "None of them"]}
+   597→            answer={2}
+   598→            explain="pop() removes AND returns — perfect when the removed value still matters (a popped player, a printed design). del is gone forever; remove() drops by value with nothing returned."
+   599→          />
+   600→        </Reveal>
+   601→      </div>
+   602→
+   603→      <Reveal className="mt-6">
+   604→        <Practice
+   605→          title="Try It Yourself — list-basics drills"
+   606→          items={[
+   607→            { q: <>Guest list: three invites → one declines (replace by index) → bigger table (insert + append) → only two seats (pop down to two, del the rest). Print every message.</> },
+   608→            { q: <>Deliberately cause an IndexError by reading one past the end — then fix it with len()−1 or a negative index.</> },
+   609→          ]}
+   610→        />
+   611→      </Reveal>
+   612→
+   613→      <Reveal className="mt-6">
+   614→        <Takeaways
+   615→          dark
+   616→          items={[
+   617→            <>Lists are <strong>ordered and mutable</strong>; indexes start at <strong>0</strong>; <strong>-1</strong> is the last item.</>,
+   618→            <>Grow with <strong>append()/insert()</strong>; shrink with <strong>del/pop()/remove()</strong> — pop returns the value.</>,
+   619→            <>remove() deletes only the <strong>first occurrence</strong>; loop it to purge them all (Lecture 26 does exactly that).</>,
+   620→            <>Ordering, slicing and tuples moved to their own lectures — <strong>12, 15 and 16</strong>.</>,
+   621→          ]}
+   622→        />
+   623→      </Reveal>
+   624→</Section>
+   625→  );
+   626→}
+   627→
