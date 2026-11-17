@@ -1666,3 +1666,14 @@ html.atlas-active :focus-visible,
     position: static !important;
   }
 }
+
+  /* FA diagram machines: bar fills survive on paper (scoped override of
+     the global transparent-background rule above — later + more specific
+     wins). Values are also always present as text, so the machines read
+     cleanly even in plain black-and-white. */
+  .fa-diag [data-bar] {
+    background-color: var(--fa-bar, #047857) !important;
+    background-image: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }

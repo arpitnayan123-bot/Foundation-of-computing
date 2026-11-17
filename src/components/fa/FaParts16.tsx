@@ -23,6 +23,7 @@ import {
 import { Reveal, Section, SectionHead, StepsFlow, Takeaways } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_G, FaCallout, FaEq, FaQuiz, FaReadStep } from "./FaParts1";
 import { eyebrowOf } from "./faLectures";
+import { FaDupontDial } from "./diagrams/DupontDial";
 
 /* ============================================================
    CHAPTER — TECHNIQUES OF ANALYSIS (Lecture 34 · part 1)
@@ -227,63 +228,6 @@ controlling costs and improving efficiency.`}</FaEq>
    CHAPTER — DUPONT & THE EXAM (Lecture 34 · part 2)
    ============================================================ */
 
-function DupontDial() {
-  const [preset, setPreset] = useState<"luxury" | "market" | "reddy15" | "reddy16">("luxury");
-  const presets = {
-    luxury: { label: "Luxury goods", margin: "10%", turn: "2×", roa: "20%", note: "Few sales, rich margins — the asset turns slowly but each turn is fat." },
-    market: { label: "Supermarket", margin: "4%", turn: "5×", roa: "20%", note: "Thin margins, relentless velocity — the same 20% by the opposite road." },
-    reddy15: { label: "Dr. Reddy's 2015", margin: "15%", turn: "0.87×", roa: "13.05%", note: "The lecture's DuPont walk for 2015: 15% × 0.87." },
-    reddy16: { label: "Dr. Reddy's 2016", margin: "13.71%", turn: "0.81×", roa: "11.11%", note: "2016: margin fell (forex loss) AND turnover fell (assets grew faster than revenue) — both drivers deteriorated." },
-  } as const;
-  const p = presets[preset];
-  return (
-    <div className="overflow-hidden rounded-2xl border border-[#c7e5d6] bg-[#fffdf9]">
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#e4f1ea] bg-[#f4faf7] px-4 py-3">
-        <Scale className="h-4 w-4" style={{ color: FA_G[700] }} />
-        <span className="font-mono text-[.64rem] font-black uppercase tracking-[.2em]" style={{ color: FA_G[700] }}>
-          ROA = Profit Margin × Asset Turnover
-        </span>
-        <span className="text-[.7rem] font-semibold text-muted-warm">pick a business model</span>
-      </div>
-      <div className="grid grid-cols-2 border-b border-[#e4f1ea] sm:grid-cols-4">
-        {(["luxury", "market", "reddy15", "reddy16"] as const).map((k) => (
-          <button
-            key={k}
-            type="button"
-            onClick={() => setPreset(k)}
-            aria-pressed={preset === k}
-            className={`px-3 py-2.5 text-[.74rem] font-extrabold uppercase tracking-[.1em] transition-colors ${
-              preset === k ? "bg-[#ecfdf5] text-[#065f46]" : "text-[#9db8a9] hover:text-[#5c7a6b]"
-            }`}
-          >
-            {k === "luxury" ? "Luxury 10% × 2×" : k === "market" ? "Market 4% × 5×" : k === "reddy15" ? "Reddy's 2015" : "Reddy's 2016"}
-          </button>
-        ))}
-      </div>
-      <div className="px-4 py-5 sm:px-6">
-        <div className="flex flex-wrap items-center justify-center gap-2 text-center font-mono">
-          <span className="rounded-xl border border-[#e4f1ea] bg-white px-4 py-2 text-[1.05rem] font-black" style={{ color: FA_G[700] }}>
-            {p.margin}
-          </span>
-          <span className="text-lg font-black text-[#8a6b45]">×</span>
-          <span className="rounded-xl border border-[#e4f1ea] bg-white px-4 py-2 text-[1.05rem] font-black" style={{ color: FA_G[700] }}>
-            {p.turn}
-          </span>
-          <span className="text-lg font-black text-[#8a6b45]">=</span>
-          <span className="rounded-xl px-4 py-2 text-[1.05rem] font-black text-white" style={{ background: FA_BTN_GRAD }}>
-            {p.roa} ROA
-          </span>
-        </div>
-        <p className="mt-3 text-center text-[.82rem] leading-relaxed text-[#2b2014]">{p.note}</p>
-        <p className="mt-2 text-center text-[.74rem] leading-relaxed text-muted-warm">
-          The algebra is exact: (Net Profit ÷ Revenue) × (Revenue ÷ Assets) = Net Profit ÷ Assets. Revenue cancels —
-          what remains is ROA, decomposed into <b>where profit is made</b> and <b>how hard assets work</b>.
-        </p>
-      </div>
-    </div>
-  );
-}
-
 function ExamCard() {
   return (
     <div
@@ -339,7 +283,7 @@ export function FaDupontExamSection() {
         />
 
         <FaReadStep n="01" title="The DuPont decomposition" sub="Two presets land on 20%; two land on Dr. Reddy's decline" />
-        <DupontDial />
+        <FaDupontDial />
 
         <FaReadStep n="02" title="Dr. Reddy's decomposition, 2015 → 2016" sub="Both drivers deteriorated — that is the finding" />
         <Reveal>

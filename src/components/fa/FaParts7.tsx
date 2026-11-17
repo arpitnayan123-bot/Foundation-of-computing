@@ -32,6 +32,7 @@ import {
 import { Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_G, FaCallout, FaEq, FaQuiz, FaReadStep } from "./FaParts1";
 import { eyebrowOf } from "./faLectures";
+import { FaSuspenseMatrix } from "./diagrams/SuspenseMatrix";
 
 /* ============================================================
    CHAPTER — SUSPENSE & ERRORS (Lecture 15)
@@ -202,33 +203,7 @@ and leaves the books.`}</FaEq>
           </div>
         </Reveal>
         <Reveal className="mt-4">
-          <FaEq label="The diagnosis">{`Trial balance refuses to agree — a ₹50,000 gap,
-parked in suspense to meet the deadline.
-
-① Omission      ₹25,000 cloud-server invoice paid,
-                never recorded      → NO effect on TB
-                                    (both sides missing)
-
-② Principle     ₹40,000 executive desk debited to
-                office repairs      → NO effect on TB
-                                    (debit still recorded)
-
-③ Commission    cash sale ₹85,000 credited to sales
-                correctly — but bank debited ₹35,000
-                                    → ₹50,000 gap ✓ FOUND
-
-The fix: record ①, reclassify ② (debit furniture,
-credit repairs), and ③ already explains suspense.
-Suspense closes to nil. Books move on.`}</FaEq>
-        </Reveal>
-        <Reveal className="mt-3">
-          <p className="rounded-xl border border-[#cec2a4] bg-[#f5f1e8] px-4 py-3 text-[.76rem] leading-relaxed text-[#7c6248]">
-            <b>Source note.</b> The lecture PDF prints the case as debit ₹1,80,00,000 vs credit ₹1,90,00,000 while
-            labelling the difference “₹50,000” — the printed totals imply a ₹10,00,000 gap, so the label and the totals
-            contradict each other. Figures here are rendered internally consistent (₹1,80,00,000 vs ₹1,80,50,000 → the
-            ₹50,000 the commission error exactly explains) and the source slip is disclosed rather than silently
-            copied.
-          </p>
+          <FaSuspenseMatrix />
         </Reveal>
 
         <div className="mt-10 grid gap-4 md:grid-cols-2">

@@ -12,229 +12,18 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   BadgePercent,
-  Check,
   ChevronDown,
-  Coins,
-  Minus,
   Percent,
-  Plus,
   TrendingDown,
-  X,
 } from "lucide-react";
 import { Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_G, FaCallout, FaEq, FaQuiz, FaReadStep } from "./FaParts1";
 import { eyebrowOf } from "./faLectures";
+import { FaAdjustmentFamilies } from "./diagrams/AdjustmentFamilies";
 
 /* ============================================================
    CHAPTER — THE INDIRECT BUILD (Lecture 26)
    ============================================================ */
-
-const AJAY_MOVES = [
-  { d: "Depreciation expense", sign: "+" as const, why: "non-cash — add back" },
-  { d: "Investment gain", sign: "-" as const, why: "non-operating — remove" },
-  { d: "Inventory decrease", sign: "+" as const, why: "stock turned into cash" },
-  { d: "Trade receivables increase", sign: "-" as const, why: "credit sales, cash not collected" },
-  { d: "Prepaid expenses increase", sign: "-" as const, why: "cash paid in advance" },
-  { d: "Trade payables increase", sign: "+" as const, why: "expenses booked, cash kept" },
-  { d: "Income tax paid", sign: "-" as const, why: "actual cash out" },
-];
-
-/* ============================================================
-   CompassBuild — the three adjustment families as a live
-   classifier. Every Compass item below is a real figure from
-   the case (L26 statement + L27 diagnosis); classify it into
-   its family and the ₹11,41,000 → ₹72,000 story assembles.
-   ============================================================ */
-const COMPASS_FAMILIES = [
-  { id: "noncash", label: "Non-cash", hint: "add back — no cash moved" },
-  { id: "nonop", label: "Non-operating", hint: "remove — belongs to investing" },
-  { id: "wc", label: "Working capital", hint: "reconcile — cash lagged profit" },
-] as const;
-
-const COMPASS_ITEMS = [
-  { d: "Depreciation expense", fam: "noncash", n: "" },
-  { d: "Bad-debt provision", fam: "noncash", n: "" },
-  { d: "Inventory tie-up", fam: "wc", n: "₹58,000" },
-  { d: "Receivables tie-up", fam: "wc", n: "₹44,000" },
-  { d: "Gain on equipment disposal", fam: "nonop", n: "" },
-  { d: "Interest & investment income", fam: "nonop", n: "" },
-  { d: "Income tax actually paid", fam: "tax", n: "" },
-];
-
-function CompassBuild() {
-  const [picked, setPicked] = useState<Record<number, string>>({});
-  const [selected, setSelected] = useState<number | null>(null);
-  const placed = Object.keys(picked).length;
-  const correct = COMPASS_ITEMS.filter((it, i) => picked[i] === it.fam).length;
-  const done = placed === COMPASS_ITEMS.length;
-  const place = (fam: string) => {
-    if (selected === null) return;
-    setPicked((p) => ({ ...p, [selected]: fam }));
-    setSelected(null);
-  };
-  return (
-    <div className="overflow-hidden rounded-2xl border border-[#c7e5d6] bg-[#fffdf9]">
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#e4f1ea] bg-[#f4faf7] px-4 py-3">
-        <span className="font-mono text-[.64rem] font-black uppercase tracking-[.2em]" style={{ color: FA_G[700] }}>
-          The three adjustment families — sort Compass&apos;s adjustments
-        </span>
-        <span className="text-[.7rem] font-semibold text-muted-warm">
-          net profit ₹11,41,000 → operating cash ₹72,000
-        </span>
-      </div>
-      <div className="grid gap-px bg-[#e4f1ea] md:grid-cols-3">
-        {COMPASS_FAMILIES.map((f) => (
-          <button
-            key={f.id}
-            type="button"
-            onClick={() => place(f.id)}
-            aria-label={`Place the selected adjustment in ${f.label}`}
-            className="bg-white p-4 text-left transition-colors hover:bg-[#f7fbf9]"
-          >
-            <p className="text-[.88rem] font-extrabold text-[#3e2c1d]">{f.label}</p>
-            <p className="text-[.72rem] leading-snug text-muted-warm">{selected !== null ? "tap to place ↴" : f.hint}</p>
-            <div className="mt-2 min-h-[64px] rounded-xl border border-dashed border-[#dbeae2] p-2">
-              {COMPASS_ITEMS.map((it, i) =>
-                picked[i] === f.id ? (
-                  <motion.span
-                    key={it.d}
-                    initial={{ opacity: 0, scale: 0.92 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className={`mb-1 flex items-center justify-between gap-2 rounded-lg px-2 py-1 text-[.72rem] font-semibold ${
-                      it.fam === f.id ? "bg-[#ecfdf5] text-[#065f46]" : "bg-[#fbeae5] text-[#b3402c]"
-                    }`}
-                  >
-                    <span>{it.d}{it.n ? ` · ${it.n}` : ""}</span>
-                    {it.fam === f.id ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
-                  </motion.span>
-                ) : null,
-              )}
-            </div>
-          </button>
-        ))}
-      </div>
-      <div className="border-t border-[#e4f1ea] bg-white px-4 py-3">
-        <div className="flex flex-wrap gap-1.5">
-          {COMPASS_ITEMS.map((it, i) => (
-            <button
-              key={it.d}
-              type="button"
-              disabled={picked[i] !== undefined}
-              onClick={() => setSelected(i)}
-              aria-pressed={selected === i}
-              className={`rounded-lg border px-2.5 py-1 text-[.74rem] font-semibold transition-colors disabled:opacity-35 ${
-                selected === i
-                  ? "border-[#059669] bg-[#ecfdf5] text-[#065f46]"
-                  : "border-[#e0ece6] bg-white text-[#3e2c1d] hover:border-[#a9dcc4]"
-              }`}
-            >
-              {it.d}
-            </button>
-          ))}
-        </div>
-        <p className="mt-2 text-[.76rem] leading-relaxed text-muted-warm">
-          Tap an adjustment, then tap the family card it belongs to — tax paid gets its own row at the bottom of the
-          ladder. {done ? (
-            correct === COMPASS_ITEMS.length ? (
-              <b style={{ color: FA_G[700] }}>All {COMPASS_ITEMS.length} placed correctly — profit ₹11,41,000 walks down to ₹72,000 of operating cash. ✓</b>
-            ) : (
-              <b style={{ color: "#b3402c" }}>{correct}/{COMPASS_ITEMS.length} in the right family — recheck the dashed slots.</b>
-            )
-          ) : (
-            <>{placed}/{COMPASS_ITEMS.length} placed.</>
-          )}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function AjayLadder() {
-  const [step, setStep] = useState(0);
-  const steps = AJAY_MOVES.length;
-  return (
-    <div className="overflow-hidden rounded-2xl border border-[#c7e5d6] bg-[#fffdf9]">
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#e4f1ea] bg-[#f4faf7] px-4 py-3">
-        <TrendingDown className="h-4 w-4" style={{ color: FA_G[700] }} />
-        <span className="font-mono text-[.64rem] font-black uppercase tracking-[.2em]" style={{ color: FA_G[700] }}>
-          Ajay Company — profit before tax ₹4,32,000
-        </span>
-        <span className="text-[.7rem] font-semibold text-muted-warm">step through the adjustment moves</span>
-      </div>
-      <div className="px-4 py-5 sm:px-6">
-        <div className="grid gap-1.5">
-          <div className="flex items-center gap-3 rounded-xl border border-[#c7e5d6] bg-white px-4 py-2.5">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#5c7a6b] text-white">
-              <Coins className="h-3.5 w-3.5" />
-            </span>
-            <span className="flex-1 text-[.88rem] font-extrabold text-[#3e2c1d]">Profit before tax</span>
-            <span className="font-mono text-[.92rem] font-black text-[#3e2c1d]">₹4,32,000</span>
-          </div>
-          {AJAY_MOVES.slice(0, step).map((m) => (
-            <motion.div
-              key={m.d}
-              initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3 }}
-              className="flex items-center gap-3 rounded-xl border border-[#e4f1ea] bg-white px-4 py-2"
-            >
-              <span
-                className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md font-mono text-[.85rem] font-black text-white`}
-                style={{ background: m.sign === "+" ? FA_G[600] : "#b3402c" }}
-              >
-                {m.sign === "+" ? <Plus className="h-3 w-3" /> : <Minus className="h-3 w-3" />}
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block truncate text-[.84rem] font-bold text-[#3e2c1d]">{m.d}</span>
-                <span className="block text-[.66rem] text-muted-warm">{m.why}</span>
-              </span>
-            </motion.div>
-          ))}
-          {step >= steps ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="flex items-center gap-3 rounded-xl border-2 px-4 py-3"
-              style={{ borderColor: FA_G[500], background: "#ecfdf5" }}
-            >
-              <Check className="h-5 w-5" style={{ color: FA_G[600] }} />
-              <span className="flex-1 text-[.95rem] font-black" style={{ color: FA_G[800] }}>
-                Net cash flow from operating activities
-              </span>
-              <span className="font-mono text-[1.05rem] font-black" style={{ color: FA_G[800] }}>₹3,48,000</span>
-            </motion.div>
-          ) : null}
-        </div>
-        <div className="mt-4 flex items-center justify-between">
-          <span className="font-mono text-[.7rem] font-bold text-[#9db8a9]">{step} / {steps} adjustments applied</span>
-          {step < steps ? (
-            <button
-              type="button"
-              onClick={() => setStep((s) => s + 1)}
-              className="rounded-lg px-3 py-1.5 text-[.74rem] font-bold text-white"
-              style={{ background: FA_BTN_GRAD }}
-            >
-              Apply next adjustment →
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setStep(0)}
-              className="rounded-lg border border-[#e4f1ea] bg-white px-3 py-1.5 text-[.74rem] font-bold text-[#3e2c1d]"
-            >
-              Replay
-            </button>
-          )}
-        </div>
-        <p className="mt-3 text-[.76rem] leading-snug text-muted-warm">
-          The lecture gives the moves and the verified landing figure — ₹4,32,000 of accrual profit becomes ₹3,48,000
-          of operating cash. Note how the same profit can fall by ₹84,000 purely on timing, with no change in the
-          business&apos;s health.
-        </p>
-      </div>
-    </div>
-  );
-}
 
 export function FaCashflowBuildSection() {
   return (
@@ -302,26 +91,10 @@ Tax paid = Tax expense + Opening tax payable − Closing tax payable`}</FaEq>
           ))}
         </div>
 
-        <FaReadStep n="03" title="Case study — Compass Company" sub="Two years of statements (2004, 2005), all three categories applied" />
+        <FaReadStep n="03" title="One engine, two companies" sub="Compass ₹11,41,000 → ₹72,000 · Ajay ₹4,32,000 → ₹3,48,000 — same machine" />
         <Reveal>
-          <FaEq label="Compass Company — the verified result">{`Profit before tax
-  + depreciation & bad debts (non-cash)
-  − gains on asset sales, investment income
-  ± inventory, receivables, payables changes
-  − income tax actually paid
-  ──────────────────────────
-  Net cash flow from operating activities = ₹72,000
-
-The full three-section statement then follows:
-investing (asset purchases & disposals) and
-financing (capital raised & returned).`}</FaEq>
+          <FaAdjustmentFamilies />
         </Reveal>
-        <Reveal className="mt-4">
-          <CompassBuild />
-        </Reveal>
-
-        <FaReadStep n="04" title="Exercise — Ajay Company" sub="₹4,32,000 of profit, adjusted move by move" />
-        <AjayLadder />
 
         <Reveal className="mt-6">
           <FaCallout kind="warn" title="Two traps the lecture warns about">

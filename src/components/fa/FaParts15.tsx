@@ -22,113 +22,11 @@ import {
 import { Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_G, FaCallout, FaEq, FaQuiz, FaReadStep } from "./FaParts1";
 import { eyebrowOf } from "./faLectures";
+import { FaDepreciationRace } from "./diagrams/DepreciationRace";
 
 /* ============================================================
    CHAPTER — PPE & DEPRECIATION (Lecture 33 · part 1)
    ============================================================ */
-
-interface RaceRow {
-  yr: number;
-  dep: number;
-  acc: number;
-  carrying: number;
-  note?: string;
-}
-
-const SL_SCHEDULE: RaceRow[] = [
-  { yr: 1, dep: 9400, acc: 9400, carrying: 47600 },
-  { yr: 2, dep: 9400, acc: 18800, carrying: 38200 },
-  { yr: 3, dep: 9400, acc: 28200, carrying: 28800 },
-  { yr: 4, dep: 9400, acc: 37600, carrying: 19400 },
-  { yr: 5, dep: 9400, acc: 47000, carrying: 10000 },
-];
-
-const DB_SCHEDULE: RaceRow[] = [
-  { yr: 1, dep: 22800, acc: 22800, carrying: 34200, note: "40% × ₹57,000" },
-  { yr: 2, dep: 13680, acc: 36480, carrying: 20520, note: "40% × ₹34,200" },
-  { yr: 3, dep: 8208, acc: 44688, carrying: 12312, note: "40% × ₹20,520" },
-  { yr: 4, dep: 2312, acc: 47000, carrying: 10000, note: "capped at the ₹10,000 residual" },
-];
-
-function DepreciationRace() {
-  const [method, setMethod] = useState<"sl" | "db">("sl");
-  const rows = method === "sl" ? SL_SCHEDULE : DB_SCHEDULE;
-  const max = 22800;
-  return (
-    <div className="overflow-hidden rounded-2xl border border-[#c7e5d6] bg-[#fffdf9]">
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#e4f1ea] bg-[#f4faf7] px-4 py-3">
-        <Cog className="h-4 w-4" style={{ color: FA_G[700] }} />
-        <span className="font-mono text-[.64rem] font-black uppercase tracking-[.2em]" style={{ color: FA_G[700] }}>
-          The printing press — ₹57,000 cost · ₹10,000 residual · 5 years
-        </span>
-        <span className="text-[.7rem] font-semibold text-muted-warm">race the two methods</span>
-      </div>
-      <div className="grid grid-cols-2 border-b border-[#e4f1ea]">
-        {(["sl", "db"] as const).map((m) => (
-          <button
-            key={m}
-            type="button"
-            onClick={() => setMethod(m)}
-            aria-pressed={method === m}
-            className={`px-4 py-3 text-[.8rem] font-extrabold uppercase tracking-[.12em] transition-colors ${
-              method === m ? "bg-[#ecfdf5] text-[#065f46]" : "text-[#9db8a9] hover:text-[#5c7a6b]"
-            }`}
-          >
-            {m === "sl" ? "Straight line — ₹9,400 flat" : "Diminishing balance — 40%"}
-          </button>
-        ))}
-      </div>
-      <div className="px-4 py-5 sm:px-6">
-        <div className="grid gap-2">
-          {rows.map((r) => (
-            <motion.div
-              key={r.yr}
-              initial={{ opacity: 0, x: -14 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: r.yr * 0.04 }}
-              className="flex items-center gap-3"
-            >
-              <span className="w-14 shrink-0 font-mono text-[.7rem] font-black text-[#8a6b45]">Year {r.yr}</span>
-              <div className="h-6 min-w-0 flex-1 overflow-hidden rounded-lg bg-[#eef6f1]">
-                <div
-                  className="h-full rounded-lg"
-                  style={{
-                    width: `${(r.dep / max) * 100}%`,
-                    background: method === "sl" ? `linear-gradient(90deg,${FA_G[600]},${FA_G[700]})` : "linear-gradient(90deg,#f59e0b,#b45309)",
-                  }}
-                />
-              </div>
-              <span className="w-24 shrink-0 text-right font-mono text-[.82rem] font-black text-[#3e2c1d]">
-                ₹{r.dep.toLocaleString("en-IN")}
-              </span>
-              <span className="hidden w-40 shrink-0 text-right font-mono text-[.7rem] leading-tight text-muted-warm sm:block">
-                carrying ₹{r.carrying.toLocaleString("en-IN")}
-                <br />
-                {r.note ?? `acc. ₹${r.acc.toLocaleString("en-IN")}`}
-              </span>
-            </motion.div>
-          ))}
-        </div>
-        <p className="mt-3 rounded-xl px-3 py-2 text-[.82rem] leading-relaxed" style={{ background: FA_G.wash, color: FA_G[800] }}>
-          {method === "sl" ? (
-            <>
-              <b>Straight line</b> — (57,000 − 10,000) ÷ 5 = <b>₹9,400 every year</b>. The expense is flat; the
-              carrying amount glides from ₹47,600 down to exactly the ₹10,000 residual.
-            </>
-          ) : (
-            <>
-              <b>Diminishing balance at 40%</b> — ₹22,800, then ₹13,680, then ₹8,208. A raw 40% would continue
-              ₹4,925 → ₹2,955, but that crashes <b>through</b> the ₹10,000 residual floor — so real schedules cap the
-              final charge at the residual (₹2,312 in year 4). <b>Total depreciation = ₹47,000, identical to straight
-              line — only the timing differs.</b>
-            </>
-          )}
-        </p>
-      </div>
-    </div>
-  );
-}
 
 export function FaPpeDepreciationSection() {
   return (
@@ -237,7 +135,7 @@ joins the build-up too.)`}</FaEq>
         </Reveal>
 
         <FaReadStep n="05" title="The race — straight line vs diminishing balance" sub="Flip between the methods and watch the timing move" />
-        <DepreciationRace />
+        <FaDepreciationRace />
 
         <FaReadStep n="06" title="Disposal — selling before the end" sub="Selling price vs carrying amount decides gain or loss" />
         <div className="grid gap-3 md:grid-cols-2">
@@ -294,8 +192,8 @@ joins the build-up too.)`}</FaEq>
               <>PPE: production/supply, rental, or admin use; <b>&gt;12 months</b>; identifiable benefits; measurable cost (AS 10).</>,
               <>Capital = <b>last longer / work better / do more</b>; revenue = <b>merely maintains</b> (supercharger vs servicing).</>,
               <>Cost build-up: 54,000 + 1,500 + 2,500 = <b>₹57,000</b>; depreciable amount 57,000 − 10,000 = <b>₹47,000</b>.</>,
-              <>Straight line <b>₹9,400/yr</b> (47,600 → 38,200 → 28,800 → 19,400 → 10,000); diminishing 40%: <b>22,800 / 13,680 / 8,208</b>, capped at the residual.</>,
-              <>Total lifetime depreciation is <b>identical under both methods</b> — only the timing differs.</>,
+              <>Straight line <b>₹9,400/yr</b> (47,600 → 38,200 → 28,800 → 19,400 → 10,000); diminishing 40%: <b>22,800 / 13,680 / 8,208</b> — and if the 40% ran uncapped it would OVERSHOOT the residual (₹4,432.32 carrying, ₹52,567.68 total).</>,
+              <>The <b>invariant</b> — same ₹47,000 under both methods — holds <b>by design, not automatically</b>: solve the rate (29.397%) or take a final-year catch-up.</>,
               <>Disposal: 29,200 → 31,000 = <b>+₹1,800 gain</b>; → 27,100 = <b>−₹2,100 loss</b>.</>,
             ]}
           />

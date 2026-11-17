@@ -31,6 +31,7 @@ import {
 } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_BTN_SHADOW, FaCallout, FaEq, FaQuiz, FaReadStep, FA_G } from "./FaParts1";
 import { eyebrowOf } from "./faLectures";
+import { FaTbErrorPanel, FaTbSplitter } from "./diagrams/TbSplitter";
 
 /* ============================================================
    CHAPTER 9 — THE JOURNAL (Vogue Company)
@@ -720,100 +721,6 @@ function TrialBalanceSorter() {
   );
 }
 
-/* ============================================================
-   MethodSplitter — the Total-vs-Balance trial-balance methods
-   for Vogue's June 30 books, side-flippable instead of static.
-   ============================================================ */
-type TbMethod = "balance" | "total";
-
-const VOGUE_BALANCE = [
-  { a: "Cash", dr: "46,930", cr: "" },
-  { a: "Trade payables", dr: "", cr: "2,500" },
-  { a: "Revenue from services", dr: "", cr: "14,000" },
-  { a: "Other accounts (net)", dr: "21,070", cr: "51,500" },
-];
-
-const VOGUE_TOTAL = [
-  { a: "Cash", dr: "58,500", cr: "11,570" },
-  { a: "Trade payables", dr: "1,000", cr: "3,500" },
-  { a: "Revenue from services", dr: "", cr: "14,000" },
-  { a: "Other accounts (gross)", dr: "26,870", cr: "57,300" },
-];
-
-function MethodSplitter() {
-  const [method, setMethod] = useState<TbMethod>("balance");
-  const rows = method === "balance" ? VOGUE_BALANCE : VOGUE_TOTAL;
-  return (
-    <div className="overflow-hidden rounded-2xl border border-[#c7e5d6] bg-[#fffdf9]">
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#e4f1ea] bg-[#f4faf7] px-4 py-3">
-        <Scale className="h-4 w-4" style={{ color: FA_G[700] }} />
-        <span className="font-mono text-[.64rem] font-black uppercase tracking-[.2em]" style={{ color: FA_G[700] }}>
-          Vogue Company — trial balance, June 30
-        </span>
-        <span className="text-[.7rem] font-semibold text-muted-warm">one set of books, two legitimate drawings</span>
-      </div>
-      <div className="grid grid-cols-2 border-b border-[#e4f1ea]">
-        {(["balance", "total"] as const).map((m) => (
-          <button
-            key={m}
-            type="button"
-            onClick={() => setMethod(m)}
-            aria-pressed={method === m}
-            className={`px-4 py-3 text-[.8rem] font-extrabold uppercase tracking-[.12em] transition-colors ${
-              method === m ? "bg-[#ecfdf5] text-[#065f46]" : "text-[#9db8a9] hover:text-[#5c7a6b]"
-            }`}
-          >
-            {m === "balance" ? "Balance method" : "Total method"}
-          </button>
-        ))}
-      </div>
-      <div className="overflow-x-auto">
-        <table className="warm-table w-full min-w-[440px]">
-          <thead>
-            <tr>
-              <th>Account</th>
-              <th className="text-right">Debit (₹)</th>
-              <th className="text-right">Credit (₹)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.a}>
-                <td className="text-[.85rem]">{r.a}</td>
-                <td className="text-right font-mono text-[.8rem]">{r.dr}</td>
-                <td className="text-right font-mono text-[.8rem]">{r.cr}</td>
-              </tr>
-            ))}
-            <tr>
-              <td className="font-extrabold" style={{ color: FA_G[800] }}>Total</td>
-              <td className="text-right font-mono font-black" style={{ color: FA_G[800] }}>
-                {method === "balance" ? "68,000" : "86,370"}
-              </td>
-              <td className="text-right font-mono font-black" style={{ color: FA_G[800] }}>
-                {method === "balance" ? "68,000" : "86,370"}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="border-t border-[#e4f1ea] bg-white px-4 py-3 text-[.82rem] leading-relaxed text-[#2b2014]">
-        {method === "balance" ? (
-          <>
-            <b>Balance method</b> — one <b>net figure per account</b>: Cash shows only its ₹46,930 debit balance, Trade
-            payables only its ₹2,500 credit balance. Compact; the format most textbooks prepare.
-          </>
-        ) : (
-          <>
-            <b>Total method</b> — <b>both gross sides</b> of every account before netting, so Cash appears at ₹58,500 Dr
-            | ₹11,570 Cr. The grand total rises to ₹86,370 — bigger, yet the proof is identical: both columns agree.
-            Ledger balances on a specified date is all a trial balance is; a basic check on bookkeeping.
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
-
 export function FaTrialBalanceSection() {
   return (
     <Section id="trial-balance">
@@ -909,12 +816,17 @@ export function FaTrialBalanceSection() {
           </FaCallout>
         </div>
 
-        <FaReadStep n="04" title="Two ways to draw it up" sub="Vogue's June 30 trial balance — flip between the methods" />
+        <FaReadStep n="04" title="Two ways to draw it up" sub="One ledger, two legitimate drawings — flip the whole workbench" />
         <Reveal>
-          <MethodSplitter />
+          <FaTbSplitter />
         </Reveal>
 
-        <FaReadStep n="05" title="Now sort it yourself" sub="Ten accounts from Pearl's extraction — which column does each belong in?" />
+        <FaReadStep n="05" title="Agrees ≠ accurate" sub="Four errors the columns cannot see — toggle each" />
+        <Reveal>
+          <FaTbErrorPanel />
+        </Reveal>
+
+        <FaReadStep n="06" title="Now sort it yourself" sub="Ten accounts from Pearl's extraction — which column does each belong in?" />
         <Reveal>
           <TrialBalanceSorter />
         </Reveal>
@@ -925,7 +837,7 @@ export function FaTrialBalanceSection() {
               <>The trial balance is the <b>third phase</b>: journal → ledger → trial balance.</>,
               <>It proves <b>arithmetic consistency</b>, not accuracy — principle and compensating errors survive.</>,
               <>Assets, drawings, purchases, expenses, losses → <b>debit</b> balances; liabilities, capital, reserves, incomes, sales, gains → <b>credit</b>.</>,
-              <>Balance method nets each account (<b>68,000</b>); total method lists both gross sides (<b>86,370</b>) — same proof.</>,
+              <>Total method lists <b>both gross sides</b> (Cash 58,500 Dr | 11,570 Cr); balance method nets each account (Cash <b>46,930</b> Dr) — same accounts, two drawings; only the balance method feeds statements.</>,
               <>The Cash ledger balance <b>is</b> the Cash trial-balance line — the pipeline has no gaps.</>,
             ]}
           />

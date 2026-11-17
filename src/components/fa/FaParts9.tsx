@@ -12,17 +12,13 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
-  Banknote,
   Building2,
   Check,
   ChevronDown,
   CircleDollarSign,
-  Equal,
   HandCoins,
   Landmark,
-  Minus,
   Plane,
-  Plus,
   Scale,
   Store,
   TrendingDown,
@@ -32,6 +28,7 @@ import {
 import { Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_G, FaCallout, FaEq, FaQuiz, FaReadStep } from "./FaParts1";
 import { eyebrowOf } from "./faLectures";
+import { FaJawsLadder } from "./diagrams/JawsLadder";
 
 /* ============================================================
    CHAPTER — THE FOURTH PILLAR (Lecture 23)
@@ -355,105 +352,6 @@ export function FaCashflowIntroSection() {
    CHAPTER — STRUCTURE & THE TWO METHODS (Lecture 25)
    ============================================================ */
 
-const JAWS_STEPS: { label: string; note: string; amt: number; sign: "+" | "-" | "=" }[] = [
-  { label: "Net income", note: "the accrual starting point", amt: 73000, sign: "=" },
-  { label: "Depreciation expense", note: "non-cash — add back", amt: 7000, sign: "+" },
-  { label: "Gain on disposal of plant assets", note: "non-operating — remove (the ₹2,500 proceeds are investing)", amt: 2500, sign: "-" },
-  { label: "Increase in accounts receivable", note: "sales booked, cash not collected — deduct", amt: 4000, sign: "-" },
-  { label: "Decrease in accounts payable", note: "suppliers were paid down — cash left — deduct", amt: 3800, sign: "-" },
-];
-
-function JawsLadder() {
-  const [shown, setShown] = useState(1);
-  const last = JAWS_STEPS.length - 1;
-  const running = JAWS_STEPS.slice(0, shown + 1).reduce((n, s) => (s.sign === "+" ? n + s.amt : s.sign === "-" ? n - s.amt : s.amt), 0);
-  const complete = shown === last;
-  return (
-    <div className="overflow-hidden rounded-2xl border border-[#c7e5d6] bg-[#fffdf9]">
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#e4f1ea] bg-[#f4faf7] px-4 py-3">
-        <Banknote className="h-4 w-4" style={{ color: FA_G[700] }} />
-        <span className="font-mono text-[.64rem] font-black uppercase tracking-[.2em]" style={{ color: FA_G[700] }}>
-          Jaws Photo Plus — the reconciliation ladder
-        </span>
-        <span className="text-[.7rem] font-semibold text-muted-warm">reveal the adjustments one by one</span>
-      </div>
-      <div className="px-4 py-5 sm:px-6">
-        <div className="grid gap-2">
-          {JAWS_STEPS.map((s, i) => {
-            if (i > shown) return null;
-            const isStart = s.sign === "=";
-            const isResult = i === last;
-            return (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, x: -18 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.32 }}
-                className={`flex items-center gap-3 rounded-xl border px-4 py-2.5 ${
-                  isResult
-                    ? "border-[#059669] bg-[#ecfdf5]"
-                    : isStart
-                    ? "border-[#c7e5d6] bg-white"
-                    : "border-[#e4f1ea] bg-white"
-                }`}
-              >
-                <span
-                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg font-mono text-[.9rem] font-black text-white ${
-                    s.sign === "-" ? "bg-[#b3402c]" : isResult ? "" : ""
-                  }`}
-                  style={isResult ? { background: FA_BTN_GRAD } : { background: isStart ? "#5c7a6b" : s.sign === "-" ? "#b3402c" : FA_G[600] }}
-                >
-                  {s.sign === "=" ? <Equal className="h-3.5 w-3.5" /> : s.sign === "+" ? <Plus className="h-3.5 w-3.5" /> : <Minus className="h-3.5 w-3.5" />}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-[.86rem] font-extrabold text-[#3e2c1d]">{s.label}</span>
-                  <span className="block text-[.68rem] leading-snug text-muted-warm">{s.note}</span>
-                </span>
-                <span className={`font-mono text-[.9rem] font-black ${isResult ? "text-[#065f46]" : "text-[#3e2c1d]"}`}>
-                  ₹{s.amt.toLocaleString("en-IN")}
-                </span>
-              </motion.div>
-            );
-          })}
-        </div>
-        <div className="mt-4 flex items-center justify-between gap-3">
-          <p className="font-mono text-[.92rem] font-black" style={{ color: complete ? FA_G[800] : "#7d9a8b" }}>
-            {complete ? (
-              <>Net cash from operating activities = ₹{running.toLocaleString("en-IN")} ✓</>
-            ) : (
-              <>Running total: ₹{running.toLocaleString("en-IN")}</>
-            )}
-          </p>
-          {shown < last ? (
-            <button
-              type="button"
-              onClick={() => setShown((s) => Math.min(s + 1, last))}
-              className="rounded-lg px-3 py-1.5 text-[.74rem] font-bold text-white"
-              style={{ background: FA_BTN_GRAD }}
-            >
-              Reveal next adjustment →
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setShown(0)}
-              className="rounded-lg border border-[#e4f1ea] bg-white px-3 py-1.5 text-[.74rem] font-bold text-[#3e2c1d]"
-            >
-              Replay
-            </button>
-          )}
-        </div>
-        <p className="mt-3 text-[.78rem] leading-relaxed text-muted-warm">
-          Read the fourth step twice: an <b>increase</b> in receivables means sales were booked but cash never arrived —
-          profit up, cash down. A <b>decrease</b> in payables means old bills were settled — cash left, profit untouched.
-          (Some summaries mislabel the payables line as an addition; the arithmetic that reaches ₹69,700 requires the
-          deduction shown here.)
-        </p>
-      </div>
-    </div>
-  );
-}
-
 export function FaCashflowMethodsSection() {
   return (
     <Section id="cashflow-methods">
@@ -542,7 +440,7 @@ export function FaCashflowMethodsSection() {
         </div>
 
         <FaReadStep n="04" title="The ladder, run for real" sub="Jaws Photo Plus — ₹73,000 of profit becomes ₹69,700 of cash" />
-        <JawsLadder />
+        <FaJawsLadder />
 
         <Reveal className="mt-6">
           <FaEq label="The full format, condensed">{`                        Cash Flow Statement
