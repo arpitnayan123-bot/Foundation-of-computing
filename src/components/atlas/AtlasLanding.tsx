@@ -78,14 +78,12 @@ const GLYPHS: { ch: string; left: string; top: string; size: string; delay: stri
 /* ---------------------------------------------- the gita, for the batch
    One verse, chosen for what this site asks of its readers —
    and of each other: the work is yours, the fruit is released
-   before walking into the hall (2.47). Sanskrit first, English
-   below. */
+   before walking into the hall (2.47). Sanskrit only — no
+   translation, no transliteration. */
 const GITA_VERSES = [
   {
     ref: "2.47",
     sa: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
-    iast: "karmaṇy evādhikāras te mā phaleṣu kadācana · mā karma-phala-hetur bhūr mā te saṅgo 'stv akarmaṇi",
-    en: "You are entitled to your action alone, never to its fruits. Let the fruit not be your motive — and let nothing pull you into inaction.",
   },
 ];
 
@@ -846,12 +844,6 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
                     <blockquote>
                       <p className="deva whitespace-pre-line text-[1.55rem] font-semibold leading-[1.85] text-[#f7ecdd] md:text-[1.9rem]">
                         {v.sa}
-                      </p>
-                      <p className="mx-auto mt-6 max-w-xl font-mono text-[.64rem] font-bold tracking-[.14em] text-[#b49a78]">
-                        {v.iast}
-                      </p>
-                      <p className="mx-auto mt-5 max-w-xl text-[.95rem] leading-relaxed text-[#e3d4bd] md:text-base">
-                        &ldquo;{v.en}&rdquo;
                       </p>
                     </blockquote>
                     <figcaption className="mt-6 font-mono text-[.6rem] font-bold uppercase tracking-[.26em] text-[#8d7b63]">
