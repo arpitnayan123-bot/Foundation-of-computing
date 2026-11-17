@@ -27,12 +27,9 @@ import {
   ArrowDown,
   ArrowUpRight,
   Command as CommandIcon,
-  FlaskConical,
   GraduationCap,
   Lock,
-  PenLine,
   Rocket,
-  Waypoints,
 } from "lucide-react";
 import { SUBJECTS, SEMESTER_ONE, type Subject, type SubjectAmbience } from "./subjects";
 import { dueCounts } from "@/lib/sm2";
@@ -76,6 +73,20 @@ const GLYPHS: { ch: string; left: string; top: string; size: string; delay: stri
   { ch: "→", left: "47%", top: "7%", size: "2.2rem", delay: "1.6s" },
   { ch: "π", left: "28%", top: "86%", size: "2.4rem", delay: "2.6s" },
   { ch: "Δ", left: "70%", top: "37%", size: "2rem", delay: "3.1s" },
+];
+
+/* ---------------------------------------------- the gita, for the batch
+   One verse, chosen for what this site asks of its readers —
+   and of each other: the work is yours, the fruit is released
+   before walking into the hall (2.47). Sanskrit first, English
+   below. */
+const GITA_VERSES = [
+  {
+    ref: "2.47",
+    sa: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+    iast: "karmaṇy evādhikāras te mā phaleṣu kadācana · mā karma-phala-hetur bhūr mā te saṅgo 'stv akarmaṇi",
+    en: "You are entitled to your action alone, never to its fruits. Let the fruit not be your motive — and let nothing pull you into inaction.",
+  },
 ];
 
 /* ---------------------------------------------- count-up stat */
@@ -664,23 +675,6 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               </span>
             </h1>
 
-            {/* tagline 2/2 — the atlas' one-line promise, closing the head
-                lockup; poured as a frosted chip (same glass as the eyebrow)
-                so it stays readable over the planet's glare, with side
-                rules that fade in from sm up */}
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.85, duration: 0.8, ease: EASE }}
-              className="mt-5 flex items-center justify-center gap-3"
-            >
-              <span aria-hidden className="hidden h-px w-7 bg-gradient-to-r from-transparent to-[#f5c889]/60 sm:block" />
-              <span className="flex items-center rounded-full border border-white/10 bg-[#0a0709]/55 px-4 py-1.5 text-[.64rem] font-bold uppercase tracking-[.24em] text-[#e3d4bd] backdrop-blur-md sm:text-[.68rem] sm:tracking-[.28em]">
-                Your syllabus, rebuilt to be remembered
-              </span>
-              <span aria-hidden className="hidden h-px w-7 bg-gradient-to-l from-transparent to-[#f5c889]/60 sm:block" />
-            </motion.p>
-
             {/* the primary doors live below the scene, on whole black —
                 the globe stays pure: light, horizon and type only. */}
           </div>
@@ -720,7 +714,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             >
               This is not a notes site — it&apos;s your syllabus rebuilt as an experience:
               diagrams that move when you touch them, machines you can take apart,
-              exams you can actually survive, and a real CPython kernel living in
+              exams you can walk into calm, and a real CPython kernel living in
               this tab.{" "}
               <span className="text-[#f7ecdd]">Not PDFs. Atlas pages.</span>
             </motion.p>
@@ -778,7 +772,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
                   "notes with a pulse",
                   "diagrams that dance",
                   "machines you can poke",
-                  "exams you can survive",
+                  "no effort is wasted",
                   "zero pdf energy",
                   "built for the night",
                   "cpython 3.12 in your tab",
@@ -828,87 +822,46 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
           </Rise>
         </section>
 
-        {/* ------- why it hits different ------- */}
-        <section aria-label="Why it hits different" className="relative border-t border-white/[.06]">
-          <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 md:py-24">
-            <Rise className="mb-12 text-center md:mb-16">
+        {/* ------- the gita, for the batch — spoken before every battle ------- */}
+        <section aria-label="The Gita, for the batch" className="relative border-t border-white/[.06]">
+          <div className="mx-auto w-full max-w-4xl px-4 py-20 text-center sm:px-6 md:py-28">
+            <Rise className="mb-14 md:mb-16">
               <span className="text-[.7rem] font-extrabold uppercase tracking-[.24em] text-[#f5c889]">
-                why it hits different
+                the gita · for the batch
               </span>
               <h2 className="mx-auto mt-4 max-w-2xl font-display text-3xl font-black leading-tight text-[#f7ecdd] md:text-4xl">
-                Notes, but make it <em className="italic">cinema.</em>
+                The original <span className="atlas-sheen">night-before talk.</span>
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-[.92rem] leading-relaxed text-[#a89a86]">
-                Three obsessions separate an Atlas page from every PDF you&apos;ve ever
-                suffered through.
+              <p className="mx-auto mt-4 max-w-xl text-[.92rem] leading-relaxed text-[#a89a86] md:text-base">
+                One verse for a batch walking this semester together — your hand
+                is on the work, never on the result; do it fully, and the fear
+                of the hall falls away.
               </p>
             </Rise>
 
-            <div className="grid gap-4 md:grid-cols-3 md:gap-5">
-              {[
-                {
-                  n: "01",
-                  icon: FlaskConical,
-                  accent: "#f59e0b",
-                  title: "Python that actually runs",
-                  body: "Every snippet executes on a genuine CPython 3.12 kernel compiled to WebAssembly. Predict the output on paper, press ▶ Run, argue with the machine — it never gets tired.",
-                },
-                {
-                  n: "02",
-                  icon: PenLine,
-                  accent: "#f43f5e",
-                  title: "Exams you can survive",
-                  body: "The end term is written on paper, so practice is too: written answers, model solutions, instant checking — an exam window built for every subject, not just the code ones.",
-                },
-                {
-                  n: "03",
-                  icon: Waypoints,
-                  accent: "#84cc16",
-                  title: "Diagrams that refuse to sit still",
-                  body: "DIKW pyramids, CPU pipelines, memory boxes, decision flowcharts — concepts rendered as living machines you can click, hover and rewind instead of figures you squint at.",
-                },
-              ].map((f, i) => (
-                <Rise key={f.n} delay={0.08 * i} className="h-full">
-                  <div className="group relative h-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/70 p-6 transition-all duration-500 hover:-translate-y-1 hover:border-white/20 md:p-7">
-                    <span
-                      aria-hidden
-                      className="text-ghost pointer-events-none absolute -right-2 -top-6 select-none font-display text-[6.5rem] font-black leading-none"
-                    >
-                      {f.n}
-                    </span>
-                    <span
-                      className="relative flex h-11 w-11 items-center justify-center rounded-xl border"
-                      style={{
-                        background: `${f.accent}14`,
-                        borderColor: `${f.accent}35`,
-                        boxShadow: `0 10px 26px -12px ${f.accent}80`,
-                      }}
-                    >
-                      <f.icon className="h-5 w-5" style={{ color: f.accent }} />
-                    </span>
-                    <h3 className="relative mt-5 font-display text-lg font-black text-[#f7ecdd]">{f.title}</h3>
-                    <p className="relative mt-2.5 text-[.88rem] leading-relaxed text-[#a89a86]">{f.body}</p>
-                  </div>
+            <div className="flex flex-col gap-16 md:gap-20">
+              {GITA_VERSES.map((v) => (
+                <Rise key={v.ref}>
+                  <figure className="mx-auto max-w-2xl">
+                    <blockquote>
+                      <p className="deva whitespace-pre-line text-[1.55rem] font-semibold leading-[1.85] text-[#f7ecdd] md:text-[1.9rem]">
+                        {v.sa}
+                      </p>
+                      <p className="mx-auto mt-6 max-w-xl font-mono text-[.64rem] font-bold tracking-[.14em] text-[#b49a78]">
+                        {v.iast}
+                      </p>
+                      <p className="mx-auto mt-5 max-w-xl text-[.95rem] leading-relaxed text-[#e3d4bd] md:text-base">
+                        &ldquo;{v.en}&rdquo;
+                      </p>
+                    </blockquote>
+                    <figcaption className="mt-6 font-mono text-[.6rem] font-bold uppercase tracking-[.26em] text-[#8d7b63]">
+                      bhagavad gita · {v.ref}
+                    </figcaption>
+                  </figure>
                 </Rise>
               ))}
             </div>
           </div>
-        </section>
-
-        {/* ------- the promise ------- */}
-        <section aria-label="The Atlas promise" className="relative mx-auto w-full max-w-4xl px-4 py-24 text-center sm:px-6 md:py-32">
-          <Rise>
-            <p className="font-display text-2xl font-medium italic leading-snug text-[#e9d7bf] md:text-[2.6rem] md:leading-[1.25]">
-              “Built for the night before.{" "}
-              <span className="atlas-sheen font-black not-italic">Remembered long after.</span>
-              ”
-            </p>
-            <p className="mx-auto mt-6 max-w-xl text-[.9rem] leading-relaxed text-[#8d7b63]">
-              That&apos;s the whole point of an Atlas page — it takes the panic out of
-              revision and turns it into something you can watch, poke and run, so
-              the syllabus stops being memorized and starts being remembered.
-            </p>
-          </Rise>
         </section>
       </main>
 

@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import {
+  Fraunces,
+  Plus_Jakarta_Sans,
+  JetBrains_Mono,
+  Noto_Serif_Devanagari,
+} from "next/font/google";
 import "./globals.css";
 import "./print.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -20,6 +25,14 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
+/* the Gita verses on the landing — Sanskrit needs its own serif,
+   or every machine without a Devanagari fallback shows tofu */
+const notoDeva = Noto_Serif_Devanagari({
+  variable: "--font-devanagari",
+  subsets: ["devanagari", "latin"],
+  display: "swap",
+});
+
 const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
@@ -28,7 +41,7 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
-  title: "The Atlas — Your Syllabus, Rebuilt to Be Remembered",
+  title: "The Atlas — Visual Revision Notes for Everything",
   description:
     "Six university subjects, each rebuilt as living revision notes — animated diagrams, exam simulators and real CPython 3.12 running in the browser. Shelf 01: Foundations of Computing. More shelves drop as the PDFs arrive.",
   keywords: [
@@ -40,7 +53,7 @@ export const metadata: Metadata = {
     "exam simulator",
   ],
   openGraph: {
-    title: "The Atlas — Your Syllabus, Rebuilt to Be Remembered",
+    title: "The Atlas — Visual Revision Notes for Everything",
     description:
       "Animated revision notes, pen-paper exam simulators and a real CPython 3.12 lab — one shelf per subject.",
     type: "website",
@@ -50,7 +63,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Atlas — Your Syllabus, Rebuilt to Be Remembered",
+    title: "The Atlas — Visual Revision Notes for Everything",
     description: "Animated revision notes, exam simulators and a real Python lab — one shelf per subject.",
   },
 };
@@ -67,7 +80,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${fraunces.variable} ${jakarta.variable} ${jetbrains.variable} antialiased`}
+        className={`${fraunces.variable} ${jakarta.variable} ${jetbrains.variable} ${notoDeva.variable} antialiased`}
       >
         {children}
         <Toaster />

@@ -86,7 +86,7 @@ export default function OpengraphImage() {
           }}
         >
           <div style={{ width: 64, height: 1, background: "rgba(233, 215, 191, 0.4)" }} />
-          rebuilt to be remembered
+          visual revision notes
           <div style={{ width: 64, height: 1, background: "rgba(233, 215, 191, 0.4)" }} />
         </div>
 

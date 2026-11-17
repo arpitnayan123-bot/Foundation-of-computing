@@ -8,7 +8,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "The Atlas — Your Syllabus, Rebuilt to Be Remembered",
+    name: "The Atlas — Visual Revision Notes for Everything",
     short_name: "The Atlas",
     description:
       "Animated revision notes, pen-paper exam simulators, spaced review and a real CPython 3.12 lab — one shelf per subject.",
