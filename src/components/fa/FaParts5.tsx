@@ -36,6 +36,7 @@ import {
 } from "lucide-react";
 import { Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_G, FaCallout, FaEq, FaQuiz, FaReadStep } from "./FaParts1";
+import { eyebrowOf } from "./faLectures";
 
 /* ============================================================
    CHAPTER — THE COURSE MAP (Lecture 1)
@@ -50,12 +51,12 @@ const MODULES = [
 ];
 
 const CYCLE = [
-  { step: "Transaction", note: "source document" },
   { step: "Journal", note: "day book, in time order" },
   { step: "Ledger", note: "T-accounts, by account" },
   { step: "Trial balance", note: "do the columns agree?" },
-  { step: "Adjustments", note: "deferrals & accruals" },
-  { step: "Statements", note: "P&L · balance sheet · cash flow" },
+  { step: "Adjusting entries", note: "deferrals & accruals" },
+  { step: "Adjusted trial balance", note: "the corrected columns" },
+  { step: "Final statements", note: "P&L · balance sheet · cash flow" },
 ];
 
 export function FaCourseMapSection() {
@@ -64,7 +65,7 @@ export function FaCourseMapSection() {
     <Section id="course-map">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 1 · Orientation"
+          eyebrow={eyebrowOf("course-map")} /* derived — was: Lecture 1 · Orientation */
           title={
             <>
               Accounting is the <span style={{ color: FA_G[700] }}>language of business</span> — and this course
@@ -153,12 +154,12 @@ export function FaCourseMapSection() {
           </div>
           <div className="border-t border-[#e4f1ea] bg-white px-4 py-3 text-[.8rem] leading-relaxed text-[#2b2014]">
             <b style={{ color: FA_G[700] }}>{CYCLE[active]?.step}.</b>{" "}
-            {active === 0 && "Every story starts with a source document — a cash receipt, an invoice, a salary bill. No document, no entry."}
-            {active === 1 && "The journal records events the day they happen, each with its two effects: a debit and an equal credit."}
-            {active === 2 && "The ledger regroups the same entries by account — one page per account, ending in a balance."}
-            {active === 3 && "A statement of every ledger balance at a point in time. If double entry has been honoured, the columns must meet."}
-            {active === 4 && "Deferrals and accruals catch the books up with reality before any statement is allowed to speak."}
-            {active === 5 && "The profit & loss account, the balance sheet and the cash flow statement — the reports the whole machine exists to produce."}
+            {active === 0 && "Every story starts with a source document — a cash receipt, an invoice, a salary bill — and lands in the journal the day it happens, each entry written with its two effects: a debit and an equal credit. No document, no entry."}
+            {active === 1 && "The ledger regroups the same entries by account — one page per account, ending in a balance that speaks."}
+            {active === 2 && "A statement of every ledger balance at a point in time. If double entry has been honoured, the columns must meet."}
+            {active === 3 && "Deferrals and accruals catch the books up with reality before any statement is allowed to speak — insurance expired, supplies used, depreciation earned its entry."}
+            {active === 4 && "The adjusted trial balance re-lists every ledger balance after the adjusting entries — the corrected columns the final statements are built from."}
+            {active === 5 && "The profit & loss account, the balance sheet and the cash flow statement — the reports the whole machine exists to produce, and the inputs to every ratio that follows."}
           </div>
         </div>
 
@@ -246,7 +247,7 @@ export function FaLanguageSection() {
     <Section id="language">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 2 · Foundations"
+          eyebrow={eyebrowOf("language")} /* derived — was: Lecture 2 · Foundations */
           title={
             <>
               Four verbs, three branches, <span style={{ color: FA_G[700] }}>one equation</span> that must always balance.
@@ -449,7 +450,7 @@ export function FaUsersRegulatorySection() {
     <Section id="users-regulatory">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 3 · Objectives, users & regulation"
+          eyebrow={eyebrowOf("users-regulatory")} /* derived — was: Lecture 3 · Objectives, users & regulation */
           title={
             <>
               Who reads the numbers — and <span style={{ color: FA_G[700] }}>who writes the rules</span>.

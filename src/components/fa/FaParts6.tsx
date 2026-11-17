@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_G, FaCallout, FaEq, FaQuiz, FaReadStep } from "./FaParts1";
+import { eyebrowOf } from "./faLectures";
 
 /* ============================================================
    CHAPTER — THE FOUR CONVENTIONS (Lecture 7)
@@ -141,7 +142,7 @@ export function FaConventionsSection() {
     <Section id="conventions">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 7 · Conventions"
+          eyebrow={eyebrowOf("conventions")} /* derived — was: Lecture 7 · Conventions */
           title={
             <>
               Not rules — <span style={{ color: FA_G[700] }}>evolved customs</span> that keep statements fair.
@@ -310,7 +311,7 @@ export function FaClassificationSection() {
     <Section id="classification">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 10 · The traditional approach"
+          eyebrow={eyebrowOf("classification")} /* derived — was: Lecture 10 · The traditional approach */
           title={
             <>
               Personal, real, nominal — <span style={{ color: FA_G[700] }}>three families, three rules</span>.
@@ -605,7 +606,7 @@ export function FaBalancingSection() {
     <Section id="balancing">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 12 · Ledger mechanics"
+          eyebrow={eyebrowOf("balancing")} /* derived — was: Lecture 12 · Ledger mechanics */
           title={
             <>
               Balances <span style={{ color: FA_G[700] }}>carried down</span>, balances{" "}

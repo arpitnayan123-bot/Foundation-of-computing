@@ -22,6 +22,7 @@ import {
   Landmark,
   Package,
   Search,
+  Scale,
   Sigma,
   Split,
   TrendingDown,
@@ -30,6 +31,7 @@ import {
 } from "lucide-react";
 import { Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_G, FaCallout, FaEq, FaQuiz, FaReadStep } from "./FaParts1";
+import { eyebrowOf } from "./faLectures";
 
 /* ============================================================
    CHAPTER — SUSPENSE & ERRORS (Lecture 15)
@@ -72,7 +74,7 @@ export function FaSuspenseSection() {
     <Section id="suspense">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 15 · Trial balance, continued"
+          eyebrow={eyebrowOf("suspense")} /* derived — was: Lecture 15 · Trial balance, continued */
           title={
             <>
               A balanced trial balance is <span style={{ color: FA_G[700] }}>not a clean chit</span>.
@@ -169,6 +171,37 @@ and leaves the books.`}</FaEq>
 
         <FaReadStep n="03" title="Case file — ABC Startup" sub="A ₹50,000 gap, three errors, one closure" />
         <Reveal>
+          {/* §B5.1 — the missing framing totals: the trial balance that refused to agree */}
+          <div className="overflow-hidden rounded-2xl border border-[#c7e5d6] bg-[#fffdf9]">
+            <div className="flex flex-wrap items-center gap-2 border-b border-[#e4f1ea] bg-[#f4faf7] px-4 py-3">
+              <Scale className="h-4 w-4" style={{ color: FA_G[700] }} />
+              <span className="font-mono text-[.64rem] font-black uppercase tracking-[.2em]" style={{ color: FA_G[700] }}>
+                ABC Startup — the trial balance that refused to agree
+              </span>
+              <span className="text-[.7rem] font-semibold text-muted-warm">two columns, one gap, one plug</span>
+            </div>
+            <div className="grid gap-px bg-[#e4f1ea] sm:grid-cols-3">
+              <div className="bg-white p-4 text-center">
+                <p className="text-[.66rem] font-black uppercase tracking-[.16em] text-[#8a6b45]">Debit column</p>
+                <p className="mt-1 font-mono text-[1.15rem] font-black text-[#3e2c1d]">₹1,80,00,000</p>
+              </div>
+              <div className="bg-white p-4 text-center">
+                <p className="text-[.66rem] font-black uppercase tracking-[.16em] text-[#8a6b45]">Credit column</p>
+                <p className="mt-1 font-mono text-[1.15rem] font-black text-[#3e2c1d]">₹1,80,50,000</p>
+              </div>
+              <div className="bg-white p-4 text-center">
+                <p className="text-[.66rem] font-black uppercase tracking-[.16em]" style={{ color: "#b3402c" }}>Difference — debit short</p>
+                <p className="mt-1 font-mono text-[1.15rem] font-black" style={{ color: "#b3402c" }}>₹50,000</p>
+              </div>
+            </div>
+            <div className="border-t border-[#e4f1ea] px-4 py-3 text-[.82rem] leading-relaxed text-[#2b2014]">
+              The debit side sits <b>₹50,000 short</b>, so suspense is <b>debited</b> with ₹50,000 — the short side
+              receives the plug — and the columns agree at ₹1,80,50,000. Reporting deadline met; the hunt continues
+              below.
+            </div>
+          </div>
+        </Reveal>
+        <Reveal className="mt-4">
           <FaEq label="The diagnosis">{`Trial balance refuses to agree — a ₹50,000 gap,
 parked in suspense to meet the deadline.
 
@@ -186,7 +219,16 @@ parked in suspense to meet the deadline.
 
 The fix: record ①, reclassify ② (debit furniture,
 credit repairs), and ③ already explains suspense.
-Suspense closes. Books move on.`}</FaEq>
+Suspense closes to nil. Books move on.`}</FaEq>
+        </Reveal>
+        <Reveal className="mt-3">
+          <p className="rounded-xl border border-[#cec2a4] bg-[#f5f1e8] px-4 py-3 text-[.76rem] leading-relaxed text-[#7c6248]">
+            <b>Source note.</b> The lecture PDF prints the case as debit ₹1,80,00,000 vs credit ₹1,90,00,000 while
+            labelling the difference “₹50,000” — the printed totals imply a ₹10,00,000 gap, so the label and the totals
+            contradict each other. Figures here are rendered internally consistent (₹1,80,00,000 vs ₹1,80,50,000 → the
+            ₹50,000 the commission error exactly explains) and the source slip is disclosed rather than silently
+            copied.
+          </p>
         </Reveal>
 
         <div className="mt-10 grid gap-4 md:grid-cols-2">
@@ -347,7 +389,7 @@ export function FaBasisSection() {
     <Section id="basis">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 16 · Basis of accounting"
+          eyebrow={eyebrowOf("basis")} /* derived — was: Lecture 16 · Basis of accounting */
           title={
             <>
               Cash received is not <span style={{ color: FA_G[700] }}>profit earned</span>.
@@ -554,7 +596,7 @@ export function FaAdjustingLabSection() {
     <Section id="adjusting-lab">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 19 · The cycle, in one case"
+          eyebrow={eyebrowOf("adjusting-lab")} /* derived — was: Lecture 19 · The cycle, in one case */
           title={
             <>
               Six adjusting entries — <span style={{ color: FA_G[700] }}>the whole cycle in one sitting</span>.

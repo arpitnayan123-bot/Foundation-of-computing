@@ -43,6 +43,7 @@ import {
   SectionHead,
   Takeaways,
 } from "@/components/notes/ui";
+import { eyebrowOf } from "./faLectures";
 
 /* ============================================================
    FA emerald micro-kit — the shared vocabulary of shelf 03
@@ -214,7 +215,7 @@ export function FaWhySection() {
     <Section id="why">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Module 1 · Why accounting exists"
+          eyebrow={eyebrowOf("why")} /* derived — was: Module 1 · Why accounting exists */
           title={
             <>
               Five openings — every one ends at the{" "}
@@ -405,7 +406,7 @@ export function FaAssumptionsSection() {
     <Section id="assumptions">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 1 · The measurement assumptions"
+          eyebrow={eyebrowOf("assumptions")} /* derived — was: Module 1 · The measurement assumptions */
           title={
             <>
               Four quiet <span className="grad-emerald">assumptions</span> under every rupee
@@ -525,7 +526,7 @@ export function FaEntityConcernSection() {
     <Section id="entity-concern">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 1 · Assumptions, deep-dive"
+          eyebrow={eyebrowOf("entity-concern")} /* derived — was: Module 1 · Assumptions, deep-dive */
           title={
             <>
               The <span className="grad-emerald">boundary</span> — and the promise to continue
@@ -631,7 +632,7 @@ export function FaPeriodicitySection() {
     <Section id="periodicity">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 1 · Assumptions, deep-dive"
+          eyebrow={eyebrowOf("periodicity")} /* derived — was: Module 1 · Assumptions, deep-dive */
           title={
             <>
               Time, cut into <span className="grad-emerald">periods</span> — and the match that follows

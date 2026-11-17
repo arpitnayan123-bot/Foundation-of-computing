@@ -225,8 +225,9 @@ export default function Page() {
             ) : view.id === "atb" ? (
               <AtbApp onExitAtlas={exitToAtlas} />
             ) : view.id === "fa" ? (
-              // shelf 03 — Financial Accounting, the third live subject
-              <FaApp onExitAtlas={exitToAtlas} />
+              // shelf 03 — FA accepts an in-shelf lecture deep link
+              // (#/subject/fa/l14) for shareable, refresh-safe lectures
+              <FaApp onExitAtlas={exitToAtlas} initialLecture={view.lecture} />
             ) : view.id === "ebh" ? (
               // shelf 04 — Economic & Business History, the fourth live subject
               <EbhApp onExitAtlas={exitToAtlas} />

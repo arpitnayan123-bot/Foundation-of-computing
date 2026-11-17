@@ -7,14 +7,15 @@
    lecture is one compact row (number badge + title), and the
    notes below open with a matching "Financial Accounting
    Lecture N" band (see FaLectureHead in FaApp). Palette:
-   emerald & sage on ivory paper. Sixteen lectures.
+   emerald & sage on ivory paper. Thirty-four lectures, L01–L34,
+   straight from faLectures.ts.
    ============================================================ */
 
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Check, PenLine, Scale, Search } from "lucide-react";
 import { scrollToId } from "@/lib/utils";
-import { FA_LECTURES } from "@/components/fa/lectures";
+import { FA_LECTURES } from "@/components/fa/faLectures";
 import { Reveal } from "@/components/notes/ui";
 
 const EMERALD = "#059669";
@@ -188,7 +189,7 @@ export function FaHero({
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search the sequence — try “journal”, “Pearl”, or “8”…"
+                placeholder="Search the sequence — try “ratio”, “Pearl”, or “34”…"
                 autoComplete="off"
                 className="w-full rounded-2xl border border-[#dbeae2] bg-[#f9fcfa]/90 py-3.5 pl-11 pr-4 text-[.95rem] font-semibold text-[#3e2c1d] shadow-[0_10px_30px_-14px_rgba(62,44,29,.35)] backdrop-blur-md placeholder:font-normal placeholder:text-[#6d9970] focus:outline-none focus:ring-2 focus:ring-[#10b981]/40"
               />

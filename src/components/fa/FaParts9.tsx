@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import { Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_G, FaCallout, FaEq, FaQuiz, FaReadStep } from "./FaParts1";
+import { eyebrowOf } from "./faLectures";
 
 /* ============================================================
    CHAPTER — THE FOURTH PILLAR (Lecture 23)
@@ -168,7 +169,7 @@ export function FaCashflowIntroSection() {
     <Section id="cashflow-intro">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 23 · The fourth pillar"
+          eyebrow={eyebrowOf("cashflow-intro")} /* derived — was: Lecture 23 · The fourth pillar */
           title={
             <>
               Where did the cash <span style={{ color: FA_G[700] }}>actually</span> come from — and where did it go?
@@ -458,7 +459,7 @@ export function FaCashflowMethodsSection() {
     <Section id="cashflow-methods">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 25 · Building the statement"
+          eyebrow={eyebrowOf("cashflow-methods")} /* derived — was: Lecture 25 · Building the statement */
           title={
             <>
               Two roads to <span style={{ color: FA_G[700] }}>operating cash</span>.

@@ -30,6 +30,7 @@ import {
   Takeaways,
 } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_BTN_SHADOW, FaCallout, FaEq, FaQuiz, FaReadStep, FA_G } from "./FaParts1";
+import { eyebrowOf } from "./faLectures";
 
 /* ============================================================
    CHAPTER 9 — THE JOURNAL (Vogue Company)
@@ -149,7 +150,7 @@ export function FaJournalSection() {
     <Section id="journal">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 3 · Recording — the journal"
+          eyebrow={eyebrowOf("journal")} /* derived — was: Module 3 · Recording — the journal */
           title={
             <>
               The pipeline, and <span className="grad-emerald">the day book</span>
@@ -309,7 +310,7 @@ export function FaLedgerSection() {
     <Section id="ledger">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 3 · Recording — the ledger"
+          eyebrow={eyebrowOf("ledger")} /* derived — was: Module 3 · Recording — the ledger */
           title={
             <>
               Posting — where the journal{" "}
@@ -381,7 +382,7 @@ export function FaStatementsSection() {
     <Section id="statements">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 3 · Reporting — the five statements"
+          eyebrow={eyebrowOf("statements")} /* derived — was: Module 3 · Reporting — the five statements */
           title={
             <>
               One month of transactions,{" "}
@@ -719,12 +720,106 @@ function TrialBalanceSorter() {
   );
 }
 
+/* ============================================================
+   MethodSplitter — the Total-vs-Balance trial-balance methods
+   for Vogue's June 30 books, side-flippable instead of static.
+   ============================================================ */
+type TbMethod = "balance" | "total";
+
+const VOGUE_BALANCE = [
+  { a: "Cash", dr: "46,930", cr: "" },
+  { a: "Trade payables", dr: "", cr: "2,500" },
+  { a: "Revenue from services", dr: "", cr: "14,000" },
+  { a: "Other accounts (net)", dr: "21,070", cr: "51,500" },
+];
+
+const VOGUE_TOTAL = [
+  { a: "Cash", dr: "58,500", cr: "11,570" },
+  { a: "Trade payables", dr: "1,000", cr: "3,500" },
+  { a: "Revenue from services", dr: "", cr: "14,000" },
+  { a: "Other accounts (gross)", dr: "26,870", cr: "57,300" },
+];
+
+function MethodSplitter() {
+  const [method, setMethod] = useState<TbMethod>("balance");
+  const rows = method === "balance" ? VOGUE_BALANCE : VOGUE_TOTAL;
+  return (
+    <div className="overflow-hidden rounded-2xl border border-[#c7e5d6] bg-[#fffdf9]">
+      <div className="flex flex-wrap items-center gap-2 border-b border-[#e4f1ea] bg-[#f4faf7] px-4 py-3">
+        <Scale className="h-4 w-4" style={{ color: FA_G[700] }} />
+        <span className="font-mono text-[.64rem] font-black uppercase tracking-[.2em]" style={{ color: FA_G[700] }}>
+          Vogue Company — trial balance, June 30
+        </span>
+        <span className="text-[.7rem] font-semibold text-muted-warm">one set of books, two legitimate drawings</span>
+      </div>
+      <div className="grid grid-cols-2 border-b border-[#e4f1ea]">
+        {(["balance", "total"] as const).map((m) => (
+          <button
+            key={m}
+            type="button"
+            onClick={() => setMethod(m)}
+            aria-pressed={method === m}
+            className={`px-4 py-3 text-[.8rem] font-extrabold uppercase tracking-[.12em] transition-colors ${
+              method === m ? "bg-[#ecfdf5] text-[#065f46]" : "text-[#9db8a9] hover:text-[#5c7a6b]"
+            }`}
+          >
+            {m === "balance" ? "Balance method" : "Total method"}
+          </button>
+        ))}
+      </div>
+      <div className="overflow-x-auto">
+        <table className="warm-table w-full min-w-[440px]">
+          <thead>
+            <tr>
+              <th>Account</th>
+              <th className="text-right">Debit (₹)</th>
+              <th className="text-right">Credit (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.a}>
+                <td className="text-[.85rem]">{r.a}</td>
+                <td className="text-right font-mono text-[.8rem]">{r.dr}</td>
+                <td className="text-right font-mono text-[.8rem]">{r.cr}</td>
+              </tr>
+            ))}
+            <tr>
+              <td className="font-extrabold" style={{ color: FA_G[800] }}>Total</td>
+              <td className="text-right font-mono font-black" style={{ color: FA_G[800] }}>
+                {method === "balance" ? "68,000" : "86,370"}
+              </td>
+              <td className="text-right font-mono font-black" style={{ color: FA_G[800] }}>
+                {method === "balance" ? "68,000" : "86,370"}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div className="border-t border-[#e4f1ea] bg-white px-4 py-3 text-[.82rem] leading-relaxed text-[#2b2014]">
+        {method === "balance" ? (
+          <>
+            <b>Balance method</b> — one <b>net figure per account</b>: Cash shows only its ₹46,930 debit balance, Trade
+            payables only its ₹2,500 credit balance. Compact; the format most textbooks prepare.
+          </>
+        ) : (
+          <>
+            <b>Total method</b> — <b>both gross sides</b> of every account before netting, so Cash appears at ₹58,500 Dr
+            | ₹11,570 Cr. The grand total rises to ₹86,370 — bigger, yet the proof is identical: both columns agree.
+            Ledger balances on a specified date is all a trial balance is; a basic check on bookkeeping.
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export function FaTrialBalanceSection() {
   return (
     <Section id="trial-balance">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 3 · Checking — the trial balance"
+          eyebrow={eyebrowOf("trial-balance")} /* derived — was: Module 3 · Checking — the trial balance */
           title={
             <>
               Do the columns <span className="grad-emerald">agree?</span>
@@ -742,11 +837,12 @@ export function FaTrialBalanceSection() {
             agreeing trial balance gives reasonable confidence the work is free of{" "}
             <b>clerical errors</b>.
           </FaCallout>
-          <FaCallout kind="warn" title="What can still hide">
-            Agreement is <b>not proof of cent-per-cent accuracy</b>. Errors of{" "}
-            <b>principle</b> (wrong class of account), <b>compensating errors</b> (two mistakes
-            cancelling out), wholly <b>omitted transactions</b> and postings to the{" "}
-            <b>wrong account at the right amount</b> can all survive a perfect trial balance.
+          <FaCallout kind="warn" title="Agrees ≠ accurate — four errors slip straight past">
+            Agreement is <b>not proof of cent-per-cent accuracy</b>. Four error classes survive
+            a perfect trial balance: errors of <b>principle</b> (wrong class of account),{" "}
+            <b>compensating errors</b> (two mistakes cancelling out), wholly <b>omitted
+            transactions</b> (both sides missing together) and <b>double posting</b> (the same
+            entry posted twice — both sides double equally).
           </FaCallout>
         </div>
 
@@ -813,23 +909,10 @@ export function FaTrialBalanceSection() {
           </FaCallout>
         </div>
 
-        <FaReadStep n="04" title="Two ways to draw it up" sub="Vogue's June 30 trial balance, both methods" />
-        <FaEq label="Vogue Company — trial balance, June 30">{`Balance method                    Total method
-(net figure per account)         (both gross sides of every account)
-
-Cash .................... 46,930 Dr    Cash ......... 58,500 Dr | 11,570 Cr
-Trade payables ........... 2,500 Cr    Trade payables 1,000 Dr |  3,500 Cr
-Revenue from services ... 14,000 Cr    Revenue ......      —    | 14,000 Cr
-
-TOTALS ........... 68,000 = 68,000    TOTALS ... 86,370 = 86,370`}</FaEq>
-        <div className="mt-3">
-          <FaCallout kind="why" title="Why the total method is bigger — and equally true">
-            The total method lists <b>both</b> sides of every account before netting, so the
-            grand total rises (86,370 vs 68,000). The proof is identical: both columns agree.
-            Ledger balances on a specified date — that is all a trial balance is; a basic check
-            on bookkeeping.
-          </FaCallout>
-        </div>
+        <FaReadStep n="04" title="Two ways to draw it up" sub="Vogue's June 30 trial balance — flip between the methods" />
+        <Reveal>
+          <MethodSplitter />
+        </Reveal>
 
         <FaReadStep n="05" title="Now sort it yourself" sub="Ten accounts from Pearl's extraction — which column does each belong in?" />
         <Reveal>

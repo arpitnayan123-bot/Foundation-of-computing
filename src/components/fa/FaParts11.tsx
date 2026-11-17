@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import { Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_G, FaCallout, FaEq, FaQuiz, FaReadStep } from "./FaParts1";
+import { eyebrowOf } from "./faLectures";
 
 /* ============================================================
    CHAPTER — FINANCIAL STATEMENT ANALYSIS (Lecture 28)
@@ -146,7 +147,7 @@ export function FaFsAnalysisSection() {
     <Section id="fs-analysis">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 28 · From preparing to interrogating"
+          eyebrow={eyebrowOf("fs-analysis")} /* derived — was: Lecture 28 · From preparing to interrogating */
           title={
             <>
               Raw data in — <span style={{ color: FA_G[700] }}>insight out</span>.
@@ -305,7 +306,7 @@ export function FaCashflowWrapSection() {
     <Section id="cashflow-wrap">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 29 · The closing argument"
+          eyebrow={eyebrowOf("cashflow-wrap")} /* derived — was: Lecture 29 · The closing argument */
           title={
             <>
               Profit is an <span style={{ color: FA_G[700] }}>opinion</span>. Cash is a{" "}

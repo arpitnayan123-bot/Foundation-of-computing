@@ -12,7 +12,7 @@
 export const SECTION_COUNTS: Record<string, number> = {
   foc: 40,
   atb: 33,
-  fa: 33,
+  fa: 41,
   ebh: 31,
   stm: 31,
   mktg: 53,

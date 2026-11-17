@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_G, FaCallout, FaEq, FaQuiz, FaReadStep } from "./FaParts1";
+import { eyebrowOf } from "./faLectures";
 
 /* ============================================================
    CHAPTER — P&L, CLOSING ENTRIES & THE CHAIN (Lecture 21)
@@ -96,7 +97,7 @@ export function FaPandLSection() {
     <Section id="pandl">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 21 · Net result & the chain"
+          eyebrow={eyebrowOf("pandl")} /* derived — was: Lecture 21 · Net result & the chain */
           title={
             <>
               Everything closes — <span style={{ color: FA_G[700] }}>and the statements hold hands</span>.
@@ -431,7 +432,7 @@ export function FaBalanceSheetSection() {
     <Section id="balance-sheet">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHead
-          eyebrow="Lecture 22 · The photograph"
+          eyebrow={eyebrowOf("balance-sheet")} /* derived — was: Lecture 22 · The photograph */
           title={
             <>
               What the firm owns and owes — <span style={{ color: FA_G[700] }}>on one date</span>.

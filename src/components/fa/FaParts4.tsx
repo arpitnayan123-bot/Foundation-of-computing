@@ -33,6 +33,7 @@ import {
   Takeaways,
 } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_BTN_SHADOW, FaCallout, FaEq, FaQuiz, FaReadStep, FA_G } from "./FaParts1";
+import { eyebrowOf } from "./faLectures";
 
 /* ============================================================
    CHAPTER 13 — ADJUSTING ENTRIES: DEFERRALS & ACCRUALS
@@ -119,7 +120,7 @@ export function FaAdjustingSection() {
     <Section id="adjusting">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 4 · Adjusting entries"
+          eyebrow={eyebrowOf("adjusting")} /* derived — was: Module 4 · Adjusting entries */
           title={
             <>
               Cash is instant. <span className="grad-emerald">Recognition is not.</span>
@@ -301,7 +302,7 @@ export function FaFinalAccountsSection() {
     <Section id="final-accounts">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 4 · Final accounts"
+          eyebrow={eyebrowOf("final-accounts")} /* derived — was: Module 4 · Final accounts */
           title={
             <>
               Two questions, <span className="grad-emerald">two statements</span>
@@ -406,7 +407,7 @@ export function FaTradingSection() {
     <Section id="trading">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 4 · The trading account"
+          eyebrow={eyebrowOf("trading")} /* derived — was: Module 4 · The trading account */
           title={
             <>
               Did buying and selling <span className="grad-emerald">pay?</span>
@@ -629,7 +630,7 @@ export function FaGrossProfitLabSection() {
     <Section id="gp-lab">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 4 · Worked examples"
+          eyebrow={eyebrowOf("gp-lab")} /* derived — was: Module 4 · Worked examples */
           title={
             <>
               Six examples — then{" "}

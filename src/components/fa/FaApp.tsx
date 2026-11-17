@@ -87,13 +87,18 @@ import {
   FaFsAnalysisSection,
   FaCashflowWrapSection,
 } from "@/components/fa/FaParts11";
+import { FaRatioProfitabilitySection } from "@/components/fa/FaParts12";
+import { FaRatioLiquiditySection, FaRatioSolvencyMarketSection } from "@/components/fa/FaParts13";
+import { FaInventoryValuationSection } from "@/components/fa/FaParts14";
+import { FaPpeDepreciationSection, FaIntangibleAmortizationSection } from "@/components/fa/FaParts15";
+import { FaAnalysisTechniquesSection, FaDupontExamSection } from "@/components/fa/FaParts16";
 import { FaExamWindow } from "@/components/fa/FaExamWindow";
 import { FA_EXAM_BANKS, FA_EXAM_GROUPS, FA_TOTAL_QUESTIONS, type FaExamGroup } from "@/components/fa/questions";
 import { ShelfQuickNav } from "@/components/atlas/ShelfQuickNav";
 import {
-  FA_LECTURES, FA_ALL_CHAPTER_IDS, FA_DEFAULT_LECTURE,
-  lectureById, lectureOfChapter, type FaLecture,
-} from "@/components/fa/lectures";
+  FA_LECTURES, FA_ALL_CHAPTER_IDS, FA_DEFAULT_LECTURE, FA_GROUPS,
+  lectureById, lectureOfChapter, lectureByLooseId, eyebrowOf, type FaLecture, type FaGroupId,
+} from "@/components/fa/faLectures";
 
 /* shelf 03 palette — emerald & sage on warm paper */
 const EMERALD = "#047857";
@@ -103,97 +108,20 @@ const SAGE_LITE = "#a7d7b8";
 const EMERALD_DARK = "linear-gradient(165deg,#06281e,#0a3527 60%,#0d3a2c)";
 
 /* ============================================================
-   Structured chapter map — the top bar is organised into seven
-   groups following the PDF's arc: orientation, concepts,
-   equation, recording, the cycle, final accounts, cash flow &
-   analysis. Each group owns a "Test my knowledge" pen-paper
-   window (see questions.ts).
+   Structured chapter map — DERIVED from faLectures.ts, never
+   hand-written. Eight groups follow the compendium's arc:
+   orientation, concepts & conventions, the equation & elements,
+   recording, the cycle, final accounts, cash flow, analysis &
+   assets. Sidebar order = lecture order, so the L09 pair lands
+   after conventions/L08 and the ledger (L11) lands before the
+   journal (L14) by construction. Each group opens its own
+   "Test my knowledge" pen-paper window(s) (see questions.ts).
    ============================================================ */
-const GROUPS: {
-  id: FaExamGroup;
-  label: string;
-  items: { id: string; label: string; desc: string }[];
-}[] = [
-  {
-    id: "foundations",
-    label: "Orientation",
-    items: [
-      { id: "course-map", label: "Course map", desc: "Five modules, one cycle, three outcomes" },
-      { id: "language", label: "The four verbs", desc: "Identify · record · measure · communicate" },
-      { id: "users-regulatory", label: "Users & regulators", desc: "Five objectives · nine users · ICAI–MCA–SEBI" },
-      { id: "why", label: "Why accounting?", desc: "Five openings — every one ends at the same question" },
-    ],
-  },
-  {
-    id: "concepts",
-    label: "Concepts",
-    items: [
-      { id: "assumptions", label: "The eight concepts", desc: "Entity · concern · money · cost · the full eight" },
-      { id: "dual-aspect", label: "Dual aspect", desc: "Every rupee tells two stories" },
-      { id: "periodicity", label: "Periods & matching", desc: "Time, cut into periods — and the match that follows" },
-      { id: "conventions", label: "Four conventions", desc: "Conservatism · disclosure · consistency · materiality" },
-    ],
-  },
-  {
-    id: "equation",
-    label: "The Equation",
-    items: [
-      { id: "equation-lab", label: "Equation, worked", desc: "Hot Chocolate · Abraham · Coffee Corner" },
-      { id: "effects", label: "Transaction effects", desc: "The four moves — run the equation machine" },
-      { id: "entity-concern", label: "Entity & concern", desc: "The boundary — and the promise to continue" },
-      { id: "elements", label: "The three elements", desc: "Assets, liabilities & equity — the whole cast" },
-    ],
-  },
-  {
-    id: "recording",
-    label: "Recording",
-    items: [
-      { id: "classification", label: "Classification & journal", desc: "Personal · real · nominal — the rules and the entries" },
-      { id: "journal", label: "Journal", desc: "The pipeline and the day book — Vogue Company" },
-      { id: "ledger", label: "Ledger", desc: "Posting — the Cash T-account, for real" },
-      { id: "balancing", label: "Opening & balancing", desc: "Balances b/d, balances c/d — and the ₹95,000 proof" },
-      { id: "trial-balance", label: "Trial balance", desc: "Do the columns agree? — sort Pearl's books" },
-      { id: "suspense", label: "Suspense & errors", desc: "The ₹50,000 gap — and the errors it cannot see" },
-    ],
-  },
-  {
-    id: "cycle",
-    label: "The Cycle",
-    items: [
-      { id: "basis", label: "Cash vs accrual", desc: "Two bases, one matching principle, ₹10 split two ways" },
-      { id: "adjusting", label: "Adjusting entries", desc: "Deferrals & accruals — split the prepaid rupee" },
-      { id: "trading", label: "Trading account", desc: "Did buying and selling pay?" },
-      { id: "adjusting-lab", label: "The adjusting lab", desc: "Vogue's six entries — the cycle in one sitting" },
-    ],
-  },
-  {
-    id: "closing",
-    label: "Final Accounts",
-    items: [
-      { id: "gp-lab", label: "Gross profit lab", desc: "Six examples — then drive the ladder" },
-      { id: "pandl", label: "P&L & closing entries", desc: "Net profit, the ₹5,50,000 ladder — and the chain" },
-      { id: "statements", label: "Five statements", desc: "One month of transactions, five shapes" },
-      { id: "balance-sheet", label: "Balance sheet", desc: "A photograph — current vs fixed, two orders" },
-      { id: "cashflow-intro", label: "The fourth pillar", desc: "Why profit ≠ cash — operating, investing, financing" },
-      { id: "final-accounts", label: "Final accounts", desc: "Two questions, two statements" },
-    ],
-  },
-  {
-    id: "cashflow",
-    label: "Cash Flow & Analysis",
-    items: [
-      { id: "cashflow-methods", label: "Direct vs indirect", desc: "The ₹73,000 → ₹69,700 reconciliation ladder" },
-      { id: "cashflow-build", label: "The indirect build", desc: "Compass ₹72,000 · Ajay ₹4,32,000 → ₹3,48,000" },
-      { id: "cashflow-health", label: "Six questions", desc: "Compass diagnosed — then Pioneer Limited, built" },
-      { id: "fs-analysis", label: "FS analysis", desc: "Four standards, four techniques, one FX red herring" },
-      { id: "cashflow-wrap", label: "Profit is an opinion", desc: "Mira's shop · the student analogy · the closing argument" },
-    ],
-  },
-];
+const GROUPS = FA_GROUPS;
 
 const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
 
-function groupOf(id: string): string | null {
+function groupOf(id: string): FaGroupId | null {
   for (const g of GROUPS) if (g.items.some((i) => i.id === id)) return g.id;
   return null;
 }
@@ -236,7 +164,42 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   "cashflow-health": <FaCashflowHealthSection />,
   "fs-analysis": <FaFsAnalysisSection />,
   "cashflow-wrap": <FaCashflowWrapSection />,
+  "ratio-profitability": <FaRatioProfitabilitySection />,
+  "ratio-liquidity": <FaRatioLiquiditySection />,
+  "ratio-solvency-market": <FaRatioSolvencyMarketSection />,
+  "inventory-valuation": <FaInventoryValuationSection />,
+  "ppe-depreciation": <FaPpeDepreciationSection />,
+  "intangible-amortization": <FaIntangibleAmortizationSection />,
+  "analysis-techniques": <FaAnalysisTechniquesSection />,
+  "dupont-exam": <FaDupontExamSection />,
 };
+
+/* ============================================================
+   Dev-only structural assertions — fail loudly in development.
+   (1) every registry chapter has a renderer, and vice-versa;
+   (2) no two sections share an eyebrow; (3) 34 lectures,
+   n = 1..34 strictly ascending. This guard catches exactly the
+   drift class the 29-lecture build shipped with (eyebrows
+   hard-coded in 33 places; `statements` filed under the wrong
+   module; sections missing from the renderer).
+   ============================================================ */
+if (process.env.NODE_ENV !== "production") {
+  const rendered = new Set(Object.keys(SECTION_COMPONENTS));
+  const registered = new Set(FA_ALL_CHAPTER_IDS);
+  const missingRenderer = [...registered].filter((id) => !rendered.has(id));
+  const missingRegistry = [...rendered].filter((id) => !registered.has(id));
+  if (missingRenderer.length) throw new Error(`[fa] chapters registered but never rendered: ${missingRenderer.join(", ")}`);
+  if (missingRegistry.length) throw new Error(`[fa] sections rendered but not in faLectures.ts: ${missingRegistry.join(", ")}`);
+  const brows = FA_LECTURES.flatMap((l) => l.chapters.map((c) => `Lecture ${l.n} · ${c.theme}`));
+  const dupe = brows.filter((b, i) => brows.indexOf(b) !== i);
+  if (dupe.length) throw new Error(`[fa] duplicate eyebrows: ${[...new Set(dupe)].join(" | ")}`);
+  if (FA_LECTURES.length !== 34) throw new Error(`[fa] expected 34 lectures, found ${FA_LECTURES.length}`);
+  FA_LECTURES.forEach((l, i) => {
+    if (l.n !== i + 1) throw new Error(`[fa] lecture order broken at index ${i}: n=${l.n}`);
+    if (l.code !== `L${String(l.n).padStart(2, "0")}`) throw new Error(`[fa] bad code on l${l.n}: ${l.code}`);
+  });
+  console.info(`[fa] registry OK — 34 lectures, ${registered.size} sections, ${brows.length} unique eyebrows`);
+}
 
 /* ============================================================
    useSeenDisplay — the read-checkmark data for every menu.
@@ -462,34 +425,40 @@ function TopNav({
                             );
                           })}
 
-                          {/* Test my knowledge — opens the pen-paper window for this group */}
+                          {/* Test my knowledge — opens the pen-paper window(s) for this group */}
                           <div className="mt-1 border-t border-[#f0e2c8] p-1.5">
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setOpenGroup(null);
-                                onOpenExam(group.id);
-                              }}
-                              className="group/exam flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors duration-150 hover:bg-[#3e2c1d]/[.05]"
-                            >
-                              <span
-                                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
-                                style={{ background: `linear-gradient(135deg,${EMERALD_BRIGHT},${EMERALD})` }}
-                              >
-                                <PenLine className="h-3.5 w-3.5" />
-                              </span>
-                              <span className="min-w-0">
-                                <span className="block text-[.84rem] font-extrabold leading-tight text-[#047857]">
-                                  Test my knowledge
-                                </span>
-                                <span className="mt-0.5 block text-[.68rem] leading-snug text-[#a08568]">
-                                  {FA_EXAM_BANKS[group.id].questions.length} exam-style questions · pen-paper mode
-                                </span>
-                              </span>
-                              <span className="ml-auto shrink-0 text-[.58rem] font-black uppercase tracking-[.14em] text-[#7d9a8b] transition-colors group-hover/exam:text-[#047857]">
-                                open →
-                              </span>
-                            </button>
+                            {group.exams.map((examId, xi) => {
+                              const bank = FA_EXAM_BANKS[examId];
+                              return (
+                                <button
+                                  key={examId}
+                                  type="button"
+                                  onClick={() => {
+                                    setOpenGroup(null);
+                                    onOpenExam(examId);
+                                  }}
+                                  className={`group/exam flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors duration-150 hover:bg-[#3e2c1d]/[.05] ${xi > 0 ? "mt-1" : ""}`}
+                                >
+                                  <span
+                                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+                                    style={{ background: `linear-gradient(135deg,${EMERALD_BRIGHT},${EMERALD})` }}
+                                  >
+                                    <PenLine className="h-3.5 w-3.5" />
+                                  </span>
+                                  <span className="min-w-0">
+                                    <span className="block text-[.84rem] font-extrabold leading-tight text-[#047857]">
+                                      Test my knowledge{group.exams.length > 1 ? ` — ${bank.title}` : ""}
+                                    </span>
+                                    <span className="mt-0.5 block text-[.68rem] leading-snug text-[#a08568]">
+                                      {bank.questions.length} exam-style questions · pen-paper mode
+                                    </span>
+                                  </span>
+                                  <span className="ml-auto shrink-0 text-[.58rem] font-black uppercase tracking-[.14em] text-[#7d9a8b] transition-colors group-hover/exam:text-[#047857]">
+                                    open →
+                                  </span>
+                                </button>
+                              );
+                            })}
                           </div>
                         </div>
                       </motion.div>
@@ -641,25 +610,30 @@ function TopNav({
                     })}
 
                     {/* Test my knowledge — per group */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setMobileOpen(false);
-                        onOpenExam(group.id);
-                      }}
-                      className="flex w-full items-center gap-2.5 border-t border-white/[.08] px-4 py-3 text-left transition-colors active:bg-white/10"
-                    >
-                      <span
-                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
-                        style={{ background: `linear-gradient(135deg,${EMERALD_BRIGHT},${EMERALD})` }}
+                    {group.exams.map((examId) => (
+                      <button
+                        key={examId}
+                        type="button"
+                        onClick={() => {
+                          setMobileOpen(false);
+                          onOpenExam(examId);
+                        }}
+                        className="flex w-full items-center gap-2.5 border-t border-white/[.08] px-4 py-3 text-left transition-colors active:bg-white/10"
                       >
-                        <PenLine className="h-3.5 w-3.5" />
-                      </span>
-                      <span className="text-[.88rem] font-extrabold text-[#a9e8c9]">Test my knowledge</span>
-                      <span className="ml-auto text-[.6rem] font-black uppercase tracking-[.14em] text-[#8fd4b4]">
-                        {FA_EXAM_BANKS[group.id].questions.length} Qs →
-                      </span>
-                    </button>
+                        <span
+                          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+                          style={{ background: `linear-gradient(135deg,${EMERALD_BRIGHT},${EMERALD})` }}
+                        >
+                          <PenLine className="h-3.5 w-3.5" />
+                        </span>
+                        <span className="text-[.88rem] font-extrabold text-[#a9e8c9]">
+                          Test my knowledge{group.exams.length > 1 ? ` — ${FA_EXAM_BANKS[examId].title}` : ""}
+                        </span>
+                        <span className="ml-auto text-[.6rem] font-black uppercase tracking-[.14em] text-[#8fd4b4]">
+                          {FA_EXAM_BANKS[examId].questions.length} Qs →
+                        </span>
+                      </button>
+                    ))}
                   </div>
                 </motion.div>
               ))}
@@ -756,8 +730,8 @@ function PracticeHub({
               </button>
             </div>
 
-            {/* the four exam windows */}
-            <div className="grid gap-3 px-6 pb-7 pt-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-4">
+            {/* the nine exam windows */}
+            <div className="grid gap-3 px-6 pb-7 pt-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
               {FA_EXAM_GROUPS.map((g) => {
                 const bank = FA_EXAM_BANKS[g];
                 return (
@@ -897,8 +871,8 @@ function LecturePager({ current, onJump }: { current: FaLecture; onJump: (id: st
           </button>
         ) : (
           <span className="rounded-2xl border border-dashed border-[#dbeae2] p-4 text-center text-[.78rem] font-bold leading-snug text-[#7d9a8b]">
-            End of the sequence — Lecture 29 closes the course. Profit is an opinion; cash is a fact. Rebuild Pioneer
-            Limited once more, then retake the windows.
+            End of the sequence — Lecture 34 closes the course with the analysis toolkit and the exam brief. Numericals
+            emphasised; simple calculator only. Rebuild Dr. Reddy&apos;s ratios once more, then retake the windows.
           </span>
         )}
       </div>
@@ -909,9 +883,17 @@ function LecturePager({ current, onJump }: { current: FaLecture; onJump: (id: st
 
 /* ============================================================
    FaApp — the composed subject page: a lecture reader.
+
+   Lecture-level deep links: #/subject/fa/l14 opens the shelf
+   straight on lecture 14, and every selection rewrites the hash
+   (history-replace, so the browser back button keeps working)
+   — refresh-safe and shareable, never kicked back to L01.
    ============================================================ */
-export function FaApp({ onExitAtlas }: { onExitAtlas: () => void }) {
-  const [lectureId, setLectureId] = useState<string>(FA_DEFAULT_LECTURE);
+export function FaApp({ onExitAtlas, initialLecture }: { onExitAtlas: () => void; initialLecture?: string }) {
+  const [lectureId, setLectureId] = useState<string>(() => {
+    const fromHash = initialLecture ? lectureByLooseId(initialLecture) : null;
+    return fromHash?.id ?? FA_DEFAULT_LECTURE;
+  });
   const [examGroup, setExamGroup] = useState<FaExamGroup | null>(null);
   const [hubOpen, setHubOpen] = useState(false);
   const lectureIdRef = useRef(lectureId);
@@ -919,11 +901,35 @@ export function FaApp({ onExitAtlas }: { onExitAtlas: () => void }) {
     lectureIdRef.current = lectureId;
   }, [lectureId]);
 
+  /* live hash sync — a pasted/edited URL mid-session switches
+     lectures without a remount (and never loops on its own writes) */
+  useEffect(() => {
+    const onHash = () => {
+      const h = window.location.hash;
+      if (!h.startsWith("#/subject/fa/")) return;
+      const tail = h.slice("#/subject/fa/".length).replace(/\/+$/, "");
+      const target = lectureByLooseId(tail);
+      if (target && target.id !== lectureIdRef.current) setLectureId(target.id);
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
   const lecture = lectureById(lectureId) ?? FA_LECTURES[0];
   const seen = useSeenDisplay(lecture);
 
   const selectLecture = useCallback((id: string) => {
     setLectureId(id);
+    /* keep the address bar shareable — replace (not push) so the
+       trail and the back button stay about views, not scroll steps */
+    try {
+      const target = `#/subject/fa/${id}`;
+      if (window.location.hash !== target) {
+        window.history.replaceState(null, "", target);
+      }
+    } catch {
+      /* history blocked (sandboxed iframe) — the shelf still works */
+    }
     requestAnimationFrame(() =>
       requestAnimationFrame(() => {
         const el = document.getElementById("notes-top");

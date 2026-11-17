@@ -29,6 +29,7 @@ import {
   Takeaways,
 } from "@/components/notes/ui";
 import { FA_BTN_GRAD, FA_BTN_SHADOW, FaCallout, FaEq, FaQuiz, FaReadStep, FA_G } from "./FaParts1";
+import { eyebrowOf } from "./faLectures";
 
 /* ============================================================
    CHAPTER 5 — THE DUAL ASPECT CONCEPT
@@ -38,7 +39,7 @@ export function FaDualAspectSection() {
     <Section id="dual-aspect">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 2 · The dual aspect concept"
+          eyebrow={eyebrowOf("dual-aspect")} /* derived — was: Module 2 · The dual aspect concept */
           title={
             <>
               Every rupee tells <span className="grad-emerald">two stories</span>
@@ -187,7 +188,7 @@ export function FaElementsSection() {
     <Section id="elements">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 2 · The three elements"
+          eyebrow={eyebrowOf("elements")} /* derived — was: Module 2 · The three elements */
           title={
             <>
               Assets, liabilities, equity —{" "}
@@ -366,7 +367,7 @@ export function FaEquationLabSection() {
     <Section id="equation-lab">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 2 · The equation, worked"
+          eyebrow={eyebrowOf("equation-lab")} /* derived — was: Module 2 · The equation, worked */
           title={
             <>
               Three balance sheets, <span className="grad-emerald">one equation</span>
@@ -662,7 +663,7 @@ export function FaEffectsSection() {
     <Section id="effects">
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-24">
         <SectionHead
-          eyebrow="Module 2 · Transactions in action"
+          eyebrow={eyebrowOf("effects")} /* derived — was: Module 2 · Transactions in action */
           title={
             <>
               The four moves —{" "}
