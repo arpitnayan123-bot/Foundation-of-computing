@@ -383,7 +383,7 @@ function SemesterShelf({
         <LiveBadge accent="#f59e0b" />
         <span className="h-px min-w-10 flex-1 bg-white/[.07]" aria-hidden />
         <span className="font-mono text-[.6rem] font-bold uppercase tracking-[.18em] text-[#8d7b63]">
-          {subjects.length} subjects · in session
+          {subjects.length} subjects · open all night
         </span>
       </div>
 
@@ -516,11 +516,11 @@ function ReservedSemesterPanel() {
         <div className="min-w-0">
           <ShelfTag>semester 2 · shelf reserved</ShelfTag>
           <h3 className="mt-2 font-display text-xl font-black text-[#cfc0a8] md:text-2xl">
-            Waiting for the Semester 2 syllabus.
+            The next shelf is still dark.
           </h3>
           <p className="mt-2 max-w-xl text-[.9rem] leading-relaxed text-[#a89a86]">
-            The next shelf is poured from the same mould — the moment the
-            PDFs drop, its subjects come alive right here. Same soul, new worlds.
+            The bay is poured from the same mould — the moment the Semester 2
+            PDFs drop, it lights up row by row. Same soul, new worlds.
           </p>
         </div>
       </div>
@@ -676,7 +676,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
             >
               <span aria-hidden className="hidden h-px w-7 bg-gradient-to-r from-transparent to-[#f5c889]/60 sm:block" />
               <span className="flex items-center rounded-full border border-white/10 bg-[#0a0709]/55 px-4 py-1.5 text-[.64rem] font-bold uppercase tracking-[.24em] text-[#e3d4bd] backdrop-blur-md sm:text-[.68rem] sm:tracking-[.28em]">
-                Visual revision notes for everything
+                Your syllabus, rebuilt to be remembered
               </span>
               <span aria-hidden className="hidden h-px w-7 bg-gradient-to-l from-transparent to-[#f5c889]/60 sm:block" />
             </motion.p>
@@ -709,7 +709,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               transition={{ delay: 0.72, duration: 0.8, ease: EASE }}
               className="mt-6 font-display text-xl font-black tracking-tight text-[#f7ecdd] sm:text-2xl md:text-[1.7rem]"
             >
-              Six subjects. One map. <span className="atlas-sheen">Zero boring pages.</span>
+              Six subjects. One map. <span className="atlas-sheen">The night before, handled.</span>
             </motion.p>
 
             <motion.p
@@ -719,8 +719,9 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               className="mt-4 max-w-2xl text-balance text-base leading-relaxed text-[#e3d4bd] md:text-lg"
             >
               This is not a notes site — it&apos;s your syllabus rebuilt as an experience:
-              diagrams that move, machines you can poke, exams you can actually survive,
-              and a real CPython kernel living in this tab.{" "}
+              diagrams that move when you touch them, machines you can take apart,
+              exams you can actually survive, and a real CPython kernel living in
+              this tab.{" "}
               <span className="text-[#f7ecdd]">Not PDFs. Atlas pages.</span>
             </motion.p>
 
@@ -747,7 +748,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
                 onClick={scrollToShelf}
                 className="group flex h-12 items-center gap-2 rounded-full border border-white/15 bg-[#0a0709]/50 px-6 text-[.78rem] font-black uppercase tracking-[.16em] text-[#e9d7bf] backdrop-blur-md transition-colors duration-300 hover:border-white/30 hover:bg-[#0a0709]/75"
               >
-                Browse the shelf
+                Walk the shelf
                 <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
               </button>
             </motion.div>
@@ -779,7 +780,7 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
                   "machines you can poke",
                   "exams you can survive",
                   "zero pdf energy",
-                  "built different",
+                  "built for the night",
                   "cpython 3.12 in your tab",
                   "read · sketch · run",
                 ].map((t) => (
@@ -807,9 +808,9 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               One shelf. <span className="atlas-sheen">Six worlds.</span>
             </h2>
             <p className="mt-4 max-w-2xl text-[.95rem] leading-relaxed text-[#a89a86] md:text-base">
-              Semester 1 is live — one glass shelf, six subjects, every row lit by its
-              own sigil, one tap away from the notes. Semester 2 sits reserved below,
-              waiting for its syllabus.
+              Semester 1 is live — one glass case, six subjects, every spine lit by
+              its own sigil and one tap away from the notes. Semester 2 waits below,
+              reserved for a syllabus still being written.
             </p>
           </Rise>
 
@@ -903,13 +904,20 @@ export function AtlasLanding({ onEnter }: { onEnter: (id: string) => void }) {
               ”
             </p>
             <p className="mx-auto mt-6 max-w-xl text-[.9rem] leading-relaxed text-[#8d7b63]">
-              That&apos;s the whole point of an Atlas page — it compresses the panic of
-              revision into something you can watch, poke and run, so the syllabus
-              finally sticks.
+              That&apos;s the whole point of an Atlas page — it takes the panic out of
+              revision and turns it into something you can watch, poke and run, so
+              the syllabus stops being memorized and starts being remembered.
             </p>
           </Rise>
         </section>
       </main>
+
+      {/* ------- the maker — one line, at the very end, nothing else ------- */}
+      <footer aria-label="Credits" className="relative pb-10 text-center">
+        <p className="font-mono text-[.62rem] font-bold tracking-[.18em] text-[#8d7b63]">
+          Created by <span className="text-[#cbb89a]">Arpitnayan</span>
+        </p>
+      </footer>
     </div>
   );
 }
