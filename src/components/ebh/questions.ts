@@ -920,6 +920,233 @@ const INDIA: EbhExamQuestion[] = [
   },
 ];
 
+/* ------------------------------------------------------------
+   GROUP 5 (extended) — THE FINALE (L29-L34): the management arc
+   recapped, the colonial commodity ledger, the founders, the
+   wars, Swadeshi, the Bombay Plan, and the major exam itself.
+   ------------------------------------------------------------ */
+const FINALE: EbhExamQuestion[] = [
+  {
+    id: "f1",
+    type: "mcq",
+    q: "The finale recaps the management-thought arc. Which order matches it?",
+    options: [
+      "Division of labour → Taylor's scientific management → Foyol's administration → the large corporation → Drucker's knowledge work",
+      "Foyol → Taylor → Drucker → Smith",
+      "Drucker → corporations → Taylor → division of labour",
+      "Taylor → Smith → Foyol → Drucker",
+    ],
+    answer: 0,
+    explain:
+      "The arc runs: Adam Smith's division of labour, Taylor's shop-floor science, Foyol's administrative frame (the spelling the deck uses), the rise of large corporations, and finally Drucker's management of knowledge work.",
+  },
+  {
+    id: "f2",
+    type: "mcq",
+    q: "The colonial export ledger names three raw commodities carrying roughly 45-50% of Indian exports. Which three?",
+    options: [
+      "Opium, indigo and raw cotton",
+      "Tea, silk and jute",
+      "Steel, coal and saltpetre",
+      "Spices, salt and pepper",
+    ],
+    answer: 0,
+    explain:
+      "Nearly half of Indian exports (approximately 45-50%) comprised opium, indigo and raw cotton — the colonial commodity core whose shares the course tracks across lectures.",
+  },
+  {
+    id: "f3",
+    type: "mcq",
+    q: "Indigo's export share: how does the 1813-1850s lecture state its trajectory?",
+    options: [
+      "27% (1828-29) falling to 6.1% (1857-58), with an intermediate drop to 15%",
+      "25-27% throughout the whole period",
+      "15-21% throughout",
+      "6.1% rising to 27%",
+    ],
+    answer: 0,
+    explain:
+      "This lecture states 27% at 1828-29, an intermediate drop to 15%, and 6.1% by 1857-58. The finale states 25-27% for the same 1828-29 year — both figures render on the shelf, unreconciled.",
+  },
+  {
+    id: "f4",
+    type: "mcq",
+    q: "The British agency houses that ran the colonial export system collapsed when?",
+    options: [
+      "The 1830s — the crash that ended their dominance",
+      "1813 — with the Charter Act",
+      "1857 — with the mills' rise",
+      "1905 — with Swadeshi",
+    ],
+    answer: 0,
+    explain:
+      "The Palmer houses and their peers dominated post-1813 export finance, then collapsed in the 1830s — Indian capital regrouped in their wake.",
+  },
+  {
+    id: "f5",
+    type: "mcq",
+    q: "Sir Jamshedji Gaikwad's opium scale, as the entrepreneurs lecture records it —",
+    options: [
+      "His company stored approximately one-third of Jardine, Matheson's opium inventory in Chinese warehouses by the mid-1840s",
+      "He held a monopoly on Bengal opium",
+      "He refused to trade opium",
+      "He sold only to Bombay buyers",
+    ],
+    answer: 0,
+    explain:
+      "By the mid-1840s Jamshedji Gaikwad and Company stored approximately one-third of Jardine, Matheson's opium inventory in Chinese warehouses — the lecture's measure of an Indian firm's scale in the China trade.",
+  },
+  {
+    id: "f6",
+    type: "mcq",
+    q: "Put Tata's mill rise in order as the lecture dates it.",
+    options: [
+      "Alexandra Mill (1867-69, from a bankrupt oil mill) → Empress Mill, Nagpur (1887) → three mills within two decades → the road to TISCO",
+      "Empress Mill 1854 → Alexandra Mill 1887 → TISCO 1813",
+      "TISCO 1907 → Alexandra Mill 1919 → Empress 1956",
+      "Alexandra 1800 → Empress 1857 → TISCO 1887",
+    ],
+    answer: 0,
+    explain:
+      "J.J. Nusservanji Tata established Alexandra Mill in 1867-69 (converting a bankrupt oil mill), Empress Mill in Nagpur in 1887, controlled three mills within two decades, and later diversified toward TISCO.",
+  },
+  {
+    id: "f7",
+    type: "mcq",
+    q: "What does the lecture record about India's first cotton spinning and weaving company?",
+    options: [
+      "Established 1854 with 17,000-20,000 spindles; operations began 1856",
+      "Established 1890 with 2,000 spindles",
+      "Established 1813 by the East India Company",
+      "Established 1947 with state capital",
+    ],
+    answer: 0,
+    explain:
+      "1854: the first cotton spinning and weaving company, 17,000-20,000 spindles, operations from 1856 — the lecture's marker for modern industrial manufacturing beginning in India.",
+  },
+  {
+    id: "f8",
+    type: "mcq",
+    q: "Walchandnagar Industries, as the founders' ledger dates it —",
+    options: [
+      "Established 1903 with railway construction contracts, later manufacturing and agriculture",
+      "Established 1857 as a textile mill",
+      "Established 1943 after the famine",
+      "Established 1736 as a dockyard",
+    ],
+    answer: 0,
+    explain:
+      "1903: railway construction contracts first, then expansion into manufacturing and agriculture — one of the diversification stories in the founders' ledger.",
+  },
+  {
+    id: "f9",
+    type: "mcq",
+    q: "By 1919, what share of TISCO's steel output was the British government purchasing?",
+    options: [
+      "90% — long-term switching costs made TISCO an indispensable supplier",
+      "40% — a limited procurement",
+      "12.5% — a trial order",
+      "15-21% — the raw cotton share",
+    ],
+    answer: 0,
+    explain:
+      "By 1919 the British government purchased 90% of TISCO's steel output — and the switching costs and technical expertise made the relationship stick, the lecture's exhibit of war-time procurement power.",
+  },
+  {
+    id: "f10",
+    type: "mcq",
+    q: "The Swadeshi movement's origin and its relationship to business —",
+    options: [
+      "Originated in 1905 against Bengal's partition; business funded it and it created demand for indigenous goods — a symbiosis",
+      "Originated in 1813 against the Company's monopoly; business opposed it",
+      "A British government invention to sell more cloth",
+      "An 1857 mill-owners' strike",
+    ],
+    answer: 0,
+    explain:
+      "The movement originated in 1905 as a response to Bengal's partition and created demand for indigenous goods; Indian entrepreneurs funded and supported it — the two-way symbiosis the lecture names.",
+  },
+  {
+    id: "f11",
+    type: "mcq",
+    q: "WWII's diversification of Indian industry ran into which sectors?",
+    options: [
+      "Chemicals, heavy engineering, and defense manufacturing",
+      "Only tea and jute",
+      "Shipbuilding alone",
+      "Banking and insurance only",
+    ],
+    answer: 0,
+    explain:
+      "While WWI built textiles and basic steel, WWII enabled diversification into chemicals, heavy engineering and defense manufacturing — the lecture's sector ledger for the second war.",
+  },
+  {
+    id: "f12",
+    type: "mcq",
+    q: "The 1943 Bengal Famine, as the WWII lecture records it —",
+    options: [
+      "One of the major human tragedies resulting from resource diversion, causing millions of deaths across the Bengal region",
+      "A minor rice shortfall",
+      "Caused solely by cyclones",
+      "An event the course does not mention",
+    ],
+    answer: 0,
+    explain:
+      "The lecture lists the 1943 Bengal Famine among the major human tragedies resulting from resource diversion — millions of deaths across the Bengal region, the societal cost priced against the industrial gains.",
+  },
+  {
+    id: "f13",
+    type: "mcq",
+    q: "How does the finale's review describe Module 3?",
+    options: [
+      "The largest module — 15-18 lectures",
+      "Ten lectures exactly, no more",
+      "The shortest module",
+      "A module with no Industrial Revolution content",
+    ],
+    answer: 0,
+    explain:
+      "In the finale's own words: Module 3, the Industrial Revolution, is the largest module — 15-18 lectures. The shelf reproduces the claim without resizing the module to match it.",
+  },
+  {
+    id: "f14",
+    type: "mcq",
+    q: "The Bombay Plan — what, when, and by whom?",
+    options: [
+      "A 1944-45 outline by leading Indian industrialists for state-led industrial development after independence",
+      "A 1929 agency-house cartel to fix indigo prices",
+      "The East India Company's 1813 restructuring",
+      "A 1956 government White Paper on steel",
+    ],
+    answer: 0,
+    explain:
+      "1944-45: India's leading industrialists drafted the Bombay Plan — business itself imagining the state-led industrial development that post-independence policy later pursued.",
+  },
+  {
+    id: "f15",
+    type: "mcq",
+    q: "The major examination, exactly as the finale states it — which row is right?",
+    options: [
+      "60% weightage · late November and the first week of December · entirely theoretical, no numericals · closed book, no electronic devices, pen and paper only",
+      "40% weightage · open book with MCQs only",
+      "Two quizzes of 20% each in September",
+      "A viva with numerical calculations",
+    ],
+    answer: 0,
+    explain:
+      "The finale states: 60% weightage, held in late November and the first week of December, entirely theoretical with no numerical calculations, closed book with no electronic devices — pen and paper only.",
+  },
+  {
+    id: "f16",
+    type: "short",
+    q: "State the major examination's coverage and its out-of-scope boundary, exactly as the finale declares them.",
+    answerText:
+      "Coverage: across all five modules — from the 1600s colonial period through the 1950s globally, and to 1947 for India. Question weights: three kinds — short, medium and long answers. Out of scope: post-1945 management theory.",
+    explain:
+      "Full marks for the coverage span (1600s colonial period → 1950s globally; to 1947 for India), the three question weights, and the explicit exclusion of post-1945 management theory.",
+  },
+];
+
 export const EBH_EXAM_BANKS: Record<EbhExamGroup, EbhExamBank> = {
   lens: {
     group: "lens",
@@ -952,9 +1179,9 @@ export const EBH_EXAM_BANKS: Record<EbhExamGroup, EbhExamBank> = {
   india: {
     group: "india",
     title: "Module 5 · Indian Business",
-    subtitle: "The charters 1600→1813 — and the entrepreneurs beside them",
-    topics: "Charter 1600 · Charter 1661 · erosion 1726–1784 · 1813 · middlemen · Jagat Seth · Lovji Wadia · opium-China-cotton",
-    questions: INDIA,
+    subtitle: "The charters 1600→1813, the entrepreneurs beside them — and the finale: wars, Swadeshi, the Bombay Plan and the major exam",
+    topics: "Charter 1600 · Charter 1661 · erosion 1726–1784 · 1813 · middlemen · Jagat Seth · Lovji Wadia · opium-China-cotton · Palmer houses · Gaikwad · Tata mills · Godrej · Walchandnagar · TISCO 1919 · Swadeshi 1905 · 1943 famine · Bombay Plan · the major exam",
+    questions: [...INDIA, ...FINALE],
   },
 };
 
