@@ -6,7 +6,6 @@
 
    journey-variations · autopsy-purchase          (Lecture 20)
    touchpoints-framework                          (Lecture 21)
-   recap22                                        (Lecture 22 —
      blank page in the source PDF; honest L19–21 recap)
    motivation-theories · theory-match             (Lecture 23)
    brand-perception · almonds-price               (Lecture 24)
@@ -15,7 +14,7 @@
    abc-humanization                               (Lecture 27)
    bias-lab                                       (Lecture 28)
 
-   Palette — teal (#0f766e / #14b8a6) + champagne (#a97d2c /
+   Palette — teal (#0f766e / rgba(15,118,110,.82)) + champagne (#a97d2c /
    #e3c26b) + ink (#1f2b2b), lagoon dark panels. No indigo,
    blue or purple anywhere. Content source: lecture notes only.
    ============================================================ */
@@ -33,11 +32,13 @@ import {
 import {
   Callout, KV, Quiz, ReadStep, Reveal, Section, SectionHead, StepsFlow, Takeaways,
 } from "@/components/notes/ui";
+import { RemovalCard } from "@/components/mktg/MktgReserved";
+import { AuthoringNote, BiasGrid, MaslowPyramid } from "@/components/mktg/diagrams";
 
 /* ---------- palette + shared helpers ---------- */
 
 const TEAL = "#0f766e";
-const TEAL_BRIGHT = "#14b8a6";
+const TEAL_BRIGHT = "rgba(15,118,110,.82)";
 const INK = "#1f2b2b";
 const MUTED = "#5f7472";
 const GOLD = "#a97d2c";
@@ -45,8 +46,8 @@ const GOLD_LITE = "#e3c26b";
 const CREAM = "#f2efe7";
 const CREAM_BORDER = "#e3ddcf";
 const ROSE = "#9f3d54";
-const LAGOON = "linear-gradient(165deg,#0c2124 0%,#12302f 60%,#143236 100%)";
-const TEAL_GRAD = "linear-gradient(135deg,#14b8a6,#0f766e)";
+const LAGOON = "linear-gradient(165deg,#171f1e 0%,#1f2b2b 58%,#17211f 100%)";
+const TEAL_GRAD = "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)";
 const GOLD_GRAD = "linear-gradient(135deg,#e3c26b,#a97d2c)";
 const PROSE = "max-w-3xl text-[.93rem] leading-relaxed text-[#3a4a48]";
 
@@ -54,7 +55,7 @@ function GSpan({ children }: { children: React.ReactNode }) {
   return (
     <span
       style={{
-        background: "linear-gradient(120deg,#0f766e,#14b8a6 55%,#a97d2c)",
+        background: "linear-gradient(120deg,#0f766e,rgba(15,118,110,.82) 55%,#a97d2c)",
         WebkitBackgroundClip: "text",
         backgroundClip: "text",
         color: "transparent",
@@ -687,185 +688,20 @@ export function MktgTouchpointsSection() {
 }
 
 /* ============================================================
-   LECTURE 22 — recap22 (dark)
-   The source PDF page is blank. Honest recap of the L19–21 arc
-   + a self-test. Nothing here is invented.
+   LECTURE 22 — reserved (removed from the course)
+   The Decision Journey — Consolidated keeps its number and its
+   position in Part III; the page renders only the removal card.
    ============================================================ */
 
-function RecapStagesSvg() {
+export function MktgReserved22Section() {
   return (
-    <svg viewBox="0 0 520 120" className="h-auto w-full" role="img" aria-label="The five stages in a line: need recognition, information search, evaluation of alternatives, purchase decision, post-purchase behavior">
-      <defs><marker id="rc-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill={GOLD_LITE} /></marker></defs>
-      {[52, 168, 284, 400].map((x, k) => (
-        <motion.line key={k} x1={x + 20} y1="58" x2={x + 108} y2="58" stroke={GOLD_LITE} strokeWidth="2"
-          markerEnd="url(#rc-arrow)"
-          initial={{ pathLength: 0, opacity: 0 }} whileInView={{ pathLength: 1, opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.15 * k, duration: 0.5 }} />
-      ))}
-      {["Need", "Search", "Evaluation", "Purchase", "Post-"].map((t, k) => (
-        <g key={t}>
-          <circle cx={52 + k * 104} cy="58" r="20" fill="#155e57" stroke={TEAL_BRIGHT} strokeWidth="2" />
-          <text x={52 + k * 104} y="62.5" textAnchor="middle" fontSize="12" fontWeight="800" fill="#d8f3ec">{k + 1}</text>
-          <text x={52 + k * 104} y="98" textAnchor="middle" fontSize="10" fontWeight="700" fill="#9fbcb4">{t}</text>
-        </g>
-      ))}
-      <text x="260" y="16" textAnchor="middle" fontSize="10.5" fontWeight="700" fill="#7ea49d">theory drew a straight line — Lecture 20 showed every way reality bends it</text>
-    </svg>
-  );
-}
-
-function RecapLoopSvg() {
-  const pts = [[240, 88], [150, 42], [62, 88], [150, 134], [240, 88], [330, 42], [418, 88], [330, 134], [240, 88]];
-  const xs = pts.map((p) => p[0]);
-  const ys = pts.map((p) => p[1]);
-  return (
-    <svg viewBox="0 0 480 176" className="h-auto w-full" role="img" aria-label="The infinity loop: exploration and evaluation cycling until a strong stimulus breaks out to purchase">
-      <motion.path
-        d="M 62 88 C 62 30, 240 30, 240 88 C 240 146, 418 146, 418 88 C 418 30, 240 30, 240 88 C 240 146, 62 146, 62 88 Z"
-        fill="none" stroke={GOLD_LITE} strokeWidth="2.5" strokeDasharray="8 7"
-        initial={{ pathLength: 0, opacity: 0 }} whileInView={{ pathLength: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.4 }}
-      />
-      <motion.g animate={{ x: xs, y: ys }} transition={{ duration: 7, repeat: 1, ease: "easeInOut" }}>
-        <circle cx="0" cy="0" r="9" fill={TEAL_BRIGHT} stroke="#d8f3ec" strokeWidth="2" />
-      </motion.g>
-      <text x="240" y="20" textAnchor="middle" fontSize="11" fontWeight="800" fill="#cfe9e2">explore ⇄ evaluate — the messy middle</text>
-      <text x="446" y="92" textAnchor="end" fontSize="10.5" fontWeight="800" fill={GOLD_LITE}>a strong stimulus → purchase</text>
-    </svg>
-  );
-}
-
-function RecapCycleSvg() {
-  const pos = [-90, -30, 30, 90, 150, 210].map((a) => {
-    const rad = (a * Math.PI) / 180;
-    return { cx: 130 + 92 * Math.cos(rad), cy: 118 + 86 * Math.sin(rad) };
-  });
-  const labels = ["Need", "Tension", "Drive", "Behavior", "Consumption", "Goal"];
-  return (
-    <svg viewBox="0 0 260 236" className="h-auto w-full" role="img" aria-label="Six-node cycle: unfulfilled need, fear or tension, drive, behavior, consumption, goal fulfillment and tension reduction">
-      <circle cx="130" cy="118" r="86" fill="none" stroke="#3f615c" strokeWidth="1.8" strokeDasharray="5 6" />
-      {pos.map((p, k) => (
-        <g key={k}>
-          <circle cx={p.cx} cy={p.cy} r="18" fill="#155e57" stroke={TEAL_BRIGHT} strokeWidth="2" />
-          <text x={p.cx} y={p.cy + 4} textAnchor="middle" fontSize="10.5" fontWeight="800" fill="#d8f3ec">{k + 1}</text>
-          <text x={p.cx} y={p.cy + (k === 3 ? 36 : -26)} textAnchor="middle" fontSize="9.5" fontWeight="700" fill="#9fbcb4">{labels[k]}</text>
-        </g>
-      ))}
-      <text x="130" y="115" textAnchor="middle" fontSize="10" fontWeight="800" fill={GOLD_LITE}>tension ↓</text>
-      <text x="130" y="130" textAnchor="middle" fontSize="9" fontWeight="700" fill="#9fbcb4">at goal</text>
-    </svg>
-  );
-}
-
-const RECAP_TABS = [
-  {
-    tag: "Lecture 19", t: "The five stages", svg: <RecapStagesSvg />,
-    d: "Need recognition → information search → evaluation of alternatives → purchase decision → post-purchase behavior. Plus the heuristics — ratings, discounts, scarcity — that shortcut it, and the cart abandonment that proves decisions are non-linear.",
-  },
-  {
-    tag: "Lectures 19–20", t: "The messy middle & the variations", svg: <RecapLoopSvg />,
-    d: "Consumers loop through exploration and evaluation — the infinity zone — while journeys skip stages (impulse 70% off, direct ketchup runs), reverse (back to search), and circle (loops on new information) until a strong stimulus closes the sale.",
-  },
-  {
-    tag: "Lecture 21", t: "The framework cycle", svg: <RecapCycleSvg />,
-    d: "Unfulfilled need → fear or tension → internal drive → behavior → consumption → goal fulfillment and tension reduction. The same engine whether the purchase is a pizza at 11:30 PM or a laptop — involvement only sets the depth.",
-  },
-];
-
-function RecapArcMachine() {
-  const p = useStepPlayer(RECAP_TABS.length, 4200);
-  const cur = RECAP_TABS[p.i];
-  return (
-    <div className="card-warm p-5 md:p-7">
-      <div className="flex flex-wrap items-center gap-3">
-        <Compass className="h-6 w-6" style={{ color: TEAL }} aria-hidden />
-        <h3 className="text-xl font-bold text-[#12312e] md:text-2xl">The arc, one machine</h3>
-        <TChip>three panels · Lectures 19–21</TChip>
-      </div>
-      <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Recap panels">
-        {RECAP_TABS.map((t, k) => (
-          <MBtn key={t.t} onClick={() => { p.setI(k); }} active={p.i === k} pressed={p.i === k} label={`Show recap panel: ${t.t}`}>
-            {t.tag.split(" ").pop()} · {t.t.split(" ")[0]}
-          </MBtn>
-        ))}
-      </div>
-      <AnimatePresence mode="wait">
-        <motion.div key={p.i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }}
-          className="mt-5 grid gap-5 lg:grid-cols-[1fr,1.1fr]">
-          <div className="rounded-2xl p-4" style={{ background: LAGOON }}>{cur.svg}</div>
-          <div>
-            <p className="text-[.72rem] font-extrabold uppercase tracking-[.16em]" style={{ color: GOLD }}>Panel {p.i + 1} of 3 · {cur.tag}</p>
-            <p className="mt-1 text-xl font-bold" style={{ color: TEAL }}>{cur.t}</p>
-            <p className="mt-2 text-[.92rem] leading-relaxed text-[#3a4a48]">{cur.d}</p>
-          </div>
-        </motion.div>
-      </AnimatePresence>
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-        <PlayerBtns p={p} name="Recap arc" />
-        <Pips n={RECAP_TABS.length} i={p.i} />
-      </div>
-      <MLog>Recap status — panel {p.i + 1}/3: {cur.tag} · {cur.t}</MLog>
-    </div>
-  );
-}
-
-export function MktgRecap22Section() {
-  return (
-    <Section id="recap22" dark>
+    <Section id="reserved-22">
       <SectionHead
-        dark
-        eyebrow="Principles of Marketing · Lecture 22"
-        title={<>Recap · <span style={{ background: GOLD_GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>the decision-journey arc</span></>}
-        lead="Session notes not captured — this lecture's page in the source PDF is blank. What follows is an honest recap of the Lectures 19–21 arc, plus a short self-test drawn only from that arc."
+        eyebrow="Part III · Lecture 22 · removed from the course"
+        title="The Decision Journey — Consolidated"
+        lead="Lecture 22 keeps its number and its position in Part III. Nothing else survives — the removal card below is the entire page."
       />
-      <Reveal>
-        <Callout kind="warn" dark title="Session notes not captured — recap of the decision-journey arc">
-          Lecture 22 arrived as a blank page in the source PDF. Rather than invent notes, this chapter replays the arc
-          the previous three lectures built: <strong>the five stages</strong>, <strong>the infinity loop</strong>, and{" "}
-          <strong>the integrated framework cycle</strong>. Everything below comes strictly from Lectures 19–21.
-        </Callout>
-      </Reveal>
-
-      <ReadStep dark n="1" title="Replay the arc" sub="three panels, one continuous story — from the linear model to the engine underneath it" />
-      <Reveal><RecapArcMachine /></Reveal>
-
-      <ReadStep dark n="2" title="Self-test" sub="three questions, drawn only from Lectures 19–21" />
-      <div className="grid gap-5 md:grid-cols-3">
-        <Reveal>
-          <Quiz
-            source="Recap · Lectures 19–21"
-            q="In the integrated framework, what does an unfulfilled need create first?"
-            options={["An impulse purchase", "Fear or tension", "A price comparison", "Post-purchase regret"]}
-            answer={1}
-            explain="Unfulfilled need creates fear or tension, which triggers the internal drive, which produces behavior, then consumption, then goal fulfillment and tension reduction."
-          />
-        </Reveal>
-        <Reveal delay={80}>
-          <Quiz
-            source="Recap · Lectures 19–21"
-            q="The “messy middle” describes…"
-            options={["a linear five-stage checklist", "an exploration–evaluation loop that a strong stimulus eventually breaks", "the post-purchase warranty window", "a pricing heuristic"]}
-            answer={1}
-            explain="Once triggered, consumers continuously explore and evaluate — the infinity zone of carts and wish lists — until a sufficiently strong trigger converts it into an actual purchase."
-          />
-        </Reveal>
-        <Reveal delay={160}>
-          <Quiz
-            source="Recap · Lectures 19–21"
-            q="Buying a 70%-off item with no prior need or planning skips…"
-            options={["only the information search", "the purchase decision", "need recognition, information search and evaluation", "nothing — all five stages still run"]}
-            answer={2}
-            explain="Impulse purchasing jumps straight from stimulus to purchase — need recognition, information search and evaluation of alternatives are all bypassed."
-          />
-        </Reveal>
-      </div>
-
-      <Reveal className="mt-8">
-        <Takeaways dark items={[
-          <><strong>Five stages</strong> — recognition, search, evaluation, purchase, post-purchase: the spine of every journey.</>,
-          <><strong>The messy middle</strong> — exploration and evaluation loop until a strong stimulus breaks it.</>,
-          <><strong>The framework cycle</strong> — need → tension → drive → behavior → consumption → goal fulfillment; tension reduced.</>,
-          <>Real journeys <strong>skip, reverse and loop</strong> — the model is a map, not the territory.</>,
-        ]} />
-      </Reveal>
+      <RemovalCard spaced="L 2 2" title="The Decision Journey — Consolidated" />
     </Section>
   );
 }
@@ -908,7 +744,7 @@ function MaslowPyramidMachine() {
             aria-label={`Maslow's five-level pyramid, level ${5 - p.i} highlighted: ${cur.t} — ${cur.d}`}>
             <defs>
               <linearGradient id="mp-act" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#14b8a6" />
+                <stop offset="0%" stopColor="rgba(15,118,110,.82)" />
                 <stop offset="100%" stopColor="#0f766e" />
               </linearGradient>
             </defs>
@@ -919,7 +755,7 @@ function MaslowPyramidMachine() {
                 <motion.polygon
                   key={k}
                   points={g.pts}
-                  fill={active ? "url(#mp-act)" : passed ? "rgba(20,184,166,.34)" : "rgba(233,242,238,.10)"}
+                  fill={active ? "url(#mp-act)" : passed ? "rgba(15,118,110,.34)" : "rgba(233,242,238,.10)"}
                   stroke={active ? GOLD_LITE : passed ? TEAL_BRIGHT : "#3f615c"}
                   strokeWidth={active ? 2.5 : 1.6}
                   onClick={() => { p.setI(4 - k); }}
@@ -966,8 +802,8 @@ function FreudIceberg() {
         aria-label="Freud's iceberg: 10% conscious above the waterline, 90% subconscious below — pre-conscious near the surface, unconscious in the depths">
         <defs>
           <linearGradient id="fi-sea" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#143236" />
-            <stop offset="100%" stopColor="#0c2124" />
+            <stop offset="0%" stopColor="#17211f" />
+            <stop offset="100%" stopColor="#171f1e" />
           </linearGradient>
         </defs>
         <rect x="0" y="0" width="560" height="104" fill="#0e2629" />
@@ -1104,6 +940,10 @@ export function MktgMotivationSection() {
           dissatisfaction without inspiring motivation. True motivation comes from meaningful work, recognition, and
           opportunities for growth.
         </Callout>
+      </Reveal>
+
+      <Reveal className="mt-6">
+        <MaslowPyramid />
       </Reveal>
 
       <Reveal className="mt-8">
@@ -1330,7 +1170,7 @@ function DuckRabbitDemo() {
             stroke={rabbit ? TEAL_BRIGHT : "#3f615c"} strokeWidth={rabbit ? 3 : 1.5} animate={{ opacity: rabbit ? 1 : 0.55 }} />
           <motion.path d="M 118 92 L 84 84 L 84 104 Z" fill="rgba(233,242,238,.94)"
             stroke={rabbit ? "#3f615c" : TEAL_BRIGHT} strokeWidth={rabbit ? 1.5 : 3} animate={{ opacity: rabbit ? 0.55 : 1 }} />
-          <circle cx="172" cy="92" r="4.5" fill="#0c2124" />
+          <circle cx="172" cy="92" r="4.5" fill="#171f1e" />
           <motion.g animate={{ opacity: rabbit ? 1 : 0, x: rabbit ? 0 : 12 }}>
             <polygon points="236,88 292,98 236,108" fill={GOLD_LITE} stroke="#a97d2c" strokeWidth="1.5" />
             <path d="M 240 86 C 246 74, 256 74, 252 86" fill="none" stroke={TEAL_BRIGHT} strokeWidth="2.5" />
@@ -1703,7 +1543,7 @@ export function MktgSensorySection() {
 
 function FigureGroundDemo() {
   const [dark, setDark] = useState(true);
-  const bg = dark ? "#0c2124" : "#f2efe7";
+  const bg = dark ? "#171f1e" : "#f2efe7";
   const fg = dark ? "#e9f2ee" : "#0f766e";
   return (
     <div>
@@ -2625,6 +2465,25 @@ export function MktgBiasSection() {
         <Reveal><ScarcityCard /></Reveal>
         <Reveal delay={80}><EndowmentCard /></Reveal>
       </div>
+
+      <Reveal className="mt-6">
+        <BiasGrid />
+      </Reveal>
+
+      <Reveal className="mt-5">
+        <AuthoringNote lecture="Lecture 28" title="The lecture promises four biases that no later lecture delivers">
+          <p>
+            The corpus of L28 closes by promising four further cognitive biases — <strong>Pratfall Effect, Halo Effect,
+            Decoy Effect, Framing Effect</strong> — &ldquo;to be addressed in subsequent sessions&rdquo;. Lecture 29 onward
+            moves to product, pricing and communication; the four biases never arrive anywhere in the 40-lecture sequence.
+          </p>
+          <p>
+            The promise is reproduced verbatim rather than silently resolved, and is listed in the consolidated register
+            of open questions for the course owner. (Decoy and Framing <em>do</em> resurface inside L36&apos;s pricing
+            psychology — as pricing effects, not as the promised follow-up lecture.)
+          </p>
+        </AuthoringNote>
+      </Reveal>
 
       <Reveal className="mt-8">
         <Takeaways items={[

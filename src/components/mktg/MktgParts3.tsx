@@ -20,6 +20,7 @@ import {
 import {
   Callout, KV, Quiz, ReadStep, Reveal, Section, SectionHead, StepsFlow, Takeaways,
 } from "@/components/notes/ui";
+import { ErasFlow, JourneyFive, MessyLoop, SafeGates } from "@/components/mktg/diagrams";
 
 /* ============================================================
    SHARED HELPERS — teal & champagne machine kit
@@ -29,7 +30,7 @@ function Grad({ children }: { children: React.ReactNode }) {
   return (
     <span
       style={{
-        backgroundImage: "linear-gradient(115deg,#14b8a6 0%,#0f766e 48%,#a97d2c 100%)",
+        backgroundImage: "linear-gradient(115deg,rgba(15,118,110,.82) 0%,#0f766e 48%,#a97d2c 100%)",
         WebkitBackgroundClip: "text",
         backgroundClip: "text",
         color: "transparent",
@@ -49,7 +50,7 @@ function MBtn({ onClick, children, tone = "ghost", ariaLabel, disabled = false }
 }) {
   const style: React.CSSProperties =
     tone === "teal"
-      ? { background: "linear-gradient(135deg,#14b8a6,#0f766e)", color: "#f4fbf9" }
+      ? { background: "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)", color: "#f4fbf9" }
       : tone === "gold"
       ? { background: "linear-gradient(135deg,#e3c26b,#a97d2c)", color: "#fffaf0" }
       : { background: "#ffffff", color: "#0f766e", border: "1px solid #c8e2dc" };
@@ -90,7 +91,7 @@ function DarkPanel({ children, className = "" }: { children: React.ReactNode; cl
     <div
       className={`rounded-2xl p-5 md:p-7 ${className}`}
       style={{
-        background: "linear-gradient(165deg,#0c2124 0%,#12302f 60%,#143236 100%)",
+        background: "linear-gradient(165deg,#171f1e 0%,#1f2b2b 58%,#17211f 100%)",
         border: "1px solid rgba(227,194,107,.22)",
       }}
     >
@@ -278,7 +279,7 @@ function TupoCasePlayer() {
             <motion.div key={v} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
               {v === "gap" ? (
                 <div className="grid gap-3">
-                  <div className="rounded-xl px-4 py-3 font-bold text-white" style={{ background: "linear-gradient(135deg,#14b8a6,#0f766e)" }}>Baby products · 0–2 years</div>
+                  <div className="rounded-xl px-4 py-3 font-bold text-white" style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" }}>Baby products · 0–2 years</div>
                   <div className="rounded-xl border-2 border-dashed px-4 py-3 text-center font-bold" style={{ borderColor: "#a97d2c", color: "#a97d2c", background: "rgba(227,194,107,.14)" }}>
                     3–15 · nobody home
                   </div>
@@ -299,7 +300,7 @@ function TupoCasePlayer() {
               ) : null}
               {v === "doors" ? (
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-xl p-3 text-center" style={{ background: "linear-gradient(135deg,#14b8a6,#0f766e)", color: "#f4fbf9" }}>
+                  <div className="rounded-xl p-3 text-center" style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)", color: "#f4fbf9" }}>
                     <Users className="mx-auto h-6 w-6" aria-hidden />
                     <p className="mt-1 text-[.85rem] font-extrabold">Children 3–15</p>
                     <p className="text-[.74rem] font-semibold opacity-90">preference-makers</p>
@@ -497,7 +498,7 @@ function SafePipeline() {
               <div key={g.k}
                 className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition-all duration-300"
                 style={{
-                  background: active ? "linear-gradient(135deg,#14b8a6,#0f766e)" : done ? "#edf6f4" : "#ffffff",
+                  background: active ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : done ? "#edf6f4" : "#ffffff",
                   border: `1px solid ${active ? "#0f766e" : "#dce8e4"}`,
                   opacity: step === 4 && !done ? 0.55 : 1,
                 }}>
@@ -529,9 +530,9 @@ function SafePipeline() {
                       <motion.span key={s} initial={{ opacity: 0.35 }} animate={{ opacity: 1 }}
                         className="rounded-full px-3 py-1.5 text-[.78rem] font-extrabold"
                         style={{
-                          background: s === "First-time runners" ? "rgba(20,184,166,.16)" : "#ffffff",
+                          background: s === "First-time runners" ? "rgba(15,118,110,.16)" : "#ffffff",
                           color: "#0f766e",
-                          border: `1px solid ${s === "First-time runners" ? "#14b8a6" : "#cfe3de"}`,
+                          border: `1px solid ${s === "First-time runners" ? "rgba(15,118,110,.82)" : "#cfe3de"}`,
                         }}>
                         {s}
                       </motion.span>
@@ -540,7 +541,7 @@ function SafePipeline() {
                 </motion.div>
               ) : (
                 <motion.div key="verdict" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.35 }}>
-                  <div className="rounded-xl px-4 py-3" style={{ background: "linear-gradient(135deg,#14b8a6,#0f766e)", color: "#f4fbf9" }}>
+                  <div className="rounded-xl px-4 py-3" style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)", color: "#f4fbf9" }}>
                     <p className="text-[.72rem] font-extrabold uppercase tracking-[.16em] opacity-85">Target selected</p>
                     <p className="text-lg font-extrabold">First-time runners</p>
                   </div>
@@ -626,7 +627,11 @@ export function MktgSafeSection() {
             answer={1}
             explain="First-time runners win with high market size, medium competition, high brand capability and medium willingness to pay — superior to the other options." />
         </Reveal>
-        <Reveal delay={100}>
+        <Reveal className="mt-6">
+        <SafeGates />
+      </Reveal>
+
+      <Reveal delay={100}>
           <Takeaways items={[
             <>Targeting = <strong>evaluating and choosing</strong> — limited budgets make “everyone” impossible.</>,
             <><strong>SAFE</strong>: Size, Accessibility, Fitment, Economics — all four gates must open.</>,
@@ -677,7 +682,7 @@ function MindFlipMachine() {
                 style={{
                   backfaceVisibility: "hidden",
                   transform: "rotateY(180deg)",
-                  background: "linear-gradient(165deg,#0c2124,#143236)",
+                  background: "linear-gradient(165deg,#171f1e 0%,#1f2b2b 100%)",
                   border: "1px solid rgba(227,194,107,.25)",
                 }}>
                 <p className="text-[.7rem] font-bold uppercase tracking-[.16em]" style={{ color: "#e3c26b" }}>the mind holds…</p>
@@ -716,7 +721,7 @@ function ThreeQMachine() {
           return (
             <div key={item.q} className="rounded-xl px-3.5 py-3 transition-all duration-300"
               style={{
-                background: active ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "#ffffff",
+                background: active ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "#ffffff",
                 border: `1px solid ${active ? "#0f766e" : "#dce8e4"}`,
                 opacity: step > i || active ? 1 : 0.55,
               }}>
@@ -733,7 +738,7 @@ function ThreeQMachine() {
           className="mt-4 rounded-2xl p-4" style={{ background: "#f2efe7", border: "1px solid #e3ddcf" }}>
           <p className="text-[.72rem] font-extrabold uppercase tracking-[.16em]" style={{ color: "#a97d2c" }}>Sensodyne&apos;s answer</p>
           <p className="mt-1.5 text-[.92rem] font-semibold leading-relaxed text-[#1f2b2b]">{POS_3Q[step].a}</p>
-          <span className="mt-2 inline-block rounded-full px-3 py-1 text-[.74rem] font-extrabold" style={{ background: "rgba(20,184,166,.14)", color: "#0f766e", border: "1px solid #14b8a6" }}>
+          <span className="mt-2 inline-block rounded-full px-3 py-1 text-[.74rem] font-extrabold" style={{ background: "rgba(15,118,110,.14)", color: "#0f766e", border: "1px solid rgba(15,118,110,.82)" }}>
             {POS_3Q[step].chip}
           </span>
         </motion.div>
@@ -857,7 +862,7 @@ function AccorMapMachine() {
               animate={{ scale: sel === ti ? 1.12 : 1, opacity: sel === null || sel === ti ? 1 : 0.35 }}
               transition={{ type: "spring", stiffness: 220, damping: 20 }}
               style={{ originX: `${p.x}px`, originY: `${p.y}px` }}>
-              <circle cx={p.x} cy={p.y} r="13" fill={ti === 2 ? "#e3c26b" : ti === 1 ? "#14b8a6" : "#0f766e"} opacity={0.9} />
+              <circle cx={p.x} cy={p.y} r="13" fill={ti === 2 ? "#e3c26b" : ti === 1 ? "rgba(15,118,110,.82)" : "#0f766e"} opacity={0.9} />
               <circle cx={p.x} cy={p.y} r="5" fill="#f4fbf9" />
               <text x={p.x} y={p.y - 20} textAnchor="middle" fontSize="11.5" fontWeight="800" fill="#1f2b2b">{p.label}</text>
               {sel === ti ? (
@@ -1075,7 +1080,7 @@ function PopRemovalToggle() {
           <div className="rounded-2xl p-4" style={{ background: "#f2efe7", border: "1px solid #e3ddcf" }}>
             <p className="text-[.8rem] font-extrabold uppercase tracking-[.14em] text-[#5f7472]">consumer choice</p>
             <div className="mt-3 flex items-center gap-3">
-              <span className="rounded-xl px-3 py-2 text-[.8rem] font-extrabold text-white" style={{ background: "linear-gradient(135deg,#14b8a6,#0f766e)" }}>Lysol</span>
+              <span className="rounded-xl px-3 py-2 text-[.8rem] font-extrabold text-white" style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" }}>Lysol</span>
               <div className="relative h-1.5 flex-1 rounded-full" style={{ background: "#d8e8e4" }}>
                 <motion.div className="absolute top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full"
                   style={{ background: "#a97d2c", left: "12%" }}
@@ -1166,7 +1171,7 @@ export function MktgFrameSection() {
 type DotSpec = { x: number; y: number; fill: string; o: number; r: number };
 
 function dotSpec(level: number, i: number): DotSpec {
-  const teal = "#14b8a6", deep = "#0f766e", gold = "#e3c26b", champagne = "#a97d2c";
+  const teal = "rgba(15,118,110,.82)", deep = "#0f766e", gold = "#e3c26b", champagne = "#a97d2c";
   if (level === 0) {
     return { x: 34 + (i % 12) * 40, y: 42 + Math.floor(i / 12) * 52, fill: i % 2 ? teal : deep, o: 1, r: 6 };
   }
@@ -1471,7 +1476,7 @@ function ThreeCirclesMachine() {
             {[
               { cx: 190, cy: 140, c: "#a97d2c" },
               { cx: 330, cy: 140, c: "#0f766e" },
-              { cx: 260, cy: 245, c: "#14b8a6" },
+              { cx: 260, cy: 245, c: "rgba(15,118,110,.82)" },
             ].map((c, i) => (
               <motion.circle key={i} cx={c.cx} cy={c.cy} r="95" fill="none" stroke={c.c} strokeWidth="2.5" opacity={1}
                 initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.1, delay: i * 0.18 }} />
@@ -1669,14 +1674,14 @@ function SavlonVolley() {
       <div className="flex flex-wrap items-center gap-2">
         {beats.map((b, i) => (
           <span key={b.who} className="rounded-full px-3 py-1.5 text-[.74rem] font-extrabold transition-colors duration-300"
-            style={{ background: step === i ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "#ffffff", color: step === i ? "#f4fbf9" : "#0f766e", border: "1px solid #cfe3de" }}>
+            style={{ background: step === i ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "#ffffff", color: step === i ? "#f4fbf9" : "#0f766e", border: "1px solid #cfe3de" }}>
             {i + 1}. {b.who}
           </span>
         ))}
       </div>
       <div className="mt-4 rounded-2xl p-4" style={{ background: "#f2efe7", border: "1px solid #e3ddcf" }}>
         <div className="flex items-center gap-3">
-          <span className="rounded-xl px-3 py-2 text-[.8rem] font-extrabold text-white" style={{ background: "linear-gradient(135deg,#14b8a6,#0f766e)" }}>Dettol</span>
+          <span className="rounded-xl px-3 py-2 text-[.8rem] font-extrabold text-white" style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" }}>Dettol</span>
           <div className="relative h-10 flex-1">
             <motion.div className="absolute top-1/2 -translate-y-1/2 rounded-full px-3 py-1.5 text-[.72rem] font-extrabold"
               style={{ background: "linear-gradient(135deg,#e3c26b,#a97d2c)", color: "#fffaf0", left: `${arrowX}%` }}
@@ -1794,7 +1799,7 @@ function DesiredStateMachine() {
         </div>
         {v ? (
           <motion.div key={v.k} className="absolute top-1/2 h-9 w-9 -translate-y-1/2 rounded-full"
-            style={{ background: "linear-gradient(135deg,#14b8a6,#0f766e)", border: "3px solid #fff", boxShadow: "0 4px 12px rgba(15,118,110,.35)", left: `${v.from * 100}%` }}
+            style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)", border: "3px solid #fff", boxShadow: "0 4px 12px rgba(15,118,110,.35)", left: `${v.from * 100}%` }}
             animate={{ left: `${v.to * 100}%`, scale: v.k === "maintain" ? [1, 1.12, 1] : 1 }}
             transition={{ duration: 0.8, ease: "easeInOut", scale: { duration: 1.4, repeat: v.k === "maintain" ? Infinity : 0 } }} />
         ) : null}
@@ -1974,14 +1979,14 @@ function ErasTimeline() {
       <div className="mt-6">
         <div className="relative h-2 rounded-full" style={{ background: "#e4ebe8" }}>
           <motion.div className="absolute inset-y-0 left-0 rounded-full"
-            style={{ background: "linear-gradient(90deg,#14b8a6,#0f766e)" }}
+            style={{ background: "linear-gradient(90deg,rgba(15,118,110,.82),#0f766e)" }}
             animate={{ width: `${(step / 2) * 100}%` }} transition={{ duration: 0.6 }} />
           {ERAS.map((e, i) => (
             <span key={e.k}
               className="absolute top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-[.72rem] font-extrabold transition-all duration-300"
               style={{
                 left: `${(i / 2) * 100}%`,
-                background: i <= step ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "#ffffff",
+                background: i <= step ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "#ffffff",
                 color: i <= step ? "#f4fbf9" : "#5f7472",
                 border: "2px solid " + (i <= step ? "#0f766e" : "#d5e6e1"),
               }}>
@@ -2074,6 +2079,10 @@ export function MktgErasSection() {
           explain="Nudges are environmental design — choice architecture that guides behavior toward naturally better choices without direct persuasion. Heuristics are the mental shortcuts inside the consumer." />
       </Reveal>
 
+      <Reveal className="mt-6">
+        <ErasFlow />
+      </Reveal>
+
       <Reveal className="mt-8">
         <Takeaways items={[
           <>Classical era (1950s–60s): <strong>rational, predictable</strong> consumers who buy only what they need.</>,
@@ -2131,7 +2140,7 @@ function FiveStagePlayer() {
           return (
             <div key={s.k} className="rounded-xl px-3 py-3 text-center transition-all duration-300"
               style={{
-                background: active ? "linear-gradient(135deg,#14b8a6,#0f766e)" : done ? "#edf6f4" : "#ffffff",
+                background: active ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : done ? "#edf6f4" : "#ffffff",
                 border: `1px solid ${active ? "#0f766e" : "#dce8e4"}`,
                 opacity: active || done ? 1 : 0.6,
               }}>
@@ -2202,6 +2211,10 @@ export function MktgStagesSection() {
           explain="Evaluation of alternatives compares options within the consideration set, often weighting attributes; the final choice is the best overall value." />
       </Reveal>
 
+      <Reveal className="mt-6">
+        <JourneyFive />
+      </Reveal>
+
       <Reveal className="mt-8">
         <Takeaways items={[
           <><strong>Problem recognition</strong> is the trigger — a gap between desired and existing state.</>,
@@ -2258,7 +2271,7 @@ function LinearVsMessyMachine() {
         {mode === "linear" ? (
           <g>
             {MM_NODES.slice(0, -1).map((n, i) => (
-              <motion.line key={i} x1={n.x + 26} y1="90" x2={MM_NODES[i + 1].x - 26} y2="90" stroke="#14b8a6" strokeWidth="2.5"
+              <motion.line key={i} x1={n.x + 26} y1="90" x2={MM_NODES[i + 1].x - 26} y2="90" stroke="rgba(15,118,110,.82)" strokeWidth="2.5"
                 opacity={1} initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} />
             ))}
             <motion.circle cx={MM_NODES[0].x} cy="50" r="9" fill="#e3c26b" stroke="#a97d2c" strokeWidth="1.5"
@@ -2317,7 +2330,7 @@ function InfinityLoopMachine() {
           aria-label="An infinity-shaped loop connecting exploration and evaluation, with a gold token travelling around it endlessly">
           <defs>
             <linearGradient id="mmInfGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#14b8a6" />
+              <stop offset="0%" stopColor="rgba(15,118,110,.82)" />
               <stop offset="55%" stopColor="#0f766e" />
               <stop offset="100%" stopColor="#e3c26b" />
             </linearGradient>
@@ -2326,10 +2339,10 @@ function InfinityLoopMachine() {
             d="M300 150 C 258 76, 126 76, 126 150 C 126 224, 258 224, 300 150 C 342 76, 474 76, 474 150 C 474 224, 342 224, 300 150 Z"
             fill="none" stroke="url(#mmInfGrad)" strokeWidth="4" opacity={0.9} />
           <text x="182" y="72" textAnchor="middle" fontSize="14" fontWeight="800" fill="#e3c26b">explore</text>
-          <text x="420" y="72" textAnchor="middle" fontSize="14" fontWeight="800" fill="#14b8a6">evaluate</text>
+          <text x="420" y="72" textAnchor="middle" fontSize="14" fontWeight="800" fill="rgba(15,118,110,.82)">evaluate</text>
           <text x="300" y="158" textAnchor="middle" fontSize="10.5" fontWeight="700" fill="#9fbcb4">the messy middle</text>
           {playing ? (
-            <circle key={runId} r="10" fill="#e3c26b" stroke="#0c2124" strokeWidth="2.5">
+            <circle key={runId} r="10" fill="#e3c26b" stroke="#171f1e" strokeWidth="2.5">
               <animateMotion dur="7s" repeatCount="indefinite" rotate="0">
                 <mpath href="#mmInfPath" />
               </animateMotion>
@@ -2425,6 +2438,10 @@ export function MktgMessySection() {
         </Callout>
       </Reveal>
 
+      <Reveal className="mt-6">
+        <MessyLoop />
+      </Reveal>
+
       <Reveal className="mt-8">
         <Takeaways items={[
           <>Consumers <strong>cannot be assumed</strong> to follow linear decision paths.</>,
@@ -2454,7 +2471,7 @@ function MktgTrack({ label, count, tone, badge, peak }: { label: string; count: 
           const on = i < count;
           return (
             <motion.div key={i} className="w-4 rounded-t-md"
-              style={{ background: on ? (tone === "teal" ? "linear-gradient(180deg,#14b8a6,#0f766e)" : "#c8d9d4") : "#e4ebe8", height: "100%", originY: 1 }}
+              style={{ background: on ? (tone === "teal" ? "linear-gradient(180deg,rgba(15,118,110,.82),#0f766e)" : "#c8d9d4") : "#e4ebe8", height: "100%", originY: 1 }}
               animate={{ opacity: on ? 1 : 0.35, scaleY: on ? 1 : 0.55 }}
               transition={{ duration: 0.4, delay: on ? i * 0.08 : 0 }} />
           );
