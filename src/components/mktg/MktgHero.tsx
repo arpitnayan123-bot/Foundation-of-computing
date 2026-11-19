@@ -3,11 +3,13 @@
 /* ============================================================
    MktgHero — shelf 06 of THE ATLAS.
 
-   "Principles of Marketing" — the lecture sequence hero. Every
-   lecture card carries its "Lecture N" eyebrow, and the notes
-   below open with a matching "Principles of Marketing Lecture N"
-   band (see MktgLectureHead in MktgApp). Palette: Boutique Teal
-   & Champagne. All facts from /upload/marketing-lectures.txt.
+   "Principles of Marketing" — the official 40-lecture
+   sequence hero. Every lecture card carries its "L01" badge,
+   and the notes below open with a matching "Part · Lecture N"
+   band (see MktgLectureHead in MktgApp). Palette: teal
+   #0f766e · brass #a97d2c · gold #e3c26b · ink #1f2b2b ·
+   paper #f2efe7 · wine #9f3d54 (removed lectures only).
+   Corpus: /upload/POM_L01-L40_Compiled.pdf (L01–L40 verbatim).
    ============================================================ */
 
 import React, { useMemo, useState } from "react";
@@ -18,15 +20,16 @@ import { MKTG_LECTURES } from "@/components/mktg/lectures";
 import { Reveal } from "@/components/notes/ui";
 
 const TEAL = "#0f766e";
-const TEAL_BRIGHT = "#14b8a6";
-const GOLD = "#a97d2c";
-const GOLD_LITE = "#e3c26b";
+const TEAL_BRIGHT = "rgba(15,118,110,.8)";
+const BRASS = "#a97d2c";
+const GOLD = "#e3c26b";
+const WINE = "#9f3d54";
 
 /* floating boutique shapes — tag, bubble, star, ring */
 const HERO_SHAPES = [
   { kind: "tag", top: "14%", left: "5%", size: 56, dur: 7.4, delay: 0, rot: -10, color: TEAL },
   { kind: "bubble", top: "66%", left: "8%", size: 50, dur: 8.6, delay: 0.8, rot: 8, color: GOLD },
-  { kind: "star", top: "18%", left: "88%", size: 52, dur: 7.9, delay: 0.4, rot: 6, color: GOLD_LITE },
+  { kind: "star", top: "18%", left: "88%", size: 52, dur: 7.9, delay: 0.4, rot: 6, color: GOLD },
   { kind: "ring", top: "62%", left: "90%", size: 48, dur: 8.9, delay: 1.4, rot: -6, color: TEAL_BRIGHT },
   { kind: "tag", top: "40%", left: "3%", size: 42, dur: 9.3, delay: 2, rot: 5, color: GOLD },
   { kind: "bubble", top: "82%", left: "46%", size: 40, dur: 8.1, delay: 1.1, rot: -8, color: TEAL_BRIGHT },
@@ -86,19 +89,20 @@ export function MktgHero({
         l.n ? `lecture ${l.n}` : "recap",
         l.code.toLowerCase(),
         l.title.toLowerCase(),
-        ...l.chapters.map((c) => c.label.toLowerCase()),
+        l.reserved ? "removed reserved blank numbering preserved" : "",
+        ...l.chapters.map((c) => `${c.label} ${c.desc}`.toLowerCase()),
       ].join(" ");
       return words.every((w) => hay.includes(w));
     });
   }, [q]);
 
   return (
-    <header id="top" className="relative flex min-h-[86vh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-16 sm:pb-16">
-      {/* ambient washes — teal & champagne on ivory */}
+    <header className="relative flex min-h-[86vh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-16 sm:pb-16">
+      {/* ambient washes — teal & champagne on paper */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-24 top-16 h-80 w-80 rounded-full blur-3xl" style={{ background: "rgba(20,184,166,.16)" }} />
+        <div className="absolute -left-24 top-16 h-80 w-80 rounded-full blur-3xl" style={{ background: "rgba(15,118,110,.14)" }} />
         <div className="absolute -right-16 bottom-24 h-96 w-96 rounded-full blur-3xl" style={{ background: "rgba(227,194,107,.18)" }} />
-        <div className="absolute left-1/3 top-1/2 h-64 w-64 rounded-full blur-3xl" style={{ background: "rgba(15,118,110,.10)" }} />
+        <div className="absolute left-1/3 top-1/2 h-64 w-64 rounded-full blur-3xl" style={{ background: "rgba(169,125,44,.10)" }} />
       </div>
 
       {/* animated backdrop — a demand curve rising, with pulse points */}
@@ -133,7 +137,7 @@ export function MktgHero({
         <Reveal>
           <span className="chip mx-auto">
             <Megaphone className="h-3.5 w-3.5" />
-            Shelf 06 · Principles of Marketing · IIT Jodhpur
+            Shelf 06 · Principles of Marketing · IIT Jodhpur · Sem 1
           </span>
         </Reveal>
         <Reveal delay={120}>
@@ -164,9 +168,9 @@ export function MktgHero({
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search the sequence — try “5”, “STP”, or “biases”…"
+                placeholder="Search the sequence — try “5”, “STP”, “pricing”, or “biases”…"
                 autoComplete="off"
-                className="w-full rounded-2xl border border-[#e3ddcf] bg-[#fdfcfa]/90 py-3.5 pl-11 pr-4 text-[.95rem] font-semibold text-[#1f2b2b] shadow-[0_10px_30px_-14px_rgba(31,43,43,.35)] backdrop-blur-md placeholder:font-normal placeholder:text-[#a97d2c] focus:outline-none focus:ring-2 focus:ring-[#14b8a6]/40"
+                className="w-full rounded-2xl border border-[#e3ddcf] bg-[#f7f5ef]/90 py-3.5 pl-11 pr-4 text-[.95rem] font-semibold text-[#1f2b2b] shadow-[0_10px_30px_-14px_rgba(31,43,43,.35)] backdrop-blur-md placeholder:font-normal placeholder:text-[#a97d2c] focus:outline-none focus:ring-2 focus:ring-[rgba(15,118,110,0.4)]"
               />
             </div>
 
@@ -185,25 +189,30 @@ export function MktgHero({
                         type="button"
                         onClick={() => onSelect(l.id)}
                         aria-pressed={isActive}
-                        title={l.title}
+                        title={l.reserved ? `${l.title} — removed from the course` : l.title}
                         className={`group flex w-full items-center gap-2.5 rounded-xl border px-2.5 py-2 text-left transition-all duration-200 ${
-                          isActive
-                            ? "border-[#0f766e] bg-white shadow-[0_12px_30px_-16px_rgba(15,118,110,.5)] ring-2 ring-[#14b8a6]/25"
-                            : "border-[#e3ddcf]/80 bg-[#fdfcfa]/70 hover:-translate-y-0.5 hover:border-[#c9d8d3] hover:bg-white hover:shadow-[0_10px_26px_-18px_rgba(31,43,43,.45)]"
+                          l.reserved
+                            ? "border-[#9f3d54]/35 bg-[#9f3d54]/[.06]"
+                            : isActive
+                              ? "border-[#0f766e] bg-white shadow-[0_12px_30px_-16px_rgba(15,118,110,.5)] ring-2 ring-[rgba(15,118,110,0.25)]"
+                              : "border-[#e3ddcf]/80 bg-[#f7f5ef]/70 hover:-translate-y-0.5 hover:border-[#c9d8d3] hover:bg-white hover:shadow-[0_10px_26px_-18px_rgba(31,43,43,.45)]"
                         }`}
                       >
                         <span
-                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[.78rem] font-black tabular-nums ${isActive ? "text-white" : ""}`}
+                          className={`flex h-8 w-9 shrink-0 items-center justify-center rounded-lg text-[.7rem] font-black tabular-nums ${isActive ? "text-white" : ""}`}
                           style={
-                            isActive
-                              ? { background: `linear-gradient(135deg,${TEAL_BRIGHT},${TEAL})`, boxShadow: "0 5px 12px -5px rgba(15,118,110,.6)" }
-                              : { background: "#e7f2ef", color: TEAL }
+                            l.reserved
+                              ? { background: WINE, color: "#fdf5f7" }
+                              : isActive
+                                ? { background: `linear-gradient(135deg,${TEAL_BRIGHT},${TEAL})`, boxShadow: "0 5px 12px -5px rgba(15,118,110,.6)" }
+                                : { background: "#e7f2ef", color: TEAL }
                           }
                         >
-                          {l.n ?? "·"}
+                          {l.code}
                         </span>
-                        <span className={`min-w-0 flex-1 truncate text-[.86rem] font-bold leading-tight ${isActive ? "text-[#0f766e]" : "text-[#1f2b2b]"}`}>
+                        <span className={`min-w-0 flex-1 truncate text-[.86rem] font-bold leading-tight ${l.reserved ? "text-[#9f3d54]" : isActive ? "text-[#0f766e]" : "text-[#1f2b2b]"}`}>
                           {l.title}
+                          {l.reserved ? " — removed" : ""}
                         </span>
                         {allRead ? (
                           <Check className="h-3.5 w-3.5 shrink-0" style={{ color: "#5f9e58" }} aria-label="Every chapter read" />
@@ -227,7 +236,7 @@ export function MktgHero({
                 type="button"
                 onClick={onPractice}
                 title="The practice hub — pen-paper exam windows with instant checking"
-                className="group inline-flex items-center gap-2 rounded-full border border-[#e3ddcf] bg-[#fdfcfa] px-7 py-3 text-sm font-bold text-[#0f5f58] shadow-sm transition hover:bg-[#eef7f4]"
+                className="group inline-flex items-center gap-2 rounded-full border border-[#e3ddcf] bg-[#f7f5ef] px-7 py-3 text-sm font-bold text-[#0f5f58] shadow-sm transition hover:bg-[#eef4f1]"
               >
                 <PenLine className="h-4 w-4 text-[#0f766e] transition-transform duration-300 group-hover:-rotate-12" />
                 Test my knowledge

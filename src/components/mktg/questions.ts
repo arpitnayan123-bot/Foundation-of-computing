@@ -15,7 +15,9 @@ export type MktgExamGroup =
   | "stp"
   | "positioning"
   | "consumer"
-  | "psychology";
+  | "psychology"
+  | "product"
+  | "practice";
 
 export type MktgQuestionType = "mcq" | "output" | "short";
 
@@ -668,6 +670,168 @@ const PSYCHOLOGY: MktgExamQuestion[] = [
   },
 ];
 
+/* ------------------------------------------------------------
+   GROUP 9 — PRODUCT & PORTFOLIO  (L29–L34 · the authored arc:
+             product levels · width/depth/length · line extensions
+             & market stretch · narratives & the ABC chain)
+   ------------------------------------------------------------ */
+const PRODUCT: MktgExamQuestion[] = [
+  {
+    id: "pr1",
+    type: "mcq",
+    q: "A hotel group offers rest, then a bed and bathroom, then cleanliness and consistent taste, then seamless check-in and welcome drinks, then biometric check-in and post-stay sleep reports. Which sequence of product levels is this?",
+    options: [
+      "Basic → Core → Expected → Potential → Augmented",
+      "Core benefit → Basic product → Expected product → Augmented product → Potential product",
+      "Expected → Basic → Core → Augmented → Potential",
+      "Core → Expected → Basic → Potential → Augmented",
+    ],
+    answer: 1,
+    explain:
+      "L29's customer value hierarchy, on the hotel-chain trace: core benefit (rest and sleep) → basic product (bed, bathroom, towels, Wi-Fi) → expected product (clean beds, fresh towels, good food) → augmented product (seamless check-in, welcome drinks) → potential product (biometric features, post-stay sleep reports). Build progressively: a coffee shop should perfect its coffee before investing in Wi-Fi or premium interiors.",
+  },
+  {
+    id: "pr2",
+    type: "output",
+    q: "L31's parent company carries three lines — personal care with 6 items, home decor with 2 items, and men's clothing with 4 items. Write the product length as a single number.",
+    answerText: "12",
+    explain:
+      "Length = all items across all lines: 6 + 2 + 4 = 12. Note the source quirk recorded in the authoring note: L30 runs the same parent-company exercise with home decor holding 1 item, for a length of 11 — both totals are taught on different days and are reproduced as received, not reconciled.",
+  },
+  {
+    id: "pr3",
+    type: "mcq",
+    q: "Horlicks adds Growth Plus, Light, Junior, Mothers, Women and Diabetes Plus to its powdered energy drink. In product-mix terms this is —",
+    options: [
+      "Upward market stretch into a premium tier",
+      "Line extension (line filling) — more items within the present range",
+      "Two-way market stretch",
+      "Product diversification into new categories",
+    ],
+    answer: 1,
+    explain:
+      "A Nielsen IQ study in L32 puts 70% of new launches here: the base product (powdered energy drink mixed with milk) stays fundamentally the same while new variants serve different segments — higher nutrients, low sugar, age brackets, maternal needs, post-35 calcium, diabetic consumers. The risk to manage is cannibalization; HUL's answer is distinct value propositions per brand (Lifebuoy ₹17 germ-kill, Dove ₹60 moisturization, Lux ₹25 freshness).",
+  },
+  {
+    id: "pr4",
+    type: "mcq",
+    q: "Tata launched the Aria at ₹22 lakhs after years of ₹4–7 lakh vehicles; consumers rejected it. The Harrier later succeeded at up to ₹30 lakhs. What is the strategic lesson?",
+    options: [
+      "Upward stretches always fail; only downward stretches work",
+      "A line stretch works only when consumers accept the brand's new price-quality tier — the perceived value boundary moved legitimately",
+      "Premium pricing requires a new company, not a new model",
+      "Design matters more than price in every segment",
+    ],
+    answer: 1,
+    explain:
+      "Line stretching is about moving the brand's perceived value boundary, not merely adding products. The Aria failed because the perceived value didn't justify the premium; the Harrier succeeded because design, engine technology and the Land Rover-derived chassis created legitimate perceived value — consumers accepted and paid the new tier.",
+  },
+  {
+    id: "pr5",
+    type: "short",
+    q: "Apple discontinues older iPhone models as new generations launch, and analyses its line by screen size and price range. Name the two portfolio concepts at work and why each protects the business.",
+    answerText:
+      "Concept 1 — product pruning (discontinuation strategy): dropping underperforming or obsolete products frees capital, shelf space and attention, and maintains healthy profitability as the portfolio grows.\nConcept 2 — consistency analysis: grouping products by homogeneity criteria (screen size, price range — e.g. the 4-inch, 4.7-inch, 5.5–5.8-inch groups) so each group can be evaluated on sales, profit and brand equity, keeping every segment defended.\nWhy it protects: discontinuation prevents cannibalization between generations and protects brand value (only current-generation iPhones are displayed), while consistency groups stop rivals like OnePlus from capturing a neglected segment — Apple's overlapping 5.5–5.8-inch products underperformed precisely when OnePlus concentrated there.",
+    explain:
+      "Both concepts come from L31/L33: pruning balances expansion, consistency defends territory. The competitive warning is explicit — you cannot abandon segments entirely, because competitors capture the space and re-entry becomes difficult.",
+  },
+  {
+    id: "pr6",
+    type: "mcq",
+    q: "CEAT's narrative runs: groove technology → better grip, traction, stability and control → a father protecting his daughter in the rain. In the ABC framework, what does the final step add?",
+    options: [
+      "A price anchor",
+      "A human characteristic — the emotional relationship the benefit enables",
+      "A distribution channel",
+      "A competitive parity point",
+    ],
+    answer: 1,
+    explain:
+      "L34's formula is Attributes → Benefits → Human characteristics. The third link places the product in Epicurus' love bucket (relational, not transactional) — the human connection is what prevents churn and creates recall. A narrative that skips the attribute lacks credibility; one that skips the human characteristic stays utilitarian and easy to switch away from.",
+  },
+];
+
+/* ------------------------------------------------------------
+   GROUP 10 — MARKETING IN PRACTICE  (L35–L40 · the authored arc:
+             the strategy triad · co-branding · pricing frameworks,
+             psychology & strategies · marcom & the three Cs)
+   ------------------------------------------------------------ */
+const PRACTICE: MktgExamQuestion[] = [
+  {
+    id: "pc1",
+    type: "mcq",
+    q: "Skechers sells shoes with Goodyear soles; Axis Bank and Air Vistara issue a shared credit card. Classify both — and classify Levi's campaigns with Deepika Padukone.",
+    options: [
+      "Both are composite co-branding; Levi's + Deepika is ingredient co-branding",
+      "Skechers×Goodyear is ingredient co-branding; Axis×Vistara is composite co-branding; Levi's + Deepika is co-marketing, not co-branding",
+      "All three are co-branding of different intensities",
+      "Skechers×Goodyear is licensing; the other two are sponsorships",
+    ],
+    answer: 1,
+    explain:
+      "L35's taxonomy: composite co-branding fuses two equal brands into a third offering (Axis Bank + Air Vistara's travel card, MasterCard + Apple Pay, Manish Malhotra + Starbucks cups); ingredient co-branding puts one renowned brand inside another's manufacturing (Intel/AMD in laptops, Dolby in PVR, Goodyear soles in Skechers). An individual endorser creates no new product — that is co-marketing.",
+  },
+  {
+    id: "pc2",
+    type: "mcq",
+    q: "Colgate launched a beef lasagna; Pepsi launched a clear cola; Cheetos launched a cheese-flavoured lip balm. Using L35's triad, what did each lack?",
+    options: [
+      "Product differentiation — all three copied existing products",
+      "The connect: a consumer experience link that makes the differentiated product matter to anyone",
+      "Pricing strategy",
+      "Distribution width",
+    ],
+    answer: 1,
+    explain:
+      "The triad is Product (differentiator) × Value (benefits to business and consumer) × Connect (the experiential demand driver). Colgate lasagna had a differentiated product but brand association with oral hygiene created cognitive dissonance — no connect. Pepsi Crystal differentiated without creating demand against soda water. Cheetos lip balm had no consumer value or use case. Failed strategies are ones where a corner of the triad stays weak or disconnected.",
+  },
+  {
+    id: "pc3",
+    type: "mcq",
+    q: "In L36's 3C pricing framework, cost sets a floor and competitors anchor a range. Which element does the lecture call the most critical and dynamic — and why?",
+    options: [
+      "Cost to company — it must always be covered",
+      "Customer value — it has no upper limit and depends entirely on consumer perception and willingness to pay",
+      "Competitors' pricing — it determines the exact rupee figure",
+      "Government regulation — it caps every price",
+    ],
+    answer: 1,
+    explain:
+      "Customer value is paramount in modern pricing: unlike cost and competitor pricing, it has no upper limit — it depends entirely on perception and willingness to pay. That is why the psychology shelf (reference price, price-quality inference, price endings, framing, decoy) does the heavy lifting: the same ₹100 pen can sell at ₹5,000 when the extended psychological benefit is engineered.",
+  },
+  {
+    id: "pc4",
+    type: "output",
+    q: "Starbucks prices small at ₹220, medium at ₹330 and large at ₹370. In rupees, how much cheaper does the large look against the medium than against the small — and what is the effect called?",
+    answerText: "40 · the decoy effect",
+    explain:
+      "Large at ₹370 is only ₹40 above the medium (₹330) but ₹150 above the small (₹220) — the medium exists to make the large look like the value pick. L36 names this the decoy effect: a third, less desirable option steers preference, and it is why subscription tiers (Netflix, Microsoft Office, Amazon Prime) always carry a mid-plan.",
+  },
+  {
+    id: "pc5",
+    type: "mcq",
+    q: "L38's connection chain runs in a fixed order. Which sequence makes a brand the automatic choice?",
+    options: [
+      "Recall → attention → mental availability → choice",
+      "Right attention → mental availability → recall → automatic brand choice",
+      "Mental availability → attention → choice → recall",
+      "Exposure → rational analysis → comparison → choice",
+    ],
+    answer: 1,
+    explain:
+      "With ~11 million bits per second arriving and the brain processing ~40, attention filters; what grabs attention occupies mental availability; occupied space produces recall; repeated recall makes choice an automatic reflex — Coca-Cola for cola, Bisleri for water. That is why the modern sequence is feel (System 1) → act → rationalize, not think → feel → act.",
+  },
+  {
+    id: "pc6",
+    type: "short",
+    q: "Define the three Cs of advertising, then apply all three to the Comfort fabric-conditioner film. What does their alignment produce?",
+    answerText:
+      "Context — the situation or circumstance that makes the product relevant: detergents clean clothes but leave them rough, and rough clothes irritate skin.\nConcept — the central idea or storyline: something as rigid as Hitler can be dipped into Comfort and emerge as soft as Gandhi.\nContent — all the elements used in the ad: the characters, the water, the dipping action; the tactical execution of the concept.\nAlignment produces congruency, and congruency produces engagement — incongruent ads (a young celebrity for an elderly-targeted toothpaste, a fitness icon for joint pain) grab attention but fail to earn recall.",
+    explain:
+      "L38 and L40 both teach the framework (the duplication is recorded in the authoring notes, not merged away). L40 adds the stakes: all modules appear in a subjective 60-mark final where quality beats quantity — so answer with frameworks, examples and diagrams, not verbatim prose.",
+  },
+];
+
 /* ------------------------------------------------------------ */
 
 export const MKTG_EXAM_BANKS: Record<MktgExamGroup, MktgExamBank> = {
@@ -735,6 +899,22 @@ export const MKTG_EXAM_BANKS: Record<MktgExamGroup, MktgExamBank> = {
     topics: "Freud · Maslow · Herzberg · perception & Gestalt · attitude & ABC · biases",
     questions: PSYCHOLOGY,
   },
+  product: {
+    group: "product",
+    title: "Product & Portfolio",
+    subtitle:
+      "the five product levels · width, depth & length · line extensions & market stretching · consistency & pruning · the ABC narratives",
+    topics: "Product levels · W/D/L · extensions & stretch · portfolios · narratives & ABC",
+    questions: PRODUCT,
+  },
+  practice: {
+    group: "practice",
+    title: "Marketing in Practice",
+    subtitle:
+      "the strategy triad · co-branding types · pricing frameworks & psychology · pricing strategies · attention & the three Cs · exam craft",
+    topics: "Strategy triad · co-branding · pricing · marcom · three Cs · exam guidelines",
+    questions: PRACTICE,
+  },
 };
 
 export const MKTG_EXAM_GROUPS: MktgExamGroup[] = [
@@ -746,6 +926,8 @@ export const MKTG_EXAM_GROUPS: MktgExamGroup[] = [
   "positioning",
   "consumer",
   "psychology",
+  "product",
+  "practice",
 ];
 
 export const MKTG_TOTAL_QUESTIONS = MKTG_EXAM_GROUPS.reduce(
