@@ -146,7 +146,7 @@ export function EbhHero({
   }, [q]);
 
   return (
-    <header id="top" className="relative flex min-h-[86vh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-16 sm:pb-16">
+    <header className="relative flex min-h-[86vh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-16 sm:pb-16">
       {/* ambient washes — brass & sepia on ivory */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute -left-24 top-16 h-80 w-80 rounded-full blur-3xl" style={{ background: "rgba(234,179,8,.16)" }} />
