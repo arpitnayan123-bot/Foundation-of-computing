@@ -17,7 +17,7 @@ export const QUESTION_COUNTS = {
   foc: 185, // 160 across the six windows + 25 in the official L34 end-term mock
   atb: 51,
   fa: 153,
-  ebh: 66,
+  ebh: 82,
   stm: 62,
   mktg: 60,
 } as const;
