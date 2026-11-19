@@ -4,8 +4,8 @@
    StmApp). Powers the ⌘K palette's "Chapters" group: search
    any chapter by name, topic or shelf and jump straight to it.
 
-   GENERATED from the apps' GROUPS arrays (counts asserted against lib/section-counts.ts — foc 40, atb 28, fa 41, ebh
-   31, stm 31, mktg 53 = 176). If a shelf gains a chapter,
+   GENERATED from the apps' GROUPS arrays (counts asserted against lib/section-counts.ts — foc 40, atb 33, fa 41, ebh
+   31, stm 31, mktg 53 = 229). If a shelf gains a chapter,
    regenerate this file to match. No app chunk is imported here
    — the landing and palette stay light.
    ============================================================ */
@@ -75,24 +75,24 @@ export const CHAPTER_INDEX: ChapterEntry[] = [
   { subject: "atb", section: "props2", label: "Execution properties", desc: "Lecture 5 · determinism · feasibility · generality in depth", group: "props", groupLabel: "Properties" },
   { subject: "atb", section: "algotypes", label: "Algorithm types", desc: "Divide & conquer · greedy · dynamic programming", group: "props", groupLabel: "Properties" },
   { subject: "atb", section: "arrays", label: "Arrays", desc: "Indexed, contiguous, direct access", group: "linear", groupLabel: "Linear DS" },
-  { subject: "atb", section: "linkedlists", label: "Linked lists", desc: "Lecture 7 · flexible chains of songs — memory maps, surgery, shuffles", group: "linear", groupLabel: "Linear DS" },
+  { subject: "atb", section: "linkedlists", label: "Linked lists", desc: "Lecture 7 · flexible chains of songs", group: "linear", groupLabel: "Linear DS" },
   { subject: "atb", section: "recap8", label: "LIVE recap · properties & linear DS", desc: "Lecture 8 · the 9 properties + arrays-vs-lists Venn", group: "linear", groupLabel: "Linear DS" },
   { subject: "atb", section: "stacks", label: "Stacks", desc: "Lecture 9 · LIFO — the undo machine", group: "stackq", groupLabel: "Stacks & Queues" },
   { subject: "atb", section: "queues", label: "Queues", desc: "Lecture 10 · FIFO — first come, first served", group: "stackq", groupLabel: "Stacks & Queues" },
   { subject: "atb", section: "qtypes", label: "Queue types", desc: "Lecture 11 · linear · circular · priority · deque", group: "stackq", groupLabel: "Stacks & Queues" },
-  { subject: "atb", section: "recap13", label: "LIVE recap · stacks & queues", desc: "Lecture 13 · the stack-vs-queue Venn", group: "stackq", groupLabel: "Stacks & Queues" },
   { subject: "atb", section: "trees", label: "Trees", desc: "Lecture 12 · hierarchy: roots, parents & leaves", group: "trees", groupLabel: "Trees & Graphs" },
   { subject: "atb", section: "traversals", label: "Traversals", desc: "Lecture 12 · pre · in · post · level order", group: "trees", groupLabel: "Trees & Graphs" },
+  { subject: "atb", section: "recap13", label: "LIVE recap · stacks & queues", desc: "Lecture 13 · the stack-vs-queue Venn", group: "stackq", groupLabel: "Stacks & Queues" },
+  { subject: "atb", section: "treetypes", label: "Tree types", desc: "Lecture 14 · general → binary → complete → BST → AVL → heaps", group: "hash", groupLabel: "Hash & Chain" },
   { subject: "atb", section: "graphs", label: "Graphs", desc: "Lecture 15 · G = (V, E) — relationships", group: "trees", groupLabel: "Trees & Graphs" },
   { subject: "atb", section: "graphprops", label: "Graph properties", desc: "Lecture 16 · direction · weight · connectivity · cycles", group: "trees", groupLabel: "Trees & Graphs" },
   { subject: "atb", section: "dfsbfs", label: "DFS & BFS", desc: "Lecture 17 · stack vs queue traversal", group: "trees", groupLabel: "Trees & Graphs" },
   { subject: "atb", section: "recap18", label: "LIVE recap · trees & graphs", desc: "Lecture 18 · every tree is a graph — the nested Venn", group: "trees", groupLabel: "Trees & Graphs" },
-  { subject: "atb", section: "treetypes", label: "Tree types", desc: "Lecture 14 · general → binary → complete → BST → AVL → heaps", group: "hash", groupLabel: "Hash & Chain" },
   { subject: "atb", section: "hashing", label: "Hashing", desc: "Lecture 19 · mod, tables, collisions, passwords", group: "hash", groupLabel: "Hash & Chain" },
   { subject: "atb", section: "blockchain", label: "Blockchain", desc: "Lecture 20 · tamper-evident chains of blocks", group: "hash", groupLabel: "Hash & Chain" },
-  { subject: "atb", section: "recap23", label: "LIVE recap · trees, hashing & blockchain", desc: "Lecture 23 · the three-circle Venn finale", group: "hash", groupLabel: "Hash & Chain" },
   { subject: "atb", section: "complexity", label: "Complexity", desc: "Lecture 21 · Big O · best/avg/worst · DS costs", group: "search", groupLabel: "Search & Complexity" },
   { subject: "atb", section: "search", label: "Search", desc: "Lecture 22 · linear · binary · jump · exponential · hash", group: "search", groupLabel: "Search & Complexity" },
+  { subject: "atb", section: "recap23", label: "LIVE recap · trees, hashing & blockchain", desc: "Lecture 23 · the three-circle Venn finale", group: "hash", groupLabel: "Hash & Chain" },
   { subject: "atb", section: "dijkstra", label: "Shortest paths", desc: "Lecture 24 · Dijkstra · A* · the variant family", group: "algo", groupLabel: "Paths & Sorting" },
   { subject: "atb", section: "sorting", label: "Sorting", desc: "Lecture 25 · bubble sort · passes · O(n²)", group: "algo", groupLabel: "Paths & Sorting" },
   { subject: "atb", section: "selectionsort", label: "Selection sort", desc: "Lecture 26 · select & swap · one swap per pass", group: "algo", groupLabel: "Paths & Sorting" },
