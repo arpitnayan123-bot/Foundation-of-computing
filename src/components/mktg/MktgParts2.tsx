@@ -11,6 +11,7 @@ import {
 import {
   Callout, KV, Quiz, ReadStep, Reveal, Section, SectionHead, StepsFlow, Takeaways,
 } from "@/components/notes/ui";
+import { SegmentBars, ValueEquation } from "@/components/mktg/diagrams";
 
 /* ============================================================
    MKTG · Principles of Marketing — Parts 2
@@ -24,7 +25,7 @@ import {
 /* ---------- shared machine helpers (teal & champagne system) ---------- */
 
 const TEAL = "#0f766e";
-const TEAL_BRIGHT = "#14b8a6";
+const TEAL_BRIGHT = "rgba(15,118,110,.82)";
 const GOLD = "#a97d2c";
 const GOLD_L = "#e3c26b";
 const INK = "#1f2b2b";
@@ -32,14 +33,14 @@ const MUTED = "#5f7472";
 const ROSE = "#9f3d54";
 const CREAM_BG = "#f2efe7";
 const CREAM_BORDER = "#e3ddcf";
-const LAGOON = "linear-gradient(165deg,#0c2124 0%,#12302f 60%,#143236 100%)";
+const LAGOON = "linear-gradient(165deg,#171f1e 0%,#1f2b2b 58%,#17211f 100%)";
 const PROSE = "max-w-3xl text-[.95rem] leading-relaxed text-[#3a4a48]";
 
 function MButton({ onClick, children, tone = "ghost", label, disabled = false }: {
   onClick: () => void; children: React.ReactNode; tone?: "primary" | "gold" | "ghost" | "rose"; label?: string; disabled?: boolean;
 }) {
   const styles: Record<string, React.CSSProperties> = {
-    primary: { background: "linear-gradient(135deg,#14b8a6,#0f766e)", color: "#f2fbf8" },
+    primary: { background: "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)", color: "#f2fbf8" },
     gold: { background: "linear-gradient(135deg,#e3c26b,#a97d2c)", color: "#231a08" },
     ghost: { background: "#fffdf9", color: TEAL, border: `1px solid ${CREAM_BORDER}` },
     rose: { background: "#fdf1f4", color: ROSE, border: "1px solid #ecd2d9" },
@@ -129,7 +130,7 @@ function GapBars({ es, ds, esNote, dsNote }: { es: number; ds: number; esNote: s
   return (
     <div className="grid gap-4">
       <GaugeBar label="DS · Desired State" v={ds} grad="linear-gradient(90deg,#e3c26b,#a97d2c)" note={dsNote} />
-      <GaugeBar label="ES · Existing State" v={es} grad="linear-gradient(90deg,#14b8a6,#0f766e)" note={esNote} />
+      <GaugeBar label="ES · Existing State" v={es} grad="linear-gradient(90deg,rgba(15,118,110,.82),#0f766e)" note={esNote} />
       <div className="flex flex-wrap items-center gap-2">
         <span className="rounded-full px-3 py-1 font-mono-warm text-[.78rem] font-extrabold"
           style={{ background: "#f6efe0", color: GOLD }}>
@@ -259,7 +260,7 @@ function EnvRingMachine() {
   const macroFill = (i: number) =>
     pick && pick.ring === "macro" && pick.i === i ? "rgba(227,194,107,.55)" : "rgba(169,125,44,.16)";
   const taskFill = (i: number) =>
-    pick && pick.ring === "task" && pick.i === i ? "rgba(20,184,166,.5)" : "rgba(15,118,110,.14)";
+    pick && pick.ring === "task" && pick.i === i ? "rgba(15,118,110,.5)" : "rgba(15,118,110,.14)";
 
   return (
     <MachineCard title="The environment ring" chip="tap a layer — or let it tour">
@@ -346,7 +347,7 @@ function EnvRingMachine() {
           <circle cx={230} cy={230} r={44} fill="url(#envOrgGrad)" />
           <defs>
             <linearGradient id="envOrgGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#14b8a6" />
+              <stop offset="0%" stopColor="rgba(15,118,110,.82)" />
               <stop offset="100%" stopColor="#0f766e" />
             </linearGradient>
           </defs>
@@ -360,7 +361,7 @@ function EnvRingMachine() {
                 onClick={() => { setAuto(false); setPick({ ring: "task", i }); }}
                 className="rounded-lg px-2.5 py-1.5 text-[.72rem] font-bold transition-transform hover:-translate-y-0.5"
                 style={{
-                  background: pick?.ring === "task" && pick.i === i ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "#eef5f2",
+                  background: pick?.ring === "task" && pick.i === i ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "#eef5f2",
                   color: pick?.ring === "task" && pick.i === i ? "#f2fbf8" : TEAL,
                 }}
                 aria-label={`Show task environment layer: ${t.key}`}>
@@ -427,7 +428,7 @@ export function MktgEnvironmentSection() {
     <Section id="environment">
       <SectionHead
         eyebrow="Principles of Marketing · Lecture 6"
-        title={<>The environment <span style={{ background: "linear-gradient(135deg,#14b8a6,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>around every sale</span></>}
+        title={<>The environment <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>around every sale</span></>}
         lead="No organisation sells into a vacuum. Around every transaction sits a task environment the firm touches daily — suppliers, customers, competitors — wrapped in a broad macro environment that shifts underneath it: demographics, law, the economy, culture, climate and technology."
       />
       <Reveal><EnvRingMachine /></Reveal>
@@ -526,7 +527,7 @@ function ExchangeFlowMachine() {
           <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[.66rem] font-extrabold" style={{ color: GOLD }}>← GET</span>
           <motion.div
             className="absolute top-1/2 flex h-9 min-w-[5.5rem] -translate-y-1/2 items-center justify-center rounded-full px-3 text-[.72rem] font-extrabold shadow-md"
-            style={{ background: step.side === "give" ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "linear-gradient(135deg,#e3c26b,#a97d2c)", color: step.side === "give" ? "#f2fbf8" : "#231a08" }}
+            style={{ background: step.side === "give" ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "linear-gradient(135deg,#e3c26b,#a97d2c)", color: step.side === "give" ? "#f2fbf8" : "#231a08" }}
             initial={false}
             animate={{ left: `${step.side === "give" ? givePct : getPct}%` }}
             transition={{ type: "spring", stiffness: 90, damping: 16 }}
@@ -542,7 +543,7 @@ function ExchangeFlowMachine() {
                 onClick={() => { reset(); }}
                 className="rounded-lg px-2.5 py-1.5 text-[.7rem] font-bold transition-transform hover:-translate-y-0.5"
                 style={{
-                  background: on ? (s.side === "give" ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "linear-gradient(135deg,#e3c26b,#a97d2c)") : s.side === "give" ? "#eef5f2" : "#f6efe0",
+                  background: on ? (s.side === "give" ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "linear-gradient(135deg,#e3c26b,#a97d2c)") : s.side === "give" ? "#eef5f2" : "#f6efe0",
                   color: on ? (s.side === "give" ? "#f2fbf8" : "#231a08") : s.side === "give" ? TEAL : GOLD,
                   opacity: idx < i ? 0.55 : 1,
                 }}
@@ -628,7 +629,7 @@ export function MktgExchangeSection() {
     <Section id="exchange-system">
       <SectionHead
         eyebrow="Principles of Marketing · Lecture 6"
-        title={<>Marketing is an <span style={{ background: "linear-gradient(135deg,#14b8a6,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>exchange system</span></>}
+        title={<>Marketing is an <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>exchange system</span></>}
         lead="A food order looks like money for a meal. It isn't. Every Zomato order trades information, time, attention and trust — and returns convenience, choices and transparency. Exchange is far bigger than the transaction."
       />
 
@@ -768,7 +769,7 @@ function PenValueMachine() {
           <button key={c} type="button" onClick={() => setCtx(c)}
             className="rounded-lg px-3 py-1.5 text-[.74rem] font-bold transition-transform hover:-translate-y-0.5"
             style={{
-              background: ctx === c ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "#eef5f2",
+              background: ctx === c ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "#eef5f2",
               color: ctx === c ? "#f2fbf8" : TEAL,
             }}
             aria-label={c === "exam" ? "Scene: writing an exam" : "Scene: signing important documents"}>
@@ -812,7 +813,7 @@ function PenValueMachine() {
             return (
               <button key={b.k} type="button" onClick={() => toggle(bens, setBens, i)}
                 className="rounded-lg px-2.5 py-1.5 text-[.72rem] font-bold transition-transform hover:-translate-y-0.5"
-                style={{ background: on ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "#eef5f2", color: on ? "#f2fbf8" : TEAL }}
+                style={{ background: on ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "#eef5f2", color: on ? "#f2fbf8" : TEAL }}
                 aria-label={`Toggle benefit: ${b.k} — ${b.d}`}>
                 + {b.k}
               </button>
@@ -836,7 +837,7 @@ function PenValueMachine() {
           <div className="h-6 flex-1 overflow-hidden rounded-full" style={{ background: "#efe9db" }}>
             <motion.div
               className="h-full rounded-full"
-              style={{ background: value >= 0 ? "linear-gradient(90deg,#14b8a6,#0f766e)" : "linear-gradient(90deg,#d98ba0,#9f3d54)" }}
+              style={{ background: value >= 0 ? "linear-gradient(90deg,rgba(15,118,110,.82),#0f766e)" : "linear-gradient(90deg,#d98ba0,#9f3d54)" }}
               initial={false}
               animate={{ width: `${Math.round(((value + 4) / 9) * 100)}%` }}
               transition={{ type: "spring", stiffness: 120, damping: 20 }}
@@ -863,7 +864,7 @@ export function MktgValuePriceSection() {
     <Section id="value-price-features">
       <SectionHead
         eyebrow="Principles of Marketing · Lecture 7"
-        title={<>Value, price &amp; the <span style={{ background: "linear-gradient(135deg,#14b8a6,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>feature trap</span></>}
+        title={<>Value, price &amp; the <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>feature trap</span></>}
         lead="A ₹5 pen and a ₹5,000 pen can write the same exam. This session untangles the three distinctions most marketers blur: value vs price, features vs benefits, and benefits vs value."
       />
 
@@ -1086,7 +1087,11 @@ export function MktgLuxurySection() {
         </div>
       </Reveal>
 
-      <div className="mt-10"><Reveal>
+      <div className="mt-10"><Reveal className="mt-6">
+        <ValueEquation />
+      </Reveal>
+
+      <Reveal>
         <Takeaways items={[
           <>Functional, psychological and economic benefits <strong>have caps</strong> — they cannot grow indefinitely without growing costs.</>,
           <><strong>Extended psychological benefits are uncapped</strong> — the most powerful lever for increasing perceived value.</>,
@@ -1148,7 +1153,7 @@ export function MktgEsDsSection() {
     <Section id="es-ds">
       <SectionHead
         eyebrow="Principles of Marketing · Lecture 8"
-        title={<>Existing &amp; desired state — <span style={{ background: "linear-gradient(135deg,#14b8a6,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>manufacturing the gap</span></>}
+        title={<>Existing &amp; desired state — <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>manufacturing the gap</span></>}
         lead="Every consumer lives in two states: the one they're in and the one they believe they deserve. When the two align, minds close. Marketing's oldest lever is pulling them apart."
       />
 
@@ -1230,7 +1235,7 @@ function ChainMachine() {
         <defs>
           <marker id="ch-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7fb5aa" /></marker>
           <linearGradient id="ch-on" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#14b8a6" /><stop offset="100%" stopColor="#0f766e" />
+            <stop offset="0%" stopColor="rgba(15,118,110,.82)" /><stop offset="100%" stopColor="#0f766e" />
           </linearGradient>
         </defs>
         {CHAIN.map((c, idx) => {
@@ -1312,7 +1317,7 @@ export function MktgChainSection() {
     <Section id="purchase-chain">
       <SectionHead
         eyebrow="Principles of Marketing · Lecture 8"
-        title={<>The value <span style={{ background: "linear-gradient(135deg,#14b8a6,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>purchase chain</span></>}
+        title={<>The value <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>purchase chain</span></>}
         lead="Value creation → purchase intention → actual purchase → experience → satisfaction → loyalty. Six links, one asymmetric rule: falling short hurts far more than exceeding delights."
       />
 
@@ -1445,7 +1450,7 @@ function AnchorMachine() {
         </div>
         <div className="relative mt-3 h-10">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full px-4 py-1.5 text-[.8rem] font-extrabold shadow"
-            style={{ background: "linear-gradient(135deg,#14b8a6,#0f766e)", color: "#f2fbf8" }}>
+            style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)", color: "#f2fbf8" }}>
             the identical 34-minute delivery
           </div>
           {delivered ? (
@@ -1490,7 +1495,7 @@ export function MktgContextSection() {
     <Section id="context-matters">
       <SectionHead
         eyebrow="Principles of Marketing · Lecture 9"
-        title={<>One delivery, <span style={{ background: "linear-gradient(135deg,#14b8a6,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>two ratings</span></>}
+        title={<>One delivery, <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>two ratings</span></>}
         lead="Two students. Same restaurant, same meal, same 34-minute delivery — warm food, intact packaging, missing cutlery. One gives 2 stars, the other 5. The difference was never the service; it was the anchor."
       />
 
@@ -1622,7 +1627,7 @@ function EconCounters() {
             <div className="flex items-center gap-2">
               <span className="w-32 text-[.72rem] font-extrabold" style={{ color: TEAL }}>loyal</span>
               <div className="h-3.5 flex-1 overflow-hidden rounded-full" style={{ background: "#f2efe7" }}>
-                <motion.div className="h-full rounded-full" style={{ background: "linear-gradient(90deg,#14b8a6,#0f766e)" }}
+                <motion.div className="h-full rounded-full" style={{ background: "linear-gradient(90deg,rgba(15,118,110,.82),#0f766e)" }}
                   initial={false} animate={{ width: nonce === 0 ? "0%" : "65%" }} transition={{ duration: 1.4, ease: "easeOut" }} />
               </div>
               <MktgBigNum nonce={nonce} from={0} to={65} suffix="%" tone={TEAL} />
@@ -1708,7 +1713,7 @@ export function MktgLoyaltyEconSection() {
     <Section id="loyalty-econ">
       <SectionHead
         eyebrow="Principles of Marketing · Lecture 9"
-        title={<>The economics of <span style={{ background: "linear-gradient(135deg,#14b8a6,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>coming back</span></>}
+        title={<>The economics of <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>coming back</span></>}
         lead="Loyalty isn't a soft metric. 5% more retention lifts profit 20–90%. A new customer costs $100 to acquire; a loyal one costs about $20 to keep. And the chain from expected service to repeat purchase runs in both directions."
       />
 
@@ -1784,7 +1789,7 @@ function CampaignMachine() {
           <button key={key} type="button" onClick={() => setK(key)}
             className="rounded-xl px-3 py-2 text-[.78rem] font-bold transition-transform hover:-translate-y-0.5"
             style={{
-              background: k === key ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "#fffdf9",
+              background: k === key ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "#fffdf9",
               color: k === key ? "#f2fbf8" : TEAL,
               border: `1px solid ${k === key ? "#0f766e" : CREAM_BORDER}`,
             }}
@@ -1837,7 +1842,7 @@ function CostAnatomyMachine() {
         </MButton>
       </div>
       <div className="mt-5 grid gap-4">
-        <GaugeBar label="Direct cost" v={d.direct} grad="linear-gradient(90deg,#14b8a6,#0f766e)" note={d.directNote} />
+        <GaugeBar label="Direct cost" v={d.direct} grad="linear-gradient(90deg,rgba(15,118,110,.82),#0f766e)" note={d.directNote} />
         <GaugeBar label="Abstract cost" v={d.abstract} grad="linear-gradient(90deg,#e3c26b,#a97d2c)" note={d.abstractNote} />
       </div>
       <MStatus>{d.title} — {d.extra}</MStatus>
@@ -1870,7 +1875,7 @@ export function MktgCampaignsSection() {
     <Section id="campaigns-esds">
       <SectionHead
         eyebrow="Principles of Marketing · Lecture 10"
-        title={<>The gap, <span style={{ background: "linear-gradient(135deg,#14b8a6,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>in the wild</span></>}
+        title={<>The gap, <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>in the wild</span></>}
         lead="Itch Guard pulls the existing state down. Kohler pulls the desired state up. Clean & Clear does both — and Samsung and Sony split a television market between volume and premium value. First, the recap that makes it all work."
       />
 
@@ -1962,7 +1967,7 @@ function AttributeLab() {
                 onChange={(e) => setW((p) => p.map((x, j) => (j === i ? Number(e.target.value) : x)))}
                 aria-label={`Weight for attribute ${a}: ${w[i]} of 5`}
                 className="h-2 w-full cursor-pointer appearance-none rounded-full"
-                style={{ background: `linear-gradient(90deg,#14b8a6 ${(w[i] / 5) * 100}%,#efe9db ${(w[i] / 5) * 100}%)` }}
+                style={{ background: `linear-gradient(90deg,rgba(15,118,110,.82) ${(w[i] / 5) * 100}%,#efe9db ${(w[i] / 5) * 100}%)` }}
               />
               <span className="w-6 text-right font-mono-warm text-[.78rem] font-extrabold" style={{ color: TEAL }}>{w[i]}</span>
             </div>
@@ -2024,7 +2029,7 @@ function MeasureTiers() {
           <button key={key} type="button" onClick={() => setK(key)}
             className="rounded-xl px-3 py-2 text-[.76rem] font-bold transition-transform hover:-translate-y-0.5"
             style={{
-              background: k === key ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "#fffdf9",
+              background: k === key ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "#fffdf9",
               color: k === key ? "#f2fbf8" : TEAL,
               border: `1px solid ${k === key ? "#0f766e" : CREAM_BORDER}`,
             }}
@@ -2034,7 +2039,7 @@ function MeasureTiers() {
         ))}
       </div>
       <div className="mt-5 grid gap-4">
-        <GaugeBar label="Signal realism" v={m.realism} grad="linear-gradient(90deg,#14b8a6,#0f766e)" note="how close to the real purchase" />
+        <GaugeBar label="Signal realism" v={m.realism} grad="linear-gradient(90deg,rgba(15,118,110,.82),#0f766e)" note="how close to the real purchase" />
         <GaugeBar label="Practicality" v={m.practical} grad="linear-gradient(90deg,#e3c26b,#a97d2c)" note="how usable at scale" />
       </div>
       <div className="mt-4 rounded-2xl p-4" style={{ background: CREAM_BG, border: `1px solid ${CREAM_BORDER}` }}>
@@ -2051,7 +2056,7 @@ export function MktgBeyondSection() {
     <Section id="beyond-purchase">
       <SectionHead
         eyebrow="Principles of Marketing · Lecture 10"
-        title={<>Decisions <span style={{ background: "linear-gradient(135deg,#14b8a6,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>beyond the receipt</span></>}
+        title={<>Decisions <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>beyond the receipt</span></>}
         lead="Purchase is only one decision consumers make. They avoid, they advocate, they dissuade, they stay loyal without repeat purchases — and most of what marketers actually measure is a proxy."
       />
 
@@ -2121,7 +2126,7 @@ export function MktgBeyondSection() {
    ============================================================ */
 
 const NETFLIX_SEGMENTS = [
-  { name: "K-drama", color: "#14b8a6", msg: "Emotional messaging." },
+  { name: "K-drama", color: "rgba(15,118,110,.82)", msg: "Emotional messaging." },
   { name: "True crime", color: "#0f766e", msg: "Mystery, twists, investigation focus." },
   { name: "Anime", color: "#e3c26b", msg: "" },
   { name: "Sitcoms", color: "#a97d2c", msg: "Newer episodes, feel-good, familiar content." },
@@ -2187,7 +2192,7 @@ function ZoomScatter() {
             key={d.i}
             cx={0} cy={0} r={6.5}
             fill={d.color}
-            stroke="#0c2124"
+            stroke="#171f1e"
             strokeWidth={1}
             opacity={apart ? 0.95 : 0.6}
             initial={false}
@@ -2225,7 +2230,7 @@ export function MktgHeteroSection() {
     <Section id="heterogeneity">
       <SectionHead
         eyebrow="Principles of Marketing · Lecture 11"
-        title={<>Zoom in and the <span style={{ background: "linear-gradient(135deg,#14b8a6,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>market splits</span></>}
+        title={<>Zoom in and the <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>market splits</span></>}
         lead="100 Netflix users look identical from a distance. Zoom in and six content tribes appear. That zoom — from a homogeneous blob to meaningful segments — is where STP begins."
       />
 
@@ -2428,7 +2433,7 @@ function BasesLab() {
                 <button key={s.name} type="button" onClick={() => setNike(i)}
                   className="rounded-xl px-3 py-2 text-[.76rem] font-bold transition-transform hover:-translate-y-0.5"
                   style={{
-                    background: nike === i ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "#eef5f2",
+                    background: nike === i ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "#eef5f2",
                     color: nike === i ? "#f2fbf8" : TEAL,
                   }}
                   aria-label={`Nike segment: ${s.name}`}>
@@ -2478,7 +2483,7 @@ export function MktgBasesSection() {
     <Section id="bases">
       <SectionHead
         eyebrow="Principles of Marketing · Lecture 11"
-        title={<>Three classic <span style={{ background: "linear-gradient(135deg,#14b8a6,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>bases</span></>}
+        title={<>Three classic <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>bases</span></>}
         lead="Where you are (Zudio's city-by-city racks), who you are (Pulsar's 'Definitely Male', L'Oréal's age ladder), and how you think (Nike's four tribes) — the geographic, demographic and psychographic bases of segmentation."
       />
 
@@ -2581,7 +2586,7 @@ function PenetrationMachine() {
         </div>
         <div className="h-8 w-full overflow-hidden rounded-full" style={{ background: "#efe9db" }}>
           <motion.div className="flex h-full items-center justify-end rounded-full pr-3"
-            style={{ background: "linear-gradient(90deg,#14b8a6,#0f766e)" }}
+            style={{ background: "linear-gradient(90deg,rgba(15,118,110,.82),#0f766e)" }}
             initial={false}
             animate={{ width: revealed ? "75%" : "25%" }}
             transition={{ type: "spring", stiffness: 60, damping: 18 }}>
@@ -2601,7 +2606,7 @@ function PenetrationMachine() {
           <button key={x.name} type="button" onClick={() => setSeg(i)}
             className="rounded-xl px-3 py-2 text-[.76rem] font-bold transition-transform hover:-translate-y-0.5"
             style={{
-              background: seg === i ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "#fffdf9",
+              background: seg === i ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "#fffdf9",
               color: seg === i ? "#f2fbf8" : TEAL,
               border: `1px solid ${seg === i ? "#0f766e" : CREAM_BORDER}`,
             }}
@@ -2668,7 +2673,7 @@ export function MktgBehavioralSection() {
     <Section id="behavioral-benefit">
       <SectionHead
         eyebrow="Principles of Marketing · Lecture 12"
-        title={<>How they act, <span style={{ background: "linear-gradient(135deg,#14b8a6,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>what they seek</span></>}
+        title={<>How they act, <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>what they seek</span></>}
         lead="Behavioral segmentation reads what consumers do — usage rate, mode, frequency, pack size, promotional sensitivity. Benefit segmentation reads what they want. Surf Excel turned 25% penetration into 75% by doing both."
       />
 
@@ -2763,7 +2768,11 @@ export function MktgBehavioralSection() {
         </div>
       </Reveal>
 
-      <div className="mt-10"><Reveal>
+      <div className="mt-10"><Reveal className="mt-6">
+        <SegmentBars />
+      </Reveal>
+
+      <Reveal>
         <Takeaways items={[
           <><strong>Behavioral metrics:</strong> usage rate, mode of usage, frequency of purchase, pack size, promotional sensitivity.</>,
           <><strong>Surf Excel:</strong> heavy users → value packs; machine-wash users → liquids; occasional users → sachets; value seekers → BOGO mega packs. Penetration 25% → 75%.</>,
@@ -2813,7 +2822,7 @@ function MktgPanel({ side, delivered, rated }: { side: "a" | "b"; delivered: boo
         </span>
         {delivered ? (
           <motion.span className="absolute top-1 -translate-x-1/2 rounded-md px-1.5 py-0.5 text-[.62rem] font-extrabold shadow-sm"
-            style={{ left: `${(34 / 60) * 100}%`, background: "linear-gradient(135deg,#14b8a6,#0f766e)", color: "#f2fbf8" }}
+            style={{ left: `${(34 / 60) * 100}%`, background: "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)", color: "#f2fbf8" }}
             initial={{ y: -8, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ type: "spring", stiffness: 260, damping: 18 }}>
             34 min
           </motion.span>
@@ -2851,7 +2860,7 @@ function MktgTabBtn({ id, label, icon, tab, onTab }: { id: "geo" | "demo" | "psy
     <button type="button" onClick={() => onTab(id)}
       className="flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-[.8rem] font-bold transition-transform hover:-translate-y-0.5"
       style={{
-        background: tab === id ? "linear-gradient(135deg,#14b8a6,#0f766e)" : "#fffdf9",
+        background: tab === id ? "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)" : "#fffdf9",
         color: tab === id ? "#f2fbf8" : TEAL,
         border: `1px solid ${tab === id ? "#0f766e" : CREAM_BORDER}`,
       }}

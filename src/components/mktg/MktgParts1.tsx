@@ -9,7 +9,7 @@
    · L2  mktg-vs-selling   · L4  closed-system / biz-value
                              · L5  chai-value / cpv-formula
 
-   Design system: Boutique Teal & Champagne — teal #0f766e/#14b8a6,
+   Design system: Boutique Teal & Champagne — teal #0f766e/rgba(15,118,110,.82),
    champagne #a97d2c/#e3c26b, ink #1f2b2b, lagoon dark panels.
    Every fact, figure and brand story comes from
    /upload/marketing-lectures.txt (Lectures 1–5).
@@ -28,17 +28,18 @@ import {
 import {
   Callout, KV, Quiz, ReadStep, Reveal, Section, SectionHead, StepsFlow, Takeaways,
 } from "@/components/notes/ui";
+import { EverydayOrbit } from "@/components/mktg/diagrams";
 
 /* ---------- palette + shared helpers ---------- */
 
 const TEAL = "#0f766e";
-const TEAL_B = "#14b8a6";
+const TEAL_B = "rgba(15,118,110,.82)";
 const INK = "#1f2b2b";
 const GOLD = "#a97d2c";
 const GOLD_L = "#e3c26b";
 const ROSE = "#9f3d54";
-const LAGOON = "linear-gradient(165deg,#0c2124 0%,#12302f 60%,#143236 100%)";
-const TEAL_GRAD = "linear-gradient(135deg,#14b8a6,#0f766e)";
+const LAGOON = "linear-gradient(165deg,#171f1e 0%,#1f2b2b 58%,#17211f 100%)";
+const TEAL_GRAD = "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)";
 const GOLD_GRAD = "linear-gradient(135deg,#e3c26b,#a97d2c)";
 const LIGHT = "#e9f2ee"; // light text on lagoon panels
 const DIM = "#9fbcb4"; // muted text on lagoon panels
@@ -46,7 +47,7 @@ const DIM = "#9fbcb4"; // muted text on lagoon panels
 /** Teal→gold gradient text span (never the ATB .grad-text class). */
 function GT({ children }: { children: React.ReactNode }) {
   return (
-    <span style={{ background: "linear-gradient(135deg,#14b8a6,#0f766e 55%,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+    <span style={{ background: "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e 55%,#a97d2c)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
       {children}
     </span>
   );
@@ -66,7 +67,7 @@ function MBtn({ onClick, children, tone = "teal", aria, active = false, disabled
     teal: { background: TEAL_GRAD, color: "#f0fdfa" },
     gold: { background: GOLD_GRAD, color: "#33260b" },
     plain: { background: "#f2efe7", color: INK, border: "1px solid #e3ddcf" },
-    dark: { background: "rgba(20,184,166,.14)", color: "#c6f4ea", border: "1px solid rgba(20,184,166,.42)" },
+    dark: { background: "rgba(15,118,110,.14)", color: "#c6f4ea", border: "1px solid rgba(15,118,110,.42)" },
     rose: { background: "#f7e9ec", color: ROSE, border: "1px solid #e5c2cb" },
   };
   return (
@@ -98,7 +99,7 @@ function MLive({ msg }: { msg: string }) {
 function MHead({ icon, title, chip }: { icon: React.ReactNode; title: string; chip?: string }) {
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl" style={{ background: "linear-gradient(135deg,rgba(20,184,166,.18),rgba(15,118,110,.10))", color: TEAL }}>
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl" style={{ background: "linear-gradient(135deg,rgba(15,118,110,.18),rgba(15,118,110,.10))", color: TEAL }}>
         {icon}
       </span>
       <h3 className="text-xl font-bold md:text-2xl" style={{ color: INK }}>{title}</h3>
@@ -110,7 +111,7 @@ function MHead({ icon, title, chip }: { icon: React.ReactNode; title: string; ch
 /** Dark lagoon panel that hosts machine SVGs. */
 function LagoonBox({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`rounded-2xl p-3 md:p-4 ${className}`} style={{ background: LAGOON, border: "1px solid rgba(20,184,166,.28)" }}>
+    <div className={`rounded-2xl p-3 md:p-4 ${className}`} style={{ background: LAGOON, border: "1px solid rgba(15,118,110,.28)" }}>
       {children}
     </div>
   );
@@ -170,7 +171,7 @@ function MeaningMachine() {
                 animate={{ scale: i === step ? 1.18 : 1 }}
                 style={i === step
                   ? { background: GOLD_GRAD, color: "#33260b" }
-                  : { background: "rgba(20,184,166,.12)", color: DIM, border: "1px solid rgba(20,184,166,.4)" }}
+                  : { background: "rgba(15,118,110,.12)", color: DIM, border: "1px solid rgba(15,118,110,.4)" }}
               >
                 {i + 1}
               </motion.span>
@@ -178,7 +179,7 @@ function MeaningMachine() {
             </div>
           ))}
         </div>
-        <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full" style={{ background: "rgba(20,184,166,.16)" }} aria-hidden>
+        <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full" style={{ background: "rgba(15,118,110,.16)" }} aria-hidden>
           <motion.div className="h-full rounded-full" style={{ background: GOLD_GRAD }}
             initial={false} animate={{ width: `${((step + 1) / MEANING_BEATS.length) * 100}%` }} transition={{ type: "spring", stiffness: 160, damping: 24 }} />
         </div>
@@ -382,7 +383,7 @@ function PnLMachine() {
   );
 
   const tile = (k: string, v: number, bg: string, fg: string, hint: string) => (
-    <div className="flex-1 rounded-2xl p-4" style={{ background: bg, border: "1px solid rgba(20,184,166,.18)" }}>
+    <div className="flex-1 rounded-2xl p-4" style={{ background: bg, border: "1px solid rgba(15,118,110,.18)" }}>
       <p className="text-[.68rem] font-extrabold uppercase tracking-[.16em]" style={{ color: fg, opacity: 0.85 }}>{k}</p>
       <motion.p key={v} initial={{ opacity: 0.35, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22 }}
         className="mt-1 font-mono-warm text-xl font-black md:text-2xl" style={{ color: fg }}>{fmt(v)}</motion.p>
@@ -400,12 +401,12 @@ function PnLMachine() {
       </div>
       <LagoonBox className="mt-4">
         <div className="flex flex-wrap gap-3">
-          {tile("Top line · revenue", revenue, "rgba(20,184,166,.14)", LIGHT, "price × volume")}
+          {tile("Top line · revenue", revenue, "rgba(15,118,110,.14)", LIGHT, "price × volume")}
           {tile("Total cost", totalCost, "rgba(227,194,107,.10)", GOLD_L, "cost × volume")}
-          {tile("Bottom line · profit", profit, profit < 0 ? "rgba(159,61,84,.20)" : "rgba(20,184,166,.20)", profit < 0 ? "#f3b7c3" : LIGHT, "revenue − cost")}
+          {tile("Bottom line · profit", profit, profit < 0 ? "rgba(159,61,84,.20)" : "rgba(15,118,110,.20)", profit < 0 ? "#f3b7c3" : LIGHT, "revenue − cost")}
         </div>
         <div className="mt-3 px-1" aria-hidden>
-          <div className="flex h-3.5 w-full overflow-hidden rounded-full" style={{ background: "rgba(20,184,166,.12)" }}>
+          <div className="flex h-3.5 w-full overflow-hidden rounded-full" style={{ background: "rgba(15,118,110,.12)" }}>
             <motion.div className="h-full" style={{ background: GOLD_GRAD }} initial={false} animate={{ width: `${costShare * 100}%` }} transition={{ type: "spring", stiffness: 130, damping: 22 }} />
             <motion.div className="h-full" style={{ background: ROSE }} initial={false} animate={{ width: `${profitShare * 100}%` }} transition={{ type: "spring", stiffness: 130, damping: 22 }} />
           </div>
@@ -463,7 +464,7 @@ function PenMachine() {
               <div className="mt-3 flex flex-wrap gap-2">
                 {PEN_ATTRS.map((a, i) => (
                   <motion.span key={a} className="rounded-full px-3.5 py-1.5 text-[.84rem] font-bold"
-                    style={{ background: "rgba(20,184,166,.14)", border: "1px solid rgba(20,184,166,.4)", color: LIGHT }}
+                    style={{ background: "rgba(15,118,110,.14)", border: "1px solid rgba(15,118,110,.4)", color: LIGHT }}
                     initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.12 * i }}>
                     {a}
                   </motion.span>
@@ -538,7 +539,7 @@ function SpotMachine() {
             <button key={it.t} type="button" onClick={() => setSel(i)} aria-pressed={picked}
               className="rounded-2xl p-3.5 text-left transition-transform duration-200 hover:-translate-y-0.5"
               style={{
-                background: picked ? "rgba(20,184,166,.10)" : "#f2efe7",
+                background: picked ? "rgba(15,118,110,.10)" : "#f2efe7",
                 border: `1.5px solid ${a ? (a === it.v ? TEAL_B : ROSE) : picked ? TEAL_B : "#e3ddcf"}`,
               }}>
               <p className="text-[.9rem] font-extrabold" style={{ color: INK }}>{it.t} {a ? <span style={{ color: a === it.v ? TEAL : ROSE }}>{a === it.v ? "✓" : "✗"}</span> : null}</p>
@@ -581,7 +582,7 @@ function InOutMachine() {
             <marker id="io-t" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill={TEAL_B} /></marker>
             <marker id="io-g" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill={GOLD_L} /></marker>
           </defs>
-          <rect x="34" y="86" width="188" height="86" rx="14" fill="rgba(20,184,166,.10)" stroke={TEAL_B} strokeWidth="1.8" />
+          <rect x="34" y="86" width="188" height="86" rx="14" fill="rgba(15,118,110,.10)" stroke={TEAL_B} strokeWidth="1.8" />
           <text x="128" y="122" textAnchor="middle" fontSize="15" fontWeight="800" fill={LIGHT}>MARKET</text>
           <text x="128" y="144" textAnchor="middle" fontSize="10.5" fontWeight="700" fill={DIM}>consumers · needs · wants</text>
           <rect x="458" y="86" width="188" height="86" rx="14" fill="rgba(227,194,107,.09)" stroke={GOLD_L} strokeWidth="1.8" />
@@ -589,7 +590,7 @@ function InOutMachine() {
           <text x="552" y="144" textAnchor="middle" fontSize="10.5" fontWeight="700" fill={DIM}>research · strategy · product</text>
           <motion.path d={outside ? "M448,129 L232,129" : "M232,129 L448,129"} fill="none" strokeWidth="3"
             stroke={outside ? TEAL_B : GOLD_L} strokeDasharray="9 7" markerEnd={outside ? "url(#io-t)" : "url(#io-g)"} />
-          <motion.circle r="7" fill={outside ? TEAL_B : GOLD_L} stroke="#0c2124" strokeWidth="2"
+          <motion.circle r="7" fill={outside ? TEAL_B : GOLD_L} stroke="#171f1e" strokeWidth="2"
             initial={false}
             animate={{ cx: outside ? [436, 244] : [244, 436], opacity: 1 }}
             transition={{ duration: 1.7, repeat: Infinity, ease: "linear" }} />
@@ -662,7 +663,7 @@ function SystemMachine() {
               <marker key={fl.key} id={`ms-${fl.key}`} markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill={fl.color} /></marker>
             ))}
           </defs>
-          <rect x="28" y="128" width="168" height="104" rx="16" fill="rgba(20,184,166,.10)" stroke={TEAL_B} strokeWidth="1.8" />
+          <rect x="28" y="128" width="168" height="104" rx="16" fill="rgba(15,118,110,.10)" stroke={TEAL_B} strokeWidth="1.8" />
           <text x="112" y="172" textAnchor="middle" fontSize="16" fontWeight="800" fill={LIGHT}>INDUSTRY</text>
           <text x="112" y="194" textAnchor="middle" fontSize="10.5" fontWeight="700" fill={DIM}>a collection of sellers</text>
           <rect x="484" y="128" width="168" height="104" rx="16" fill="rgba(227,194,107,.09)" stroke={GOLD_L} strokeWidth="1.8" />
@@ -676,7 +677,7 @@ function SystemMachine() {
                 initial={false} animate={{ opacity: i === step ? 1 : 0.3, strokeWidth: i === step ? 3.4 : 2 }} />
             </g>
           ))}
-          <motion.circle key={step} r="7.5" fill={f.color} stroke="#0c2124" strokeWidth="2"
+          <motion.circle key={step} r="7.5" fill={f.color} stroke="#171f1e" strokeWidth="2"
             cx={samples(...f.c)[0]} cy={samplesY(...f.c)[0]} opacity={0.95}
             animate={{ cx: samples(...f.c), cy: samplesY(...f.c) }}
             transition={{ duration: 2.1, repeat: Infinity, ease: "linear" }} />
@@ -809,7 +810,7 @@ function WalletMachine() {
           </AnimatePresence>
           <motion.span key={`w-${step}`} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
             className="rounded-full px-4 py-1.5 text-[.78rem] font-black uppercase tracking-[.14em]"
-            style={{ background: "rgba(20,184,166,.16)", border: "1px solid rgba(20,184,166,.45)", color: LIGHT }}>
+            style={{ background: "rgba(15,118,110,.16)", border: "1px solid rgba(15,118,110,.45)", color: LIGHT }}>
             {step >= 3 ? "wallet · purchasing power ↑" : step === 2 ? "wallet · ₹20" : step === 1 ? "wants forming" : "wallet · empty"}
           </motion.span>
         </div>
@@ -821,11 +822,11 @@ function WalletMachine() {
               <motion.div key={f.name} initial={false} animate={{ opacity: shown ? (afford ? 1 : 0.32) : 0.18, scale: afford && shown ? 1 : 0.97 }}
                 className="flex flex-col items-center gap-1 rounded-2xl p-3.5 text-center"
                 style={afford && shown
-                  ? { background: "rgba(20,184,166,.16)", border: `1.5px solid ${TEAL_B}` }
+                  ? { background: "rgba(15,118,110,.16)", border: `1.5px solid ${TEAL_B}` }
                   : { background: "rgba(255,255,255,.03)", border: "1.5px dashed rgba(159,188,180,.4)" }}>
                 <span style={{ color: afford && shown ? LIGHT : DIM }}>{f.icon}</span>
                 <p className="text-[.86rem] font-extrabold" style={{ color: shown ? LIGHT : DIM }}>{f.name}</p>
-                <p className="text-[.68rem] font-bold uppercase tracking-wider" style={{ color: afford && shown ? "#7ee3d4" : DIM }}>
+                <p className="text-[.68rem] font-bold uppercase tracking-wider" style={{ color: afford && shown ? "rgba(15,118,110,.55)" : DIM }}>
                   {!shown ? "hidden" : afford ? "demand ✓" : "want only"}
                 </p>
               </motion.div>
@@ -936,7 +937,7 @@ function DemandExplorer() {
             <div className="mt-3 flex flex-wrap gap-2">
               {s.ex.map((x) => (
                 <span key={x} className="rounded-full px-3 py-1 text-[.8rem] font-bold"
-                  style={{ background: s.rose ? "rgba(159,61,84,.28)" : "rgba(20,184,166,.14)", border: `1px solid ${s.rose ? "rgba(159,61,84,.5)" : "rgba(20,184,166,.4)"}`, color: LIGHT }}>
+                  style={{ background: s.rose ? "rgba(159,61,84,.28)" : "rgba(15,118,110,.14)", border: `1px solid ${s.rose ? "rgba(159,61,84,.5)" : "rgba(15,118,110,.4)"}`, color: LIGHT }}>
                   {x}
                 </span>
               ))}
@@ -1018,9 +1019,9 @@ function MindMachine() {
           <text x="330" y="86" fontSize="11" fontWeight="700" fill={DIM} transform="rotate(-15 330 86)">the linear law — interest and openness rise together</text>
           <motion.line x1="70" y1="280" x2="660" y2="52" stroke={TEAL_B} strokeWidth="3" strokeLinecap="round"
             initial={false} animate={{ pathLength: t }} />
-          <motion.circle cx={px} cy={py} r="6" fill={GOLD_L} stroke="#0c2124" strokeWidth="2" initial={false} />
+          <motion.circle cx={px} cy={py} r="6" fill={GOLD_L} stroke="#171f1e" strokeWidth="2" initial={false} />
           {/* the mind */}
-          <circle cx={mcx} cy={mcy} r="42" fill={open ? "rgba(20,184,166,.20)" : interest >= 34 ? "rgba(20,184,166,.10)" : "rgba(12,33,36,.75)"}
+          <circle cx={mcx} cy={mcy} r="42" fill={open ? "rgba(15,118,110,.20)" : interest >= 34 ? "rgba(15,118,110,.10)" : "rgba(12,33,36,.75)"}
             stroke={open ? GOLD_L : "#3a5350"} strokeWidth={open ? 2.4 : 1.6} />
           {!open ? (
             <motion.g style={{ transformBox: "fill-box", transformOrigin: "center" }} animate={{ rotate: 360 }} transition={{ duration: 7, repeat: Infinity, ease: "linear" }}>
@@ -1114,7 +1115,7 @@ function LeverMachine() {
       <LagoonBox className="mt-4">
         <div className="grid gap-4">
           {bar("Consumer demand", "created by marketing", count / 4, TEAL_GRAD)}
-          {bar("Top line", "products sold × selling price", count / 4, "linear-gradient(135deg,#7ee3d4,#14b8a6)")}
+          {bar("Top line", "products sold × selling price", count / 4, "linear-gradient(135deg,rgba(15,118,110,.55),rgba(15,118,110,.82))")}
           {bar("Bottom line", "revenue − total costs", count / 4, GOLD_GRAD)}
         </div>
         <p className="mt-3 text-[.72rem]" style={{ color: DIM }}>schematic — the point is the dependency chain, not the decimals</p>
@@ -1169,7 +1170,7 @@ function ChaiMachine() {
       <LagoonBox className="mt-4">
         <div className="flex flex-wrap items-center justify-center gap-6 py-2 md:gap-10">
           <svg viewBox="0 0 150 150" className="w-28 shrink-0 md:w-36" role="img" aria-label="The same cup of tea in every context">
-            <motion.path d="M40,58 L48,120 C49,128 101,128 102,120 L110,58 Z" fill="rgba(20,184,166,.16)" stroke={TEAL_B} strokeWidth="2.4"
+            <motion.path d="M40,58 L48,120 C49,128 101,128 102,120 L110,58 Z" fill="rgba(15,118,110,.16)" stroke={TEAL_B} strokeWidth="2.4"
               initial={false} animate={{ scale: [1, 1.03, 1] }} transition={{ duration: 2.4, repeat: Infinity }} style={{ transformBox: "fill-box", transformOrigin: "center" }} />
             <path d="M110,66 C126,66 126,88 108,90" fill="none" stroke={TEAL_B} strokeWidth="2.4" />
             <path d="M62,44 C58,36 66,32 62,24" fill="none" stroke={GOLD_L} strokeWidth="2" strokeLinecap="round" opacity="0.9" />
@@ -1263,13 +1264,13 @@ function ScaleMachine() {
       </div>
       <LagoonBox className="mt-4">
         <svg viewBox="0 0 640 300" className="h-auto w-full" role="img" aria-label={`Balance scale: ${bCount} benefits versus ${cCount} costs, CPV ${net >= 0 ? "+" : ""}${net}`}>
-          <polygon points="320,148 300,236 340,236" fill="rgba(20,184,166,.18)" stroke={TEAL_B} strokeWidth="2" />
+          <polygon points="320,148 300,236 340,236" fill="rgba(15,118,110,.18)" stroke={TEAL_B} strokeWidth="2" />
           <rect x="262" y="236" width="116" height="10" rx="5" fill="#3a5350" />
           <motion.g animate={{ rotate: tilt }} transition={{ type: "spring", stiffness: 90, damping: 14 }}
             style={{ transformBox: "fill-box", transformOrigin: "center" }}>
             <rect x="104" y="142" width="432" height="9" rx="4.5" fill={LIGHT} />
             <line x1="124" y1="151" x2="124" y2="196" stroke={TEAL_B} strokeWidth="2.2" />
-            <path d="M84,196 L164,196 L124,238 Z" fill="rgba(20,184,166,.20)" stroke={TEAL_B} strokeWidth="2" />
+            <path d="M84,196 L164,196 L124,238 Z" fill="rgba(15,118,110,.20)" stroke={TEAL_B} strokeWidth="2" />
             <text x="124" y="222" textAnchor="middle" fontSize="13" fontWeight="800" fill={LIGHT}>B {bCount}</text>
             <line x1="516" y1="151" x2="516" y2="196" stroke={GOLD_L} strokeWidth="2.2" />
             <path d="M476,196 L556,196 L516,238 Z" fill="rgba(227,194,107,.14)" stroke={GOLD_L} strokeWidth="2" />
@@ -1358,6 +1359,10 @@ export function MktgWhySection() {
         </Callout>
       </Reveal>
 
+      <Reveal className="mt-6">
+        <EverydayOrbit />
+      </Reveal>
+
       <Reveal className="mt-8">
         <Takeaways items={[
           <>Marketing is <strong>not limited to selling or product promotion</strong> — that is the first and most repeated correction of Lecture 1.</>,
@@ -1394,7 +1399,7 @@ export function MktgAnticipationSection() {
       <Reveal>
         <div className="card-warm lift p-5 md:p-7">
           <MHead icon={<TrendingDown className="h-5 w-5" aria-hidden />} title="The decline curve" chip="Lecture 2 · pattern" />
-          <div className="mt-3 rounded-2xl p-3" style={{ background: LAGOON, border: "1px solid rgba(20,184,166,.28)" }}>
+          <div className="mt-3 rounded-2xl p-3" style={{ background: LAGOON, border: "1px solid rgba(15,118,110,.28)" }}>
             <PatternSvg />
           </div>
           <div className="mt-4 grid gap-3 md:grid-cols-3">
@@ -1402,7 +1407,7 @@ export function MktgAnticipationSection() {
               <p className="text-[.88rem] font-extrabold" style={{ color: INK }}>1 · The gradual drop</p>
               <p className="mt-1 text-[.82rem] leading-relaxed text-[#5f7472]">Performance erodes slowly at first — easy to explain away, easy to miss.</p>
             </div>
-            <div className="rounded-2xl p-4" style={{ background: "rgba(20,184,166,.08)", border: "1px solid rgba(20,184,166,.35)" }}>
+            <div className="rounded-2xl p-4" style={{ background: "rgba(15,118,110,.08)", border: "1px solid rgba(15,118,110,.35)" }}>
               <p className="text-[.88rem] font-extrabold" style={{ color: TEAL }}>2 · The pivot window</p>
               <p className="mt-1 text-[.82rem] leading-relaxed text-[#5f7472]">Organizations that <strong>anticipate</strong> market changes pivot successfully before the sudden decline.</p>
             </div>
@@ -1416,7 +1421,7 @@ export function MktgAnticipationSection() {
 
       <ReadStep n="3" title="The definition that follows" sub="Marketing's core function, stated plainly" />
       <Reveal>
-        <div className="rounded-2xl p-6 md:p-8" style={{ background: LAGOON, border: "1px solid rgba(20,184,166,.28)" }}>
+        <div className="rounded-2xl p-6 md:p-8" style={{ background: LAGOON, border: "1px solid rgba(15,118,110,.28)" }}>
           <Quote className="h-6 w-6" style={{ color: GOLD_L }} aria-hidden />
           <p className="mt-3 max-w-3xl text-xl font-bold leading-relaxed md:text-2xl" style={{ color: LIGHT }}>
             Marketing is the function that enables organizations to <span style={{ color: GOLD_L }}>anticipate consumer needs and market evolution</span>.
@@ -1582,7 +1587,7 @@ export function MktgDefinitionsSection() {
         lead="An outside-in approach that starts with understanding customer needs rather than simply selling products: creating, communicating, and delivering value to customers, clients, partners, and society." />
 
       <Reveal>
-        <div className="rounded-2xl p-6 md:p-8" style={{ background: LAGOON, border: "1px solid rgba(20,184,166,.28)" }}>
+        <div className="rounded-2xl p-6 md:p-8" style={{ background: LAGOON, border: "1px solid rgba(15,118,110,.28)" }}>
           <p className="text-[.7rem] font-extrabold uppercase tracking-[.2em]" style={{ color: GOLD_L }}>American Marketing Association · the theoretical definition</p>
           <p className="mt-3 max-w-3xl text-lg font-bold leading-relaxed md:text-xl" style={{ color: LIGHT }}>
             “Marketing is the activity, set of institutions, and processes for creating value, communicating, delivering, and exchanging offerings that have value for <span style={{ color: GOLD_L }}>customers, clients, partners, and society at large</span>.”
@@ -1599,7 +1604,7 @@ export function MktgDefinitionsSection() {
           {DEF_STORIES.map((s) => (
             <div key={s.name} className="card-warm lift h-full p-5">
               <div className="flex items-center gap-2.5">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: "linear-gradient(135deg,rgba(20,184,166,.18),rgba(15,118,110,.10))", color: TEAL }}>{s.icon}</span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: "linear-gradient(135deg,rgba(15,118,110,.18),rgba(15,118,110,.10))", color: TEAL }}>{s.icon}</span>
                 <h3 className="text-[1.02rem] font-extrabold" style={{ color: INK }}>{s.name}</h3>
               </div>
               <p className="mt-2.5 text-[.88rem] leading-relaxed" style={{ color: "#3a4a48" }}>{s.line}</p>
@@ -1734,7 +1739,7 @@ export function MktgNwdSection() {
       <Reveal>
         <div className="card-warm lift p-5 md:p-6">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: "linear-gradient(135deg,rgba(20,184,166,.18),rgba(15,118,110,.10))", color: TEAL }}>
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: "linear-gradient(135deg,rgba(15,118,110,.18),rgba(15,118,110,.10))", color: TEAL }}>
               <Coffee className="h-5 w-5" aria-hidden />
             </span>
             <h3 className="text-xl font-bold" style={{ color: INK }}>Tier 1 vs Tier 3</h3>
@@ -2059,7 +2064,7 @@ export function MktgCpvSection() {
                 <p className="text-[.85rem] font-extrabold" style={{ color: INK }}>Application A</p>
                 <p className="mt-1 text-[.8rem] leading-relaxed text-[#5f7472]">Better playlists — but frequent ads and a complex six-step login. Free, and still worth less.</p>
               </div>
-              <div className="rounded-xl p-3.5" style={{ background: "rgba(20,184,166,.08)", border: "1px solid rgba(20,184,166,.35)" }}>
+              <div className="rounded-xl p-3.5" style={{ background: "rgba(15,118,110,.08)", border: "1px solid rgba(15,118,110,.35)" }}>
                 <p className="text-[.85rem] font-extrabold" style={{ color: TEAL }}>Application B</p>
                 <p className="mt-1 text-[.8rem] leading-relaxed text-[#5f7472]">A simpler one-step login with minimal friction — <strong>superior perceived value</strong>.</p>
               </div>
