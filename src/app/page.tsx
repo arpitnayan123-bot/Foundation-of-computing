@@ -223,7 +223,9 @@ export default function Page() {
               // (#/subject/foc/l14) for shareable, refresh-safe lectures
               <FocApp onExitAtlas={exitToAtlas} initialLecture={view.lecture} />
             ) : view.id === "atb" ? (
-              <AtbApp onExitAtlas={exitToAtlas} />
+              // shelf 02 — ATB accepts an in-shelf lecture deep link
+              // (#/subject/atb/l14) for shareable, refresh-safe lectures
+              <AtbApp onExitAtlas={exitToAtlas} initialLecture={view.lecture} />
             ) : view.id === "fa" ? (
               // shelf 03 — FA accepts an in-shelf lecture deep link
               // (#/subject/fa/l14) for shareable, refresh-safe lectures

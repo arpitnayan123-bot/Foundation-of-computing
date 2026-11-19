@@ -45,6 +45,14 @@ import {
   SectionHead,
   Takeaways,
 } from "@/components/notes/ui";
+import {
+  ATB_OLIVE,
+  AtbCells,
+  AtbFigure,
+  AtbPill,
+  AtbStepper,
+} from "@/components/atb/AtbStepper";
+import { eyebrowOf } from "@/components/atb/lectures";
 
 /* ============================================================
    ATB · Parts 6 — Lectures 14 · 19 · 20: Tree types, Hashing, Blockchain
@@ -142,7 +150,8 @@ function CompleteTreeArt() {
 }
 function BSTArt() {
   return (
-    <svg viewBox="0 0 220 150" className="mx-auto h-auto w-full max-w-[230px]" role="img" aria-label="Binary search tree: 50 with 30 and 70 below, then 20, 40, 60 and 80">
+    <AtbFigure notice="50 with 30 and 70 below, then 20, 40, 60 and 80">
+  <svg viewBox="0 0 220 150" className="mx-auto h-auto w-full max-w-[230px]" role="img" aria-label="Binary search tree: 50 with 30 and 70 below, then 20, 40, 60 and 80">
       <TE a={[110, 24]} b={[60, 74]} />
       <TE a={[110, 24]} b={[160, 74]} />
       <TE a={[60, 74]} b={[30, 122]} />
@@ -158,11 +167,13 @@ function BSTArt() {
       <TN x={185} y={122} t="80" />
       <text x="110" y="146" textAnchor="middle" fontSize="9" fontWeight="700" fill="#8a5a06">left &lt; parent &lt; right, everywhere</text>
     </svg>
+</AtbFigure>
   );
 }
 function AVLArt() {
   return (
-    <svg viewBox="0 0 220 132" className="mx-auto h-auto w-full max-w-[230px]" role="img" aria-label="AVL rotation: a 20, 30, 50 chain rotates into a balanced tree rooted at 30">
+    <AtbFigure notice="a 20, 30, 50 chain rotates into a balanced tree rooted at 30">
+  <svg viewBox="0 0 220 132" className="mx-auto h-auto w-full max-w-[230px]" role="img" aria-label="AVL rotation: a 20, 30, 50 chain rotates into a balanced tree rooted at 30">
       <defs>
         <marker id="m6av" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
           <path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" />
@@ -183,6 +194,7 @@ function AVLArt() {
       <TN x={202} y={94} t="50" r={12} fs={10} />
       <text x="175" y="124" textAnchor="middle" fontSize="9" fontWeight="700" fill="#5c7325">balanced · |bf| ≤ 1</text>
     </svg>
+</AtbFigure>
   );
 }
 function HeapArt() {
@@ -278,7 +290,8 @@ function BadHairDay() {
     [246, 224, "80"],
   ];
   return (
-    <svg
+    <AtbFigure notice="Inserting 20, 30, 50, 60, 70, 80 in order builds a right-leaning chain of height 5; an AVL rotation rebalances it into a tree of height 2">
+  <svg
       viewBox="0 0 760 268"
       className="mx-auto h-auto w-full max-w-3xl"
       role="img"
@@ -319,6 +332,7 @@ function BadHairDay() {
       <TN x={684} y={184} t="80" r={13} fs={10} />
       <text x="560" y="222" textAnchor="middle" fontSize="10" fontWeight="700" fill="#5c7325">same values · height 2 · search O(log n)</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -329,7 +343,7 @@ export function AtbTreeTypesSection() {
   return (
     <Section id="treetypes">
       <SectionHead
-        eyebrow="Lecture 14 · Tree types"
+        eyebrow={eyebrowOf("treetypes")}
         title={
           <>
             <span className="grad-text">Six trees</span> every manager should recognise
@@ -467,7 +481,8 @@ export function AtbTreeTypesSection() {
    ============================================================ */
 function HashBoxSVG() {
   return (
-    <svg
+    <AtbFigure notice="A short input and a huge input both pass through the hash function and come out as digests of the same fixed length">
+  <svg
       viewBox="0 0 720 190"
       className="mx-auto h-auto w-full max-w-2xl"
       role="img"
@@ -497,6 +512,7 @@ function HashBoxSVG() {
       <text x="622" y="136" textAnchor="middle" fontFamily="monospace" fontSize="11" fontWeight="700" fill="#7c4a12">9f8e7d6c5b4a</text>
       <text x="622" y="176" textAnchor="middle" fontSize="10" fontWeight="700" fill="#8a5a06">same length — always. That is the digest.</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -566,7 +582,8 @@ function ModHashLab() {
    ============================================================ */
 function CollisionSVG() {
   return (
-    <svg
+    <AtbFigure notice="index 2 holds a linked chain of three colliding keys, index 4 holds one key">
+  <svg
       viewBox="0 0 720 260"
       className="mx-auto h-auto w-full max-w-3xl"
       role="img"
@@ -602,6 +619,7 @@ function CollisionSVG() {
       <text x="235" y="197" textAnchor="middle" fontFamily="monospace" fontSize="11" fontWeight="700" fill="#7c4a12">M25SME044</text>
       <text x="430" y="197" fontSize="10" fontWeight="600" fill="#8a5a06">no clash here — one key, one slot</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -610,7 +628,8 @@ function CollisionSVG() {
    ============================================================ */
 function PasswordFlowSVG() {
   return (
-    <svg
+    <AtbFigure notice="At login the typed password is hashed and compared with the stored hash; on match, access is granted">
+  <svg
       viewBox="0 0 760 210"
       className="mx-auto h-auto w-full max-w-2xl"
       role="img"
@@ -639,11 +658,13 @@ function PasswordFlowSVG() {
       <text x="696" y="113" textAnchor="middle" fontSize="20" fontWeight="800" fill="#fff7ec">✓</text>
       <text x="696" y="150" textAnchor="middle" fontSize="10" fontWeight="700" fill="#5c7325">equal → access granted</text>
     </svg>
+</AtbFigure>
   );
 }
 function IntegritySVG() {
   return (
-    <svg
+    <AtbFigure notice="sender hashes the file and sends file plus hash; receiver recomputes the hash; both digests match, so the file is intact">
+  <svg
       viewBox="0 0 780 210"
       className="mx-auto h-auto w-full max-w-2xl"
       role="img"
@@ -681,6 +702,7 @@ function IntegritySVG() {
       <text x="690" y="136" textAnchor="middle" fontSize="10" fontWeight="700" fill="#5c7325">equal → intact</text>
       <text x="690" y="152" textAnchor="middle" fontSize="9" fill="#be4a4a">mismatch → tampered</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -707,7 +729,7 @@ export function AtbHashingSection() {
   return (
     <Section id="hashing">
       <SectionHead
-        eyebrow="Lecture 19 · Hashing"
+        eyebrow={eyebrowOf("hashing")}
         title={
           <>
             <span className="grad-text">Hashing</span> — fixed-length fingerprints
@@ -949,6 +971,51 @@ export function AtbHashingSection() {
           ]}
         />
       </Reveal>
+    
+
+
+
+
+      <AtbStepper title="What happens next? — 27 mod 5 and the 25 twin" steps={[
+          {
+            label: "27 mod 5: 27 ÷ 5 = 5 remainder 2 → bucket 2.",
+            detail: "Possible values for mod n run 0 to n−1 — five buckets here.",
+            frame: <AtbPill k="27 mod 5" v={2} tone="twin" />,
+          },
+          {
+            label: "25 mod 5: exactly divisible → remainder 0 → bucket 0.",
+            detail: "Same function, different bucket — distribution is the goal.",
+            frame: <AtbPill k="25 mod 5" v={0} tone="twin" />,
+          },
+          {
+            label: "Buckets organize large datasets — database indexing searches by bucket, not by scan.",
+            detail: "Faster searching through indexing rather than sequential search.",
+            frame: <AtbPill k="why" v="index → direct access" tone="active" />,
+          },
+        ]} />
+    
+      <AtbStepper title="What happens next? — hashing 101 with mod 10" steps={[
+          {
+            label: "Any-size input goes in: the number 101.",
+            detail: "A hash function takes input of any size and produces a fixed-length output.",
+            frame: <AtbPill k="input" v={101} tone="active" />,
+          },
+          {
+            label: "Apply the modulo hash: 101 mod 10 = 1.",
+            detail: "mod divides and returns the remainder — the simplest hash function in the course.",
+            frame: <AtbPill k="101 mod 10" v={1} tone="twin" />,
+          },
+          {
+            label: "The digest selects bucket 1 in the table.",
+            detail: "Possible values for mod 10: 0 to 9 — ten buckets, fixed length.",
+            frame: <AtbCells values={[null, "101", null, null, null]} tones={["ghost", "twin", "ghost", "ghost", "ghost"]} startIndex={0} labels={["0", "1 ←", "2", "3", "4"]} />,
+          },
+          {
+            label: "Direct bucket access — no sequential scan.",
+            detail: "27 mod 5 = 2 and 25 mod 5 = 0 show the same machinery with a different modulus.",
+            frame: <AtbPill k="search cost" v="O(1) direct" tone="twin" />,
+          },
+        ]} />
     </Section>
   );
 }
@@ -958,7 +1025,8 @@ export function AtbHashingSection() {
    ============================================================ */
 function BlockAnatomySVG() {
   return (
-    <svg
+    <AtbFigure notice="a header holding the hash of the previous block, the hash of the current block and the Merkle root, plus a body of transactions stored chronologically">
+  <svg
       viewBox="0 0 560 236"
       className="mx-auto h-auto w-full max-w-xl"
       role="img"
@@ -976,6 +1044,7 @@ function BlockAnatomySVG() {
       <text x="80" y="188" fontFamily="monospace" fontSize="11" fill="#e9d7bf">Tx 2 · Cy → Di · 0.4</text>
       <text x="320" y="230" textAnchor="middle" fontSize="10" fontWeight="600" fill="#b98d5f">header = the tamper seal · body = the payload</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -987,7 +1056,8 @@ function ChainGrowSVG() {
     { prev: "H3", hash: "H4", tx: "Tx 7, Tx 8" },
   ];
   return (
-    <svg
+    <AtbFigure notice="a genesis block whose previous-hash is NULL, followed by blocks storing the hash of the block before them">
+  <svg
       viewBox="0 0 780 196"
       className="mx-auto h-auto w-full max-w-3xl"
       role="img"
@@ -1033,6 +1103,7 @@ function ChainGrowSVG() {
         );
       })}
     </svg>
+</AtbFigure>
   );
 }
 
@@ -1185,7 +1256,8 @@ function MerkleSVG() {
     { x: 570, t: "H6" },
   ];
   return (
-    <svg
+    <AtbFigure notice="transaction hashes H1 to H6 are paired up into H123 and H456, which hash to the single root H123456 stored in the block header">
+  <svg
       viewBox="0 0 640 276"
       className="mx-auto h-auto w-full max-w-2xl"
       role="img"
@@ -1214,6 +1286,7 @@ function MerkleSVG() {
       <text x="320" y="14" textAnchor="middle" fontSize="10" fontWeight="800" letterSpacing="1.5" fill="#f5c889">MERKLE ROOT — stored in the header</text>
       <text x="320" y="266" textAnchor="middle" fontSize="9" fill="#b98d5f">H1…H6 = hash of each transaction · pair them, hash again, up to one root</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -1246,7 +1319,8 @@ function NodeNetworkSVG() {
     [4, 5],
   ];
   return (
-    <svg
+    <AtbFigure notice="every node holds a copy of the chain and talks to its peers">
+  <svg
       viewBox="0 0 460 214"
       className="mx-auto h-auto w-full max-w-md"
       role="img"
@@ -1263,6 +1337,7 @@ function NodeNetworkSVG() {
       ))}
       <text x="300" y="196" textAnchor="middle" fontSize="10" fontWeight="800" fill="#f5c889">your node</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -1283,7 +1358,7 @@ export function AtbBlockchainSection() {
     <Section id="blockchain" dark>
       <SectionHead
         dark
-        eyebrow="Lecture 20 · Blockchain"
+        eyebrow={eyebrowOf("blockchain")}
         title={
           <>
             Blockchain — <span className="grad-text">a linked list that guards itself</span>
@@ -1577,7 +1652,9 @@ export function AtbBlockchainSection() {
       <Reveal className="mt-5">
         <Quiz
           source="Lecture 20 · blockchain"
-          q="A tampered copy of a block gets discarded because the network treats as authentic…"
+          q="A tampered copy of a block gets discarde
+
+d because the network treats as authentic…"
           options={["the copy on the newest node", "the majority copy held by 51%+ of nodes", "the genesis block's copy", "whichever copy arrives first"]}
           answer={1}
           explain="Nodes compare copies; the majority copy (51%+) is the authentic one. A modified block's changed hash breaks the chain, and it is discarded in favour of the majority version."
@@ -1593,6 +1670,307 @@ export function AtbBlockchainSection() {
             <>Blocks store a <strong>Merkle-tree root</strong>, so edited transactions change the root and are detected.</>,
             <>Blocks live on <strong>many network nodes</strong> that must agree a new block is valid (consensus).</>,
             <>Applications: <strong>cryptocurrencies, smart contracts, revenue/land records, health records</strong>.</>,
+          ]}
+        />
+      </Reveal>
+    
+      <AtbStepper title="What happens next? — three blocks chain by prev-hash" steps={[
+          {
+            label: "Block 1 — the genesis block: transactions + own hash. Previous hash: zero (no parent).",
+            detail: "The first block starts the chain; its previous-hash field is null or zero.",
+            frame: <AtbCells values={["txs", "hash1", "prev: 0"]} tones={["idle", "active", "idle"]} />,
+          },
+          {
+            label: "Block 2 stores its own transactions, its own hash — AND block 1’s hash.",
+            detail: "The previous block’s hash is the chain link.",
+            frame: <AtbCells values={["txs", "hash2", "prev: hash1"]} tones={["idle", "active", "twin"]} />,
+          },
+          {
+            label: "Block 3 carries prev: hash2. The chain is now three deep.",
+            detail: "Editing block 1 changes hash1 → block 2’s stored prev-hash no longer matches → the cascade begins.",
+            frame: <AtbCells values={["txs", "hash3", "prev: hash2"]} tones={["idle", "active", "twin"]} />,
+          },
+          {
+            label: "Tamper with ANY block and every later block disagrees — the chain evidence is baked in.",
+            detail: "Three locks close the module: the hash cascade, every node’s identical copy, and consensus.",
+            frame: <AtbPill k="tamper result" v="detected — cascade + copies + consensus" tone="broken" />,
+          },
+        ]} />
+    </Section>
+  );
+}
+
+/* ============================================================
+   ATB · PART III — Lecture 14, chapter 2 — BST & THE AVL RULE
+   (id="bstavl"). Values matter: left < parent < right
+   recursively; sorted input skews the tree; AVL keeps
+   |h(left) − h(right)| ≤ 1 with rotations.
+   ============================================================ */
+
+function BstOrderSVG() {
+  return (
+    <AtbFigure notice="50 at the root with 30 on the left and 70 on the right, 20 and 40 under 30, 60 and 80 under 70, with arrows showing the minimum found by walking left continuously and the maximum by walking right continuously">
+  <svg viewBox="0 0 620 210" className="h-auto w-full" role="img" aria-label="Binary search tree ordering: 50 at the root with 30 on the left and 70 on the right, 20 and 40 under 30, 60 and 80 under 70, with arrows showing the minimum found by walking left continuously and the maximum by walking right continuously">
+      <g stroke="#c9a06a" strokeWidth={2}>
+        <line x1={310} y1={40} x2={200} y2={100} />
+        <line x1={310} y1={40} x2={420} y2={100} />
+        <line x1={200} y1={100} x2={150} y2={160} />
+        <line x1={200} y1={100} x2={255} y2={160} />
+        <line x1={420} y1={100} x2={370} y2={160} />
+        <line x1={420} y1={100} x2={475} y2={160} />
+      </g>
+      {[
+        { x: 310, y: 40, v: "50", hot: true },
+        { x: 200, y: 100, v: "30", hot: false },
+        { x: 420, y: 100, v: "70", hot: false },
+        { x: 150, y: 160, v: "20", hot: false },
+        { x: 255, y: 160, v: "40", hot: false },
+        { x: 370, y: 160, v: "60", hot: false },
+        { x: 475, y: 160, v: "80", hot: false },
+      ].map((n) => (
+        <g key={n.v}>
+          <circle cx={n.x} cy={n.y} r={19} fill={n.hot ? "#f6e3c8" : "#fffaf1"} stroke={n.hot ? "#d97706" : "#c9a06a"} strokeWidth={n.hot ? 2.2 : 1.6} />
+          <text x={n.x} y={n.y + 5} textAnchor="middle" fontSize={14} fontWeight={800} fill="#7c2d12">{n.v}</text>
+        </g>
+      ))}
+      <text x={70} y={40} fontSize={10} fontWeight={800} fill="#44621d">min: walk LEFT</text>
+      <text x={70} y={56} fontSize={10} fontWeight={800} fill="#44621d">to the leaf → 20</text>
+      <path d="M96 66 C 120 90 130 120 140 150" stroke="#7c9a3e" strokeWidth={1.8} strokeDasharray="5 4" fill="none" markerEnd="url(#atbBstA)" />
+      <text x={560} y={40} fontSize={10} fontWeight={800} fill="#44621d">max: walk RIGHT</text>
+      <text x={560} y={56} fontSize={10} fontWeight={800} fill="#44621d">to the leaf → 80</text>
+      <defs>
+        <marker id="atbBstA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7c9a3e" /></marker>
+        <marker id="atbBstB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7c9a3e" /></marker>
+      </defs>
+      <path d="M540 66 C 520 90 500 120 486 148" stroke="#7c9a3e" strokeWidth={1.8} strokeDasharray="5 4" fill="none" markerEnd="url(#atbBstB)" />
+      <text x={310} y={198} textAnchor="middle" fontSize={10} fontWeight={700} fill="#8a6b45">left subtree &lt; parent &lt; right subtree — recursively, at every node</text>
+    </svg>
+</AtbFigure>
+  );
+}
+
+export function AtbBstAvlSection() {
+  return (
+    <Section id="bstavl">
+      <SectionHead
+        eyebrow={eyebrowOf("bstavl")}
+        title={
+          <>
+            BST &amp; the <span className="grad-text">AVL balance rule</span>
+          </>
+        }
+        lead="A binary search tree adds ordering to shape: values matter, left is always less than the parent and right always greater — recursively. Then the AVL tree defends the shape: the height difference between left and right subtrees may never exceed one."
+      />
+
+      <ReadStep n="1" title="The ordering property — values matter now" sub="Left subtree values are always less than the parent node value; right subtree values are always greater. The property holds recursively for all subtrees." />
+      <AtbFigure notice="the minimum is found by traversing left continuously from the root until a leaf; the maximum by traversing right continuously — dictionary-style search in tree form.">
+        <BstOrderSVG />
+      </AtbFigure>
+
+      <ReadStep n="2" title="Where BSTs work — and the skew trap" sub="Dictionary searches, database indexing, student ID lookups with systematic templates — any scenario needing frequent search. But data inserted in sorted order (increasing or decreasing) makes the tree highly unbalanced: it behaves like a linked list and needs sequential traversal, defeating the efficiency advantage." />
+      <AtbStepper
+        title="What happens next? — the skew trap, sorted input"
+        steps={[
+          {
+            label: "Insert 10 into an empty BST — it becomes the root.",
+            detail: "A healthy start: any value could land on either side.",
+            frame: <AtbCells values={["10"]} tones={["twin"]} />,
+          },
+          {
+            label: "Insert 20 — greater than 10 → right child.",
+            detail: "Still balanced enough. But the input is rising.",
+            frame: <AtbCells values={["10", "20"]} tones={["idle", "active"]} labels={["root", "right child"]} />,
+          },
+          {
+            label: "Insert 30, 40, 50 — every value walks right, always.",
+            detail: "Each new node chains off the previous right child.",
+            frame: <AtbCells values={["10", "20", "30", "40", "50"]} tones={["ghost", "ghost", "ghost", "ghost", "active"]} labels={["→", "→", "→", "→", "right chain"]} />,
+          },
+          {
+            label: "The tree IS a linked list now — search for 50 costs 5 hops, not ⌈log₂ 5⌉ = 3.",
+            detail: "This defeats the BST’s whole advantage. The AVL tree exists to stop exactly this.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="shape" v="right-skewed chain" tone="broken" />
+                <AtbPill k="search cost" v="O(n) — sequential" tone="broken" />
+                <AtbPill k="healthy BST would be" v="O(log n)" tone="twin" />
+              </div>
+            ),
+          },
+        ]}
+      />
+
+      <ReadStep n="3" title="The AVL rule" sub="A self-balancing BST where, for ANY node, |height(left subtree) − height(right subtree)| ≤ 1. Rotation — conceptually like restructuring a hanging string-and-ball system — redistributes nodes during insertion without violating BST properties." />
+      <div className="mt-4 grid gap-4 md:grid-cols-2">
+        <Quiz
+          q="For every node of an AVL tree, which condition must hold?"
+          options={["|h(left) − h(right)| ≤ 1", "|h(left) − h(right)| ≤ 2", "left ≥ parent", "Every leaf at the same depth"]}
+          answer={0}
+          explain="The balancing rule, exactly: the height difference between left and right subtrees may not exceed one for any node. Rotations restore it during insertion."
+          source="Lecture 14 · AVL trees"
+        />
+        <Quiz
+          q="Inserting sorted data into a plain BST produces…"
+          options={["A perfectly balanced tree", "A heap", "A highly unbalanced tree that behaves like a linked list", "A complete binary tree"]}
+          answer={2}
+          explain="Sorted (increasing or decreasing) input chains every node to one side — sequential traversal, no branching advantage. AVL rotations are the fix."
+          source="Lecture 14 · BST limitations"
+        />
+      </div>
+    </Section>
+  );
+}
+
+/* ============================================================
+   ATB · PART III — Lecture 14, chapter 3 — HEAPS
+   (id="heaps"). Complete binary tree + parent-child ordering
+   (values reordered, never the structure) → priority queues.
+   Plus the six-type comparison table.
+   ============================================================ */
+
+function HeapOrderSVG() {
+  return (
+    <AtbFigure notice="the same complete tree shape with 90 70 80 30 20 40 60 as a max heap whose root 90 is the maximum, and values inverted as a min heap whose root 10 is the minimum — only the parent-child value relationship changes">
+  <svg viewBox="0 0 620 190" className="h-auto w-full" role="img" aria-label="Max heap versus min heap: the same complete tree shape with 90 70 80 30 20 40 60 as a max heap whose root 90 is the maximum, and values inverted as a min heap whose root 10 is the minimum — only the parent-child value relationship changes">
+      <g stroke="#c9a06a" strokeWidth={2}>
+        <line x1={150} y1={40} x2={90} y2={105} /><line x1={150} y1={40} x2={215} y2={105} />
+        <line x1={90} y1={105} x2={55} y2={165} /><line x1={90} y1={105} x2={128} y2={165} />
+        <line x1={215} y1={105} x2={255} y2={165} />
+      </g>
+      {[
+        { x: 150, y: 40, v: "90" }, { x: 90, y: 105, v: "70" }, { x: 215, y: 105, v: "80" },
+        { x: 55, y: 165, v: "30" }, { x: 128, y: 165, v: "20" }, { x: 255, y: 165, v: "40" },
+      ].map((n) => (
+        <g key={`m${n.v}`}>
+          <circle cx={n.x} cy={n.y} r={18} fill="#eef4dd" stroke="#7c9a3e" strokeWidth={1.8} />
+          <text x={n.x} y={n.y + 5} textAnchor="middle" fontSize={13} fontWeight={800} fill="#3c521b">{n.v}</text>
+        </g>
+      ))}
+      <text x={150} y={14} textAnchor="middle" fontSize={11} fontWeight={900} fill="#44621d">MAX HEAP — root 90 = maximum</text>
+      <text x={150} y={190} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#44621d">every parent ≥ its children — higher numbers first</text>
+      <g stroke="#c9a06a" strokeWidth={2}>
+        <line x1={450} y1={40} x2={390} y2={105} /><line x1={450} y1={40} x2={515} y2={105} />
+        <line x1={390} y1={105} x2={355} y2={165} /><line x1={390} y1={105} x2={428} y2={165} />
+        <line x1={515} y1={105} x2={555} y2={165} />
+      </g>
+      {[
+        { x: 450, y: 40, v: "10" }, { x: 390, y: 105, v: "20" }, { x: 515, y: 105, v: "30" },
+        { x: 355, y: 165, v: "40" }, { x: 428, y: 165, v: "60" }, { x: 555, y: 165, v: "70" },
+      ].map((n) => (
+        <g key={`n${n.v}`}>
+          <circle cx={n.x} cy={n.y} r={18} fill="#fffaf1" stroke="#c9a06a" strokeWidth={1.8} />
+          <text x={n.x} y={n.y + 5} textAnchor="middle" fontSize={13} fontWeight={800} fill="#7c2d12">{n.v}</text>
+        </g>
+      ))}
+      <text x={450} y={14} textAnchor="middle" fontSize={11} fontWeight={900} fill="#8a4508">MIN HEAP — root 10 = minimum</text>
+      <text x={450} y={190} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#8a4508">every parent ≤ its children — priority 1 before priority 2</text>
+    </svg>
+</AtbFigure>
+  );
+}
+
+const TREE_COMPARE: [string, string, string, string][] = [
+  ["General Tree", "No limit", "Not required", "Hierarchical structure only"],
+  ["Binary Tree", "Max 2", "Not required", "At most 2 children per node"],
+  ["Complete Binary Tree", "Max 2", "Not required", "All levels full except last; last level filled left-to-right"],
+  ["Binary Search Tree", "Max 2", "Required", "Left < parent < right for all nodes"],
+  ["AVL Tree", "Max 2", "Required", "BST + height difference ≤ 1"],
+  ["Heap", "Max 2", "Partial ordering", "Complete binary tree + parent-child value relationship"],
+];
+
+export function AtbHeapsSection() {
+  return (
+    <Section id="heaps">
+      <SectionHead
+        eyebrow={eyebrowOf("heaps")}
+        title={
+          <>
+            Heaps — the <span className="grad-text">priority</span> structure
+          </>
+        }
+        lead="A heap keeps the complete binary tree shape and orders only the parent-child relationship: max heap parents are greater (root = maximum), min heap parents are smaller (root = minimum). Insertions reorder VALUES — the structure never changes."
+      />
+
+      <ReadStep n="1" title="Two heaps, one shape" sub="Max heap: parent value always greater than child values — the root contains the maximum. Min heap: parent always less — the root holds the minimum. No left-right ordering requirement: only the parent-child relationship matters." />
+      <AtbFigure notice="the shape is identical on both sides — complete, last level filled left to right — only the value ordering flips. There is no left-vs-right rule anywhere in a heap.">
+        <HeapOrderSVG />
+      </AtbFigure>
+
+      <ReadStep n="2" title="Insertion reorders values, never the structure" sub="During insertion, values are rearranged to maintain the heap property; the structure remains a complete binary tree after each insertion — values are reordered (not repositioned structurally) to satisfy the parent-child constraint." />
+      <AtbStepper
+        title="What happens next? — inserting 95 into the max heap"
+        steps={[
+          {
+            label: "The new value 95 must land so the tree stays COMPLETE — next slot, left to right, at the last level.",
+            detail: "Structure first: the shape rule is non-negotiable.",
+            frame: <AtbCells values={["90", "70", "80", "30", "20", "40", "95"]} tones={["idle", "idle", "idle", "idle", "idle", "idle", "active"]} labels={["root", "", "", "", "", "", "new slot"]} />,
+          },
+          {
+            label: "95 > parent 40 → the VALUES swap to restore ‘parent ≥ child’.",
+            detail: "Values are reordered, not repositioned structurally.",
+            frame: <AtbCells values={["90", "70", "80", "30", "20", "95", "40"]} tones={["idle", "idle", "idle", "idle", "idle", "active", "idle"]} labels={["", "", "", "", "", "swapped up", ""]} />,
+          },
+          {
+            label: "95 > 80 → swaps again. Now 95 reaches… the root.",
+            detail: "The climb continues until its parent is larger — or it becomes the root.",
+            frame: <AtbCells values={["95", "70", "90", "30", "20", "40", "80"]} tones={["twin", "idle", "idle", "idle", "idle", "idle", "idle"]} labels={["new root", "", "", "", "", "", ""]} />,
+          },
+          {
+            label: "Heap property restored — still a complete binary tree, still parent ≥ child everywhere.",
+            detail: "Max heap: higher priority numbers processed first (root = highest priority).",
+            frame: <AtbCells values={["95", "70", "90", "30", "20", "40", "80"]} tones={["done", "done", "done", "done", "done", "done", "done"]} />,
+          },
+        ]}
+      />
+
+      <ReadStep n="3" title="Priority queues — the primary application" sub="Max heap: higher priority elements processed first (higher numbers get higher priority). Min heap: lower priority numbers first (priority 1 before priority 2). Medical example: emergency patients attended before routine cases. System processes take precedence over user-level applications." />
+      <div className="card-warm mt-4 overflow-x-auto p-0">
+        <table className="w-full min-w-[640px] text-left text-[.86rem]">
+          <thead>
+            <tr className="bg-[#fbf3e3]">
+              <th className="px-4 py-2.5 font-extrabold text-[#3e2c1d]">Tree type</th>
+              <th className="px-4 py-2.5 font-extrabold text-[#3e2c1d]">Children limit</th>
+              <th className="px-4 py-2.5 font-extrabold text-[#3e2c1d]">Value ordering</th>
+              <th className="px-4 py-2.5 font-extrabold text-[#3e2c1d]">Key property</th>
+            </tr>
+          </thead>
+          <tbody>
+            {TREE_COMPARE.map(([t, c, o, k]) => (
+              <tr key={t} className="border-t border-[#f3e2c8] bg-[#fffaf1]">
+                <td className="px-4 py-2.5 font-bold text-[#7c4a12]">{t}</td>
+                <td className="px-4 py-2.5 text-[#2b2014]">{c}</td>
+                <td className="px-4 py-2.5 text-[#2b2014]">{o}</td>
+                <td className="px-4 py-2.5 text-[#5b4a33]">{k}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <Quiz
+          q="A hospital queue serves priority 1 before priority 2. Which heap fits?"
+          options={["Max heap", "Min heap", "BST", "AVL tree"]}
+          answer={1}
+          explain="Min heap: lower priority numbers are processed first — the root holds the minimum. The medical example: emergency patients (high urgency, low number) attended before routine cases."
+          source="Lecture 14 · priority queues"
+        />
+        <Quiz
+          q="After inserting into a heap, what changes and what never does?"
+          options={["Structure reshapes freely; values stay", "Values are reordered; the complete-tree structure is preserved", "Both change", "Neither changes"]}
+          answer={1}
+          explain="Values are reordered (not repositioned structurally) to satisfy the parent-child constraint — the structure remains a complete binary tree after each insertion."
+          source="Lecture 14 · heap implementation"
+        />
+      </div>
+
+      <Reveal className="mt-4">
+        <Takeaways
+          items={[
+            <>Tree choice depends on the application; <strong>balance is critical</strong> for search efficiency.</>,
+            <>Value ordering matters when <strong>search is frequent</strong> — BST ordering, AVL auto-balance.</>,
+            <>Heaps enable efficient <strong>priority queues</strong> — complete shape + parent-child ordering.</>,
+            <>Self-balancing trees prevent the <strong>degenerate (linked-list) case</strong> automatically.</>,
           ]}
         />
       </Reveal>

@@ -1,449 +1,514 @@
 "use client";
 
+/* ============================================================
+   ATB · PART I — Lecture 3 (three chapters, rebuilt at
+   transcript depth) + PART V — Lectures 26 & 27 (kept sections).
+   L03 source of truth: scripts/atb_lectures/L03.md.
+   ============================================================ */
+
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import {
-  ArrowDown,
-  ArrowRight,
-  ArrowUp,
-  BadgeCheck,
-  BookOpen,
-  Briefcase,
-  Building2,
-  Check,
-  Compass,
-  FileText,
-  Gauge,
-  GitBranch,
-  Globe,
-  GraduationCap,
-  Handshake,
-  Hourglass,
-  Languages,
-  Layers,
-  Map,
-  Repeat2,
-  Shuffle,
-  Sparkles,
-  Timer,
-  Users,
-  X,
-} from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUp, BookOpen, Briefcase, Building2, Check, Compass, FileText, Gauge, GraduationCap, ShieldCheck, Shuffle, Sparkles, Timer, UserCheck, X } from "lucide-react";
 import { Callout, Practice, Quiz, ReadStep, Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
+import {
+  ATB_BORDER,
+  ATB_OLIVE,
+  AtbCells,
+  AtbFigure,
+  AtbPill,
+  AtbStepper,
+} from "@/components/atb/AtbStepper";
+import { eyebrowOf } from "@/components/atb/lectures";
 
 /* ============================================================
-   MODULE 1 · COURSE MAP (id="coursemap") — Lecture 3
-   The course itself: no-code by design, the 40/60 assessment,
-   the business-analyst bridge, and why machines can't judge.
+   L03 · CHAPTER 1 — THE COURSE MAP (id="coursemap")
    ============================================================ */
 
 const ASSESSMENT = [
   {
     share: 40,
     label: "Quizzes",
-    detail: "3 MCQ quizzes · best TWO marks counted · online from home · attend at least two of three",
+    detail: "three MCQ-based quizzes · best TWO marks counted · attend minimum two of three · online from home",
     color: "#c2410c",
   },
   {
     share: 60,
     label: "Major exam",
-    detail: "descriptive · offline · written at the examination centre",
+    detail: "descriptive · offline · written at the examination centre (physical attendance)",
     color: "#7c9a3e",
   },
 ];
 
 const OBJECTIVES = [
-  { icon: BookOpen, line: "Explain common data structures and their business applications — with no code at all" },
-  { icon: Compass, line: "Identify the right data structure for a given business problem" },
+  { icon: BookOpen, line: "Explain common data structures and their business applications — using a no-code approach" },
+  { icon: Compass, line: "Identify the suitable data structure for a given business problem" },
   { icon: Gauge, line: "Compare algorithmic approaches from managerial and performance perspectives" },
-  { icon: Sparkles, line: "Apply structured logical thinking to real-world business scenarios" },
+  { icon: Briefcase, line: "Apply structured logical thinking to real-world business scenarios" },
 ];
 
-const DATA_TYPES_L3 = [
-  { type: "Integer", purpose: "whole numbers only", example: "marks (0–100) · number of students", color: "#c2410c" },
-  { type: "Float", purpose: "decimal numbers", example: "temperature · interest rates · CGPA", color: "#b45309" },
-  { type: "Boolean", purpose: "two values only (true/false · 0/1)", example: "eligible / not · pass / fail", color: "#7c9a3e" },
-  { type: "Character / Text", purpose: "text and strings", example: "names · addresses · book titles", color: "#8a5a10" },
+const COURSE_RHYTHM = [
+  { tag: "Live sessions", line: "alternate weekends at scheduled times — extra concepts & examples beyond the video content", tone: "active" as const },
+  { tag: "TA sessions", line: "doubt-clearing on alternate weekends — the opposite schedule, so every week has one of the two", tone: "idle" as const },
+  { tag: "Recordings", line: "video content available during the week; live sessions serve as recapitulation with interactive elements", tone: "idle" as const },
 ];
 
-const MISCONCEPTIONS = [
-  "Algorithms cannot be trained by computers — computers run pre-existing algorithms.",
-  "A precise description guarantees nothing if the precision itself is ambiguous.",
-  "Algorithms and coding go hand-in-hand, but they are conceptually distinct.",
-  "Functions are reusable components of algorithms — not replacements for them.",
-  "Boolean beats integer for true/false values: memory efficiency + error prevention.",
-  "Multiple conditions need SEQUENTIAL diamonds — one diamond answers only yes/no.",
-];
+function AssessmentSVG() {
+  return (
+    <AtbFigure notice="quizzes 40 percent best two of three online from home, major exam 60 percent descriptive offline at the examination centre">
+  <svg viewBox="0 0 620 190" className="h-auto w-full" role="img" aria-label="Course assessment split: quizzes 40 percent best two of three online from home, major exam 60 percent descriptive offline at the examination centre">
+      <defs>
+        <marker id="atbCmA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c99a5b" /></marker>
+      </defs>
+      <rect x={40} y={40} width={248} height={92} rx={14} fill="#f5c889" stroke="#c2410c" strokeWidth={2} />
+      <text x={164} y={72} textAnchor="middle" fontSize={30} fontWeight={900} fill="#7c4a12">40%</text>
+      <text x={164} y={94} textAnchor="middle" fontSize={12} fontWeight={800} fill="#2b2014">Quizzes</text>
+      <text x={164} y={114} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#5b4a33">3 MCQ quizzes · best two counted</text>
+      <rect x={332} y={40} width={248} height={92} rx={14} fill="#eef4dd" stroke={ATB_OLIVE} strokeWidth={2} />
+      <text x={456} y={72} textAnchor="middle" fontSize={30} fontWeight={900} fill="#3c521b">60%</text>
+      <text x={456} y={94} textAnchor="middle" fontSize={12} fontWeight={800} fill="#2b2014">Major exam</text>
+      <text x={456} y={114} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#44621d">descriptive · offline · exam centre</text>
+      <text x={164} y={156} textAnchor="middle" fontSize={9} fontWeight={700} fill="#8a6b45">online from home · attend ≥ 2 of 3</text>
+      <text x={456} y={156} textAnchor="middle" fontSize={9} fontWeight={700} fill="#8a6b45">physical attendance required</text>
+      <text x={310} y={30} textAnchor="middle" fontSize={10} fontWeight={800} fill="#8a6b45">the official 40 / 60 split — reproduced verbatim from Lecture 3</text>
+    </svg>
+</AtbFigure>
+  );
+}
 
 export function AtbCourseMapSection() {
   return (
     <Section id="coursemap">
       <SectionHead
-        eyebrow="Module 1 · Lecture 3 · Course overview"
+        eyebrow={eyebrowOf("coursemap")}
         title={
           <>
-            The course, the marks, and the <span className="grad-text">bridge</span> between business and machines
+            The course, <span className="grad-text">mapped</span>
           </>
         }
-        lead="Before a single data structure: what this course is (no-code, business-first), how it is graded (40/60), who turns business wishes into machine-readable specifications — and why 'looks okay' is the enemy."
+        lead="No-code by design: this course teaches the logic of algorithms and data structures for business — and the assessment is exactly 40% quizzes, 60% major exam."
       />
 
-      <ReadStep n="1" title="The course at a glance" sub="Logic over syntax: the reference is Codeless Data Structures and Algorithms by Subramanya, and it complements coding courses like Python." />
+      <ReadStep n="1" title="Who teaches it, and how" sub="Associate Professor in Information Systems and Digital Transformation — IT at Guru Ghasidas Central University, MTECH in Industrial Engineering and Management, PhD in Business Information Systems from Trinity College, Dublin, with research and teaching across CSIR and industry." />
+      <p className="text-[.95rem] leading-relaxed text-[#2b2014]">
+        The approach is <strong>no-code</strong>: logic rather than programming-language syntax, with business-relevant
+        applications of data structures and algorithms. The reference textbook is <em>“Codeless Data Structures and
+        Algorithm”</em> by Subramanya, and the course complements coding courses (such as Python) by focusing on
+        conceptual understanding.
+      </p>
 
-      <div className="grid gap-4 lg:grid-cols-5">
-        <Reveal className="lg:col-span-3">
-          <div className="card-warm lift h-full p-5">
-            <span className="chip">The approach</span>
-            <ul className="mt-3 grid gap-2.5">
-              {[
-                "No-code: focus on logic and building blocks, never on programming-language syntax",
-                "Business-relevant applications of data structures and algorithms throughout",
-                "Complements coding courses (such as Python) by owning the conceptual layer",
-                "Live sessions on alternate weekends · TA doubt-clearing on the opposite weekends",
-                "Video recordings available — live sessions add extra examples on top of the deck",
-              ].map((l) => (
-                <li key={l} className="flex items-start gap-2.5 text-[.87rem] leading-relaxed text-[#2b2014]">
-                  <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#5d7a2e]" />
-                  <span>{l}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-        <Reveal delay={120} className="lg:col-span-2">
-          <div className="card-warm lift flex h-full flex-col p-5">
-            <span className="chip">Four objectives</span>
-            <div className="mt-3 grid gap-2">
-              {OBJECTIVES.map((o) => (
-                <div key={o.line} className="flex items-start gap-2.5 rounded-xl border border-[#f3e2c8] bg-[#fffaf1] px-3 py-2">
-                  <o.icon className="mt-0.5 h-4 w-4 shrink-0 text-[#c2410c]" />
-                  <span className="text-[.8rem] leading-snug text-[#2b2014]">{o.line}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Reveal>
-      </div>
-
-      {/* the 40/60 assessment machine */}
-      <ReadStep n="2" title="The assessment scale" sub="Forty percent rides on three quizzes — the best two scores are the ones that count." />
-      <Reveal>
-        <div className="card-warm lift p-6">
-          <div className="flex overflow-hidden rounded-2xl border border-[#f3e2c8]">
-            {ASSESSMENT.map((a, i) => (
-              <motion.div
-                key={a.label}
-                className="relative flex min-h-[92px] flex-col justify-center px-4 py-3"
-                style={{ background: a.color }}
-                initial={{ width: 0 }}
-                whileInView={{ width: `${a.share}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: 0.2 + i * 0.25, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <span className="text-2xl font-black text-white/95">{a.share}%</span>
-                <span className="text-[.78rem] font-extrabold uppercase tracking-[.12em] text-white/85">{a.label}</span>
-              </motion.div>
-            ))}
-          </div>
-          <div className="mt-3 grid gap-2 md:grid-cols-2">
-            {ASSESSMENT.map((a) => (
-              <p key={a.label} className="text-[.8rem] leading-relaxed text-muted-warm">
-                <strong className="text-[#3e2c1d]">{a.label} · </strong>
-                {a.detail}
-              </p>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
-      <ReadStep n="3" title="Data types, chosen for the business" sub="Classical languages demand predefined types; Python infers them. Either way, the type is a business decision — not a technical accident." />
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {DATA_TYPES_L3.map((d, i) => (
-          <Reveal key={d.type} delay={i * 90}>
-            <div className="card-warm lift h-full p-4">
-              <span className="font-mono text-[.68rem] font-extrabold uppercase tracking-[.1em]" style={{ color: d.color }}>
-                {d.type}
-              </span>
-              <p className="mt-1 text-[.8rem] leading-snug text-[#2b2014]">{d.purpose}</p>
-              <p className="mt-2 border-t border-[#f3e2c8] pt-2 text-[.74rem] leading-snug text-[#8a6b45]">{d.example}</p>
+      <ReadStep n="2" title="Four course objectives" sub="Explain · identify · compare · apply — each one managerial, not syntactic." />
+      <div className="mt-4 grid gap-3 md:grid-cols-2">
+        {OBJECTIVES.map((o, i) => (
+          <Reveal key={o.line} delay={i * 80}>
+            <div className="flex items-start gap-2.5 rounded-xl border border-[#f3e2c8] bg-[#fffaf1] px-3.5 py-3">
+              <o.icon className="mt-0.5 h-4 w-4 shrink-0 text-[#c2410c]" />
+              <span className="text-[.85rem] leading-snug text-[#2b2014]">{o.line}</span>
             </div>
           </Reveal>
         ))}
       </div>
-      <Reveal className="mt-4">
-        <Callout kind="story" title="The customer-ID trap">
-          A customer ID like <strong>B26-SME-001</strong> mixes letters and numbers — so it must be stored as{" "}
-          <strong>text, not a number</strong>. Type selection needs business-domain understanding, end-user
-          consultation, and the business analyst who bridges the two worlds.
-        </Callout>
-      </Reveal>
 
-      {/* the BA bridge machine */}
-      <ReadStep n="4" title="The business-analyst bridge" sub="From domain experts to developers — requirements become an SRS, and the SRS becomes design documents." />
-      <Reveal>
-        <div className="card-warm lift p-5">
-          <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
-            {[
-              { icon: Users, label: "Domain experts & end-users", sub: "requirements live here" },
-              { icon: Handshake, label: "Business analyst", sub: "collects · prepares the SRS · designs documents" },
-              { icon: Building2, label: "Developers", sub: "technical requirements land here" },
-            ].map((s, i) => (
-              <div key={s.label} className="flex flex-1 items-center gap-3 md:contents">
-                <motion.div
-                  className="flex flex-1 items-center gap-3 rounded-2xl border border-[#f3e2c8] bg-[#fffaf1] p-4"
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.18 }}
-                >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl" style={{ background: i === 1 ? "rgba(245,158,11,.18)" : "rgba(124,154,62,.16)" }}>
-                    <s.icon className="h-4 w-4" style={{ color: i === 1 ? "#b45309" : "#5d7a2e" }} />
-                  </span>
-                  <div>
-                    <p className="text-[.86rem] font-extrabold text-[#3e2c1d]">{s.label}</p>
-                    <p className="text-[.74rem] text-muted-warm">{s.sub}</p>
-                  </div>
-                </motion.div>
-                {i < 2 ? (
-                  <svg viewBox="0 0 60 24" className="hidden h-6 w-14 shrink-0 md:block" aria-hidden>
-                    <path d="M2 12 H50" stroke="#c2410c" strokeWidth="2.5" fill="none" />
-                    <path d="M46 5 L56 12 L46 19" stroke="#c2410c" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                ) : null}
+      <AtbFigure notice="the split is asymmetric on purpose: the 40% half is attempted from home in three sittings with your best two counting, while the full 60% lands on one descriptive paper at the centre.">
+        <AssessmentSVG />
+      </AtbFigure>
+
+      <ReadStep n="3" title="The weekend rhythm" sub="Live sessions and TA doubt-clearing alternate weekends on opposite schedules; recordings fill the gaps." />
+      <div className="mt-4 grid gap-3">
+        {COURSE_RHYTHM.map((r, i) => (
+          <Reveal key={r.tag} delay={i * 80}>
+            <div className="flex items-start gap-3 rounded-xl border border-[#f3e2c8] bg-[#fffaf1] px-3.5 py-3">
+              <span className="mt-0.5 rounded-full px-2 py-0.5 text-[.62rem] font-black uppercase tracking-[.14em]" style={{ background: r.tone === "active" ? "#f5c889" : "#f0e3cc", color: "#7c4a12" }}>
+                {r.tag}
+              </span>
+              <span className="text-[.85rem] leading-snug text-[#2b2014]">{r.line}</span>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
+      <AtbStepper
+        title="What happens next? — from a business need to running software"
+        steps={[
+          {
+            label: "The business feels a need (‘we must track stock’). A domain expert describes it in business language.",
+            detail: "Requirements live with the people who own the problem.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="owner" v="business expert" tone="active" />
+                <AtbPill k="language" v="business terms" />
               </div>
-            ))}
-          </div>
-          <div className="mt-4 grid gap-3 md:grid-cols-2">
-            <Callout kind="warn" title="System check vs human check">
-              A system validates <strong>type and range</strong> (a mark must be 0–100 — 63 passes). A human catches{" "}
-              <strong>logical errors</strong> (the employee meant 65, not 63). Both layers are needed.
-            </Callout>
-            <Callout kind="insight" title="Real-time? It depends">
-              UPI shows the confirmation <strong>instantly</strong> but settles in the backend every two hours; daily
-              summaries run at midnight, not continuously. Business requirements — not technology — set the frequency,
-              and periodic maintenance windows keep heavy jobs off the critical path.
-            </Callout>
-          </div>
-        </div>
-      </Reveal>
+            ),
+          },
+          {
+            label: "The business analyst collects the requirements and writes the SRS document.",
+            detail: "Software Requirement Specification — the bridge artefact between business and technology.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="author" v="business analyst" tone="active" />
+                <AtbPill k="document" v="SRS" tone="twin" />
+              </div>
+            ),
+          },
+          {
+            label: "The SRS is converted into technical requirements for developers; design documents and diagrams follow.",
+            detail: "The BA acts as the bridge between business and technology teams.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="reader" v="developers" tone="active" />
+                <AtbPill k="artefacts" v="design docs · diagrams" tone="twin" />
+              </div>
+            ),
+          },
+          {
+            label: "Software ships — then business requirements keep deciding how often each function runs.",
+            detail: "Not every function needs real-time execution: some run on fixed intervals; heavy computations get periodic maintenance windows.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="cadence" v="per business need" tone="twin" />
+                <AtbPill k="heavy work" v="maintenance windows" tone="broken" />
+              </div>
+            ),
+          },
+        ]}
+      />
 
-      <Reveal className="mt-5">
-        <div className="card-warm lift p-5">
-          <span className="chip">Misconceptions, corrected</span>
-          <ul className="mt-3 grid gap-2 md:grid-cols-2">
-            {MISCONCEPTIONS.map((m) => (
-              <li key={m} className="flex items-start gap-2.5 text-[.82rem] leading-relaxed text-[#2b2014]">
-                <X className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#b05050]" />
-                <span>{m}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Reveal>
-
-      <Reveal className="mt-5">
-        <div className="grid gap-4 md:grid-cols-2">
-          <Quiz
-            q="Three MCQ quizzes, best two counted — what share of the final marks do the quizzes carry?"
-            options={["20%", "40%", "50%", "60%"]}
-            answer={1}
-            explain="Quizzes are 40% (three MCQ-based quizzes, best two marks counted, taken online from home). The major exam is the other 60% — descriptive, offline, at the examination centre."
-            source="Lecture 3 · course overview"
-          />
-          <Quiz
-            q="A discount engine accepts any purchase amount typed as text. Which pairing is the actual failure?"
-            options={[
-              "Data type — amounts must be numeric (integer/float), not text",
-              "Finiteness — the engine never ends",
-              "Generality — it works for every customer",
-              "Feasibility — it cannot be implemented",
-            ]}
-            answer={0}
-            explain="Text-typed amounts are a data-type selection failure: the business meaning (a monetary value) demands a numeric type. Range and type checks are the system's job; catching 'I meant 65, not 63' is the human/managerial layer."
-            source="Lecture 3 · data types & validation"
-          />
-        </div>
-      </Reveal>
-
-      <Reveal className="mt-4">
-        <Practice
-          title="Bridge work"
-          items={[
-            { q: "A university stores course-completion status, student names and CGPA. Assign the correct data type to each and justify in one line.", hint: "Boolean (yes/no) · Character/Text · Float (CGPA carries decimals)." },
-            { q: "The registrar says 'process marks in real time', but the exam office only needs totals at midnight. What would you build, and why?", hint: "Business requirements set processing frequency — a midnight batch summary, not continuous real-time compute." },
-          ]}
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <Quiz
+          q="Course assessment, exactly as announced: quizzes and major exam are weighted…"
+          options={["50 / 50", "40 / 60", "30 / 70", "60 / 40"]}
+          answer={1}
+          explain="Quizzes 40% (three MCQ-based quizzes, best two marks counted, minimum two of three attended, online from home) and the major exam 60% (descriptive, offline, at the examination centre)."
+          source="Lecture 3 · course overview"
         />
-      </Reveal>
-
-      <Reveal className="mt-4">
-        <Takeaways
-          items={[
-            <>The course is <strong>no-code and business-first</strong> — quizzes 40% (best two of three), major exam 60%.</>,
-            <>Data types are <strong>business decisions</strong>: Integer, Float, Boolean, Character/Text — chosen with domain experts, not guessed.</>,
-            <>The <strong>business analyst</strong> bridges business and technology: requirements → SRS → design documents for developers.</>,
-            <>Not everything needs real-time execution — <strong>UPI settles every two hours</strong>; daily summaries run at midnight.</>,
-            <>Machines need <strong>objective, measurable criteria</strong> — "gentle boil" and "looks okay" are where algorithms break.</>,
-          ]}
+        <Quiz
+          q="Which textbook does the course follow?"
+          options={["Introduction to Algorithms (CLRS)", "Codeless Data Structures and Algorithm — Subramanya", "The Art of Computer Programming", "Algorithms Unlocked"]}
+          answer={1}
+          explain="The official reference is ‘Codeless Data Structures and Algorithm’ by Subramanya — matching the no-code, business-first approach."
+          source="Lecture 3 · course overview"
         />
-      </Reveal>
+      </div>
     </Section>
   );
 }
 
 /* ============================================================
-   MODULE 1 · EXECUTION PROPERTIES (id="props2") — Lecture 5
-   The second set of properties in depth + the property clinic.
+   L03 · CHAPTER 2 — ALGORITHM VS CODE (id="algvscode")
    ============================================================ */
 
-const PROPS2 = [
-  {
-    icon: Languages,
-    name: "Language independence",
-    rule: "Express the logic in generic steps that survive translation into any language.",
-    yes: "A bonus calculation written in plain English re-expresses as C, Java or Python with identical logic.",
-    no: "The bonus logic hard-wired into one Python-specific line — change the language, lose the algorithm.",
-  },
-  {
-    icon: Repeat2,
-    name: "Determinism",
-    rule: "Same input consistently produces the same output, across every execution.",
-    yes: "Loan approval: income > ₹50,000 AND credit > 700 → the same verdict every single run.",
-    no: "Visa approval rides on an officer's subjective judgement of trustworthiness — different verdicts, different runs.",
-  },
-  {
-    icon: Hourglass,
-    name: "Feasibility",
-    rule: "Implementable realistically within available memory, processing power and time.",
-    yes: "Payroll reads one employee record at a time: calculate, pay slip, next.",
-    no: "Loading ALL employee records into memory simultaneously — very costly and impractical.",
-  },
-  {
-    icon: Globe,
-    name: "Generality",
-    rule: "Handles all valid instances of the problem — no special cases, no favourites.",
-    yes: "A bonus rule keyed on annual sales applies to every employee equally.",
-    no: "Assigning the bonus only to employees named 'Rahul' — specific, unethical, unimplementable.",
-  },
-];
-
-const FEASIBILITY_TIMELINE = [
-  { era: "1990s", label: "Cloud computing", note: "the technology existed — slow internet and high costs made it infeasible; cheaper infrastructure brought it to life", ok: false },
-  { era: "1970s", label: "Machine learning / AI", note: "algorithms existed since the 1970s — feasible only once compute, data and memory got cheap", ok: false },
-  { era: "Now", label: "Both are everywhere", note: "feasibility is a moving target: the same idea is infeasible in one decade and inevitable in the next", ok: true },
-];
-
-export function AtbProps2Section() {
+function TeaPrecisionSVG() {
   return (
-    <Section id="props2">
+    <AtbFigure notice="The single instruction Add water unpacked into find the water, locate the container, fill it, pour it — human intuition versus the machine that cannot assume">
+  <svg viewBox="0 0 640 210" className="h-auto w-full" role="img" aria-label="The single instruction Add water unpacked into find the water, locate the container, fill it, pour it — human intuition versus the machine that cannot assume">
+      <defs>
+        <marker id="atbAvA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c99a5b" /></marker>
+      </defs>
+      <rect x={40} y={30} width={130} height={36} rx={8} fill="#f5c889" stroke="#c2410c" strokeWidth={1.6} />
+      <text x={105} y={53} textAnchor="middle" fontSize={12} fontWeight={800} fill="#2b2014">“Add water”</text>
+      <text x={105} y={86} textAnchor="middle" fontSize={10} fontWeight={800} fill="#44621d">a human infers</text>
+      <text x={105} y={102} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#5b4a33">all of this without</text>
+      <text x={105} y={118} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#5b4a33">being told</text>
+      <path d="M170 48 H 240" stroke="#c99a5b" strokeWidth={2} markerEnd="url(#atbAvA)" fill="none" />
+      {[
+        { x: 260, t: "1 · find the water" },
+        { x: 388, t: "2 · locate the container" },
+        { x: 516, t: "3 · fill it" },
+        { x: 516, t2: "4 · pour it", y2: 74 },
+      ].map((s) => (
+        <g key={s.t}>
+          <rect x={s.x} y={40} width={118} height={34} rx={8} fill="#fffaf1" stroke="#e9d7bf" />
+          <text x={s.x + 59} y={61} textAnchor="middle" fontSize={9.5} fontWeight={800} fill="#2b2014">{s.t}</text>
+        </g>
+      ))}
+      <rect x={516} y={78} width={118} height={34} rx={8} fill="#fffaf1" stroke="#e9d7bf" />
+      <text x={575} y={99} textAnchor="middle" fontSize={9.5} fontWeight={800} fill="#2b2014">4 · pour it</text>
+      <text x={105} y={160} textAnchor="middle" fontSize={10} fontWeight={800} fill="#7c4a12">a machine cannot assume or infer</text>
+      <text x={105} y={178} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#8a6b45">each hidden step must be written out</text>
+      <text x={400} y={160} textAnchor="middle" fontSize={10} fontWeight={800} fill="#44621d">details added progressively → algorithm quality improves</text>
+      <text x={400} y={178} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#8a6b45">prerequisites (equipment) come before the process</text>
+    </svg>
+</AtbFigure>
+  );
+}
+
+export function AtbAlgoVsCodeSection() {
+  return (
+    <Section id="algvscode">
       <SectionHead
-        eyebrow="Module 1 · Lecture 5 · Properties, second set"
+        eyebrow={eyebrowOf("algvscode")}
         title={
           <>
-            The <span className="grad-text">execution</span> family, interrogated
+            Algorithm <span className="grad-text">vs</span> code — and the machine that cannot guess
           </>
         }
-        lead="Five core properties make an algorithm; four execution-and-design properties decide whether it can actually be built, trusted and generalised. This lecture puts each of the four on the stand."
+        lead="An algorithm is a set of organized, step-by-step instructions converting input data into desired output. Code is just one language’s implementation of it. The logic is the asset — and it must be precise, because computers cannot assume or infer."
       />
 
-      <ReadStep n="1" title="Four properties, each with a twin" sub="Hover a card: the green twin passes, the red twin fails the property outright." />
+      <ReadStep n="1" title="“Add water” is four instructions for a machine" sub="Intuitive processes become complex when written step-by-step — prerequisites (equipment needed) must be defined before the process itself." />
+      <p className="text-[.95rem] leading-relaxed text-[#2b2014]">
+        Teaching machines — robots or algorithms — demands precision that everyday language never carries. The tea
+        exercise shows it: defining prerequisites first, then adding details progressively improves algorithm
+        quality. All algorithms are <strong>simplifications of real-world processes</strong> that grow more exact
+        with every detail added.
+      </p>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        {PROPS2.map((p, i) => (
-          <Reveal key={p.name} delay={(i % 2) * 110}>
-            <div className="card-warm lift group flex h-full flex-col p-5">
-              <div className="flex items-center gap-2.5">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: "rgba(245,158,11,.16)" }}>
-                  <p.icon className="h-4 w-4 text-[#b45309]" />
-                </span>
-                <h3 className="font-extrabold text-[#3e2c1d]">{p.name}</h3>
+      <AtbFigure notice="the four sub-steps a person infers silently are exactly the four a machine must be told — that gap is the whole discipline.">
+        <TeaPrecisionSVG />
+      </AtbFigure>
+
+      <AtbStepper
+        title="What happens next? — refining one vague step into four real ones"
+        steps={[
+          {
+            label: "The recipe says: ‘Add water’. A human nods; a machine stalls.",
+            detail: "No quantity, no source, no container, no action order.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="instruction" v="‘Add water’" tone="broken" />
+                <AtbPill k="machine can act?" v="no" tone="broken" />
               </div>
-              <p className="mt-2 text-[.84rem] leading-relaxed text-muted-warm">{p.rule}</p>
-              <div className="mt-3 grid gap-2">
-                <div className="flex items-start gap-2 rounded-lg px-2.5 py-1.5" style={{ background: "#eef4dd" }}>
-                  <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#5d7a2e] transition-transform duration-300 group-hover:scale-125" />
-                  <span className="text-[.78rem] leading-snug text-[#44621d]">{p.yes}</span>
-                </div>
-                <div className="flex items-start gap-2 rounded-lg px-2.5 py-1.5" style={{ background: "#fdecec" }}>
-                  <X className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#b05050] transition-transform duration-300 group-hover:scale-125" />
-                  <span className="text-[.78rem] leading-snug text-[#8c2f2f]">{p.no}</span>
-                </div>
+            ),
+          },
+          {
+            label: "Unpack 1: FIND the water — where is it stored?",
+            detail: "Every implicit prerequisite becomes an explicit step.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="step 1" v="find the water" tone="twin" />
+                <AtbPill k="instruction" v="‘Add water’ + 1" />
               </div>
+            ),
+          },
+          {
+            label: "Unpack 2–3: LOCATE the container, FILL it.",
+            detail: "Equipment prerequisites surface: which container? how much?",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="steps 2–3" v="locate · fill" tone="twin" />
+              </div>
+            ),
+          },
+          {
+            label: "Unpack 4: POUR — now the machine can execute every token.",
+            detail: "Four measurable actions replaced one subjective phrase. That is algorithm quality improving.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="steps" v="4 explicit" tone="twin" />
+                <AtbPill k="machine can act?" v="yes" tone="twin" />
+              </div>
+            ),
+          },
+        ]}
+      />
+
+      <ReadStep n="2" title="Algorithm vs code — three distinctions" sub="Algorithm = what to do; code = how to implement. Legacy one-off programs vs cloud-reused parameterised solutions. Pseudocode bridges the two." />
+      <div className="mt-4 grid gap-3 md:grid-cols-3">
+        {[
+          { t: "Algorithm vs language", d: "The algorithm is independent of language choice; the same one may be easier or harder to implement in different languages. Quality is language-independent." },
+          { t: "One-time vs reusable", d: "Legacy: custom programs written for individual companies. Modern: cloud-based solutions reuse the same code for multiple organizations — parameterization lets one codebase serve diverse needs." },
+          { t: "Pseudocode vs code", d: "Pseudocode uses English-like language; programming code uses language-specific syntax. Pseudocode is the intermediate step that eases conversion to actual code." },
+        ].map((c, i) => (
+          <Reveal key={c.t} delay={i * 90}>
+            <div className="card-warm h-full p-4">
+              <p className="font-extrabold text-[#3e2c1d]">{c.t}</p>
+              <p className="mt-2 text-[.82rem] leading-relaxed text-[#2b2014]">{c.d}</p>
             </div>
           </Reveal>
         ))}
       </div>
 
-      <ReadStep n="2" title="Feasibility is a moving target" sub="The same brilliant idea can be infeasible for decades — then inevitable." />
-      <Reveal>
-        <div className="card-warm lift p-5">
-          <div className="grid gap-3 md:grid-cols-3">
-            {FEASIBILITY_TIMELINE.map((f, i) => (
-              <motion.div
-                key={f.label}
-                className="rounded-2xl border border-[#f3e2c8] bg-[#fffaf1] p-4"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.16 }}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="rounded-full bg-[#f6e3c8] px-2 py-0.5 text-[.62rem] font-extrabold text-[#8a4508]">{f.era}</span>
-                  <span className={`h-2 w-2 rounded-full ${f.ok ? "bg-[#7c9a3e]" : "bg-[#b45309]"}`} />
-                </div>
-                <p className="mt-2 text-[.86rem] font-extrabold text-[#3e2c1d]">{f.label}</p>
-                <p className="mt-1 text-[.76rem] leading-relaxed text-muted-warm">{f.note}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
-      <ReadStep n="3" title="The property clinic" sub="Two review questions from the lecture — diagnose the violation before you peek." />
-      <Reveal>
-        <div className="grid gap-4 md:grid-cols-2">
-          <Quiz
-            q="An algorithm randomly chooses a discount between 5% and 20% for all customers. Which property does it fail?"
-            options={["Finiteness", "Determinism", "Definiteness", "Generality"]}
-            answer={1}
-            explain="Randomness breaks determinism: the same purchase amount can receive different discounts on different runs, and algorithms must produce the same output for the same input. Randomness may even be company policy — it still violates the algorithmic principle."
-            source="Lecture 5 · review question 1"
-          />
-          <Quiz
-            q="Customer submits complaint → determine the customer's true intention → provide solution. Which property fails?"
-            options={["Effectiveness", "Definiteness", "Feasibility", "Language independence"]}
-            answer={2}
-            explain="Step 2 — 'determine the customer's true intention' — is not strictly executable by a computing system without extremely complex machinery (AI with facial recognition and more). Impractical for a standard complaint system: a failure of feasibility."
-            source="Lecture 5 · review question 2"
-          />
-        </div>
-      </Reveal>
-
-      <Reveal className="mt-4">
-        <Callout kind="insight" title="The properties interlock">
-          An infinite loop violates <strong>finiteness</strong> and compromises <strong>effectiveness</strong>. Missing{" "}
-          <strong>well-defined outputs</strong> usually means the <strong>inputs</strong> were unclear too. And once{" "}
-          <strong>definiteness</strong> is broken, well-defined outputs become impossible. Fix the first crack — the
-          rest of the wall follows.
+      <Reveal className="mt-6">
+        <Callout kind="insight" title="Subjective machines — the design challenge">
+          “Gentle boil” and “looks okay” are fine for people and useless for machines: computers require
+          <strong> objective, measurable criteria</strong> for decision-making. Human interpretation and subjective
+          judgment remain areas where AI still struggles compared to human intelligence.
         </Callout>
       </Reveal>
 
       <Reveal className="mt-4">
-        <Takeaways
-          items={[
-            <>Execution &amp; design properties: <strong>language independence, determinism, feasibility, generality</strong>.</>,
-            <>Determinism = loan approval (fixed criteria) — not visa approval (subjective judgement).</>,
-            <>Feasibility moves with technology: <strong>cloud</strong> waited for internet speeds, <strong>ML</strong> waited for cheap compute.</>,
-            <>Generality means <strong>all valid inputs</strong>, never a special case — no bonuses for people named Rahul.</>,
-          ]}
-        />
+        <Callout kind="warn" title="Misconceptions the live session retired">
+          Computers cannot be <em>trained</em> with new algorithms at first — they operate through pre-existing ones ·
+          precise descriptions do not guarantee perfect results if the precision itself is ambiguously defined ·
+          algorithms and coding go hand-in-hand but are conceptually distinct · functions are reusable components
+          <em> of</em> algorithms, not replacements for them · Boolean is preferred over integer for true/false —
+          memory efficiency and error prevention · flow diagrams use <strong>sequential diamonds</strong> for
+          multiple conditions; a single diamond allows only yes/no branching.
+        </Callout>
       </Reveal>
+
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <Quiz
+          q="Why is algorithm quality language-independent?"
+          options={["It compiles the same everywhere", "Quality lives in the logic, not the syntax", "All languages share keywords", "Pseudocode is a language"]}
+          answer={1}
+          explain="The algorithm focuses on what to do; code focuses on how to implement. The same algorithm may be easier or harder in different languages — but its quality is judged on the logic."
+          source="Lecture 3 · algorithm vs code"
+        />
+        <Quiz
+          q="Modern cloud solutions replace legacy custom programs mainly through…"
+          options={["Faster servers", "Parameterization — one codebase serves many organizations", "Hiring more developers", "Rewriting in Python"]}
+          answer={1}
+          explain="Parameterization enables a single codebase to serve diverse needs — the modern approach reuses the same code across users/organizations instead of one-off custom programs."
+          source="Lecture 3 · distinctions"
+        />
+      </div>
+    </Section>
+  );
+}
+
+/* ============================================================
+   L03 · CHAPTER 3 — TYPES & THE BA BRIDGE (id="babridge")
+   ============================================================ */
+
+const TYPE_TABLE: [string, string, string][] = [
+  ["Integer", "Whole numbers only", "Marks (0–100), number of students"],
+  ["Float / Floating Point", "Decimal numbers", "Temperature, interest rates, CGPA"],
+  ["Boolean", "Two values only (true/false or 0/1)", "Eligible/not eligible, pass/fail"],
+  ["Character / Text", "Text and strings", "Names, addresses, book titles"],
+];
+
+function BaBridgeSVG() {
+  return (
+    <AtbFigure notice="business experts on the left, developers on the right, the BA in the middle converting requirements into an SRS and design documents">
+  <svg viewBox="0 0 640 180" className="h-auto w-full" role="img" aria-label="The business analyst bridge: business experts on the left, developers on the right, the BA in the middle converting requirements into an SRS and design documents">
+      <defs>
+        <marker id="atbBaA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker>
+        <marker id="atbBaB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill={ATB_OLIVE} /></marker>
+      </defs>
+      <rect x={30} y={50} width={160} height={80} rx={12} fill="#fffaf1" stroke="#e9d7bf" />
+      <text x={110} y={82} textAnchor="middle" fontSize={11} fontWeight={800} fill="#2b2014">Business domain</text>
+      <text x={110} y={100} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#5b4a33">end-users · experts</text>
+      <text x={110} y={116} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#5b4a33">requirements in</text>
+      <text x={110} y={130} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#5b4a33">business language</text>
+      <path d="M190 90 H 262" stroke="#c2410c" strokeWidth={2} markerEnd="url(#atbBaA)" fill="none" />
+      <rect x={262} y={44} width={120} height={92} rx={12} fill="#f5c889" stroke="#c2410c" strokeWidth={2} />
+      <text x={322} y={76} textAnchor="middle" fontSize={11.5} fontWeight={900} fill="#2b2014">Business</text>
+      <text x={322} y={92} textAnchor="middle" fontSize={11.5} fontWeight={900} fill="#2b2014">Analyst</text>
+      <text x={322} y={112} textAnchor="middle" fontSize={9} fontWeight={700} fill="#5b4a33">SRS document</text>
+      <text x={322} y={126} textAnchor="middle" fontSize={9} fontWeight={700} fill="#5b4a33">design docs · diagrams</text>
+      <path d="M382 90 H 454" stroke={ATB_OLIVE} strokeWidth={2} markerEnd="url(#atbBaB)" fill="none" />
+      <rect x={454} y={50} width={160} height={80} rx={12} fill="#fffaf1" stroke="#e9d7bf" />
+      <text x={534} y={82} textAnchor="middle" fontSize={11} fontWeight={800} fill="#2b2014">Developers</text>
+      <text x={534} y={100} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#5b4a33">technical requirements</text>
+      <text x={534} y={116} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#5b4a33">implementation</text>
+      <text x={320} y={165} textAnchor="middle" fontSize={10} fontWeight={800} fill="#7c4a12">the bridge between business requirements and technical implementation</text>
+    </svg>
+</AtbFigure>
+  );
+}
+
+export function AtbBaBridgeSection() {
+  return (
+    <Section id="babridge">
+      <SectionHead
+        eyebrow={eyebrowOf("babridge")}
+        title={
+          <>
+            Data types, validation &amp; the <span className="grad-text">BA bridge</span>
+          </>
+        }
+        lead="Choosing a data type is a business decision — and when the machine’s checks pass but the value is still wrong, a human judgement (and often a business analyst) has to close the gap."
+      />
+
+      <ReadStep n="1" title="Why data types exist" sub="Define what a variable can store · optimize memory usage · prevent errors by restricting invalid inputs. Classical languages require predefined types; modern languages like Python can infer them." />
+      <div className="card-warm mt-4 overflow-x-auto p-0">
+        <table className="w-full text-left text-[.86rem]">
+          <thead>
+            <tr className="bg-[#fbf3e3]">
+              <th className="px-4 py-2.5 font-extrabold text-[#3e2c1d]">Data type</th>
+              <th className="px-4 py-2.5 font-extrabold text-[#3e2c1d]">Purpose</th>
+              <th className="px-4 py-2.5 font-extrabold text-[#3e2c1d]">Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            {TYPE_TABLE.map(([t, p, e]) => (
+              <tr key={t} className="border-t border-[#f3e2c8] bg-[#fffaf1]">
+                <td className="px-4 py-2.5 font-bold text-[#3e2c1d]">{t}</td>
+                <td className="px-4 py-2.5 text-[#2b2014]">{p}</td>
+                <td className="px-4 py-2.5 text-[#5b4a33]">{e}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="mt-3 text-[.9rem] leading-relaxed text-[#2b2014]">
+        Selection needs <strong>business domain understanding</strong>, determined through consultation with end-users
+        and domain experts. The classic trap: a customer ID that mixes letters and numbers must be stored as{" "}
+        <strong>text, not a pure number</strong>.
+      </p>
+
+      <ReadStep n="2" title="Validation has two layers" sub="System-level checks validate type and range (marks between 0–100). The human/managerial layer catches logical errors — the system accepts 63 as valid, but the employee may have meant 65." />
+      <AtbStepper
+        title="What happens next? — a mark of 63 enters the system"
+        steps={[
+          {
+            label: "Entry: the clerk types 63 into the marks field.",
+            detail: "The declared type is integer; the field expects 0–100.",
+            frame: <AtbCells values={[63, null, null, null, null]} tones={["active", "ghost", "ghost", "ghost", "ghost"]} labels={["marks", "", "", "", ""]} />,
+          },
+          {
+            label: "System check: is it an integer? Is it within 0–100? Both pass.",
+            detail: "System-level validation only sees type and range — it cannot read intent.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="type = integer" v="pass" tone="twin" />
+                <AtbPill k="0 ≤ 63 ≤ 100" v="pass" tone="twin" />
+                <AtbPill k="system verdict" v="valid" tone="twin" />
+              </div>
+            ),
+          },
+          {
+            label: "Human check: the student’s paper says 65.",
+            detail: "A logical error — valid data, wrong value. No system check could catch it.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="entered" v={63} tone="broken" />
+                <AtbPill k="intended" v={65} tone="twin" />
+                <AtbPill k="gap" v="human judgement" tone="active" />
+              </div>
+            ),
+          },
+          {
+            label: "Correction entered; the bridge between the two layers is the process, not the code.",
+            detail: "This is exactly where business analysts and domain experts earn their place.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="final value" v={65} tone="twin" />
+                <AtbPill k="caught by" v="managerial review" tone="active" />
+              </div>
+            ),
+          },
+        ]}
+      />
+
+      <ReadStep n="3" title="Real-time or not — the business decides" sub="UPI transfers confirm instantly but backend settlement runs periodically (every two hours); daily sales summaries run at midnight, not continuously. Maintenance windows host heavy computations." />
+      <AtbFigure notice="the user sees an instant confirmation while the settlement quietly runs every two hours — responsiveness for people, batching for machines, each tuned by business requirements.">
+        <BaBridgeSVG />
+      </AtbFigure>
+
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <Quiz
+          q="A customer ID contains letters and digits (e.g. B26-SME-001). Its correct data type is…"
+          options={["Integer", "Float", "Character / text", "Boolean"]}
+          answer={2}
+          explain="Mixed letter–number identifiers must be stored as text — arithmetic on them is meaningless and integer storage would corrupt them."
+          source="Lecture 3 · data types"
+        />
+        <Quiz
+          q="Why is Boolean preferred over integer for true/false values?"
+          options={["It prints nicer", "Memory efficiency and error prevention", "It is faster to type", "Python requires it"]}
+          answer={1}
+          explain="The live session’s stated reasons: a Boolean can only hold two values, so it saves memory and makes invalid states unrepresentable — error prevention."
+          source="Lecture 3 · misconceptions"
+        />
+      </div>
 
       <Reveal className="mt-4">
         <Practice
-          title="Clinic follow-ups"
+          title="Bridge work"
           items={[
-            { q: "A payroll algorithm processes one employee per iteration. Rewrite the infeasible twin and say exactly which resource it abuses.", hint: "Load-all-at-once abuses memory (and compute); one-at-a-time stays within memory, processing power and time." },
-            { q: "Give one instruction an algorithm can execute and one it cannot — then name the property each example proves.", hint: "'If stock < 50, order 200' executes (definiteness). 'Stir until it feels right' cannot (definiteness again — subjectivity)." },
+            { q: "A retailer wants daily totals but instant stock alerts. Which functions run real-time, which run at midnight — and who decides?", hint: "Alerts: real-time (business need). Daily sales summary: fixed interval (midnight). The business requirements determine processing frequency — not the developer’s preference." },
+            { q: "Write the two validation layers for a marks field in one sentence each.", hint: "System: integer within 0–100. Human/managerial: does the entered value match the source document (63 vs 65)?" },
           ]}
         />
       </Reveal>
@@ -596,7 +661,7 @@ export function AtbSelectionSortSection() {
   return (
     <Section id="selectionsort">
       <SectionHead
-        eyebrow="Module 4 · Lecture 26 · Selection sort"
+        eyebrow={eyebrowOf("selectionsort")}
         title={
           <>
             Select it, <span className="grad-text">swap it home</span>
@@ -739,6 +804,58 @@ export function AtbSelectionSortSection() {
           ]}
         />
       </Reveal>
+    
+
+
+      <AtbStepper title="What happens next? — selection sort selects before it swaps" steps={[
+          {
+            label: "Assume the first unsorted element is the minimum. Scan the rest.",
+            detail: "Comparison happens BEFORE any swapping — the bubble-sort contrast.",
+            frame: <AtbCells values={[64, 25, 12, 22]} tones={["active", "idle", "idle", "idle"]} labels={["assumed min", "", "", ""]} />,
+          },
+          {
+            label: "12 is the true minimum — MARK it, but do not swap yet.",
+            detail: "Marking without swapping is the selection discipline.",
+            frame: <AtbCells values={[64, 25, 12, 22]} tones={["idle", "idle", "twin", "idle"]} labels={["", "", "true min", ""]} />,
+          },
+          {
+            label: "One swap: 12 takes the first unsorted position, 64 moves to where 12 was.",
+            detail: "One swap per pass — fewer swaps than bubble sort, but still extensive comparisons.",
+            frame: <AtbCells values={[12, 25, 64, 22]} tones={["done", "idle", "idle", "idle"]} labels={["sorted", "", "", ""]} />,
+          },
+          {
+            label: "Repeat on the shrinking unsorted portion.",
+            detail: "O(n²) — comparable to bubble sort — but the right pick when swaps are expensive.",
+            frame: <AtbCells values={[12, 22, 25, 64]} tones={["done", "done", "done", "done"]} />,
+          },
+        ]} />
+    
+      <AtbFigure notice="the border between the sorted prefix and the unsorted suffix advances exactly one position per pass — one swap per pass, everything else is comparison.">
+        <svg viewBox="0 0 620 130" className="h-auto w-full" role="img" aria-label="Selection sort regions: a sorted prefix of three cells, the current minimum marked in the unsorted suffix, and the swap target at the border">
+          <defs>
+            <marker id="atbSel26" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker>
+          </defs>
+          {[0, 1, 2].map((i) => (
+            <g key={i}>
+              <rect x={40 + i * 92} y={40} width={80} height={38} rx={7} fill="#eef4dd" stroke="#7c9a3e" />
+              <text x={80 + i * 92} y={64} textAnchor="middle" fontSize={13} fontWeight={800} fill="#3c521b">{[12, 22, 25][i]}</text>
+            </g>
+          ))}
+          {[3, 4, 5].map((i) => (
+            <g key={i}>
+              <rect x={40 + i * 92} y={40} width={80} height={38} rx={7} fill="#fffaf1" stroke="#e9d7bf" />
+              <text x={80 + i * 92} y={64} textAnchor="middle" fontSize={13} fontWeight={800} fill="#2b2014">{[64, 30, 45][i]}</text>
+            </g>
+          ))}
+          <rect x={316} y={40} width={80} height={38} rx={7} fill="#f5c889" stroke="#c2410c" strokeWidth={2} />
+          <text x={356} y={64} textAnchor="middle" fontSize={13} fontWeight={900} fill="#2b2014">30</text>
+          <text x={356} y={96} textAnchor="middle" fontSize={9.5} fontWeight={800} fill="#c2410c">marked min — no swap yet</text>
+          <path d="M356 40 C 330 20 280 20 262 36" stroke="#c2410c" strokeWidth={1.8} fill="none" markerEnd="url(#atbSel26)" strokeDasharray="5 4" />
+          <text x={176} y={26} textAnchor="middle" fontSize={10} fontWeight={800} fill="#44621d">sorted prefix — grows one cell per pass</text>
+          <text x={520} y={26} textAnchor="end" fontSize={10} fontWeight={800} fill="#8a6b45">unsorted suffix</text>
+          <text x={120} y={110} fontSize={9.5} fontWeight={700} fill="#8a6b45">the swap fires only once the whole suffix has been compared</text>
+        </svg>
+      </AtbFigure>
     </Section>
   );
 }
@@ -879,7 +996,7 @@ export function AtbInsertionSortSection() {
     <Section id="insertionsort" dark>
       <SectionHead
         dark
-        eyebrow="Module 4 · Lecture 27 · Insertion sort"
+        eyebrow={eyebrowOf("insertionsort")}
         title={
           <>
             Movement, <span className="grad-text">not swapping</span>
@@ -1043,244 +1160,57 @@ export function AtbInsertionSortSection() {
           ]}
         />
       </Reveal>
+
+
+      <AtbStepper
+        title="What happens next? — the key slides home"
+        steps={[
+          {
+            label: "The sorted portion is the first element. The KEY is the second element: 25.",
+            detail: "Start with the second element as the first key.",
+            frame: <AtbCells values={[40, 25, 12, 22]} tones={["done", "active", "idle", "idle"]} labels={["sorted", "key", "", ""]} />,
+          },
+          {
+            label: "Compare the key right-to-left against the sorted part: 25 < 40 → shift 40 right.",
+            detail: "Movement, not swapping — elements shift one position right.",
+            frame: <AtbCells values={[40, 25, 12, 22]} tones={["active", "ghost", "idle", "idle"]} labels={["shifts →", "", "", ""]} />,
+          },
+          {
+            label: "Insert the key into its correct slot: [25, 40 | 12, 22].",
+            detail: "The sorted portion grew by one — like shelving books in a library.",
+            frame: <AtbCells values={[25, 40, 12, 22]} tones={["done", "done", "idle", "idle"]} />,
+          },
+          {
+            label: "Next keys: 12, then 22 — each slides into place. Sorted: [12, 22, 25, 40].",
+            detail: "O(n²) with fewer operations on nearly-sorted data — the growing-dataset favourite.",
+            frame: <AtbCells values={[12, 22, 25, 40]} tones={["done", "done", "done", "done"]} />,
+          },
+        ]}
+      />
+    
+      <AtbFigure notice="the key is lifted out once and the sorted side shifts rightward beneath it — movement, never swapping, until the key drops into its slot.">
+        <svg viewBox="0 0 620 140" className="h-auto w-full" role="img" aria-label="Insertion sort key slide: the key 25 lifted above the row, the sorted value 40 shifting right, an empty slot opening where the key will land">
+          <defs>
+            <marker id="atbIns27" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7c9a3e" /></marker>
+          </defs>
+          <circle cx={310} cy={26} r={17} fill="#f5c889" stroke="#c2410c" strokeWidth={2} />
+          <text x={310} y={31} textAnchor="middle" fontSize={13} fontWeight={900} fill="#2b2014">25</text>
+          <text x={340} y={31} fontSize={10} fontWeight={800} fill="#c2410c">← the key, lifted</text>
+          {[0, 1, 2].map((i) => (
+            <g key={i}>
+              <rect x={150 + i * 92} y={56} width={80} height={38} rx={7} fill={i === 0 ? "#fffaf1" : "#eef4dd"} stroke={i === 0 ? "#e9d7bf" : "#7c9a3e"} />
+              <text x={190 + i * 92} y={80} textAnchor="middle" fontSize={13} fontWeight={800} fill={i === 0 ? "#e0d5c2" : "#3c521b"}>{[40, 40, 12][i]}</text>
+            </g>
+          ))}
+          <rect x={426} y={56} width={80} height={38} rx={7} fill="#fffaf1" stroke="#e9d7bf" strokeDasharray="5 4" />
+          <text x={466} y={80} textAnchor="middle" fontSize={13} fontWeight={800} fill="#a08568">22</text>
+          <path d="M190 50 H 276" stroke="#7c9a3e" strokeWidth={2} fill="none" markerEnd="url(#atbIns27)" />
+          <text x={233} y={118} textAnchor="middle" fontSize={10} fontWeight={800} fill="#44621d">40 shifts right — one position, one movement</text>
+          <text x={520} y={80} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#8a6b45">unsorted</text>
+          <text x={120} y={80} textAnchor="end" fontSize={9.5} fontWeight={700} fill="#44621d">sorted →</text>
+        </svg>
+      </AtbFigure>
     </Section>
   );
 }
 
-/* ============================================================
-   MODULE 4 · FINAL RECAP (id="recap28", dark) — Lecture 28
-   Overview of search algorithms and complexity analysis.
-   ============================================================ */
-
-const BIG_O_LADDER = [
-  { o: "O(1)", name: "Constant", note: "fixed operations regardless of input size — rare in practice", curve: "flat" as const },
-  { o: "O(log n)", name: "Logarithmic", note: "slow growth, ideal for practical applications (halving)", curve: "log" as const },
-  { o: "O(n)", name: "Linear", note: "proportional to input size — manageable", curve: "lin" as const },
-  { o: "O(n log n)", name: "Linearithmic", note: "slightly faster growth than linear, still acceptable", curve: "nlog" as const },
-  { o: "O(n²)", name: "Quadratic", note: "rapid growth, impractical for large datasets", curve: "quad" as const },
-  { o: "O(2ⁿ)", name: "Exponential", note: "extremely rapid — avoid at all costs", curve: "exp" as const },
-];
-
-function CurveRow({ kind }: { kind: "flat" | "log" | "lin" | "nlog" | "quad" | "exp" }) {
-  const paths: Record<string, string> = {
-    flat: "M4 26 H 76",
-    log: "M4 30 C 30 26 52 20 76 14",
-    lin: "M4 30 L 76 10",
-    nlog: "M4 30 C 34 28 58 16 76 6",
-    quad: "M4 31 C 40 30 60 24 76 4",
-    exp: "M4 31 C 56 31 68 28 76 3",
-  };
-  return (
-    <svg viewBox="0 0 80 34" className="h-9 w-20 shrink-0" aria-hidden>
-      <motion.path
-        d={paths[kind]}
-        fill="none"
-        stroke="#f5a623"
-        strokeWidth={2.4}
-        strokeLinecap="round"
-        initial={{ pathLength: 0, opacity: 0 }}
-        whileInView={{ pathLength: 1, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      />
-    </svg>
-  );
-}
-
-const COST_TABLES = [
-  {
-    title: "Arrays",
-    icon: Map,
-    rows: [
-      ["Read with known index", "O(1)", "direct access"],
-      ["Sequential read", "O(n)", "one by one"],
-      ["Search", "O(n)", "linear sweep"],
-      ["Insert at end", "O(1)", "single operation"],
-      ["Insert at begin / middle", "O(n)", "shifting required"],
-      ["Update at a location", "O(1)", "direct modify"],
-      ["Delete by searching", "O(n)", "search first, then delete"],
-    ],
-  },
-  {
-    title: "Linked lists",
-    icon: FileText,
-    rows: [
-      ["Insert in middle", "O(1)", "only links update (2–4 ops)"],
-      ["Insert with search", "O(n)", "search dominates"],
-      ["Search", "O(n)", "traverse one by one"],
-    ],
-  },
-  {
-    title: "Stacks & queues",
-    icon: Layers,
-    rows: [
-      ["Push / pop (stack)", "O(1)", "fixed position: top"],
-      ["Enqueue / dequeue (queue)", "O(1)", "fixed positions: front & rear"],
-      ["Search inside either", "O(n)", "must remove elements to see them"],
-    ],
-  },
-  {
-    title: "Trees & graphs",
-    icon: GitBranch,
-    rows: [
-      ["General tree traversal", "O(n)", "visit every node"],
-      ["Unbalanced binary tree search", "O(n)", "degenerates to a linked list"],
-      ["Balanced BST search", "O(log n)", "space halves at each step"],
-      ["Graph traversal DFS / BFS", "O(V + E)", "all vertices and edges"],
-    ],
-  },
-];
-
-const FIVE_SEARCHES = [
-  { name: "Linear", o: "O(n)", need: "works on unsorted data", note: "simple but inefficient for large datasets" },
-  { name: "Binary", o: "O(log n)", need: "sorted data required", note: "10 million records ≈ 24 comparisons" },
-  { name: "Jump", o: "O(√n)", need: "sorted data required", note: "fixed √n jumps, then a linear sweep in the block" },
-  { name: "Exponential", o: "O(log n)", need: "sorted data required", note: "jumps double (1, 2, 4, 8…), then binary in the range" },
-  { name: "Hash", o: "O(1) avg", need: "well-distributed hash function", note: "worst case O(n) when everything collides" },
-];
-
-export function AtbRecap28Section() {
-  return (
-    <Section id="recap28" dark>
-      <SectionHead
-        dark
-        eyebrow="Module 4 · Lecture 28 · The final overview"
-        title={
-          <>
-            The whole module, <span className="grad-text">stitched shut</span>
-          </>
-        }
-        lead="One last sweep: the Big O ladder, the price list of every data structure you met, and the five searches on a single map. Complexity measures the growth rate — never the stopwatch."
-      />
-
-      <ReadStep n="1" title="The Big O ladder" sub="From fastest to slowest — the growth pattern is the entire story." dark />
-      <Reveal>
-        <div className="card-warm p-5">
-          <div className="grid gap-2.5">
-            {BIG_O_LADDER.map((b, i) => (
-              <motion.div
-                key={b.o}
-                className="flex items-center gap-3 rounded-xl border border-[#f3e2c8] bg-[#fffaf1] px-3 py-2"
-                initial={{ opacity: 0, x: -16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: i * 0.09 }}
-              >
-                <span className="w-24 shrink-0 font-mono text-[.8rem] font-extrabold text-[#c2410c]">{b.o}</span>
-                <span className="w-24 shrink-0 text-[.78rem] font-extrabold text-[#3e2c1d]">{b.name}</span>
-                <CurveRow kind={b.curve} />
-                <span className="ml-auto hidden text-right text-[.74rem] leading-snug text-[#8a6b45] sm:block">{b.note}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
-      <ReadStep n="2" title="Every structure's price list" sub="The operations you can afford — and the ones that quietly cost a full scan." dark />
-      <div className="grid gap-4 md:grid-cols-2">
-        {COST_TABLES.map((t, ti) => (
-          <Reveal key={t.title} delay={(ti % 2) * 120}>
-            <div className="card-warm h-full p-5">
-              <div className="flex items-center gap-2.5">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ background: "rgba(245,158,11,.16)" }}>
-                  <t.icon className="h-4 w-4 text-[#f5c889]" />
-                </span>
-                <h3 className="font-extrabold text-[#f5e6cd]">{t.title}</h3>
-              </div>
-              <div className="mt-3 grid gap-1.5">
-                {t.rows.map(([op, c, note]) => (
-                  <div key={op} className="flex items-baseline gap-2 rounded-lg bg-[rgba(255,236,210,.06)] px-2.5 py-1.5">
-                    <span className="text-[.76rem] leading-snug text-[#e9d7bf]">{op}</span>
-                    <span className="ml-auto shrink-0 font-mono text-[.72rem] font-extrabold" style={{ color: c === "O(1)" || c === "O(log n)" ? "#9cbf62" : "#f5c889" }}>
-                      {c}
-                    </span>
-                    <span className="hidden shrink-0 text-[.68rem] text-[#cbb392] sm:block">· {note}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-      <ReadStep n="3" title="The five searches, side by side" sub="Data size, sorting status, distribution and growth rate — pick the strategy that matches all four." dark />
-      <Reveal>
-        <div className="card-warm overflow-hidden p-0">
-          <div className="grid grid-cols-[auto_1fr_1fr] gap-px bg-[#f3e2c8] text-[.78rem]">
-            <div className="bg-[#fbf3e3] px-3 py-2 font-extrabold text-[#3e2c1d]">Search</div>
-            <div className="bg-[#fbf3e3] px-3 py-2 font-extrabold text-[#3e2c1d]">Requirement</div>
-            <div className="bg-[#fbf3e3] px-3 py-2 font-extrabold text-[#3e2c1d]">Signature move</div>
-            {FIVE_SEARCHES.map((s) => (
-              <div key={s.name} className="contents">
-                <div className="flex items-center gap-2 bg-[#fffaf1] px-3 py-2">
-                  <span className="font-extrabold text-[#3e2c1d]">{s.name}</span>
-                  <span className="font-mono text-[.66rem] font-bold" style={{ color: s.o.startsWith("O(1)") || s.o.startsWith("O(log") ? "#5d7a2e" : "#b45309" }}>
-                    {s.o}
-                  </span>
-                </div>
-                <div className="bg-[#fffaf1] px-3 py-2 text-[#2b2014]">{s.need}</div>
-                <div className="bg-[#fffaf1] px-3 py-2 text-[.74rem] text-[#8a6b45]">{s.note}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal className="mt-5">
-        <Callout dark kind="insight" title="And the network finale — Dijkstra & friends">
-          Dijkstra: single-source shortest path, weighted graphs, <strong>non-negative weights</strong>, O(V²) basic
-          implementation. A* adds a directional heuristic for GPS. Bellman-Ford survives negative weights.
-          Floyd-Warshall answers all pairs; Prim and Kruskal connect every node at minimum total cost. Then the
-          business layer: database queries, e-commerce filtering, GPS routing, student records, food-delivery
-          optimisation.
-        </Callout>
-      </Reveal>
-
-      <Reveal className="mt-6">
-        <div className="grid gap-4 md:grid-cols-2">
-          <Quiz
-            q="Binary search needs ~24 comparisons for 10 million records. Linear search on the same data needs…"
-            options={["~24 — both halve the space", "~10,000 — one comparison per thousand records", "up to 10 million — every record in the worst case", "logarithmically fewer — linear search self-optimises"]}
-            answer={2}
-            explain="Linear search is O(n): on unsorted data it may examine every single record — 10 million comparisons against binary search's ~24 (log₂ of 10 million ≈ 23.25). Halving beats scanning at any business scale."
-            source="Lecture 28 · final recap"
-          />
-          <Quiz
-            q="Inserting into the MIDDLE of a linked list is O(1) — but inserting while SEARCHING for the spot is O(n). Why the gap?"
-            options={[
-              "Linked lists re-index after every insert",
-              "The links update in 2–4 operations, but finding the insertion point still requires a one-by-one traversal",
-              "Middle inserts are physically faster in memory",
-              "The O(n) comes from shifting elements right",
-            ]}
-            answer={1}
-            explain="Pointer surgery itself costs 2–4 operations (constant — that's the O(1)). But reaching the insertion point means walking node by node — that traversal dominates, so search-insert is O(n). No shifting happens: that's arrays."
-            source="Lecture 28 · cost tables"
-          />
-        </div>
-      </Reveal>
-
-      <Reveal className="mt-4">
-        <Takeaways
-          dark
-          items={[
-            <>Complexity measures the <strong>growth rate</strong> of work as input grows — never absolute seconds.</>,
-            <>O(1) and O(log n) are <strong>preferable</strong>; exponential O(2ⁿ) must be avoided.</>,
-            <>Arrays buy <strong>O(1) direct access</strong> but pay O(n) to shift; linked lists pay O(1) to rewire but O(n) to find.</>,
-            <>The five searches trade <strong>sorted-ness for speed</strong>: hash O(1) needs none of it — binary O(log n) needs all of it.</>,
-          ]}
-        />
-      </Reveal>
-
-      <Reveal className="mt-4">
-        <Practice
-          title="Close the module"
-          items={[
-            { q: "Rank these by scalability for 10 million records: linear search on an unsorted register, hash lookup by roll number, binary search on a price-sorted catalog.", hint: "Hash O(1) average → binary O(log n) → linear O(n). The register's lack of order is what forces the slow lane." },
-            { q: "A startup's data doubles every quarter. Which single complexity class should its core lookups target — and which one ruins the roadmap?", hint: "Target O(log n) or better (halving scales); anything quadratic or exponential compounds the same way the data does." },
-          ]}
-        />
-      </Reveal>
-    </Section>
-  );
-}

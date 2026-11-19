@@ -18,6 +18,9 @@ import {
 import {
   Callout, Practice, Quiz, ReadStep, Reveal, Section, SectionHead, StepsFlow, Takeaways,
 } from "@/components/notes/ui";
+import { AtbFigure } from "@/components/atb/AtbStepper";
+import { eyebrowOf } from "@/components/atb/lectures";
+import { AtbCells, AtbPill, AtbStepper } from "@/components/atb/AtbStepper";
 
 /* ---------- shared local button (real <button>, aria-labelled) ---------- */
 
@@ -520,7 +523,8 @@ function HubSpokeLab() {
         Dijkstra pre-computes the shortest hub-to-hub distances once.
       </p>
       <div className="mt-4 rounded-2xl border border-[#f3e2c8] bg-[#fffaf1] p-4">
-        <svg viewBox="0 0 760 312" className="h-auto w-full" role="img"
+        <AtbFigure notice="Jodhpur, Pali and Ajmer feed the Jaipur hub; Agra, Kurukshetra and Somnath feed the Delhi hub. The shipped package travels Jodhpur to Jaipur to Delhi to Somnath through the hubs.">
+  <svg viewBox="0 0 760 312" className="h-auto w-full" role="img"
           aria-label="Spoke-and-hub courier network: Jodhpur, Pali and Ajmer feed the Jaipur hub; Agra, Kurukshetra and Somnath feed the Delhi hub. The shipped package travels Jodhpur to Jaipur to Delhi to Somnath through the hubs.">
           <defs>
             <marker id="hs-spoke" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c9a76a" /></marker>
@@ -568,6 +572,7 @@ function HubSpokeLab() {
             8 cities · all-to-all = 28 direct routes · hub &amp; spoke = 10 routes (and Dijkstra only works the 1 hub-to-hub edge)
           </text>
         </svg>
+</AtbFigure>
       </div>
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <OpBtn tone="warm" onClick={ship} disabled={shipping}>
@@ -594,7 +599,7 @@ export function AtbDijkstraSection() {
   return (
     <Section id="dijkstra">
       <SectionHead
-        eyebrow="Lecture 24 · Network search algorithms"
+        eyebrow={eyebrowOf("dijkstra")}
         title={<><span className="grad-text">Network search</span> &amp; Dijkstra&apos;s algorithm</>}
         lead="Module 4 concludes by leaving the straight line: search now runs over networks of nodes and edges, where the target is not one element but the cheapest PATH between two. One Dutch professor, five steps — and every map app on your phone."
       />
@@ -642,7 +647,8 @@ export function AtbDijkstraSection() {
           <div className="mt-5 grid gap-5 md:grid-cols-2">
             <div className="rounded-2xl p-5" style={{ background: "#fbf3e6", border: "1px solid #efdec2" }}>
               <span className="chip"><Layers className="h-3.5 w-3.5" aria-hidden /> Lecture 24 · DFS — the stack</span>
-              <svg viewBox="0 0 340 150" className="mt-3 h-auto w-full" role="img" aria-label="Depth-first search dives down one branch to its deepest leaf before backtracking — visit order 1, 2, 4, then 3">
+              <AtbFigure notice="Depth-first search dives down one branch to its deepest leaf before backtracking — visit order 1, 2, 4, then 3">
+  <svg viewBox="0 0 340 150" className="mt-3 h-auto w-full" role="img" aria-label="Depth-first search dives down one branch to its deepest leaf before backtracking — visit order 1, 2, 4, then 3">
                 <line x1="157" y1="36" x2="122" y2="76" stroke="#c2410c" strokeWidth="2.4" />
                 <line x1="183" y1="36" x2="228" y2="76" stroke="#dcc9a8" strokeWidth="1.6" />
                 <line x1="98" y1="98" x2="64" y2="118" stroke="#c2410c" strokeWidth="2.4" />
@@ -659,6 +665,7 @@ export function AtbDijkstraSection() {
                 <text x="296" y="133" textAnchor="middle" fontSize="11" fontWeight="800" fill="#3e2c1d">5</text>
                 <text x="330" y="26" fontSize="9.5" fontWeight="700" fill="#a08050">amber = visit order</text>
               </svg>
+</AtbFigure>
               <p className="mt-2 text-[.85rem] leading-relaxed text-[#5c4a33]">
                 <strong>Depth-first search</strong> runs as far as possible along each branch before backtracking —
                 powered by a <strong>stack</strong>. It maps the <strong>complete topology</strong>, which makes it
@@ -667,7 +674,8 @@ export function AtbDijkstraSection() {
             </div>
             <div className="rounded-2xl p-5" style={{ background: "#fbf3e6", border: "1px solid #efdec2" }}>
               <span className="chip"><Signal className="h-3.5 w-3.5" aria-hidden /> Lecture 24 · BFS — the queue</span>
-              <svg viewBox="0 0 340 150" className="mt-3 h-auto w-full" role="img" aria-label="Breadth-first search expands level by level by hop count — main servers, then intermediate servers, then clients">
+              <AtbFigure notice="Breadth-first search expands level by level by hop count — main servers, then intermediate servers, then clients">
+  <svg viewBox="0 0 340 150" className="mt-3 h-auto w-full" role="img" aria-label="Breadth-first search expands level by level by hop count — main servers, then intermediate servers, then clients">
                 <line x1="158" y1="34" x2="92" y2="74" stroke="#dcc9a8" strokeWidth="1.6" />
                 <line x1="170" y1="34" x2="170" y2="74" stroke="#dcc9a8" strokeWidth="1.6" />
                 <line x1="182" y1="34" x2="248" y2="74" stroke="#dcc9a8" strokeWidth="1.6" />
@@ -691,6 +699,7 @@ export function AtbDijkstraSection() {
                 <text x="332" y="90" textAnchor="end" fontSize="9.5" fontWeight="700" fill="#a08050">hop 1</text>
                 <text x="332" y="130" textAnchor="end" fontSize="9.5" fontWeight="700" fill="#a08050">hop 2</text>
               </svg>
+</AtbFigure>
               <p className="mt-2 text-[.85rem] leading-relaxed text-[#5c4a33]">
                 <strong>Breadth-first search</strong> expands <strong>level by level by hop count</strong> — powered by
                 a <strong>queue</strong>. It reveals the hierarchy of a network:{" "}
@@ -917,6 +926,51 @@ export function AtbDijkstraSection() {
           <>In practice, <strong>selecting the right algorithm beats implementing one</strong> — real systems already ship these as library variants and combinations.</>,
         ]} />
       </Reveal>
+    
+
+
+
+
+      <AtbStepper title="What happens next? — A* adds direction to the search" steps={[
+          {
+            label: "Dijkstra explores uniformly in all directions from the source.",
+            detail: "Guaranteed shortest path — but it wastes effort away from the goal.",
+            frame: <AtbPill k="strategy" v="uniform expansion" tone="active" />,
+          },
+          {
+            label: "A* adds a heuristic — an estimate of the remaining distance to the goal.",
+            detail: "f = g + h: cost so far plus the directional guess.",
+            frame: <AtbPill k="A*" v="g + h" tone="twin" />,
+          },
+          {
+            label: "The guess pulls the search toward the destination — GPS-style routing.",
+            detail: "Same guarantee when the heuristic is honest; far fewer vertices explored.",
+            frame: <AtbPill k="application" v="GPS routing" tone="twin" />,
+          },
+        ]} />
+    
+      <AtbStepper title="What happens next? — why A→C→B beats the direct A→B" steps={[
+          {
+            label: "A → B directly costs 4. A → C costs 1; C → B costs 2.",
+            detail: "Weighted graph — the cheapest path wins, not the fewest hops.",
+            frame: <AtbCells values={["A→B = 4", "A→C→B = 1+2"]} tones={["broken", "twin"]} />,
+          },
+          {
+            label: "A → C → B totals 3 — cheaper than the direct edge’s 4.",
+            detail: "Dijkstra greedily confirms the shorter two-hop route.",
+            frame: <AtbPill k="best route" v="A → C → B = 3" tone="twin" />,
+          },
+          {
+            label: "Dijkstra admits NO negative weights.",
+            detail: "Negative edges break the greedy commitment — Bellman-Ford territory (the variant family).",
+            frame: <AtbPill k="constraint" v="no negative weights" tone="active" />,
+          },
+          {
+            label: "The distance table settles: every vertex carries its best-known cost from A.",
+            detail: "Five steps, traced live in the lecture — the table IS the workflow’s final frame.",
+            frame: <AtbPill k="B distance" v={3} tone="twin" />,
+          },
+        ]} />
     </Section>
   );
 }
@@ -1169,7 +1223,7 @@ export function AtbSortingSection() {
   return (
     <Section id="sorting">
       <SectionHead
-        eyebrow="Lecture 25 · Sorting & bubble sort"
+        eyebrow={eyebrowOf("sorting")}
         title={<><span className="grad-text">Sorting</span> &amp; bubble sort</>}
         lead="The final module opens with the step that makes efficient searching possible: arranging elements by a parameter. Bubble sort is the simplest sorter ever devised — and the clearest demonstration that simplicity has a price."
       />
@@ -1340,7 +1394,9 @@ export function AtbSortingSection() {
           { q: "Compute the total comparisons for n = 6 and n = 20 using n(n−1)/2. Then explain in one sentence why the second number should worry you.", hint: "15 vs 190 — twenty elements already cost 12× more work than six." },
           { q: "Write the six rules of the ALTERNATIVE method (smallest to the front). Which end of the row do you walk from, and which end locks first?", hint: "Start from the last element, compare with the previous one, bubble the minimum left; position 1 locks first." },
         ]} />
-      </Reveal>
+  
+
+    </Reveal>
       <Reveal className="mt-10">
         <div className="mb-4 flex flex-wrap items-center gap-2">
           <span className="chip"><ArrowDownUp className="h-3.5 w-3.5" aria-hidden /> Lecture 25 · key takeaways</span>
@@ -1354,6 +1410,29 @@ export function AtbSortingSection() {
           <>The next algorithms in the module exist to <strong>fix this efficiency problem</strong> for large datasets.</>,
         ]} />
       </Reveal>
+    
+      <AtbStepper title="What happens next? — one bubble pass, watched" steps={[
+          {
+            label: "Start [5, 3, 8, 2]. Compare the first pair: 5 vs 3 — wrong order → swap.",
+            detail: "Bubble sort compares adjacent pairs from the first, swapping on the spot.",
+            frame: <AtbCells values={[3, 5, 8, 2]} tones={["twin", "twin", "idle", "idle"]} />,
+          },
+          {
+            label: "Next pair: 5 vs 8 — ordered, no swap. Then 8 vs 2 — swap.",
+            detail: "Immediate swaps after each comparison are bubble sort’s signature.",
+            frame: <AtbCells values={[3, 5, 2, 8]} tones={["idle", "idle", "active", "active"]} />,
+          },
+          {
+            label: "Pass 1 ends: the largest value, 8, has bubbled to the END.",
+            detail: "After each complete pass, at least one element is in its correct position.",
+            frame: <AtbCells values={[3, 5, 2, 8]} tones={["idle", "idle", "idle", "done"]} labels={["", "", "", "fixed"]} />,
+          },
+          {
+            label: "Repeat passes until no swaps occur — the list is sorted.",
+            detail: "O(n²) time, no extra space: simple logic, expensive scale — which is why merge and quick sort exist.",
+            frame: <AtbCells values={[2, 3, 5, 8]} tones={["done", "done", "done", "done"]} />,
+          },
+        ]} />
     </Section>
   );
 }

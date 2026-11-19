@@ -46,6 +46,9 @@ import {
   StepsFlow,
   Takeaways,
 } from "@/components/notes/ui";
+import { AtbFigure } from "@/components/atb/AtbStepper";
+import { eyebrowOf } from "@/components/atb/lectures";
+import { AtbCells, AtbPill, AtbQueueRow, AtbStackCol, AtbStepper } from "@/components/atb/AtbStepper";
 
 /* ============================================================
    ATB · Parts 5 — Lectures 12–17:
@@ -66,7 +69,8 @@ const rise = (delay: number) => ({
 
 function AnatomyTree() {
   return (
-    <svg
+    <AtbFigure notice="root node A, parent nodes B and C, child nodes and two leaf nodes, connected by edges">
+  <svg
       viewBox="0 0 640 400"
       className="mx-auto h-auto w-full max-w-2xl"
       role="img"
@@ -131,6 +135,7 @@ function AnatomyTree() {
         <text x="101" y="234" fontSize="10" fontWeight="700" fontStyle="italic" fill="#a0410a">edge</text>
       </motion.g>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -151,7 +156,8 @@ function DepthHeightTree() {
     </g>
   );
   return (
-    <svg
+    <AtbFigure notice="Tree with depth labels d equals 0 to 3 on each level, height h equals 3 on the right, and two dashed subtree boxes">
+  <svg
       viewBox="0 0 680 436"
       className="mx-auto h-auto w-full max-w-2xl"
       role="img"
@@ -203,6 +209,7 @@ function DepthHeightTree() {
       <line x1="612" y1="374" x2="630" y2="370" stroke="#c2410c" strokeWidth="1.5" markerEnd="url(#m5dh)" />
       <text x="576" y="390" textAnchor="end" fontSize="10" fontWeight="600" fill="#8a5a06">root → deepest leaf H</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -217,7 +224,8 @@ function FamilyTreeArt() {
     </g>
   );
   return (
-    <svg
+    <AtbFigure notice="grandfather at the root with children Son A, Son B and Daughter; Son A has daughter D1, Daughter has sons S1 and S2, and Son B has no children">
+  <svg
       viewBox="0 0 640 372"
       className="mx-auto h-auto w-full max-w-2xl"
       role="img"
@@ -263,6 +271,7 @@ function FamilyTreeArt() {
         <text x="330" y="358" textAnchor="middle" fontSize="11" fontWeight="800" fill="#a0410a">four leaves: D1 · Son B · S1 · S2 — every child has exactly ONE parent</text>
       </motion.g>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -281,7 +290,7 @@ export function AtbTreesSection() {
   return (
     <Section id="trees">
       <SectionHead
-        eyebrow="Lecture 12 · Trees"
+        eyebrow={eyebrowOf("trees")}
         title={
           <>
             <span className="grad-text">Trees</span> — hierarchy, drawn upside down
@@ -616,7 +625,8 @@ function LevelOrderViz() {
     </g>
   );
   return (
-    <svg
+    <AtbFigure notice="the tree read level by level, A then B and C, then D and E">
+  <svg
       viewBox="0 0 460 292"
       className="mx-auto h-auto w-full max-w-md"
       role="img"
@@ -635,6 +645,7 @@ function LevelOrderViz() {
         </g>
       ))}
     </svg>
+</AtbFigure>
   );
 }
 
@@ -643,7 +654,7 @@ export function AtbTraversalsSection() {
     <Section id="traversals" dark>
       <SectionHead
         dark
-        eyebrow="Lecture 12 · Tree traversals"
+        eyebrow={eyebrowOf("traversals")}
         title={
           <>
             Reading a tree <span className="grad-text">four ways</span>
@@ -767,6 +778,51 @@ export function AtbTraversalsSection() {
           />
         </Reveal>
       </div>
+    
+
+
+
+
+      <AtbStepper title="What happens next? — post-order finishes children first" steps={[
+          {
+            label: "Post-order = Left → Right → Root. Start at A’s left subtree: B.",
+            detail: "The root is visited LAST — children always before their parent.",
+            frame: <AtbPill k="order" v="Left → Right → Root" tone="active" />,
+          },
+          {
+            label: "B’s children first: D, then E. Both are leaves — they print immediately.",
+            detail: "Depth-first walks ride a stack; the recursion bottoms out at leaves.",
+            frame: <AtbCells values={["D", "E"]} tones={["twin", "twin"]} />,
+          },
+          {
+            label: "B prints (its subtree is done), then C on the right, then the root A.",
+            detail: "Result: D E B C A — the lecture’s exact post-order.",
+            frame: <AtbCells values={["D", "E", "B", "C", "A"]} tones={["done", "done", "done", "done", "twin"]} labels={["", "", "", "", "ROOT last"]} />,
+          },
+        ]} />
+    
+      <AtbStepper title="What happens next? — level-order sweeps by depth" steps={[
+          {
+            label: "Enqueue the root A. The queue drives the whole walk.",
+            detail: "Breadth-first = level-order; the queue is its engine.",
+            frame: <AtbQueueRow items={["A"]} front={0} />,
+          },
+          {
+            label: "Dequeue A (visit it) → enqueue its children B and C.",
+            detail: "Level 1 is now waiting in the queue, left to right.",
+            frame: <AtbQueueRow items={["B", "C"]} front={0} />,
+          },
+          {
+            label: "Dequeue B (visit) → enqueue D and E. Dequeue C (visit) — no children.",
+            detail: "Each dequeue immediately breeds the next level’s enqueues.",
+            frame: <AtbQueueRow items={["D", "E"]} front={0} />,
+          },
+          {
+            label: "Dequeue D, then E — queue empty. Visit order: A B C D E.",
+            detail: "Row by row, top to bottom, left to right — the level-order answer, exactly as the lecture states it.",
+            frame: <AtbCells values={["A", "B", "C", "D", "E"]} tones={["done", "done", "done", "done", "done"]} labels={["level 0", "1", "1", "2", "2"]} />,
+          },
+        ]} />
     </Section>
   );
 }
@@ -827,7 +883,8 @@ function GNode({ x, y, t, hot = false }: { x: number; y: number; t: string; hot?
 
 function LectureGraph() {
   return (
-    <svg
+    <AtbFigure notice="Graph with vertices C A B on top, S P Q R in the middle, X Y at the bottom and eleven edges; P is highlighted with degree 3">
+  <svg
       viewBox="0 0 560 340"
       className="mx-auto h-auto w-full max-w-xl"
       role="img"
@@ -845,6 +902,7 @@ function LectureGraph() {
         gold edges = the three edges touching P → degree 3
       </text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -978,7 +1036,7 @@ export function AtbGraphsSection() {
   return (
     <Section id="graphs">
       <SectionHead
-        eyebrow="Lecture 15 · Graphs"
+        eyebrow={eyebrowOf("graphs")}
         title={
           <>
             <span className="grad-text">Graphs</span> — when one parent isn&apos;t enough
@@ -1098,7 +1156,9 @@ degrees: C=1, A=2, B=1 · S=3, P=3, Q=3, R=3, X=3, Y=3
               <tbody>
                 <tr><td className="font-bold text-[#7c4a12]">Company hierarchy — people and designations</td><td>Tree</td><td>Clear reporting structure: everyone answers to a single supervisor</td></tr>
                 <tr><td className="font-bold text-[#7c4a12]">Corporate group of independent companies</td><td>Graph</td><td>Companies are autonomous, with multiple interconnections between them</td></tr>
-                <tr><td className="font-bold text-[#7c4a12]">Institute collaborations and networks</td><td>Graph</td><td>Institutions are independent, linked by many research partnerships</td></tr>
+                <tr><td className="font-bold text-[#7c4a12]">Institute collaborations and networks</td><td>Graph</td><td>
+
+Institutions are independent, linked by many research partnerships</td></tr>
                 <tr><td className="font-bold text-[#7c4a12]">Departments within an institution</td><td>Tree</td><td>Clear hierarchy: institution → department → research groups</td></tr>
               </tbody>
             </table>
@@ -1144,6 +1204,51 @@ degrees: C=1, A=2, B=1 · S=3, P=3, Q=3, R=3, X=3, Y=3
           ]}
         />
       </Reveal>
+
+
+      <AtbStepper
+        title="What happens next? — counting degrees in G = (V, E)"
+        steps={[
+          {
+            label: "The graph is G = (V, E) with V = {A, B, C, P, Q, R, S, X, Y} — nine vertices.",
+            detail: "Vertices are the nodes; E is the set of edges connecting them.",
+            frame: <AtbCells values={["A", "B", "C", "P", "Q", "R", "S", "X", "Y"]} tones={["idle", "idle", "idle", "active", "idle", "idle", "idle", "idle", "idle"]} />,
+          },
+          {
+            label: "Focus on vertex P: count the edges touching it — three.",
+            detail: "Degree = the number of edges connected to a vertex.",
+            frame: <AtbPill k="degree(P)" v={3} tone="twin" />,
+          },
+          {
+            label: "The graph carries 11 edges in total.",
+            detail: "Every edge touches exactly two vertices — that is why degree counts read two at a time.",
+            frame: <AtbPill k="|E|" v={11} tone="active" />,
+          },
+          {
+            label: "Trees are the special case — one parent per child; the general graph allows many.",
+            detail: "That is when a tree stops being enough: relationships here are many-to-many.",
+            frame: <AtbPill k="shape" v="G = (V, E)" tone="twin" />,
+          },
+        ]}
+      />
+    
+      <AtbStepper title="What happens next? — is the town connected?" steps={[
+          {
+            label: "Question: can every vertex reach every other vertex?",
+            detail: "Connected graph — all vertices reachable from any other through some path.",
+            frame: <AtbPill k="question" v="reachability" tone="active" />,
+          },
+          {
+            label: "Mainland cities: roads link them all → connected.",
+            detail: "The lecture’s example: road connectivity in India — the mainland is one connected component.",
+            frame: <AtbPill k="mainland" v="connected" tone="twin" />,
+          },
+          {
+            label: "Islands: no road joins them to the mainland → disconnected components.",
+            detail: "Disconnected graphs isolate vertices — no path exists, at any cost.",
+            frame: <AtbPill k="islands" v="disconnected" tone="broken" />,
+          },
+        ]} />
     </Section>
   );
 }
@@ -1171,7 +1276,8 @@ function DirPairArt() {
     </g>
   );
   return (
-    <svg
+    <AtbFigure notice="an undirected edge between A and B with no arrowheads, meaning the relationship works both ways; and a directed edge with an arrowhead from A to B, meaning the relationship goes one way only">
+  <svg
       viewBox="0 0 640 212"
       className="mx-auto h-auto w-full max-w-2xl"
       role="img"
@@ -1198,6 +1304,7 @@ function DirPairArt() {
         <text x="320" y="198" textAnchor="middle" fontSize="11" fontWeight="800" fill="#f5c889">the arrowhead is the whole difference</text>
       </motion.g>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -1213,7 +1320,8 @@ function DegreeCountArt() {
     <path d="M0,-5.5 L10,0 L0,5.5 Z" fill={col} transform={`translate(${x} ${y}) rotate(${rot})`} />
   );
   return (
-    <svg
+    <AtbFigure notice="A creator node with three arrows arriving from followers P, Q and R, labelled in-degree 3, and one dashed arrow leaving to W, labelled out-degree 1">
+  <svg
       viewBox="0 0 640 250"
       className="mx-auto h-auto w-full max-w-xl"
       role="img"
@@ -1247,6 +1355,7 @@ function DegreeCountArt() {
         <text x="484" y="175" textAnchor="middle" fontSize="11" fontWeight="800" fill="#e9d7bf">out-degree 1 · following</text>
       </motion.g>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -1265,7 +1374,8 @@ function WeightArt() {
     </g>
   );
   return (
-    <svg
+    <AtbFigure notice="a thick edge from you to a sibling with weight 5 and a thin dashed edge to a distant cousin with weight 1; a thick edge Delhi to Mumbai labelled 28 flights a week and a thin dashed edge Delhi to Imphal labelled 2">
+  <svg
       viewBox="0 0 640 224"
       className="mx-auto h-auto w-full max-w-2xl"
       role="img"
@@ -1294,6 +1404,7 @@ function WeightArt() {
         <text x="480" y="46" textAnchor="middle" fontSize="10" fontWeight="700" fill="#e9d7bf">more flights between cities → higher weight</text>
       </motion.g>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -1306,7 +1417,8 @@ function ConnectArt() {
     </g>
   );
   return (
-    <svg
+    <AtbFigure notice="Delhi, Amdabad, Silchar and Kolkata all joined by roads; then a dashed sea gap and Port Blair alone with no road edges, a disconnected component">
+  <svg
       viewBox="0 0 640 216"
       className="mx-auto h-auto w-full max-w-2xl"
       role="img"
@@ -1334,6 +1446,7 @@ function ConnectArt() {
         <text x="490" y="198" textAnchor="middle" fontSize="10" fontWeight="700" fill="#e9d7bf">Amdabad → Port Blair: disconnected</text>
       </motion.g>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -1349,7 +1462,8 @@ function CycleArt() {
     </g>
   );
   return (
-    <svg
+    <AtbFigure notice="airports A, B and C joined by flights in both directions, a cyclic network where A to B to C returns to A. Right: a metro line with green terminal caps and one-way travel, an acyclic network">
+  <svg
       viewBox="0 0 640 230"
       className="mx-auto h-auto w-full max-w-2xl"
       role="img"
@@ -1387,6 +1501,7 @@ function CycleArt() {
         <text x="462" y="200" textAnchor="middle" fontSize="10" fontWeight="700" fill="#e9d7bf">parent → child · org hierarchies · metro lines all live here</text>
       </motion.g>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -1487,7 +1602,7 @@ export function AtbGraphPropsSection() {
     <Section id="graphprops" dark>
       <SectionHead
         dark
-        eyebrow="Lecture 16 · Graph properties"
+        eyebrow={eyebrowOf("graphprops")}
         title={
           <>
             Four switches that <span className="grad-text">shape every graph</span>
@@ -1671,7 +1786,9 @@ export function AtbGraphPropsSection() {
           items={[
             {
               q: <>Classify the three platforms: Facebook friendship, Instagram follows, LinkedIn connections + follows. Which are <strong>undirected</strong>, which <strong>directed</strong> — and which counter decides an influencer deal?</>,
-              hint: "Friendship and connections are mutual; follows are one-way. In-degree = followers = the marketing number.",
+          
+
+    hint: "Friendship and connections are mutual; follows are one-way. In-degree = followers = the marketing number.",
             },
             {
               q: <>Draw Amdabad, Silchar and Kolkata with roads between them, then add Port Blair with <strong>no road edges</strong>. Which property differs when you ask Amdabad → Silchar vs Amdabad → Port Blair?</>,
@@ -1705,6 +1822,29 @@ export function AtbGraphPropsSection() {
           ]}
         />
       </Reveal>
+    
+      <AtbStepper title="What happens next? — the influencer’s two degrees" steps={[
+          {
+            label: "A directed graph: every edge points ONE way — like following on social media.",
+            detail: "Undirected edges are two-way roads; directed edges are one-way.",
+            frame: <AtbPill k="edge type" v="directed" tone="active" />,
+          },
+          {
+            label: "2M accounts link TO the influencer → in-degree = 2,000,000.",
+            detail: "In-degree counts edges coming in — the fame metric.",
+            frame: <AtbPill k="in-degree" v="2,000,000" tone="twin" />,
+          },
+          {
+            label: "The influencer links OUT to 180 accounts → out-degree = 180.",
+            detail: "Out-degree counts edges going out — the following metric.",
+            frame: <AtbPill k="out-degree" v={180} tone="active" />,
+          },
+          {
+            label: "Same vertex, two different degree readings — direction changes everything.",
+            detail: "Weighted vs unweighted, connected vs disconnected, cyclic vs acyclic complete the property checklist.",
+            frame: <AtbPill k="verdict" v="in ≠ out" tone="twin" />,
+          },
+        ]} />
     </Section>
   );
 }
@@ -1822,7 +1962,7 @@ export function AtbDfsBfsSection() {
     <Section id="dfsbfs" dark>
       <SectionHead
         dark
-        eyebrow="Lecture 17 · DFS & BFS"
+        eyebrow={eyebrowOf("dfsbfs")}
         title={
           <>
             DFS &amp; BFS — <span className="grad-text">two ways to explore a network</span>
@@ -2000,7 +2140,9 @@ export function AtbDfsBfsSection() {
             for nb in graph[node]:
                 if nb not visited:
                     queue.enqueue(nb)`}
-            note="Swap the stack for a queue and the personality flips: deep dive becomes level-by-level sweep. One line of code, completely different behaviour."
+            note="Swap the s
+
+tack for a queue and the personality flips: deep dive becomes level-by-level sweep. One line of code, completely different behaviour."
           />
         </Reveal>
       </div>
@@ -2037,7 +2179,9 @@ export function AtbDfsBfsSection() {
             <table className="warm-table min-w-[640px]">
               <thead><tr><th>Aspect</th><th>DFS</th><th>BFS</th></tr></thead>
               <tbody>
-                <tr><td className="font-bold text-[#7c4a12]">Data structure</td><td>Stack — last in, first out</td><td>Queue — first in, first out</td></tr>
+                <tr><td className="font-bold
+
+ text-[#7c4a12]">Data structure</td><td>Stack — last in, first out</td><td>Queue — first in, first out</td></tr>
                 <tr><td className="font-bold text-[#7c4a12]">Strategy</td><td>Go deep along one path, then backtrack</td><td>Visit all nodes at the current depth first</td></tr>
                 <tr><td className="font-bold text-[#7c4a12]">Use case</td><td>Does any connection exist between two nodes?</td><td>Degree of separation — shortest path, fewest hops</td></tr>
                 <tr><td className="font-bold text-[#7c4a12]">Order</td><td>Path-dependent — depends on the route walked</td><td>Level-dependent — same distance band each pass</td></tr>
@@ -2096,6 +2240,52 @@ export function AtbDfsBfsSection() {
           ]}
         />
       </Reveal>
+    
+      <AtbStepper title="What happens next? — BFS from A, queue-driven" steps={[
+          {
+            label: "Enqueue A, dequeue it, mark visited. Enqueue its neighbours P and Q.",
+            detail: "BFS runs on a QUEUE — the whole level is served before the next.",
+            frame: <AtbQueueRow items={["P", "Q"]} front={0} />,
+          },
+          {
+            label: "Dequeue P → visit; enqueue X. Dequeue Q → visit; enqueue Y.",
+            detail: "Level 1 (P, Q) done; level 2 (X, Y) is in the queue.",
+            frame: <AtbQueueRow items={["X", "Y"]} front={0} />,
+          },
+          {
+            label: "Level 2 → level 3: S and R join, then C and B.",
+            detail: "The queue sweeps level by level — nearest things first.",
+            frame: <AtbQueueRow items={["S", "R", "C", "B"]} front={0} />,
+          },
+          {
+            label: "Queue empty. Level result: A → P,Q → X,Y → S,R → C,B.",
+            detail: "The lecture’s exact BFS shape — answers ‘how many hops?’, the shortest-path question.",
+            frame: <AtbCells values={["A", "P,Q", "X,Y", "S,R", "C,B"]} tones={["twin", "active", "active", "active", "active"]} labels={["L0", "L1", "L2", "L3", "L4"]} />,
+          },
+        ]} />
+    
+      <AtbStepper title="What happens next? — DFS from A, stack-driven" steps={[
+          {
+            label: "Push A, pop it, mark visited. Push its neighbours P and Q.",
+            detail: "DFS runs on a STACK — dive deep before going wide.",
+            frame: <AtbStackCol items={["P", "Q"]} note="stack after A" />,
+          },
+          {
+            label: "Pop P → visit. Push P’s neighbour X.",
+            detail: "The stack’s top decides the next move — depth first, backtrack later.",
+            frame: <AtbStackCol items={["X", "Q"]} note="after P" tone="twin" />,
+          },
+          {
+            label: "Pop X → visit. Push S. Pop S → visit. Push C… the dive continues.",
+            detail: "A → P → X → S → C — five vertices deep down one branch.",
+            frame: <AtbPill k="visited" v="A → P → X → S → C" tone="twin" />,
+          },
+          {
+            label: "Branch exhausted → backtrack through the stack: Q, Y, R, B.",
+            detail: "Final order: A → P → X → S → C → Q → Y → R → B — the lecture’s exact DFS result.",
+            frame: <AtbCells values={["A", "P", "X", "S", "C", "Q", "Y", "R", "B"]} tones={["done", "done", "done", "done", "done", "done", "done", "done", "done"]} />,
+          },
+        ]} />
     </Section>
   );
 }

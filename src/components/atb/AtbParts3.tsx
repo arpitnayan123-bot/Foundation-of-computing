@@ -15,6 +15,16 @@ import {
 import {
   Callout, CodeBlock, Practice, Quiz, ReadStep, Reveal, Section, SectionHead, StepsFlow, Takeaways,
 } from "@/components/notes/ui";
+import { eyebrowOf } from "@/components/atb/lectures";
+import {
+  ATB_BORDER,
+  ATB_OLIVE,
+  AtbCells,
+  AtbFigure,
+  AtbPill,
+  AtbStepper,
+  type CellTone,
+} from "@/components/atb/AtbStepper";
 
 /* ---------- local button (real <button>, aria-labelled) ---------- */
 
@@ -46,7 +56,8 @@ const ARR_VALS = [60, 65, 70, 55, 60];
 
 function ArrayStrip({ selected }: { selected: number | null }) {
   return (
-    <svg viewBox="0 0 620 152" className="h-auto w-full" role="img" aria-label="Array Sub with five cells holding 60, 65, 70, 55, 60 at indices 0 to 4">
+    <AtbFigure notice="Array Sub with five cells holding 60, 65, 70, 55, 60 at indices 0 to 4">
+  <svg viewBox="0 0 620 152" className="h-auto w-full" role="img" aria-label="Array Sub with five cells holding 60, 65, 70, 55, 60 at indices 0 to 4">
       <defs>
         <marker id="arr3-ptr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker>
       </defs>
@@ -68,6 +79,7 @@ function ArrayStrip({ selected }: { selected: number | null }) {
       <line x1="421" y1="112" x2="421" y2="126" stroke="#c2410c" strokeWidth="1.5" markerEnd="url(#arr3-ptr)" />
       <text x="421" y="142" textAnchor="middle" fontSize="12" fontWeight="700" fill="#c2410c">Sub[3] = 55</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -110,7 +122,8 @@ const MARKS = [
 function TwoDGrid() {
   const hot = (i: number, j: number) => (i === 2 && j === 1) || (i === 4 && j === 3);
   return (
-    <svg viewBox="0 0 560 336" className="h-auto w-full" role="img" aria-label="Two-dimensional array of student marks: five rows of students, four columns of subjects, with Sub[2,1] and Sub[4,3] highlighted">
+    <AtbFigure notice="five rows of students, four columns of subjects, with Sub[2,1] and Sub[4,3] highlighted">
+  <svg viewBox="0 0 560 336" className="h-auto w-full" role="img" aria-label="Two-dimensional array of student marks: five rows of students, four columns of subjects, with Sub[2,1] and Sub[4,3] highlighted">
       <defs>
         <marker id="grid3-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#b45309" /></marker>
       </defs>
@@ -131,6 +144,7 @@ function TwoDGrid() {
       <line x1="542" y1="300" x2="474" y2="272" stroke="#b45309" strokeWidth="2" markerEnd="url(#grid3-ah)" />
       <text x="546" y="318" textAnchor="end" fontSize="12" fontWeight="800" fill="#b45309">Sub[4,3] → 58</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -220,7 +234,8 @@ function PlaylistChain() {
   const xs = [96, 306, 516];
   const inp = (d: number) => ({ initial: { opacity: 0, x: -20 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { delay: d, duration: 0.45 } });
   return (
-    <svg viewBox="0 0 740 132" className="h-auto w-full" role="img" aria-label="Linked list playlist: Head points to Song 1, which points to Song 2, which points to Song 3, whose pointer is Null">
+    <AtbFigure notice="Head points to Song 1, which points to Song 2, which points to Song 3, whose pointer is Null">
+  <svg viewBox="0 0 740 132" className="h-auto w-full" role="img" aria-label="Linked list playlist: Head points to Song 1, which points to Song 2, which points to Song 3, whose pointer is Null">
       <defs>
         <marker id="ll-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker>
       </defs>
@@ -237,6 +252,7 @@ function PlaylistChain() {
       ))}
       <text x="360" y="122" textAnchor="middle" fontSize="12" fontWeight="600" fill="#cbb392">each node = data + a pointer to the next node — the chain can grow song by song</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -255,19 +271,22 @@ function FlavourMinis() {
     <div className="grid gap-5 md:grid-cols-3">
       <div className="card-warm p-5">
         <p className="text-[.95rem] font-extrabold text-[#f5c889]">Singly linked list</p>
-        <svg viewBox="0 0 320 92" className="mt-2 h-auto w-full" role="img" aria-label="Singly linked list: arrows point forward only">
+        <AtbFigure notice="Singly linked list: arrows point forward only">
+  <svg viewBox="0 0 320 92" className="mt-2 h-auto w-full" role="img" aria-label="Singly linked list: arrows point forward only">
           <defs>{mk("fl-s", "#f5c889")}</defs>
           {S.map((t, i) => box(14 + i * 104, 26, t, t))}
           <line x1="86" y1="46" x2="112" y2="46" stroke="#f5c889" strokeWidth="2" markerEnd="url(#fl-s)" />
           <line x1="190" y1="46" x2="216" y2="46" stroke="#f5c889" strokeWidth="2" markerEnd="url(#fl-s)" />
           <text x="292" y="50" fontSize="11" fontWeight="700" fill="#f0a8a8">Null</text>
         </svg>
+</AtbFigure>
         <span className="chip mt-2">Lecture 7 · play next</span>
         <p className="mt-2 text-[.82rem] leading-relaxed text-[#cbb392]">Sequential playback — the chain is walked head → end, one <strong>next</strong> pointer at a time.</p>
       </div>
       <div className="card-warm p-5">
         <p className="text-[.95rem] font-extrabold text-[#f5c889]">Doubly linked list</p>
-        <svg viewBox="0 0 320 92" className="mt-2 h-auto w-full" role="img" aria-label="Doubly linked list: arrows point forward and backward">
+        <AtbFigure notice="arrows point forward and backward">
+  <svg viewBox="0 0 320 92" className="mt-2 h-auto w-full" role="img" aria-label="Doubly linked list: arrows point forward and backward">
           <defs>{mk("fl-d", "#f5c889")}</defs>
           {S.map((t, i) => box(14 + i * 104, 26, t, t))}
           <line x1="88" y1="38" x2="112" y2="38" stroke="#f5c889" strokeWidth="2" markerEnd="url(#fl-d)" />
@@ -275,12 +294,14 @@ function FlavourMinis() {
           <line x1="114" y1="56" x2="90" y2="56" stroke="#e0a45e" strokeWidth="2" markerEnd="url(#fl-d)" />
           <line x1="216" y1="56" x2="192" y2="56" stroke="#e0a45e" strokeWidth="2" markerEnd="url(#fl-d)" />
         </svg>
+</AtbFigure>
         <span className="chip mt-2">Lecture 7 · play previous</span>
         <p className="mt-2 text-[.82rem] leading-relaxed text-[#cbb392]">Both directions — <strong>play next</strong> and <strong>play previous</strong> both work.</p>
       </div>
       <div className="card-warm p-5">
         <p className="text-[.95rem] font-extrabold text-[#f5c889]">Circular linked list</p>
-        <svg viewBox="0 0 320 92" className="mt-2 h-auto w-full" role="img" aria-label="Circular linked list: the last node loops back to the head">
+        <AtbFigure notice="the last node loops back to the head">
+  <svg viewBox="0 0 320 92" className="mt-2 h-auto w-full" role="img" aria-label="Circular linked list: the last node loops back to the head">
           <defs>{mk("fl-c", "#e0a45e")}</defs>
           {S.map((t, i) => box(14 + i * 104, 34, t, t))}
           <line x1="86" y1="54" x2="112" y2="54" stroke="#f5c889" strokeWidth="2" markerEnd="url(#fl-c)" />
@@ -288,6 +309,7 @@ function FlavourMinis() {
           <path d="M 288 32 C 280 6, 60 6, 44 30" fill="none" stroke="#e0a45e" strokeWidth="2" markerEnd="url(#fl-c)" />
           <text x="160" y="16" textAnchor="middle" fontSize="10.5" fontWeight="700" fill="#e0a45e">back to Head</text>
         </svg>
+</AtbFigure>
         <span className="chip mt-2">Lecture 7 · repeat / shuffle</span>
         <p className="mt-2 text-[.82rem] leading-relaxed text-[#cbb392]">The playlist <strong>starts over</strong> after the last song — repeat and shuffle live here, and the same loop drives menu systems.</p>
       </div>
@@ -308,7 +330,8 @@ function RewireLab() {
         rewrite <strong>two pointers</strong>: Song2.next → 2a, then 2a.next → Song3.
       </p>
       <div className="mt-5 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.05)" }}>
-        <svg viewBox="0 0 760 212" className="h-auto w-full" role="img" aria-label="Inserting Song 2a into a linked list by rewiring two pointers">
+        <AtbFigure notice="Inserting Song 2a into a linked list by rewiring two pointers">
+  <svg viewBox="0 0 760 212" className="h-auto w-full" role="img" aria-label="Inserting Song 2a into a linked list by rewiring two pointers">
           <defs>
             <marker id="rw-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker>
             <marker id="rw-x" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f0a8a8" /></marker>
@@ -327,6 +350,7 @@ function RewireLab() {
             <text x="600" y="130" fontSize="10.5" fontWeight="700" fill="#f5c889">move 2</text>
           </motion.g>
         </svg>
+</AtbFigure>
       </div>
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <OpBtn tone="warm" onClick={() => setWired(true)}>Rewire in 2 moves</OpBtn>
@@ -347,7 +371,8 @@ function ListsOfLists() {
     { y: 228, name: "Playlist 4", songs: ["4A", "4B"] },
   ];
   return (
-    <svg viewBox="0 0 700 292" className="h-auto w-full" role="img" aria-label="A user owns four playlists and each playlist holds its own chain of songs — a linked list of linked lists">
+    <AtbFigure notice="A user owns four playlists and each playlist holds its own chain of songs — a linked list of linked lists">
+  <svg viewBox="0 0 700 292" className="h-auto w-full" role="img" aria-label="A user owns four playlists and each playlist holds its own chain of songs — a linked list of linked lists">
       <defs>
         <marker id="lol-ah" markerWidth="7" markerHeight="7" refX="5.5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#f5c889" /></marker>
       </defs>
@@ -370,6 +395,7 @@ function ListsOfLists() {
         </g>
       ))}
     </svg>
+</AtbFigure>
   );
 }
 
@@ -685,7 +711,8 @@ function DeleteLab() {
         leaves the active list.
       </p>
       <div className="mt-5 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.05)" }}>
-        <svg viewBox="0 0 760 196" className="h-auto w-full" role="img" aria-label="Deleting Song 2: Song 1's next pointer is redirected straight to Song 3 along a bypass arc while Song 2 fades out, still sitting in memory">
+        <AtbFigure notice="Song 1's next pointer is redirected straight to Song 3 along a bypass arc while Song 2 fades out, still sitting in memory">
+  <svg viewBox="0 0 760 196" className="h-auto w-full" role="img" aria-label="Deleting Song 2: Song 1's next pointer is redirected straight to Song 3 along a bypass arc while Song 2 fades out, still sitting in memory">
           <defs>
             <marker id="dl-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker>
             <marker id="dl-x" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f0a8a8" /></marker>
@@ -714,6 +741,7 @@ function DeleteLab() {
           <L7Node x={550} y={40} label="Song 3" />
           <text x="710" y="71" fontSize="11.5" fontWeight="800" fill="#f0a8a8">Null</text>
         </svg>
+</AtbFigure>
       </div>
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <OpBtn tone="warm" onClick={() => setDeleted(true)}>Delete Song 2</OpBtn>
@@ -804,7 +832,8 @@ function ShuffleLab() {
         watch the <strong>visiting path</strong> re-route around them: Head → some new order → … → Null.
       </p>
       <div className="mt-5 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.05)" }}>
-        <svg viewBox="0 0 760 292" className="h-auto w-full" role="img" aria-label="Four fixed song nodes and a re-routing visiting path from the head through all four songs to Null — only the arrows and next pointers change when shuffled">
+        <AtbFigure notice="Four fixed song nodes and a re-routing visiting path from the head through all four songs to Null — only the arrows and next pointers change when shuffled">
+  <svg viewBox="0 0 760 292" className="h-auto w-full" role="img" aria-label="Four fixed song nodes and a re-routing visiting path from the head through all four songs to Null — only the arrows and next pointers change when shuffled">
           <defs>
             <marker id="sf-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker>
           </defs>
@@ -827,6 +856,7 @@ function ShuffleLab() {
           ))}
           <text x="384" y="286" textAnchor="middle" fontSize="12" fontWeight="800" fill="#f0a8a8">Null</text>
         </svg>
+</AtbFigure>
       </div>
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <OpBtn tone="warm" onClick={shuffle}>Shuffle</OpBtn>
@@ -862,7 +892,7 @@ export function AtbArraysSection() {
   return (
     <Section id="arrays">
       <SectionHead
-        eyebrow="Module 2 · Linear data structures — arrays"
+        eyebrow={eyebrowOf("arrays")}
         title={<><span className="grad-text">Arrays</span> — numbered boxes in a row</>}
         lead="The first linear structure: one name, one block of memory, positions numbered from 0. Arrays are the structure every other structure is measured against — because of one superpower: direct access."
       />
@@ -943,6 +973,11 @@ print(Sub[3])   # 55  ← one direct jump`} />
           <p className="mt-3 font-mono-warm text-[.84rem] font-bold text-[#a0410a]">
             Sub[2,1] → 65 (student 2, subject 1) · Sub[4,3] → 58 (student 4, subject 3) — still one direct jump each.
           </p>
+          <p className="mt-2 text-[.82rem] leading-relaxed text-[#5b4a33]">
+            A <strong>7×5 array</strong> stores marks for 7 students across 5 subjects. Arrays can theoretically have n
+            dimensions, but two-dimensional arrays are the most practical — every higher dimension adds programming
+            complexity.
+          </p>
         </div>
       </Reveal>
 
@@ -969,6 +1004,14 @@ print(Sub[3])   # 55  ← one direct jump`} />
             </table>
           </div>
         </div>
+      </Reveal>
+
+      <Reveal className="mt-4">
+        <Callout kind="why" title="What delete really does">
+          Delete sets the value at an index to <strong>null — “nothing stored”, not zero</strong>. Zero would still
+          be data. And the <strong>memory space remains allocated; it is not reclaimed</strong> — the cell stays
+          reserved even though it holds nothing.
+        </Callout>
       </Reveal>
 
       <ReadStep n="5" title="How insert really works" sub="Watch the cells move — the position decides the price" />
@@ -1074,7 +1117,7 @@ export function AtbListSection() {
     <Section id="linkedlists" dark>
       <SectionHead
         dark
-        eyebrow="Lecture 7 · Linked lists & linear structures"
+        eyebrow={eyebrowOf("linkedlists")}
         title={<><span className="grad-text">Linked lists</span> — a playlist that never overflows</>}
         lead="The second major linear data structure after arrays. When the number of items is unknown and changes constantly, contiguity becomes a cage — links beat contiguity: every item carries the address of the next, so data can live anywhere and the chain can reshape itself in cheap pointer moves."
       />
@@ -1314,6 +1357,224 @@ export function AtbListSection() {
           <>Hierarchical applications — <strong>nested linked lists</strong> handle complex multi-level structures: programmes → semesters → courses, users → playlists → songs.</>,
           <>Practical implementation — modern languages provide <strong>built-in linked list implementations</strong>; understanding the conceptual mechanics is still essential.</>,
         ]} />
+      </Reveal>
+    
+
+
+      <AtbStepper title="What happens next? — inserting a song between two nodes" steps={[
+          {
+            label: "The playlist chain: Song A → Song B. No contiguous memory — nodes live anywhere.",
+            detail: "Each node holds data + a reference to the next node.",
+            frame: <AtbCells values={["A →", "B"]} tones={["idle", "idle"]} labels={["node A", "node B"]} />,
+          },
+          {
+            label: "Insert Song X: A’s pointer is re-aimed at X — nothing shifts in memory.",
+            detail: "Pointer surgery: add X, point A → X and X → B.",
+            frame: <AtbCells values={["A →", "X →", "B"]} tones={["active", "twin", "idle"]} labels={["redirected", "new node", "untouched"]} />,
+          },
+          {
+            label: "B never moved; no neighbour was disturbed.",
+            detail: "Compare the array twin: a middle insert shifts every later element right.",
+            frame: <AtbPill k="shifts paid" v={0} tone="twin" />,
+          },
+          {
+            label: "The chain is A → X → B — insertion done by re-wiring only.",
+            detail: "Cheap re-wiring is the linked list’s superpower — and why playlists use it.",
+            frame: <AtbPill k="chain" v="A → X → B" tone="twin" />,
+          },
+        ]} />
+    </Section>
+  );
+}
+
+
+/* ============================================================
+   ATB · PART I — Lecture 6, chapter 2 — THE FIVE ARRAY
+   OPERATIONS (id="arrayops"). The performance analysis summary
+   + the insert-shift trace, straight from the transcript.
+   ============================================================ */
+
+const PERF_ROWS: [string, string, string][] = [
+  ["Read / Access", "Instantaneous", "Sequential reading required"],
+  ["Search", "Instantaneous", "Depends on position"],
+  ["Insert", "Easy (at end)", "Time-consuming (requires shifting)"],
+  ["Update", "Instantaneous", "Depends on search location"],
+  ["Delete", "Instantaneous", "Depends on search location"],
+];
+
+export function AtbArrayOpsSection() {
+  return (
+    <Section id="arrayops" dark>
+      <SectionHead
+        eyebrow={eyebrowOf("arrayops")}
+        title={
+          <>
+            The five operations, <span className="grad-text">priced</span>
+          </>
+        }
+        lead="Read, search, insert, update, delete — each one instant at a known location and expensive at an unknown one. The location decides the price."
+      />
+
+      <ReadStep n="1" title="The performance analysis summary" sub="Known location → direct jump. Unknown location → find it first. Five operations, one pattern." dark />
+      <Reveal>
+        <div className="card-warm overflow-hidden p-0">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[620px] text-left text-[.86rem]">
+              <thead>
+                <tr className="bg-[#fbf3e3]">
+                  <th className="px-4 py-2.5 font-extrabold text-[#3e2c1d]">Operation</th>
+                  <th className="px-4 py-2.5 font-extrabold text-[#3e2c1d]">Known location</th>
+                  <th className="px-4 py-2.5 font-extrabold text-[#3e2c1d]">Unknown location</th>
+                </tr>
+              </thead>
+              <tbody>
+                {PERF_ROWS.map(([op, k, u]) => (
+                  <tr key={op} className="border-t border-[#f3e2c8] bg-[#fffaf1]">
+                    <td className="px-4 py-2.5 font-bold text-[#7c4a12]">{op}</td>
+                    <td className="px-4 py-2.5 font-semibold" style={{ color: "#44621d" }}>{k}</td>
+                    <td className="px-4 py-2.5 text-[#5b4a33]">{u}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Reveal>
+
+      <ReadStep n="2" title="Insert at the beginning — every element shifts" sub="The transcript’s trace: inserting at index 0 moves index 4→5, 3→4, 2→3, 1→2, 0→1. The further forward you insert, the more the array pays." dark />
+      <AtbStepper
+        dark
+        title="What happens next? — insert 99 at index 0 of [60, 65, 70, 55, 60]"
+        steps={[
+          {
+            label: "The array is full at index 4 — inserting at index 0 needs a free cell AFTER it.",
+            detail: "The array has space reserved at index 5; everything else must move to open slot 0.",
+            frame: <AtbCells values={[60, 65, 70, 55, 60, null]} tones={["idle", "idle", "idle", "idle", "idle", "ghost"]} />,
+          },
+          {
+            label: "Shift 4→5: the last value (60) moves right first.",
+            detail: "Shifts run back-to-front so nothing is overwritten.",
+            frame: <AtbCells values={[60, 65, 70, 55, 60, 60]} tones={["idle", "idle", "idle", "idle", "active", "done"]} />,
+          },
+          {
+            label: "Shift 3→4, then 2→3: 55 and 70 follow.",
+            detail: "Each shift is one copy operation — the cost of a front insert is the whole array.",
+            frame: <AtbCells values={[60, 65, 70, 55, 55, 60]} tones={["idle", "idle", "active", "done", "done", "done"]} />,
+          },
+          {
+            label: "Shift 1→2, then 0→1: 65 and the original 60 move.",
+            detail: "Index 0 is now free.",
+            frame: <AtbCells values={[60, 60, 65, 70, 55, 60]} tones={["active", "done", "done", "done", "done", "done"]} />,
+          },
+          {
+            label: "Drop 99 into index 0. Five shifts for one insert at the front.",
+            detail: "Insert at the END would have been one step. The position decides the price — that is why the table says insert is time-consuming at an unknown or forward position.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbCells values={[99, 60, 65, 70, 55, 60]} tones={["twin", "done", "done", "done", "done", "done"]} />
+                <AtbPill k="shifts paid" v={5} tone="active" />
+              </div>
+            ),
+          },
+        ]}
+      />
+
+      <ReadStep n="3" title="Search, then update — the inventory case" sub="Update at a known location is instantaneous; at an unknown location it is search + update. The transcript’s business example: stock 15 → 10 after selling 5." dark />
+      <AtbStepper
+        dark
+        title="What happens next? — stock update after a sale"
+        steps={[
+          {
+            label: "The stock array holds product quantities. We sell 5 units of the item held somewhere.",
+            detail: "Location unknown — the update cannot jump directly.",
+            frame: <AtbCells values={[42, 15, 8, 27, 13]} tones={["idle", "active", "idle", "idle", "idle"]} labels={["P1", "P2 ·?", "P3", "P4", "P5"]} />,
+          },
+          {
+            label: "Linear search from index 0: 42? no. 15? — match at index 1.",
+            detail: "Search cost depends on position: near the front is fast, near the end is slow.",
+            frame: <AtbCells values={[42, 15, 8, 27, 13]} tones={["done", "twin", "idle", "idle", "idle"]} labels={["no", "found idx 1", "", "", ""]} />,
+          },
+          {
+            label: "Update: Arr[1] = 15 − 5 → 10.",
+            detail: "Once found, the write itself is one direct operation.",
+            frame: <AtbCells values={[42, 10, 8, 27, 13]} tones={["done", "twin", "idle", "idle", "idle"]} labels={["", "updated", "", "", ""]} />,
+          },
+          {
+            label: "Business state: product P2 now shows 10 units on hand.",
+            detail: "Known-location updates (product id → index) skip the search entirely and run instantaneously.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="P2 stock" v="15 → 10" tone="twin" />
+                <AtbPill k="search cost" v="1 comparison" tone="active" />
+                <AtbPill k="at the end it would be" v="5 comparisons" tone="broken" />
+              </div>
+            ),
+          },
+        ]}
+      />
+
+      <AtbFigure dark notice="every row follows the same law — the known-location column is a direct jump, the unknown-location column always begins with finding the element first.">
+        <div className="rounded-2xl border p-4" style={{ borderColor: ATB_BORDER, background: "rgba(255,250,241,.04)" }}>
+          <AtbFigure notice="a direct jump arrow into cell 2 versus a sequential walk visiting cells 0 1 2">
+  <svg viewBox="0 0 640 150" className="h-auto w-full" role="img" aria-label="Known versus unknown location: a direct jump arrow into cell 2 versus a sequential walk visiting cells 0 1 2">
+            <defs>
+              <marker id="atbAoA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill={ATB_OLIVE} /></marker>
+              <marker id="atbAoB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c99a5b" /></marker>
+            </defs>
+            <text x={160} y={22} textAnchor="middle" fontSize={11} fontWeight={800} fill="#9cbf62">KNOWN LOCATION</text>
+            {[0, 1, 2, 3, 4].map((i) => (
+              <g key={i}>
+                <rect x={100 + i * 52} y={36} width={44} height={30} rx={6} fill={i === 2 ? "#eef4dd" : "rgba(255,250,241,.08)"} stroke={i === 2 ? ATB_OLIVE : "#e9d7bf"} />
+                <text x={122 + i * 52} y={56} textAnchor="middle" fontSize={10} fontWeight={800} fill={i === 2 ? "#3c521b" : "#e9d7bf"}>{[42, 15, 8, 27, 13][i]}</text>
+                <text x={122 + i * 52} y={80} textAnchor="middle" fontSize={9} fontWeight={700} fill="#cbb392">{i}</text>
+              </g>
+            ))}
+            <path d="M40 51 H 96" stroke={ATB_OLIVE} strokeWidth={2.4} markerEnd="url(#atbAoA)" fill="none" />
+            <text x={40} y={98} fontSize={9.5} fontWeight={800} fill="#9cbf62">one direct jump — O(1)</text>
+            <text x={480} y={22} textAnchor="middle" fontSize={11} fontWeight={800} fill="#f5c889">UNKNOWN LOCATION</text>
+            {[0, 1, 2].map((i) => (
+              <g key={i}>
+                <rect x={400 + i * 52} y={36} width={44} height={30} rx={6} fill={i === 2 ? "#eef4dd" : "rgba(255,250,241,.08)"} stroke={i === 2 ? ATB_OLIVE : "#e9d7bf"} />
+                <text x={422 + i * 52} y={56} textAnchor="middle" fontSize={10} fontWeight={800} fill={i === 2 ? "#3c521b" : "#e9d7bf"}>{[42, 15, 8, 27, 13][i]}</text>
+                <text x={422 + i * 52} y={80} textAnchor="middle" fontSize={9} fontWeight={700} fill="#cbb392">{i}</text>
+              </g>
+            ))}
+            <path d="M386 51 H 396" stroke="#c99a5b" strokeWidth={2} markerEnd="url(#atbAoB)" fill="none" />
+            <path d="M438 51 H 448" stroke="#c99a5b" strokeWidth={2} markerEnd="url(#atbAoB)" fill="none" />
+            <text x={520} y={60} fontSize={9.5} fontWeight={800} fill="#f5c889">walk… until found</text>
+            <text x={520} y={76} fontSize={9} fontWeight={700} fill="#cbb392">cost depends on position</text>
+          </svg>
+</AtbFigure>
+        </div>
+      </AtbFigure>
+
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <Quiz
+          q="Delete sets the cell to null. Why not zero?"
+          options={["Zero is reserved for the system", "Zero is still data — null means nothing stored", "Null is faster to type", "Zero breaks the index"]}
+          answer={1}
+          explain="Zero is a legitimate value in the data set; null means ‘nothing stored’. And the memory space remains allocated — it is not reclaimed."
+          source="Lecture 6 · delete"
+        />
+        <Quiz
+          q="Inserting at index 0 of a 5-element array (with one free slot) costs how many shifts?"
+          options={["0", "1", "5", "Depends on the value inserted"]}
+          answer={2}
+          explain="The transcript’s trace: 4→5, 3→4, 2→3, 1→2, 0→1 — all five existing elements shift right before the new value lands. Insert at the END costs zero shifts."
+          source="Lecture 6 · insert"
+        />
+      </div>
+
+      <Reveal className="mt-4">
+        <Takeaways
+          dark
+          items={[
+            <>The five operations: <strong>read/access, search, insert, update, delete</strong>.</>,
+            <>Known location → <strong>instantaneous</strong> for read, update and delete; insert is easy only at the end.</>,
+            <>Unknown location → every operation begins with a <strong>search</strong>, and search cost depends on position.</>,
+            <>Delete writes <strong>null (“nothing stored”), not zero</strong> — and the memory stays allocated.</>,
+          ]}
+        />
       </Reveal>
     </Section>
   );

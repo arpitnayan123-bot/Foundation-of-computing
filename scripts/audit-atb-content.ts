@@ -8,7 +8,19 @@
    (pre-restructure baseline: 28 lectures L1–L28 → 33 chapters;
     re-run after the 33-lecture PDF restructure until green).  */
 
-import { ATB_LECTURES, ATB_ALL_CHAPTER_IDS } from "../src/components/atb/lectures";
+import { ATB_LECTURES, ATB_ALL_CHAPTER_IDS, ATB_GROUP_ORDER } from "../src/components/atb/lectures";
+import * as path from "path";
+
+function requireNoHardcodedEyebrows(): boolean {
+  const dir = path.join(ROOT, "src/components/atb");
+  let bad = 0;
+  for (const f of fs.readdirSync(dir)) {
+    if (!f.startsWith("AtbParts")) continue;
+    const src = fs.readFileSync(path.join(dir, f), "utf8");
+    for (const m of src.matchAll(/eyebrow="([^"]+)"/g)) { issues.push(`${f}: hard-coded eyebrow "${m[1]}"`); bad++; }
+  }
+  return bad === 0;
+}
 import { ATB_EXAM_BANKS, ATB_EXAM_GROUPS, ATB_TOTAL_QUESTIONS } from "../src/components/atb/questions";
 import * as fs from "fs";
 
@@ -35,19 +47,24 @@ const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
 if (dupes.length) issues.push(`registry: duplicate chapter ids: ${[...new Set(dupes)].join(", ")}`);
 else ok.push(`chapter ids unique (${ids.length} total)`);
 
-/* ---------- 2. nav GROUPS in AtbApp.tsx ---------- */
-console.log("=== 2. NAV GROUPS (atb/AtbApp.tsx) ===");
+/* ---------- 2. nav GROUPS in AtbApp.tsx — DERIVED from the registry ---------- */
+console.log("=== 2. NAV GROUPS (derived from atb/lectures.ts) ===");
 const atbAppSrc = fs.readFileSync(`${ROOT}/src/components/atb/AtbApp.tsx`, "utf8");
-const groupsBlock = atbAppSrc.slice(atbAppSrc.indexOf("const GROUPS"), atbAppSrc.indexOf("const FLAT_ITEMS"));
-const navIds = [...groupsBlock.matchAll(/\{ id: "([a-z0-9-]+)", label:/g)].map((m) => m[1]);
-console.log(`nav items: ${navIds.length}`);
-const navDupes = navIds.filter((id, i) => navIds.indexOf(id) !== i);
-if (navDupes.length) issues.push(`nav: duplicate ids: ${navDupes.join(", ")}`);
-const inNavNotRegistry = navIds.filter((id) => !ids.includes(id));
-const inRegistryNotNav = ids.filter((id) => !navIds.includes(id));
-if (inNavNotRegistry.length) issues.push(`nav ids NOT in registry: ${inNavNotRegistry.join(", ")}`);
-if (inRegistryNotNav.length) issues.push(`registry ids NOT in nav (unreachable via top bar): ${inRegistryNotNav.join(", ")}`);
-if (!inNavNotRegistry.length && !inRegistryNotNav.length) ok.push("nav <-> registry: exact 1:1 match");
+if (atbAppSrc.includes("ATB_GROUPS")) ok.push("AtbApp nav derived from registry (ATB_GROUPS) — zero hard-coded chapters");
+else issues.push("AtbApp: nav not derived from ATB_GROUPS");
+if (!/eyebrow="/.test(atbAppSrc) && !requireNoHardcodedEyebrows()) ok.push("no hard-coded eyebrows anywhere in atb parts");
+// the derived groups must partition L1..L33 in ascending contiguous runs
+{
+  const seen: string[] = [];
+  ATB_LECTURES.forEach((l) => { if (!seen.includes(l.group)) seen.push(l.group); });
+  const runsOk = seen.length === 8 && seen.every((g, i) => {
+    const ns = ATB_LECTURES.filter((l) => l.group === g).map((l) => l.n);
+    return ns.every((n, j) => j === 0 || n === ns[j - 1] + 1);
+  });
+  const orderOk = seen.every((g, i) => ATB_GROUP_ORDER[i] && ATB_GROUP_ORDER[i].id === g);
+  if (runsOk && orderOk) ok.push(`8 nav groups partition L1..L${ATB_LECTURES.length} in ascending contiguous runs (${seen.join(" → ")})`);
+  else issues.push(`group partition broken: ${seen.join(" → ")}`);
+}
 
 /* ---------- 3. SECTION_COMPONENTS map ---------- */
 console.log("=== 3. SECTION_COMPONENTS map ===");
@@ -64,7 +81,7 @@ if (!regNotMapped.length && !mappedNotReg.length) ok.push("registry <-> SECTION_
 
 /* ---------- 4. rendered <Section id> in AtbParts1-10 ---------- */
 console.log("=== 4. RENDERED <Section id> ===");
-const files = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => `${ROOT}/src/components/atb/AtbParts${n}.tsx`);
+const files = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) => `${ROOT}/src/components/atb/AtbParts${n}.tsx`);
 const renderedIds: { id: string; file: string }[] = [];
 for (const f of files) {
   const src = fs.readFileSync(f, "utf8");
@@ -156,7 +173,7 @@ const allParts = files.map((f) => ({ f, src: fs.readFileSync(f, "utf8") }));
 // hard-coded counts that shift when the 33-lecture restructure lands
 for (const { f, src } of allParts) {
   const n = f.split("/").pop()!;
-  for (const m of src.matchAll(/(28 lectures|twenty-eight|Twenty-eight|33 lectures|thirty-three|Thirty-three)/g)) {
+  for (const m of src.matchAll(/(28 lectures|twenty-eight|Twenty-eight|L28 is the last|the last lecture)/g)) {
     issues.push(`${n}: hard-coded lecture-count text "${m[1]}" (will drift when the 33-lecture PDF lands)`);
   }
 }

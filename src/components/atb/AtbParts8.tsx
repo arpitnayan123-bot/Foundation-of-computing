@@ -17,6 +17,9 @@ import type { LucideIcon } from "lucide-react";
 import {
   Callout, Practice, Quiz, ReadStep, Reveal, Section, SectionHead, StepsFlow, Takeaways,
 } from "@/components/notes/ui";
+import { AtbFigure } from "@/components/atb/AtbStepper";
+import { eyebrowOf } from "@/components/atb/lectures";
+import { AtbCells, AtbPill, AtbStepper } from "@/components/atb/AtbStepper";
 
 /* ---------- local button (real <button>, aria-labelled) ---------- */
 
@@ -75,7 +78,8 @@ function SocietyLab() {
         three different stories: that is exactly what best, average and worst case measure.
       </p>
       <div className="mt-5 rounded-2xl p-4" style={{ background: "#fffaf1", border: "1px dashed #e5c79d" }}>
-        <svg viewBox="0 0 760 170" className="h-auto w-full" role="img"
+        <AtbFigure notice="A row of 24 numbered houses behind Gate A. Houses 3 and 4 are green, the best case, closest to the gate. Houses 7 to 18 are amber, the average case. Houses 19 to 24 are red, the worst case, farthest from the gate.">
+  <svg viewBox="0 0 760 170" className="h-auto w-full" role="img"
           aria-label="A row of 24 numbered houses behind Gate A. Houses 3 and 4 are green, the best case, closest to the gate. Houses 7 to 18 are amber, the average case. Houses 19 to 24 are red, the worst case, farthest from the gate.">
           <defs>
             <marker id="s8-gate" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
@@ -111,6 +115,7 @@ function SocietyLab() {
           <line x1={68 + 18 * 28} y1="138" x2={68 + 23 * 28 + 24} y2="138" stroke="#e6a08c" strokeWidth="2" />
           <text x={68 + 20.5 * 28 + 12} y="154" textAnchor="middle" fontSize="10" fontWeight="800" fill="#8c2f2f">19–24 · worst</text>
         </svg>
+</AtbFigure>
       </div>
       <p className="mt-3 min-h-[1.6rem] text-[.85rem] font-bold leading-relaxed text-[#a0410a]" aria-live="polite">
         {status}
@@ -166,7 +171,8 @@ function BigOChart() {
         explosive ones leave the planet.
       </p>
       <div className="mt-5 rounded-2xl p-4" style={{ background: "#fffaf1", border: "1px dashed #e5c79d" }}>
-        <svg viewBox="0 0 660 300" className="h-auto w-full" role="img"
+        <AtbFigure notice="Growth curves of six complexity classes over one shared axis of input size. O(1) is a flat green line. O(log n) rises slowly. O(n) rises in a straight proportional line. O(n log n) climbs moderately. O(n²) curves upward dramatically. O(2ⁿ) hugs the floor and then explodes past everything near the right edge.">
+  <svg viewBox="0 0 660 300" className="h-auto w-full" role="img"
           aria-label="Growth curves of six complexity classes over one shared axis of input size. O(1) is a flat green line. O(log n) rises slowly. O(n) rises in a straight proportional line. O(n log n) climbs moderately. O(n²) curves upward dramatically. O(2ⁿ) hugs the floor and then explodes past everything near the right edge.">
           {/* grid */}
           {[1, 2, 3, 4].map((k) => (
@@ -196,6 +202,7 @@ function BigOChart() {
             />
           ))}
         </svg>
+</AtbFigure>
         {/* legend */}
         <div className="mt-2 flex flex-wrap gap-2">
           {BIGO_CURVES.map((c) => (
@@ -407,7 +414,7 @@ export function AtbComplexitySection() {
   return (
     <Section id="complexity">
       <SectionHead
-        eyebrow="Lecture 21 · Search algorithms & algorithmic complexity"
+        eyebrow={eyebrowOf("complexity")}
         title={<><span className="grad-text">Algorithmic complexity</span> — measuring growth, not seconds</>}
         lead="Search is the heartbeat of the internet — every web search, product recommendation and train booking is a search, and users expect the answer instantly. Before picking a strategy, you need the ruler that measures algorithms: as the input grows from 100 rows to 10 lakh, how does the work grow?"
       />
@@ -623,6 +630,31 @@ export function AtbComplexitySection() {
           <>Knowing <strong>data-structure operation costs</strong> (arrays, lists, stacks, queues, trees, graphs) is fundamental to choosing appropriate solutions.</>,
         ]} />
       </Reveal>
+    
+
+
+      <AtbStepper title="What happens next? — the same problem at two scales" steps={[
+          {
+            label: "n = 10 records: linear search costs at most 10 checks; binary at most 4.",
+            detail: "At tiny scale the difference is noise.",
+            frame: <AtbCells values={["linear ≤ 10", "binary ≤ 4"]} tones={["active", "twin"]} labels={["O(n)", "O(log n)"]} />,
+          },
+          {
+            label: "n = 10,000,000 records: linear may check EVERY record; binary needs ~24.",
+            detail: "log₂ of 10 million ≈ 23.25 — halving beats scanning at any business scale.",
+            frame: <AtbCells values={["linear ≤ 10,000,000", "binary ≤ 24"]} tones={["broken", "twin"]} labels={["O(n)", "O(log n)"]} />,
+          },
+          {
+            label: "Complexity measures the GROWTH RATE — never the stopwatch.",
+            detail: "The curves, not the seconds, decide which algorithm survives scale.",
+            frame: <AtbPill k="metric" v="growth rate" tone="twin" />,
+          },
+          {
+            label: "Pick the class before the hardware: O(1) and O(log n) scale; O(n²) and O(2ⁿ) do not.",
+            detail: "That is the ladder the next lecture climbs with five concrete searches.",
+            frame: <AtbPill k="verdict" v="choose the curve" tone="active" />,
+          },
+        ]} />
     </Section>
   );
 }
@@ -825,7 +857,8 @@ function RaceTrack({ strategy }: { strategy: RaceKey }) {
 
 function HashMini() {
   return (
-    <svg viewBox="0 0 720 176" className="h-auto w-full" role="img"
+    <AtbFigure notice="key 27 linked to key 7 like a linked list.">
+  <svg viewBox="0 0 720 176" className="h-auto w-full" role="img"
       aria-label="A hash table with ten buckets numbered 0 to 9. The key 71 hashes by mod 10 to bucket 1, landing directly. Bucket 7 holds a collision chain: key 27 linked to key 7 like a linked list.">
       <defs>
         <marker id="s8-hash" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
@@ -862,6 +895,7 @@ function HashMini() {
         the hash computes the address directly · collided keys chain like a linked list — walk it linearly
       </text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -873,7 +907,7 @@ export function AtbSearchSection() {
   return (
     <Section id="search">
       <SectionHead
-        eyebrow="Lecture 22 · Search algorithms overview"
+        eyebrow={eyebrowOf("search")}
         title={<><span className="grad-text">Five ways to find</span> — the search strategies</>}
         lead="Linear, binary, jump, exponential, hash-based — five answers to the same question, with wildly different bills. The trick of the lecture: match the strategy to the data's size, sorting status, distribution and growth rate."
       />
@@ -1165,6 +1199,47 @@ export function AtbSearchSection() {
           <>Selection factors — <strong>data size, sorting status, distribution and growth rate</strong> decide which strategy fits the business problem.</>,
         ]} />
       </Reveal>
+    
+      <AtbStepper title="What happens next? — jump search skips by √n" steps={[
+          {
+            label: "9 sorted elements. Jump step = √9 = 3.",
+            detail: "Jump search: fixed √n jumps, then a linear sweep inside the block.",
+            frame: <AtbCells values={[2, 4, 6, 8, 10, 12, 14, 16, 18]} tones={["idle", "idle", "active", "idle", "idle", "active", "idle", "idle", "active"]} labels={["", "", "jump", "", "", "jump", "", "", "jump"]} />,
+          },
+          {
+            label: "Searching for 10: jump to index 2 (6 < 10), index 5 (12 > 10) — overshoot!",
+            detail: "The target must be inside the block just crossed: indexes 3–5.",
+            frame: <AtbPill k="blocks" v="jump, jump, overshoot" tone="active" />,
+          },
+          {
+            label: "Linear sweep inside the block: 8 (idx 3), 10 (idx 4) — found in 2 more checks.",
+            detail: "9 elements → jump step 3, exactly as the lecture computes √n.",
+            frame: <AtbPill k="found" v="index 4 · 3 jumps + 2 checks" tone="twin" />,
+          },
+        ]} />
+    
+      <AtbStepper title="What happens next? — binary search halves 10 million" steps={[
+          {
+            label: "10,000,000 sorted records. Binary search checks the middle first.",
+            detail: "Sorted data required — that is the entry price of halving.",
+            frame: <AtbPill k="records" v="10,000,000" tone="active" />,
+          },
+          {
+            label: "Each comparison discards HALF the remaining space.",
+            detail: "10,000,000 → 5,000,000 → 2,500,000 → …",
+            frame: <AtbPill k="after 1 check" v="5,000,000 left" tone="twin" />,
+          },
+          {
+            label: "Halving continues: the count of checks ≈ log₂(10,000,000) ≈ 24.",
+            detail: "The lecture’s exact figure: about 24 comparisons — versus up to 10 million for linear search.",
+            frame: <AtbPill k="binary checks" v="≈ 24" tone="twin" />,
+          },
+          {
+            label: "Linear search on the same data: up to 10,000,000 comparisons.",
+            detail: "That gap is the entire business case for sorted structures — and for jump search’s √n middle ground.",
+            frame: <AtbPill k="linear checks" v="up to 10,000,000" tone="broken" />,
+          },
+        ]} />
     </Section>
   );
 }

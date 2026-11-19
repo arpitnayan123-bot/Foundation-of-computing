@@ -43,6 +43,9 @@ import {
   StepsFlow,
   Takeaways,
 } from "@/components/notes/ui";
+import { eyebrowOf } from "@/components/atb/lectures";
+import { AtbCells, AtbPill, AtbStepper } from "@/components/atb/AtbStepper";
+import { AtbFigure } from "@/components/atb/AtbStepper";
 
 /* ============================================================
    Shared SVG geometry + animation primitives (this file only)
@@ -187,7 +190,7 @@ export function AtbHero({
   }, [q]);
 
   return (
-    <header id="top" className="relative flex min-h-[86vh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-16 sm:pb-16">
+    <header className="relative flex min-h-[86vh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-16 sm:pb-16">
       {/* ambient washes — static (cheap), like every shelf hero */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute -left-24 top-16 h-80 w-80 rounded-full blur-3xl" style={{ background: "rgba(245,158,11,.18)" }} />
@@ -364,7 +367,7 @@ export function AtbIntroSection() {
   return (
     <Section id="intro">
       <SectionHead
-        eyebrow="Module 1 · Introduction to algorithms"
+        eyebrow={eyebrowOf("intro")}
         title={
           <>
             An algorithm is just a <span className="grad-text">recipe</span> a machine can follow
@@ -577,6 +580,56 @@ export function AtbIntroSection() {
           />
         </div>
       </Reveal>
+    
+
+
+
+
+      <AtbStepper title="What happens next? — the ATM decides, branch by branch" steps={[
+          {
+            label: "Read card details (input) → request PIN (input).",
+            detail: "Trapezoids in the flowchart — the two inputs come first.",
+            frame: <AtbPill k="inputs" v="card · PIN" tone="active" />,
+          },
+          {
+            label: "Decision: PIN correct? No → END the process immediately.",
+            detail: "Not all paths run in one execution — this branch dies here.",
+            frame: <AtbPill k="branch" v="wrong PIN → end" tone="broken" />,
+          },
+          {
+            label: "Yes → request withdrawal amount → decision: balance sufficient?",
+            detail: "Sequential diamonds — each question gates the next step.",
+            frame: <AtbPill k="branch" v="balance check" tone="active" />,
+          },
+          {
+            label: "Sufficient → release cash (a FUNCTION) → end.",
+            detail: "Complex operations like dispensing notes are separate functions with their own algorithms.",
+            frame: <AtbPill k="output" v="cash released" tone="twin" />,
+          },
+        ]} />
+    
+      <AtbStepper title="What happens next? — the tea algorithm, end to end" steps={[
+          {
+            label: "Input data arrives: 1 cup water, 1 cup milk, 2–3 teaspoons of loose black tea.",
+            detail: "Data = the actual values you work with — they change with each run (more guests, more cups).",
+            frame: <AtbCells values={["water", "milk", "tea"]} tones={["active", "active", "active"]} labels={["1 cup", "1 cup", "2–3 tsp"]} />,
+          },
+          {
+            label: "The organized steps run: boil → brew → pour. Sequence may vary by preference.",
+            detail: "The algorithm is the series of organized steps — the outcome stays consistent.",
+            frame: <AtbPill k="steps" v="boil → brew → pour" tone="twin" />,
+          },
+          {
+            label: "Output: a consistent cup of tea — regardless of the step order chosen.",
+            detail: "Same final outcome; that is the algorithm contract from Lecture 1.",
+            frame: <AtbPill k="output" v="one consistent cup" tone="twin" />,
+          },
+          {
+            label: "Add a decision — ‘is the tea sufficiently brewed?’ — and the flowchart grows a diamond.",
+            detail: "Complexity increases with every detail, condition and check added.",
+            frame: <AtbPill k="complexity" v="grows with detail" tone="active" />,
+          },
+        ]} />
     </Section>
   );
 }
@@ -650,7 +703,7 @@ export function AtbFlowchartsSection() {
   return (
     <Section id="flowcharts">
       <SectionHead
-        eyebrow="Module 1 · Flowcharts"
+        eyebrow={eyebrowOf("flowcharts")}
         title={
           <>
             Drawing algorithms — the <span className="grad-text">five symbols</span>
@@ -663,7 +716,8 @@ export function AtbFlowchartsSection() {
 
       <Reveal>
         <div className="card-warm p-5 md:p-7">
-          <svg viewBox="0 0 800 236" className="h-auto w-full" role="img" aria-label="The five flowchart symbols: rounded rectangle for start/end, rectangle for processing, trapezoid for input/output, diamond for decision, plus flow arrows">
+          <AtbFigure notice="rounded rectangle for start/end, rectangle for processing, trapezoid for input/output, diamond for decision, plus flow arrows">
+  <svg viewBox="0 0 800 236" className="h-auto w-full" role="img" aria-label="The five flowchart symbols: rounded rectangle for start/end, rectangle for processing, trapezoid for input/output, diamond for decision, plus flow arrows">
             <defs>
               <marker id="atbSymA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker>
             </defs>
@@ -686,6 +740,7 @@ export function AtbFlowchartsSection() {
               <text x={702} y={202} textAnchor="middle" fontSize={10.5} fontWeight={700} fill="#a0410a" letterSpacing={1}>FLOW</text>
             </motion.g>
           </svg>
+</AtbFigure>
         </div>
       </Reveal>
 
@@ -853,7 +908,8 @@ function AtmFlow() {
     <FlowNode key={lines[0].t} d={d} fill={fill} stroke={stroke} lines={lines} delay={delay} />
   );
   return (
-    <svg viewBox="0 0 640 640" className="mx-auto h-auto w-full max-w-xl" role="img" aria-label="ATM cash withdrawal flowchart with two decisions whose No branches both route to End">
+    <AtbFigure notice="ATM cash withdrawal flowchart with two decisions whose No branches both route to End">
+  <svg viewBox="0 0 640 640" className="mx-auto h-auto w-full max-w-xl" role="img" aria-label="ATM cash withdrawal flowchart with two decisions whose No branches both route to End">
       <defs>
         <marker id="atbAtmN" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c99a5b" /></marker>
         <marker id="atbAtmY" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#9cbf62" /></marker>
@@ -891,6 +947,7 @@ function AtmFlow() {
       {node(pRect(CX, 478, 196, 36), "rgba(255,236,210,.07)", "#c99a5b", [{ t: "Release cash", x: CX, y: 500, fill: "#f7ecdd" }], 1.7)}
       {node(pOval(CX, 566, 56, 17), "rgba(255,236,210,.10)", "#c99a5b", [{ t: "END", x: CX, y: 570, fill: "#f7ecdd" }], 1.95)}
     </svg>
+</AtbFigure>
   );
 }
 
@@ -899,7 +956,7 @@ export function AtbAtmSection() {
     <Section id="atm" dark>
       <SectionHead
         dark
-        eyebrow="Module 1 · Decisions in flowcharts"
+        eyebrow={eyebrowOf("atm")}
         title={
           <>
             The ATM machine — <span className="grad-text">branching</span> in action
@@ -1055,7 +1112,7 @@ export function AtbCodeSection() {
   return (
     <Section id="pseudocode">
       <SectionHead
-        eyebrow="Module 1 · Functions, pseudocode & code"
+        eyebrow={eyebrowOf("pseudocode")}
         title={
           <>
             From pseudocode to code — and the <span className="grad-text">function</span> in between
@@ -1112,7 +1169,8 @@ export function AtbCodeSection() {
       <div className="grid items-center gap-5 lg:grid-cols-2">
         <Reveal>
           <div className="card-warm p-5 md:p-7">
-            <svg viewBox="0 0 320 200" className="mx-auto h-auto w-full max-w-xs" role="img" aria-label="Function as a pre-defined process box: inputs in, one output out">
+            <AtbFigure notice="Function as a pre-defined process box: inputs in, one output out">
+  <svg viewBox="0 0 320 200" className="mx-auto h-auto w-full max-w-xs" role="img" aria-label="Function as a pre-defined process box: inputs in, one output out">
               <defs>
                 <marker id="atbFnA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker>
               </defs>
@@ -1123,6 +1181,7 @@ export function AtbCodeSection() {
               <text x={172} y={30} fontSize={11} fontWeight={700} fill="#a0410a">S1 … S5 in</text>
               <text x={172} y={166} fontSize={11} fontWeight={700} fill="#4d6b1f">62 out</text>
             </svg>
+</AtbFigure>
             <p className="mt-1 text-center text-[.78rem] text-muted-warm">
               The double side-bars mark a <strong>pre-defined process</strong> — a function call.
             </p>
@@ -1156,7 +1215,9 @@ export function AtbCodeSection() {
         </Reveal>
         <Reveal delay={120} className="lg:col-span-2">
           <Callout kind="insight" title="Why functions simplify algorithms">
-            Functions <strong>carry out common tasks</strong> so the main algorithm never repeats
+            Functions <strong>carry out common tasks</strong> so the main algo
+
+rithm never repeats
             them. Need the average of 5 marks in ten places? Write <code className="font-mono text-[.8rem]">AVERAGE</code> once.
             The flowchart shows the call as a single box — readers can trust it without re-reading
             the internals.
@@ -1182,6 +1243,29 @@ export function AtbCodeSection() {
           />
         </div>
       </Reveal>
+    
+      <AtbStepper title="What happens next? — the 310 ÷ 5 average, computed twice" steps={[
+          {
+            label: "Input the five marks: 60, 65, 70, 55, 60 — all integers.",
+            detail: "Data type chosen per Lecture 2: whole numbers → Integer.",
+            frame: <AtbCells values={[60, 65, 70, 55, 60]} tones={["active", "active", "active", "active", "active"]} />,
+          },
+          {
+            label: "sum = S1 + S2 + S3 + S4 + S5 = 310.",
+            detail: "The mathematical approach: add all marks first.",
+            frame: <AtbPill k="sum" v={310} tone="twin" />,
+          },
+          {
+            label: "AVG = sum ÷ 5 = 310 ÷ 5 = 62 — stored in a float.",
+            detail: "AVG is declared float: an average may carry decimals (62.0 here).",
+            frame: <AtbPill k="AVG" v="310 ÷ 5 = 62" tone="twin" />,
+          },
+          {
+            label: "If AVG > 60 → output “First Class”. 62 qualifies.",
+            detail: "The decision structure implements the flowchart diamond; 62 > 60 → the branch fires.",
+            frame: <AtbPill k="output" v="First Class" tone="twin" />,
+          },
+        ]} />
     </Section>
   );
 }
@@ -1340,7 +1424,7 @@ export function AtbAverageSection() {
   return (
     <Section id="average">
       <SectionHead
-        eyebrow="Module 1 · Worked example"
+        eyebrow={eyebrowOf("average")}
         title={
           <>
             Average marks — <span className="grad-text">arithmetic</span> vs algorithm

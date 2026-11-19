@@ -25,25 +25,21 @@ import { useSectionProgress } from "@/lib/use-section-progress";
 import { jumpTo, useOpenSection } from "@/lib/use-open-section";
 import { loadProgress } from "@/lib/progress";
 import { AtbHero, AtbIntroSection, AtbFlowchartsSection, AtbAtmSection, AtbCodeSection, AtbAverageSection } from "@/components/atb/AtbParts1";
-import { AtbPropsSection, AtbAlgoTypesSection } from "@/components/atb/AtbParts2";
-import { AtbArraysSection, AtbListSection } from "@/components/atb/AtbParts3";
+import { AtbFinitenessSection, AtbDefinitenessSection, AtbInputsOutputsSection, AtbEffectivenessSection, AtbProps2Section, AtbAlgoTypesSection } from "@/components/atb/AtbParts2";
+import { AtbArraysSection, AtbArrayOpsSection, AtbListSection } from "@/components/atb/AtbParts3";
 import { AtbStacksSection, AtbQueuesSection, AtbQTypesSection } from "@/components/atb/AtbParts4";
 import { AtbTreesSection, AtbTraversalsSection, AtbGraphsSection, AtbGraphPropsSection, AtbDfsBfsSection } from "@/components/atb/AtbParts5";
-import { AtbTreeTypesSection, AtbHashingSection, AtbBlockchainSection } from "@/components/atb/AtbParts6";
-import { AtbRecap8Section, AtbRecap13Section, AtbRecap18Section, AtbRecap23Section } from "@/components/atb/AtbParts7";
+import { AtbTreeTypesSection, AtbBstAvlSection, AtbHeapsSection, AtbHashingSection, AtbBlockchainSection } from "@/components/atb/AtbParts6";
+import { AtbRecap8Section, AtbVenn8Section, AtbRecap13Section, AtbOps13Section, AtbRecap18Section, AtbVenn18Section, AtbRecap23Section, AtbVenn23Section } from "@/components/atb/AtbParts7";
 import { AtbComplexitySection, AtbSearchSection } from "@/components/atb/AtbParts8";
 import { AtbDijkstraSection, AtbSortingSection } from "@/components/atb/AtbParts9";
-import {
-  AtbCourseMapSection,
-  AtbInsertionSortSection,
-  AtbProps2Section,
-  AtbRecap28Section,
-  AtbSelectionSortSection,
-} from "@/components/atb/AtbParts10";
+import { AtbCourseMapSection, AtbAlgoVsCodeSection, AtbBaBridgeSection, AtbSelectionSortSection, AtbInsertionSortSection } from "@/components/atb/AtbParts10";
+import { AtbRecap28Section, AtbMergeSortSection, AtbQuickSortSection } from "@/components/atb/AtbParts11";
+import { AtbWebSearchSection, AtbAiMlSection, AtbPageRankSection } from "@/components/atb/AtbParts12";
 import { AtbExamWindow } from "@/components/atb/AtbExamWindow";
 import { ATB_EXAM_BANKS, ATB_EXAM_GROUPS, ATB_TOTAL_QUESTIONS, type AtbExamGroup } from "@/components/atb/questions";
 import { ShelfQuickNav } from "@/components/atlas/ShelfQuickNav";
-import { ATB_LECTURES, ATB_ALL_CHAPTER_IDS, ATB_DEFAULT_LECTURE, lectureById, lectureOfChapter, type AtbLecture } from "@/components/atb/lectures";
+import { ATB_LECTURES, ATB_GROUPS, ATB_ALL_CHAPTER_IDS, ATB_DEFAULT_LECTURE, lectureById, lectureByLooseId, lectureOfChapter, type AtbLecture } from "@/components/atb/lectures";
 
 /* ============================================================
    AtbApp — the complete "Algorithmic Thinking in Business"
@@ -68,93 +64,11 @@ import { ATB_LECTURES, ATB_ALL_CHAPTER_IDS, ATB_DEFAULT_LECTURE, lectureById, le
    groups. Each group owns a "Test my knowledge" exam window
    (see questions.ts).
    ============================================================ */
-const GROUPS: {
-  id: AtbExamGroup;
-  label: string;
-  items: { id: string; label: string; desc: string }[];
-}[] = [
-  {
-    id: "intro",
-    label: "Intro",
-    items: [
-      { id: "intro", label: "Why algorithms?", desc: "From making tea to running an ATM" },
-      { id: "flowcharts", label: "Flowcharts", desc: "The five symbols every algorithm is drawn with" },
-      { id: "atm", label: "Decisions", desc: "The ATM machine — branching in action" },
-      { id: "pseudocode", label: "Pseudocode", desc: "Functions, pseudocode and real code" },
-      { id: "average", label: "Average, step-by-step", desc: "Memory boxes, data types & FIRST CLASS" },
-      { id: "coursemap", label: "Course map", desc: "Lecture 3 · assessment · objectives · the BA bridge" },
-    ],
-  },
-  {
-    id: "props",
-    label: "Properties",
-    items: [
-      { id: "properties", label: "9 properties", desc: "What makes an algorithm a *good* algorithm" },
-      { id: "props2", label: "Execution properties", desc: "Lecture 5 · determinism · feasibility · generality in depth" },
-      { id: "algotypes", label: "Algorithm types", desc: "Divide & conquer · greedy · dynamic programming" },
-    ],
-  },
-  {
-    id: "linear",
-    label: "Linear DS",
-    items: [
-      { id: "arrays", label: "Arrays", desc: "Indexed, contiguous, direct access" },
-      { id: "linkedlists", label: "Linked lists", desc: "Lecture 7 · flexible chains of songs" },
-      { id: "recap8", label: "LIVE recap · properties & linear DS", desc: "Lecture 8 · the 9 properties + arrays-vs-lists Venn" },
-    ],
-  },
-  {
-    id: "stackq",
-    label: "Stacks & Queues",
-    items: [
-      { id: "stacks", label: "Stacks", desc: "Lecture 9 · LIFO — the undo machine" },
-      { id: "queues", label: "Queues", desc: "Lecture 10 · FIFO — first come, first served" },
-      { id: "qtypes", label: "Queue types", desc: "Lecture 11 · linear · circular · priority · deque" },
-      { id: "recap13", label: "LIVE recap · stacks & queues", desc: "Lecture 13 · the stack-vs-queue Venn" },
-    ],
-  },
-  {
-    id: "trees",
-    label: "Trees & Graphs",
-    items: [
-      { id: "trees", label: "Trees", desc: "Lecture 12 · hierarchy: roots, parents & leaves" },
-      { id: "traversals", label: "Traversals", desc: "Lecture 12 · pre · in · post · level order" },
-      { id: "graphs", label: "Graphs", desc: "Lecture 15 · G = (V, E) — relationships" },
-      { id: "graphprops", label: "Graph properties", desc: "Lecture 16 · direction · weight · connectivity · cycles" },
-      { id: "dfsbfs", label: "DFS & BFS", desc: "Lecture 17 · stack vs queue traversal" },
-      { id: "recap18", label: "LIVE recap · trees & graphs", desc: "Lecture 18 · every tree is a graph — the nested Venn" },
-    ],
-  },
-  {
-    id: "hash",
-    label: "Hash & Chain",
-    items: [
-      { id: "treetypes", label: "Tree types", desc: "Lecture 14 · general → binary → complete → BST → AVL → heaps" },
-      { id: "hashing", label: "Hashing", desc: "Lecture 19 · mod, tables, collisions, passwords" },
-      { id: "blockchain", label: "Blockchain", desc: "Lecture 20 · tamper-evident chains of blocks" },
-      { id: "recap23", label: "LIVE recap · trees, hashing & blockchain", desc: "Lecture 23 · the three-circle Venn finale" },
-    ],
-  },
-  {
-    id: "search",
-    label: "Search & Complexity",
-    items: [
-      { id: "complexity", label: "Complexity", desc: "Lecture 21 · Big O · best/avg/worst · DS costs" },
-      { id: "search", label: "Search", desc: "Lecture 22 · linear · binary · jump · exponential · hash" },
-    ],
-  },
-  {
-    id: "algo",
-    label: "Paths & Sorting",
-    items: [
-      { id: "dijkstra", label: "Shortest paths", desc: "Lecture 24 · Dijkstra · A* · the variant family" },
-      { id: "sorting", label: "Sorting", desc: "Lecture 25 · bubble sort · passes · O(n²)" },
-      { id: "selectionsort", label: "Selection sort", desc: "Lecture 26 · select & swap · one swap per pass" },
-      { id: "insertionsort", label: "Insertion sort", desc: "Lecture 27 · movement not swapping · nearly-sorted wins" },
-      { id: "recap28", label: "Final recap", desc: "Lecture 28 · Big O ladder · cost tables · five searches" },
-    ],
-  },
-];
+/* The chapter menu — DERIVED from the registry (atb/lectures.ts).
+   Eight groups partition L1→L33 in strict ascending runs, so the
+   sidebar can never reorder lectures (the FA L28-before-L29
+   failure is structurally impossible). Zero hard-coded chapters. */
+const GROUPS = ATB_GROUPS;
 
 const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
 
@@ -168,39 +82,75 @@ function groupOf(id: string): string | null {
    reader renders exactly the slice the chosen lecture owns.
    ============================================================ */
 const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
+  // L01
   intro: <AtbIntroSection />,
   flowcharts: <AtbFlowchartsSection />,
   atm: <AtbAtmSection />,
+  // L02
   pseudocode: <AtbCodeSection />,
   average: <AtbAverageSection />,
-  properties: <AtbPropsSection />,
+  // L03
+  coursemap: <AtbCourseMapSection />,
+  algvscode: <AtbAlgoVsCodeSection />,
+  babridge: <AtbBaBridgeSection />,
+  // L04
+  finiteness: <AtbFinitenessSection />,
+  definiteness: <AtbDefinitenessSection />,
+  "inputs-outputs": <AtbInputsOutputsSection />,
+  effectiveness: <AtbEffectivenessSection />,
+  // L05
+  props2: <AtbProps2Section />,
   algotypes: <AtbAlgoTypesSection />,
+  // L06
   arrays: <AtbArraysSection />,
+  arrayops: <AtbArrayOpsSection />,
+  // L07
   linkedlists: <AtbListSection />,
+  // L08
+  recap8: <AtbRecap8Section />,
+  venn8: <AtbVenn8Section />,
+  // L09–L11
   stacks: <AtbStacksSection />,
   queues: <AtbQueuesSection />,
   qtypes: <AtbQTypesSection />,
+  // L12
   trees: <AtbTreesSection />,
   traversals: <AtbTraversalsSection />,
-  graphs: <AtbGraphsSection />,
-  dfsbfs: <AtbDfsBfsSection />,
+  // L13
+  recap13: <AtbRecap13Section />,
+  ops13: <AtbOps13Section />,
+  // L14
   treetypes: <AtbTreeTypesSection />,
+  bstavl: <AtbBstAvlSection />,
+  heaps: <AtbHeapsSection />,
+  // L15–L17
+  graphs: <AtbGraphsSection />,
+  graphprops: <AtbGraphPropsSection />,
+  dfsbfs: <AtbDfsBfsSection />,
+  // L18
+  recap18: <AtbRecap18Section />,
+  venn18: <AtbVenn18Section />,
+  // L19–L22
   hashing: <AtbHashingSection />,
   blockchain: <AtbBlockchainSection />,
-  recap8: <AtbRecap8Section />,
-  recap13: <AtbRecap13Section />,
-  recap18: <AtbRecap18Section />,
-  recap23: <AtbRecap23Section />,
-  graphprops: <AtbGraphPropsSection />,
   complexity: <AtbComplexitySection />,
   search: <AtbSearchSection />,
+  // L23
+  recap23: <AtbRecap23Section />,
+  venn23: <AtbVenn23Section />,
+  // L24–L27
   dijkstra: <AtbDijkstraSection />,
   sorting: <AtbSortingSection />,
-  coursemap: <AtbCourseMapSection />,
-  props2: <AtbProps2Section />,
   selectionsort: <AtbSelectionSortSection />,
   insertionsort: <AtbInsertionSortSection />,
+  // L28
   recap28: <AtbRecap28Section />,
+  // L29–L33
+  mergesort: <AtbMergeSortSection />,
+  quicksort: <AtbQuickSortSection />,
+  websearch: <AtbWebSearchSection />,
+  aiml: <AtbAiMlSection />,
+  pagerank: <AtbPageRankSection />,
 };
 
 /* ============================================================
@@ -904,8 +854,10 @@ function LecturePager({ current, onJump }: { current: AtbLecture; onJump: (id: s
 /* ============================================================
    AtbApp — the composed subject page: a lecture reader.
    ============================================================ */
-export function AtbApp({ onExitAtlas }: { onExitAtlas: () => void }) {
-  const [lectureId, setLectureId] = useState<string>(ATB_DEFAULT_LECTURE);
+export function AtbApp({ onExitAtlas, initialLecture }: { onExitAtlas: () => void; initialLecture?: string }) {
+  const [lectureId, setLectureId] = useState<string>(
+    (initialLecture && lectureByLooseId(initialLecture)?.id) || ATB_DEFAULT_LECTURE,
+  );
   const [examGroup, setExamGroup] = useState<AtbExamGroup | null>(null);
   const [hubOpen, setHubOpen] = useState(false);
   const lectureIdRef = useRef(lectureId);

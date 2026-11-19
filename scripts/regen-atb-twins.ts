@@ -46,16 +46,27 @@ interface Chapter {
   lecture: number;
 }
 
-/* ATB lectures carry no per-lecture group — chapters are matched to
-   the nav GROUPS in AtbApp.tsx below */
-const lectures: { n: number; chaptersRaw: string }[] = [];
-const lectureRe = /n:\s*(\d+),[\s\S]*?chapters:\s*\[([\s\S]*?)\n\s*\],\n\s*\},/g;
+/* Registry records carry part, partLabel, group, groupLabel,
+   examStatus in that exact field order — parsers are written
+   against it. Chapters carry { id, label, desc, theme }. */
+const lectures: { n: number; group: string; groupLabel: string; chaptersRaw: string }[] = [];
+const GL_LABELS: Record<string, string> = {
+  intro: "Intro",
+  props: "Properties",
+  linear: "Linear DS",
+  stackq: "Stacks & Queues",
+  trees: "Trees & Graphs",
+  hash: "Hash & Chain",
+  search: "Search & Complexity",
+  algo: "Sorting at Scale & AI",
+};
+const lectureRe = /n:\s*(\d+),[\s\S]*?group:\s*"(\w+)",[\s\S]*?chapters:\s*\[([\s\S]*?)\n\s*\],\n\s*\},/g;
 for (const m of registrySrc.matchAll(lectureRe)) {
-  lectures.push({ n: Number(m[1]), chaptersRaw: m[2] });
+  lectures.push({ n: Number(m[1]), group: m[2], groupLabel: GL_LABELS[m[2]] ?? m[2], chaptersRaw: m[3] });
 }
 
 const chapterRe =
-  /\{\s*id:\s*"([\w-]+)",\s*label:\s*"([^"]*)",\s*desc:\s*"([^"]*)"\s*\}/g;
+  /\{\s*id:\s*"([\w-]+)",\s*label:\s*"([^"]*)",\s*desc:\s*"([^"]*)",\s*theme:\s*"([^"]*)"[^}]*\}/g;
 const chapters: Chapter[] = [];
 for (const l of lectures) {
   for (const c of l.chaptersRaw.matchAll(chapterRe)) {
@@ -63,57 +74,24 @@ for (const l of lectures) {
       id: c[1],
       label: c[2],
       desc: c[3],
-      group: "ungrouped",
-      groupLabel: "Ungrouped",
+      group: l.group,
+      groupLabel: l.groupLabel,
       lecture: l.n,
     });
   }
 }
 
-console.log(`registry parsed: ${lectures.length} lectures, ${chapters.length} chapters`);
+/* ---------- 2. group mapping — registry-derived, no AtbApp parse ---------- */
+/* label + desc come straight from the registry (the single source);
+   the nav GROUPS table in AtbApp is derived from the same table */
+
+console.log(`registry groups: ${new Set(chapters.map((c) => c.group)).size}`);
 if (lectures.length !== EXPECTED_LECTURES) {
   throw new Error(`expected ${EXPECTED_LECTURES} lectures — registry parse failed (got ${lectures.length})`);
 }
-if (EXPECTED_CHAPTERS !== null && chapters.length !== EXPECTED_CHAPTERS) {
-  throw new Error(`expected ${EXPECTED_CHAPTERS} chapters — registry parse failed (got ${chapters.length})`);
-}
-
-/* ---------- 2. chapter id → nav group, from AtbApp GROUPS ---------- */
-const appSrc = fs.readFileSync(path.join(SRC, "components/atb/AtbApp.tsx"), "utf8");
-const gStart = appSrc.indexOf("const GROUPS");
-const gEnd = appSrc.indexOf("const FLAT_ITEMS");
-const groupsBlock = appSrc.slice(gStart, gEnd);
-
-const headerRe = /\{\s*id:\s*"(\w+)",\s*label:\s*"([^"]+)",\s*items:\s*\[/g;
-const headers = [...groupsBlock.matchAll(headerRe)].map((m) => ({
-  id: m[1],
-  label: m[2],
-  at: m.index! + m[0].length,
-}));
-/* label + desc come from the NAV GROUPS (what the app actually shows);
-   the ⌘K chapter-index and corpus stay word-identical to the app */
-const navMap = new Map<string, { label: string; desc: string; group: string; groupLabel: string }>();
-const itemRe = /\{\s*id:\s*"([a-z0-9-]+)",\s*label:\s*"([^"]*)",\s*desc:\s*"([^"]*)"/g;
-for (let i = 0; i < headers.length; i++) {
-  const zoneEnd = i + 1 < headers.length ? headers[i + 1].index! : groupsBlock.length;
-  const zone = groupsBlock.slice(headers[i].at, zoneEnd);
-  for (const it of zone.matchAll(itemRe)) {
-    navMap.set(it[1], { label: it[2], desc: it[3], group: headers[i].id, groupLabel: headers[i].label });
-    const ch = chapters.find((c) => c.id === it[1]);
-    if (ch) {
-      ch.group = headers[i].id;
-      ch.groupLabel = headers[i].label;
-    }
-  }
-}
-const ungrouped = chapters.filter((c) => c.group === "ungrouped");
-if (ungrouped.length) {
-  throw new Error(`chapters not matched to any nav GROUP: ${ungrouped.map((c) => c.id).join(", ")}`);
-}
-console.log(`nav groups: ${headers.length}`);
 
 /* ---------- 3. chapter id → source file ---------- */
-const SECTION_FILES = Array.from({ length: 10 }, (_, i) => `components/atb/AtbParts${i + 1}.tsx`);
+const SECTION_FILES = Array.from({ length: 12 }, (_, i) => `components/atb/AtbParts${i + 1}.tsx`);
 
 const fileTexts = new Map<string, string>();
 for (const f of SECTION_FILES) fileTexts.set(f, fs.readFileSync(path.join(SRC, f), "utf8"));
@@ -166,14 +144,13 @@ function extractText(jsx: string): string {
 const corpusChapters = chapters.map((c) => {
   const slice = sliceSection(c.id);
   if (!slice) throw new Error(`no section slice found for chapter "${c.id}"`);
-  const nav = navMap.get(c.id)!;
   return {
     shelfId: "atb",
     chapterKey: c.id,
-    label: nav.label,
+    label: c.label,
     group: c.group,
     groupLabel: c.groupLabel,
-    text: `Lecture ${String(c.lecture).padStart(2, "0")} · ${nav.label}. ${nav.desc}. ${extractText(slice)}`,
+    text: `Lecture ${String(c.lecture).padStart(2, "0")} · ${c.label}. ${c.desc}. ${extractText(slice)}`,
   };
 });
 
@@ -196,7 +173,7 @@ const indexPath = path.join(SRC, "lib/chapter-index.ts");
 let indexSrc = fs.readFileSync(indexPath, "utf8");
 
 const atbEntries = corpusChapters.map((c) =>
-  `  { subject: "atb", section: "${c.chapterKey}", label: ${JSON.stringify(c.label)}, desc: ${JSON.stringify(navMap.get(c.chapterKey)!.desc)}, group: "${c.group}", groupLabel: "${c.groupLabel}" },`,
+  `  { subject: "atb", section: "${c.chapterKey}", label: ${JSON.stringify(c.label)}, desc: ${JSON.stringify(chapters.find((x) => x.id === c.chapterKey)!.desc)}, group: "${c.group}", groupLabel: "${c.groupLabel}" },`,
 );
 const atbBlock = atbEntries.join("\n");
 

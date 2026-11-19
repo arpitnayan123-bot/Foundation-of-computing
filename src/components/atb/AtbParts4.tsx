@@ -17,6 +17,9 @@ import {
 import {
   Callout, CodeBlock, Practice, Quiz, ReadStep, Reveal, Section, SectionHead, Takeaways,
 } from "@/components/notes/ui";
+import { AtbFigure } from "@/components/atb/AtbStepper";
+import { eyebrowOf } from "@/components/atb/lectures";
+import { AtbPill, AtbQueueRow, AtbStackCol, AtbStepper } from "@/components/atb/AtbStepper";
 
 /* ---------- local helpers ---------- */
 
@@ -138,7 +141,8 @@ function StackWidget() {
 
 function StackOfStacksSvg() {
   return (
-    <svg viewBox="0 0 560 252" className="h-auto w-full" role="img" aria-label="A main stack of browser windows where each window is itself a stack of tabs">
+    <AtbFigure notice="A main stack of browser windows where each window is itself a stack of tabs">
+  <svg viewBox="0 0 560 252" className="h-auto w-full" role="img" aria-label="A main stack of browser windows where each window is itself a stack of tabs">
       <rect x="20" y="34" width="520" height="190" rx="14" fill="none" stroke="#c99a5b" strokeWidth="2" strokeDasharray="7 5" />
       <text x="30" y="22" fontSize="11.5" fontWeight="800" fill="#8a5a06">MAIN STACK — each element is a WINDOW</text>
       {["A", "B", "C"].map((w, i) => (
@@ -156,6 +160,7 @@ function StackOfStacksSvg() {
       ))}
       <text x="280" y="242" textAnchor="middle" fontSize="11.5" fontWeight="700" fill="#6f5438">each window&apos;s element is itself a stack — tabs / history states pile up LIFO, window by window</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -242,7 +247,8 @@ function QueueWidget() {
 
 function LinearLimitSvg() {
   return (
-    <svg viewBox="0 0 620 140" className="h-auto w-full" role="img" aria-label="Linear queue: front spaces are free but the rear pointer is stuck at the last cell, so no insert is possible">
+    <AtbFigure notice="front spaces are free but the rear pointer is stuck at the last cell, so no insert is possible">
+  <svg viewBox="0 0 620 140" className="h-auto w-full" role="img" aria-label="Linear queue: front spaces are free but the rear pointer is stuck at the last cell, so no insert is possible">
       <defs><marker id="lq-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker></defs>
       {[0, 1, 2].map((i) => (
         <g key={i}>
@@ -262,6 +268,7 @@ function LinearLimitSvg() {
       <text x="600" y="16" textAnchor="end" fontSize="11.5" fontWeight="800" fill="#c2410c">Rear — stuck at the end</text>
       <text x="310" y="126" fontSize="11.5" fontWeight="700" fill="#b99a75">enqueue? ✗ — rear cannot move back, even though 3 spaces are free</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -273,7 +280,8 @@ function CircularRingSvg() {
   });
   const vals: (number | null)[] = [53, 66, 54, 71, null, null];
   return (
-    <svg viewBox="0 0 340 252" className="h-auto w-full" role="img" aria-label="Circular queue ring of six positions with front and rear markers and an arrow wrapping from the last position back to the first">
+    <AtbFigure notice="Circular queue ring of six positions with front and rear markers and an arrow wrapping from the last position back to the first">
+  <svg viewBox="0 0 340 252" className="h-auto w-full" role="img" aria-label="Circular queue ring of six positions with front and rear markers and an arrow wrapping from the last position back to the first">
       <defs><marker id="cq-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker></defs>
       <circle cx={c.x} cy={c.y} r={c.r} fill="none" stroke="#8a6a45" strokeWidth="1.6" strokeDasharray="4 5" />
       {slots.map((s, i) => {
@@ -291,6 +299,7 @@ function CircularRingSvg() {
       <text x="118" y="14" textAnchor="middle" fontSize="10.5" fontWeight="700" fill="#e0a45e">wraps to first</text>
       <text x={c.x} y={c.y + 4} textAnchor="middle" fontSize="11" fontWeight="800" fill="#cbb392">circular</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -302,7 +311,8 @@ function PriorityChipsSvg() {
     { t: "B", p: 3, from: 340, to: 500, d: 0.45 },
   ];
   return (
-    <svg viewBox="0 0 660 118" className="h-auto w-full" role="img" aria-label="Priority queue: the new item S with priority 7 slots in before T with priority 6, after A with priority 8">
+    <AtbFigure notice="the new item S with priority 7 slots in before T with priority 6, after A with priority 8">
+  <svg viewBox="0 0 660 118" className="h-auto w-full" role="img" aria-label="Priority queue: the new item S with priority 7 slots in before T with priority 6, after A with priority 8">
       {chips.map((ch) => (
         <motion.g key={ch.t} initial={{ x: ch.from, opacity: ch.t === "S" ? 0.35 : 1 }} whileInView={{ x: ch.to, opacity: 1 }} viewport={{ once: true }} transition={{ delay: ch.d, duration: 0.6, ease: "easeInOut" }}>
           <rect x="0" y="36" width="140" height="52" rx="12" fill={ch.t === "S" ? "#f6ad3c" : "#fde8cf"} stroke={ch.t === "S" ? "#c2410c" : "#c99a5b"} strokeWidth={ch.t === "S" ? 2.4 : 1.6} />
@@ -314,12 +324,14 @@ function PriorityChipsSvg() {
       <text x="20" y="22" fontSize="11.5" fontWeight="700" fill="#cbb392">new arrival (S, 7): beats 6 and 3, yields to 8 → slots in before (T, 6)</text>
       <text x="540" y="108" fontSize="10.5" fontWeight="700" fill="#b99a75">equal priorities? serve FIFO</text>
     </svg>
+</AtbFigure>
   );
 }
 
 function DequeSvg() {
   return (
-    <svg viewBox="0 0 620 128" className="h-auto w-full" role="img" aria-label="Doubly ended queue with insert and delete arrows at both ends">
+    <AtbFigure notice="Doubly ended queue with insert and delete arrows at both ends">
+  <svg viewBox="0 0 620 128" className="h-auto w-full" role="img" aria-label="Doubly ended queue with insert and delete arrows at both ends">
       <defs><marker id="dq-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker></defs>
       {[10, 20, 30, 40].map((v, i) => (
         <g key={v}>
@@ -336,12 +348,14 @@ function DequeSvg() {
       <line x1="448" y1="94" x2="550" y2="94" stroke="#f5c889" strokeWidth="2" markerEnd="url(#dq-ah)" />
       <text x="554" y="116" textAnchor="end" fontSize="11" fontWeight="800" fill="#f5c889">Delete Rear</text>
     </svg>
+</AtbFigure>
   );
 }
 
 function NestedQueueSvg() {
   return (
-    <svg viewBox="0 0 700 262" className="h-auto w-full" role="img" aria-label="Streaming video: a master playback queue of segments where the playing segment is itself a sub-queue of tiny frames">
+    <AtbFigure notice="a master playback queue of segments where the playing segment is itself a sub-queue of tiny frames">
+  <svg viewBox="0 0 700 262" className="h-auto w-full" role="img" aria-label="Streaming video: a master playback queue of segments where the playing segment is itself a sub-queue of tiny frames">
       <defs><marker id="nq-ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f5c889" /></marker></defs>
       <text x="24" y="20" fontSize="11.5" fontWeight="800" fill="#f5c889">SUB-QUEUE — thousands of tiny frames / packets inside ONE 5-minute segment</text>
       {Array.from({ length: 14 }).map((_, i) => (
@@ -360,6 +374,7 @@ function NestedQueueSvg() {
       ))}
       <text x="360" y="254" textAnchor="middle" fontSize="11" fontWeight="600" fill="#cbb392">the graphics card rapidly plays the frames inside the current segment — so the video stays smooth</text>
     </svg>
+</AtbFigure>
   );
 }
 
@@ -370,7 +385,7 @@ function NestedQueueSvg() {
 export function AtbStacksSection() {
   return (
     <Section id="stacks">
-      <SectionHead eyebrow="Lecture 9 · Stacks"
+      <SectionHead eyebrow={eyebrowOf("stacks")}
         title={<><span className="grad-text">Stacks</span> — the undo machine (LIFO)</>}
         lead="A stack is a linear structure with one door: everything enters and leaves through the same end — the top. Simple rule, enormous consequences." />
 
@@ -527,6 +542,51 @@ Size(S):  return Top + 1         // how many values are stacked`} />
           { q: "Photoshop clears its undo stack the moment you hit Save. Why does saving often keep the stack small?", hint: "The stack only holds unsaved changes — each save empties it before it can grow toward the RAM limit." },
         ]} />
       </Reveal>
+    
+
+
+
+
+      <AtbStepper title="What happens next? — pop on an empty browser history" steps={[
+          {
+            label: "The browser history stack: you click Back → the app tries to POP.",
+            detail: "Pop removes and returns the top entry.",
+            frame: <AtbStackCol items={[]} note="history stack — empty" />,
+          },
+          {
+            label: "There is no entry to return — the pop fails: STACK UNDERFLOW.",
+            detail: "Underflow = removing from an empty stack; overflow = pushing onto a full one.",
+            frame: <AtbPill k="pop" v="underflow — nothing to return" tone="broken" />,
+          },
+          {
+            label: "The app shows ‘no history’ instead of crashing — the error was handled.",
+            detail: "Every static or dynamic stack must handle both error pairs.",
+            frame: <AtbPill k="handled" v="graceful message" tone="twin" />,
+          },
+        ]} />
+    
+      <AtbStepper title="What happens next? — Photoshop’s 50-undo static stack" steps={[
+          {
+            label: "Edit 1 lands: the undo stack holds 1 entry. Static stack — array-built, cap = 50.",
+            detail: "Fixed size determined at creation; memory-efficient for a predictable cap.",
+            frame: <AtbStackCol items={["edit 1"]} note="1 / 50" />,
+          },
+          {
+            label: "Edits keep stacking: 10, 30, 49… the top always holds the most recent change.",
+            detail: "Ctrl+Z pops the top — the last change made is the first undone.",
+            frame: <AtbStackCol items={["edit 49", "…", "edit 1"]} note="49 / 50" />,
+          },
+          {
+            label: "Edit 50 arrives — the stack is FULL at its static cap.",
+            detail: "The 51st push has nowhere to go.",
+            frame: <AtbStackCol items={["edit 50", "…", "edit 1"]} note="50 / 50 — at cap" tone="twin" />,
+          },
+          {
+            label: "Edit 51 → push fails: STACK OVERFLOW.",
+            detail: "The static twin’s whole story: overflow when full. Word’s dynamic twin (linked-list built) keeps growing until RAM runs out.",
+            frame: <AtbPill k="push 51" v="overflow — cannot allocate" tone="broken" />,
+          },
+        ]} />
     </Section>
   );
 }
@@ -547,7 +607,7 @@ const Q_APPS = [
 export function AtbQueuesSection() {
   return (
     <Section id="queues">
-      <SectionHead eyebrow="Lecture 10 · Queues"
+      <SectionHead eyebrow={eyebrowOf("queues")}
         title={<><span className="grad-text">Queues</span> — first come, first served (FIFO)</>}
         lead="A queue is a linear structure with two doors: entries at the rear, exits at the front. Fairness by arrival order — the structure behind every waiting line in software." />
 
@@ -649,7 +709,9 @@ export function AtbQueuesSection() {
             <li>• The <strong>front moves during dequeue — never during enqueue</strong> (enqueue is rear business).</li>
             <li>• <strong>Peek examines without modifying</strong> — the safe way to inspect queue state.</li>
             <li>• Static vs dynamic boils down to two questions: is the <strong>volume predictable</strong>, and is <strong>overflow acceptable</strong>?</li>
-            <li>• Real systems <strong>fail gracefully</strong> when full — dropped packets, ignored keystrokes — rather than crashing.</li>
+            <li>• Real systems <strong>fail gracefully</strong> when full — dropped packets, ignored keystrokes — rather than crash
+
+ing.</li>
           </ul>
         </Callout>
       </Reveal>
@@ -667,6 +729,49 @@ export function AtbQueuesSection() {
           ]} />
         </Reveal>
       </div>
+    
+      <AtbStepper title="What happens next? — the keyboard buffer, a static queue" steps={[
+          {
+            label: "You type ‘A’ — it enqueues at the REAR of the keyboard buffer (static, typically 16–64 bytes).",
+            detail: "Array-built, fixed size — the OS reads keys in exactly the order typed.",
+            frame: <AtbQueueRow items={["A"]} front={0} />,
+          },
+          {
+            label: "You keep typing: B, C, D join the rear. The OS consumes from the FRONT.",
+            detail: "FIFO: keystrokes are delivered in typing order — never reordered.",
+            frame: <AtbQueueRow items={["A", "B", "C", "D"]} front={0} />,
+          },
+          {
+            label: "The OS dequeues ‘A’ — front moves right.",
+            detail: "If the buffer fills (overflow), the oldest keystroke is at risk or the newest is dropped — that is the static queue’s trade.",
+            frame: <AtbQueueRow items={[null, "B", "C", "D"]} front={1} />,
+          },
+          {
+            label: "Net effect: what you typed is what the screen shows, in order.",
+            detail: "Same discipline as the network printer buffer and the Wi-Fi router packet queue — static queues all.",
+            frame: <AtbPill k="delivered order" v="A, B, C, D" tone="twin" />,
+          },
+        ]} />
+    
+      <AtbFigure notice="the queue never rotates: dequeue leaves through the front on the left, enqueue enters at the rear on the right, and A — the first arrival — is the first served.">
+        <svg viewBox="0 0 560 130" className="h-auto w-full" role="img" aria-label="Queue anatomy for the popcorn counter: four cells A B C D in a row with dequeue leaving through the front on the left and enqueue entering at the rear on the right, first in first out">
+          <defs>
+            <marker id="atbQ10a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#b05050" /></marker>
+            <marker id="atbQ10b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5d7a2e" /></marker>
+          </defs>
+          <text x={10} y={26} fontSize={11} fontWeight={800} fill="#b05050">front — dequeue</text>
+          <text x={550} y={26} fontSize={11} fontWeight={800} fill="#5d7a2e" textAnchor="end">rear — enqueue</text>
+          <path d="M 52 62 H 16" stroke="#b05050" strokeWidth={2.2} fill="none" markerEnd="url(#atbQ10a)" />
+          <path d="M 512 62 H 546" stroke="#5d7a2e" strokeWidth={2.2} fill="none" markerEnd="url(#atbQ10b)" />
+          {["A", "B", "C", "D"].map((v, i) => (
+            <g key={v}>
+              <rect x={72 + i * 108} y={44} width={84} height={38} rx={7} fill={i === 0 ? "#f6e3c8" : "#fffaf1"} stroke={i === 0 ? "#d97706" : "#e8dcc0"} strokeWidth={1.6} />
+              <text x={114 + i * 108} y={68} textAnchor="middle" fontSize={14} fontWeight={800} fill="#7c2d12">{v}</text>
+            </g>
+          ))}
+          <text x={280} y={108} textAnchor="middle" fontSize={10.5} fontWeight={700} fill="#8a6b45">FIFO — A entered first (front, left) and leaves first · D just arrived (rear, right)</text>
+        </svg>
+      </AtbFigure>
     </Section>
   );
 }
@@ -678,7 +783,7 @@ export function AtbQueuesSection() {
 export function AtbQTypesSection() {
   return (
     <Section id="qtypes" dark>
-      <SectionHead dark eyebrow="Lecture 11 · Queue types"
+      <SectionHead dark eyebrow={eyebrowOf("qtypes")}
         title={<>Four queues for <span className="grad-text">four situations</span></>}
         lead="One FIFO rule, four engineering personalities. Choosing the right queue type is the difference between wasted memory, frozen screens and a smoothly running system." />
 
@@ -779,7 +884,9 @@ export function AtbQTypesSection() {
             upcoming <strong>5-minute scene segments</strong>. Each segment is itself a{" "}
             <strong>SUB-QUEUE of thousands of tiny frames / packets</strong>. The{" "}
             <strong>graphics card rapidly plays the frames inside the current segment</strong> —
-            and that is why the video stays smooth while the outer queue quietly refills.
+            and that is why the video stays smooth while the ou
+
+ter queue quietly refills.
           </p>
           <div className="mt-5 rounded-2xl p-4" style={{ background: "rgba(255,236,210,.04)" }}><NestedQueueSvg /></div>
           <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -791,7 +898,9 @@ export function AtbQTypesSection() {
             <strong>rewinds slightly</strong> past the interruption point before playback resumes.
           </p>
           <Callout kind="insight" dark title="Spot the pattern">
-            Stacks of stacks (browser windows → tabs), queues of queues (segments → frames), lists
+            Stacks of stacks (browser windows → tabs), queues of queues 
+
+(segments → frames), lists
             of lists (users → playlists → songs). <strong>Nesting structures inside structures is
             how real systems scale simple rules.</strong>
           </Callout>
@@ -822,6 +931,47 @@ export function AtbQTypesSection() {
           <>Lecture 11 four-liner: <strong>linear</strong> = a regular FIFO line · <strong>circular</strong> = a ring that reuses freed space · <strong>priority</strong> = a VIP urgency line · <strong>deque</strong> = open at both ends.</>,
         ]} />
       </Reveal>
+    
+      <AtbStepper title="What happens next? — the deque serves both doors" steps={[
+          {
+            label: "A deque allows insertion AND deletion from both ends.",
+            detail: "Double-ended queue — it combines stack and queue properties.",
+            frame: <AtbQueueRow items={["A", "B", "C"]} front={0} />,
+          },
+          {
+            label: "Browser Back: dequeue from the FRONT. Browser Forward pushes from the FRONT.",
+            detail: "Applications: browser forward/back buttons, undo/redo functionality.",
+            frame: <AtbPill k="front ops" v="DQ ← → push" tone="twin" />,
+          },
+          {
+            label: "The rear door works too: enqueue rear-right like a queue, pop rear-top like a stack.",
+            detail: "Two doors, four operations — the most flexible linear structure in the module.",
+            frame: <AtbPill k="rear ops" v="NQ → ← pop" tone="twin" />,
+          },
+        ]} />
+    
+      <AtbStepper title="What happens next? — the circular queue wraps" steps={[
+          {
+            label: "A 6-cell circular queue holds C, D, E in cells 2–4; cells 0–1 are spent fronts.",
+            detail: "Logically circular — physical memory stays a straight row.",
+            frame: <AtbQueueRow items={[null, null, "C", "D", "E", null]} front={2} />,
+          },
+          {
+            label: "The rear pointer sits at cell 4; a new arrival F would normally need cell 5 — fine.",
+            detail: "Enqueue at the rear, always.",
+            frame: <AtbQueueRow items={[null, null, "C", "D", "E", "F"]} front={2} />,
+          },
+          {
+            label: "After cell 5 fills, the next enqueue WRAPS to cell 0 — the spent front is reused.",
+            detail: "This is the circular queue’s whole point: solving the linear queue’s memory wastage.",
+            frame: <AtbPill k="rear wraps" v="cell 5 → cell 0" tone="twin" />,
+          },
+          {
+            label: "The ring turns forever: traffic lights, turn-based games, music playlists.",
+            detail: "Implemented using linked lists per the lecture — no rotation of elements, only the pointer wraps.",
+            frame: <AtbPill k="applications" v="lights · games · playlists" tone="active" />,
+          },
+        ]} />
     </Section>
   );
 }

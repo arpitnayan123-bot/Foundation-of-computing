@@ -57,6 +57,17 @@ import {
   StepsFlow,
   Takeaways,
 } from "@/components/notes/ui";
+import { eyebrowOf } from "@/components/atb/lectures";
+import {
+  ATB_OLIVE,
+  AtbCells,
+  AtbExamCallout,
+  AtbFigure,
+  AtbPill,
+  AtbQueueRow,
+  AtbStackCol,
+  AtbStepper,
+} from "@/components/atb/AtbStepper";
 
 const ONCE = { once: true } as const;
 
@@ -243,7 +254,7 @@ export function AtbRecap8Section() {
   return (
     <Section id="recap8">
       <SectionHead
-        eyebrow="Lecture 8 · Live lecture"
+        eyebrow={eyebrowOf("recap8")}
         title={
           <>
             Algorithm properties &amp; linear structures — <span className="grad-text">the live recap</span>
@@ -253,11 +264,12 @@ export function AtbRecap8Section() {
       />
 
       <Reveal className="mb-2">
-        <Callout kind="story" title="Lecture 8 · live session — what this chapter is">
-          This was a <strong>live class repeating recorded material</strong>, so the chapter is a gallery of
-          comparisons rather than a full walk-through. The full-length versions live in{" "}
-          <strong>Lecture 3</strong> (properties &amp; types), <strong>Lecture 4</strong> (arrays) and{" "}
-          <strong>Lecture 7</strong> (linked lists) — read those for depth, keep this one for the picture.
+        <Callout kind="story" title="Lecture 8 · the first consolidation point">
+          This live session <strong>re-stacks the whole first block</strong>: the nine properties that make an
+          algorithm a good one (five technical, four execution &amp; design), the three classic approaches, and the
+          two linear structures everything else stands on. Algorithms should be designed with these characteristics
+          so they work effectively in real-world applications, while data structures provide organized ways to store
+          and manage data efficiently. Everything after Part I builds on what this lecture ties down.
         </Callout>
       </Reveal>
 
@@ -346,8 +358,90 @@ export function AtbRecap8Section() {
         ))}
       </div>
 
-      <ReadStep n="3" title="The flagship Venn — arrays vs linked lists" sub="One shared core, two opposite personalities" />
+      <AtbStepper
+        title="What happens next? — sorting the nine properties into their two families"
+        steps={[
+          {
+            label: "Finiteness goes in first — the classroom count ends, the store counter never does.",
+            detail: "Technical family: it defines what the algorithm IS.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="technical" v="finiteness" tone="twin" />
+                <AtbPill k="execution" v="—" tone="broken" />
+              </div>
+            ),
+          },
+          {
+            label: "Definiteness, well-defined inputs, well-defined outputs, effectiveness join it.",
+            detail: "All five technical properties settle: exact steps, named inputs, quotable outputs, practical work.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="technical" v="5 / 5" tone="twin" />
+                <AtbPill k="execution" v="—" tone="broken" />
+              </div>
+            ),
+          },
+          {
+            label: "Language independence crosses over — implementation choice comes later, in C, Python or Java.",
+            detail: "Execution family begins: how it RUNS, not what it IS.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="technical" v="5 / 5" tone="twin" />
+                <AtbPill k="execution" v="1 / 4" tone="active" />
+              </div>
+            ),
+          },
+          {
+            label: "Determinism, feasibility, generality complete the second family — 9 properties, 2 families.",
+            detail: "Same-input-same-output · realistic resources · every valid instance, no special cases.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="technical" v="finiteness · definiteness · inputs · outputs · effectiveness" tone="twin" />
+                <AtbPill k="execution" v="language independence · determinism · feasibility · generality" tone="active" />
+              </div>
+            ),
+          },
+        ]}
+      />
+
+      <Reveal className="mt-8">
+        <span className="chip">Lecture 8 · recap takeaways</span>
+        <div className="mt-3">
+          <Takeaways
+            items={[
+              <>Technical: <strong>finiteness, definiteness, well-defined inputs, well-defined outputs, effectiveness</strong>.</>,
+              <>Execution &amp; design: <strong>language independence, determinism, feasibility, generality</strong>.</>,
+              <>Three approaches: <strong>divide &amp; conquer</strong> (split &amp; combine), <strong>greedy</strong> (best now), <strong>dynamic programming</strong> (past informs future).</>,
+              <>The arrays-vs-lists choice moves to the next chapter — with the Venn.</>,
+            ]}
+          />
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ============================================================
+   SECTION 1b — LECTURE 8 · ARRAYS VS LISTS (id="venn8")
+   The flagship two-circle Venn and the ten-second decision.
+   ============================================================ */
+
+export function AtbVenn8Section() {
+  return (
+    <Section id="venn8">
+      <SectionHead
+        eyebrow={eyebrowOf("venn8")}
+        title={
+          <>
+            Arrays <span className="grad-text">vs</span> linked lists — the Venn that settles it
+          </>
+        }
+        lead="Both structures underpin everything from stacks to graphs. The live session drew the choice as one picture: a small shared core, two opposite personalities."
+      />
+
+      <ReadStep n="1" title="The flagship Venn" sub="One shared core, two opposite personalities" />
       <Reveal>
+        <AtbFigure notice="the shared core is small and structural — linear, ordered, foundational — while the personalities clash around it: the array buys speed with rigidity, the list buys flexibility with traversal.">
         <VennTwo
           ariaLabel="Venn diagram comparing arrays and linked lists: they share being linear, ordered and foundational; arrays alone are fixed-size, contiguous, index-accessed and shift on insert or delete; linked lists alone are dynamic, scattered nodes behind a head pointer, accessed by pointer hops with cheap re-wiring"
           left={{
@@ -378,9 +472,9 @@ export function AtbRecap8Section() {
           }}
           caption="Same family, different memory story. The array buys speed with rigidity — fixed size, contiguous, instant indexing. The list buys flexibility with traversal — dynamic size, scattered nodes, pointer hops. The live session's verdict: arrays when the size is known and access is frequent; lists when the size is unknown and the structure changes constantly."
         />
+        </AtbFigure>
       </Reveal>
-
-      <ReadStep n="4" title="Which one, when" sub="The ten-second decision — plus the playlist" />
+      <ReadStep n="2" title="Which one, when" sub="The ten-second decision — plus the playlist" />
       <Reveal>
         <div className="grid gap-4 md:grid-cols-3">
           {[
@@ -509,7 +603,7 @@ function R13StackSvg() {
 
 function R13QueueSvg() {
   return (
-    <svg viewBox="0 0 300 118" className="h-auto w-full" role="img" aria-label="Queue anatomy: cells in a row, new elements enqueue at the rear on the left, elements dequeue from the front on the right, first in first out">
+    <svg viewBox="0 0 300 118" className="h-auto w-full" role="img" aria-label="Queue anatomy: cells in a row, elements dequeue from the front on the left, new elements enqueue at the rear on the right, first in first out">
       <defs>
         <marker id="r13qIn" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
           <path d="M0,0 L7,3 L0,6 Z" fill="#5d7a2e" />
@@ -518,18 +612,18 @@ function R13QueueSvg() {
           <path d="M0,0 L7,3 L0,6 Z" fill="#b05050" />
         </marker>
       </defs>
-      <text x={8} y={26} fontSize={10} fontWeight={800} fill="#5d7a2e">rear — NQ in</text>
-      <text x={292} y={26} fontSize={10} fontWeight={800} fill="#b05050" textAnchor="end">DQ out — front</text>
-      <motion.path d="M 14 60 H 44" stroke="#5d7a2e" strokeWidth={2.2} fill="none" markerEnd="url(#r13qIn)" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={ONCE} transition={{ duration: 0.35, delay: 0.5 }} />
-      <motion.path d="M 268 60 H 294" stroke="#b05050" strokeWidth={2.2} fill="none" markerEnd="url(#r13qOut)" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={ONCE} transition={{ duration: 0.35, delay: 0.65 }} />
-      {["D", "C", "B", "A"].map((v, i) => (
+      <text x={8} y={26} fontSize={10} fontWeight={800} fill="#b05050">front — DQ out</text>
+      <text x={292} y={26} fontSize={10} fontWeight={800} fill="#5d7a2e" textAnchor="end">rear — NQ in</text>
+      <motion.path d="M 44 60 H 14" stroke="#b05050" strokeWidth={2.2} fill="none" markerEnd="url(#r13qOut)" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={ONCE} transition={{ duration: 0.35, delay: 0.5 }} />
+      <motion.path d="M 294 60 H 264" stroke="#5d7a2e" strokeWidth={2.2} fill="none" markerEnd="url(#r13qIn)" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={ONCE} transition={{ duration: 0.35, delay: 0.65 }} />
+      {["A", "B", "C", "D"].map((v, i) => (
         <motion.g key={v} initial={{ opacity: 0, x: -8 }} whileInView={{ opacity: 1, x: 0 }} viewport={ONCE} transition={{ duration: 0.3, delay: 0.1 + i * 0.1 }}>
           <rect x={50 + i * 55} y={42} width={48} height={36} rx={5} fill={i === 3 ? "#f6e3c8" : "#fffaf1"} stroke={i === 3 ? "#d97706" : "#e8dcc0"} strokeWidth={1.6} />
           <text x={74 + i * 55} y={65} textAnchor="middle" fontSize={13} fontWeight={800} fill="#7c2d12">{v}</text>
         </motion.g>
       ))}
       <motion.text x={150} y={104} textAnchor="middle" fontSize={10.5} fontWeight={700} fill="#8a6b45" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={ONCE} transition={{ delay: 0.7 }}>
-        FIFO — A entered first (front), A leaves first · D just arrived (rear)
+        FIFO — A entered first (front, left) and leaves first · D just arrived (rear, right)
       </motion.text>
     </svg>
   );
@@ -539,7 +633,7 @@ export function AtbRecap13Section() {
   return (
     <Section id="recap13">
       <SectionHead
-        eyebrow="Lecture 13 · Live lecture"
+        eyebrow={eyebrowOf("recap13")}
         title={
           <>
             Stacks &amp; queues — <span className="grad-text">two doors, two disciplines</span>
@@ -549,10 +643,11 @@ export function AtbRecap13Section() {
       />
 
       <Reveal className="mb-2">
-        <Callout kind="story" title="Lecture 13 · live session — what this chapter is">
-          A live repeat of the recorded stack &amp; queue material — the full-length versions live in{" "}
-          <strong>Lectures 9, 10 and 11</strong>. Below: one Venn, one operations strip, the error pair, and the
-          application tour.
+        <Callout kind="story" title="Lecture 13 · the second consolidation point — and the Quiz One briefing">
+          The live session put the last two linear structures side by side and closed Module 2: arrays allow indexed
+          access, linked lists use connections, while stacks and queues carry unique operational constraints that
+          make them essential for specific use cases. This is also where the <strong>Quiz One briefing</strong>{" "}
+          lands — details at the end of this chapter.
         </Callout>
       </Reveal>
 
@@ -602,7 +697,9 @@ export function AtbRecap13Section() {
               <Layers className="h-3.5 w-3.5" aria-hidden /> Lecture 13 · stack ops
             </span>
             <div className="mt-3 rounded-xl bg-[#fffaf1] p-3">
-              <R13StackSvg />
+              <AtbFigure notice="the stack has exactly one open end — push and pop share the top door, and the base stays closed; whatever went in last comes out first.">
+                <R13StackSvg />
+              </AtbFigure>
             </div>
             <ul className="mt-3 grid gap-1.5 text-[.82rem] leading-snug text-[#2b2014]">
               <li><strong>push</strong> — add a new element on top</li>
@@ -618,7 +715,9 @@ export function AtbRecap13Section() {
               <Route className="h-3.5 w-3.5" aria-hidden /> Lecture 13 · queue ops
             </span>
             <div className="mt-3 rounded-xl bg-[#fffaf1] p-3">
-              <R13QueueSvg />
+              <AtbFigure notice="two open ends, two directions: dequeue leaves through the front on the left, enqueue enters at the rear on the right — the queue is never rotated to make room.">
+                <R13QueueSvg />
+              </AtbFigure>
             </div>
             <ul className="mt-3 grid gap-1.5 text-[.82rem] leading-snug text-[#2b2014]">
               <li><strong>NQ</strong> — enqueue at the rear</li>
@@ -647,7 +746,83 @@ export function AtbRecap13Section() {
         </div>
       </Reveal>
 
-      <ReadStep n="3" title="When they break" sub="Overflow = full · underflow = empty" />
+      <AtbExamCallout tag="Quiz One" title="The briefing — weekend of October 3rd">
+        <ul className="grid gap-1.5">
+          <li><strong>Date:</strong> weekend of October 3rd.</li>
+          <li><strong>Question types:</strong> multiple-choice questions (MCQ), true/false, matching, or short-answer fill-in-the-blanks.</li>
+          <li><strong>Weightage:</strong> quizzes count for <strong>40% of total marks</strong>.</li>
+          <li><strong>Quiz count:</strong> three quizzes total, with the <strong>best two scores counted</strong>.</li>
+          <li><strong>Syllabus coverage:</strong> this quiz covers <strong>Module 1 and Module 2 (Linear Data Structures) only</strong>.</li>
+        </ul>
+      </AtbExamCallout>
+
+      <AtbStepper
+        title="What happens next? — one stack, five commands traced"
+        steps={[
+          {
+            label: "push A — the stack holds A. A is the top.",
+            detail: "One door: everything lands on the top.",
+            frame: <AtbStackCol items={["A"]} note="size 1" />,
+          },
+          {
+            label: "push B, push C — the stack holds A, B, C with C on top.",
+            detail: "Each push stacks ABOVE the previous element.",
+            frame: <AtbStackCol items={["C", "B", "A"]} note="size 3 · top = C" />,
+          },
+          {
+            label: "pop — removes and returns C. The top is now B.",
+            detail: "LIFO: the most recently added element is the first removed.",
+            frame: <AtbStackCol items={["B", "A"]} note="pop returned C · size 2" tone="twin" />,
+          },
+          {
+            label: "peek — read B without removing. Size stays 2.",
+            detail: "peek glances at the top; only pop mutates.",
+            frame: <AtbStackCol items={["B", "A"]} note="peek → B · size unchanged" />,
+          },
+          {
+            label: "push D — D lands on top of B.",
+            detail: "The undo machine in miniature: the last change made is the first one undone.",
+            frame: <AtbStackCol items={["D", "B", "A"]} note="size 3 · top = D" tone="active" />,
+          },
+        ]}
+      />
+
+      <Reveal className="mt-8">
+        <span className="chip">Lecture 13 · chapter takeaways</span>
+        <div className="mt-3">
+          <Takeaways
+            items={[
+              <>Stacks and queues are <strong>not primitive data types</strong> — they are implemented using arrays or linked lists with specific operational constraints.</>,
+              <>Static builds are limited by RAM caps (Photoshop 50, Excel 100); dynamic ones grow as needed but are ultimately constrained by system memory.</>,
+              <>The Quiz One briefing is above: weekend of October 3rd · 40% weightage · best two of three · Modules 1–2 only.</>,
+            ]}
+          />
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ============================================================
+   SECTION 2b — LECTURE 13 · OPS, ERRORS & APPS (id="ops13")
+   The operations strip in motion, the two error pairs, and the
+   application tour — the second half of the live consolidation.
+   ============================================================ */
+
+export function AtbOps13Section() {
+  return (
+    <Section id="ops13">
+      <SectionHead
+        eyebrow={eyebrowOf("ops13")}
+        title={
+          <>
+            Operations, errors &amp; <span className="grad-text">where they run</span>
+          </>
+        }
+        lead="The live session’s second half: push/pop and enqueue/dequeue in motion, the overflow–underflow pairs, and the application tour — from undo to triage."
+      />
+
+      <ReadStep n="1" title="When they break" sub="Overflow = full · underflow = empty" />
       <Reveal>
         <div className="grid gap-4 sm:grid-cols-2">
           {[
@@ -688,7 +863,7 @@ export function AtbRecap13Section() {
         </div>
       </Reveal>
 
-      <ReadStep n="4" title="Where they run the world" sub="Stack duties · queue duties" />
+      <ReadStep n="2" title="Where they run the world" sub="Stack duties · queue duties" />
       <div className="grid gap-4 lg:grid-cols-2">
         <Reveal>
           <div className="card-warm h-full p-5">
@@ -732,6 +907,53 @@ export function AtbRecap13Section() {
         </Reveal>
       </div>
 
+      <AtbStepper
+        title="What happens next? — one queue from arrival to service"
+        steps={[
+          {
+            label: "NQ(A): A arrives and joins the empty queue — front and rear both point at A.",
+            detail: "Enqueue happens at the REAR (right); with one element, front = rear.",
+            frame: <AtbQueueRow items={["A"]} front={0} />,
+          },
+          {
+            label: "NQ(B), NQ(C): B and C join behind A. Front stays at A.",
+            detail: "Newcomers never jump the line — FIFO fairness by construction.",
+            frame: <AtbQueueRow items={["A", "B", "C"]} front={0} />,
+          },
+          {
+            label: "DQ: A leaves from the FRONT (left). Front moves to B.",
+            detail: "The dequeued cell is spent — in a linear queue its space is not reused.",
+            frame: <AtbQueueRow items={[null, "B", "C"]} front={1} />,
+          },
+          {
+            label: "NQ(D): D joins at the rear. Service order stays A → B → C → D, always arrival order.",
+            detail: "In a circular queue the freed front cell would be reused by wrapping the rear pointer; in the linear twin it stays spent.",
+            frame: <AtbQueueRow items={[null, "B", "C", "D"]} front={1} />,
+          },
+        ]}
+      />
+
+      <AtbFigure notice="the spent front cells pile up on the left — that is the linear queue’s memory wastage, and exactly the problem the circular queue’s wrap-around solves.">
+        <div className="rounded-2xl p-4" style={{ background: "#fffaf1", border: "1px dashed #e5c79d" }}>
+          <svg viewBox="0 0 560 130" className="h-auto w-full" role="img" aria-label="Linear queue memory wastage: front cells spent and unreusable while the rear pointer approaches the physical end, with the circular wrap-around arrow reusing the front space">
+            <defs>
+              <marker id="ops13A" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c2410c" /></marker>
+            </defs>
+            {[0, 1, 2, 3, 4, 5].map((i) => (
+              <g key={i}>
+                <rect x={60 + i * 74} y={40} width={64} height={40} rx={7} fill={i < 2 ? "#e7e0d4" : i < 5 ? "#fffaf1" : "#f5c889"} stroke={i === 5 ? "#c2410c" : "#e9d7bf"} />
+                <text x={92 + i * 74} y={64} textAnchor="middle" fontSize={11} fontWeight={800} fill={i < 2 ? "#8a8578" : "#2b2014"}>{["✕", "✕", "C", "D", "E", "F"][i]}</text>
+                <text x={92 + i * 74} y={94} textAnchor="middle" fontSize={9} fontWeight={700} fill="#a16024">{i}</text>
+              </g>
+            ))}
+            <text x={92} y={26} textAnchor="middle" fontSize={9.5} fontWeight={800} fill="#8a8578">front — spent, never reused</text>
+            <text x={454} y={26} textAnchor="middle" fontSize={9.5} fontWeight={800} fill="#c2410c">rear — stuck at the physical end</text>
+            <path d="M 470 60 C 530 60 530 112 92 112" stroke="#c2410c" strokeWidth={1.8} fill="none" markerEnd="url(#ops13A)" strokeDasharray="6 4" />
+            <text x={280} y={124} textAnchor="middle" fontSize={9.5} fontWeight={700} fill="#c2410c">circular fix: the rear pointer wraps to reuse the front cells</text>
+          </svg>
+        </div>
+      </AtbFigure>
+
       <Reveal className="mt-8 grid gap-4 lg:grid-cols-2">
         <Quiz
           q="Clicking the back button on a browser with an empty history is…"
@@ -759,16 +981,15 @@ export function AtbRecap13Section() {
         />
       </Reveal>
 
+
       <Reveal className="mt-8">
-        <span className="chip">Lecture 13 · key takeaways</span>
+        <span className="chip">Lecture 13 · ops takeaways</span>
         <div className="mt-3">
           <Takeaways
             items={[
-              <>A stack has one door (top) and LIFO memory; a queue has two (rear in, front out) and FIFO fairness.</>,
-              <>Neither is a primitive type — both are arrays or linked lists plus rules.</>,
-              <>Static builds cap the memory (Photoshop 50, Excel 100); dynamic builds grow to the RAM (Word).</>,
               <>Overflow when full, underflow when empty — tab piles and ticket rushes vs empty histories and frozen buffers.</>,
-              <>Queues quietly run the world: printing, buffering, round-robin CPUs, keyboards, traffic lights, Ludo, triage.</>,
+              <>Queues quietly run the world: printing, buffering, round-robin CPUs, keyboards (16–64 bytes), traffic lights, Ludo, triage.</>,
+              <>Static queues: printer buffers, keyboard buffers, Wi-Fi router packet queues. Dynamic: WhatsApp queues, Netflix/YouTube/Hotstar streaming.</>,
             ]}
           />
         </div>
@@ -885,7 +1106,7 @@ export function AtbRecap18Section() {
   return (
     <Section id="recap18">
       <SectionHead
-        eyebrow="Lecture 18 · Live lecture"
+        eyebrow={eyebrowOf("recap18")}
         title={
           <>
             Trees &amp; graphs — <span className="grad-text">when one path stops being enough</span>
@@ -895,10 +1116,11 @@ export function AtbRecap18Section() {
       />
 
       <Reveal className="mb-2">
-        <Callout kind="story" title="Lecture 18 · live session — what this chapter is">
-          A live repeat of the recorded non-linear material — the full-length versions live in{" "}
-          <strong>Lectures 12, 15, 16 and 17</strong>. This recap: the vocabulary, the four walks, the trees ⊂ graphs
-          Venn, and DFS vs BFS in one breath.
+        <Callout kind="story" title="Lecture 18 · the third consolidation point">
+          This live session drew the line between linear and non-linear and tied the whole trees-and-graphs block
+          together: trees and graphs allow <strong>multiple pathways</strong> where linear structures offer one
+          predetermined order — a far better model of real decisions with choices and alternatives. The vocabulary,
+          the four walks, and DFS vs BFS in one breath; the family photo lives in the next chapter.
         </Callout>
       </Reveal>
 
@@ -949,7 +1171,9 @@ export function AtbRecap18Section() {
           <div className="card-warm h-full p-5">
             <span className="chip">Lecture 18 · the example tree</span>
             <div className="mt-3 rounded-xl bg-[#fffaf1] p-3">
-              <R18TreeSvg />
+              <AtbFigure notice="root A has depth 0; D and E sit two edges down; the height is 2 — the deepest leaf’s depth — and every child keeps exactly one parent.">
+                <R18TreeSvg />
+              </AtbFigure>
             </div>
           </div>
         </Reveal>
@@ -1003,59 +1227,33 @@ export function AtbRecap18Section() {
         </p>
       </Reveal>
 
-      <ReadStep n="4" title="Graphs: trees without the leash" sub="G = (V, E) — and the family photo" />
-      <Reveal>
-        <div className="card-warm p-5">
-          <span className="chip">Lecture 18 · graph vocabulary</span>
-          <p className="mt-3 text-[.9rem] leading-relaxed text-[#2b2014]">
-            A graph is the <strong>general connectivity structure</strong>:{" "}
-            <strong>G = (V, E)</strong> — a set of vertices, a set of edges. A <strong>vertex</strong> is a node, an{" "}
-            <strong>edge</strong> a connection, a vertex&apos;s <strong>degree</strong> counts the edges touching it.
-            Multiple links per node are allowed, cycles can exist, and nothing must be a root.
-          </p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {["vertex = node", "edge = connection", "degree = edges at a vertex", "cycles allowed", "no fixed root", "many-to-many links"].map(
-              (c) => (
-                <span key={c} className="chip">{c}</span>
-              )
-            )}
-          </div>
-        </div>
-      </Reveal>
-      <Reveal className="mt-4">
-        <div className="card-warm p-6 md:p-8">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-center">
-            <R18NestedVenn />
-            <div className="grid gap-3">
-              <VennColumn
-                tone="#b45309"
-                label="Inside the inner circle — trees"
-                items={[
-                  { t: "One parent per child", d: "the constraint that defines the species" },
-                  { t: "No cycles", d: "branches never loop back" },
-                  { t: "Has a root", d: "hierarchy flows from a single top" },
-                ]}
-              />
-              <VennColumn
-                tone="#5d7a2e"
-                label="Outer ring — graph-only territory"
-                items={[
-                  { t: "Many-to-many links", d: "a vertex keeps several parents & children" },
-                  { t: "Cycles", d: "paths may start and end at the same vertex" },
-                  { t: "No fixed root", d: "any vertex can be a starting point" },
-                  { t: "Vertices · edges · neighbours", d: "the graph dialect of the same words" },
-                ]}
-              />
-            </div>
-          </div>
-          <p className="mt-5 border-t border-[#f3e2c8] pt-4 text-[.88rem] leading-relaxed text-muted-warm">
-            <strong>Every tree is already a graph.</strong> The tree is the specialised case — graphs simply drop the
-            one-parent rule and the no-cycle rule, and with them the single predetermined shape.
-          </p>
-        </div>
-      </Reveal>
+      <AtbStepper
+        title="What happens next? — walking the example tree four ways"
+        steps={[
+          {
+            label: "Pre-order (Root → Left → Right): visit A, dive left into B, then D, then E, finally C.",
+            detail: "The root is stamped first on every subtree.",
+            frame: <AtbCells values={["A", "B", "D", "E", "C"]} tones={["active", "active", "active", "active", "active"]} labels={["root", "left", "D", "E", "right"]} />,
+          },
+          {
+            label: "In-order (Left → Root → Right): D, B, E — B’s subtree finished — then the root A, then C.",
+            detail: "The root is visited between its two subtrees — stack-powered.",
+            frame: <AtbCells values={["D", "B", "E", "A", "C"]} tones={["active", "active", "active", "twin", "active"]} labels={["left", "root of B", "right", "ROOT", "right"]} />,
+          },
+          {
+            label: "Post-order (Left → Right → Root): D, E, B — then C — and the root A last.",
+            detail: "Children always before their parent; the root closes the walk.",
+            frame: <AtbCells values={["D", "E", "B", "C", "A"]} tones={["active", "active", "active", "active", "twin"]} labels={["", "", "subtree done", "right leaf", "ROOT last"]} />,
+          },
+          {
+            label: "Level-order (row by row): A, then B and C, then D and E — queue-powered.",
+            detail: "Depth 0 → depth 1 → depth 2; each level left to right.",
+            frame: <AtbCells values={["A", "B", "C", "D", "E"]} tones={["twin", "active", "active", "done", "done"]} labels={["level 0", "level 1", "level 1", "level 2", "level 2"]} />,
+          },
+        ]}
+      />
 
-      <ReadStep n="5" title="DFS vs BFS — and where each structure lives" sub="Stack dives deep · queue sweeps wide" />
+      <ReadStep n="4" title="DFS vs BFS — and where each structure lives" sub="Stack dives deep · queue sweeps wide" />
       <div className="grid gap-4 md:grid-cols-2">
         <Reveal>
           <div className="card-warm h-full p-5">
@@ -1173,6 +1371,105 @@ export function AtbRecap18Section() {
             ]}
           />
         </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ============================================================
+   SECTION 3b — LECTURE 18 · EVERY TREE IS A GRAPH (id="venn18")
+   The nested Venn — the family photo that closes the block.
+   ============================================================ */
+
+export function AtbVenn18Section() {
+  return (
+    <Section id="venn18" dark>
+      <SectionHead
+        dark
+        eyebrow={eyebrowOf("venn18")}
+        title={
+          <>
+            Every tree is a <span className="grad-text">graph</span>
+          </>
+        }
+        lead="One nested picture settles the block: the tree circle lives entirely inside the graph circle — graphs simply drop the one-parent rule, the no-cycle rule, and the fixed root."
+      />
+
+      <ReadStep n="1" title="Graphs: trees without the leash" sub="G = (V, E) — and the family photo" dark />
+      <Reveal>
+        <div className="card-warm p-5">
+          <span className="chip">Lecture 18 · graph vocabulary</span>
+          <p className="mt-3 text-[.9rem] leading-relaxed text-[#2b2014]">
+            A graph is the <strong>general connectivity structure</strong>:{" "}
+            <strong>G = (V, E)</strong> — a set of vertices, a set of edges. A <strong>vertex</strong> is a node, an{" "}
+            <strong>edge</strong> a connection, a vertex’s <strong>degree</strong> counts the edges touching it.
+            Multiple links per node are allowed, cycles can exist, and nothing must be a root.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {["vertex = node", "edge = connection", "degree = edges at a vertex", "cycles allowed", "no fixed root", "many-to-many links"].map(
+              (c) => (
+                <span key={c} className="chip">{c}</span>
+              )
+            )}
+          </div>
+        </div>
+      </Reveal>
+      <Reveal className="mt-4">
+        <div className="card-warm p-6 md:p-8">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-center">
+            <AtbFigure notice="every tree sits wholly inside the graph circle: drop the one-parent rule and the no-cycle rule and you are in graph territory — the inner circle is the specialised case.">
+              <R18NestedVenn />
+            </AtbFigure>
+            <div className="grid gap-3">
+              <VennColumn
+                tone="#b45309"
+                label="Inside the inner circle — trees"
+                items={[
+                  { t: "One parent per child", d: "the constraint that defines the species" },
+                  { t: "No cycles", d: "branches never loop back" },
+                  { t: "Has a root", d: "hierarchy flows from a single top" },
+                ]}
+              />
+              <VennColumn
+                tone="#5d7a2e"
+                label="Outer ring — graph-only territory"
+                items={[
+                  { t: "Many-to-many links", d: "a vertex keeps several parents & children" },
+                  { t: "Cycles", d: "paths may start and end at the same vertex" },
+                  { t: "No fixed root", d: "any vertex can be a starting point" },
+                  { t: "Vertices · edges · neighbours", d: "the graph dialect of the same words" },
+                ]}
+              />
+            </div>
+          </div>
+          <p className="mt-5 border-t border-[#f3e2c8] pt-4 text-[.88rem] leading-relaxed text-muted-warm">
+            <strong>Every tree is already a graph.</strong> The tree is the specialised case — graphs simply drop the
+            one-parent rule and the no-cycle rule, and with them the single predetermined shape.
+          </p>
+        </div>
+      </Reveal>
+
+      <Reveal className="mt-8 grid gap-4 lg:grid-cols-2">
+        <Quiz
+          q="An influencer has 2M followers and follows 180 accounts. Which degrees are which?"
+          options={["followers = out-degree, following = in-degree", "followers = in-degree (edges in), following = out-degree (edges out)", "both are in-degree", "degrees only apply to trees"]}
+          answer={1}
+          source="Lecture 18 · live recap"
+          explain="Edges coming IN to the influencer are followers — in-degree 2M. Edges going OUT are the accounts they follow — out-degree 180. Directed graphs count the two separately."
+        />
+        <Practice
+          title="Pen-and-paper drills — the family photo"
+          items={[
+            {
+              q: "Draw a 4-vertex graph that is NOT a tree, and say which two tree rules it breaks.",
+              hint: "Give one vertex two parents, or add a cycle — either breaks the one-parent / no-cycles rule.",
+            },
+            {
+              q: "The web: pages as vertices, hyperlinks as directed edges. Is the web graph cyclic? Rooted?",
+              hint: "Links loop (A → B → A) — cyclic; no page is ‘the’ root — unrooted. Definitely a graph, not a tree.",
+            },
+          ]}
+        />
       </Reveal>
     </Section>
   );
@@ -1405,7 +1702,7 @@ export function AtbRecap23Section() {
   return (
     <Section id="recap23">
       <SectionHead
-        eyebrow="Lecture 23 · Live lecture"
+        eyebrow={eyebrowOf("recap23")}
         title={
           <>
             Tree types, hashing &amp; the blockchain — <span className="grad-text">the closing recap</span>
@@ -1415,10 +1712,23 @@ export function AtbRecap23Section() {
       />
 
       <Reveal className="mb-2">
-        <Callout kind="story" title="Lecture 23 · live session — what this chapter is">
-          A live repeat of the recorded tree-type, hashing and blockchain lectures — the full-length versions live in{" "}
-          <strong>Lectures 14, 19 and 20</strong>. Quiz syllabus: <strong>all of non-linear, blockchain included</strong>.
+        <Callout kind="story" title="Lecture 23 · the finale of the non-linear block — and the Quiz Two briefing">
+          This live session <strong>closes the non-linear section</strong> and rehearses all three of its acts: the
+          tree family ladder, the hashing pipeline, and the chained block. It is also where the{" "}
+          <strong>Quiz Two briefing</strong> lands officially — the syllabus is{" "}
+          <strong>all of non-linear, blockchain included</strong> (the linear content of Quiz One is excluded). The
+          briefing, verbatim:
         </Callout>
+
+      <AtbExamCallout tag="Quiz Two" title="The briefing — October 31st">
+        <ul className="grid gap-1.5">
+          <li><strong>Date:</strong> Quiz Two is scheduled for <strong>October 31st</strong>, with timing to be communicated separately.</li>
+          <li><strong>Scoring:</strong> best of two quizzes will count toward final marks — whichever quiz score is higher is used.</li>
+          <li><strong>Attendance:</strong> attendance in at least one quiz is mandatory; students who missed Quiz One should definitely attend Quiz Two.</li>
+          <li><strong>Syllabus:</strong> complete non-linear data structures <strong>including blockchain</strong> (does not include the linear data structure content from Quiz One).</li>
+          <li><strong>Preparation:</strong> a doubt-clearance session is scheduled for the week before Quiz Two.</li>
+        </ul>
+      </AtbExamCallout>
       </Reveal>
 
       <ReadStep n="1" title="The tree family ladder" sub="Each rung adds exactly one rule" />
@@ -1593,6 +1903,43 @@ export function AtbRecap23Section() {
         </div>
       </Reveal>
 
+      <AtbStepper
+        title="What happens next? — the Merkle cascade, one edit traced"
+        steps={[
+          {
+            label: "Four transactions enter the block: T1, T2, T3, T4.",
+            detail: "Each is hashed individually — H1, H2, H3, H4.",
+            frame: <AtbCells values={["T1", "T2", "T3", "T4"]} tones={["idle", "idle", "idle", "idle"]} labels={["→H1", "→H2", "→H3", "→H4"]} />,
+          },
+          {
+            label: "Pair and combine upward: H12 = hash(H1+H2), H34 = hash(H3+H4).",
+            detail: "The tree narrows as it climbs — that hierarchy is why it is a Merkle TREE.",
+            frame: <AtbCells values={["H12", "H34"]} tones={["active", "active"]} labels={["pair 1", "pair 2"]} />,
+          },
+          {
+            label: "One more level: the Merkle root = hash(H12+H34), stored in the block header.",
+            detail: "One short digest now vouches for every transaction in the block.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="merkle root" v="hash(H12+H34)" tone="twin" />
+                <AtbPill k="vouches for" v="T1 · T2 · T3 · T4" />
+              </div>
+            ),
+          },
+          {
+            label: "T3 is edited → H3 changes → H34 changes → the root changes.",
+            detail: "The header no longer matches — the edit is exposed by the cascade, instantly and provably.",
+            frame: (
+              <div className="flex flex-wrap items-center gap-3">
+                <AtbPill k="H3" v="changed" tone="broken" />
+                <AtbPill k="H34" v="changed" tone="broken" />
+                <AtbPill k="root" v="changed — mismatch!" tone="broken" />
+              </div>
+            ),
+          },
+        ]}
+      />
+
       <ReadStep n="5" title="Where it already runs" sub="…and the three-circle map that closes the module" />
       <Reveal>
         <div className="grid gap-4 md:grid-cols-3">
@@ -1623,46 +1970,6 @@ export function AtbRecap23Section() {
           ))}
         </div>
       </Reveal>
-      <Reveal className="mt-4">
-        <div className="card-warm p-6 md:p-8">
-          <span className="chip">Lecture 23 · the three circles</span>
-          <div className="mt-3 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center">
-            <R23ThreeVenn />
-            <div className="grid gap-3">
-              <VennColumn
-                tone="#b45309"
-                label="Trees alone"
-                items={[{ t: "Hierarchy", d: "one parent per child, root at the top" }]}
-              />
-              <VennColumn
-                tone="#5d7a2e"
-                label="Hashing alone"
-                items={[{ t: "Fixed-length digests", d: "any input, constant output size" }]}
-              />
-              <VennColumn
-                tone="#7c6248"
-                label="Blockchain alone"
-                items={[{ t: "Distributed ledger", d: "full copies on every node" }]}
-              />
-              <VennColumn
-                tone="#8a6b45"
-                label="The overlaps"
-                items={[
-                  { t: "Trees ∩ Hashing", d: "the Merkle tree — hashed hierarchy" },
-                  { t: "Trees ∩ Blockchain", d: "chained records — node-and-link structures" },
-                  { t: "Hashing ∩ Blockchain", d: "block hashes — the prev-hash links" },
-                  { t: "All three", d: "the blockchain itself" },
-                ]}
-              />
-            </div>
-          </div>
-          <p className="mt-5 border-t border-[#f3e2c8] pt-4 text-[.88rem] leading-relaxed text-muted-warm">
-            Read it as the course in one image: <strong>trees organise</strong>, <strong>hashing fingerprints</strong>,{" "}
-            <strong>blocks chain</strong> — where all three overlap, you get the blockchain.
-          </p>
-        </div>
-      </Reveal>
-
       <Reveal className="mt-8 grid gap-4 lg:grid-cols-2">
         <Quiz
           q="Changing one character of “Atlas” produces a completely different digest. That property is the…"
@@ -1708,6 +2015,98 @@ export function AtbRecap23Section() {
             ]}
           />
         </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ============================================================
+   SECTION 4b — LECTURE 23 · THE THREE-CIRCLE FINALE (id="venn23")
+   The module-closing Venn: trees organise, hashing fingerprints,
+   blocks chain — all three overlap into the blockchain.
+   ============================================================ */
+
+export function AtbVenn23Section() {
+  return (
+    <Section id="venn23" dark>
+      <SectionHead
+        dark
+        eyebrow={eyebrowOf("venn23")}
+        title={
+          <>
+            The <span className="grad-text">three-circle</span> finale
+          </>
+        }
+        lead="Trees give one-parent hierarchy, hashing gives fixed-length digests, blockchain gives the distributed ledger — and the overlaps are the Merkle tree, the block hashes and the chained records."
+      />
+
+      <ReadStep n="1" title="The course in one image" sub="Trees organise · hashing fingerprints · blocks chain" dark />
+      <Reveal className="mt-4">
+        <div className="card-warm p-6 md:p-8">
+          <span className="chip">Lecture 23 · the three circles</span>
+          <div className="mt-3 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center">
+            <R23ThreeVenn />
+            <div className="grid gap-3">
+              <VennColumn
+                tone="#b45309"
+                label="Trees alone"
+                items={[{ t: "Hierarchy", d: "one parent per child, root at the top" }]}
+              />
+              <VennColumn
+                tone="#5d7a2e"
+                label="Hashing alone"
+                items={[{ t: "Fixed-length digests", d: "any input, constant output size" }]}
+              />
+              <VennColumn
+                tone="#7c6248"
+                label="Blockchain alone"
+                items={[{ t: "Distributed ledger", d: "full copies on every node" }]}
+              />
+              <VennColumn
+                tone="#8a6b45"
+                label="The overlaps"
+                items={[
+                  { t: "Trees ∩ Hashing", d: "the Merkle tree — hashed hierarchy" },
+                  { t: "Trees ∩ Blockchain", d: "chained records — node-and-link structures" },
+                  { t: "Hashing ∩ Blockchain", d: "block hashes — the prev-hash links" },
+                  { t: "All three", d: "the blockchain itself" },
+                ]}
+              />
+            </div>
+          </div>
+          <p className="mt-5 border-t border-[#f3e2c8] pt-4 text-[.88rem] leading-relaxed text-muted-warm">
+            Read it as the course in one image: <strong>trees organise</strong>, <strong>hashing fingerprints</strong>,{" "}
+            <strong>blocks chain</strong> — where all three overlap, you get the blockchain.
+          </p>
+        </div>
+      </Reveal>
+
+
+      <AtbFigure dark notice="where all three circles overlap sits the blockchain itself — a hashed hierarchy of chained records copied across every node.">
+        <div className="rounded-2xl p-4" style={{ background: "rgba(255,250,241,.04)", border: "1px dashed #e5c79d" }}>
+          <p className="text-center text-[.85rem] font-bold text-[#cbb392]">
+            trees ∩ hashing = the Merkle tree · hashing ∩ blockchain = the prev-hash links · trees ∩ blockchain = chained records · all three = the blockchain
+          </p>
+        </div>
+      </AtbFigure>
+
+      <Reveal className="mt-6 grid gap-4 lg:grid-cols-2">
+        <Quiz
+          q="Which structure sits exactly where the tree circle and the hashing circle overlap?"
+          options={["The linked list", "The Merkle tree", "The priority queue", "The circular queue"]}
+          answer={1}
+          source="Lecture 23 · live recap"
+          explain="The Merkle tree is a hierarchy (tree) of hashes (hashing) — the overlap region. Block hashes are the hashing∩blockchain overlap; chained records the trees∩blockchain one."
+        />
+        <Practice
+          title="Pen-and-paper drills — the finale"
+          items={[
+            {
+              q: "Name one real deployment for each circle: trees, hashing, blockchain.",
+              hint: "Folder structures / OS memory indexing · password storage, integrity checks, database indexing · cryptocurrency, smart contracts, land/health/university records (Andhra Pradesh, Telangana, Estonia pilots).",
+            },
+          ]}
+        />
       </Reveal>
     </Section>
   );
