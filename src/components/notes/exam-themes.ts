@@ -223,15 +223,15 @@ export const MOCK_EXAM_THEME: ExamTheme = {
   },
 };
 /** shelf 06 header — deep lagoon */
-const LAGOON_HEADER = "linear-gradient(160deg,#0c2124,#143236)";
+const LAGOON_HEADER = "linear-gradient(160deg,#171f1e 0%,#1f2b2b 100%)";
 
 
 /* ---------------- shelf 06 — Principles of Marketing ---------------- */
 export const MKTG_EXAM_THEME: ExamTheme = {
   key: "mktg",
-  pageBg: "linear-gradient(180deg,#f4f7f4 0%,#eef3ee 100%)",
+  pageBg: "linear-gradient(180deg,#f2efe7 0%,#ece9df 100%)",
   headerBg: LAGOON_HEADER,
-  sigil: "linear-gradient(135deg,#14b8a6,#0f766e)",
+  sigil: "linear-gradient(135deg,rgba(15,118,110,.82),#0f766e)",
   titleOnDark: "#e9f2ee",
   subOnDark: "#9fc4ba",
   chipOnDark: "#cfe6df",

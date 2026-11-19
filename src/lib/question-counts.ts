@@ -19,7 +19,7 @@ export const QUESTION_COUNTS = {
   fa: 153,
   ebh: 66,
   stm: 62,
-  mktg: 48,
+  mktg: 60,
 } as const;
 
 export type QuestionCountSubject = keyof typeof QUESTION_COUNTS;
