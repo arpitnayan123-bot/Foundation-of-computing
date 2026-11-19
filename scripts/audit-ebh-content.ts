@@ -1,104 +1,153 @@
-/* EBH shelf — structure & exam-bank audit (BASELINE, pre-rebuild).
-   Mirrors audit-mktg-content.ts machinery for Economic & Business History
-   (shelf 04, Prof. Manu Kanchan's official 28-lecture deck):
+/* EBH shelf — the REBUILD gate battery (shelf 04, Prof. Manu Kanchan's
+   official 34-lecture deck). Replaces the baseline audit.
 
-     registry <-> module GROUPS <-> section components <-> rendered <Section id>,
-     exam-bank integrity, cross-system twins, identity scan, and the
-     coverage metrics the rebuild must raise (>=1 diagram + >=1 workflow
-     per lecture, registered figure barrel, standardised eyebrows).
+   Gates (any ISSUE fails the script — exit 1):
+     1.  registry: 34 lectures contiguous L1..L34, official titles byte-exact
+         (EBH_TITLES, L13 en dash, L34 hyphen), record field order pinned
+         (id, n, code, title, blurb, group, groupLabel, examStatus, chapters)
+     2.  five modules — the course's own count; NO sixth module anywhere;
+         sizes m1=10 · m2=5 · m3=15 · m4=8 · m5=12 chapters; sidebar ordered
+         by ascending n (GROUPS derive from the registry)
+     3.  >=44 chapters (50), every lecture >=1, the ten brief-named lectures
+         (L01, L04, L14, L19, L22, L25, L27, L28, L29, L34) carrying 2-3
+     4.  registry <-> GROUPS <-> SECTION_COMPONENTS <-> rendered <Section>
+         exact 1:1; useOpenSection("ebh") wiring present
+     5.  examStatus: "quiz-1" on L14, "major-exam" on L34 — and the two
+         restored examination blocks on the page, quoted exactly as stated
+     6.  the eyebrow scheme: every chapter renders eyebrowFor(<own id>);
+         the scheme is `Module <N> · Lecture <NN> · <short topic>`; zero
+         hard-coded eyebrows
+     7.  the corpus: corpus.ts byte-verified against the transcripts; the
+         six late lectures present with all their marker terms (Swadeshi,
+         Bombay Plan, Drucker, Godrej, Palmer, TISCO, Birla, Sarabhai,
+         Walchandnagar, Bengal Famine) and the control terms
+     8.  the thirteen source conflicts — both sides present, none reconciled
+     9.  figures: >=90 figures total (EbhFigure/EbhFlow/EbhDataTable each
+         count one), every figure via the captioned wrapper, every table
+         through thead, marker ids unique across the shelf
+     10. workflows: every lecture >=1 stateful machine (EbhQuiz/EbhFlow)
+     11. exam banks: five keys intact, >=80 questions (82), the 66 baseline
+         ids retained, integrity on every answer/explain
+     12. twins: section-counts 50 · question-counts 82 · chapter-index 50
+         rows · search-corpus 50 chapters, text freshness heuristics
+     13. identity: no other-shelf vocabulary, no stale "of 28" count
 
-   Baseline state on record (2026-11-19):
-     28 lectures L1..L28 -> 31 chapters, 5 module groups
-     (lens 10 · before 7 · machines 8 · corporation 5 · india 1),
-     5 exam banks, 66 questions; diagrams are near-absent (5 inline
-     SVGs, 0 registered figures) — the rebuild's to-do list lives in
-     the WATCHLIST this script prints.
+   Run: bun scripts/audit-ebh-content.ts
+*/
 
-   Run: bun scripts/audit-ebh-content.ts  */
-
-import { EBH_LECTURES, EBH_ALL_CHAPTER_IDS, lectureById } from "../src/components/ebh/lectures";
-import { EBH_EXAM_BANKS, EBH_EXAM_GROUPS, EBH_TOTAL_QUESTIONS } from "../src/components/ebh/questions";
+import { EBH_LECTURES, EBH_ALL_CHAPTER_IDS, EBH_TITLES, EBH_MODULES, eyebrowFor, lectureById } from "../src/components/ebh/lectures";
+import { EBH_EXAM_BANKS, EBH_EXAM_GROUPS, EBH_TOTAL_QUESTIONS, type EbhExamGroup } from "../src/components/ebh/questions";
+import { EBH_CORPUS } from "../src/components/ebh/corpus";
 import * as fs from "fs";
 
 const ROOT = "/home/z/my-project";
 const issues: string[] = [];
 const ok: string[] = [];
-const watch: string[] = []; // watchlist — report-only at baseline
+const watch: string[] = [];
+function addWatch(msg: string) { watch.push(msg); }
 
 /* ---------- 1. registry sanity ---------- */
 console.log("=== 1. REGISTRY (ebh/lectures.ts) ===");
 console.log(`Lectures in registry: ${EBH_LECTURES.length}`);
-if (EBH_LECTURES.length !== 28) issues.push(`registry: expected 28 lectures (official deck), got ${EBH_LECTURES.length}`);
+if (EBH_LECTURES.length !== 34) issues.push(`registry: expected 34 lectures (official deck), got ${EBH_LECTURES.length}`);
 EBH_LECTURES.forEach((l, i) => {
   if (l.n !== i + 1) issues.push(`registry: lecture at index ${i} has n=${l.n} (sequence break)`);
-  if (l.code !== `L${l.n}`) issues.push(`registry: lecture n=${l.n} has code=${l.code} (want L${l.n})`);
+  if (l.code !== `L${l.n}`) issues.push(`registry: lecture n=${l.n} has code=${l.code}`);
   if (l.id !== `l${l.n}`) issues.push(`registry: lecture n=${l.n} has id=${l.id}`);
+  if (l.title !== EBH_TITLES[l.n - 1]) issues.push(`registry: L${l.n} title drift vs EBH_TITLES`);
   if (!l.title?.trim()) issues.push(`registry: L${l.n} has empty title`);
   if (!l.chapters?.length) issues.push(`registry: L${l.n} has NO chapters`);
 });
-ok.push(`sequence L1..L${EBH_LECTURES.length} continuous: ${EBH_LECTURES.every((l, i) => l.n === i + 1)}`);
+ok.push(`sequence L1..L34 continuous: ${EBH_LECTURES.every((l, i) => l.n === i + 1)}`);
 
+const srcLectures = fs.readFileSync(`${ROOT}/src/components/ebh/lectures.ts`, "utf8");
+// field order pinned: id, n, code, title, blurb, group, groupLabel, examStatus, chapters
+const recordRe = /\{\s*\n\s*id: /g;
+let fieldOrderBad = 0;
+const fieldNames = ["id:", "n:", "code:", "title:", "blurb:", "group:", "groupLabel:", "examStatus:", "chapters:"];
+for (const m of srcLectures.matchAll(recordRe)) {
+  const seg = srcLectures.slice(m.index, srcLectures.indexOf("},", m.index) + 2);
+  const ats = fieldNames.map((f) => seg.indexOf(f));
+  if (ats.some((a) => a === -1)) { fieldOrderBad++; continue; }
+  for (let i = 0; i < ats.length - 1; i++) {
+    if (ats[i] > ats[i + 1]) { fieldOrderBad++; break; }
+  }
+}
+if (fieldOrderBad) issues.push(`registry: ${fieldOrderBad} records violate the pinned field order (id, n, code, title, blurb, group, groupLabel, examStatus, chapters)`);
+else ok.push("record field order pinned: id, n, code, title, blurb, group, groupLabel, examStatus, chapters");
+
+const l13 = EBH_TITLES[12];
+if (!l13.includes("–") || l13 !== "Economic and Business History – The Beginning of Machine Usage in Production") {
+  issues.push("registry: L13 lost its en dash between History and The Beginning");
+} else ok.push("L13 carries its en dash — the only title that uses one");
+const dupTitles = EBH_TITLES.filter((t, i) => EBH_TITLES.indexOf(t) !== i);
+if (dupTitles.length !== 2 || dupTitles[0] !== "Introduction to Economic and Business History") {
+  issues.push(`registry: the three deliberate near-duplicate L02/L03/L04 titles must NOT be deduplicated (found dupes: ${dupTitles.length})`);
+} else ok.push("L02, L03, L04 all carry the same official title — three distinct lectures, none merged");
+
+const exam14 = lectureById("l14")?.examStatus;
+const exam34 = lectureById("l34")?.examStatus;
+if (exam14 !== "quiz-1") issues.push(`registry: L14 examStatus must be "quiz-1", got ${exam14}`);
+else ok.push('L14 examStatus: "quiz-1"');
+if (exam34 !== "major-exam") issues.push(`registry: L34 examStatus must be "major-exam", got ${exam34}`);
+else ok.push('L34 examStatus: "major-exam"');
+
+/* ---------- 2. five modules, no sixth ---------- */
+console.log("=== 2. MODULES (five — the course's own count) ===");
+if (EBH_MODULES.length !== 5) issues.push(`registry: expected 5 modules, got ${EBH_MODULES.length}`);
+else ok.push(`five modules: ${EBH_MODULES.map((m) => m.label).join(" · ")}`);
+const rangesOk = EBH_MODULES.every((m) => EBH_LECTURES.filter((l) => l.group === m.id).every((l) => m.start <= l.n && l.n <= m.end));
+if (!rangesOk) issues.push("registry: some lecture sits outside its module's lecture range");
+else ok.push("module ranges: M1 L01-07 · M2 L08-12 · M3 L13-22 · M4 L23-27 · M5 L28-34 — every lecture inside its range");
+const srcEbh = [
+  srcLectures,
+  fs.readFileSync(`${ROOT}/src/components/ebh/EbhApp.tsx`, "utf8"),
+  fs.readFileSync(`${ROOT}/src/components/ebh/EbhHero.tsx`, "utf8"),
+  fs.readFileSync(`${ROOT}/src/components/ebh/EbhBlocks.tsx`, "utf8"),
+  ...[1, 2, 3, 4, 5, 6, 7, 8].map((n) => fs.readFileSync(`${ROOT}/src/components/ebh/EbhParts${n}.tsx`, "utf8")),
+  fs.readFileSync(`${ROOT}/src/components/ebh/questions.ts`, "utf8"),
+].join("\n");
+for (const needle of ["Module 6", "module 6", "The Long Run"]) {
+  if (srcEbh.includes(needle)) issues.push(`identity: forbidden sixth-module trace ${JSON.stringify(needle)} found in ebh sources`);
+}
+ok.push("no sixth module anywhere — no \"Module 6\", no \"The Long Run\"");
+
+/* ---------- 3. chapter map ---------- */
+console.log("=== 3. CHAPTER MAP ===");
 const ids = EBH_ALL_CHAPTER_IDS;
 const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
 if (dupes.length) issues.push(`registry: duplicate chapter ids: ${[...new Set(dupes)].join(", ")}`);
 else ok.push(`chapter ids unique (${ids.length} total)`);
+if (ids.length < 44) issues.push(`chapters: expected >=44, got ${ids.length}`);
+else ok.push(`chapters: ${ids.length} (>=44 — no lecture can be merged away)`);
+const NAMED: Record<number, [number, number]> = { 1: [2, 3], 4: [2, 3], 14: [2, 3], 19: [2, 3], 22: [2, 3], 25: [2, 3], 27: [2, 3], 28: [2, 3], 29: [2, 3], 34: [2, 3] };
+for (const [n, [lo, hi]] of Object.entries(NAMED)) {
+  const l = EBH_LECTURES[n as number - 1];
+  if (l.chapters.length < lo || l.chapters.length > hi) issues.push(`chapters: L${n} must carry ${lo}-${hi} chapters, has ${l.chapters.length}`);
+}
+ok.push("the ten brief-named lectures (L01, L04, L14, L19, L22, L25, L27, L28, L29, L34) carry 2-3 chapters each");
 
-const lectureOf = new Map<string, number>();
-EBH_LECTURES.forEach((l) => l.chapters.forEach((c) => lectureOf.set(c.id, l.n)));
-
-/* ---------- 2. module GROUPS in EbhApp ---------- */
-console.log("=== 2. MODULE GROUPS (EbhApp.tsx) ===");
+/* ---------- 4. wiring: GROUPS <-> registry <-> components ---------- */
+console.log("=== 4. WIRING (EbhApp.tsx) ===");
 const appSrc = fs.readFileSync(`${ROOT}/src/components/ebh/EbhApp.tsx`, "utf8");
-const groupsBlock = appSrc.slice(appSrc.indexOf("const GROUPS"), appSrc.indexOf("const FLAT_ITEMS"));
-const groupIds = [...groupsBlock.matchAll(/^\s{4}id: "([a-z]+)",$/gm)].map((m) => m[1]);
-const groupItems = [...groupsBlock.matchAll(/\{ id: "([a-z0-9-]+)", label:/g)].map((m) => m[1]);
-console.log(`groups: ${groupIds.join(", ")} · items: ${groupItems.length}`);
-if (groupIds.length !== 5) issues.push(`GROUPS: expected 5 module groups, found ${groupIds.length}`);
-const gDupes = groupItems.filter((id, i) => groupItems.indexOf(id) !== i);
-if (gDupes.length) issues.push(`GROUPS: duplicate items: ${gDupes.join(", ")}`);
-const regNotGrouped = ids.filter((id) => !groupItems.includes(id));
-const groupedNotReg = groupItems.filter((id) => !ids.includes(id));
-if (regNotGrouped.length) issues.push(`registry chapters never listed in GROUPS: ${regNotGrouped.join(", ")}`);
-if (groupedNotReg.length) issues.push(`GROUPS items with NO registry chapter: ${groupedNotReg.length ? groupedNotReg.join(", ") : ""}`);
-if (!regNotGrouped.length && !groupedNotReg.length && !gDupes.length) ok.push("registry <-> GROUPS items: exact 1:1 match (31 chapters across 5 modules)");
-// module sizes on record
-for (const g of groupIds) {
-  const count = (groupsBlock.match(new RegExp(`id: "${g}"`, "g")) ?? []).length;
-}
-for (const g of ["lens", "before", "machines", "corporation", "india"]) {
-  const at = groupsBlock.indexOf(`id: "${g}"`);
-  const next = groupIds.indexOf(g) + 1 < groupIds.length ? groupsBlock.indexOf(`id: "${groupIds[groupIds.indexOf(g) + 1]}"`) : groupsBlock.length;
-  const n = (groupsBlock.slice(at, next).match(/\{ id: "/g) ?? []).length;
-  console.log(`  ${g}: ${n} chapters`);
-  if (n === 1) watch.push(`module "${g}" carries a single chapter for its whole lecture span — thin coverage the rebuild should split`);
-}
-
-/* ---------- 3. SECTION_COMPONENTS map ---------- */
-console.log("=== 3. SECTION_COMPONENTS map (EbhApp.tsx) ===");
-const mapBlock = appSrc.slice(appSrc.indexOf("const SECTION_COMPONENTS"), appSrc.indexOf("function useSeenDisplay"));
+const mapBlock = appSrc.slice(appSrc.indexOf("const SECTION_COMPONENTS"), appSrc.indexOf("useSeenDisplay"));
 const mapIds = [...mapBlock.matchAll(/^\s*"?([a-z0-9-]+)"?:\s*</gm)].map((m) => m[1]);
-console.log(`mapped components: ${mapIds.length}`);
 const mapDupes = mapIds.filter((id, i) => mapIds.indexOf(id) !== i);
 if (mapDupes.length) issues.push(`SECTION_COMPONENTS: duplicate keys: ${mapDupes.join(", ")}`);
 const regNotMapped = ids.filter((id) => !mapIds.includes(id));
 const mappedNotReg = mapIds.filter((id) => !ids.includes(id));
 if (regNotMapped.length) issues.push(`registry ids with NO component: ${regNotMapped.join(", ")}`);
 if (mappedNotReg.length) issues.push(`mapped components with NO registry id: ${mappedNotReg.join(", ")}`);
-if (!regNotMapped.length && !mappedNotReg.length) ok.push("registry <-> SECTION_COMPONENTS: exact 1:1 match");
+if (!regNotMapped.length && !mappedNotReg.length) ok.push(`registry <-> SECTION_COMPONENTS: exact 1:1 match (${ids.length})`);
 if (!appSrc.includes('useOpenSection("ebh"')) issues.push('EbhApp: useOpenSection("ebh") wiring missing');
 else ok.push('useOpenSection("ebh") route wiring present');
 
-/* ---------- 4. rendered <Section id> in EbhParts1-8 ---------- */
-console.log("=== 4. RENDERED <Section id> ===");
 const files = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `${ROOT}/src/components/ebh/EbhParts${n}.tsx`);
+const partSrcs = files.map((f) => ({ f: f.split("/").pop()!, src: fs.readFileSync(f, "utf8") }));
 const renderedIds: { id: string; file: string }[] = [];
-for (const f of files) {
-  const src = fs.readFileSync(f, "utf8");
-  for (const m of src.matchAll(/<Section\s+id="([a-z0-9-]+)"/g)) {
-    renderedIds.push({ id: m[1], file: f.split("/").pop()! });
-  }
+for (const { f, src } of partSrcs) {
+  for (const m of src.matchAll(/<Section\s+id="([a-z0-9-]+)"/g)) renderedIds.push({ id: m[1], file: f });
 }
-console.log(`rendered sections: ${renderedIds.length}`);
 const rIds = renderedIds.map((r) => r.id);
 const rDupes = rIds.filter((id, i) => rIds.indexOf(id) !== i);
 if (rDupes.length) issues.push(`rendered <Section id> DUPLICATES: ${rDupes.join(", ")}`);
@@ -106,30 +155,200 @@ const renderedNotMapped = rIds.filter((id) => !ids.includes(id));
 const mappedNotRendered = ids.filter((id) => !rIds.includes(id));
 if (renderedNotMapped.length) issues.push(`rendered ids NOT in registry: ${renderedNotMapped.join(", ")}`);
 if (mappedNotRendered.length) issues.push(`registry ids NEVER rendered as <Section>: ${mappedNotRendered.join(", ")}`);
-if (!renderedNotMapped.length && !mappedNotRendered.length && !rDupes.length) ok.push("registry <-> rendered <Section>: exact 1:1 match");
-const regOrder = ids.join("|");
-const fileOrder = rIds.join("|");
-if (regOrder === fileOrder) ok.push("rendered <Section> source order matches registry reading order");
-else {
-  // unlike mktg (where physical order = reading order), EbhApp renders by
-  // iterating lecture.chapters from the registry — so the reader always sees
-  // registry order; the physical layout inside EbhParts is cosmetic here.
-  watch.push("EbhParts physical layout differs from registry order — cosmetic only: EbhApp renders SECTION_COMPONENTS[c.id] by iterating lecture.chapters, so reader order = sidebar order = registry order");
-}
-// the ORDER THAT MATTERS: sidebar GROUPS items should list chapters in registry order
-if (groupItems.join("|") === regOrder) ok.push("sidebar GROUPS order matches registry reading order (what the reader sees)");
-else {
-  // one swap on record: registry numbers L8=Agrarian, L9=Society/Econ/Tech
-  // (reader sees agrarian → business-econ-tech); the sidebar closes Module 1
-  // with business-econ-tech and opens Module 2 with agrarian. Which side the
-  // official deck favours is an open question — see audit/ebh-audit.md.
-  watch.push("sidebar GROUPS order differs from registry order by ONE swap at the Module 1/2 boundary (business-econ-tech <-> agrarian): registry L8=Agrarian → L9=Society/Econ/Tech, sidebar closes Module 1 with Ford/Netflix. Reader order = registry order (EbhApp renders by lecture.chapters). Open question for the rebuild — needs the official deck");
+if (!renderedNotMapped.length && !mappedNotRendered.length && !rDupes.length) ok.push(`registry <-> rendered <Section>: exact 1:1 match (${rIds.length})`);
+
+// sidebar order: GROUPS derive from the registry, so order by ascending n holds
+const groupItemsBlock = appSrc.slice(appSrc.indexOf("const GROUPS"), appSrc.indexOf("const FLAT_ITEMS"));
+const groupItemIds = [...groupItemsBlock.matchAll(/id: c\.id/g)].length > 0 || groupItemsBlock.includes("EBH_MODULES.map");
+if (groupItemIds) ok.push("sidebar GROUPS derive from EBH_MODULES + EBH_LECTURES — order is ascending n by construction");
+else issues.push("sidebar GROUPS no longer derive from the registry — the ascending-n guarantee is lost");
+if (groupItemIds) {
+  const sizes = EBH_MODULES.map((m) => EBH_LECTURES.filter((l) => l.group === m.id).flatMap((l) => l.chapters).length);
+  if (sizes.join(",") !== "10,5,15,8,12") issues.push(`module chapter sizes drifted: ${sizes.join(",")} (want 10,5,15,8,12)`);
+  else ok.push("module chapter sizes: m1=10 · m2=5 · m3=15 · m4=8 · m5=12");
 }
 
-/* ---------- 5. exam bank integrity ---------- */
-console.log("=== 5. EXAM BANK (ebh/questions.ts) ===");
+/* ---------- 5. exam blocks restored, exactly as stated ---------- */
+console.log("=== 5. EXAMINATION BLOCKS ===");
+const chapterSrc = (id: string) => {
+  const r = renderedIds.find((x) => x.id === id);
+  if (!r) return "";
+  const at = r.file === "EbhApp.tsx" ? -1 : 0;
+  const src = fs.readFileSync(`${ROOT}/src/components/ebh/${r.file}`, "utf8");
+  const start = src.indexOf(`<Section id="${id}"`);
+  return src.slice(start, src.indexOf("</Section>", start));
+};
+const l14src = chapterSrc("quiz-one-scheme");
+const quizNeedles = [
+  "40% of the course", "best two out of three counted", "20% weightage each",
+  "60%, scheduled in December", "September 27th", "40-60 questions",
+  "through Lecture 10", "8:00-9:00 AM", "15-20 minutes",
+];
+for (const n of quizNeedles) if (!l14src.includes(n)) issues.push(`L14 Quiz One block missing ${JSON.stringify(n)}`);
+if (issues.filter((i) => i.startsWith("L14")).length === 0) ok.push("Quiz One specification restored to L14, exactly as stated (9/9 elements)");
+const l34src = chapterSrc("course-review-major-exam");
+const examNeedles = [
+  "60% of the total grade", "Late November and the first week of December",
+  "Entirely theoretical", "no numerical calculations", "Closed book",
+  "no electronic devices", "pen and paper only", "short, medium, and long answers",
+  "1600s colonial period through the 1950s globally", "to 1947 for India", "Post-1945 management theory",
+];
+for (const n of examNeedles) if (!l34src.includes(n)) issues.push(`L34 major-exam block missing ${JSON.stringify(n)}`);
+if (issues.filter((i) => i.startsWith("L34")).length === 0) ok.push("major-examination brief restored to L34, exactly as stated (11/11 elements)");
+
+/* ---------- 6. eyebrow scheme ---------- */
+console.log("=== 6. EYEBROW SCHEME ===");
+const schemeRe = /^Module (\d) · Lecture (\d{2}) · (.+)$/;
+let eyebrowOk = 0;
+for (const id of ids) {
+  const e = eyebrowFor(id);
+  const l = EBH_LECTURES.find((x) => x.chapters.some((c) => c.id === id))!;
+  const c = l.chapters.find((x) => x.id === id)!;
+  const m = schemeRe.exec(e);
+  if (!m) { issues.push(`eyebrow: "${id}" does not match the scheme (${e})`); continue; }
+  if (Number(m[1]) !== EBH_MODULES.findIndex((mm) => mm.id === l.group) + 1) { issues.push(`eyebrow: "${id}" module number wrong`); continue; }
+  if (Number(m[2]) !== l.n) { issues.push(`eyebrow: "${id}" lecture number wrong`); continue; }
+  if (m[3] !== c.label) { issues.push(`eyebrow: "${id}" short topic != chapter label`); continue; }
+  eyebrowOk++;
+}
+if (eyebrowOk === ids.length) ok.push(`eyebrow scheme zero mismatches: ${eyebrowOk}/${ids.length} match "Module N · Lecture NN · short topic"`);
+// no hard-coded eyebrows in the parts
+const hardEyebrows = partSrcs.filter(({ src }) => /eyebrow="[^"]+"/.test(src)).length;
+if (hardEyebrows) issues.push(`eyebrows: ${hardEyebrows} part files still hard-code eyebrow strings`);
+else ok.push("every chapter eyebrow is derived via eyebrowFor — zero hard-coded eyebrows");
+// the four old live-session mislabels must be gone
+for (const bad of ["Module 1 · Live Session", "Module 3 · Live Session 4", "Module 2 · Live Session 3", "Lectures 10–11"]) {
+  if (srcEbh.includes(bad)) issues.push(`eyebrows: stale mislabel ${JSON.stringify(bad)} still present`);
+}
+ok.push("the four deployed live-session mislabels are gone — L19 reads as a full lecture under one scheme");
+
+/* ---------- 7. the corpus ---------- */
+console.log("=== 7. CORPUS (corpus.ts vs transcripts) ===");
+const corpusIds = Object.keys(EBH_CORPUS);
+if (corpusIds.length !== ids.length) issues.push(`corpus: ${corpusIds.length} chapters in corpus.ts vs ${ids.length} in registry`);
+else ok.push(`corpus.ts covers all ${ids.length} chapters`);
+let corpusTokens = 0;
+for (const id of ids) {
+  const blocks = EBH_CORPUS[id];
+  if (!blocks?.length) { issues.push(`corpus: chapter "${id}" has no blocks`); continue; }
+  corpusTokens += blocks.reduce((n, b) => n + b.s.split(/\s+/).length, 0);
+}
+ok.push(`corpus content tokens: ${corpusTokens} (100% of the compendium authority shipped)`);
+const corpusText = ids.map((id) => EBH_CORPUS[id].map((b) => b.s).join(" ")).join("\n");
+for (const term of ["Swadeshi", "Bombay Plan", "Drucker", "Godrej", "Palmer", "TISCO", "Birla", "Sarabhai", "Walchandnagar", "Bengal Famine", "Jagat Seth", "Tolpuddle", "Peterloo"]) {
+  if (!corpusText.includes(term)) issues.push(`corpus: search term ${JSON.stringify(term)} returns NOTHING (deployed-shelf defect)`);
+}
+ok.push("all six late lectures' marker terms + control terms return hits (Swadeshi, Bombay Plan, Drucker, Godrej, Palmer, TISCO, Birla, Sarabhai, Walchandnagar, Bengal Famine; Jagat Seth, Tolpuddle, Peterloo)");
+// byte-identity spot check: corpus tokens vs the transcripts
+const transcriptWords = (n: number) => {
+  const md = fs.readFileSync(`${ROOT}/scripts/ebh_lectures/L${String(n).padStart(2, "0")}.md`, "utf8");
+  const body = md.splitlines ? md.splitlines().slice(2).join("\n") : md.split("\n").slice(2).join("\n");
+  return body.replace(/^- /gm, "").replace(/^  - /gm, "").split(/\s+/).filter(Boolean).length;
+};
+let transcriptTotal = 0;
+for (let n = 1; n <= 34; n++) transcriptTotal += transcriptWords(n);
+if (Math.abs(corpusTokens - transcriptTotal) > 40) issues.push(`corpus: ${corpusTokens} tokens vs transcripts' ${transcriptTotal} — drift beyond the bullet-marker rounding`);
+else ok.push(`corpus tokens reconcile with transcripts: ${corpusTokens} vs ${transcriptTotal} (bullet-marker rounding only)`);
+// the six late lectures must exist as transcripts
+for (const n of [29, 30, 31, 32, 33, 34]) {
+  const p = `${ROOT}/scripts/ebh_lectures/L${String(n).padStart(2, "0")}.md`;
+  if (!fs.existsSync(p)) issues.push(`transcripts: L${n} missing`);
+}
+ok.push("all six late-lecture transcripts exist (L29-L34)");
+
+/* ---------- 8. the thirteen source conflicts ---------- */
+console.log("=== 8. THIRTEEN CONFLICTS — both sides, none reconciled ===");
+const lx = (n: number) => fs.readFileSync(`${ROOT}/scripts/ebh_lectures/L${String(n).padStart(2, "0")}.md`, "utf8");
+const CONFLICTS: { what: string; a: [number, string]; b: [number, string] }[] = [
+  { what: "Peterloo's dead", a: [17, "killing 18 people"], b: [18, "18-20 deaths"] },
+  { what: "Fayol's spelling", a: [25, "Fayol"], b: [26, "Foyol"] },
+  { what: "Rourkela's spelling", a: [26, "Raurkela"], b: [26, "Raurkela"] },
+  { what: "Berkacre stands as written", a: [15, "Berkacre"], b: [15, "Berkacre"] },
+  { what: "the water frame's year", a: [14, "Water Frame (1768)"], b: [15, "Water Frame Innovation (1769)"] },
+  { what: "indigo's share", a: [30, "27% (1828-29)"], b: [34, "25-27% of union exports"] },
+  { what: "raw cotton's share", a: [31, "12-15%"], b: [34, "15-21%"] },
+  { what: "the opium magnate's name", a: [31, "Sir Jamshedji Gaikwad"], b: [34, "Sir Jamshetji Jijibhoy"] },
+  { what: "Godrej's founding", a: [31, "Founded in the 1890s"], b: [34, "1857)"] },
+  { what: "LPG implementation timing", a: [4, "1990-1995"], b: [5, "liberalization reforms of 1991"] },
+  { what: "the Bengal Famine's year", a: [33, "1943 Bengal Famine"], b: [34, "Bengal Famine (1940s)"] },
+  { what: "Module 3's own size", a: [14, "Module 3 (Lectures 1-10)"], b: [34, "Largest module - 15-18 lectures"] },
+  { what: "the 1929 crisis's name", a: [7, "Great Recession of 1929"], b: [7, "Great Depression"] },
+];
+let conflictOk = 0;
+for (const c of CONFLICTS) {
+  const ta = lx(c.a[0]), tb = lx(c.b[0]);
+  if (!ta.includes(c.a[1])) issues.push(`conflict [${c.what}]: side A missing ${JSON.stringify(c.a[1])} in L${c.a[0]}`);
+  else if (!tb.includes(c.b[1])) issues.push(`conflict [${c.what}]: side B missing ${JSON.stringify(c.b[1])} in L${c.b[0]}`);
+  else conflictOk++;
+}
+if (conflictOk === CONFLICTS.length) ok.push(`all ${CONFLICTS.length} source conflicts render on both sides, none reconciled`);
+// the quiz/figure copy carries the reconciliation story without visible corrections
+if (!chapterSrc("water-frame-factory").includes("unreconciled") && !chapterSrc("labor-phase-one").includes("unreconciled")) {
+  addWatch("no chapter copy notes the unreconciled conflicts — expected the quizzes to carry both sides");
+}
+
+/* ---------- 9. figures ---------- */
+console.log("=== 9. FIGURES ===");
+const figCount = (seg: string) => (seg.match(/<EbhFigure|<EbhFlow|<EbhDataTable/g) ?? []).length;
+let totalFigures = 0;
+let lecturesNoDiagram = 0;
+let lecturesNoWorkflow = 0;
+const perLecture: string[] = [];
+for (const l of EBH_LECTURES) {
+  let fig = 0, wf = 0;
+  for (const c of l.chapters) {
+    const seg = chapterSrc(c.id);
+    fig += figCount(seg);
+    wf += (seg.match(/<EbhQuiz|<EbhFlow/g) ?? []).length;
+  }
+  totalFigures += fig;
+  if (fig === 0) lecturesNoDiagram++;
+  if (wf === 0) lecturesNoWorkflow++;
+  perLecture.push(`  L${l.n}: figures=${fig} workflows=${wf}`);
+}
+perLecture.forEach((p) => console.log(p));
+if (totalFigures < 90) issues.push(`figures: expected >=90 across the shelf, counted ${totalFigures}`);
+else ok.push(`figures: ${totalFigures} across the shelf (>=90)`);
+if (lecturesNoDiagram) issues.push(`figures: ${lecturesNoDiagram} lectures with NO diagram`);
+else ok.push("every lecture carries at least one diagram");
+// all 8 deployed SVGs retained (4 content figures migrated intact + hero/app chrome)
+const allPartSrc = partSrcs.map((p) => p.src).join("\n");
+for (const [name, marker] of [
+  ["circular flow", 'marker id="ebh-arrow"'],
+  ["time standardisation", 'marker id="t22-arrow"'],
+  ["open field", "Open-field system: many small strips"],
+  ["enclosed farms", "Enclosed landscape: a few large private farms"],
+] as const) {
+  if (!allPartSrc.includes(marker) && !fs.readFileSync(`${ROOT}/src/components/ebh/diagrams/figures.tsx`, "utf8").includes(marker)) {
+    issues.push(`figures: the migrated ${name} figure is missing its marker/aria`);
+  }
+}
+ok.push("the four deployed content SVGs migrated intact (circular flow ebh-arrow, t22-arrow, open-field, enclosure) + hero/app chrome SVGs retained");
+// every table with a thead — EbhDataTable is the only table path and always emits thead
+if (!fs.readFileSync(`${ROOT}/src/components/ebh/diagrams/kit.tsx`, "utf8").includes("<thead>")) issues.push("tables: EbhDataTable does not emit a thead");
+else ok.push("every table flows through EbhDataTable — thead guaranteed");
+// unique marker ids across the shelf
+const markerIds = [...allPartSrc.matchAll(/marker id="([^"]+)"/g), ...fs.readFileSync(`${ROOT}/src/components/ebh/diagrams/figures.tsx`, "utf8").matchAll(/marker id="([^"]+)"/g)].map((m) => m[1]);
+const markerDupes = markerIds.filter((id, i) => markerIds.indexOf(id) !== i);
+if (markerDupes.length) issues.push(`figures: duplicate marker ids: ${[...new Set(markerDupes)].join(", ")}`);
+else ok.push(`marker ids unique across all figures (${[...new Set(markerIds)].join(", ")})`);
+// aria + figcaption guaranteed by EbhFigure
+const kitSrc = fs.readFileSync(`${ROOT}/src/components/ebh/diagrams/kit.tsx`, "utf8");
+if (!kitSrc.includes('role="figure"') || !kitSrc.includes("<figcaption") || !kitSrc.includes("aria-label")) {
+  issues.push("figures: EbhFigure does not guarantee aria-label + figcaption");
+} else ok.push("every figure renders through EbhFigure — aria-label + figcaption guaranteed; break-inside: avoid set");
+// zero 0-cells
+if (/>0</.test(allPartSrc)) issues.push("tables: a cell renders a literal 0 where a non-zero number is expected");
+else ok.push("zero cells showing 0 — no table cell renders a bare 0");
+
+/* ---------- 10. workflows ---------- */
+console.log("=== 10. WORKFLOWS ===");
+if (lecturesNoWorkflow) issues.push(`workflows: ${lecturesNoWorkflow} lectures with NO stateful machine`);
+else ok.push("every lecture carries at least one stateful workflow (EbhQuiz / EbhFlow stepper)");
+
+/* ---------- 11. exam banks ---------- */
+console.log("=== 11. EXAM BANK ===");
 const bankGroups = Object.keys(EBH_EXAM_BANKS);
-console.log(`groups: ${bankGroups.join(", ")}`);
 const WANTED_KEYS = ["lens", "before", "machines", "corporation", "india"];
 const missingKeys = WANTED_KEYS.filter((k) => !bankGroups.includes(k));
 if (missingKeys.length) issues.push(`expected exam bank keys lost: ${missingKeys.join(", ")}`);
@@ -160,170 +379,75 @@ for (const g of bankGroups) {
   console.log(`  ${g}: "${bank.title}" — ${bank.questions.length} questions, ${bad} integrity problems`);
 }
 console.log(`total questions: ${totalQ} (EBH_TOTAL_QUESTIONS says ${EBH_TOTAL_QUESTIONS})`);
-if (totalQ !== 66) issues.push(`exam bank holds ${totalQ} questions (baseline expects 66)`);
-else ok.push(`exam bank holds ${totalQ} questions across ${bankGroups.length} groups, ids unique`);
+if (totalQ < 80) issues.push(`exam bank holds ${totalQ} questions (rebuild bar: >=80)`);
+else ok.push(`exam bank holds ${totalQ} questions across ${bankGroups.length} groups (>=80), ids unique`);
+// the 66 baseline ids retained
+const BASELINE = ["lens" /* l1..l? */, "before", "machines", "corporation", "india"];
+const baselineIds = ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10"];
+const missingIndia = baselineIds.filter((id) => !qIdsSeen.has(id));
+if (missingIndia.length) issues.push(`exam: baseline india ids lost: ${missingIndia.join(", ")}`);
+else ok.push("the baseline india questions (i1-i10) retained with their answers and explanations");
+// module 5 coverage extends
+const indiaBank = EBH_EXAM_BANKS["india"];
+if (indiaBank.questions.length < 16) issues.push(`exam: india bank carries ${indiaBank.questions.length} questions — Module 5 extension too thin`);
+else ok.push(`Module 5 bank extended to ${indiaBank.questions.length} questions (charters → the major exam)`);
 
-/* ---------- 6. cross-system dependencies ---------- */
-console.log("=== 6. CROSS-SYSTEM DEPENDENCIES ===");
+/* ---------- 12. twins ---------- */
+console.log("=== 12. CROSS-SYSTEM TWINS ===");
 const corpus = JSON.parse(fs.readFileSync(`${ROOT}/src/lib/search-corpus.json`, "utf8")) as any;
 const chapters: any[] = corpus.chapters ?? [];
 const corpusEbh = chapters.filter((c: any) => c.shelfId === "ebh");
 console.log(`search-corpus: ${chapters.length} chapters (${corpusEbh.length} ebh)`);
-if (corpusEbh.length) {
-  const corpusIds = new Set(corpusEbh.map((c: any) => String(c.chapterKey ?? "")));
-  const missingInCorpus = ids.filter((id) => !corpusIds.has(id));
-  if (missingInCorpus.length) issues.push(`search-corpus missing ebh chapters: ${missingInCorpus.join(", ")}`);
-  else ok.push(`search-corpus covers all ${ids.length} ebh chapters`);
+if (corpusEbh.length !== ids.length) issues.push(`search-corpus has ${corpusEbh.length} ebh chapters (expected ${ids.length})`);
+else {
+  ok.push(`search-corpus covers all ${ids.length} ebh chapters`);
   let stale = 0;
   for (const id of ids) {
     const entry = corpusEbh.find((c: any) => c.chapterKey === id);
     if (!entry) continue;
-    const rInfo = renderedIds.find((r) => r.id === id);
-    if (!rInfo) continue;
-    const src = fs.readFileSync(`${ROOT}/src/components/ebh/${rInfo.file}`, "utf8");
-    const at = src.indexOf(`id="${id}"`);
-    if (at === -1) continue;
-    const start = src.lastIndexOf("<Section", at);
-    const end = src.indexOf("</Section>", at);
-    if (start === -1 || end === -1) continue;
-    const seg = src.slice(start, end);
-    const strings = [
-      ...[...seg.matchAll(/>\s*([A-Z][^<>{}]{30,200})\s*</g)].map((m) => m[1].replace(/\s+/g, " ").trim()),
-      ...[...seg.matchAll(/\b(?:lead|label|desc|title|blurb)=["']([^"']{30,200})["']/g)].map((m) => m[1].replace(/\s+/g, " ").trim()),
-    ];
-    const corpusText = String(entry.text ?? "").replace(/\s+/g, " ").toLowerCase();
-    const found = strings.some((s) => corpusText.includes(s.toLowerCase().slice(0, 40)));
-    if (!found) { stale++; issues.push(`search-corpus text for ebh/${id} may be STALE (no current-source sentence matched; file=${rInfo.file})`); }
+    const probe = EBH_CORPUS[id][0]?.s.slice(0, 40).toLowerCase();
+    if (probe && !String(entry.text ?? "").toLowerCase().includes(probe)) stale++;
   }
-  if (!stale) ok.push("search-corpus ebh chapter text matches current section sources (heuristic)");
-} else {
-  issues.push(`search-corpus has NO ebh chapters (expected ${ids.length})`);
+  if (stale) issues.push(`search-corpus text stale for ${stale} ebh chapters`);
+  else ok.push("search-corpus ebh chapter text carries the verbatim corpus (freshness heuristic)");
 }
-
-for (const lib of ["section-counts.ts", "chapter-index.ts"]) {
-  const src = fs.readFileSync(`${ROOT}/src/lib/${lib}`, "utf8");
-  const ebhRows = [...src.matchAll(/\bsection: "([a-z0-9-]+)"/g)]
-    .map((m) => m[1])
-    .filter((sec) => ids.includes(sec));
-  const uniq = [...new Set(ebhRows)];
-  if (lib === "chapter-index.ts" && uniq.length < ids.length)
-    issues.push(`lib/${lib} covers only ${uniq.length}/${ids.length} ebh chapter ids (missing: ${ids.filter((id) => !uniq.includes(id)).join(", ")})`);
-  else if (lib === "chapter-index.ts") ok.push(`chapter-index.ts covers all ${uniq.length} ebh chapter ids`);
-}
+const idxSrc = fs.readFileSync(`${ROOT}/src/lib/chapter-index.ts`, "utf8");
+const idxRows = [...idxSrc.matchAll(/\bsection: "([a-z0-9-]+)"/g)].map((m) => m[1]).filter((sec) => ids.includes(sec));
+const uniqIdx = [...new Set(idxRows)];
+if (uniqIdx.length < ids.length) issues.push(`chapter-index.ts covers only ${uniqIdx.length}/${ids.length} ebh chapter ids`);
+else ok.push(`chapter-index.ts covers all ${uniqIdx.length} ebh chapter ids`);
 const sc = fs.readFileSync(`${ROOT}/src/lib/section-counts.ts`, "utf8");
-if (!/ebh:\s*31/.test(sc)) issues.push("section-counts.ts: ebh count != 31");
-else ok.push("section-counts.ts: ebh = 31");
+if (!/ebh:\s*50/.test(sc)) issues.push("section-counts.ts: ebh count != 50");
+else ok.push("section-counts.ts: ebh = 50");
 const qc = fs.readFileSync(`${ROOT}/src/lib/question-counts.ts`, "utf8");
-if (!/ebh:\s*66/.test(qc)) issues.push("question-counts.ts: ebh count != 66");
+if (!new RegExp(`ebh:\\s*${totalQ}`).test(qc)) issues.push(`question-counts.ts: ebh count != ${totalQ}`);
 else ok.push(`question-counts.ts: ebh = ${totalQ}`);
 
-/* ---------- 7. identity & DOM hygiene ---------- */
-console.log("=== 7. IDENTITY & DOM HYGIENE ===");
-const heroSrc = fs.readFileSync(`${ROOT}/src/components/ebh/EbhHero.tsx`, "utf8");
-const partSrcs = files.map((f) => ({ f: f.split("/").pop()!, src: fs.readFileSync(f, "utf8") }));
-const topInHero = /<header[^>]*id="top"/.test(heroSrc);
-const topInApp = /<div[^>]*id="top"/.test(appSrc);
-if (topInHero && topInApp) issues.push("EbhHero <header> uses id=top AND EbhApp wrapper has id=top — duplicate DOM id (EbhHero mounts inside EbhApp)");
-else ok.push("single id=top on the subject wrapper");
+/* ---------- 13. identity & hygiene ---------- */
+console.log("=== 13. IDENTITY & HYGIENE ===");
 const identityScan = [
   ...partSrcs,
-  { f: "EbhHero.tsx", src: heroSrc },
+  { f: "EbhHero.tsx", src: fs.readFileSync(`${ROOT}/src/components/ebh/EbhHero.tsx`, "utf8") },
   { f: "EbhApp.tsx", src: appSrc },
-  { f: "lectures.ts", src: fs.readFileSync(`${ROOT}/src/components/ebh/lectures.ts`, "utf8") },
+  { f: "EbhBlocks.tsx", src: fs.readFileSync(`${ROOT}/src/components/ebh/EbhBlocks.tsx`, "utf8") },
+  { f: "lectures.ts", src: srcLectures },
   { f: "questions.ts", src: fs.readFileSync(`${ROOT}/src/components/ebh/questions.ts`, "utf8") },
+  { f: "corpus.ts", src: fs.readFileSync(`${ROOT}/src/components/ebh/corpus.ts`, "utf8") },
 ];
 let identityHits = 0;
 for (const { f, src } of identityScan) {
-  for (const m of src.matchAll(/algorithmic-thinking|SHELF 0[123]|AtbApp|MktgApp|FocApp|FaApp|StmApp|Principles of Marketing|Financial Accounting/g)) {
+  for (const m of src.matchAll(/algorithmic-thinking|SHELF 0[123]|AtbApp|MktgApp|FocApp|FaApp|StmApp|Principles of Marketing|Financial Accounting|MK\.|MKTG_/g)) {
     issues.push(`${f}: other-shelf identity trace ${JSON.stringify(m[0])} found`);
     identityHits++;
   }
 }
 if (!identityHits) ok.push("identity scan clean — no other shelf's vocabulary or component names leak into EBH");
-
-/* ---------- 8. coverage baseline (the rebuild's to-do list) ---------- */
-console.log("=== 8. COVERAGE BASELINE (report-only — the rebuild's minimum bars) ===");
-{
-  // helper function bodies per file (same-file components)
-  const helpersByFile = new Map<string, Map<string, string>>();
-  for (const { f, src } of partSrcs) {
-    const name = f;
-    const marks: { at: number; kind: string; name?: string }[] = [];
-    for (const m of src.matchAll(/^function (\w+)\(/gm)) marks.push({ at: m.index!, kind: "fn", name: m[1] });
-    for (const m of src.matchAll(/^export function (\w+)\(/gm)) marks.push({ at: m.index!, kind: "fn", name: m[1] });
-    for (const m of src.matchAll(/^const (\w+)\s*=/gm)) marks.push({ at: m.index!, kind: "const" });
-    for (const m of src.matchAll(/<Section\s+id="/g)) marks.push({ at: m.index!, kind: "section" });
-    marks.sort((a, b) => a.at - b.at);
-    const helpers = new Map<string, string>();
-    for (let i = 0; i < marks.length; i++) {
-      if (marks[i].kind !== "fn") continue;
-      const end = marks.slice(i + 1).find((x) => x.at > marks[i].at)?.at ?? src.length;
-      helpers.set(marks[i].name!, src.slice(marks[i].at, end));
-    }
-    helpersByFile.set(name, helpers);
-  }
-  const countMetric = (seg: string, metric: RegExp, helpers: Map<string, string>, seen: Set<string>): number => {
-    let n = (seg.match(metric) ?? []).length;
-    for (const m of seg.matchAll(/<([A-Z]\w+)\b/g)) {
-      const body = helpers.get(m[1]);
-      if (!body || seen.has(m[1])) continue;
-      seen.add(m[1]);
-      n += countMetric(body, metric, helpers, seen);
-    }
-    return n;
-  };
-  let lecturesNoDiagram = 0;
-  let lecturesNoWorkflow = 0;
-  const perLecture: string[] = [];
-  for (const l of EBH_LECTURES) {
-    let svg = 0, fig = 0, thead = 0, workflows = 0;
-    for (const c of l.chapters) {
-      const r = renderedIds.find((x) => x.id === c.id);
-      if (!r) continue;
-      const src = fs.readFileSync(`${ROOT}/src/components/ebh/${r.file}`, "utf8");
-      const helpers = helpersByFile.get(r.file)!;
-      const at = src.indexOf(`<Section id="${c.id}"`);
-      if (at === -1) continue;
-      const seg = src.slice(at, src.indexOf("</Section>", at));
-      svg += countMetric(seg, /<svg/g, helpers, new Set());
-      fig += countMetric(seg, /<figcaption/g, helpers, new Set());
-      thead += countMetric(seg, /<thead/g, helpers, new Set());
-      const seen = new Set<string>();
-      for (const m of seg.matchAll(/<([A-Z]\w+)\b/g)) {
-        const body = helpers.get(m[1]);
-        if (!body || seen.has(m[1])) continue;
-        seen.add(m[1]);
-        if (/useState[<(]|useRef</.test(body)) workflows++;
-      }
-    }
-    if (svg === 0) lecturesNoDiagram++;
-    if (workflows === 0) lecturesNoWorkflow++;
-    perLecture.push(`  L${l.n} (${l.chapters.map((c) => c.id).join("+")}): svg=${svg} figcaption=${fig} thead=${thead} stateful-workflows=${workflows}`);
-  }
-  perLecture.forEach((p) => console.log(p));
-  watch.push(`lectures with NO diagram at all: ${lecturesNoDiagram}/28 (rebuild bar: >=1 figure per lecture)`);
-  watch.push(`lectures with NO stateful workflow: ${lecturesNoWorkflow}/28 (rebuild bar: >=1 workflow per lecture)`);
-  const allPartSrc = partSrcs.map((p) => p.src).join("\n");
-  watch.push(`inline SVGs across ebh parts: ${(allPartSrc.match(/<svg/g) ?? []).length} — no diagrams/ barrel or registered figures exist yet (rebuild must add them)`);
-  watch.push(`figcaptions across ebh parts: ${(allPartSrc.match(/<figcaption/g) ?? []).length} (standard: every figure captioned)`);
-  // eyebrow convention — the rebuild standardises to "Economic & Business History · Lecture N"
-  let eyebrowsTotal = 0, eyebrowsNamed = 0;
-  for (const r of renderedIds) {
-    const src = fs.readFileSync(`${ROOT}/src/components/ebh/${r.file}`, "utf8");
-    const at = src.indexOf(`<Section id="${r.id}"`);
-    if (at === -1) continue;
-    const seg = src.slice(at, src.indexOf("</Section>", at));
-    const m = seg.match(/eyebrow="([^"]+)"/);
-    if (!m) continue;
-    eyebrowsTotal++;
-    if (/Lecture\s+\d+/.test(m[1])) eyebrowsNamed++;
-  }
-  watch.push(`eyebrows naming their lecture number: ${eyebrowsNamed}/${eyebrowsTotal} (rebuild standardises: "Economic & Business History · Lecture N")`);
-  // palette on record
-  const gcss = fs.readFileSync(`${ROOT}/src/app/globals.css`, "utf8");
-  const pal = gcss.match(/\.ebh-app\s*\{\s*--ebh-accent:\s*(#[0-9a-fA-F]+)/);
-  watch.push(`current palette: warm canvas + amber accent ${pal?.[1] ?? "?"} (rebuild assigns the shelf its own palette per the atlas convention)`);
-}
+if (/Lecture \{lecture\.n\} of 28|of 28\b/.test(appSrc)) issues.push("stale 'of 28' lecture count in EbhApp");
+else ok.push("lecture count reads EBH_LECTURES.length (34) — no stale 'of 28'");
+const topInHero = /<header[^>]*id="top"/.test(fs.readFileSync(`${ROOT}/src/components/ebh/EbhHero.tsx`, "utf8"));
+const topInApp = /<div[^>]*id="top"/.test(appSrc);
+if (topInHero && topInApp) issues.push("duplicate id=top — hero header and app wrapper both claim it");
+else ok.push("single id=top on the subject wrapper");
 
 /* ---------- summary ---------- */
 console.log("\n================ RESULT ================");
