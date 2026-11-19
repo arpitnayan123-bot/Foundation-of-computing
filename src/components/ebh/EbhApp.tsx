@@ -5,12 +5,16 @@
 
    Mounted by the Atlas router (src/app/page.tsx); `onExitAtlas`
    returns the reader to the Atlas landing page. A LECTURE
-   READER: the hero holds the full 28-lecture sequence (mapped
+   READER: the hero holds the full 34-lecture sequence (mapped
    1:1 to the official deck), each lecture opens with an
    "Economic & Business History Lecture N" band plus a
    clear/not-clear tracker, and all pen-paper practice lives
    behind the "Test my knowledge" hub so the reading surface
    stays clean.
+
+   The sidebar GROUPS derive from the registry (EBH_MODULES +
+   EBH_LECTURES) — five modules, ordered by ascending lecture
+   number, fifty chapters. There is no sixth module anywhere.
    ============================================================ */
 
 import { PartBoundary } from "@/components/notes/PartBoundary";
@@ -37,23 +41,23 @@ import { jumpTo, useOpenSection } from "@/lib/use-open-section";
 import { loadProgress } from "@/lib/progress";
 import { clarityFor, setClarity, type ClarityStatus } from "@/lib/clarity";
 import { EbhHero } from "@/components/ebh/EbhHero";
-import { EbhEconomicsSection, EbhBusinessSection, EbhHistorySection, EbhRulesPlayersSection } from "@/components/ebh/EbhParts1";
-import { EbhLicenseRajSection, EbhBajajSection, EbhSocietySection, EbhWeekendSection, EbhBizEconTechSection } from "@/components/ebh/EbhParts2";
-import { EbhAgrarianSection, EbhGuildsSection, EbhTradeSection, EbhLifeBeforeSection } from "@/components/ebh/EbhParts3";
-import { EbhWhyMachinesSection, EbhTextileSection, EbhSteamSection, EbhLaborSection, EbhEmpireSection } from "@/components/ebh/EbhParts4";
-import { EbhCourseIntroSection, EbhFeudalZamindariSection, EbhWaterFrameSection } from "@/components/ebh/EbhParts5";
-import { EbhLaborPhase2Section, EbhLaborPhase3Section, EbhEconSystemsSection, EbhSystemsSocietySection } from "@/components/ebh/EbhParts6";
-import { EbhManagementTaylorSection, EbhIrImpactSection, EbhManagementFayolSection, EbhCorporationsSection } from "@/components/ebh/EbhParts7";
-import { EbhWorldWarsSection, EbhIndianBusinessSection } from "@/components/ebh/EbhParts8";
+import { EbhCourseMapSection, EbhCourseObjectivesSection, EbhScarcityBranchesSection, EbhFirmProfitMotiveSection } from "@/components/ebh/EbhParts1";
+import { EbhCourseArchitectureSection, EbhLensDefinitionsSection, EbhEvidenceSourcesSection, EbhLicenseRajBajajSection, EbhSocietyBusinessSection, EbhBusinessSocietyWeekendSection } from "@/components/ebh/EbhParts2";
+import { EbhAgrarianBasicsSection, EbhEconTechRecapSection, EbhFeudalZamindariSection, EbhGuildLadderSection, EbhLifeBeforeMachinesSection } from "@/components/ebh/EbhParts3";
+import { EbhShuttleJennySection, EbhQuizOneSchemeSection, EbhAgrarianGuildsSection, EbhTradeRoadsIndustrySection, EbhWaterFrameFactorySection, EbhSteamCottonopolisSection, EbhLaborPhaseOneSection } from "@/components/ebh/EbhParts4";
+import { EbhLaborPhaseTwoSection, EbhMachinesRecapLiveSection, EbhEmpireMercantilismSection, EbhLaborPhasesRecapSection, EbhLaborPhaseThreeSection, EbhEconomicSystemsSection, EbhSystemsComparedSection, EbhSocialCulturalImpactSection } from "@/components/ebh/EbhParts5";
+import { EbhTaylorScientificSection, EbhIrImpactRecapSection, EbhTaylorismReviewSection, EbhFayolFrameworkSection, EbhLargeCorporationsSection } from "@/components/ebh/EbhParts6";
+import { EbhWarsContextSection, EbhWarIndustriesSection, EbhIndiaSuperpowerSection, EbhEicChartersSection, EbhIndianIntermediariesSection, EbhTurningPoint1813Section, EbhManagementEvolutionRecapSection, EbhWarsIndiaRecapSection, EbhColonialCommoditiesSection, EbhAgencyEntrepreneursSection } from "@/components/ebh/EbhParts7";
+import { EbhWwiSwadeshiSection, EbhWwiiFamineSection, EbhModule5ReviewColonialSection, EbhAgencyBombayPlanSection, EbhCourseReviewMajorExamSection } from "@/components/ebh/EbhParts8";
 import { EbhExamWindow } from "@/components/ebh/EbhExamWindow";
 import { EBH_EXAM_BANKS, EBH_EXAM_GROUPS, EBH_TOTAL_QUESTIONS, type EbhExamGroup } from "@/components/ebh/questions";
 import { ShelfQuickNav } from "@/components/atlas/ShelfQuickNav";
 import {
-  EBH_LECTURES, EBH_ALL_CHAPTER_IDS, EBH_DEFAULT_LECTURE,
+  EBH_LECTURES, EBH_ALL_CHAPTER_IDS, EBH_DEFAULT_LECTURE, EBH_MODULES,
   lectureById, lectureOfChapter, type EbhLecture,
 } from "@/components/ebh/lectures";
 
-/* shelf 04 palette — archive gold & ivory */
+/* shelf 04 palette — archive gold & ivory, oxblood for the law */
 const BRASS = "#a16207";
 const BRASS_BRIGHT = "#eab308";
 const UMBER = "#854d0e";
@@ -61,78 +65,21 @@ const GOLD_LITE = "#ca8a4a";
 const BRONZE = "linear-gradient(165deg,#241708,#33200e 60%,#3a2410)";
 
 /* ============================================================
-   Structured chapter map — the top bar is organised into the
-   course's five modules instead of a flat 31-chip strip. Each
-   group owns a "Test my knowledge" pen-paper window (see
-   questions.ts).
+   Structured chapter map — derived from the registry, so the
+   sidebar can never drift from the reading order. Each group
+   owns a "Test my knowledge" pen-paper window (questions.ts).
    ============================================================ */
 const GROUPS: {
   id: EbhExamGroup;
   label: string;
   items: { id: string; label: string; desc: string }[];
-}[] = [
-  {
-    id: "lens",
-    label: "Module 1 · The Lens",
-    items: [
-      { id: "course-intro", label: "The course map", desc: "Objectives, audience, and the five modules" },
-      { id: "economics", label: "What is economics?", desc: "Scarcity, choices, and the two branches" },
-      { id: "business", label: "What is business?", desc: "Economic activity, profit, and why firms exist" },
-      { id: "history", label: "What is history?", desc: "Change over time — through evidence" },
-      { id: "rules-players", label: "Rules & players", desc: "The two-by-two that names this course" },
-      { id: "license-raj", label: "Economy → business", desc: "The License Raj and IPR 1956" },
-      { id: "bajaj", label: "Case: Bajaj Auto", desc: "Two tracks — the economy and the scooter" },
-      { id: "society-business", label: "Society → business", desc: "McAloo Tikki and the Cadbury ads" },
-      { id: "weekend", label: "Business → society", desc: "The story of the weekend, 1886–1938" },
-      { id: "business-econ-tech", label: "Economies & technology", desc: "Ford, 2008, Netflix, PESTLE" },
-    ],
-  },
-  {
-    id: "before",
-    label: "Module 2 · Early Systems",
-    items: [
-      { id: "agrarian", label: "Agrarian economies", desc: "Seasons, land, lords and zamindars" },
-      { id: "feudal-zamindari", label: "Land ownership", desc: "Feudal Europe vs the zamindari system" },
-      { id: "guilds", label: "Guild systems", desc: "Apprentice, journeyman, master" },
-      { id: "life-before", label: "Life before machines", desc: "Enclosures, seed drills, putting-out" },
-      { id: "why-machines", label: "Why machines?", desc: "Population, trade, and the thread bottleneck" },
-      { id: "textile-machines", label: "Shuttle & Jenny", desc: "Kay 1733, Hargreaves 1764 — and the mobs" },
-      { id: "trade-routes", label: "Trade routes", desc: "Silk Road speeds, the Commercial Revolution" },
-    ],
-  },
-  {
-    id: "machines",
-    label: "Module 3 · The Machine Age",
-    items: [
-      { id: "water-frame", label: "The water frame", desc: "Arkwright, patents, and the factory system" },
-      { id: "steam-cottonopolis", label: "Steam & Cottonopolis", desc: "Watt's liberation, Manchester's mills" },
-      { id: "labor-movement", label: "Phase One", desc: "Conditions, Luddites, 1799 Acts, Peterloo" },
-      { id: "labor-phase2", label: "Phase Two", desc: "1824 repeal, the strike wave, the 1825 Act" },
-      { id: "empire", label: "Empire & mercantilism", desc: "Companies, colonies, British ships" },
-      { id: "labor-phase3", label: "Phase Three", desc: "National unions, Tolpuddle, the Factory Acts" },
-      { id: "econ-systems", label: "Economic systems", desc: "Capitalism · socialism · communism" },
-      { id: "systems-society", label: "Systems & society", desc: "Pros & cons, cities, classes, 'time is money'" },
-    ],
-  },
-  {
-    id: "corporation",
-    label: "Module 4 · The Corporation",
-    items: [
-      { id: "management-taylor", label: "Taylorism", desc: "Pin factory, time studies, pig iron" },
-      { id: "ir-impact", label: "The impact recap", desc: "Unions, reforms, systems — one thread" },
-      { id: "management-fayol", label: "Fayolism", desc: "6 activities · 5 functions · 14 principles" },
-      { id: "corporations", label: "Large corporations", desc: "Railroads, Ford, joint-stock, monopolies" },
-      { id: "world-wars", label: "The world wars", desc: "State control, war industries, US superpower" },
-    ],
-  },
-  {
-    id: "india",
-    label: "Module 5 · Indian Business",
-    items: [
-      { id: "indian-business", label: "Indian business history", desc: "EIC charters, Jagat Seth, Wadia, 1813" },
-    ],
-  },
-];
+}[] = EBH_MODULES.map((m) => ({
+  id: m.id as EbhExamGroup,
+  label: m.label,
+  items: EBH_LECTURES.filter((l) => l.group === m.id).flatMap((l) =>
+    l.chapters.map((c) => ({ id: c.id, label: c.label, desc: c.desc }))
+  ),
+}));
 
 const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
 
@@ -144,39 +91,60 @@ function groupOf(id: string): string | null {
 /* ============================================================
    The chapter components, keyed by section id — the lecture
    reader renders exactly the slice the chosen lecture owns.
+   Fifty chapters; an unknown id renders nothing and the audit
+   gate fails the build rather than emitting a fallback.
    ============================================================ */
 const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
-  "course-intro": <EbhCourseIntroSection />,
-  economics: <EbhEconomicsSection />,
-  business: <EbhBusinessSection />,
-  history: <EbhHistorySection />,
-  "rules-players": <EbhRulesPlayersSection />,
-  "license-raj": <EbhLicenseRajSection />,
-  bajaj: <EbhBajajSection />,
-  "society-business": <EbhSocietySection />,
-  weekend: <EbhWeekendSection />,
-  "business-econ-tech": <EbhBizEconTechSection />,
-  agrarian: <EbhAgrarianSection />,
+  "course-map": <EbhCourseMapSection />,
+  "course-objectives": <EbhCourseObjectivesSection />,
+  "scarcity-branches": <EbhScarcityBranchesSection />,
+  "firm-profit-motive": <EbhFirmProfitMotiveSection />,
+  "course-architecture": <EbhCourseArchitectureSection />,
+  "lens-definitions": <EbhLensDefinitionsSection />,
+  "evidence-sources": <EbhEvidenceSourcesSection />,
+  "license-raj-bajaj": <EbhLicenseRajBajajSection />,
+  "society-business": <EbhSocietyBusinessSection />,
+  "business-society-weekend": <EbhBusinessSocietyWeekendSection />,
+  "agrarian-basics": <EbhAgrarianBasicsSection />,
+  "econ-tech-recap": <EbhEconTechRecapSection />,
   "feudal-zamindari": <EbhFeudalZamindariSection />,
-  guilds: <EbhGuildsSection />,
-  "trade-routes": <EbhTradeSection />,
-  "life-before": <EbhLifeBeforeSection />,
-  "why-machines": <EbhWhyMachinesSection />,
-  "textile-machines": <EbhTextileSection />,
-  "water-frame": <EbhWaterFrameSection />,
-  "steam-cottonopolis": <EbhSteamSection />,
-  "labor-movement": <EbhLaborSection />,
-  "labor-phase2": <EbhLaborPhase2Section />,
-  empire: <EbhEmpireSection />,
-  "labor-phase3": <EbhLaborPhase3Section />,
-  "econ-systems": <EbhEconSystemsSection />,
-  "systems-society": <EbhSystemsSocietySection />,
-  "management-taylor": <EbhManagementTaylorSection />,
-  "ir-impact": <EbhIrImpactSection />,
-  "management-fayol": <EbhManagementFayolSection />,
-  corporations: <EbhCorporationsSection />,
-  "world-wars": <EbhWorldWarsSection />,
-  "indian-business": <EbhIndianBusinessSection />,
+  "guild-ladder": <EbhGuildLadderSection />,
+  "life-before-machines": <EbhLifeBeforeMachinesSection />,
+  "shuttle-jenny": <EbhShuttleJennySection />,
+  "quiz-one-scheme": <EbhQuizOneSchemeSection />,
+  "agrarian-guilds": <EbhAgrarianGuildsSection />,
+  "trade-roads-industry": <EbhTradeRoadsIndustrySection />,
+  "water-frame-factory": <EbhWaterFrameFactorySection />,
+  "steam-cottonopolis": <EbhSteamCottonopolisSection />,
+  "labor-phase-one": <EbhLaborPhaseOneSection />,
+  "labor-phase-two": <EbhLaborPhaseTwoSection />,
+  "machines-recap-live": <EbhMachinesRecapLiveSection />,
+  "empire-mercantilism": <EbhEmpireMercantilismSection />,
+  "labor-phases-recap": <EbhLaborPhasesRecapSection />,
+  "labor-phase-three": <EbhLaborPhaseThreeSection />,
+  "economic-systems": <EbhEconomicSystemsSection />,
+  "systems-compared": <EbhSystemsComparedSection />,
+  "social-cultural-impact": <EbhSocialCulturalImpactSection />,
+  "taylor-scientific": <EbhTaylorScientificSection />,
+  "ir-impact-recap": <EbhIrImpactRecapSection />,
+  "taylorism-review": <EbhTaylorismReviewSection />,
+  "fayol-framework": <EbhFayolFrameworkSection />,
+  "large-corporations": <EbhLargeCorporationsSection />,
+  "wars-context": <EbhWarsContextSection />,
+  "war-industries": <EbhWarIndustriesSection />,
+  "india-superpower": <EbhIndiaSuperpowerSection />,
+  "eic-charters": <EbhEicChartersSection />,
+  "indian-intermediaries": <EbhIndianIntermediariesSection />,
+  "turning-point-1813": <EbhTurningPoint1813Section />,
+  "management-evolution-recap": <EbhManagementEvolutionRecapSection />,
+  "wars-india-recap": <EbhWarsIndiaRecapSection />,
+  "colonial-commodities": <EbhColonialCommoditiesSection />,
+  "agency-entrepreneurs": <EbhAgencyEntrepreneursSection />,
+  "wwi-swadeshi": <EbhWwiSwadeshiSection />,
+  "wwii-famine": <EbhWwiiFamineSection />,
+  "module5-review-colonial": <EbhModule5ReviewColonialSection />,
+  "agency-bombay-plan": <EbhAgencyBombayPlanSection />,
+  "course-review-major-exam": <EbhCourseReviewMajorExamSection />,
 };
 
 /* ============================================================
@@ -377,61 +345,31 @@ function TopNav({
                                   setOpenGroup(null);
                                   onJumpChapter(item.id);
                                 }}
-                                className={`group flex items-start gap-3 rounded-xl px-3 py-2 transition-colors duration-150 ${
-                                  isActiveItem ? "bg-[#eab308]/[.12]" : "hover:bg-[#3e2c1d]/[.05]"
+                                className={`flex items-start gap-2.5 rounded-xl px-3 py-2 transition-colors duration-150 ${
+                                  isActiveItem ? "bg-[#eab308]/14 text-[#854d0e]" : "text-[#54432c] hover:bg-white/85"
                                 }`}
                               >
-                                <span
-                                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[.58rem] font-black ${
-                                    isActiveItem ? "text-white" : "border border-white/80 bg-white/70 text-[#a99758]"
-                                  }`}
-                                  style={isActiveItem ? { background: `linear-gradient(135deg,${BRASS_BRIGHT},${BRASS})` } : undefined}
-                                >
-                                  {String(i + 1).padStart(2, "0")}
+                                <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/70 text-[.55rem] font-black text-[#a16207] shadow-sm">
+                                  {seen.has(item.id) ? <Check className="h-2.5 w-2.5 text-[#6f9b3f]" /> : i + 1}
                                 </span>
                                 <span className="min-w-0">
-                                  <span className={`block text-[.82rem] font-bold leading-tight ${isActiveItem ? "text-[#a16207]" : "text-[#3e2c1d]"}`}>
-                                    {item.label}
-                                  </span>
+                                  <span className="block truncate text-[.82rem] font-bold leading-tight">{item.label}</span>
+                                  <span className="mt-0.5 block truncate text-[.68rem] leading-snug text-[#8a7440]">{item.desc}</span>
                                 </span>
-                                {isActiveItem ? (
-                                  <span className="ml-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: BRASS }} />
-                                ) : seen.has(item.id) ? (
-                                  <Check className="ml-auto mt-1 h-3.5 w-3.5 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
-                                ) : null}
                               </a>
                             );
                           })}
-
-                          {/* Test my knowledge — opens the pen-paper window for this group */}
-                          <div className="mt-1 border-t border-[#f0e2c8] p-1.5">
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setOpenGroup(null);
-                                onOpenExam(group.id);
-                              }}
-                              className="group/exam flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors duration-150 hover:bg-[#3e2c1d]/[.05]"
-                            >
-                              <span
-                                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
-                                style={{ background: `linear-gradient(135deg,${BRASS_BRIGHT},${BRASS})` }}
-                              >
-                                <PenLine className="h-3.5 w-3.5" />
-                              </span>
-                              <span className="min-w-0">
-                                <span className="block text-[.84rem] font-extrabold leading-tight text-[#a16207]">
-                                  Test my knowledge
-                                </span>
-                                <span className="mt-0.5 block text-[.68rem] leading-snug text-[#a08568]">
-                                  {EBH_EXAM_BANKS[group.id].questions.length} exam-style questions · pen-paper mode
-                                </span>
-                              </span>
-                              <span className="ml-auto shrink-0 text-[.58rem] font-black uppercase tracking-[.14em] text-[#a99758] transition-colors group-hover/exam:text-[#a16207]">
-                                open →
-                              </span>
-                            </button>
-                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setOpenGroup(null);
+                              onOpenExam(group.id as EbhExamGroup);
+                            }}
+                            className="mt-1 flex w-full items-center gap-2 rounded-xl px-3 py-2 text-[.72rem] font-extrabold uppercase tracking-[.14em] text-[#854d0e] transition-colors hover:bg-[#eab308]/14"
+                          >
+                            <PenLine className="h-3.5 w-3.5" />
+                            Test my knowledge
+                          </button>
                         </div>
                       </motion.div>
                     ) : null}
@@ -441,168 +379,95 @@ function TopNav({
             })}
           </div>
 
-          {/* below lg — quick chips (horizontal scroll) covering every chapter */}
-          <div className="scrollbar-thin flex flex-1 items-center gap-1 overflow-x-auto py-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {FLAT_ITEMS.map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  onJumpChapter(item.id);
-                }}
-                className={`nav-link ${active === item.id ? "active" : ""}`}
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
+          {/* mobile — the full structured menu behind one button */}
+          <button
+            type="button"
+            className="ml-auto flex h-10 items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-3 text-[#6b563d] shadow-sm backdrop-blur-md transition-colors hover:bg-white/85 lg:hidden"
+            aria-label="Open the chapter menu"
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen(true)}
+          >
+            <Menu className="h-4 w-4" />
+            <span className="text-[.66rem] font-extrabold uppercase tracking-[.14em]">Chapters</span>
+          </button>
+        </div>
 
-          {/* right cluster — print + chapter index (small screens) */}
-          <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-2">
-            <ShelfQuickNav variant="nav" />
-            <button
-              type="button"
-              onClick={() => window.print()}
-              title="Print these notes"
-              aria-label="Print these notes"
-              className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#a16207]"
-            >
-              <Printer className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={() => setMobileOpen(true)}
-              aria-label="Open the chapter index"
-              aria-expanded={mobileOpen}
-              className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] border border-white/70 bg-white/60 text-[#6b563d] backdrop-blur-md transition-colors hover:bg-white/85 hover:text-[#a16207] lg:hidden"
-            >
-              <Menu className="h-4.5 w-4.5" />
-            </button>
-          </div>
+        {/* reading progress */}
+        <div className="h-[2px] w-full bg-transparent">
+          <div ref={progressRef} className="h-full rounded-r-full" style={{ width: "0%", background: `linear-gradient(90deg,${BRASS_BRIGHT},${BRASS})` }} />
         </div>
       </div>
 
-      {/* reading progress — width written directly via ref (no re-renders) */}
-      <div className="h-[3px] w-full bg-[#3e2c1d]/10">
-        <div
-          ref={progressRef}
-          className="h-full"
-          style={{ width: "0%", background: `linear-gradient(90deg,#facc15,${BRASS_BRIGHT},${BRASS})` }}
-        />
-      </div>
-
-      {/* mobile — full-screen structured index */}
       <AnimatePresence>
         {mobileOpen ? (
           <motion.div
             ref={mobileRef}
             tabIndex={-1}
-            key="mobile-index"
+            key="ebh-mobile-menu"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-[60] flex flex-col outline-none"
-            style={{ background: "linear-gradient(165deg,#1c1403 0%,#2a1e06 55%,#3a2a0a 100%)" }}
+            transition={{ duration: 0.16 }}
+            className="fixed inset-0 z-[70] overflow-y-auto bg-[#faf7ef]/97 outline-none backdrop-blur-md"
             role="dialog"
             aria-modal="true"
-            aria-label="Chapter index"
+            aria-label="Chapter menu"
           >
-            <div className="flex h-14 shrink-0 items-center justify-between px-4">
-              <span className="flex items-center gap-2 text-sm font-black tracking-tight text-[#f5ecd2]">
-                <Landmark className="h-4 w-4" style={{ color: "#facc15" }} />
-                Chapter index
-                <span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[.55rem] font-bold text-[#e9d7bf]">
-                  {seen.size}/{EBH_ALL_CHAPTER_IDS.length} read
-                </span>
-              </span>
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#e8e0cd] bg-[#faf7ef]/95 px-4 py-3">
+              <p className="text-[.62rem] font-extrabold uppercase tracking-[.22em] text-[#a99758]">Economic &amp; Business History — chapters</p>
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
-                aria-label="Close the chapter index"
-                className="relative flex h-10 w-10 items-center justify-center rounded-xl after:absolute after:-inset-1 after:rounded-xl after:content-[''] border border-white/15 bg-white/10 text-[#f5ecd2]"
+                aria-label="Close the chapter menu"
+                className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#e8e0cd] bg-white/70 text-[#6b563d]"
               >
-                <X className="h-4.5 w-4.5" />
+                <X className="h-4 w-4" />
               </button>
             </div>
-            <ShelfQuickNav variant="menu" onAfter={() => setMobileOpen(false)} />
-            <div className="flex-1 overflow-y-auto px-4 pb-10 pt-2">
-              {GROUPS.map((group, gi) => (
-                <motion.div
-                  key={group.id}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 + gi * 0.06, duration: 0.25 }}
-                  className="mb-5"
-                >
-                  <p className="mb-2 flex items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.24em] text-[#d9bd6e]">
-                    <span className="h-px w-5" style={{ background: `linear-gradient(90deg,${BRASS_BRIGHT},transparent)` }} />
+            <div className="mx-auto max-w-2xl px-4 pb-24 pt-4">
+              {GROUPS.map((group) => (
+                <div key={group.id} className="mt-5 first:mt-0">
+                  <p className="flex items-center gap-2 text-[.6rem] font-extrabold uppercase tracking-[.2em] text-[#a99758]">
+                    <BookOpenText className="h-3 w-3" />
                     {group.label}
-                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-[.55rem] text-[#e8d9ac]">{group.items.filter((it) => seen.has(it.id)).length}/{group.items.length}</span>
+                    <span className="ml-auto font-mono opacity-90">{group.items.length}</span>
                   </p>
-                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.04]">
-                    {group.items.map((item, i) => {
-                      const isActiveItem = active === item.id;
-                      return (
-                        <a
-                          key={item.id}
-                          href={`#${item.id}`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setMobileOpen(false);
-                            onJumpChapter(item.id);
-                          }}
-                          className={`flex items-center gap-3 px-4 py-3 transition-colors active:bg-white/10 ${
-                            i < group.items.length - 1 ? "border-b border-white/[.06]" : ""
-                          } ${isActiveItem ? "bg-white/[.08]" : ""}`}
-                        >
-                          <span
-                            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[.6rem] font-black"
-                            style={
-                              isActiveItem
-                                ? { background: `linear-gradient(135deg,${BRASS_BRIGHT},${BRASS})`, color: "#fffbf0" }
-                                : { background: "rgba(240,220,150,.1)", color: "#d9bd6e" }
-                            }
-                          >
-                            {String(i + 1).padStart(2, "0")}
-                          </span>
-                          <span className="min-w-0 flex-1">
-                            <span className={`block text-[.9rem] font-bold leading-tight ${isActiveItem ? "text-[#efd98a]" : "text-[#f0e4c2]"}`}>
-                              {item.label}
-                            </span>
-                          </span>
-                          {isActiveItem ? (
-                            <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#facc15" }} />
-                          ) : seen.has(item.id) ? (
-                            <Check className="h-4 w-4 shrink-0" style={{ color: "#8fae5d" }} aria-label="Chapter read" />
-                          ) : null}
-                        </a>
-                      );
-                    })}
-
-                    {/* Test my knowledge — per group */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setMobileOpen(false);
-                        onOpenExam(group.id);
-                      }}
-                      className="flex w-full items-center gap-2.5 border-t border-white/[.08] px-4 py-3 text-left transition-colors active:bg-white/10"
-                    >
-                      <span
-                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
-                        style={{ background: `linear-gradient(135deg,${BRASS_BRIGHT},${BRASS})` }}
+                  <div className="mt-2 grid gap-1.5">
+                    {group.items.map((item, i) => (
+                      <a
+                        key={item.id}
+                        href={`#${item.id}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setMobileOpen(false);
+                          onJumpChapter(item.id);
+                        }}
+                        className={`flex items-start gap-2.5 rounded-xl border px-3 py-2.5 transition-colors ${
+                          active === item.id ? "border-[#a16207]/40 bg-[#eab308]/10" : "border-[#e8e0cd] bg-white/60"
+                        }`}
                       >
-                        <PenLine className="h-3.5 w-3.5" />
-                      </span>
-                      <span className="text-[.88rem] font-extrabold text-[#efd98a]">Test my knowledge</span>
-                      <span className="ml-auto text-[.6rem] font-black uppercase tracking-[.14em] text-[#d9bd6e]">
-                        {EBH_EXAM_BANKS[group.id].questions.length} Qs →
-                      </span>
-                    </button>
+                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#f2ecd9] text-[.6rem] font-black text-[#a16207]">
+                          {seen.has(item.id) ? <Check className="h-3 w-3 text-[#6f9b3f]" /> : i + 1}
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block text-[.86rem] font-bold leading-tight text-[#3e2c1d]">{item.label}</span>
+                          <span className="mt-0.5 block text-[.7rem] leading-snug text-[#8a7440]">{item.desc}</span>
+                        </span>
+                      </a>
+                    ))}
                   </div>
-                </motion.div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileOpen(false);
+                      onOpenExam(group.id as EbhExamGroup);
+                    }}
+                    className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-[#e0cb84] bg-[#fdfae9] px-3 py-2.5 text-[.72rem] font-extrabold uppercase tracking-[.14em] text-[#854d0e]"
+                  >
+                    <PenLine className="h-3.5 w-3.5" />
+                    Test my knowledge — {group.label}
+                  </button>
+                </div>
               ))}
             </div>
           </motion.div>
@@ -613,7 +478,7 @@ function TopNav({
 }
 
 /* ============================================================
-   PracticeHub — the ONE home of pen-paper practice.
+   PracticeHub — the pen-paper practice launcher (migrated).
    ============================================================ */
 function PracticeHub({
   open,
@@ -697,7 +562,7 @@ function PracticeHub({
               </button>
             </div>
 
-            {/* the four exam windows */}
+            {/* the five exam windows */}
             <div className="grid gap-3 px-6 pb-7 pt-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
               {EBH_EXAM_GROUPS.map((g) => {
                 const bank = EBH_EXAM_BANKS[g];
@@ -822,7 +687,7 @@ function EbhLectureHead({
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="flex flex-wrap items-center gap-1.5 text-[.56rem] font-extrabold uppercase tracking-[.22em] text-[#d9bd6e]">
               <Landmark className="h-3 w-3" style={{ color: BRASS_BRIGHT }} />
-              Economic &amp; Business History · Lecture {lecture.n} of 28
+              Economic &amp; Business History · Lecture {lecture.n} of {EBH_LECTURES.length}
             </p>
             <ClarityToggle status={clarity} onChange={onClarity} />
           </div>
@@ -905,7 +770,7 @@ function LecturePager({ current, onJump }: { current: EbhLecture; onJump: (id: s
           </button>
         ) : (
           <span className="rounded-2xl border border-dashed border-[#e0cb84] p-4 text-center text-[.78rem] font-bold leading-snug text-[#a1876a]">
-            End of the sequence — Lecture 28 closes the deck. Revise the rules and the players,
+            End of the sequence — Lecture {EBH_LECTURES.length} closes the deck. Revise the rules and the players,
             then retake the windows.
           </span>
         )}
