@@ -1,161 +1,142 @@
 "use client";
 
 /* ============================================================
-   Statistics for Managers — PART 12 (shelf 05). The inference
-   case file, now single-purpose after the PDF re-map:
-   · Metropolitan Research (lecture 26) — transmission failures:
-     mean 73,340, median 72,700, s = 24,849, the 95% interval
-     [66,264, 80,416] and n ≈ 100 for a ±5,000 promise.
-   Pelican Stores moved to #case-file-1 (StmParts13, lecture 8)
-   and Weather Teddy moved to #toy-order (StmParts13, lecture 15).
-   Every figure is from the lecture notes, hand-checked.
+   StmParts12 — L23 and L24. The RANDBETWEEN laboratory with its
+   paste-values step and the superseding quiz update, and
+   Student's t with the planner.
    ============================================================ */
 
-import React from "react";
-import { Car, TrendingDown } from "lucide-react";
-import { Reveal, Section, SectionHead, Takeaways } from "@/components/notes/ui";
-import { STM_G, StmCallout, StmPanel, StmQuiz, StmReadStep } from "@/components/stm/StmParts1";
+import { StmEyebrow, StmBlocks, StmReadStep, StmDataTable, StmCallout, StmSteps, StmExamCallout } from "./blocks";
+import { SEShrink, TDistributionCurve } from "./diagrams";
+import { CalcFlow } from "./stm-math";
 
-/* ============================================================
-   CASE — METROPOLITAN RESEARCH (TRANSMISSION FAILURES)
-   ============================================================ */
-
-function MetroCase() {
+/* ---------------- L23 a — the RANDBETWEEN lab ---------------- */
+export function StmRandbetweenLabSection() {
   return (
-    <Reveal>
-      <div className="card-warm overflow-hidden">
-        <div className="p-5" style={{ background: "linear-gradient(135deg,#0e2a3d,#164a63)" }}>
-          <p className="flex items-center gap-2 text-[.8rem] font-extrabold uppercase tracking-[.16em] text-[#a5d8ef]">
-            <Car className="h-4 w-4" /> Case · Lecture 26 — a warranty question, computed
-          </p>
-          <p className="mt-2 font-display text-2xl font-black text-[#f0f9ff]">
-            Metropolitan Research — how early do transmissions really fail?
-          </p>
-          <p className="mt-1 text-[.85rem] leading-relaxed text-[#c9e4f2]">
-            Consumer complaints about <b>early transmission failures</b> reached Metropolitan
-            Research, which pulled <b>50 repair records</b> from a Detroit transmission firm:
-            kilometres driven before failure for each vehicle. The automaker&apos;s design
-            standard says transmissions should hold <b>without early failure</b> — the data
-            says otherwise.
-          </p>
-        </div>
-        <div className="grid gap-4 p-5 md:grid-cols-2">
-          <div className="flex flex-col gap-3">
-            <StmPanel label="The descriptive read — n = 50">{`mean   x̄ = 73,340 miles
-median    = 72,700 miles   (25 fail before, 25 after)
-s         = 24,849 miles   ← huge spread
-mode      = none — failures scattered, not clustered
-skewness  ≈ 0+ — nearly symmetric
-
-95% CI (σ unknown → t):
-x̄ ± E = 73,340 ± 7,076
-      = [66,264 , 80,416] miles`}</StmPanel>
-            <StmPanel label="Planning the follow-up study">{`Target: ±5,000 miles at 95% confidence,
-planning σ = 24,849 (from this sample):
-
-n = (z·σ/E)²
-  = (1.96 × 24,849 / 5,000)²
-  = 95.26  →  round up → ≈ 100 vehicles
-
-Cost per mile of precision: the mean cost
-of the s = 24,849 spread is width — the
-only cure is more data.`}</StmPanel>
-          </div>
-          <div className="flex flex-col gap-3">
-            <div className="rounded-2xl border p-4" style={{ borderColor: "#e8b4a0", background: "#fdf0ea" }}>
-              <p className="flex items-center gap-2 text-[.74rem] font-black uppercase tracking-[.14em] text-[#b3402c]">
-                <TrendingDown className="h-4 w-4" /> The red-flag arithmetic
-              </p>
-              <p className="mt-2 text-[.86rem] leading-relaxed text-[#2b2014]">
-                <b>19 vehicles failed below 66,264</b> — earlier than the lower confidence bound —
-                and <b>18 failed above 80,416</b>. The mean of ~73,000 hides a heavy tail of{" "}
-                <b>early failures</b>, and those are the warranty-killer: averages comfort,
-                distributions decide.
-              </p>
-            </div>
-            <StmCallout kind="insight" title="Where the analysis goes next">
-              <p>
-                Supply side: <b>production batches, material quality, plants, suppliers</b>.
-                Demand side: <b>driver behaviour, terrain, climate, maintenance</b>. Layer those
-                variables on with regression or ML models and correlate against failure mileage —
-                the univariate answer here is exactly where the <i>next</i> statistics course
-                begins.
-              </p>
-            </StmCallout>
-          </div>
-        </div>
+    <section id="randbetween-lab" className="scroll-mt-24">
+      <StmEyebrow id="randbetween-lab" />
+      <StmReadStep n="1" title="The RANDBETWEEN lab" sub="Random samples live — and the step that makes them real" />
+      <StmBlocks id="randbetween-lab" />
+      <div className="mt-8 space-y-6">
+        <StmSteps
+          aria="Workflow of the RANDBETWEEN sampling recipe ending in the paste-values freeze"
+          caption={<>The RANDBETWEEN recipe, exactly as the lab runs it — and step 4 is the thing that makes a sample real: without paste-values the random numbers keep re-rolling and the sample never holds still.</>}
+          steps={[
+            { chip: "STEP 1", label: "Assign random numbers", detail: "RANDBETWEEN between 1 and the population size (1 to 2,500)", tone: "violet" },
+            { chip: "STEP 2", label: "Sort by the random column", detail: "the population shuffles — every element's chance stays equal", tone: "violet" },
+            { chip: "STEP 3", label: "Take the top 50", detail: "the random sample of size n = 50, drawn from N = 2,500 salaries", tone: "violet" },
+            { chip: "STEP 4", label: "PASTE-VALUES — the freeze", detail: "copy → paste special → values; the volatile numbers stop re-rolling and the sample becomes data", tone: "gold" },
+            { chip: "STEP 5", label: "Compute the sample mean", detail: "x̄ per sample — student means hovered at 71,000-72,500 around μ = 71,800", tone: "gold" },
+          ]}
+        />
+        <StmExamCallout
+          kind="supersedes"
+          title="Quiz pattern, as revised in L23"
+          rows={[
+            { k: "Structure", v: "only two quizzes remain — best of two" },
+            { k: "Coverage", v: "Quiz 2 reaching through Chapter 8 (interval estimation)" },
+            { k: "Dates", v: "communicated in writing" },
+            { k: "Scheduling", v: "arranged to avoid the Diwali holiday" },
+            { k: "Supersedes", v: "L13's two-plus-one best-two-of-three scheme — and L03's three-quiz scheme before that" },
+          ]}
+        />
       </div>
-    </Reveal>
+    </section>
   );
 }
 
-/* ============================================================
-   THE SECTION — CASE FILE II (Metropolitan Research)
-   ============================================================ */
-
-export function StmCaseFile2Section() {
+/* ---------------- L23 b — the SE shrink machine ---------------- */
+export function StmSeShrinkSection() {
   return (
-    <Section id="case-file-2">
-      <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28">
-        <SectionHead
-          eyebrow="Lecture 26 — the transmission file"
-          title={
-            <>
-              Metropolitan Research — <span className="grad-violet">the warranty audit</span>
-            </>
-          }
-          lead="The course's last full case: a consumer research firm, fifty repair records, and a mean that looks acceptable until you meet the interval's lower bound. Descriptive statistics opens the file, a t-interval prices the uncertainty, and the early-failure tail closes the argument."
+    <section id="se-shrink" className="scroll-mt-24">
+      <StmEyebrow id="se-shrink" />
+      <StmReadStep n="2" title="The SE shrink machine" sub="σ/√n verified live — and the proportion's own lab" />
+      <StmBlocks id="se-shrink" />
+      <div className="mt-8 space-y-6">
+        <SEShrink id="l23-seshrink" />
+        <CalcFlow
+          aria="CalcFlow of the standard error verification formula sigma over root n"
+          caption={<>The verification the lab runs on every student sample — the standard error is a formula, not a vibe.</>}
+          frames={[
+            { kind: "formula", label: "Standard error of the mean — symbolic form", math: "σ_x̄ = σ / √n", note: "as L23 states it" },
+            { kind: "sub", label: "The lab's population and sample", math: "σ_x̄ = σ / √50 on the N = 2,500 salary population", note: "μ = 71,800 — the truth the samples wander around" },
+            { kind: "value", label: "The prediction", math: "sample means cluster within ±σ_x̄ of 71,800", note: "68% of them, if the CLT holds its promise" },
+            { kind: "result", label: "The means hovered at 71,000-72,500", math: "observed spread matches σ_x̄", note: "the machine verified live, sample after sample" },
+          ]}
         />
-
-        <StmReadStep n="01" title="Case — Metropolitan Research" sub="An interval estimate — and the early-failure red flag" />
-        <MetroCase />
-
-        <StmReadStep n="02" title="Check yourself" sub="One case, two instincts" />
-        <div className="grid gap-3 md:grid-cols-2">
-          <Reveal>
-            <StmQuiz
-              source="Case file II · check"
-              q="Metropolitan's interval is [66,264, 80,416] and 19 of 50 cars failed below 66,264. The managerial lesson is…"
-              options={[
-                "averages hide the early-failure tail — distributions drive warranty risk",
-                "the sample mean should be replaced by the mode",
-                "the confidence interval proves no quality problem exists",
-                "the sample size of 50 is already sufficient — no follow-up needed",
-              ]}
-              answer={0}
-              explain="The interval describes the centre of the population; the 19 early failures below the lower bound are the warranty exposure. The case closes by planning n ≈ 100 for tighter precision — and by listing the supply- and demand-side variables the next study must capture."
-            />
-          </Reveal>
-          <Reveal>
-            <StmQuiz
-              source="Case file II · check"
-              q="To promise ±5,000 miles at 95% confidence with planning σ = 24,849, Metropolitan needs…"
-              options={["n = (1.96 × 24,849 / 5,000)² ≈ 95.3 → 100 vehicles", "n = 24,849 / 5,000 ≈ 5 vehicles", "n = 1.96 × 24,849 ≈ 48,700 vehicles", "n = 50 — the current sample suffices"]}
-              answer={0}
-              explain="n = (z·σ/E)² = (1.96 × 24,849 / 5,000)² = 95.26, always rounded UP so the promise holds. The σ used is the planning value recovered from the pilot study — exactly why this sample of 50 was worth taking."
-            />
-          </Reveal>
-        </div>
-
-        <Reveal className="mt-6">
-          <Takeaways
-            items={[
-              <>
-                <b>The descriptive read</b>: x̄ = 73,340, median = 72,700, s = 24,849, no mode, skew ≈ 0 —
-                spread is the headline, not the mean.
-              </>,
-              <>
-                <b>The interval</b>: x̄ ± 7,076 → <b>[66,264, 80,416]</b>; 19 early failures below the bound
-                are the warranty story.
-              </>,
-              <>
-                <b>The follow-up</b>: n = (1.96 × 24,849/5,000)² ≈ 95.3 → <b>100 vehicles</b> for a ±5,000
-                promise — then supply- and demand-side variables explain the tail.
-              </>,
-            ]}
-          />
-        </Reveal>
+        <StmDataTable
+          aria="Student proportion samples table with estimates clustering around the actual 0.40"
+          caption={<>The proportion lab: student samples returned 0.36, 0.38, 0.39, 0.42, 0.45, 0.47 — clustered around the actual population proportion of 1,000/2,500 = 0.40, exactly as the CLT promises.</>}
+          head={["Lab output", "Values"]}
+          rows={[
+            ["Student sample proportions", "0.36 · 0.38 · 0.39 · 0.42 · 0.45 · 0.47"],
+            ["Actual population proportion", "1,000 of 2,500 = 0.40"],
+            ["σ_p̂ formula as L23 states it", "σ_p̂ = √[p(1−p)/n]"],
+            ["CLT requirement", "sample size of approximately 30 or more is generally sufficient"],
+          ]}
+        />
       </div>
-    </Section>
+    </section>
+  );
+}
+
+/* ---------------- L24 a — Student's t ---------------- */
+export function StmTDistributionSection() {
+  return (
+    <section id="t-distribution" className="scroll-mt-24">
+      <StmEyebrow id="t-distribution" />
+      <StmReadStep n="1" title="Student's t" sub="Guinness, degrees of freedom, and the honesty premium" />
+      <StmBlocks id="t-distribution" />
+      <div className="mt-8 space-y-6">
+        <TDistributionCurve id="l24-tcurve" />
+        <StmDataTable
+          aria="t-distribution characteristics table with degrees of freedom behaviour"
+          caption={<>The t-family's behaviour: developed by Student at the Guinness brewery in Dublin — heavier tails that melt into the normal as df grows.</>}
+          head={["Property", "Statement"]}
+          rows={[
+            ["Origin", "developed by a scientist named Student, on small-scale experiments at the Guinness brewery, Dublin"],
+            ["Shape", "like the normal but with slightly heavier tails — the honesty premium for estimating σ with S"],
+            ["Degrees of freedom", "df = n − 1"],
+            ["Large-sample limit", "beyond 100 df the t can be treated as standard normal"],
+          ]}
+        />
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- L24 b — the housing interval & planner ---------------- */
+export function StmIntervalPlannerSection() {
+  return (
+    <section id="interval-planner" className="scroll-mt-24">
+      <StmEyebrow id="interval-planner" />
+      <StmReadStep n="2" title="The housing interval & the sample-size planner" sub="750 ± 29.3, and Discount Sounds' 312" />
+      <StmBlocks id="interval-planner" />
+      <div className="mt-8 space-y-6">
+        <CalcFlow
+          aria="CalcFlow of the off-campus housing t interval reaching 750 plus or minus 29.3"
+          caption={<>The housing interval on Student's t — the final frame is the prose's [720.70, 779.30].</>}
+          frames={[
+            { kind: "formula", label: "The t interval — symbolic form", math: "x̄ ± t(α/2) · S/√n", note: "σ unknown — the t road replaces z" },
+            { kind: "sub", label: "Substitute n = 16, x̄ = 750, S = 55", math: "t(0.025, 15) = 2.131 · margin = 2.131 × 55/√16", note: "df = n − 1 = 15" },
+            { kind: "value", label: "Compute the margin", math: "2.131 × 13.75 = 29.3", note: "the honesty premium, in dollars" },
+            { kind: "result", label: "750 ± 29.3 = [720.70, 779.30]", math: "interval = [720.7, 779.3]", note: "95% confident the mean one-bedroom rent near campus lies here" },
+          ]}
+        />
+        <CalcFlow
+          aria="CalcFlow of the Discount Sounds sample size planner reaching 312"
+          caption={<>The planner on Discount Sounds — the final frame is the prose's 312, always rounded up.</>}
+          frames={[
+            { kind: "formula", label: "Sample size, σ known — symbolic form", math: "n = (Z(α/2) × σ / E)²", note: "round UP, always — so the margin never exceeds E" },
+            { kind: "sub", label: "Substitute Z = 1.96, σ = 4,500, E = 500", math: "n = (1.96 × 4,500/500)²", note: "from previous data; 95% confidence" },
+            { kind: "value", label: "Compute the square", math: "n = (17.64)² = 311.17", note: "the raw, unrounded size" },
+            { kind: "result", label: "Required sample size = 312", math: "n = 312 (rounded up)", note: "the rule: never round down past a promise" },
+          ]}
+        />
+        <StmCallout kind="warn" title="The decision rule, as stated">
+          If sigma is known: use the z-distribution, margin Z(α/2) × (σ/√n). If sigma is unknown: use the t-distribution — the switch L24 makes is the same switch L22's z-road implied; both sides of that guidance ship in their own lectures.
+        </StmCallout>
+      </div>
+    </section>
   );
 }
