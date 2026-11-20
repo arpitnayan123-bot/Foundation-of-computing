@@ -39,26 +39,74 @@ import { useSectionProgress } from "@/lib/use-section-progress";
 import { jumpTo, useOpenSection } from "@/lib/use-open-section";
 import { loadProgress } from "@/lib/progress";
 import { StmHero } from "@/components/stm/StmHero";
-import { StmLensSection, StmScalesSection } from "@/components/stm/StmParts1";
-import { StmSourcesSection, StmCategoricalSection } from "@/components/stm/StmParts2";
-import { StmQuantitativeSection, StmTwoVarsSection } from "@/components/stm/StmParts3";
-import { StmLocationSection, StmVariabilitySection } from "@/components/stm/StmParts4";
-import { StmAssociationSection, StmProbBasicsSection, StmProbLawsSection } from "@/components/stm/StmParts5";
-import { StmBayesSection, StmDiscreteSection } from "@/components/stm/StmParts6";
-import { StmBinomialSection } from "@/components/stm/StmParts7";
-import { StmContinuousSection, StmSamplingSection } from "@/components/stm/StmParts8";
-import { StmSamplingDistSection, StmSamplingMethodsSection } from "@/components/stm/StmParts9";
-import { StmIntervalKnownSection, StmIntervalTSection } from "@/components/stm/StmParts10";
-import { StmPropIntervalSection, StmHypothesisSection } from "@/components/stm/StmParts11";
-import { StmCaseFile2Section } from "@/components/stm/StmParts12";
-import { StmCaseFile1Section, StmToyOrderSection } from "@/components/stm/StmParts13";
-import { StmDistCheckpointSection, StmZLabSection, StmDistAppsSection } from "@/components/stm/StmParts14";
-import { StmPointEstimationSection, StmMarrianCaseSection, StmPracticeLabSection } from "@/components/stm/StmParts15";
+import { StmWhatStatisticsSection, StmDataAnatomyScalesSection } from "@/components/stm/StmParts1";
+import {
+  StmDataSourcesSection, StmAnalyticsEthicsSection,
+  StmCourseAdministrationSection, StmAiPolicySection, StmCourseConceptsToolsSection,
+} from "@/components/stm/StmParts2";
+import {
+  StmCategoricalDisplaysSection, StmQuantitativeDisplaysSection, StmCrosstabSimpsonSection,
+  StmScatterTrendSection, StmLocationMeasuresSection, StmPercentilesQuartilesSection,
+} from "@/components/stm/StmParts3";
+import {
+  StmSpreadMeasuresSection, StmShapeBoxplotSection,
+  StmBoxplotAssociationSection, StmProbabilityFoundationsSection,
+} from "@/components/stm/StmParts4";
+import {
+  StmPelicanCaseSection, StmTendencySelectionSection,
+  StmProbabilityLawsSection, StmConditionalBayesSection,
+} from "@/components/stm/StmParts5";
+import {
+  StmRandomVariablesSection, StmTvDistributionSection,
+  StmBivariateCovarianceSection, StmBinomialPoissonSection,
+} from "@/components/stm/StmParts6";
+import {
+  StmContinuousUniformSection, StmNormalStandardSection,
+  StmQuizCheckpointSection, StmDemandMixSection,
+} from "@/components/stm/StmParts7";
+import {
+  StmZForwardSection, StmZReverseSection,
+  StmTeddySigmaSection, StmServiceLevelSection,
+} from "@/components/stm/StmParts8";
+import {
+  StmGigCaseSection, StmShutdownLeversSection,
+  StmSamplingVocabularySection, StmPointEstimatorsSection,
+} from "@/components/stm/StmParts9";
+import {
+  StmPoissonStaffingSection, StmPmfCdfLabSection,
+  StmSamplingDistributionSection, StmCltStandardErrorSection,
+  StmProbabilityDesignsSection, StmNonprobabilityDesignsSection,
+} from "@/components/stm/StmParts10";
+import {
+  StmMarrianSetupSection, StmSampleSizePowerSection,
+  StmIntervalKnownSection, StmConfidenceDialSection,
+} from "@/components/stm/StmParts11";
+import {
+  StmRandbetweenLabSection, StmSeShrinkSection,
+  StmTDistributionSection, StmIntervalPlannerSection,
+} from "@/components/stm/StmParts12";
+import {
+  StmProportionIntervalSection, StmPlanningValueSection,
+  StmMetropolitanDescriptivesSection, StmMetropolitanIntervalSection,
+} from "@/components/stm/StmParts13";
+import {
+  StmHypothesisFrameworkSection, StmTailsErrorsSection,
+  StmErrorControlSection, StmAlphaDecisionSection,
+} from "@/components/stm/StmParts14";
+import {
+  StmOneTailPvalueSection, StmCriticalValueMetroSection,
+  StmTwoTailTestsSection, StmProportionTestSection,
+} from "@/components/stm/StmParts15";
+import {
+  StmQualityAssociatesSection, StmControlLimitsSection,
+  StmExamBriefSection, StmCourseRecapSection,
+} from "@/components/stm/StmParts16";
 import { StmExamWindow } from "@/components/stm/StmExamWindow";
 import { STM_EXAM_BANKS, STM_EXAM_GROUPS, STM_TOTAL_QUESTIONS, type StmExamGroup } from "@/components/stm/questions";
 import { ShelfQuickNav } from "@/components/atlas/ShelfQuickNav";
 import {
-  STM_LECTURES, STM_ALL_CHAPTER_IDS, STM_DEFAULT_LECTURE,
+  STM_LECTURES, STM_MODULES, STM_ALL_CHAPTER_IDS, STM_DEFAULT_LECTURE,
+  STM_RESERVED_BOOKMARK, STM_RESERVED_CARD,
   lectureById, lectureOfChapter, type StmLecture,
 } from "@/components/stm/lectures";
 
@@ -70,84 +118,27 @@ const GOLD_LITE = "#e6cd7f";
 const PLUM = "linear-gradient(165deg,#1e1033 0%,#2a1547 60%,#301a52 100%)";
 
 /* ============================================================
-   Structured chapter map — the top bar is organised into six
-   groups instead of a flat 31-chip strip, numbered to follow
-   the deck's lectures L1–L27. Each group owns a "Test my
-   knowledge" pen-paper window (see questions.ts).
+   Structured chapter map — DERIVED from the registry. The six
+   groups are the six modules the lectures themselves cite
+   (L13 names Chapter 6 as continuous distributions; L23 names
+   Chapter 8 as interval estimation; L33 names Chapters 1-9
+   with emphasis on 1-8), and the sidebar sorts by ascending
+   lecture number by construction — every item's order comes
+   from STM_LECTURES, never hand-listed. The reserved lecture
+   contributes no chapter, so it can never be clicked into a
+   blank reader.
    ============================================================ */
 const GROUPS: {
   id: StmExamGroup;
   label: string;
   items: { id: string; label: string; desc: string }[];
-}[] = [
-  {
-    id: "displays",
-    label: "Data & Displays",
-    items: [
-      { id: "lens", label: "What is statistics?", desc: "Two meanings, six business applications" },
-      { id: "sources", label: "Sources, analytics & ethics", desc: "Hudson's loop, big data, the ASA" },
-      { id: "scales", label: "Scales of measurement", desc: "Nominal → ordinal → interval → ratio" },
-      { id: "categorical", label: "Categorical displays", desc: "Marada Inn: tables, bars, pie" },
-      { id: "quantitative", label: "Quantitative displays", desc: "Histograms, dot plots, stem-and-leaf" },
-      { id: "twovars", label: "Two variables", desc: "Crosstabs, Simpson's paradox, dashboards" },
-      { id: "case-file-1", label: "Case file I & Excel lab", desc: "Pelican Stores, COUNTIF, pivots" },
-    ],
-  },
-  {
-    id: "measures",
-    label: "Numerical Measures",
-    items: [
-      { id: "location", label: "Measures of location", desc: "Mean, median, mode, percentiles" },
-      { id: "variability", label: "Variability & shape", desc: "Range, IQR, σ, z, box plots" },
-      { id: "association", label: "Association", desc: "Box plots, covariance & correlation" },
-    ],
-  },
-  {
-    id: "probability",
-    label: "Probability",
-    items: [
-      { id: "prob-basics", label: "Experiments & counting", desc: "Sample space, counting rules, priors" },
-      { id: "prob-laws", label: "Events & the laws", desc: "Union, intersection, conditionals" },
-      { id: "bayes", label: "Bayes' theorem", desc: "Prior → information → posterior" },
-    ],
-  },
-  {
-    id: "discrete",
-    label: "Discrete Distributions",
-    items: [
-      { id: "discrete", label: "Random variables & E(x)", desc: "JSL's 1.20 TVs, DiCarlo's bivariate" },
-      { id: "binomial", label: "Binomial · Poisson · Hypergeometric", desc: "Evans, Mercy Hospital, Neveready" },
-      { id: "dist-checkpoint", label: "Distributions checkpoint", desc: "Discrete vs continuous, the E(x) shift machine" },
-      { id: "dist-apps", label: "Distributions at work", desc: "McNeil's Poisson staffing, PMF vs CDF" },
-    ],
-  },
-  {
-    id: "continuous",
-    label: "Continuous & Sampling",
-    items: [
-      { id: "continuous", label: "Uniform · Normal · Exponential", desc: "Slater, Pep Zone, Al's pump, HUL" },
-      { id: "z-lab", label: "The Z laboratory", desc: "Standardise, read the table, reverse it" },
-      { id: "toy-order", label: "Weather Teddy order", desc: "σ recovery, service-level dial, Q = 22,653" },
-      { id: "sampling", label: "Sampling & the QC case file", desc: "NICE Paper, Go Bananas, SRS" },
-      { id: "point-estimation", label: "Sampling vocabulary", desc: "Frame, census, the bridge, SRS" },
-    ],
-  },
-  {
-    id: "inference",
-    label: "Inference & Estimation",
-    items: [
-      { id: "sampling-dist", label: "Sampling distributions & CLT", desc: "σ/√n, the CLT, the salary simulator" },
-      { id: "sampling-methods", label: "Sampling methods", desc: "Stratified · cluster · systematic · convenience · judgment" },
-      { id: "marrian-case", label: "Marrian Dairies case", desc: "BlueGurt/StrawGurt, the n-switcher" },
-      { id: "interval-known", label: "Interval estimation (σ known)", desc: "Margin of error, 90/95/99, income interval" },
-      { id: "practice-lab", label: "The sampling lab", desc: "RANDBETWEEN recipe, SE shrink, quiz update" },
-      { id: "interval-t", label: "The t-distribution", desc: "df = n−1, housing interval, sample-size planner" },
-      { id: "prop-interval", label: "Proportion estimation", desc: "Exit poll, planning value p* = 0.5" },
-      { id: "case-file-2", label: "Metropolitan Research", desc: "The transmission file, n ≈ 100" },
-      { id: "hypothesis", label: "Hypothesis testing framework", desc: "H₀ vs Hₐ, three tails, Type I & II errors" },
-    ],
-  },
-];
+}[] = STM_MODULES.map((m) => ({
+  id: m.id as StmExamGroup,
+  label: m.label.split(" · ")[1] ?? m.label,
+  items: STM_LECTURES.filter((l) => l.group === m.id).flatMap((l) =>
+    l.chapters.map((c) => ({ id: c.id, label: c.label, desc: c.desc }))
+  ),
+}));
 
 const FLAT_ITEMS = GROUPS.flatMap((g) => g.items);
 
@@ -161,37 +152,106 @@ function groupOf(id: string): string | null {
    reader renders exactly the slice the chosen lecture owns.
    ============================================================ */
 const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
-  lens: <StmLensSection />,
-  scales: <StmScalesSection />,
-  sources: <StmSourcesSection />,
-  categorical: <StmCategoricalSection />,
-  quantitative: <StmQuantitativeSection />,
-  twovars: <StmTwoVarsSection />,
-  location: <StmLocationSection />,
-  variability: <StmVariabilitySection />,
-  association: <StmAssociationSection />,
-  "prob-basics": <StmProbBasicsSection />,
-  "prob-laws": <StmProbLawsSection />,
-  bayes: <StmBayesSection />,
-  discrete: <StmDiscreteSection />,
-  binomial: <StmBinomialSection />,
-  continuous: <StmContinuousSection />,
-  sampling: <StmSamplingSection />,
-  "sampling-dist": <StmSamplingDistSection />,
-  "sampling-methods": <StmSamplingMethodsSection />,
+  // L01
+  "what-statistics": <StmWhatStatisticsSection />,
+  "data-anatomy-scales": <StmDataAnatomyScalesSection />,
+  // L02
+  "data-sources": <StmDataSourcesSection />,
+  "analytics-ethics": <StmAnalyticsEthicsSection />,
+  // L03 — the rebuilt administration lecture
+  "course-administration": <StmCourseAdministrationSection />,
+  "ai-policy": <StmAiPolicySection />,
+  "course-concepts-tools": <StmCourseConceptsToolsSection />,
+  // L04
+  "categorical-displays": <StmCategoricalDisplaysSection />,
+  "quantitative-displays": <StmQuantitativeDisplaysSection />,
+  "crosstab-simpson": <StmCrosstabSimpsonSection />,
+  // L05
+  "scatter-trend": <StmScatterTrendSection />,
+  "location-measures": <StmLocationMeasuresSection />,
+  "percentiles-quartiles": <StmPercentilesQuartilesSection />,
+  // L06
+  "spread-measures": <StmSpreadMeasuresSection />,
+  "shape-boxplot": <StmShapeBoxplotSection />,
+  // L07
+  "boxplot-association": <StmBoxplotAssociationSection />,
+  "probability-foundations": <StmProbabilityFoundationsSection />,
+  // L08
+  "pelican-case": <StmPelicanCaseSection />,
+  "tendency-selection": <StmTendencySelectionSection />,
+  // L09
+  "probability-laws": <StmProbabilityLawsSection />,
+  "conditional-bayes": <StmConditionalBayesSection />,
+  // L10
+  "random-variables": <StmRandomVariablesSection />,
+  "tv-distribution": <StmTvDistributionSection />,
+  // L11
+  "bivariate-covariance": <StmBivariateCovarianceSection />,
+  "binomial-poisson": <StmBinomialPoissonSection />,
+  // L12
+  "continuous-uniform": <StmContinuousUniformSection />,
+  "normal-standard": <StmNormalStandardSection />,
+  // L13
+  "quiz-checkpoint": <StmQuizCheckpointSection />,
+  "demand-mix": <StmDemandMixSection />,
+  // L14
+  "z-forward": <StmZForwardSection />,
+  "z-reverse": <StmZReverseSection />,
+  // L15
+  "teddy-sigma": <StmTeddySigmaSection />,
+  "service-level": <StmServiceLevelSection />,
+  // L16
+  "gig-case": <StmGigCaseSection />,
+  "shutdown-levers": <StmShutdownLeversSection />,
+  // L17
+  "sampling-vocabulary": <StmSamplingVocabularySection />,
+  "point-estimators": <StmPointEstimatorsSection />,
+  // L18
+  "poisson-staffing": <StmPoissonStaffingSection />,
+  "pmf-cdf-lab": <StmPmfCdfLabSection />,
+  // L19
+  "sampling-distribution": <StmSamplingDistributionSection />,
+  "clt-standard-error": <StmCltStandardErrorSection />,
+  // L20
+  "probability-designs": <StmProbabilityDesignsSection />,
+  "nonprobability-designs": <StmNonprobabilityDesignsSection />,
+  // L21
+  "marrian-setup": <StmMarrianSetupSection />,
+  "sample-size-power": <StmSampleSizePowerSection />,
+  // L22
   "interval-known": <StmIntervalKnownSection />,
-  "interval-t": <StmIntervalTSection />,
-  "prop-interval": <StmPropIntervalSection />,
-  hypothesis: <StmHypothesisSection />,
-  "case-file-2": <StmCaseFile2Section />,
-  "case-file-1": <StmCaseFile1Section />,
-  "toy-order": <StmToyOrderSection />,
-  "dist-checkpoint": <StmDistCheckpointSection />,
-  "z-lab": <StmZLabSection />,
-  "dist-apps": <StmDistAppsSection />,
-  "point-estimation": <StmPointEstimationSection />,
-  "marrian-case": <StmMarrianCaseSection />,
-  "practice-lab": <StmPracticeLabSection />,
+  "confidence-dial": <StmConfidenceDialSection />,
+  // L23
+  "randbetween-lab": <StmRandbetweenLabSection />,
+  "se-shrink": <StmSeShrinkSection />,
+  // L24
+  "t-distribution": <StmTDistributionSection />,
+  "interval-planner": <StmIntervalPlannerSection />,
+  // L25
+  "proportion-interval": <StmProportionIntervalSection />,
+  "planning-value": <StmPlanningValueSection />,
+  // L26
+  "metropolitan-descriptives": <StmMetropolitanDescriptivesSection />,
+  "metropolitan-interval": <StmMetropolitanIntervalSection />,
+  // L27
+  "hypothesis-framework": <StmHypothesisFrameworkSection />,
+  "tails-errors": <StmTailsErrorsSection />,
+  // L28 — the reserved lecture has NO section; the removal card renders
+  // L29
+  "error-control": <StmErrorControlSection />,
+  "alpha-decision": <StmAlphaDecisionSection />,
+  // L30
+  "one-tail-pvalue": <StmOneTailPvalueSection />,
+  "critical-value-metro": <StmCriticalValueMetroSection />,
+  // L31
+  "two-tail-tests": <StmTwoTailTestsSection />,
+  "proportion-test": <StmProportionTestSection />,
+  // L32
+  "quality-associates": <StmQualityAssociatesSection />,
+  "control-limits": <StmControlLimitsSection />,
+  // L33
+  "exam-brief": <StmExamBriefSection />,
+  "course-recap": <StmCourseRecapSection />,
 };
 
 /* ============================================================
@@ -780,7 +840,7 @@ function StmLectureHead({ lecture }: { lecture: StmLecture }) {
               className="bg-clip-text text-transparent"
               style={{ backgroundImage: `linear-gradient(120deg,${GOLD_LITE},${GOLD})` }}
             >
-              {" "}· {lecture.title}
+              {" "}· {lecture.title ?? STM_RESERVED_BOOKMARK}
             </span>
           </h2>
           {lecture.chapters.length > 0 ? (
@@ -823,14 +883,14 @@ function LecturePager({ current, onJump }: { current: StmLecture; onJump: (id: s
             type="button"
             onClick={() => onJump(prev.id)}
             className="card-warm lift group flex min-w-0 items-center gap-3 p-4 text-left"
-            aria-label={`Previous: ${prev.code} — ${prev.title}`}
+            aria-label={`Previous: ${prev.code} — ${prev.title ?? STM_RESERVED_BOOKMARK}`}
           >
             <ArrowLeft className="h-4 w-4 shrink-0 text-[#6d28d9] transition-transform duration-200 group-hover:-translate-x-1" />
             <span className="min-w-0">
               <span className="block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#ca8a04]">
                 Previous · {prev.code}
               </span>
-              <span className="mt-0.5 block truncate text-[.92rem] font-extrabold text-[#2b1d42]">{prev.title}</span>
+              <span className="mt-0.5 block truncate text-[.92rem] font-extrabold text-[#2b1d42]">{prev.title ?? STM_RESERVED_BOOKMARK}</span>
             </span>
           </button>
         ) : (
@@ -841,19 +901,19 @@ function LecturePager({ current, onJump }: { current: StmLecture; onJump: (id: s
             type="button"
             onClick={() => onJump(next.id)}
             className="card-warm lift group flex min-w-0 items-center justify-end gap-3 p-4 text-right"
-            aria-label={`Next: ${next.code} — ${next.title}`}
+            aria-label={`Next: ${next.code} — ${next.title ?? STM_RESERVED_BOOKMARK}`}
           >
             <span className="min-w-0">
               <span className="block text-[.6rem] font-extrabold uppercase tracking-[.18em] text-[#ca8a04]">
                 Next · {next.code}
               </span>
-              <span className="mt-0.5 block truncate text-[.92rem] font-extrabold text-[#2b1d42]">{next.title}</span>
+              <span className="mt-0.5 block truncate text-[.92rem] font-extrabold text-[#2b1d42]">{next.title ?? STM_RESERVED_BOOKMARK}</span>
             </span>
             <ArrowRight className="h-4 w-4 shrink-0 text-[#6d28d9] transition-transform duration-200 group-hover:translate-x-1" />
           </button>
         ) : (
           <span className="rounded-2xl border border-dashed border-[#e6e0f2] p-4 text-center text-[.78rem] font-bold leading-snug text-[#8f7fa5]">
-            End of the sequence — Lecture 27 closes the course. Revise the framework, then retake the windows.
+            End of the sequence — Lecture 33 closes the course. Revise the brief, then retake the windows.
           </span>
         )}
       </div>
@@ -935,7 +995,7 @@ export function StmApp({ onExitAtlas }: { onExitAtlas: () => void }) {
         {/* the notes start here */}
         <div id="notes-top" aria-hidden className="relative scroll-mt-16" />
 
-        <PartBoundary key={lecture.id} label={`Lecture ${lecture.code} — ${lecture.title}`}>
+        <PartBoundary key={lecture.id} label={`Lecture ${lecture.code} — ${lecture.title ?? STM_RESERVED_BOOKMARK}`}>
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -949,17 +1009,18 @@ export function StmApp({ onExitAtlas }: { onExitAtlas: () => void }) {
                 </PartBoundary>
               ))
             ) : (
+              /* the RESERVED LECTURE (L28) — its slot is explicit, never a
+                 generic fallback: no title, no content, the compendium's own
+                 removal card, and the numbering-preserved line */
               <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-                <div className="card-warm p-8 text-center">
+                <div className="stm-reserved-card rounded-2xl p-8 text-center">
                   <span className="chip mx-auto">
-                    <BookOpen className="h-3.5 w-3.5" /> Slot reserved
+                    <BookOpen className="h-3.5 w-3.5" /> {STM_RESERVED_BOOKMARK}
                   </span>
-                  <h2 className="mt-4 text-2xl font-extrabold text-[#2b1d42]">
-                    Lecture {lecture.n} hasn&rsquo;t been summarised yet
-                  </h2>
-                  <p className="mx-auto mt-3 max-w-md text-[.92rem] leading-relaxed text-[#6b5b7e]">
-                    This lecture&rsquo;s notes haven&rsquo;t been uploaded, so the shelf keeps the
-                    slot open. The moment its summary arrives, the chapters fill in right here.
+                  <h2 className="mt-4 text-2xl font-extrabold text-[#2b1d42]">Lecture 28</h2>
+                  <p className="mx-auto mt-3 max-w-md text-[.92rem] leading-relaxed text-[#6b5b7e]">{STM_RESERVED_CARD}</p>
+                  <p className="mt-4 font-mono text-[.6rem] font-black uppercase tracking-[.2em] text-[#8f7fa5]">
+                    Lecture 28 of 33 · numbering preserved · page intentionally left blank
                   </p>
                 </div>
               </div>

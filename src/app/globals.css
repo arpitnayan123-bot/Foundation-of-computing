@@ -1677,3 +1677,27 @@ html.atlas-active :focus-visible,
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+
+/* ============================================================
+   STM — shelf 05 (Statistics for Managers). Violet & gold:
+   violet is the population, gold the decision, grey the sample.
+   ============================================================ */
+.stm-app { --stm-accent: #8b5cf6; }
+.stm-app .stm-figure { break-inside: avoid; }
+.stm-app .stm-figure svg { max-width: 100%; height: auto; }
+
+/* — real maths markup: serif-italic variables, upright digits — */
+.stm-m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; letter-spacing: 0.01em; }
+.stm-sub { font-size: 0.66em; font-style: normal; letter-spacing: 0; vertical-align: -0.34em; margin-left: 0.06em; }
+.stm-sqrt { display: inline-flex; align-items: stretch; white-space: nowrap; }
+.stm-sqrt-sign { font-family: "Georgia", serif; font-style: normal; margin-right: 0.06em; transform: translateY(0.04em); }
+.stm-sqrt-body { border-top: 1.3px solid currentColor; padding: 0.12em 0.28em 0 0.2em; }
+.stm-mathline { font-variant-numeric: lining-nums; }
+.stm-app .quiz-opt.wrong { border-color: #b9b3c9; background: #f4f2f8; color: #6b6480; }
+.stm-app .quiz-opt.correct { border-color: #ca8a04; background: #fdf8e9; }
+
+/* — the removal card for the reserved L28 slot — */
+.stm-reserved-card {
+  border: 1px solid #d8cfe8;
+  background: repeating-linear-gradient(-45deg, #faf8fc, #faf8fc 11px, #f4f1f9 11px, #f4f1f9 12px);
+}

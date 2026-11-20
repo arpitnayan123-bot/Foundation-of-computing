@@ -15,7 +15,7 @@ import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Check, PenLine, Search, Sigma } from "lucide-react";
 import { scrollToId } from "@/lib/utils";
-import { STM_LECTURES } from "@/components/stm/lectures";
+import { STM_LECTURES, STM_RESERVED_BOOKMARK } from "@/components/stm/lectures";
 import { Reveal } from "@/components/notes/ui";
 
 const VIOLET = "#6d28d9";
@@ -87,7 +87,7 @@ export function StmHero({
       const hay = [
         `lecture ${l.n}`,
         l.code.toLowerCase(),
-        l.title.toLowerCase(),
+        (l.title ?? STM_RESERVED_BOOKMARK).toLowerCase(),
         ...l.chapters.map((c) => c.label.toLowerCase()),
       ].join(" ");
       return words.every((w) => hay.includes(w));
@@ -166,7 +166,7 @@ export function StmHero({
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search the sequence — try “7”, “Bayes”, or “Marada”…"
+                placeholder="Search the sequence — try “15”, “Teddy”, or “Marrian”…"
                 autoComplete="off"
                 className="w-full rounded-2xl border border-[#e6e0f2] bg-[#f9f7fc]/90 py-3.5 pl-11 pr-4 text-[.95rem] font-semibold text-[#2b1d42] shadow-[0_10px_30px_-14px_rgba(43,29,66,.35)] backdrop-blur-md placeholder:font-normal placeholder:text-[#ca8a04] focus:outline-none focus:ring-2 focus:ring-[#8b5cf6]/40"
               />
@@ -187,7 +187,7 @@ export function StmHero({
                         type="button"
                         onClick={() => onSelect(l.id)}
                         aria-pressed={isActive}
-                        title={l.title}
+                        title={l.title ?? STM_RESERVED_BOOKMARK}
                         className={`group flex w-full items-center gap-2.5 rounded-xl border px-2.5 py-2 text-left transition-all duration-200 ${
                           isActive
                             ? "border-[#6d28d9] bg-white shadow-[0_12px_30px_-16px_rgba(109,40,217,.5)] ring-2 ring-[#8b5cf6]/25"
@@ -204,8 +204,12 @@ export function StmHero({
                         >
                           {l.n ?? "·"}
                         </span>
-                        <span className={`min-w-0 flex-1 truncate text-[.86rem] font-bold leading-tight ${isActive ? "text-[#6d28d9]" : "text-[#2b1d42]"}`}>
-                          {l.title}
+                        <span
+                          className={`min-w-0 flex-1 truncate text-[.86rem] font-bold leading-tight ${
+                            l.title === null ? "font-medium italic text-[#8f7fa5]" : isActive ? "text-[#6d28d9]" : "text-[#2b1d42]"
+                          }`}
+                        >
+                          {l.title ?? STM_RESERVED_BOOKMARK}
                         </span>
                         {allRead ? (
                           <Check className="h-3.5 w-3.5 shrink-0" style={{ color: "#5f9e58" }} aria-label="Every chapter read" />
