@@ -11,7 +11,7 @@
    0.243, Mercy Hospital's 0.1680, Pep Zone's 0.2033.
    ============================================================ */
 
-export type StmExamGroup = "displays" | "measures" | "probability" | "discrete" | "continuous" | "inference";
+export type StmExamGroup = "m1" | "m2" | "m3" | "m4" | "m5" | "m6";
 export type StmQuestionType = "mcq" | "output" | "short";
 
 export interface StmExamQuestion {
@@ -352,8 +352,8 @@ const PROBABILITY: StmExamQuestion[] = [
              bivariate distributions, binomial, Poisson,
              hypergeometric)
    ------------------------------------------------------------ */
-const DISCRETE: StmExamQuestion[] = [
-  {
+const DISTS: StmExamQuestion[] = [
+{
     id: "k1",
     type: "mcq",
     q: "Which of the following random variables is CONTINUOUS?",
@@ -468,15 +468,8 @@ const DISCRETE: StmExamQuestion[] = [
     explain:
       "E(x) = Σ x·f(x) over the same n = 200 days: 240 old units + 800 new units = 1,040, spread over 200 days → 5.20. The formula never moved — the DISTRIBUTION did, and the stock plan built for 1.20 collapses at 5.20.",
   },
-];
 
-/* ------------------------------------------------------------
-   GROUP 5 — CONTINUOUS & SAMPLING  (Ch 6: uniform, normal,
-             standard normal, exponential — plus the sampling
-             practice set and the NICE Paper case)
-   ------------------------------------------------------------ */
-const CONTINUOUS: StmExamQuestion[] = [
-  {
+{
     id: "c1",
     type: "mcq",
     q: "At Slater's Buffet, salad taken is uniformly distributed between 5 and 15 ounces, so f(x) = 1/10 on [5, 15]. P(12 ≤ x ≤ 15) = …",
@@ -602,14 +595,8 @@ const CONTINUOUS: StmExamQuestion[] = [
   },
 ];
 
-/* ------------------------------------------------------------
-   GROUP 6 — INFERENCE  (Lectures 19–27: sampling distributions,
-             the CLT, the five sampling designs, interval
-             estimation with σ known and unknown, proportions,
-             and the hypothesis-testing framework)
-   ------------------------------------------------------------ */
-const INFERENCE: StmExamQuestion[] = [
-  {
+const SAMPLING: StmExamQuestion[] = [
+{
     id: "f1",
     type: "mcq",
     q: "A population has σ = 40. For samples of size 100, the standard error of the mean is…",
@@ -618,7 +605,7 @@ const INFERENCE: StmExamQuestion[] = [
     explain:
       "σx̄ = σ/√n = 40/√100 = 40/10 = 4.0. The standard error shrinks with the square root of n — to cut it in half you must quadruple the sample size.",
   },
-  {
+{
     id: "f2",
     type: "mcq",
     q: "The Central Limit Theorem says the sampling distribution of x̄ is approximately normal when…",
@@ -632,7 +619,7 @@ const INFERENCE: StmExamQuestion[] = [
     explain:
       "The CLT works on ANY population: with n ≥ 30 (prefer 50+ for highly skewed data) the sampling distribution of the mean is approximately normal. The theorem normalises the x̄'s, not the raw data.",
   },
-  {
+{
     id: "f3",
     type: "mcq",
     q: "Marrian Dairies: BlueGurt rates have μ = 80, σ = 25. For n = 50 raters, P(x̄ ≤ 75) is…",
@@ -641,7 +628,7 @@ const INFERENCE: StmExamQuestion[] = [
     explain:
       "σx̄ = 25/√50 = 3.5355; Z = (75 − 80)/3.5355 = −1.414; P(Z ≤ −1.414) = 0.0786 — about a 7.86% chance the sample reads '75 or less'. At n = 150 the same question collapses to 0.7%: bigger samples barely misread the population.",
   },
-  {
+{
     id: "f4",
     type: "mcq",
     q: "Which design samples a few whole, heterogeneous groups and every element inside them?",
@@ -650,7 +637,7 @@ const INFERENCE: StmExamQuestion[] = [
     explain:
       "Cluster sampling picks whole clusters (wards, city blocks) at random and counts everything inside — cheap logistics, but a larger total sample than stratified for the same precision. Stratified instead samples a few elements from EVERY homogeneous stratum.",
   },
-  {
+{
     id: "f5",
     type: "mcq",
     q: "The z-value used in a 95% confidence interval is…",
@@ -659,7 +646,7 @@ const INFERENCE: StmExamQuestion[] = [
     explain:
       "95% confidence → α = 0.05, split as α/2 = 0.025 per tail → z(0.025) = 1.960. The set worth memorising: 1.645 (90%), 1.960 (95%), 2.576 (99%).",
   },
-  {
+{
     id: "f6",
     type: "output",
     q: "n = 36, x̄ = $41,100, σ = $4,500. Compute the 95% confidence interval for the population mean.",
@@ -668,7 +655,7 @@ const INFERENCE: StmExamQuestion[] = [
     explain:
       "Standard error 750, margin of error 1.960 × 750 = 1,470 → the interval runs from 39,630 to 42,570. At 90% the margin is 1,234 and at 99% it is 1,932 — confidence is purchased with width.",
   },
-  {
+{
     id: "f7",
     type: "mcq",
     q: "Quadrupling the sample size (n → 4n) changes the margin of error to…",
@@ -677,7 +664,7 @@ const INFERENCE: StmExamQuestion[] = [
     explain:
       "E = z·σ/√n — the square root again. Quadrupling n halves the standard error and therefore halves the margin of error: precision per rupee follows √n.",
   },
-  {
+{
     id: "f8",
     type: "mcq",
     q: "n = 16 apartments, x̄ = $750, s = $55, σ unknown. The 95% interval uses…",
@@ -691,7 +678,7 @@ const INFERENCE: StmExamQuestion[] = [
     explain:
       "σ unknown → the t-distribution with df = n − 1 = 15; 95% splits α as 0.025 per tail → t = 2.131. Margin: 2.131 × (55/√16) = 29.3, giving [720.7, 779.3] — the honesty premium over z's 1.960.",
   },
-  {
+{
     id: "f9",
     type: "mcq",
     q: "With no prior information about p, the safest planning value for the sample-size formula is…",
@@ -705,7 +692,7 @@ const INFERENCE: StmExamQuestion[] = [
     explain:
       "n = z²·p*(1−p*)/E², and p(1−p) peaks at 0.25 when p = 0.5 — the maximum sample size. The actual margin of error can then never exceed the planned E, whatever the true proportion turns out to be.",
   },
-  {
+{
     id: "f10",
     type: "output",
     q: "Exit poll: n = 500, 220 voters favour the candidate, 95% confidence. Compute the margin of error for the proportion.",
@@ -714,7 +701,33 @@ const INFERENCE: StmExamQuestion[] = [
     explain:
       "σ(p̂) = √(0.44 × 0.56/500) = 0.0222; E = 1.96 × 0.0222 = 0.0435. The interval [0.3965, 0.4835] says PSI is 95% confident the true support lies between 39.65% and 48.35%.",
   },
-  {
+{
+    id: "f13",
+    type: "output",
+    q: "Marrian Dairies: BlueGurt rates μ = 80, σ = 25. For n = 150, compute P(X̄ ≤ 75).",
+    code: "σx̄ = 25/√150 = 2.0412\nZ  = (75 − 80)/2.0412 = ?",
+    answerText: "Z = −2.449 → P(X̄ ≤ 75) ≈ 0.0072 (0.72%)",
+    explain:
+      "σx̄ = 25/√150 = 2.0412; Z = −5/2.0412 = −2.449; Φ(−2.45) ≈ 0.0072. Compare n = 50: 7.86%. Sample size is discriminative power — the same 5-point signal becomes rare noise when the study grows. (Continuity: at n = 400 the probability is 0.003%.)",
+  },
+{
+    id: "f14",
+    type: "mcq",
+    q: "You draw a 50-person salary sample with =RANDBETWEEN(1, 2500) but the numbers change every time you sort the sheet. The step that was skipped — and why it matters — is…",
+    options: [
+      "Copy → Paste Special → Values Only: RANDBETWEEN is volatile and redraws on every recalculation",
+      "Format → Cells → Number: the IDs were displayed rounded",
+      "nothing — changing samples improve the estimate",
+      "freeze panes: the IDs scrolled out of view",
+    ],
+    answer: 0,
+    explain:
+      "RANDBETWEEN is volatile — every edit, sort or recalc redraws the whole draw. Paste-Special-Values converts the formulas to static IDs so the sample exists like a photograph. Freeze FIRST, sort second; the lab's μ = 71,800, σ = 4,000 population then yields stable means near 71,000–72,500 at n = 50.",
+  }
+];
+
+const HYP: StmExamQuestion[] = [
+{
     id: "f11",
     type: "mcq",
     q: "A researcher suspects an online platform's true average score is BELOW its claimed 70. The hypotheses are…",
@@ -728,7 +741,7 @@ const INFERENCE: StmExamQuestion[] = [
     explain:
       "The research hope ('lower') belongs in Hₐ: μ < 70, so H₀ keeps the equality as μ ≥ 70 — a left-tailed test. Hypotheses always describe the population parameter μ, never the sample statistic x̄.",
   },
-  {
+{
     id: "f12",
     type: "short",
     q: "Name the two errors a hypothesis test can make, which one is controlled by α, and why statisticians never 'accept' H₀.",
@@ -737,76 +750,360 @@ const INFERENCE: StmExamQuestion[] = [
     explain:
       "The courtroom analogy: H₀ is innocent until proven guilty. Convicting the innocent = Type I (priced at α); freeing the guilty = Type II. The only verdicts are reject and fail to reject — 'accept' is not a statistical word.",
   },
-  {
-    id: "f13",
-    type: "output",
-    q: "Marrian Dairies: BlueGurt rates μ = 80, σ = 25. For n = 150, compute P(X̄ ≤ 75).",
-    code: "σx̄ = 25/√150 = 2.0412\nZ  = (75 − 80)/2.0412 = ?",
-    answerText: "Z = −2.449 → P(X̄ ≤ 75) ≈ 0.0072 (0.72%)",
+{
+    id: "h1",
+    type: "mcq",
+    q: "In hypothesis testing, the null hypothesis H₀ is best described as the hypothesis bearing…",
+    options: [
+      "the research hope — what the analyst wants to prove",
+      "the equality and the status quo — what the data is tested against",
+      "whatever conclusion the sample mean suggests",
+      "the two-tailed alternative only",
+    ],
+    answer: 1,
     explain:
-      "σx̄ = 25/√150 = 2.0412; Z = −5/2.0412 = −2.449; Φ(−2.45) ≈ 0.0072. Compare n = 50: 7.86%. Sample size is discriminative power — the same 5-point signal becomes rare noise when the study grows. (Continuity: at n = 400 the probability is 0.003%.)",
+      "H₀ holds the equality (or the ≤/≥ form) and the status quo; Hₐ carries the research hope. The equality always appears in the null hypothesis — the trial runs against the standing claim, and the data either convicts it or fails to.",
   },
   {
-    id: "f14",
+    id: "h2",
     type: "mcq",
-    q: "You draw a 50-person salary sample with =RANDBETWEEN(1, 2500) but the numbers change every time you sort the sheet. The step that was skipped — and why it matters — is…",
+    q: "When testing μ, the hypotheses take one of three forms. Which row pairs are correct?",
     options: [
-      "Copy → Paste Special → Values Only: RANDBETWEEN is volatile and redraws on every recalculation",
-      "Format → Cells → Number: the IDs were displayed rounded",
-      "nothing — changing samples improve the estimate",
-      "freeze panes: the IDs scrolled out of view",
+      "Lower tail: H₀: μ ≥ μ₀, Hₐ: μ < μ₀ · Upper tail: H₀: μ ≤ μ₀, Hₐ: μ > μ₀ · Two tail: H₀: μ = μ₀, Hₐ: μ ≠ μ₀",
+      "Lower tail: H₀: μ = μ₀, Hₐ: μ < μ₀ · Upper tail: H₀: μ = μ₀, Hₐ: μ > μ₀ · Two tail: H₀: μ ≠ μ₀, Hₐ: μ = μ₀",
+      "Lower tail: H₀: μ < μ₀, Hₐ: μ ≥ μ₀ · Upper tail: H₀: μ > μ₀, Hₐ: μ ≤ μ₀ · Two tail: H₀: μ ≠ μ₀, Hₐ: μ = μ₀",
+      "All three forms put the inequality in H₀ and the equality in Hₐ",
     ],
     answer: 0,
     explain:
-      "RANDBETWEEN is volatile — every edit, sort or recalc redraws the whole draw. Paste-Special-Values converts the formulas to static IDs so the sample exists like a photograph. Freeze FIRST, sort second; the lab's μ = 71,800, σ = 4,000 population then yields stable means near 71,000–72,500 at n = 50.",
+      "The three tail forms keep the equality in H₀ in every case: lower tail H₀: μ ≥ μ₀ vs Hₐ: μ < μ₀; upper tail H₀: μ ≤ μ₀ vs Hₐ: μ > μ₀; two tail H₀: μ = μ₀ vs Hₐ: μ ≠ μ₀. The tail decides where the rejection region lives.",
+  },
+  {
+    id: "h3",
+    type: "mcq",
+    q: "The university processes results in μ days; the registrar fears the process EXCEEDS its 15-day target. The correct hypothesis pair is…",
+    options: [
+      "H₀: μ ≤ 15 vs Hₐ: μ > 15",
+      "H₀: μ ≥ 15 vs Hₐ: μ < 15",
+      "H₀: μ = 15 vs Hₐ: μ ≠ 15 only",
+      "H₀: μ > 15 vs Hₐ: μ ≤ 15",
+    ],
+    answer: 0,
+    explain:
+      "L27's Example 2 verbatim: H₀: μ ≤ 15 (meeting target) and Hₐ: μ > 15 (exceeding target) — an upper-tail test. The claim the registrar fears lives in Hₐ; the target's satisfaction stays in H₀.",
+  },
+  {
+    id: "h4",
+    type: "mcq",
+    q: "The verdict language of hypothesis testing is…",
+    options: [
+      "accept H₀ or reject H₀",
+      "prove H₀ true or prove H₀ false",
+      "reject H₀ or fail to reject H₀ — never accept",
+      "accept Hₐ whenever the p-value is small",
+    ],
+    answer: 2,
+    explain:
+      "The language rule: 'reject H₀' or 'fail to reject H₀' — never 'accept'. Failing to reject is not innocence; it is insufficient evidence. The same rule echoes through L29 and L33's recap of the framework.",
+  },
+  {
+    id: "h5",
+    type: "mcq",
+    q: "A Type I error occurs when the analyst…",
+    options: [
+      "fails to reject a null hypothesis that is actually false",
+      "rejects a null hypothesis that is actually true",
+      "chooses α after seeing the data",
+      "uses the t-distribution when σ is known",
+    ],
+    answer: 1,
+    explain:
+      "Type I (false positive): rejecting H₀ when it is actually true — a false claim of discovery. Its probability is exactly the level of significance α, chosen by the researcher before the experiment runs. Type II (false negative) is the missed discovery: failing to reject a false H₀.",
+  },
+  {
+    id: "h6",
+    type: "mcq",
+    q: "In the fire-alarm analogy, 'the alarm sounds but no fire exists' corresponds to…",
+    options: ["a Type II error", "a Type I error", "a correct decision", "the power of the test"],
+    answer: 1,
+    explain:
+      "L29's analogy verbatim: with H₀ = no fire, a sounding alarm without fire is a false positive — a Type I error. The more dangerous mistake, an alarm that stays silent while a real fire burns, is the Type II false negative.",
+  },
+  {
+    id: "h7",
+    type: "mcq",
+    q: "For an FDA drug-approval decision, the transcript's guidance is to…",
+    options: [
+      "use a larger α (0.05) so more drugs are approved",
+      "use a very low α (0.01) to minimise approving dangerous drugs",
+      "balance α and β equally at 0.025 each",
+      "drop the significance-level framework entirely",
+    ],
+    answer: 1,
+    explain:
+      "When Type I error is more costly — approving a dangerous drug — use the very strict α = 0.01. When Type I is less costly (marketing claims), a larger α = 0.05 is more lenient. The cost structure picks the dial, and α is fixed before the experiment.",
+  },
+  {
+    id: "h8",
+    type: "mcq",
+    q: "Tightening α from 0.05 to 0.01, holding everything else fixed, has what effect on β?",
+    options: ["β falls too", "β rises — the two errors trade off inversely", "β is unchanged", "β becomes zero"],
+    answer: 1,
+    explain:
+      "The inverse relationship: starving the rejection region (smaller α) feeds β, and loosening α does the opposite. Both errors at zero does not exist — the design, not wishful thinking, sets where the dial lands.",
+  },
+  {
+    id: "h9",
+    type: "mcq",
+    q: "The p-value of a test is…",
+    options: [
+      "the probability that H₀ is true",
+      "the probability, computed under H₀, of a result at least as extreme as the one observed",
+      "the probability the alternative hypothesis is true",
+      "the area of the acceptance region",
+    ],
+    answer: 1,
+    explain:
+      "The p-value is computed ASSUMING H₀ is true: it measures how unlikely a result at least as extreme as the observed one would be. Small p-value = strong evidence against H₀ — it is compared to α, never read as the probability that H₀ is true.",
+  },
+  {
+    id: "h10",
+    type: "mcq",
+    q: "Metro EMS: n = 40, x̄ = 13.25, σ = 3.2, H₀: μ ≤ 12, Hₐ: μ > 12, α = 0.05. The test statistic and verdict are…",
+    options: [
+      "Z = 1.04 — fail to reject H₀",
+      "Z = 2.47 — reject H₀ (p-value 0.0068 < 0.05)",
+      "t = 2.47 with df = 39 — fail to reject",
+      "Z = 0.78 — reject H₀",
+    ],
+    answer: 1,
+    explain:
+      "Z = (13.25 − 12)/(3.2/√40) = 1.25/0.506 = 2.47. The statistic lands inside the one-tail rejection region beyond Z(0.05) = 1.645, and the p-value road agrees: 0.0068 < 0.05. The 12-minute response goal is not being met.",
+  },
+  {
+    id: "h11",
+    type: "mcq",
+    q: "The critical-value approach and the p-value approach…",
+    options: [
+      "can give different verdicts on the same data",
+      "always yield the same conclusion when applied correctly",
+      "are only valid for two-tailed tests",
+      "cannot both be used when σ is known",
+    ],
+    answer: 1,
+    explain:
+      "L30's statement verbatim: the two roads are complementary and yield the same conclusions. Compare the statistic to the critical value, or the p-value to α — the rejection region and the tail probability are the same story told twice.",
+  },
+  {
+    id: "h12",
+    type: "mcq",
+    q: "The toothpaste-filling case runs two-tailed at α = 0.03. The critical value and verdict are…",
+    options: [
+      "Z(α/2) = 2.17; Z = 2.74 exceeds it — reject H₀",
+      "Z(α) = 1.88; Z = 2.74 exceeds it — reject",
+      "Z(α/2) = 1.96; Z = 2.74 exceeds it — reject",
+      "Z(α/2) = 2.576; Z = 2.74 fails to reject",
+    ],
+    answer: 0,
+    explain:
+      "Splitting α = 0.03 on both tails gives α/2 = 0.015 a side and critical Z = 2.17. The statistic Z = 2.74 (p-value 0.0062 < 0.03) lands inside the right rejection region — the filling process is out of bounds.",
+  },
+  {
+    id: "h13",
+    type: "mcq",
+    q: "The two-tail CI shortcut says: fail to reject H₀: μ = μ₀ exactly when…",
+    options: [
+      "μ₀ lies outside the 100(1−α)% confidence interval",
+      "μ₀ falls inside the 100(1−α)% confidence interval",
+      "the interval's width exceeds 2·σ",
+      "x̄ equals μ₀ to two decimals",
+    ],
+    answer: 1,
+    explain:
+      "If the hypothesised value falls within the confidence interval, fail to reject; outside it, reject. In the transcript's example, 6.0 lies outside the interval and the verdict is reject — one machine answers the two-tail question without a second run.",
+  },
+  {
+    id: "h14",
+    type: "mcq",
+    q: "Highway speeds: n = 64, x̄ = 66.2, S = 4.2, H₀: μ ≤ 65, Hₐ: μ > 65, α = 0.05. The correct statistic and verdict are…",
+    options: [
+      "Z = 2.286 — reject H₀",
+      "t = 2.286 with df = 63 — exceeds t(0.05) = 1.669, reject H₀",
+      "t = 1.669 — fail to reject H₀",
+      "Z = 0.286 — fail to reject",
+    ],
+    answer: 1,
+    explain:
+      "σ is unknown, so Student's t: t = (66.2 − 65)/(4.2/√64) = 1.2/0.525 = 2.286 on df = 63. The critical value t(0.05) = 1.669 — the statistic is inside the gold rejection region, and the location is suitable for the radar trap.",
+  },
+  {
+    id: "h15",
+    type: "mcq",
+    q: "Drunk-driving case: 120 accidents, 67 drunk-driving caused, H₀: p = 0.5 vs Hₐ: p ≠ 0.5 at α = 0.05. The statistic and verdict are…",
+    options: [
+      "Z = 2.60 — reject H₀",
+      "Z = 1.278 — inside ±1.96, fail to reject H₀",
+      "Z = 1.645 — reject H₀",
+      "t = 1.278 with df = 119 — reject",
+    ],
+    answer: 1,
+    explain:
+      "p̂ = 67/120 = 0.558, σ_{p̂} = 0.045, and Z = 1.278. The two-tail critical values at α = 0.05 are ±1.96 — the statistic stays between them, so the National Safety Council's 50% claim stands against this sample. Assumptions hold: np₀ = 60 > 5 and n(1−p₀) = 60 > 5.",
+  },
+  {
+    id: "h16",
+    type: "mcq",
+    q: "For the proportion test's normal approximation to apply, the case requires…",
+    options: [
+      "np₀ > 5 and n(1−p₀) > 5",
+      "n ≥ 30 only, regardless of p₀",
+      "p̂ = p₀ exactly",
+      "the population to be normal",
+    ],
+    answer: 0,
+    explain:
+      "L31's assumptions verbatim: np₀ > 5 and n(1−p₀) > 5 — enough expected successes and failures under the hypothesised proportion for the sampling distribution of p̂ to be approximately normal.",
+  },
+  {
+    id: "h17",
+    type: "mcq",
+    q: "Quality Associates' baseline: how many observations during satisfactory operation, and how large is each test sample?",
+    options: [
+      "800 observations; four samples of n = 30",
+      "500 observations; five samples of n = 25",
+      "800 observations; two samples of n = 40",
+      "1,200 observations; four samples of n = 50",
+    ],
+    answer: 0,
+    explain:
+      "The firm collected 800 observations during satisfactory process operation, then tests four periodic samples of 30 each against that knowledge — μ = 12, σ = 0.21, two-tailed at α = 0.01.",
+  },
+  {
+    id: "h18",
+    type: "output",
+    q: "Compute Quality Associates' control limits at α = 0.01: μ = 12, σ = 0.21, n = 30, Z(α/2) = 2.57. Give LCL and UCL.",
+    answerText: "LCL = 11.90, UCL = 12.10",
+    explain:
+      "Margin = Z(α/2) × (σ/√n) = 2.57 × (0.21/√30) ≈ 0.0987. LCL = 12 − 0.0987 ≈ 11.90; UCL = 12 + 0.0987 ≈ 12.10. A sample mean outside 11.90-12.10 stops the line; Sample 3's 11.89 does exactly that.",
+  },
+  {
+    id: "h19",
+    type: "mcq",
+    q: "At Quality Associates, moving α from 0.01 to 0.05 has which documented effect?",
+    options: [
+      "Control limits widen and fewer samples trigger action",
+      "Control limits narrow (tighten), Sample 4 would also trigger corrective action, and stoppages become more frequent",
+      "The test becomes one-tailed",
+      "β falls to zero",
+    ],
+    answer: 1,
+    explain:
+      "The α-dial's documented effects: the null is rejected more frequently, the control limits narrow, Sample 4 (12.08) would also trigger action, and stoppages grow. Advantage: quicker detection. Disadvantage: more false alarms (Type I errors) — unnecessary interruptions and downtime.",
+  },
+  {
+    id: "h20",
+    type: "mcq",
+    q: "Which Sample at Quality Associates requires corrective action, and why?",
+    options: [
+      "Sample 2 (12.03) — its p-value 0.77 is too large",
+      "Sample 3 (11.89) — p-value 0.003 < 0.01 and its mean falls outside the control limits",
+      "Sample 4 (12.08) — p-value 0.28",
+      "None of them — all four means are inside 11.90-12.10",
+    ],
+    answer: 1,
+    explain:
+      "Sample 3's mean of 11.89 falls below the LCL of 11.90 with p = 0.003 < 0.01 — both roads convict it. Sample 2's large p-value is the opposite of evidence, and Sample 4's 12.08 sits inside the limits at α = 0.01 (it would only trigger at 0.05).",
+  },
+  {
+    id: "h21",
+    type: "mcq",
+    q: "Per L33's end-term brief, the examination is…",
+    options: [
+      "1 hour, 40 marks, objective only, calculator forbidden",
+      "2 hours, 60 marks, mixed very-short/medium/multi-part questions on Chapters 1-9 with emphasis on 1-8, a scientific NON-PROGRAMMABLE calculator mandatory",
+      "2 hours, 60 marks, all numericals, any calculator allowed",
+      "open book with z-tables brought by the student",
+    ],
+    answer: 1,
+    explain:
+      "The brief verbatim: 2 hours, 60 marks, mixed question types, Chapters 1-9 with emphasis on Chapters 1-8, and a scientific non-programmable calculator is mandatory — normal calculators are not sufficient. z-tables and all required values are supplied in the question paper.",
+  },
+  {
+    id: "h22",
+    type: "mcq",
+    q: "What does L33 say students must NOT carry into the exam hall?",
+    options: [
+      "Their own calculator",
+      "Statistical tables, normal tables, or reference materials — all required values come supplied in the question paper",
+      "A pen",
+      "The question paper from a previous term",
+    ],
+    answer: 1,
+    explain:
+      "No need to carry statistical tables, normal tables, or reference materials — z-tables and all essential data are provided in the question paper. Students bring their own pen, calculator and other necessary materials; the exam centre supplies the question paper and answer sheet.",
+  },
+  {
+    id: "h23",
+    type: "short",
+    q: "State the three facts L33 gives about the quiz weightage and the sample paper.",
+    answerText:
+      "Quizzes carry 40% weightage of the course alongside the 60-mark end-term; the exam is largely based on the practice questions provided and the recorded-session discussions; a sample question paper showing the exact pattern and question distribution arrives by the end of the week.",
+    explain:
+      "L33's brief in three lines: 40% quizzes + 60-mark end-term; the practice questions and recorded sessions are stated to be 100% sufficient; the sample paper lands by the end of the week so the pattern is known before exam day.",
   },
 ];
 
 /* ------------------------------------------------------------
+   GROUP 6 — INFERENCE  (Lectures 19–27: sampling distributions,
+             the CLT, the five sampling designs, interval
+             estimation with σ known and unknown, proportions,
+             and the hypothesis-testing framework)
+   ------------------------------------------------------------ */
+/* ------------------------------------------------------------
    Registry
    ------------------------------------------------------------ */
 export const STM_EXAM_BANKS: Record<StmExamGroup, StmExamBank> = {
-  displays: {
-    group: "displays",
-    title: "Data & Displays",
-    subtitle: "Chapters 1–2 — what data is, where it comes from, and how to show it",
-    topics: "Scales · sources · inference · big data · frequency tables · charts",
+  m1: {
+    group: "m1",
+    title: "Module 1 · Data & Displays",
+    subtitle: "L01-L04 — what data is, where it comes from, and how to show it",
+    topics: "Scales · sources · analytics · frequency tables · charts · Simpson's paradox",
     questions: DISPLAYS,
   },
-  measures: {
-    group: "measures",
-    title: "Numerical Measures",
-    subtitle: "Chapter 3 — the apartment-rents laboratory of location and spread",
-    topics: "Mean · median · mode · percentiles · variance · z · box plots",
+  m2: {
+    group: "m2",
+    title: "Module 2 · Numerical Measures",
+    subtitle: "L05-L08 — the laboratory of location, spread, and the box plot",
+    topics: "Mean · median · mode · percentiles · variance · CV · Chebyshev · box plots",
     questions: MEASURES,
   },
-  probability: {
-    group: "probability",
-    title: "Probability",
-    subtitle: "Chapter 4 — counting, events, the laws, and Bayes' revision",
-    topics: "Sample space · counting rules · addition & multiplication · Bayes",
+  m3: {
+    group: "m3",
+    title: "Module 3 · Probability",
+    subtitle: "L09-L11 — counting, events, the laws, and Bayes' revision",
+    topics: "Sample space · counting rules · addition & multiplication · Bayes · E(X)",
     questions: PROBABILITY,
   },
-  discrete: {
-    group: "discrete",
-    title: "Discrete Distributions",
-    subtitle: "Chapter 5 — random variables and the three workhorse distributions",
-    topics: "E(x) & variance · binomial · Poisson · hypergeometric",
-    questions: DISCRETE,
+  m4: {
+    group: "m4",
+    title: "Module 4 · Distributions",
+    subtitle: "L12-L16 — uniform, normal, exponential, the checkpoint, and the QC case",
+    topics: "Uniform · z-tables · reorder points · the demand-mix machine · binomial shutdown",
+    questions: DISTS,
   },
-  continuous: {
-    group: "continuous",
-    title: "Continuous & Sampling",
-    subtitle: "Chapter 6 (+7) — uniform, normal, exponential, and the sampling logic",
-    topics: "Uniform · z-tables · reorder points · exponential · sampling",
-    questions: CONTINUOUS,
+  m5: {
+    group: "m5",
+    title: "Module 5 · Sampling & Estimation",
+    subtitle: "L17-L26 — sampling distributions, the CLT, and confidence intervals",
+    topics: "σ/√n & CLT · sampling designs · Marrian Dairies · z & t intervals · proportions",
+    questions: SAMPLING,
   },
-  inference: {
-    group: "inference",
-    title: "Inference",
-    subtitle: "Lectures 19–27 — sampling distributions, confidence intervals, and hypothesis tests",
-    topics: "σ/√n & CLT · sampling designs · z & t intervals · proportions · H₀ vs Hₐ",
-    questions: INFERENCE,
+  m6: {
+    group: "m6",
+    title: "Module 6 · Hypothesis Testing",
+    subtitle: "L27-L33 — the framework, the two errors, both roads, and Quality Associates",
+    topics: "H₀ vs Hₐ · Type I & II · p-value & critical value · two tails · SPC · the brief",
+    questions: HYP,
   },
 };
 

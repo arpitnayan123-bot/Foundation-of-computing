@@ -1,0 +1,302 @@
+
+  {
+    id: "h3",
+    type: "mcq",
+    q: "In hypothesis testing, the null hypothesis H₀ is best described as the hypothesis bearing…",
+    options: [
+      "the research hope — what the analyst wants to prove",
+      "the equality and the status quo — what the data is tested against",
+      "whatever conclusion the sample mean suggests",
+      "the two-tailed alternative only",
+    ],
+    answer: 1,
+    explain:
+      "H₀ holds the equality (or the ≤/≥ form) and the status quo; Hₐ carries the research hope. The equality always appears in the null hypothesis — the trial runs against the standing claim, and the data either convicts it or fails to.",
+  },
+  {
+    id: "h4",
+    type: "mcq",
+    q: "When testing μ, the hypotheses take one of three forms. Which row pairs are correct?",
+    options: [
+      "Lower tail: H₀: μ ≥ μ₀, Hₐ: μ < μ₀ · Upper tail: H₀: μ ≤ μ₀, Hₐ: μ > μ₀ · Two tail: H₀: μ = μ₀, Hₐ: μ ≠ μ₀",
+      "Lower tail: H₀: μ = μ₀, Hₐ: μ < μ₀ · Upper tail: H₀: μ = μ₀, Hₐ: μ > μ₀ · Two tail: H₀: μ ≠ μ₀, Hₐ: μ = μ₀",
+      "Lower tail: H₀: μ < μ₀, Hₐ: μ ≥ μ₀ · Upper tail: H₀: μ > μ₀, Hₐ: μ ≤ μ₀ · Two tail: H₀: μ ≠ μ₀, Hₐ: μ = μ₀",
+      "All three forms put the inequality in H₀ and the equality in Hₐ",
+    ],
+    answer: 0,
+    explain:
+      "The three tail forms keep the equality in H₀ in every case: lower tail H₀: μ ≥ μ₀ vs Hₐ: μ < μ₀; upper tail H₀: μ ≤ μ₀ vs Hₐ: μ > μ₀; two tail H₀: μ = μ₀ vs Hₐ: μ ≠ μ₀. The tail decides where the rejection region lives.",
+  },
+  {
+    id: "h5",
+    type: "mcq",
+    q: "The university processes results in μ days; the registrar fears the process EXCEEDS its 15-day target. The correct hypothesis pair is…",
+    options: [
+      "H₀: μ ≤ 15 vs Hₐ: μ > 15",
+      "H₀: μ ≥ 15 vs Hₐ: μ < 15",
+      "H₀: μ = 15 vs Hₐ: μ ≠ 15 only",
+      "H₀: μ > 15 vs Hₐ: μ ≤ 15",
+    ],
+    answer: 0,
+    explain:
+      "L27's Example 2 verbatim: H₀: μ ≤ 15 (meeting target) and Hₐ: μ > 15 (exceeding target) — an upper-tail test. The claim the registrar fears lives in Hₐ; the target's satisfaction stays in H₀.",
+  },
+  {
+    id: "h6",
+    type: "mcq",
+    q: "The verdict language of hypothesis testing is…",
+    options: [
+      "accept H₀ or reject H₀",
+      "prove H₀ true or prove H₀ false",
+      "reject H₀ or fail to reject H₀ — never accept",
+      "accept Hₐ whenever the p-value is small",
+    ],
+    answer: 2,
+    explain:
+      "The language rule: 'reject H₀' or 'fail to reject H₀' — never 'accept'. Failing to reject is not innocence; it is insufficient evidence. The same rule echoes through L29 and L33's recap of the framework.",
+  },
+  {
+    id: "h7",
+    type: "mcq",
+    q: "A Type I error occurs when the analyst…",
+    options: [
+      "fails to reject a null hypothesis that is actually false",
+      "rejects a null hypothesis that is actually true",
+      "chooses α after seeing the data",
+      "uses the t-distribution when σ is known",
+    ],
+    answer: 1,
+    explain:
+      "Type I (false positive): rejecting H₀ when it is actually true — a false claim of discovery. Its probability is exactly the level of significance α, chosen by the researcher before the experiment runs. Type II (false negative) is the missed discovery: failing to reject a false H₀.",
+  },
+  {
+    id: "h8",
+    type: "mcq",
+    q: "In the fire-alarm analogy, 'the alarm sounds but no fire exists' corresponds to…",
+    options: ["a Type II error", "a Type I error", "a correct decision", "the power of the test"],
+    answer: 1,
+    explain:
+      "L29's analogy verbatim: with H₀ = no fire, a sounding alarm without fire is a false positive — a Type I error. The more dangerous mistake, an alarm that stays silent while a real fire burns, is the Type II false negative.",
+  },
+  {
+    id: "h9",
+    type: "mcq",
+    q: "For an FDA drug-approval decision, the transcript's guidance is to…",
+    options: [
+      "use a larger α (0.05) so more drugs are approved",
+      "use a very low α (0.01) to minimise approving dangerous drugs",
+      "balance α and β equally at 0.025 each",
+      "drop the significance-level framework entirely",
+    ],
+    answer: 1,
+    explain:
+      "When Type I error is more costly — approving a dangerous drug — use the very strict α = 0.01. When Type I is less costly (marketing claims), a larger α = 0.05 is more lenient. The cost structure picks the dial, and α is fixed before the experiment.",
+  },
+  {
+    id: "h10",
+    type: "mcq",
+    q: "Tightening α from 0.05 to 0.01, holding everything else fixed, has what effect on β?",
+    options: ["β falls too", "β rises — the two errors trade off inversely", "β is unchanged", "β becomes zero"],
+    answer: 1,
+    explain:
+      "The inverse relationship: starving the rejection region (smaller α) feeds β, and loosening α does the opposite. Both errors at zero does not exist — the design, not wishful thinking, sets where the dial lands.",
+  },
+  {
+    id: "h11",
+    type: "mcq",
+    q: "The p-value of a test is…",
+    options: [
+      "the probability that H₀ is true",
+      "the probability, computed under H₀, of a result at least as extreme as the one observed",
+      "the probability the alternative hypothesis is true",
+      "the area of the acceptance region",
+    ],
+    answer: 1,
+    explain:
+      "The p-value is computed ASSUMING H₀ is true: it measures how unlikely a result at least as extreme as the observed one would be. Small p-value = strong evidence against H₀ — it is compared to α, never read as the probability that H₀ is true.",
+  },
+  {
+    id: "h12",
+    type: "mcq",
+    q: "Metro EMS: n = 40, x̄ = 13.25, σ = 3.2, H₀: μ ≤ 12, Hₐ: μ > 12, α = 0.05. The test statistic and verdict are…",
+    options: [
+      "Z = 1.04 — fail to reject H₀",
+      "Z = 2.47 — reject H₀ (p-value 0.0068 < 0.05)",
+      "t = 2.47 with df = 39 — fail to reject",
+      "Z = 0.78 — reject H₀",
+    ],
+    answer: 1,
+    explain:
+      "Z = (13.25 − 12)/(3.2/√40) = 1.25/0.506 = 2.47. The statistic lands inside the one-tail rejection region beyond Z(0.05) = 1.645, and the p-value road agrees: 0.0068 < 0.05. The 12-minute response goal is not being met.",
+  },
+  {
+    id: "h13",
+    type: "mcq",
+    q: "The critical-value approach and the p-value approach…",
+    options: [
+      "can give different verdicts on the same data",
+      "always yield the same conclusion when applied correctly",
+      "are only valid for two-tailed tests",
+      "cannot both be used when σ is known",
+    ],
+    answer: 1,
+    explain:
+      "L30's statement verbatim: the two roads are complementary and yield the same conclusions. Compare the statistic to the critical value, or the p-value to α — the rejection region and the tail probability are the same story told twice.",
+  },
+  {
+    id: "h14",
+    type: "mcq",
+    q: "The toothpaste-filling case runs two-tailed at α = 0.03. The critical value and verdict are…",
+    options: [
+      "Z(α/2) = 2.17; Z = 2.74 exceeds it — reject H₀",
+      "Z(α) = 1.88; Z = 2.74 exceeds it — reject",
+      "Z(α/2) = 1.96; Z = 2.74 exceeds it — reject",
+      "Z(α/2) = 2.576; Z = 2.74 fails to reject",
+    ],
+    answer: 0,
+    explain:
+      "Splitting α = 0.03 on both tails gives α/2 = 0.015 a side and critical Z = 2.17. The statistic Z = 2.74 (p-value 0.0062 < 0.03) lands inside the right rejection region — the filling process is out of bounds.",
+  },
+  {
+    id: "h15",
+    type: "mcq",
+    q: "The two-tail CI shortcut says: fail to reject H₀: μ = μ₀ exactly when…",
+    options: [
+      "μ₀ lies outside the 100(1−α)% confidence interval",
+      "μ₀ falls inside the 100(1−α)% confidence interval",
+      "the interval's width exceeds 2·σ",
+      "x̄ equals μ₀ to two decimals",
+    ],
+    answer: 1,
+    explain:
+      "If the hypothesised value falls within the confidence interval, fail to reject; outside it, reject. In the transcript's example, 6.0 lies outside the interval and the verdict is reject — one machine answers the two-tail question without a second run.",
+  },
+  {
+    id: "h16",
+    type: "mcq",
+    q: "Highway speeds: n = 64, x̄ = 66.2, S = 4.2, H₀: μ ≤ 65, Hₐ: μ > 65, α = 0.05. The correct statistic and verdict are…",
+    options: [
+      "Z = 2.286 — reject H₀",
+      "t = 2.286 with df = 63 — exceeds t(0.05) = 1.669, reject H₀",
+      "t = 1.669 — fail to reject H₀",
+      "Z = 0.286 — fail to reject",
+    ],
+    answer: 1,
+    explain:
+      "σ is unknown, so Student's t: t = (66.2 − 65)/(4.2/√64) = 1.2/0.525 = 2.286 on df = 63. The critical value t(0.05) = 1.669 — the statistic is inside the gold rejection region, and the location is suitable for the radar trap.",
+  },
+  {
+    id: "h17",
+    type: "mcq",
+    q: "Drunk-driving case: 120 accidents, 67 drunk-driving caused, H₀: p = 0.5 vs Hₐ: p ≠ 0.5 at α = 0.05. The statistic and verdict are…",
+    options: [
+      "Z = 2.60 — reject H₀",
+      "Z = 1.278 — inside ±1.96, fail to reject H₀",
+      "Z = 1.645 — reject H₀",
+      "t = 1.278 with df = 119 — reject",
+    ],
+    answer: 1,
+    explain:
+      "p̂ = 67/120 = 0.558, σ_{p̂} = 0.045, and Z = 1.278. The two-tail critical values at α = 0.05 are ±1.96 — the statistic stays between them, so the National Safety Council's 50% claim stands against this sample. Assumptions hold: np₀ = 60 > 5 and n(1−p₀) = 60 > 5.",
+  },
+  {
+    id: "h18",
+    type: "mcq",
+    q: "For the proportion test's normal approximation to apply, the case requires…",
+    options: [
+      "np₀ > 5 and n(1−p₀) > 5",
+      "n ≥ 30 only, regardless of p₀",
+      "p̂ = p₀ exactly",
+      "the population to be normal",
+    ],
+    answer: 0,
+    explain:
+      "L31's assumptions verbatim: np₀ > 5 and n(1−p₀) > 5 — enough expected successes and failures under the hypothesised proportion for the sampling distribution of p̂ to be approximately normal.",
+  },
+  {
+    id: "h19",
+    type: "mcq",
+    q: "Quality Associates' baseline: how many observations during satisfactory operation, and how large is each test sample?",
+    options: [
+      "800 observations; four samples of n = 30",
+      "500 observations; five samples of n = 25",
+      "800 observations; two samples of n = 40",
+      "1,200 observations; four samples of n = 50",
+    ],
+    answer: 0,
+    explain:
+      "The firm collected 800 observations during satisfactory process operation, then tests four periodic samples of 30 each against that knowledge — μ = 12, σ = 0.21, two-tailed at α = 0.01.",
+  },
+  {
+    id: "h20",
+    type: "output",
+    q: "Compute Quality Associates' control limits at α = 0.01: μ = 12, σ = 0.21, n = 30, Z(α/2) = 2.57. Give LCL and UCL.",
+    answerText: "LCL = 11.90, UCL = 12.10",
+    explain:
+      "Margin = Z(α/2) × (σ/√n) = 2.57 × (0.21/√30) ≈ 0.0987. LCL = 12 − 0.0987 ≈ 11.90; UCL = 12 + 0.0987 ≈ 12.10. A sample mean outside 11.90-12.10 stops the line; Sample 3's 11.89 does exactly that.",
+  },
+  {
+    id: "h21",
+    type: "mcq",
+    q: "At Quality Associates, moving α from 0.01 to 0.05 has which documented effect?",
+    options: [
+      "Control limits widen and fewer samples trigger action",
+      "Control limits narrow (tighten), Sample 4 would also trigger corrective action, and stoppages become more frequent",
+      "The test becomes one-tailed",
+      "β falls to zero",
+    ],
+    answer: 1,
+    explain:
+      "The α-dial's documented effects: the null is rejected more frequently, the control limits narrow, Sample 4 (12.08) would also trigger action, and stoppages grow. Advantage: quicker detection. Disadvantage: more false alarms (Type I errors) — unnecessary interruptions and downtime.",
+  },
+  {
+    id: "h22",
+    type: "mcq",
+    q: "Which Sample at Quality Associates requires corrective action, and why?",
+    options: [
+      "Sample 2 (12.03) — its p-value 0.77 is too large",
+      "Sample 3 (11.89) — p-value 0.003 < 0.01 and its mean falls outside the control limits",
+      "Sample 4 (12.08) — p-value 0.28",
+      "None of them — all four means are inside 11.90-12.10",
+    ],
+    answer: 1,
+    explain:
+      "Sample 3's mean of 11.89 falls below the LCL of 11.90 with p = 0.003 < 0.01 — both roads convict it. Sample 2's large p-value is the opposite of evidence, and Sample 4's 12.08 sits inside the limits at α = 0.01 (it would only trigger at 0.05).",
+  },
+  {
+    id: "h23",
+    type: "mcq",
+    q: "Per L33's end-term brief, the examination is…",
+    options: [
+      "1 hour, 40 marks, objective only, calculator forbidden",
+      "2 hours, 60 marks, mixed very-short/medium/multi-part questions on Chapters 1-9 with emphasis on 1-8, a scientific NON-PROGRAMMABLE calculator mandatory",
+      "2 hours, 60 marks, all numericals, any calculator allowed",
+      "open book with z-tables brought by the student",
+    ],
+    answer: 1,
+    explain:
+      "The brief verbatim: 2 hours, 60 marks, mixed question types, Chapters 1-9 with emphasis on Chapters 1-8, and a scientific non-programmable calculator is mandatory — normal calculators are not sufficient. z-tables and all required values are supplied in the question paper.",
+  },
+  {
+    id: "h24",
+    type: "mcq",
+    q: "What does L33 say students must NOT carry into the exam hall?",
+    options: [
+      "Their own calculator",
+      "Statistical tables, normal tables, or reference materials — all required values come supplied in the question paper",
+      "A pen",
+      "The question paper from a previous term",
+    ],
+    answer: 1,
+    explain:
+      "No need to carry statistical tables, normal tables, or reference materials — z-tables and all essential data are provided in the question paper. Students bring their own pen, calculator and other necessary materials; the exam centre supplies the question paper and answer sheet.",
+  },
+  {
+    id: "h25",
+    type: "short",
+    q: "State the three facts L33 gives about the quiz weightage and the sample paper.",
+    answerText:
+      "Quizzes carry 40% weightage of the course alongside the 60-mark end-term; the exam is largely based on the practice questions provided and the recorded-session discussions; a sample question paper showing the exact pattern and question distribution arrives by the end of the week.",
+    explain:
+      "L33's brief in three lines: 40% quizzes + 60-mark end-term; the practice questions and recorded sessions are stated to be 100% sufficient; the sample paper lands by the end of the week so the pattern is known before exam day.",
+  },
